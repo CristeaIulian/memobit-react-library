@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // Dark mode color scheme
 $primary-color: #3b82f6;
 $primary-hover: #2563eb;
@@ -304,11 +306,11 @@ $tag-hover: #2c5282;
                     color: white;
 
                     &:hover {
-                        background-color: lighten($selected-color, 5%);
+                        background-color: color.adjust($selected-color, $lightness: 5%);
                     }
 
                     &.focused {
-                        background-color: lighten($selected-color, 5%);
+                        background-color: color.adjust($selected-color, $lightness: 5%);
                         border-left-color: white;
                     }
                 }

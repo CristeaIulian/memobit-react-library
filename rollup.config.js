@@ -12,33 +12,31 @@ export default {
         {
             file: 'dist/index.js',
             format: 'cjs',
-            sourcemap: true
+            sourcemap: true,
         },
         {
             file: 'dist/index.esm.js',
             format: 'esm',
-            sourcemap: true
-        }
+            sourcemap: true,
+        },
     ],
     plugins: [
         peerDepsExternal(),
         resolve({
-            browser: true
+            browser: true,
         }),
         commonjs(),
         typescript({
-            tsconfig: './tsconfig.json'
+            tsconfig: './tsconfig.json',
         }),
         postcss({
             extract: true,
-            minimize: true
+            minimize: true,
         }),
         copy({
-            targets: [
-                { src: 'src/styles/theming.scss', dest: 'dist/styles' }
-            ]
+            targets: [{ src: 'src/styles/dark.scss', dest: 'dist/styles' }],
         }),
-        terser()
+        terser(),
     ],
     external: ['react', 'react-dom', 'react/jsx-runtime'],
 };

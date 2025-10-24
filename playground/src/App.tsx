@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card, Dropdown, DropdownOption, formatMoney } from '../../src';
 import { useBreakpoint } from '../../src';
-import '../../src/styles/theming.scss';
+import '../../src/styles/theming/dark.scss';
 import './App.scss';
 
 import { Popover } from '../../src/components/Popover';
