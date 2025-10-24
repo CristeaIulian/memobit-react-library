@@ -1,28 +1,28 @@
 :root {
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --bg-tertiary: #e9ecef;
-    --bg-quaternary: #dee2e6;
-    --text-primary: #212529;
-    --text-secondary: #495057;
-    --text-muted: #6c757d;
-    --accent: #0d6efd;
-    --accent-quarter: #0d6efd40;
-    --accent-hover: #0a58ca;
-    --success: #198754;
-    --success-accent: #157347;
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #fafafa;
+    --bg-quaternary: #e0e0e0;
+    --text-primary: #1a1a1a;
+    --text-secondary: #404040;
+    --text-muted: #757575;
+    --accent: #007bff;
+    --accent-quarter: #007bff40;
+    --accent-hover: #0056b3;
+    --success: #28a745;
+    --success-accent: #1f8e38;
     --warning: #ffc107;
-    --warning-accent: #cc9a06;
+    --warning-accent: #dfa907;
     --danger: #dc3545;
-    --danger-accent: #b02a37;
-    --border: #dee2e6;
-    --shadow: rgba(0, 0, 0, 0.1);
+    --danger-accent: #c82333;
+    --border: #d0d0d0;
+    --shadow: rgba(0, 0, 0, 0.15);
 
-    --surface-dark-dim: #ffffff4c;
-    --surface-dark-semidim: #ffffff7f;
-    --surface-dark-bright: #ffffffcc;
+    --surface-dark-dim: #0000000d;
+    --surface-dark-semidim: #0000001a;
+    --surface-dark-bright: #00000033;
 
     --radius-sm: 4px;
     --radius: 8px;
