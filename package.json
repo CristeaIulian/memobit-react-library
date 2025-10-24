@@ -12,7 +12,8 @@
       "types": "./dist/index.d.ts"
     },
     "./dist/index.css": "./dist/index.css",
-    "./dist/styles/theming.scss": "./dist/styles/theming.scss"
+    "./dist/styles/theming/light.scss": "./dist/styles/theming/light.scss",
+    "./dist/styles/theming/dark.scss": "./dist/styles/theming/dark.scss"
   },
   "files": [
     "dist"

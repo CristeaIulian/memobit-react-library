@@ -34,7 +34,10 @@ export default {
             minimize: true,
         }),
         copy({
-            targets: [{ src: 'src/styles/dark.scss', dest: 'dist/styles' }],
+            targets: [
+                { src: 'src/styles/theming/light.scss', dest: 'dist/styles/theming' },
+                { src: 'src/styles/theming/dark.scss', dest: 'dist/styles/theming' },
+            ],
         }),
         terser(),
     ],
