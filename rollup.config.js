@@ -4,6 +4,7 @@ import typescript from '@rollup/plugin-typescript';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import terser from '@rollup/plugin-terser'; // Changed this line - no curly braces
 import postcss from 'rollup-plugin-postcss';
+import copy from 'rollup-plugin-copy';
 
 export default {
     input: 'src/index.ts',
@@ -31,6 +32,11 @@ export default {
         postcss({
             extract: true,
             minimize: true
+        }),
+        copy({
+            targets: [
+                { src: 'src/styles/theming.scss', dest: 'dist/styles' }
+            ]
         }),
         terser()
     ],
