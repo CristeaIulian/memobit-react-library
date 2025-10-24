@@ -1,0 +1,125 @@
+.horizontal-bar-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.indicator-section {
+    position: relative;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.indicator-pointer {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 0;
+}
+
+.indicator-value {
+    background-color: var(--bg-secondary);
+    border: 2px solid #868585;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pointer-arrow {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid #868585;
+}
+
+.horizontal-bar {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border: 3px solid #333;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.bar-segment {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.bar-segment:first-child {
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+}
+
+.bar-segment:last-child {
+    border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px;
+}
+
+.range-text {
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.labels-row {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.label-segment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.label-text {
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.2;
+}
+
+@media (max-width: 600px) {
+    .horizontal-bar {
+        height: 40px;
+    }
+
+    .range-text {
+        font-size: 10px;
+    }
+
+    .label-text {
+        font-size: 9px;
+    }
+
+    .indicator-value {
+        font-size: 12px;
+        padding: 3px 6px;
+    }
+}
+
+@media (max-width: 400px) {
+    .range-text {
+        font-size: 8px;
+    }
+
+    .label-text {
+        font-size: 8px;
+    }
+}

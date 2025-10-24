@@ -1,0 +1,26 @@
+.information-tooltip {
+    position: relative;
+
+    .information-tooltip-icon {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .information-tooltip-content {
+        position: absolute;
+        background-color: #222;
+        color: #eee;
+        padding: 4px 6px;
+        border-radius: 4px;
+        max-width: 200px;
+        min-width: 150px;
+        text-align: center;
+        z-index: 2;
+        right: 0;
+
+        &.information-tooltip-content-right {
+            left: 0;
+        }
+    }
+}

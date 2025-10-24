@@ -1,0 +1,1 @@
+export { QuickNumberUpdate } from './QuickNumberUpdate';

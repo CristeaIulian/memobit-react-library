@@ -1,0 +1,91 @@
+.checkbox-wrapper {
+    display: inline-flex;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+
+    &--disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
+
+.checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    pointer-events: none;
+    z-index: -1;
+
+    &:focus + .checkbox-label .checkbox-box {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 var(--spacing-2) var(--accent-quarter);
+    }
+
+    &:checked + .checkbox-label .checkbox-box {
+        background-color: var(--accent);
+        border-color: var(--accent);
+
+        &::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    &:disabled + .checkbox-label {
+        cursor: not-allowed;
+    }
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-8);
+    cursor: pointer;
+    min-height: var(--checkbox-size);
+}
+
+.checkbox-box {
+    position: relative;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    min-width: var(--checkbox-size);
+    background-color: var(--bg-secondary);
+    border: var(--spacing-1) solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        border-color: var(--accent);
+    }
+
+    // Checkmark
+    &::after {
+        content: '✓';
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        opacity: 0;
+        transition: all 0.2s ease;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        line-height: 1;
+    }
+}
+
+.checkbox-text {
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    line-height: 1.4;
+    margin-top: 2px; // Align with checkbox center
+}

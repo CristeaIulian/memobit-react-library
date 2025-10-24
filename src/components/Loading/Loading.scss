@@ -1,0 +1,26 @@
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-32);
+
+    &__spinner {
+        width: var(--spacing-40);
+        height: var(--spacing-40);
+        border: var(--spacing-4) solid var(--border);
+        border-top: var(--spacing-4) solid var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+}
+
+// InputNumber states
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,52 @@
+.stars {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+
+    .star {
+        font-size: 16px;
+
+        &--filled,
+        &--full {
+            color: #ffd700;
+        }
+
+        &--empty {
+            color: var(--text-muted);
+        }
+    }
+
+    .rating {
+        margin-left: var(--spacing-xs);
+        font-size: 14px;
+        color: var(--text-secondary);
+    }
+
+    // Half star specific styles
+    &--half {
+        .star {
+            &--half {
+                position: relative;
+                color: var(--text-muted);
+            }
+        }
+
+        .star-half-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .star-half-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            overflow: hidden;
+            color: #ffd700;
+        }
+
+        .star-half-empty {
+            color: var(--text-muted);
+        }
+    }
+}

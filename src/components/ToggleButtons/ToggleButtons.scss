@@ -1,0 +1,14 @@
+.toggle-buttons {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    .button {
+        &:first-child {
+            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+        }
+        &:last-child {
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+    }
+}

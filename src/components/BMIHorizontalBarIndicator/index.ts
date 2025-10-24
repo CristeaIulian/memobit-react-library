@@ -1,0 +1,1 @@
+export { BMIHorizontalBarIndicator } from './BMIHorizontalBarIndicator';

@@ -1,0 +1,1 @@
+export { QuickOptionUpdate } from './QuickOptionUpdate';

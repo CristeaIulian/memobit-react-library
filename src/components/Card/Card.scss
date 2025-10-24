@@ -1,0 +1,51 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-secondary);
+    column-gap: var(--spacing-16);
+    padding: var(--spacing-16);
+    border-radius: var(--radius);
+    position: relative;
+
+    &.no-padding {
+        padding: 0;
+    }
+
+    h3 {
+        margin: 0 0 var(--spacing-16) 0;
+        font-size: var(--font-size-md);
+        display: flex;
+        flex-direction: row;
+        column-gap: var(--spacing-16);
+        align-items: center;
+        justify-content: space-between;
+
+        &.content-hidden {
+            margin: 0;
+        }
+
+        .opener-button {
+            &:hover {
+                cursor: pointer;
+            }
+
+            svg {
+                transition: transform 0.2s ease-in-out;
+            }
+
+            &.opener-button-extended svg {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .content {
+        height: fit-content;
+        transition: 0.5s;
+
+        &.content-collapsed {
+            height: 0;
+            overflow: hidden;
+        }
+    }
+}

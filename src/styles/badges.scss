@@ -1,0 +1,54 @@
+.badge {
+    display: inline-block;
+    padding: var(--spacing-4) var(--spacing-8);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: white;
+
+    &.badge-sm {
+        padding: var(--spacing-2) var(--spacing-4);
+        font-size: var(--font-size-xxs);
+    }
+
+    &.badge-power-food {
+        background-color: #28a745;
+    }
+
+    &.badge-healthy-food {
+        background-color: #17a2b8;
+    }
+
+    &.badge-category-main_dish {
+        background-color: #4caf50;
+    }
+    &.badge-category-dessert {
+        background-color: #ff9800;
+    }
+    &.badge-category-salad {
+        background-color: #8bc34a;
+    }
+    &.badge-category-drink {
+        background-color: #2196f3;
+    }
+
+    &.badge-difficulty-easy {
+        background-color: #28a745;
+    }
+    &.badge-difficulty-medium {
+        background-color: #ffc107;
+    }
+    &.badge-difficulty-hard {
+        background-color: #dc3545;
+    }
+
+    &.badge-timeOfDay-breakfast {
+        background-color: #ffc107;
+    }
+    &.badge-timeOfDay-lunch {
+        background-color: #ff5722;
+    }
+    &.badge-timeOfDay-dinner {
+        background-color: #9c27b0;
+    }
+}

@@ -1,0 +1,125 @@
+.button {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: var(--spacing-8) var(--spacing-16);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-4);
+
+    &.button-rounded {
+        border-radius: var(--radius-sm);
+    }
+
+    &:not([disabled]) {
+        &:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+    }
+
+    &--loading {
+        cursor: wait;
+
+        &:hover {
+            transform: none; // Disable hover transform when loading
+        }
+    }
+
+    &__spinner {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid transparent;
+        border-top-color: currentColor;
+        border-radius: 50%;
+        animation: button-spin 1s linear infinite;
+    }
+
+    &.button-small {
+        padding: var(--spacing-4) var(--spacing-8);
+        font-size: var(--font-size-xs);
+
+        .button__spinner {
+            width: 12px;
+            height: 12px;
+        }
+    }
+
+    &.button-large {
+        padding: var(--spacing-12) var(--spacing-24);
+        font-size: var(--font-size-md);
+
+        .button__spinner {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &.button-success {
+        background-color: var(--success);
+
+        &:hover {
+            background-color: var(--success-accent);
+        }
+    }
+
+    &.button-warning {
+        background-color: var(--warning);
+
+        &:hover {
+            background-color: var(--warning-accent);
+        }
+    }
+
+    &.button-danger {
+        background-color: var(--danger);
+
+        &:hover {
+            background-color: var(--danger-accent);
+        }
+    }
+
+    &.button-secondary {
+        background-color: var(--bg-tertiary);
+
+        &:hover {
+            background-color: var(--bg-quaternary);
+        }
+    }
+
+    &.button-plain {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        padding: var(--spacing-4);
+
+        &:hover {
+            cursor: pointer;
+            color: var(--text-primary);
+            background: none;
+            transform: none;
+        }
+    }
+}
+
+@keyframes button-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

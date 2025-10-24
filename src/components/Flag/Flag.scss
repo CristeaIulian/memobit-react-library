@@ -1,0 +1,120 @@
+.flag {
+    display: inline-block;
+    line-height: 1;
+    user-select: none;
+
+    // Image styling
+    img {
+        display: block;
+        border-radius: 2px;
+        object-fit: cover;
+        transition: transform 0.2s ease-in-out;
+
+        // Dark mode friendly border
+        @media (prefers-color-scheme: dark) {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        // Light mode subtle border
+        @media (prefers-color-scheme: light) {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    // Mobile and desktop friendly
+    @media (max-width: 768px) {
+        img {
+            // Slightly larger on mobile for better touch interaction
+            transform: scale(1.05);
+        }
+    }
+
+    // Hover effect for interactive use
+    &:hover {
+        img {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    // Fallback styling for unsupported codes
+    &--fallback {
+        background: #666;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2px;
+        font-weight: bold;
+        opacity: 0.7;
+
+        @media (prefers-color-scheme: dark) {
+            background: #444;
+            color: #ccc;
+        }
+
+        &:hover {
+            opacity: 0.9;
+            transform: scale(1.1);
+        }
+
+        // Fallback size variants
+        &.flags--xxs { width: 12px; height: 9px; font-size: 6px; }
+        &.flags--xs { width: 16px; height: 12px; font-size: 8px; }
+        &.flags--sm { width: 20px; height: 15px; font-size: 10px; }
+        &.flags--md { width: 24px; height: 18px; font-size: 12px; }
+        &.flags--lg { width: 32px; height: 24px; font-size: 16px; }
+        &.flags--xl { width: 48px; height: 36px; font-size: 24px; }
+        &.flags--xxl { width: 64px; height: 48px; font-size: 32px; }
+    }
+
+    // Size variants
+    &--xxs {
+        img {
+            width: 12px;
+            height: 9px;
+        }
+    }
+
+    &--xs {
+        img {
+            width: 16px;
+            height: 12px;
+        }
+    }
+
+    &--sm {
+        img {
+            width: 20px;
+            height: 15px;
+        }
+    }
+
+    &--md {
+        img {
+            width: 24px;
+            height: 18px;
+        }
+    }
+
+    &--lg {
+        img {
+            width: 32px;
+            height: 24px;
+        }
+    }
+
+    &--xl {
+        img {
+            width: 48px;
+            height: 36px;
+        }
+    }
+
+    &--xxl {
+        img {
+            width: 64px;
+            height: 48px;
+        }
+    }
+}
