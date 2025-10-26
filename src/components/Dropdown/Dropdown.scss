@@ -23,6 +23,7 @@
         background-color: var(--dropdown-header-background-color);
         color: var(--dropdown-header-color);
         border: 1px solid var(--dropdown-header-border-focus-color);
+        overflow: hidden;
 
         .dropdown-selected-items {
             position: absolute;
