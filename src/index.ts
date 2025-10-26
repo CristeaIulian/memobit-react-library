@@ -27,6 +27,8 @@ export { TipsOfTheDay } from './components/TipsOfTheDay';
 export { Toast, type ToastDetails } from './components/Toast';
 export { ToggleButtons } from './components/ToggleButtons';
 export { Popover, usePopover } from './components/Popover';
+export { MenuHamburger } from './components/MenuHamburger';
+export { FloatButton } from './components/FloatButton';
 
 // Export hooks
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';

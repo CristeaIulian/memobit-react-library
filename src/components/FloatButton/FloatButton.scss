@@ -1,0 +1,142 @@
+.float-button-container {
+    position: fixed;
+    bottom: var(--spacing-24);
+    right: var(--spacing-24);
+    z-index: 1000;
+}
+
+.float-button {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--body-accent-color);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px var(--box-shadow);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1001;
+
+    &:hover {
+        background-color: var(--links-hover-color);
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px var(--box-shadow);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    &--active {
+        background-color: var(--body-danger-color);
+
+        &:hover {
+            background-color: var(--button-danger-hover-background-color);
+        }
+    }
+
+    &__icon {
+        font-size: var(--font-size-xl);
+        line-height: 1;
+    }
+}
+
+.float-button-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--backdrop-color);
+    z-index: 999;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.float-button-menu {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background-color: var(--card-background-color);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px var(--box-shadow);
+    min-width: 200px;
+    overflow: hidden;
+    animation: slideUp 0.2s ease;
+    z-index: 1000;
+
+    &__item {
+        width: 100%;
+        padding: var(--spacing-12) var(--spacing-16);
+        border: none;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-12);
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        color: var(--card-color);
+        text-align: left;
+
+        &:hover {
+            background-color: var(--list-hover-background-color);
+        }
+
+        &:active {
+            background-color: var(--list-hover-background-color);
+        }
+
+        &:not(:last-child) {
+            border-bottom: var(--spacing-1) solid var(--delimiter-color);
+        }
+    }
+
+    &__icon {
+        font-size: var(--font-size-lg);
+        line-height: 1;
+    }
+
+    &__label {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        white-space: nowrap;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .float-button-container {
+        bottom: var(--spacing-16);
+        right: var(--spacing-16);
+    }
+
+    .float-button {
+        width: 48px;
+        height: 48px;
+
+        &__icon {
+            font-size: var(--font-size-lg);
+        }
+    }
+}

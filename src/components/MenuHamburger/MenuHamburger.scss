@@ -1,0 +1,99 @@
+.MenuHamburger {
+    position: relative;
+
+    &_overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--backdrop-color);
+        z-index: 998;
+        animation: fadeIn 0.2s ease;
+    }
+
+    &_dropdown {
+        position: absolute;
+        top: calc(100% + var(--spacing-8));
+        right: 0;
+        background-color: var(--card-background-color);
+        border-radius: var(--radius);
+        box-shadow: 0 4px 12px var(--box-shadow);
+        min-width: 200px;
+        overflow: hidden;
+        z-index: 999;
+        animation: slideDown 0.2s ease;
+    }
+
+    &_item {
+        width: 100%;
+        padding: var(--spacing-12) var(--spacing-16) !important;
+        background-color: transparent !important;
+        display: flex !important;
+        align-items: flex-start !important;
+
+        cursor: pointer;
+        transition: background-color 0.2s ease !important;
+        color: var(--card-color) !important;
+        text-align: left;
+
+        span {
+            display: flex;
+            gap: var(--spacing-12);
+            align-items: center;
+
+            span:first-child {
+                width: var(--spacing-32);
+            }
+        }
+
+        &:hover {
+            background-color: var(--list-hover-background-color) !important;
+        }
+
+        &:not(:last-child) {
+            border-bottom: var(--spacing-1) solid var(--delimiter-color);
+        }
+
+        &--active {
+            background-color: var(--card-background-accent-color) !important;
+            border-left: 4px solid var(--card-border-accent-color) !important;
+            font-weight: var(--font-weight-semibold) !important;
+
+            &:hover {
+                background-color: var(--card-background-accent-color);
+            }
+        }
+
+        &__icon {
+            font-size: var(--font-size-lg);
+            line-height: 1;
+        }
+
+        &__label {
+            font-size: var(--font-size-sm);
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
