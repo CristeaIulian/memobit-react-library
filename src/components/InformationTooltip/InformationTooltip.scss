@@ -9,15 +9,18 @@
 
     .information-tooltip-content {
         position: absolute;
-        background-color: #222;
-        color: #eee;
-        padding: 4px 6px;
-        border-radius: 4px;
+        background-color: var(--tooltip-background-color);
+        color: var(--tooltip-color);
+        padding: var(--spacing-4) var(--spacing-8);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--tooltip-border-color);
         max-width: 200px;
         min-width: 150px;
         text-align: center;
         z-index: 2;
         right: 0;
+        font-size: var(--font-size-sm);
+        box-shadow: 0 2px 8px var(--shadow);
 
         &.information-tooltip-content-right {
             left: 0;

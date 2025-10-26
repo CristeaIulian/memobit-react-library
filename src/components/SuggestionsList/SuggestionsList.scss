@@ -19,7 +19,7 @@
             align-items: center;
 
             &:hover {
-                background-color: var(--bg-tertiary);
+                background-color: var(--list-alternate-background-color);
             }
 
             div {
@@ -34,13 +34,13 @@
         }
 
         .link {
-            color: var(--text-secondary);
+            color: var(--links-color);
             font-weight: var(--font-weight-semibold);
 
             &:hover {
                 cursor: pointer;
                 text-decoration: none;
-                color: var(--accent);
+                color: var(--link-hover-color);
             }
         }
     }

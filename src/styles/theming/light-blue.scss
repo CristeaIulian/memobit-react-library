@@ -1,0 +1,172 @@
+// https://templates-flatlogic.herokuapp.com/light-blue/html5/dashboard/
+// Light Blue theme - Dark theme with blue tones
+[data-theme='light-blue'] {
+    --font-family: 'Open Sans', sans-serif;
+    --body-background: radial-gradient(farthest-side at 10% 0px, rgb(51, 56, 103) 20%, rgb(23, 25, 59)) 0% 0% / cover no-repeat fixed;
+    --body-color: #f4f4f5b3;
+    --body-color-accent: #e8ecf7;
+    --body-title-color: #b8c1ec;
+    --body-accent-color: #5b8ff9;
+    --body-danger-color: #f5222d;
+
+    --backdrop-color: #0000007f;
+    --text-shadow: #0d0f1a;
+
+    --header-background-color: transparent;
+    --header-color: #f4f4f5e6;
+    --header-font-weight: 300;
+    --footer-background-color: #1e2139; // where are these used?? Maybe they should belong to card
+    --footer-color: #8891b8; // where are these used?? Maybe they should belong to card
+
+    --card-background-color: #1b1e3c;
+    --card-background-accent-color: #242840;
+    --card-border-color: #1b1e3c;
+    --card-border-accent-color: #5b8ff9; // active items - generally border-left 2-4px
+    --card-color: #f4f4f5b3;
+    --card-accent-color: #b8c1ec;
+
+    --links-color: #218bc3;
+    --links-hover-color: #165c82;
+
+    --delimiter-color: #3d4667;
+
+    --button-default-border-color: #353a63;
+    --button-default-background-color: #474d84;
+    --button-default-color: #f4f4f5e6;
+    --button-default-hover-border-color: #31355b;
+    --button-default-hover-background-color: #353a63;
+    --button-default-hover-color: #f4f4f5e6;
+
+    --button-info-border-color: #56c0e0;
+    --button-info-background-color: transparent;
+    --button-info-color: #8891b8;
+    --button-info-hover-border-color: #56c0e0;
+    --button-info-hover-background-color: #56c0e019;
+    --button-info-hover-color: #ffffff;
+
+    --button-warn-border-color: #e49400;
+    --button-warn-background-color: #e49400;
+    --button-warn-color: #ffffff;
+    --button-warn-hover-border-color: #b17300;
+    --button-warn-hover-background-color: #be7b00;
+    --button-warn-hover-color: #ffffff;
+
+    --button-success-border-color: #2d8515;
+    --button-success-background-color: #2d8515;
+    --button-success-color: #ffffff;
+    --button-success-hover-border-color: #2d8515;
+    --button-success-hover-background-color: #349b18;
+    --button-success-hover-color: #ffffff;
+
+    --button-danger-border-color: #db2a34;
+    --button-danger-background-color: #db2a34;
+    --button-danger-color: #ffffff;
+    --button-danger-hover-border-color: #b41e27;
+    --button-danger-hover-background-color: #bf2029;
+    --button-danger-hover-color: #ffffff;
+
+    --button-plain-color: #ffffff;
+    --button-plain-hover-color: #ffffff;
+
+    --dropdown-border-color: #3d4667;
+    --dropdown-header-background-color: #474d84;
+    --dropdown-header-border-focus-color: #474d84;
+    --dropdown-header-color: #f4f4f5e6;
+    --dropdown-options-background-color: #000000cc;
+    --dropdown-options-color: #f4f4f5e6;
+    --dropdown-options-hover-background-color: #f8f9fa;
+    --dropdown-options-hover-color: #1e252b;
+    --dropdown-options-selected-background-color: #2477ff;
+    --dropdown-options-selected-color: #ffffff;
+    --dropdown-chips-background-color: #3d4667;
+    --dropdown-chips-color: #f4f4f5e6;
+    --dropdown-chips-border-color: #aaaa;
+    --dropdown-chips-hover-background-color: #3d4667;
+    --dropdown-action-color: #f4f4f5e6;
+    --dropdown-action-background-color: #474d84;
+    --dropdown-action-hover-color: #f4f4f5e6;
+    --dropdown-action-hover-background-color: #474d84;
+
+    --badge-padding: 1px 4px;
+
+    --tabs-active-background-color: #0000003d;
+    --tabs-active-color: #f4f4f5e6;
+    --tabs-inactive-background-color: transparent;
+    --tabs-inactive-color: #f4f4f5e6;
+
+    --modal-background-color: #1a1d2e;
+    --modal-header-background-color: #3d46677f;
+    --modal-header-border-color: #3d46677f;
+    --modal-header-color: #f4f4f5e6;
+    --modal-body-color: #f4f4f5e6;
+    --modal-footer-background-color: #15182a;
+    --modal-color: #f4f4f5e6;
+
+    --list-alternate-background-color: #0000003d;
+    --list-hover-background-color: #3d4667;
+
+    --progress-bar-background-color: #8891b8;
+    --progress--bar-color: #8891b8;
+
+    --progress-default-bar-border-color: #474d84;
+    --progress-default-bar-fill-color: #474d84;
+
+    --progress-success-bar-border-color: #2d8515;
+    --progress-success-bar-fill-color: #2d8515;
+
+    --progress-info-bar-border-color: #4179cf;
+    --progress-info-bar-fill-color: #4179cf;
+
+    --progress-warn-bar-border-color: #e49400;
+    --progress-warn-bar-fill-color: #e49400;
+
+    --progress-danger-bar-border-color: #db2a34;
+    --progress-danger-bar-fill-color: #db2a34;
+
+    --form-control-background-color: #040620;
+    --form-control-color: #f4f4f5b3;
+    --form-control-border-color: #040620;
+    --form-control-focus-background-color: #040620;
+    --form-control-focus-border-color: #040620;
+    --form-control-focus-color: #f4f4f5e6;
+    --form-control-placeholder-color: #f4f4f5b3;
+
+    --form-control-selection-background-color: #2477ff;
+    --form-control-selection-border-color: #2477ff;
+    --form-control-selection-color: #fff;
+    --form-control-selection-label-color: #f4f4f5b3;
+
+    --tooltip-background-color: #000000;
+    --tooltip-border-color: #000000;
+    --tooltip-color: #ffffff;
+
+    --popover-background-color: #fafafa;
+    --popover-border-color: #fafafa;
+    --popover-color: #222222;
+    --popover-arrow-color: #fafafa;
+
+    --toast-info-background-color: #4179cf;
+    --toast-info-color: #ffffff;
+    --toast-info-border-color: #4179cf;
+
+    --toast-success-background-color: #2d8515;
+    --toast-success-color: #ffffff;
+    --toast-success-border-color: #2d8515;
+
+    --toast-warning-background-color: #e49400;
+    --toast-warning-color: #ffffff;
+    --toast-warning-border-color: #e49400;
+
+    --toast-danger-background-color: #db2a34;
+    --toast-danger-color: #ffffff;
+    --toast-danger-border-color: #db2a34;
+
+    --loader-border-color: #ffffff;
+    --loader-border-top-color: #0000007f;
+
+    --stars-color: #e49400;
+    --stars-empty-color: #595d78;
+    --stars-empty-label-color: #ffffff;
+    --stars-half-star-empty-color: #595d78;
+    --stars-half-star-fill-color: #e49400;
+}

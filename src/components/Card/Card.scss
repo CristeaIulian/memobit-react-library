@@ -1,14 +1,24 @@
 .card {
     display: flex;
     flex-direction: column;
-    background-color: var(--bg-secondary);
+    background-color: var(--card-background-color);
+    border: 1px solid;
+    border-color: var(--card-border-color);
     column-gap: var(--spacing-16);
     padding: var(--spacing-16);
     border-radius: var(--radius);
     position: relative;
+    color: var(--card-color);
+    box-shadow: var(--card-box-shadow);
 
     &.no-padding {
         padding: 0;
+    }
+
+    &.is-highlighted {
+        background-color: var(--card-background-accent-color);
+        border-left: var(--spacing-4) solid var(--card-border-accent-color);
+        color: var(--card-accent-color);
     }
 
     h3 {

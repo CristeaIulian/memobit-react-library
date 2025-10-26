@@ -46,7 +46,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPag
 
     return (
         <div className="pagination">
-            <Button variant="secondary" borders="sharp" disabled={currentPage === 1} prefixIcon="«" onClick={() => onPageChange(currentPage - 1)}>
+            <Button variant="default" borders="sharp" disabled={currentPage === 1} prefixIcon="«" onClick={() => onPageChange(currentPage - 1)}>
                 {isAtLeast('desktop') ? 'Previous' : ''}
             </Button>
 
@@ -54,7 +54,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPag
                 <Button
                     key={index}
                     borders="sharp"
-                    variant={page === currentPage ? 'primary' : 'secondary'}
+                    variant={page === currentPage ? 'warning' : 'default'}
                     disabled={typeof page === 'string'}
                     onClick={() => typeof page === 'number' && onPageChange(page)}
                 >
@@ -62,7 +62,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPag
                 </Button>
             ))}
 
-            <Button variant="secondary" borders="sharp" disabled={currentPage === totalPages} prefixIcon="»" onClick={() => onPageChange(currentPage + 1)}>
+            <Button variant="default" borders="sharp" disabled={currentPage === totalPages} prefixIcon="»" onClick={() => onPageChange(currentPage + 1)}>
                 {isAtLeast('desktop') ? 'Next' : ''}
             </Button>
 

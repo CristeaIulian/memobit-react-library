@@ -7,8 +7,8 @@
     &__spinner {
         width: var(--spacing-40);
         height: var(--spacing-40);
-        border: var(--spacing-4) solid var(--border);
-        border-top: var(--spacing-4) solid var(--accent);
+        border: var(--spacing-4) solid var(--loader-border-color);
+        border-top: var(--spacing-4) solid var(--loader-border-top-color);
         border-radius: 50%;
         animation: spin 1s linear infinite;
     }

@@ -50,10 +50,10 @@ export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ title, onClose, 
                     />
                 </div>
                 <div className="quick-number-update-actions">
-                    <Button onClick={handleSave} prefixIcon="💾" disabled={isSaving}>
+                    <Button variant="success" onClick={handleSave} prefixIcon="💾" disabled={isSaving}>
                         {isSaving ? 'Saving...' : 'Save'}
                     </Button>
-                    <Button variant="secondary" prefixIcon="❎" onClick={onClose} disabled={isSaving}>
+                    <Button variant="danger" prefixIcon="❎" onClick={onClose} disabled={isSaving}>
                         Cancel
                     </Button>
                 </div>

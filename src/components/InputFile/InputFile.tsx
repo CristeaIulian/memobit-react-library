@@ -1,4 +1,4 @@
-import { forwardRef,KeyboardEvent, MouseEvent } from 'react';
+import { forwardRef, KeyboardEvent, MouseEvent } from 'react';
 
 import './InputFile.scss';
 
@@ -19,7 +19,7 @@ export const InputFile = forwardRef<HTMLInputElement, InputFileProps>(({ accept,
             accept={accept}
             disabled={disabled}
             type="file"
-            className="input"
+            className="input-file"
             id={id}
             placeholder={placeholder}
             ref={ref}

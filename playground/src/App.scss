@@ -1,14 +1,14 @@
 .playground {
     min-height: 100vh;
-    background: var(--bg-primary, #1a1a1a);
+    background: var(--page-background, #1a1a1a);
     color: var(--text-primary, #ffffff);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     &__header {
-        background: var(--bg-secondary, #2d2d2d);
+        background: var(--header-background, #2d2d2d);
         padding: 2rem;
         text-align: center;
-        border-bottom: 1px solid var(--border, #404040);
+        border-bottom: 1px solid var(--header-border, #404040);
 
         h1 {
             margin: 0 0 0.5rem 0;
@@ -35,14 +35,14 @@
 
     &__section {
         margin-bottom: 3rem;
-        background: var(--bg-secondary, #2d2d2d);
+        background: var(--section-background, #2d2d2d);
         border-radius: 8px;
         padding: 2rem;
-        border: 1px solid var(--border, #404040);
+        border: 1px solid var(--divider-color, #404040);
 
         h2 {
             margin: 0 0 1.5rem 0;
-            color: var(--accent, #007bff);
+            color: var(--button-background, #007bff);
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -62,11 +62,11 @@
 }
 
 .info-card {
-    background: var(--bg-tertiary, #404040);
+    background: var(--highlighted-section-background, #404040);
     padding: 1rem;
     border-radius: 6px;
     text-align: center;
-    border: 1px solid var(--border, #525252);
+    border: 1px solid var(--card-border, #525252);
 
     strong {
         display: block;
@@ -124,7 +124,7 @@
 // Dark theme enhancements
 body {
     margin: 0;
-    background: var(--bg-primary, #1a1a1a);
+    background: var(--body-background, #1a1a1a);
 }
 
 // Code block styling for future code examples

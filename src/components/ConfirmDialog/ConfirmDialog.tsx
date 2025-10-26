@@ -14,7 +14,6 @@ interface ConfirmDialogProps {
     cancelText?: string;
     onConfirm: () => void;
     onCancel: () => void;
-    type?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger';
 }
 
 export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
@@ -25,7 +24,6 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     cancelText = 'Cancel',
     onConfirm,
     onCancel,
-    type = 'primary',
 }) => {
     const handleConfirm = () => {
         onConfirm();
@@ -74,10 +72,10 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                 </div>
 
                 <div className="confirm-dialog__actions">
-                    <Button onClick={handleConfirm} prefixIcon="🗑" variant={type}>
+                    <Button onClick={handleConfirm} prefixIcon="✓" variant="success">
                         {confirmText}
                     </Button>
-                    <Button onClick={handleCancel} prefixIcon="❎" variant="secondary">
+                    <Button onClick={handleCancel} prefixIcon="❎" variant="default">
                         {cancelText}
                     </Button>
                 </div>

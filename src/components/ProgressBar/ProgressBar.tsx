@@ -6,11 +6,11 @@ import './ProgressBar.scss';
 
 interface ProgressBarProps {
     label?: string;
-    state: 'critical' | 'good' | 'warning' | 'info';
+    state: 'default' | 'danger' | 'success' | 'warning' | 'info';
     value: number;
 }
 
-export const ProgressBar = ({ label, state = 'good', value }: ProgressBarProps) => {
+export const ProgressBar = ({ label, state = 'default', value }: ProgressBarProps) => {
     return (
         <div className="progress-bar">
             <div

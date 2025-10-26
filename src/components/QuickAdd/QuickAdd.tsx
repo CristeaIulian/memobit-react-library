@@ -69,7 +69,7 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, placeholder, tit
     return (
         <div className="quick-add">
             {/* Trigger Button */}
-            <Button variant="secondary" prefixIcon={icon} onClick={handleOpen}>
+            <Button variant="default" prefixIcon={icon} onClick={handleOpen}>
                 {buttonText}
             </Button>
 
@@ -89,10 +89,10 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, placeholder, tit
                     {error && <div className="error-message">{error}</div>}
 
                     <div className="quick-add__actions">
-                        <Button onClick={handleSave} prefixIcon="💾" disabled={loading || !value.trim()}>
+                        <Button variant="success" onClick={handleSave} prefixIcon="💾" disabled={loading || !value.trim()}>
                             {loading ? 'Saving...' : 'Save'}
                         </Button>
-                        <Button variant="secondary" prefixIcon="❎" onClick={handleClose} disabled={loading}>
+                        <Button variant="danger" prefixIcon="❎" onClick={handleClose} disabled={loading}>
                             Cancel
                         </Button>
                     </div>

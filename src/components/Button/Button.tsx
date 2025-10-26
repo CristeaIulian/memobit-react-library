@@ -13,7 +13,7 @@ interface ButtonProps {
     size?: 'small' | 'medium' | 'large';
     type?: 'button' | 'submit' | 'reset';
     title?: string;
-    variant?: 'primary' | 'secondary' | 'plain' | 'success' | 'info' | 'warning' | 'danger';
+    variant?: 'plain' | 'default' | 'success' | 'info' | 'warning' | 'danger';
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -24,7 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
     loading = false,
     onClick,
     prefixIcon,
-    variant = 'primary',
+    variant = 'default',
     size = 'medium',
     title,
     type = 'button',

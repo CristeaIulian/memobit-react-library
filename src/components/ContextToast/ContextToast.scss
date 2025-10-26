@@ -31,34 +31,34 @@
     align-items: center;
     justify-content: space-between;
     width: 300px;
-    margin-bottom: 8px;
-    padding: 12px 16px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    margin-bottom: var(--spacing-8);
+    padding: var(--spacing-12) var(--spacing-16);
+    border-radius: var(--spacing-4);
+    box-shadow: 0 var(--spacing-2) var(--spacing-8) rgba(0, 0, 0, 0.15);
     animation: toast-in 0.3s ease-out forwards;
 
     &--info {
-        background-color: #e3f2fd;
-        color: #0c63e4;
-        border-left: 4px solid #2196f3;
+        background-color: var(--toast-info-background-color);
+        color: var(--toast-info-color);
+        border-left: var(--spacing-4) solid var(--toast-info-border-color);
     }
 
     &--success {
-        background-color: #e8f5e9;
-        color: #2e7d32;
-        border-left: 4px solid #4caf50;
+        background-color: var(--toast-success-background-color);
+        color: var(--toast-success-color);
+        border-left: var(--spacing-4) solid var(--toast-success-border-color);
     }
 
     &--warning {
-        background-color: #fff8e1;
-        color: #ef6c00;
-        border-left: 4px solid #ff9800;
+        background-color: var(--toast-warning-background-color);
+        color: var(--toast-warning-color);
+        border-left: var(--spacing-4) solid var(--toast-warning-border-color);
     }
 
-    &--error {
-        background-color: #fdecea;
-        color: #d32f2f;
-        border-left: 4px solid #f44336;
+    &--danger {
+        background-color: var(--toast-danger-background-color);
+        color: var(--toast-danger-color);
+        border-left: var(--spacing-4) solid var(--toast-danger-border-color);
     }
 
     &--exiting {

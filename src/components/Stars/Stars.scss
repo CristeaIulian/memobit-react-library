@@ -8,18 +8,18 @@
 
         &--filled,
         &--full {
-            color: #ffd700;
+            color: var(--stars-color);
         }
 
         &--empty {
-            color: var(--text-muted);
+            color: var(--stars-empty-color);
         }
     }
 
     .rating {
         margin-left: var(--spacing-xs);
         font-size: 14px;
-        color: var(--text-secondary);
+        color: var(--stars-empty-label-color);
     }
 
     // Half star specific styles
@@ -27,7 +27,7 @@
         .star {
             &--half {
                 position: relative;
-                color: var(--text-muted);
+                color: var(--stars-half-star-empty-color);
             }
         }
 
@@ -42,11 +42,11 @@
             left: 0;
             width: 50%;
             overflow: hidden;
-            color: #ffd700;
+            color: var(--stars-half-star-fill-color);
         }
 
         .star-half-empty {
-            color: var(--text-muted);
+            color: var(--stars-half-star-empty-color);
         }
     }
 }

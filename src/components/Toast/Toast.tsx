@@ -4,7 +4,7 @@ import './Toast.scss';
 
 export interface ToastDetails {
     message: string;
-    type?: 'success' | 'error' | 'warning';
+    type?: 'success' | 'danger' | 'warning' | 'info';
 }
 
 interface ToastProps extends ToastDetails {

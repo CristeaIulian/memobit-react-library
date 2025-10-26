@@ -66,10 +66,10 @@ export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ list, titl
                 {error && <div className="error-message">{error}</div>}
 
                 <div className="quick-add__actions">
-                    <Button prefixIcon="💾" onClick={handleSave} disabled={loading || !workingValue}>
+                    <Button variant="success" prefixIcon="💾" onClick={handleSave} disabled={loading || !workingValue}>
                         {loading ? 'Saving...' : 'Save'}
                     </Button>
-                    <Button variant="secondary" prefixIcon="❎" onClick={onClose} disabled={loading}>
+                    <Button variant="default" prefixIcon="❎" onClick={onClose} disabled={loading}>
                         Cancel
                     </Button>
                 </div>

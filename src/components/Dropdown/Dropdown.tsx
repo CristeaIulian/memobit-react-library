@@ -446,14 +446,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 />
 
                 {((!multiple && selectedOptions.length > 0) || (multiple && selectedOptions.length > 0)) && (
-                    <span className="dropdown-clear-button">
+                    <span className="dropdown-action-button dropdown-clear-button">
                         <Button variant="plain" onClick={handleClear} disabled={disabled}>
                             {clearIcon}
                         </Button>
                     </span>
                 )}
 
-                <span className={`dropdown-toggle-button ${isOpen ? 'open' : ''}`}>
+                <span className={`dropdown-action-button dropdown-toggle-button ${isOpen ? 'open' : ''}`}>
                     <Button variant="plain" onClick={toggleDropdown} disabled={disabled}>
                         {verticalCaret}
                     </Button>
@@ -503,12 +503,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     ref={el => {
                                         optionsRef.current[filteredOptions.length] = el;
                                     }}
-                                    className={`dropdown-option create-option ${focusedIndex === filteredOptions.length ? 'focused' : ''}`}
+                                    className={`dropdown-option ${focusedIndex === filteredOptions.length ? 'focused' : ''}`}
                                     onClick={handleCreateCustomValue}
                                     onMouseEnter={() => setFocusedIndex(filteredOptions.length)}
                                 >
                                     <div className="dropdown-option-content">
-                                        <span className="create-option-text">Create "{filterText}"</span>
+                                        <span>Create "{filterText}"</span>
                                     </div>
                                 </li>
                             )}

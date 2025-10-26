@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from 'react';
 
 import './ContextToast.scss';
 
-export type ToastType = 'info' | 'success' | 'warning' | 'error';
+export type ToastType = 'info' | 'success' | 'warning' | 'danger';
 
 interface ToastProps {
     id: string;
@@ -26,7 +26,7 @@ interface ToastContextValue {
 }
 
 interface ToastContainerProps {
-    position: 'bottom-left' | 'bottom-center' | 'bottom-right';
+    position?: 'bottom-left' | 'bottom-center' | 'bottom-right';
 }
 
 interface ToastProviderProps {

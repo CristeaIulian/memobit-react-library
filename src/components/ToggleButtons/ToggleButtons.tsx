@@ -23,7 +23,7 @@ export const ToggleButtons: FC<ToggleProps> = ({ state, onToggleChange, states }
             {states.map((s, index) => (
                 <Button
                     key={`btn-toggle2-${index}-${s}`}
-                    variant={state === s.key ? 'primary' : 'secondary'}
+                    variant={state === s.key ? 'warning' : 'default'}
                     prefixIcon={s.icon}
                     onClick={() => onToggleChange(s.key)}
                 >

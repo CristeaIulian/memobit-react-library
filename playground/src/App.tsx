@@ -1,13 +1,40 @@
-import React from 'react';
-import { Button, Card, Dropdown, DropdownOption, formatMoney } from '../../src';
+import React, { useState } from 'react';
+import {
+    BMIHorizontalBarIndicator,
+    Button,
+    Card,
+    Checkbox,
+    ConfirmDialog,
+    Dropdown,
+    DropdownOption,
+    formatMoney,
+    InformationTooltip,
+    InputFile,
+    InputNumber,
+    InputText,
+    Modal,
+    Pagination,
+    Popover,
+    ProgressBar,
+    Radio,
+    Stars,
+    SuggestionsList,
+    Textarea,
+    TipsOfTheDay,
+    Toast,
+    usePopover,
+} from '../../src';
 import { useBreakpoint } from '../../src';
-import '../../src/styles/theming/dark.scss';
+import '../../src/styles/variables.scss';
+import '../../src/styles/theming/luna.scss';
+import '../../src/styles/theming/mintone.scss';
+import '../../src/styles/theming/light-blue.scss';
 import './App.scss';
 
-import { Popover } from '../../src/components/Popover';
-import { usePopover } from '../../src/components/Popover/hooks/Popover.hook';
+const theme = 'luna';
 
 function App() {
+    document.documentElement.setAttribute('data-theme', theme);
     const { currentBreakpoint, isMobile, isTablet, isDesktop, isLargeDesktop } = useBreakpoint();
 
     const formatClinicOptions = [
@@ -18,6 +45,7 @@ function App() {
         {
             value: 'option-2',
             label: '2nd clinic',
+            details: 'some details as well',
         },
         {
             value: 'option-3',
@@ -37,7 +65,15 @@ function App() {
     };
 
     const clinicSearch = '2nd';
-    const isDisabled = false;
+
+    const [isChecked, setChecked] = useState<boolean>(false);
+    const [isConfirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false);
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
+    const [toastState, setToastState] = useState<string | null>(null);
+    const [radioValue, setRadioValue] = useState<number>(1);
+    const [textField, setTextField] = useState<string>('This is a text field');
+    const [textareaField, setTextareaField] = useState<string>('This is a textarea field');
+    const [numberField, setNumberField] = useState<number>(30);
 
     const popover = usePopover();
 
@@ -71,6 +107,19 @@ function App() {
                     </div>
                 </section>
 
+                {/* BMI Horizontal Component */}
+                <section className="playground__section">
+                    <h2>BMI Horizontal Component</h2>
+                    <div className="component-showcase">
+                        <div className="showcase-group">
+                            <h3>Default BMI</h3>
+                            <div className="button-group">
+                                <BMIHorizontalBarIndicator height={180} weight={80} showIndicator showLabels />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* Button Components */}
                 <section className="playground__section">
                     <h2>Button Component</h2>
@@ -91,6 +140,92 @@ function App() {
                                 <Button size="large">Large</Button>
                             </div>
                         </div>
+                        <div className="showcase-group">
+                            <h3>Button Style</h3>
+                            <div className="button-group">
+                                <Button variant="plain">Plain</Button>
+                                <Button variant="default">Default</Button>
+                                <Button variant="warning">Warning</Button>
+                                <Button variant="danger">Danger</Button>
+                                <Button variant="info">Info</Button>
+                                <Button variant="success">Success</Button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Card Components */}
+                <section className="playground__section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+                    <h2>Card Component</h2>
+                    <div className="showcase-group">
+                        <h3>Simple card</h3>
+                        <div className="button-group">
+                            <Card title="some title">Content here</Card>
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Card Collapsable 1</h3>
+                        <div className="button-group">
+                            <Card title="some title as well" isCollapsible className="medium-card">
+                                Content here
+                            </Card>
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Card Collapsable 2</h3>
+                        <div className="button-group">
+                            <Card isCollapsed isCollapsible>
+                                Content here
+                            </Card>
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Card Active</h3>
+                        <div className="button-group">
+                            <Card isHighlighted>Content here</Card>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Selection Components */}
+                <section className="playground__section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+                    <h2>Selection Components</h2>
+                    <div className="showcase-group">
+                        <h3>Checkbox</h3>
+                        <div className="button-group">
+                            <Checkbox checked={isChecked} onChange={() => setChecked(!isChecked)} label="Checkbox label" />
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Radio</h3>
+                        <div className="button-group">
+                            <Radio checked={radioValue === 1} onChange={() => setRadioValue(1)} label="Radio 1" />
+                            <Radio checked={radioValue === 2} onChange={() => setRadioValue(2)} label="Radio 2" />
+                        </div>
+                    </div>
+                </section>
+
+                {/* ConfirmDialog Component */}
+                <section className="playground__section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+                    <h2>ConfirmDialog Component</h2>
+                    <div className="showcase-group">
+                        <h3>ConfirmDialog</h3>
+                        <div className="button-group">
+                            <ConfirmDialog
+                                message="this is the message"
+                                isOpen={isConfirmDialogOpen}
+                                onConfirm={() => setConfirmDialogOpen(!isConfirmDialogOpen)}
+                                onCancel={() => setConfirmDialogOpen(!isConfirmDialogOpen)}
+                                title="this is the title"
+                                confirmText="Confirm"
+                                cancelText="Cancel"
+                            />
+                            <Button onClick={() => setConfirmDialogOpen(true)}>Show Confirm Dialog</Button>
+                        </div>
                     </div>
                 </section>
 
@@ -99,11 +234,27 @@ function App() {
                     <h2>Dropdown Component</h2>
                     <div className="component-showcase">
                         <div className="showcase-group">
-                            <h3>Default Buttons</h3>
+                            <h3>Default Dropdown</h3>
                             <div className="button-group" style={{ width: '60%' }}>
                                 <Dropdown
                                     name="test-dd"
-                                    disabled={isDisabled}
+                                    label="some label"
+                                    options={formatClinicOptions}
+                                    value={selectedClinic}
+                                    onChange={handleClinicSelect}
+                                    placeholder="Caută sau selectează clinica..."
+                                    searchable
+                                    searchValue={clinicSearch}
+                                    onSearchChange={handleClinicSearchChange}
+                                    className="add-results-modal__clinic-dropdown"
+                                />
+                            </div>
+                        </div>
+                        <div className="showcase-group">
+                            <h3>Dropdown with create item</h3>
+                            <div className="button-group" style={{ width: '60%' }}>
+                                <Dropdown
+                                    name="test-dd"
                                     options={formatClinicOptions}
                                     value={selectedClinic}
                                     onChange={handleClinicSelect}
@@ -115,6 +266,113 @@ function App() {
                                     className="add-results-modal__clinic-dropdown"
                                 />
                             </div>
+                        </div>
+                        <div className="showcase-group">
+                            <h3>MultiSelect Dropdown</h3>
+                            <div className="button-group" style={{ width: '60%' }}>
+                                <Dropdown
+                                    name="test-dd"
+                                    options={formatClinicOptions}
+                                    value={selectedClinic}
+                                    multiple
+                                    onChange={handleClinicSelect}
+                                    placeholder="Caută sau selectează clinica..."
+                                    searchable
+                                    searchValue={clinicSearch}
+                                    onSearchChange={handleClinicSearchChange}
+                                    allowCustomValue
+                                    className="add-results-modal__clinic-dropdown"
+                                />
+                            </div>
+                        </div>
+                        <div className="showcase-group">
+                            <h3>Disabled Dropdown</h3>
+                            <div className="button-group" style={{ width: '60%' }}>
+                                <Dropdown
+                                    name="test-dd"
+                                    disabled
+                                    options={formatClinicOptions}
+                                    value={selectedClinic}
+                                    onChange={handleClinicSelect}
+                                    placeholder="Caută sau selectează clinica..."
+                                    searchable
+                                    searchValue={clinicSearch}
+                                    onSearchChange={handleClinicSearchChange}
+                                    allowCustomValue
+                                    className="add-results-modal__clinic-dropdown"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* InformationTooltip Components */}
+                <section className="playground__section">
+                    <h2>InformationTooltip Component</h2>
+                    <div className="showcase-group">
+                        <h3>InformationTooltip</h3>
+                        <div className="button-group">
+                            <InformationTooltip title="This is the info tooltip" direction="right" />
+                        </div>
+                    </div>
+                </section>
+
+                {/* InputFile Components */}
+                <section className="playground__section">
+                    <h2>InputFile Component</h2>
+                    <div className="showcase-group">
+                        <h3>InputFile</h3>
+                        <div className="button-group">
+                            <InputFile />
+                        </div>
+                    </div>
+                </section>
+
+                {/* InputNumber Components */}
+                <section className="playground__section">
+                    <h2>InputNumber Component</h2>
+                    <div className="showcase-group">
+                        <h3>InputNumber</h3>
+                        <div className="button-group">
+                            <InputNumber value={numberField} onChange={value => setNumberField(value || 0)} />
+                        </div>
+                    </div>
+                </section>
+
+                {/* InputText Components */}
+                <section className="playground__section">
+                    <h2>InputText Component</h2>
+                    <div className="showcase-group">
+                        <h3>InputText</h3>
+                        <div className="button-group">
+                            <InputText value={textField} onChange={value => setTextField(value)} />
+                        </div>
+                    </div>
+                </section>
+
+                {/* Modal Components */}
+                <section className="playground__section">
+                    <h2>Modal Component</h2>
+                    <div className="showcase-group">
+                        <h3>Modal</h3>
+                        <div className="button-group">
+                            {isModalOpen && (
+                                <Modal onClose={() => setModalOpen(false)} title="Modal Title">
+                                    <div style={{ padding: '16px' }}>content</div>
+                                </Modal>
+                            )}
+                            <Button onClick={() => setModalOpen(true)}>Show Modal</Button>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Pagination Components */}
+                <section className="playground__section">
+                    <h2>Pagination Component</h2>
+                    <div className="showcase-group">
+                        <h3>Pagination</h3>
+                        <div className="button-group">
+                            <Pagination currentPage={3} totalPages={4} onPageChange={() => console.log('page changed')} />
                         </div>
                     </div>
                 </section>
@@ -153,31 +411,130 @@ function App() {
                     </div>
                 </section>
 
-                {/* Card Components */}
-                <section className="playground__section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
-                    <h2>Card Component</h2>
+                {/* ProgressBar Components */}
+                <section className="playground__section">
+                    <h2>ProgressBar Component</h2>
+                    <div className="showcase-group">
+                        <h3>Default</h3>
+                        <div style={{ width: '150px' }}>
+                            <ProgressBar state="default" value={23} />
+                        </div>
+                    </div>
+
                     <div className="showcase-group">
                         <h3>Warn</h3>
-                        <div className="button-group">
-                            <Card title="some title">Content here</Card>
+                        <div style={{ width: '150px' }}>
+                            <ProgressBar state="warning" value={54} />
                         </div>
                     </div>
 
                     <div className="showcase-group">
-                        <h3>Card Collapsable 1</h3>
-                        <div className="button-group">
-                            <Card title="some title as well" isCollapsible className="medium-card">
-                                Content here
-                            </Card>
+                        <h3>Good</h3>
+                        <div style={{ width: '150px' }}>
+                            <ProgressBar state="success" value={23} />
                         </div>
                     </div>
 
                     <div className="showcase-group">
-                        <h3>Card Collapsable 2</h3>
+                        <h3>Danger</h3>
+                        <div style={{ width: '150px' }}>
+                            <ProgressBar state="danger" value={66} />
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Info</h3>
+                        <div style={{ width: '150px' }}>
+                            <ProgressBar state="info" value={92} />
+                        </div>
+                    </div>
+                </section>
+
+                {/* Stars Components */}
+                <section className="playground__section">
+                    <h2>Stars Component</h2>
+                    <div className="showcase-group">
+                        <h3>Stars</h3>
                         <div className="button-group">
-                            <Card isCollapsed isCollapsible>
-                                Content here
-                            </Card>
+                            <Stars rating={3} maxStars={10} />
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Half Stars</h3>
+                        <div className="button-group">
+                            <Stars rating={7} maxStars={10} useHalf />
+                        </div>
+                    </div>
+                </section>
+
+                {/* SuggestionsList Components */}
+                <section className="playground__section">
+                    <h2>SuggestionsList Component</h2>
+                    <div className="showcase-group">
+                        <h3>SuggestionsList</h3>
+                        <div className="button-group">
+                            <SuggestionsList
+                                label="Label here"
+                                title="Title here"
+                                tooltip="Tooltip here"
+                                data={[
+                                    { value: 2, name: 'first item', unit: 'km' },
+                                    { value: 3, name: 'second item', unit: 'km' },
+                                ]}
+                            />
+                        </div>
+                    </div>
+                </section>
+
+                {/* TipsOfTheDay Components */}
+                <section className="playground__section">
+                    <h2>TipsOfTheDay Component</h2>
+                    <div className="showcase-group">
+                        <h3>TipsOfTheDay</h3>
+                        <div className="button-group">
+                            <TipsOfTheDay list={['item 1', 'item 2']} />
+                        </div>
+                    </div>
+                </section>
+
+                {/* Toast Components */}
+                <section className="playground__section">
+                    <h2>Toast Component</h2>
+                    <div className="showcase-group">
+                        <h3>Toast</h3>
+                        <div className="button-group">
+                            {toastState && (
+                                <Toast
+                                    message="This is a message"
+                                    type={toastState as 'danger' | 'success' | 'warning' | 'info' | undefined}
+                                    timeout={2000}
+                                    onClose={() => setToastState(null)}
+                                />
+                            )}
+                            <Button variant="info" onClick={() => setToastState('info')}>
+                                Show info
+                            </Button>
+                            <Button variant="success" onClick={() => setToastState('success')}>
+                                Show info
+                            </Button>
+                            <Button variant="warning" onClick={() => setToastState('warning')}>
+                                Show info
+                            </Button>
+                            <Button variant="danger" onClick={() => setToastState('danger')}>
+                                Show info
+                            </Button>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Textarea Components */}
+                <section className="playground__section">
+                    <h2>Textarea Component</h2>
+                    <div className="showcase-group">
+                        <h3>Textarea</h3>
+                        <div className="button-group">
+                            <Textarea value={textareaField} onChange={value => setTextareaField(value)} />
                         </div>
                     </div>
                 </section>

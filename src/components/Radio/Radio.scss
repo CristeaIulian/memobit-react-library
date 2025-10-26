@@ -23,12 +23,12 @@
 
     &:focus + .radio-label .radio-circle {
         outline: none;
-        border-color: var(--accent);
-        box-shadow: 0 0 0 var(--spacing-2) var(--accent-quarter);
+        border-color: var(--form-control-selection-border-color);
+        box-shadow: 0 0 0 var(--spacing-2) var(--control-focus-ring);
     }
 
     &:checked + .radio-label .radio-circle {
-        border-color: var(--accent);
+        border-color: var(--form-control-selection-border-color);
 
         &::after {
             opacity: 1;
@@ -54,8 +54,8 @@
     width: var(--radio-size);
     height: var(--radio-size);
     min-width: var(--radio-size);
-    background-color: var(--bg-secondary);
-    border: var(--spacing-1) solid var(--border);
+    background-color: transparent;
+    border: var(--spacing-1) solid var(--form-control-selection-border-color);
     border-radius: 50%;
     transition: all 0.2s ease;
     display: flex;
@@ -63,7 +63,7 @@
     justify-content: center;
 
     &:hover {
-        border-color: var(--accent);
+        border-color: var(--form-control-selection-border-color);
     }
 
     // Inner dot
@@ -71,7 +71,7 @@
         content: '';
         width: 8px;
         height: 8px;
-        background-color: var(--accent);
+        background-color: var(--form-control-selection-background-color);
         border-radius: 50%;
         transform: scale(0);
         opacity: 0;
@@ -80,7 +80,7 @@
 }
 
 .radio-text {
-    color: var(--text-primary);
+    color: var(--form-control-selection-label-color);
     font-size: var(--font-size-sm);
     line-height: 1.4;
     margin-top: 2px; // Align with radio center

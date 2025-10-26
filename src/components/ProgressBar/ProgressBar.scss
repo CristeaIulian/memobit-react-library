@@ -1,6 +1,6 @@
 .progress-bar {
     height: 16px;
-    background-color: #f0f0f0;
+    background-color: var(--progress-bar-background-color);
     border-radius: 6px;
     overflow: hidden;
     position: relative;
@@ -8,28 +8,34 @@
 
     .progress-fill {
         height: 100%;
-        background-color: #28a745;
+        background-color: var(--progress-default-bar-fill-color);
+        border: 1px solid var(--progress-default-bar-border-color);
+        color: var(--progress--bar-color);
         border-radius: 6px;
         text-shadow: 1px 1px #000;
-        color: #ffffff;
         font-size: 12px;
         display: flex;
         align-items: center;
         padding: 0 4px;
 
-        &.progress-bar-warning {
-            background-color: #ffc107;
-            color: #212529;
+        &.progress-bar-success {
+            background-color: var(--progress-success-bar-fill-color);
+            border: 1px solid var(--progress-success-bar-border-color);
         }
 
-        &.progress-bar-critical {
-            background-color: #dc3545;
-            color: #ffffff;
+        &.progress-bar-warning {
+            background-color: var(--progress-warn-bar-fill-color);
+            border: 1px solid var(--progress-warn-bar-border-color);
+        }
+
+        &.progress-bar-danger {
+            background-color: var(--progress-danger-bar-fill-color);
+            border: 1px solid var(--progress-danger-bar-border-color);
         }
 
         &.progress-bar-info {
-            background-color: #007bff;
-            color: #ffffff;
+            background-color: var(--progress-info-bar-fill-color);
+            border: 1px solid var(--progress-info-bar-border-color);
         }
     }
 }

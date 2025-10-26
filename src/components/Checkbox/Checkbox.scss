@@ -23,13 +23,13 @@
 
     &:focus + .checkbox-label .checkbox-box {
         outline: none;
-        border-color: var(--accent);
-        box-shadow: 0 0 0 var(--spacing-2) var(--accent-quarter);
+        border-color: var(--form-control-selection-background-color);
+        box-shadow: 0 0 0 var(--spacing-2) var(--control-focus-ring);
     }
 
     &:checked + .checkbox-label .checkbox-box {
-        background-color: var(--accent);
-        border-color: var(--accent);
+        background-color: var(--form-control-selection-background-color);
+        border-color: var(--form-control-selection-background-color);
 
         &::after {
             opacity: 1;
@@ -55,8 +55,8 @@
     width: var(--checkbox-size);
     height: var(--checkbox-size);
     min-width: var(--checkbox-size);
-    background-color: var(--bg-secondary);
-    border: var(--spacing-1) solid var(--border);
+    background-color: transparent;
+    border: var(--spacing-1) solid var(--form-control-selection-border-color);
     border-radius: var(--radius-sm);
     transition: all 0.2s ease;
     display: flex;
@@ -64,13 +64,13 @@
     justify-content: center;
 
     &:hover {
-        border-color: var(--accent);
+        border-color: var(--form-control-selection-background-color);
     }
 
     // Checkmark
     &::after {
         content: '✓';
-        color: white;
+        color: var(--form-control-selection-color);
         font-size: 12px;
         font-weight: bold;
         opacity: 0;
@@ -84,7 +84,7 @@
 }
 
 .checkbox-text {
-    color: var(--text-primary);
+    color: var(--form-control-selection-label-color);
     font-size: var(--font-size-sm);
     line-height: 1.4;
     margin-top: 2px; // Align with checkbox center

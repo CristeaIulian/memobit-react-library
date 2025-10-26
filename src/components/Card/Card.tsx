@@ -9,11 +9,12 @@ interface CardProps {
     className?: string;
     isCollapsed?: boolean;
     isCollapsible?: boolean;
+    isHighlighted?: boolean;
     noPadding?: boolean;
     title?: string;
 }
 
-export const Card: React.FC<CardProps> = ({ children, className, isCollapsed, isCollapsible, noPadding, title }: CardProps) => {
+export const Card: React.FC<CardProps> = ({ children, className, isCollapsed, isCollapsible, isHighlighted, noPadding, title }: CardProps) => {
     const [isCardCollapsed, seIsCardCollapsed] = useState<boolean>(isCollapsed || false);
 
     useEffect(() => {
@@ -23,7 +24,7 @@ export const Card: React.FC<CardProps> = ({ children, className, isCollapsed, is
     }, [isCollapsed]);
 
     return (
-        <div className={`card ${className || ''} ${noPadding ? 'no-padding' : ''}`}>
+        <div className={`card ${className || ''} ${noPadding ? 'no-padding' : ''} ${isHighlighted ? 'is-highlighted' : ''}`}>
             {(title || isCollapsible) && (
                 <h3 className={`${isCardCollapsed ? 'content-hidden' : ''}`}>
                     {title}
