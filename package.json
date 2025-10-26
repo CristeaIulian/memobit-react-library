@@ -12,8 +12,10 @@
       "types": "./dist/index.d.ts"
     },
     "./dist/index.css": "./dist/index.css",
-    "./dist/styles/theming/light.scss": "./dist/styles/theming/light.scss",
-    "./dist/styles/theming/dark.scss": "./dist/styles/theming/dark.scss"
+    "./dist/styles/variables.scss": "./dist/styles/variables.scss",
+    "./dist/styles/theming/luna.scss": "./dist/styles/theming/luna.scss",
+    "./dist/styles/theming/light-blue.scss": "./dist/styles/theming/light-blue.scss",
+    "./dist/styles/theming/mintone.scss": "./dist/styles/theming/mintone.scss"
   },
   "files": [
     "dist"
