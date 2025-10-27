@@ -1,0 +1,26 @@
+.theme-modal {
+    padding: var(--spacing-24);
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-12);
+
+        label {
+            color: var(--body-accent-color);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+
+        // temp
+        .dropdown-input-container input {
+            width: 100% !important;
+        }
+
+        // temp
+        .dropdown-menu {
+            position: fixed !important;
+            width: 200px !important;
+        }
+    }
+}

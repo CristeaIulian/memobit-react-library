@@ -1,0 +1,43 @@
+import React, { FC } from 'react';
+
+import { Dropdown, DropdownOption, Modal } from '@memobit/libs';
+
+import { useTheme } from '@hooks/useTheme';
+
+import './ThemeModal.scss';
+
+interface ThemeModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
+    const { theme, setTheme } = useTheme();
+
+    const themeOptions: DropdownOption[] = [
+        { label: 'Light Blue', value: 'light-blue' },
+        { label: 'Luna', value: 'luna' },
+        { label: 'MinTone', value: 'mintone' },
+    ];
+
+    const handleThemeChange = (option: DropdownOption | DropdownOption[] | null) => {
+        if (option && !Array.isArray(option)) {
+            setTheme(option.value as 'light-blue' | 'luna' | 'mintone');
+        }
+    };
+
+    if (!isOpen) {
+        return null;
+    }
+
+    return (
+        <Modal onClose={onClose} title="Theme Settings" size="auto">
+            <div className="theme-modal">
+                <div className="theme-modal__content">
+                    <label htmlFor="theme-selector">Select Theme</label>
+                    <Dropdown id="theme-selector" name="theme" options={themeOptions} value={theme} onChange={handleThemeChange} placeholder="Choose a theme" />
+                </div>
+            </div>
+        </Modal>
+    );
+};
