@@ -1,13 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
-import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
-
-import { Button } from '../Button';
+import { Modal } from '../Modal';
 
 import './ConfirmDialog.scss';
 
 interface ConfirmDialogProps {
-    isOpen: boolean;
+    isOpen?: boolean;
     title: string;
     message: string;
     confirmText?: string;
@@ -25,61 +23,29 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     onConfirm,
     onCancel,
 }) => {
-    const handleConfirm = () => {
-        onConfirm();
-    };
-
-    const handleCancel = useCallback(() => {
-        onCancel();
-    }, [onCancel]);
-
-    // Close on overlay click
-    const handleOverlayClick = (e: React.MouseEvent) => {
-        if (e.target === e.currentTarget) {
-            handleCancel();
-        }
-    };
-
-    // Handle escape key
-    React.useEffect(() => {
-        const handleEscape = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') {
-                handleCancel();
-            }
-        };
-
-        if (isOpen) {
-            document.addEventListener('keydown', handleEscape);
-            return () => document.removeEventListener('keydown', handleEscape);
-        }
-    }, [handleCancel, isOpen]);
-
-    useBodyScrollLock(isOpen);
-
-    if (!isOpen) {
-        return null;
-    }
-
     return (
-        <div className="modal-overlay" onClick={handleOverlayClick}>
-            <div className="confirm-dialog" onClick={e => e.stopPropagation()}>
-                <div className="confirm-dialog__header">
-                    <h3>{title}</h3>
-                </div>
-
-                <div className="confirm-dialog__body">
-                    <p>{message}</p>
-                </div>
-
-                <div className="confirm-dialog__actions">
-                    <Button onClick={handleConfirm} prefixIcon="✓" variant="success">
-                        {confirmText}
-                    </Button>
-                    <Button onClick={handleCancel} prefixIcon="❎" variant="default">
-                        {cancelText}
-                    </Button>
-                </div>
+        <Modal
+            isOpen={isOpen}
+            title={title}
+            onClose={onCancel}
+            size="small"
+            className="confirm-dialog"
+            primaryButton={{
+                text: confirmText,
+                onClick: onConfirm,
+                icon: '✓',
+                variant: 'success',
+            }}
+            secondaryButton={{
+                text: cancelText,
+                onClick: onCancel,
+                icon: '❎',
+                variant: 'default',
+            }}
+        >
+            <div className="confirm-dialog__body">
+                <p>{message}</p>
             </div>
-        </div>
+        </Modal>
     );
 };

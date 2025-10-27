@@ -2,12 +2,12 @@ import React, { FC, useState } from 'react';
 
 import { Modal } from '../Modal';
 import { InputNumber } from '../InputNumber';
-import { Button } from '../Button';
 
 import './QuickNumberUpdate.scss';
 
 interface QuickNumberUpdateProps {
     icon?: string;
+    isOpen?: boolean;
     max?: number;
     min?: number;
     onClose: () => void;
@@ -16,7 +16,7 @@ interface QuickNumberUpdateProps {
     value: number;
 }
 
-export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ title, onClose, onSave, icon, value, min, max }: QuickNumberUpdateProps) => {
+export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ isOpen, title, onClose, onSave, icon, value, min, max }: QuickNumberUpdateProps) => {
     const [currentValue, setCurrentValue] = useState<number>(value);
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
@@ -33,7 +33,27 @@ export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ title, onClose, 
     };
 
     return (
-        <Modal title={`${icon} ${title}`} size="small" onClose={onClose} onOverlayClick={onClose}>
+        <Modal
+            isOpen={isOpen}
+            title={`${icon} ${title}`}
+            size="small"
+            onClose={onClose}
+            onOverlayClick={onClose}
+            primaryButton={{
+                text: isSaving ? 'Saving...' : 'Save',
+                onClick: handleSave,
+                icon: '💾',
+                variant: 'success',
+                disabled: isSaving,
+            }}
+            secondaryButton={{
+                text: 'Cancel',
+                onClick: onClose,
+                icon: '❎',
+                variant: 'danger',
+                disabled: isSaving,
+            }}
+        >
             <div className="quick-number-update">
                 <div className="quick-number-update-content">
                     <InputNumber
@@ -48,14 +68,6 @@ export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ title, onClose, 
                             }
                         }}
                     />
-                </div>
-                <div className="quick-number-update-actions">
-                    <Button variant="success" onClick={handleSave} prefixIcon="💾" disabled={isSaving}>
-                        {isSaving ? 'Saving...' : 'Save'}
-                    </Button>
-                    <Button variant="danger" prefixIcon="❎" onClick={onClose} disabled={isSaving}>
-                        Cancel
-                    </Button>
                 </div>
             </div>
         </Modal>

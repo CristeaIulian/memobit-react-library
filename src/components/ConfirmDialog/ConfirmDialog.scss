@@ -1,21 +1,4 @@
 .confirm-dialog {
-    background-color: var(--modal-background-color);
-    border-radius: var(--radius);
-    max-width: var(--spacing-400);
-    width: 100%;
-    margin: auto;
-    box-shadow: 0 8px var(--spacing-24) var(--shadow);
-
-    &__header {
-        padding: var(--spacing-24) var(--spacing-24) 0;
-
-        h3 {
-            margin: 0;
-            font-size: var(--font-size-lg);
-            color: var(--modal-header-color);
-        }
-    }
-
     &__body {
         padding: var(--spacing-16) var(--spacing-24);
         color: var(--modal-body-color);
@@ -24,12 +7,5 @@
             margin: 0;
             line-height: 1.5;
         }
-    }
-
-    &__actions {
-        padding: 0 var(--spacing-24) var(--spacing-24);
-        display: flex;
-        gap: var(--spacing-16);
-        justify-content: flex-end;
     }
 }

@@ -69,6 +69,7 @@ function App() {
     const [isChecked, setChecked] = useState<boolean>(false);
     const [isConfirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false);
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
+    const [isModalOpen2, setModalOpen2] = useState<boolean>(false);
     const [toastState, setToastState] = useState<string | null>(null);
     const [radioValue, setRadioValue] = useState<number>(1);
     const [textField, setTextField] = useState<string>('This is a text field');
@@ -356,12 +357,35 @@ function App() {
                     <div className="showcase-group">
                         <h3>Modal</h3>
                         <div className="button-group">
-                            {isModalOpen && (
-                                <Modal onClose={() => setModalOpen(false)} title="Modal Title">
-                                    <div style={{ padding: '16px' }}>content</div>
-                                </Modal>
-                            )}
+                            <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title="Modal Title">
+                                <div style={{ padding: '16px' }}>content</div>
+                            </Modal>
                             <Button onClick={() => setModalOpen(true)}>Show Modal</Button>
+                        </div>
+                    </div>
+                    <div className="showcase-group">
+                        <h3>Modal with footer</h3>
+                        <div className="button-group">
+                            <Modal
+                                isOpen={isModalOpen2}
+                                onClose={() => setModalOpen2(false)}
+                                title="Modal Title"
+                                primaryButton={{
+                                    text: 'Save',
+                                    onClick: () => console.log('success clicked'),
+                                    icon: '✓',
+                                    variant: 'success',
+                                }}
+                                secondaryButton={{
+                                    text: 'Cancel',
+                                    onClick: () => setModalOpen2(false),
+                                    icon: '❎',
+                                    variant: 'danger',
+                                }}
+                            >
+                                <div style={{ padding: '16px' }}>content</div>
+                            </Modal>
+                            <Button onClick={() => setModalOpen2(true)}>Show Modal</Button>
                         </div>
                     </div>
                 </section>

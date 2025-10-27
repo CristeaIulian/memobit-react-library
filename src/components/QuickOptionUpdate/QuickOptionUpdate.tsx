@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { Button } from '../Button';
 import { Radio } from '../Radio';
 import { Modal } from '../Modal';
 
@@ -8,6 +7,7 @@ import './QuickOptionUpdate.scss';
 
 interface QuickOptionUpdateProps {
     icon?: string;
+    isOpen?: boolean;
     list: { key: string; label: string }[];
     onClose: () => void;
     onSave: (value: string | number) => Promise<void> | void;
@@ -15,7 +15,7 @@ interface QuickOptionUpdateProps {
     value: string;
 }
 
-export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ list, title, onClose, onSave, icon, value }) => {
+export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ isOpen, list, title, onClose, onSave, icon, value }) => {
     const [workingValue, setWorkingValue] = useState<string | number>(value);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -48,7 +48,27 @@ export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ list, titl
 
     return (
         <div className="quick-set">
-            <Modal title={`${icon} ${title}`} size="small" onClose={onClose} onOverlayClick={onClose}>
+            <Modal
+                isOpen={isOpen}
+                title={`${icon} ${title}`}
+                size="small"
+                onClose={onClose}
+                onOverlayClick={onClose}
+                primaryButton={{
+                    text: loading ? 'Saving...' : 'Save',
+                    onClick: handleSave,
+                    icon: '💾',
+                    variant: 'success',
+                    disabled: loading || !workingValue,
+                }}
+                secondaryButton={{
+                    text: 'Cancel',
+                    onClick: onClose,
+                    icon: '❎',
+                    variant: 'default',
+                    disabled: loading,
+                }}
+            >
                 <div className="quick-set-list">
                     {list &&
                         list.map(({ key, label }, index) => (
@@ -64,15 +84,6 @@ export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ list, titl
                 </div>
 
                 {error && <div className="error-message">{error}</div>}
-
-                <div className="quick-add__actions">
-                    <Button variant="success" prefixIcon="💾" onClick={handleSave} disabled={loading || !workingValue}>
-                        {loading ? 'Saving...' : 'Save'}
-                    </Button>
-                    <Button variant="default" prefixIcon="❎" onClick={onClose} disabled={loading}>
-                        Cancel
-                    </Button>
-                </div>
             </Modal>
         </div>
     );

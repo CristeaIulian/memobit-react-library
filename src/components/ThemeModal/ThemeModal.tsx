@@ -27,12 +27,8 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
         }
     };
 
-    if (!isOpen) {
-        return null;
-    }
-
     return (
-        <Modal onClose={onClose} title="Theme Settings" size="auto">
+        <Modal isOpen={isOpen} onClose={onClose} title="Theme Settings" size="auto">
             <div className="theme-modal">
                 <div className="theme-modal__content">
                     <label htmlFor="theme-selector">Select Theme</label>

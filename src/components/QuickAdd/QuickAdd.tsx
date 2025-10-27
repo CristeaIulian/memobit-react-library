@@ -73,31 +73,40 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, placeholder, tit
                 {buttonText}
             </Button>
 
-            {isOpen && (
-                <Modal title={title} size="small" onClose={handleClose} onOverlayClick={handleOverlayClick}>
-                    <div className="quick-add-input">
-                        <InputText
-                            placeholder={placeholder}
-                            value={value}
-                            onChange={value => setValue(value)}
-                            onKeyDown={handleKeyDown}
-                            autoFocus
-                            disabled={loading}
-                        />
-                    </div>
+            <Modal
+                isOpen={isOpen}
+                title={title}
+                size="small"
+                onClose={handleClose}
+                onOverlayClick={handleOverlayClick}
+                primaryButton={{
+                    text: loading ? 'Saving...' : 'Save',
+                    onClick: handleSave,
+                    icon: '💾',
+                    variant: 'success',
+                    disabled: loading || !value.trim(),
+                }}
+                secondaryButton={{
+                    text: 'Cancel',
+                    onClick: handleClose,
+                    icon: '❎',
+                    variant: 'danger',
+                    disabled: loading,
+                }}
+            >
+                <div className="quick-add-input">
+                    <InputText
+                        placeholder={placeholder}
+                        value={value}
+                        onChange={value => setValue(value)}
+                        onKeyDown={handleKeyDown}
+                        autoFocus
+                        disabled={loading}
+                    />
+                </div>
 
-                    {error && <div className="error-message">{error}</div>}
-
-                    <div className="quick-add__actions">
-                        <Button variant="success" onClick={handleSave} prefixIcon="💾" disabled={loading || !value.trim()}>
-                            {loading ? 'Saving...' : 'Save'}
-                        </Button>
-                        <Button variant="danger" prefixIcon="❎" onClick={handleClose} disabled={loading}>
-                            Cancel
-                        </Button>
-                    </div>
-                </Modal>
-            )}
+                {error && <div className="error-message">{error}</div>}
+            </Modal>
         </div>
     );
 };
