@@ -1,6 +1,7 @@
 import React, { FC, useRef, useState } from 'react';
 
-import { Button, useBreakpoint } from '@memobit/libs';
+import { Button } from '../Button';
+import { useBreakpoint } from '../../hooks/useBreakpoint';
 
 import './MenuHamburger.scss';
 

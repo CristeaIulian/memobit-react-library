@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 
-import { Dropdown, DropdownOption, Modal } from '@memobit/libs';
+import { Dropdown, DropdownOption } from '../Dropdown';
+import { Modal } from '../Modal';
 
-import { useTheme } from '@hooks/useTheme';
+import { useTheme } from './useTheme';
 
 import './ThemeModal.scss';
 

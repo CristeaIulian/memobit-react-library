@@ -2,7 +2,7 @@ import React, { createContext, FC, ReactNode, useEffect, useState } from 'react'
 
 export type Theme = 'light-blue' | 'luna' | 'mintone';
 
-interface ThemeContextType {
+export interface ThemeContextType {
     theme: Theme;
     setTheme: (theme: Theme) => void;
 }
