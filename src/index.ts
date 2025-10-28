@@ -30,6 +30,7 @@ export { Popover, usePopover } from './components/Popover';
 export { MenuHamburger, type MenuHamburgerItem } from './components/MenuHamburger';
 export { FloatButton } from './components/FloatButton';
 export { ThemeModal, ThemeContext, ThemeProvider, useTheme } from './components/ThemeModal';
+export { ToastContainer, ToastProvider, type ToastType, useToast } from './components/ContextToast';
 
 // Export hooks
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';

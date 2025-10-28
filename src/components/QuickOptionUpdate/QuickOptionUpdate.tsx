@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Radio } from '../Radio';
 import { Modal } from '../Modal';
@@ -19,6 +19,10 @@ export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ isOpen, li
     const [workingValue, setWorkingValue] = useState<string | number>(value);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        setWorkingValue(value);
+    }, [value]);
 
     const handleSave = async () => {
         if (!workingValue) {

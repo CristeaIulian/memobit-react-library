@@ -6,6 +6,7 @@
     padding: var(--spacing-8);
     font-size: var(--font-size-sm);
     width: 100%;
+    box-sizing: border-box;
 
     &:focus {
         outline: none;
