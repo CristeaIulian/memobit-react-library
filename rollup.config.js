@@ -5,6 +5,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import terser from '@rollup/plugin-terser'; // Changed this line - no curly braces
 import postcss from 'rollup-plugin-postcss';
 import copy from 'rollup-plugin-copy';
+import * as sass from 'sass';
 
 export default {
     input: 'src/index.ts',
@@ -32,6 +33,14 @@ export default {
         postcss({
             extract: true,
             minimize: true,
+            use: {
+                sass: {
+                    silenceDeprecations: ['legacy-js-api'],
+                    implementation: sass,
+                },
+                stylus: false,
+                less: false,
+            },
         }),
         copy({
             targets: [
