@@ -73,27 +73,21 @@ export const Dropdown: React.FC<DropdownProps> = ({
         // Handle reset scenarios
         if (value === null || value === undefined) {
             setSelectedOptions([]);
-            if (!multiple && !searchable) {
-                setFilterText('');
-            }
+            setFilterText('');
             return;
         }
 
         // Handle empty array for multiple selection reset
         if (multiple && Array.isArray(value) && value.length === 0) {
             setSelectedOptions([]);
-            if (!searchable) {
-                setFilterText('');
-            }
+            setFilterText('');
             return;
         }
 
         // Handle empty string for single selection reset
         if (!multiple && value === '') {
             setSelectedOptions([]);
-            if (!searchable) {
-                setFilterText('');
-            }
+            setFilterText('');
             return;
         }
 
@@ -107,30 +101,31 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     return (value as string[]).includes(option.value.toString());
                 });
                 setSelectedOptions(selected);
-                if (!searchable) {
-                    setFilterText('');
-                }
-            } else if (!multiple && typeof value === 'string' && value !== '') {
-                const selectedOption = options.find(option => option.value.toString() === value);
+                // Clear filterText for multiple mode (chips are shown instead)
+                setFilterText('');
+            } else if (!multiple && (typeof value === 'string' || typeof value === 'number')) {
+                // Handle both string and number values for single selection
+                const selectedOption = options.find(option => {
+                    if (typeof option.value === 'number' && typeof value === 'number') {
+                        return option.value === value;
+                    }
+                    return option.value.toString() === value.toString();
+                });
+
                 if (selectedOption) {
                     setSelectedOptions([selectedOption]);
-                    if (!searchable) {
-                        setFilterText(selectedOption.label);
-                    }
+                    // Set filterText for both searchable and non-searchable to show the selected value
+                    setFilterText(selectedOption.label);
                 } else {
                     // If value doesn't match any option, clear selection
                     setSelectedOptions([]);
-                    if (!searchable) {
-                        setFilterText('');
-                    }
+                    setFilterText('');
                 }
             }
         } else {
             // If no options available yet, clear the display
             setSelectedOptions([]);
-            if (!searchable) {
-                setFilterText('');
-            }
+            setFilterText('');
         }
     }, [value, options, multiple, searchable]);
 
