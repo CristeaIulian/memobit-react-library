@@ -5,23 +5,23 @@ import { Modal } from '../Modal';
 import './ConfirmDialog.scss';
 
 interface ConfirmDialogProps {
-    isOpen?: boolean;
-    title: string;
-    message: string;
-    confirmText?: string;
     cancelText?: string;
-    onConfirm: () => void;
+    confirmText?: string;
+    isOpen: boolean;
+    message: string;
     onCancel: () => void;
+    onConfirm: () => void;
+    title: string;
 }
 
 export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
-    isOpen,
-    title,
-    message,
-    confirmText = 'Confirm',
     cancelText = 'Cancel',
-    onConfirm,
+    confirmText = 'Confirm',
+    isOpen = false,
+    message,
     onCancel,
+    onConfirm,
+    title,
 }) => {
     return (
         <Modal

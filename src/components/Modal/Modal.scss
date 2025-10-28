@@ -23,7 +23,7 @@
 
     &__header {
         padding: var(--spacing-16) var(--spacing-24);
-        border-bottom: var(--spacing-1) solid var(--modal-border);
+        border-bottom: var(--spacing-1) solid var(--modal-border-color);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -39,12 +39,11 @@
     }
 
     &__footer {
-        padding: 0 var(--spacing-24) var(--spacing-24);
+        padding: var(--spacing-24);
         display: flex;
         gap: var(--spacing-16);
         justify-content: flex-end;
-        border-top: var(--spacing-1) solid var(--modal-border);
-        padding-top: var(--spacing-16);
+        border-top: var(--spacing-1) solid var(--modal-border-color);
     }
 
     &--small {

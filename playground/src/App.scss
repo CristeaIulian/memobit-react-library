@@ -40,14 +40,14 @@
         padding: 2rem;
         border: 1px solid var(--divider-color, #404040);
 
-        h2 {
+        > h2 {
             margin: 0 0 1.5rem 0;
             color: var(--button-background, #007bff);
             font-size: 1.5rem;
             font-weight: 600;
         }
 
-        h3 {
+        > h3 {
             margin: 0 0 1rem 0;
             color: var(--text-primary, #ffffff);
             font-size: 1.2rem;

@@ -7,7 +7,7 @@ import './QuickOptionUpdate.scss';
 
 interface QuickOptionUpdateProps {
     icon?: string;
-    isOpen?: boolean;
+    isOpen: boolean;
     list: { key: string; label: string }[];
     onClose: () => void;
     onSave: (value: string | number) => Promise<void> | void;
@@ -15,7 +15,7 @@ interface QuickOptionUpdateProps {
     value: string;
 }
 
-export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ isOpen, list, title, onClose, onSave, icon, value }) => {
+export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ isOpen = false, list, title, onClose, onSave, icon, value }) => {
     const [workingValue, setWorkingValue] = useState<string | number>(value);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');

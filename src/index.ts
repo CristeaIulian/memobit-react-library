@@ -8,6 +8,7 @@ export { Dropdown, type DropdownOption } from './components/Dropdown';
 export { Flag } from './components/Flag';
 export { InformationTooltip } from './components/InformationTooltip';
 export { InputFile } from './components/InputFile';
+export { InputDateTime } from './components/InputDateTime';
 export { InputNumber } from './components/InputNumber';
 export { InputText } from './components/InputText';
 export { Loading } from './components/Loading';

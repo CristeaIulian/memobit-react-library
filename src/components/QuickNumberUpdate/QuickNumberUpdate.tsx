@@ -16,7 +16,7 @@ interface QuickNumberUpdateProps {
     value: number;
 }
 
-export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ isOpen, title, onClose, onSave, icon, value, min, max }: QuickNumberUpdateProps) => {
+export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ isOpen = false, title, onClose, onSave, icon, value, min, max }: QuickNumberUpdateProps) => {
     const [currentValue, setCurrentValue] = useState<number>(value);
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
