@@ -84,11 +84,6 @@
         }
 
         input[type='text'] {
-            padding: var(--spacing-12) var(--spacing-12) var(--spacing-12) var(--spacing-12);
-            border: var(--spacing-1) solid var(--dropdown-border-color);
-            border-radius: var(--radius-sm);
-            width: calc(100% - var(--spacing-24) - var(--spacing-1));
-            background-color: var(--dropdown-header-background-color);
             transition:
                 border-color 200ms ease-in-out,
                 box-shadow 200ms ease-in-out;
@@ -115,7 +110,6 @@
 
             button {
                 padding: var(--spacing-8) var(--spacing-12);
-                background-color: var(--dropdown-action-background-color);
                 border-radius: 0;
 
                 &:hover {

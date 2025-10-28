@@ -15,7 +15,7 @@ export interface ModalButtonConfig {
 interface ModalProps {
     children?: ReactNode;
     className?: string;
-    isOpen?: boolean;
+    isOpen: boolean;
     onClose?: () => void;
     onOverlayClick?: (event: MouseEvent) => void;
     primaryButton?: ModalButtonConfig;
