@@ -381,7 +381,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     const getDisplayText = (): string => {
         if (searchable) {
-            return filterText;
+            // If actively typing/filtering, show the filter text
+            if (filterText) {
+                return filterText;
+            }
+            // If not typing, show the selected value for single selection
+            if (!multiple && selectedOptions.length > 0) {
+                return selectedOptions[0].label;
+            }
+            return '';
         }
 
         // For non-searchable single selection, show selected option
