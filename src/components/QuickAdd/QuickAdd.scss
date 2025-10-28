@@ -9,7 +9,7 @@
 
     .error-message {
         color: var(--body-danger-color);
-        font-size: 12px;
+        font-size: var(--font-size-xs);
         margin-top: var(--spacing-4);
     }
 }

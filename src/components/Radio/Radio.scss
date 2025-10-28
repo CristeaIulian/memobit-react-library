@@ -69,8 +69,8 @@
     // Inner dot
     &::after {
         content: '';
-        width: 8px;
-        height: 8px;
+        width: var(--spacing-8);
+        height: var(--spacing-8);
         background-color: var(--form-control-selection-background-color);
         border-radius: 50%;
         transform: scale(0);
@@ -83,5 +83,5 @@
     color: var(--form-control-selection-label-color);
     font-size: var(--font-size-sm);
     line-height: 1.4;
-    margin-top: 2px; // Align with radio center
+    margin-top: var(--spacing-2); // Align with radio center
 }

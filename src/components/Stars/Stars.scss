@@ -1,10 +1,10 @@
 .stars {
     display: flex;
-    gap: 2px;
+    gap: var(--spacing-2);
     align-items: center;
 
     .star {
-        font-size: 16px;
+        font-size: var(--spacing-16);
 
         &--filled,
         &--full {
@@ -18,7 +18,7 @@
 
     .rating {
         margin-left: var(--spacing-xs);
-        font-size: 14px;
+        font-size: var(--font-size-sm);
         color: var(--stars-empty-label-color);
     }
 

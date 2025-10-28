@@ -1,9 +1,9 @@
 // Simple Popover Component SCSS
 .simple-popover {
     background-color: var(--popover-background-color);
-    border: 1px solid var(--popover-border-color);
+    border: var(--spacing-1) solid var(--popover-border-color);
     border-radius: var(--radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 var(--spacing-4) var(--spacing-4) rgba(0, 0, 0, 0.15);
     font-size: var(--font-size-sm);
     max-width: 300px;
     min-width: 120px;
@@ -58,7 +58,7 @@
 // Mobile
 @media (max-width: 768px) {
     .simple-popover {
-        max-width: calc(100vw - 40px);
+        max-width: calc(100vw - var(--spacing-40));
         font-size: var(--font-size-xs);
 
         &__content {

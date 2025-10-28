@@ -71,7 +71,7 @@
     &::after {
         content: '✓';
         color: var(--form-control-selection-color);
-        font-size: 12px;
+        font-size: var(--font-size-xs);
         font-weight: bold;
         opacity: 0;
         transition: all 0.2s ease;
@@ -87,5 +87,5 @@
     color: var(--form-control-selection-label-color);
     font-size: var(--font-size-sm);
     line-height: 1.4;
-    margin-top: 2px; // Align with checkbox center
+    margin-top: var(--spacing-2); // Align with checkbox center
 }

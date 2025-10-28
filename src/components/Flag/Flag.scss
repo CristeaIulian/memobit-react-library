@@ -6,18 +6,18 @@
     // Image styling
     img {
         display: block;
-        border-radius: 2px;
+        border-radius: var(--spacing-2);
         object-fit: cover;
         transition: transform 0.2s ease-in-out;
 
         // Dark mode friendly border
         @media (prefers-color-scheme: dark) {
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: var(--spacing-1) solid rgba(255, 255, 255, 0.1);
         }
 
         // Light mode subtle border
         @media (prefers-color-scheme: light) {
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            border: var(--spacing-1) solid rgba(0, 0, 0, 0.1);
         }
     }
 
@@ -33,7 +33,7 @@
     &:hover {
         img {
             transform: scale(1.1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 var(--spacing-2) var(--spacing-8) rgba(0, 0, 0, 0.2);
         }
     }
 
@@ -44,7 +44,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        border-radius: 2px;
+        border-radius: var(--spacing-2);
         font-weight: bold;
         opacity: 0.7;
 
@@ -59,27 +59,27 @@
         }
 
         // Fallback size variants
-        &.flags--xxs { width: 12px; height: 9px; font-size: 6px; }
-        &.flags--xs { width: 16px; height: 12px; font-size: 8px; }
-        &.flags--sm { width: 20px; height: 15px; font-size: 10px; }
-        &.flags--md { width: 24px; height: 18px; font-size: 12px; }
-        &.flags--lg { width: 32px; height: 24px; font-size: 16px; }
-        &.flags--xl { width: 48px; height: 36px; font-size: 24px; }
-        &.flags--xxl { width: 64px; height: 48px; font-size: 32px; }
+        &.flags--xxs { width: var(--spacing-12); height: 9px; font-size: 6px; }
+        &.flags--xs { width: var(--spacing-16); height: var(--spacing-12); font-size: 8px; }
+        &.flags--sm { width: 20px; height: 15px; font-size: var(--font-size-xxs); }
+        &.flags--md { width: var(--spacing-24); height: 18px; font-size: var(--font-size-xs); }
+        &.flags--lg { width: var(--spacing-32); height: var(--spacing-24); font-size: var(--font-size-md); }
+        &.flags--xl { width: var(--spacing-48); height: 36px; font-size: var(--font-size-xl); }
+        &.flags--xxl { width: var(--spacing-64); height: var(--spacing-48); font-size: var(--font-size-xxl); }
     }
 
     // Size variants
     &--xxs {
         img {
-            width: 12px;
+            width: var(--spacing-12);
             height: 9px;
         }
     }
 
     &--xs {
         img {
-            width: 16px;
-            height: 12px;
+            width: var(--spacing-16);
+            height: var(--spacing-12);
         }
     }
 
@@ -92,29 +92,29 @@
 
     &--md {
         img {
-            width: 24px;
+            width: var(--spacing-24);
             height: 18px;
         }
     }
 
     &--lg {
         img {
-            width: 32px;
-            height: 24px;
+            width: var(--spacing-32);
+            height: var(--spacing-24);
         }
     }
 
     &--xl {
         img {
-            width: 48px;
+            width: var(--spacing-48);
             height: 36px;
         }
     }
 
     &--xxl {
         img {
-            width: 64px;
-            height: 48px;
+            width: var(--spacing-64);
+            height: var(--spacing-48);
         }
     }
 }
