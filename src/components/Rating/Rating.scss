@@ -1,0 +1,95 @@
+.rating {
+    display: flex;
+    gap: var(--spacing-8);
+    align-items: center;
+    width: 100%;
+
+    &.align-left {
+        justify-content: flex-start;
+    }
+
+    &.align-right {
+        justify-content: flex-end;
+    }
+
+    &.align-space-between {
+        justify-content: space-between;
+    }
+
+    .rating-rates {
+        display: flex;
+        gap: var(--spacing-2);
+        align-items: center;
+    }
+
+    .rate {
+        font-size: var(--spacing-16);
+
+        &:hover {
+            opacity: 0.8;
+            cursor: default;
+        }
+
+        &--empty {
+            color: var(--rating-empty-color);
+        }
+    }
+
+    &.is-selectable {
+        .rate:hover {
+            cursor: pointer;
+        }
+    }
+
+    .rate--filled,
+    .rate-half-fill,
+    .rate--full {
+        &.rate-variant-success {
+            color: var(--rating-color-success);
+        }
+
+        &.rate-variant-warning {
+            color: var(--rating-color-warn);
+        }
+
+        &.rate-variant-danger {
+            color: var(--rating-color-danger);
+        }
+
+        &.rate-variant-info {
+            color: var(--rating-color-info);
+        }
+    }
+
+    .rating-values {
+        font-size: var(--font-size-sm);
+        color: var(--rating-empty-label-color);
+    }
+
+    // Half rate specific styles
+    &--half {
+        .rate {
+            &--half {
+                position: relative;
+                color: var(--rating-half-rate-empty-color);
+            }
+        }
+
+        .rate-half-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .rate-half-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            overflow: hidden;
+        }
+
+        .rate-half-empty {
+            color: var(--rating-half-rate-empty-color);
+        }
+    }
+}

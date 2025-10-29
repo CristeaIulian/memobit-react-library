@@ -1,4 +1,4 @@
-import { FocusEvent, forwardRef,KeyboardEvent, MouseEvent } from 'react';
+import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 
 import './Textarea.scss';
 
@@ -8,6 +8,7 @@ interface TextareaProps {
     cols?: number;
     disabled?: boolean;
     id?: string;
+    maxLength?: number;
     onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
     onChange?: (value: string) => void;
     onClick?: (event: MouseEvent<HTMLTextAreaElement>) => void;
@@ -19,24 +20,25 @@ interface TextareaProps {
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-    ({ autoComplete = 'on', autoFocus, cols, disabled, id, onBlur, onChange, onClick, onKeyDown, onKeyUp, placeholder, rows, value }, ref) => {
+    ({ autoComplete = 'on', autoFocus, cols, disabled, id, maxLength, onBlur, onChange, onClick, onKeyDown, onKeyUp, placeholder, rows, value }, ref) => {
         return (
             <textarea
                 autoComplete={autoComplete}
                 autoFocus={autoFocus}
-                disabled={disabled}
                 className="textarea"
                 cols={cols}
+                disabled={disabled}
                 id={id}
-                placeholder={placeholder}
-                ref={ref}
-                rows={rows}
-                value={value}
+                maxLength={maxLength}
                 onBlur={onBlur}
                 onChange={e => onChange?.(e.target.value)}
                 onClick={onClick}
                 onKeyDown={onKeyDown}
                 onKeyUp={onKeyUp}
+                placeholder={placeholder}
+                ref={ref}
+                rows={rows}
+                value={value}
             />
         );
     }

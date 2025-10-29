@@ -83,7 +83,7 @@
 }
 
 .showcase-group {
-    .button-group {
+    .component-group {
         display: flex;
         gap: 1rem;
         flex-wrap: wrap;
@@ -115,7 +115,7 @@
         grid-template-columns: 1fr;
     }
 
-    .showcase-group .button-group {
+    .showcase-group .component-group {
         flex-direction: column;
         align-items: flex-start;
     }

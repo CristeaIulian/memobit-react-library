@@ -17,7 +17,7 @@ import {
     Popover,
     ProgressBar,
     Radio,
-    Stars,
+    Rating,
     SuggestionsList,
     Textarea,
     TipsOfTheDay,
@@ -114,7 +114,7 @@ function App() {
                     <div className="component-showcase">
                         <div className="showcase-group">
                             <h3>Default BMI</h3>
-                            <div className="button-group">
+                            <div className="component-group">
                                 <BMIHorizontalBarIndicator height={180} weight={80} showIndicator showLabels />
                             </div>
                         </div>
@@ -127,7 +127,7 @@ function App() {
                     <div className="component-showcase">
                         <div className="showcase-group">
                             <h3>Default Buttons</h3>
-                            <div className="button-group">
+                            <div className="component-group">
                                 <Button>Default Button</Button>
                                 <Button disabled>Disabled</Button>
                             </div>
@@ -135,7 +135,7 @@ function App() {
 
                         <div className="showcase-group">
                             <h3>Button Sizes</h3>
-                            <div className="button-group">
+                            <div className="component-group">
                                 <Button size="small">Small</Button>
                                 <Button size="medium">Medium</Button>
                                 <Button size="large">Large</Button>
@@ -143,7 +143,7 @@ function App() {
                         </div>
                         <div className="showcase-group">
                             <h3>Button Style</h3>
-                            <div className="button-group">
+                            <div className="component-group">
                                 <Button variant="plain">Plain</Button>
                                 <Button variant="default">Default</Button>
                                 <Button variant="warning">Warning</Button>
@@ -160,14 +160,14 @@ function App() {
                     <h2>Card Component</h2>
                     <div className="showcase-group">
                         <h3>Simple card</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Card title="some title">Content here</Card>
                         </div>
                     </div>
 
                     <div className="showcase-group">
                         <h3>Card Collapsable 1</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Card title="some title as well" isCollapsible className="medium-card">
                                 Content here
                             </Card>
@@ -176,7 +176,7 @@ function App() {
 
                     <div className="showcase-group">
                         <h3>Card Collapsable 2</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Card isCollapsed isCollapsible>
                                 Content here
                             </Card>
@@ -185,7 +185,7 @@ function App() {
 
                     <div className="showcase-group">
                         <h3>Card Active</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Card isHighlighted>Content here</Card>
                         </div>
                     </div>
@@ -196,14 +196,14 @@ function App() {
                     <h2>Selection Components</h2>
                     <div className="showcase-group">
                         <h3>Checkbox</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Checkbox checked={isChecked} onChange={() => setChecked(!isChecked)} label="Checkbox label" />
                         </div>
                     </div>
 
                     <div className="showcase-group">
                         <h3>Radio</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Radio checked={radioValue === 1} onChange={() => setRadioValue(1)} label="Radio 1" />
                             <Radio checked={radioValue === 2} onChange={() => setRadioValue(2)} label="Radio 2" />
                         </div>
@@ -215,7 +215,7 @@ function App() {
                     <h2>ConfirmDialog Component</h2>
                     <div className="showcase-group">
                         <h3>ConfirmDialog</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <ConfirmDialog
                                 message="this is the message"
                                 isOpen={isConfirmDialogOpen}
@@ -236,7 +236,7 @@ function App() {
                     <div className="component-showcase">
                         <div className="showcase-group">
                             <h3>Default Dropdown</h3>
-                            <div className="button-group" style={{ width: '60%' }}>
+                            <div className="component-group" style={{ width: '60%' }}>
                                 <Dropdown
                                     name="test-dd"
                                     label="some label"
@@ -253,7 +253,7 @@ function App() {
                         </div>
                         <div className="showcase-group">
                             <h3>Dropdown with create item</h3>
-                            <div className="button-group" style={{ width: '60%' }}>
+                            <div className="component-group" style={{ width: '60%' }}>
                                 <Dropdown
                                     name="test-dd"
                                     options={formatClinicOptions}
@@ -270,7 +270,7 @@ function App() {
                         </div>
                         <div className="showcase-group">
                             <h3>MultiSelect Dropdown</h3>
-                            <div className="button-group" style={{ width: '60%' }}>
+                            <div className="component-group" style={{ width: '60%' }}>
                                 <Dropdown
                                     name="test-dd"
                                     options={formatClinicOptions}
@@ -288,7 +288,7 @@ function App() {
                         </div>
                         <div className="showcase-group">
                             <h3>Disabled Dropdown</h3>
-                            <div className="button-group" style={{ width: '60%' }}>
+                            <div className="component-group" style={{ width: '60%' }}>
                                 <Dropdown
                                     name="test-dd"
                                     disabled
@@ -312,7 +312,7 @@ function App() {
                     <h2>InformationTooltip Component</h2>
                     <div className="showcase-group">
                         <h3>InformationTooltip</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <InformationTooltip title="This is the info tooltip" direction="right" />
                         </div>
                     </div>
@@ -323,7 +323,7 @@ function App() {
                     <h2>InputFile Component</h2>
                     <div className="showcase-group">
                         <h3>InputFile</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <InputFile />
                         </div>
                     </div>
@@ -334,7 +334,7 @@ function App() {
                     <h2>InputNumber Component</h2>
                     <div className="showcase-group">
                         <h3>InputNumber</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <InputNumber value={numberField} onChange={value => setNumberField(value || 0)} />
                         </div>
                     </div>
@@ -345,7 +345,7 @@ function App() {
                     <h2>InputText Component</h2>
                     <div className="showcase-group">
                         <h3>InputText</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <InputText value={textField} onChange={value => setTextField(value)} />
                         </div>
                     </div>
@@ -356,7 +356,7 @@ function App() {
                     <h2>Modal Component</h2>
                     <div className="showcase-group">
                         <h3>Modal</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title="Modal Title">
                                 <div style={{ padding: '16px' }}>content</div>
                             </Modal>
@@ -365,7 +365,7 @@ function App() {
                     </div>
                     <div className="showcase-group">
                         <h3>Modal with footer</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Modal
                                 isOpen={isModalOpen2}
                                 onClose={() => setModalOpen2(false)}
@@ -395,7 +395,7 @@ function App() {
                     <h2>Pagination Component</h2>
                     <div className="showcase-group">
                         <h3>Pagination</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Pagination currentPage={3} totalPages={4} onPageChange={() => console.log('page changed')} />
                         </div>
                     </div>
@@ -406,7 +406,7 @@ function App() {
                     <h2>Popover Component</h2>
                     <div className="showcase-group">
                         <h3>Warn</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Button onClick={e => popover.toggle('warn', e)}>Click me</Button>
                             <Popover visible={popover.isVisible('warn')} anchorEl={popover.getAnchorEl('warn')} onClose={() => popover.hide('warn')}>
                                 <strong style={{ color: 'orange' }}>Warn</strong>, my content goes here
@@ -416,7 +416,7 @@ function App() {
 
                     <div className="showcase-group">
                         <h3>Good</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Button onClick={e => popover.toggle('good', e)}>Click me</Button>
                             <Popover visible={popover.isVisible('good')} anchorEl={popover.getAnchorEl('good')} onClose={() => popover.hide('good')}>
                                 <strong style={{ color: 'green' }}>Good</strong>, my content goes here
@@ -426,7 +426,7 @@ function App() {
 
                     <div className="showcase-group">
                         <h3>Alert</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Button onClick={e => popover.toggle('alert', e)}>Click me</Button>
                             <Popover visible={popover.isVisible('alert')} anchorEl={popover.getAnchorEl('alert')} onClose={() => popover.hide('alert')}>
                                 <strong style={{ color: 'red' }}>Alert</strong>, my content goes here
@@ -474,20 +474,68 @@ function App() {
                     </div>
                 </section>
 
-                {/* Stars Components */}
+                {/* Rating Components */}
                 <section className="playground__section">
                     <h2>Stars Component</h2>
                     <div className="showcase-group">
                         <h3>Stars</h3>
-                        <div className="button-group">
-                            <Stars rating={3} maxStars={10} />
+                        <div className="component-group">
+                            <Rating rating={3} maxRate={10} />
+                        </div>
+                        <div className="component-group">
+                            <Rating rating={7} maxRate={10} variant="info" />
                         </div>
                     </div>
 
                     <div className="showcase-group">
                         <h3>Half Stars</h3>
-                        <div className="button-group">
-                            <Stars rating={7} maxStars={10} useHalf />
+                        <div className="component-group">
+                            <Rating rating={7} maxRate={10} useHalf />
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Rating as dots</h3>
+                        <div className="component-group">
+                            <Rating rating={3} maxRate={10} useHalf icon="bullet" variant="success" />
+                        </div>
+                        <div className="component-group">
+                            <Rating rating={7} maxRate={10} icon="bullet" variant="warning" />
+                        </div>
+                        <div className="component-group">
+                            <Rating rating={5} maxRate={10} useHalf icon="bullet" variant="danger" />
+                        </div>
+                        <div className="component-group">
+                            <Rating rating={8} maxRate={10} icon="bullet" variant="info" />
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Rating alignment</h3>
+                        <div className="component-group">
+                            <Rating rating={3} maxRate={10} useHalf align="left" />
+                        </div>
+                        <div className="component-group">
+                            <Rating rating={3} maxRate={10} useHalf align="right" />
+                        </div>
+                        <div className="component-group">
+                            <Rating rating={3} maxRate={10} align="space-between" />
+                        </div>
+                        <div className="component-group">
+                            <Rating rating={5} maxRate={10} useHalf icon="bullet" align="left" />
+                        </div>
+                        <div className="component-group">
+                            <Rating rating={8} maxRate={10} icon="bullet" align="right" />
+                        </div>
+                        <div className="component-group">
+                            <Rating rating={8} maxRate={10} icon="bullet" align="space-between" />
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Selectable</h3>
+                        <div className="component-group">
+                            <Rating rating={8} maxRate={10} selectable onSelect={value => console.log('Rating clicked', value)} />
                         </div>
                     </div>
                 </section>
@@ -497,7 +545,7 @@ function App() {
                     <h2>SuggestionsList Component</h2>
                     <div className="showcase-group">
                         <h3>SuggestionsList</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <SuggestionsList
                                 label="Label here"
                                 title="Title here"
@@ -516,7 +564,7 @@ function App() {
                     <h2>TipsOfTheDay Component</h2>
                     <div className="showcase-group">
                         <h3>TipsOfTheDay</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <TipsOfTheDay list={['item 1', 'item 2']} />
                         </div>
                     </div>
@@ -527,7 +575,7 @@ function App() {
                     <h2>Toast Component</h2>
                     <div className="showcase-group">
                         <h3>Toast</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             {toastState && (
                                 <Toast
                                     message="This is a message"
@@ -557,7 +605,7 @@ function App() {
                     <h2>Textarea Component</h2>
                     <div className="showcase-group">
                         <h3>Textarea</h3>
-                        <div className="button-group">
+                        <div className="component-group">
                             <Textarea value={textareaField} onChange={value => setTextareaField(value)} />
                         </div>
                     </div>

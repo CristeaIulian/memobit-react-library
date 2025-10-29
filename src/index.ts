@@ -21,7 +21,7 @@ export { QuickAdd } from './components/QuickAdd';
 export { QuickOptionUpdate } from './components/QuickOptionUpdate';
 export { QuickNumberUpdate } from './components/QuickNumberUpdate';
 export { Radio } from './components/Radio';
-export { Stars } from './components/Stars';
+export { Rating } from './components/Rating';
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';
 export { Textarea } from './components/Textarea';
 export { TipsOfTheDay } from './components/TipsOfTheDay';

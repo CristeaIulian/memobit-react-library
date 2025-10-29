@@ -168,9 +168,11 @@
     --loader-border-color: #f6a82133;
     --loader-border-top-color: #f6a821;
 
-    --stars-color: #f7af3e;
-    --stars-empty-color: #949ba2;
-    --stars-empty-label-color: #eeeeee;
-    --stars-half-star-empty-color: #949ba2;
-    --stars-half-star-fill-color: #f7af3e;
+    --rating-color-success: #1bbf89;
+    --rating-color-warn: #f7af3e;
+    --rating-color-danger: #db524b;
+    --rating-color-info: #56c0e0;
+    --rating-empty-color: #949ba2;
+    --rating-empty-label-color: #eeeeee;
+    --rating-half-rate-empty-color: #949ba2;
 }
