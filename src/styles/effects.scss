@@ -8,3 +8,56 @@
     background-color: var(--note-container-effect-background-color);
     color: var(--note-container-effect-color);
 }
+
+.infuse-effect {
+    border: var(--spacing-1) solid;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--infuse-effect-before-background);
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: var(--infuse-effect-hover-border-color);
+        box-shadow: 0 var(--spacing-12) var(--spacing-24) var(--infuse-effect-hover-box-shadow-color);
+
+        &:before {
+            transform: translateX(0);
+        }
+    }
+}
+
+.up-lift-effect {
+    border: 1px solid;
+    box-shadow: 0 var(--spacing-4) var(--spacing-12) var(--up-lift-effect-box-shadow-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: var(--up-lift-effect-hover-border-color);
+        box-shadow: 0 var(--spacing-12) var(--spacing-24) var(--up-lift-effect-hover-box-shadow-color);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: var(--up-lift-effect-before-background);
+    }
+}

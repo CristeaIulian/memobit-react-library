@@ -27,6 +27,7 @@ import {
 } from '../../src';
 import { useBreakpoint } from '../../src';
 import '../../src/styles/variables.scss';
+import '../../src/styles/effects.scss';
 import '../../src/styles/theming/luna.scss';
 import '../../src/styles/theming/mintone.scss';
 import '../../src/styles/theming/light-blue.scss';
@@ -190,6 +191,33 @@ function App() {
                         <h3>Card Active</h3>
                         <div className="component-group">
                             <Card isHighlighted>Content here</Card>
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Card with note-container-effect</h3>
+                        <div className="component-group">
+                            <Card title="some title" className="note-container-effect">
+                                Content here
+                            </Card>
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Card with infuse-effect</h3>
+                        <div className="component-group">
+                            <Card title="some title" className="infuse-effect">
+                                Content here
+                            </Card>
+                        </div>
+                    </div>
+
+                    <div className="showcase-group">
+                        <h3>Card with up-lift-effect</h3>
+                        <div className="component-group">
+                            <Card title="some title" className="up-lift-effect">
+                                Content here
+                            </Card>
                         </div>
                     </div>
                 </section>
