@@ -1,8 +1,8 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 
-import './InputDateTime.scss';
+import './InputDate.scss';
 
-interface InputDateTimeProps {
+interface InputDateProps {
     autoComplete?: 'on' | 'off';
     autoFocus?: boolean;
     disabled?: boolean;
@@ -15,18 +15,22 @@ interface InputDateTimeProps {
     onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
     onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
     readOnly?: boolean;
+    type?: 'datetime-local' | 'date';
     value?: string;
 }
 
-export const InputDateTime = forwardRef<HTMLInputElement, InputDateTimeProps>(
-    ({ autoComplete = 'on', autoFocus, disabled, id, max, min, onBlur, onChange, onClick, onKeyDown, onKeyUp, readOnly = false, value }, ref) => {
+export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
+    (
+        { autoComplete = 'on', autoFocus, disabled, id, max, min, onBlur, onChange, onClick, onKeyDown, onKeyUp, readOnly = false, type = 'date', value },
+        ref
+    ) => {
         return (
             <input
                 autoComplete={autoComplete}
                 autoFocus={autoFocus}
                 disabled={disabled}
-                type="datetime-local"
-                className="input-datetime"
+                type={type === 'date' ? 'date' : 'datetime-local'}
+                className="input-date"
                 id={id}
                 max={max}
                 min={min}

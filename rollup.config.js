@@ -45,6 +45,7 @@ export default {
         copy({
             targets: [
                 { src: 'src/styles/variables.scss', dest: 'dist/styles' },
+                { src: 'src/styles/effects.scss', dest: 'dist/styles' },
                 { src: 'src/styles/theming/light-blue.scss', dest: 'dist/styles/theming' },
                 { src: 'src/styles/theming/luna.scss', dest: 'dist/styles/theming' },
                 { src: 'src/styles/theming/mintone.scss', dest: 'dist/styles/theming' },
