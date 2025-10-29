@@ -1,0 +1,10 @@
+.note-container-effect {
+    font-size: var(--font-size-md);
+    line-height: 1.6;
+    padding: var(--spacing-16);
+    border-radius: var(--spacing-12);
+    border-left: var(--spacing-2) solid var(--note-container-effect-border-lef-tcolor);
+
+    background-color: var(--note-container-effect-background-color);
+    color: var(--note-container-effect-color);
+}

@@ -18,6 +18,7 @@ import {
     ProgressBar,
     Radio,
     Rating,
+    Slider,
     SuggestionsList,
     Textarea,
     TipsOfTheDay,
@@ -75,6 +76,8 @@ function App() {
     const [textField, setTextField] = useState<string>('This is a text field');
     const [textareaField, setTextareaField] = useState<string>('This is a textarea field');
     const [numberField, setNumberField] = useState<number>(30);
+    const [sliderValue1, setSliderValue1] = useState<number>(50);
+    const [sliderValue2, setSliderValue2] = useState<number>(7);
 
     const popover = usePopover();
 
@@ -536,6 +539,29 @@ function App() {
                         <h3>Selectable</h3>
                         <div className="component-group">
                             <Rating rating={8} maxRate={10} selectable onSelect={value => console.log('Rating clicked', value)} />
+                        </div>
+                    </div>
+                </section>
+
+                {/* Slider Components */}
+                <section className="playground__section">
+                    <h2>Slider Component</h2>
+                    <div className="showcase-group">
+                        <h3>Slider (0-100 range)</h3>
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <Slider value={sliderValue1} onChange={setSliderValue1} min={0} max={100} />
+                        </div>
+                    </div>
+                    <div className="showcase-group">
+                        <h3>Slider (1-10 range)</h3>
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <Slider value={sliderValue2} onChange={setSliderValue2} min={1} max={10} />
+                        </div>
+                    </div>
+                    <div className="showcase-group">
+                        <h3>Slider without display</h3>
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <Slider value={sliderValue1} onChange={setSliderValue1} showValues={false} />
                         </div>
                     </div>
                 </section>

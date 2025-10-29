@@ -22,6 +22,7 @@ export { QuickOptionUpdate } from './components/QuickOptionUpdate';
 export { QuickNumberUpdate } from './components/QuickNumberUpdate';
 export { Radio } from './components/Radio';
 export { Rating } from './components/Rating';
+export { Slider } from './components/Slider';
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';
 export { Textarea } from './components/Textarea';
 export { TipsOfTheDay } from './components/TipsOfTheDay';
