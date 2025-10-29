@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { Button } from '../Button';
 import { InputText } from '../InputText';
@@ -27,6 +28,7 @@ export interface DropdownProps {
     placeholder?: string;
     searchable?: boolean;
     searchValue?: string;
+    usePortal?: boolean;
     value?: number | number[] | string | string[] | null;
 }
 
@@ -44,6 +46,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     placeholder = 'Select an option',
     searchable = false,
     searchValue,
+    usePortal = false,
     value,
 }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -51,6 +54,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [filteredOptions, setFilteredOptions] = useState<DropdownOption[]>(options);
     const [focusedIndex, setFocusedIndex] = useState<number>(-1);
     const [selectedOptions, setSelectedOptions] = useState<DropdownOption[]>([]);
+    const [portalPosition, setPortalPosition] = useState<{ top: number; left: number; width: number }>({ top: 0, left: 0, width: 0 });
     const dropdownRef = useRef<HTMLDivElement>(null);
     const optionsRef = useRef<(HTMLLIElement | null)[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -136,10 +140,43 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
     }, [searchValue, searchable]);
 
+    // Update portal position when dropdown opens or on scroll/resize
+    useEffect(() => {
+        if (!usePortal || !isOpen || !dropdownRef.current) return;
+
+        const updatePosition = () => {
+            if (dropdownRef.current) {
+                const rect = dropdownRef.current.getBoundingClientRect();
+                setPortalPosition({
+                    top: rect.bottom + window.scrollY,
+                    left: rect.left + window.scrollX,
+                    width: rect.width,
+                });
+            }
+        };
+
+        updatePosition();
+
+        window.addEventListener('scroll', updatePosition, true);
+        window.addEventListener('resize', updatePosition);
+
+        return () => {
+            window.removeEventListener('scroll', updatePosition, true);
+            window.removeEventListener('resize', updatePosition);
+        };
+    }, [usePortal, isOpen]);
+
     // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                // For portal, also check if click is inside the portal menu
+                if (usePortal && isOpen) {
+                    const portalMenu = document.querySelector('.dropdown-menu--portal');
+                    if (portalMenu && portalMenu.contains(event.target as Node)) {
+                        return;
+                    }
+                }
                 setIsOpen(false);
                 if (multiple && searchable) {
                     setFilterText('');
@@ -152,7 +189,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [multiple, searchable]);
+    }, [multiple, searchable, usePortal, isOpen]);
 
     const handleOptionClick = (option: DropdownOption) => {
         if (multiple) {
@@ -411,6 +448,88 @@ export const Dropdown: React.FC<DropdownProps> = ({
         );
     };
 
+    const renderDropdownMenu = () => {
+        if (!isOpen || disabled) return null;
+
+        const menuContent = (
+            <div
+                className={`dropdown-menu ${usePortal ? 'dropdown-menu--portal' : ''}`}
+                style={
+                    usePortal
+                        ? {
+                              position: 'absolute',
+                              top: `${portalPosition.top}px`,
+                              left: `${portalPosition.left}px`,
+                              width: `${portalPosition.width}px`,
+                              zIndex: 9999,
+                          }
+                        : undefined
+                }
+            >
+                {filteredOptions.length > 0 || shouldShowCreateOption() ? (
+                    <ul className="dropdown-options-list">
+                        {filteredOptions.map((option, index) => (
+                            <li
+                                key={option.value}
+                                ref={el => {
+                                    optionsRef.current[index] = el;
+                                }}
+                                className={`dropdown-option ${option.className || ''} ${focusedIndex === index ? 'focused' : ''} ${isOptionSelected(option) ? 'selected' : ''}`}
+                                onClick={() => handleOptionClick(option)}
+                                onMouseEnter={() => setFocusedIndex(index)}
+                            >
+                                {multiple && (
+                                    <div className="dropdown-option-checkbox">
+                                        <div className={`checkbox ${isOptionSelected(option) ? 'checked' : ''}`}>
+                                            {isOptionSelected(option) && (
+                                                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                                                    <path
+                                                        d="M9 1L3.5 6.5L1 4"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.5"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                                <div className="dropdown-option-content">
+                                    {option.label}
+                                    {option.details && <span className="dropdown-option-details">{option.details}</span>}
+                                </div>
+                            </li>
+                        ))}
+
+                        {shouldShowCreateOption() && (
+                            <li
+                                ref={el => {
+                                    optionsRef.current[filteredOptions.length] = el;
+                                }}
+                                className={`dropdown-option ${focusedIndex === filteredOptions.length ? 'focused' : ''}`}
+                                onClick={handleCreateCustomValue}
+                                onMouseEnter={() => setFocusedIndex(filteredOptions.length)}
+                            >
+                                <div className="dropdown-option-content">
+                                    <span>Create "{filterText}"</span>
+                                </div>
+                            </li>
+                        )}
+                    </ul>
+                ) : (
+                    <div className="dropdown-no-options">No options found</div>
+                )}
+            </div>
+        );
+
+        if (usePortal) {
+            return createPortal(menuContent, document.body);
+        }
+
+        return menuContent;
+    };
+
     return (
         <div className={`dropdown-container ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${className}`} ref={dropdownRef}>
             {label && (
@@ -441,7 +560,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     id={id}
                     placeholder={getPlaceholderText()}
                     value={getDisplayText()}
-                    onChange={searchable || multiple ? handleInputChange : () => {}} // Only handle changes if searchable or multiple
+                    onChange={searchable || multiple ? handleInputChange : () => {}}
                     onClick={handleInputClick}
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
@@ -463,64 +582,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 </span>
             </div>
 
-            {isOpen && !disabled && (
-                <div className="dropdown-menu">
-                    {filteredOptions.length > 0 || shouldShowCreateOption() ? (
-                        <ul className="dropdown-options-list">
-                            {filteredOptions.map((option, index) => (
-                                <li
-                                    key={option.value}
-                                    ref={el => {
-                                        optionsRef.current[index] = el;
-                                    }}
-                                    className={`dropdown-option ${option.className || ''} ${focusedIndex === index ? 'focused' : ''} ${isOptionSelected(option) ? 'selected' : ''}`}
-                                    onClick={() => handleOptionClick(option)}
-                                    onMouseEnter={() => setFocusedIndex(index)}
-                                >
-                                    {multiple && (
-                                        <div className="dropdown-option-checkbox">
-                                            <div className={`checkbox ${isOptionSelected(option) ? 'checked' : ''}`}>
-                                                {isOptionSelected(option) && (
-                                                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-                                                        <path
-                                                            d="M9 1L3.5 6.5L1 4"
-                                                            stroke="currentColor"
-                                                            strokeWidth="1.5"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                    </svg>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
-                                    <div className="dropdown-option-content">
-                                        {option.label}
-                                        {option.details && <span className="dropdown-option-details">{option.details}</span>}
-                                    </div>
-                                </li>
-                            ))}
-
-                            {shouldShowCreateOption() && (
-                                <li
-                                    ref={el => {
-                                        optionsRef.current[filteredOptions.length] = el;
-                                    }}
-                                    className={`dropdown-option ${focusedIndex === filteredOptions.length ? 'focused' : ''}`}
-                                    onClick={handleCreateCustomValue}
-                                    onMouseEnter={() => setFocusedIndex(filteredOptions.length)}
-                                >
-                                    <div className="dropdown-option-content">
-                                        <span>Create "{filterText}"</span>
-                                    </div>
-                                </li>
-                            )}
-                        </ul>
-                    ) : (
-                        <div className="dropdown-no-options">No options found</div>
-                    )}
-                </div>
-            )}
+            {renderDropdownMenu()}
         </div>
     );
 };

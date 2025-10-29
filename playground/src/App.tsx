@@ -333,6 +333,24 @@ function App() {
                                     />
                                 </div>
                             </div>
+                            <div className="showcase-group">
+                                <h3>Dropdown with Portal</h3>
+                                <div className="component-group" style={{ width: '60%' }}>
+                                    <Dropdown
+                                        name="test-dd"
+                                        label="some label"
+                                        options={formatClinicOptions}
+                                        value={selectedClinic}
+                                        onChange={handleClinicSelect}
+                                        placeholder="Caută sau selectează clinica..."
+                                        searchable
+                                        searchValue={clinicSearch}
+                                        onSearchChange={handleClinicSearchChange}
+                                        className="add-results-modal__clinic-dropdown"
+                                        usePortal
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </section>
 
