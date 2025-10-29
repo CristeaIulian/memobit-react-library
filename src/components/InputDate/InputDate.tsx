@@ -15,13 +15,30 @@ interface InputDateProps {
     onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
     onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
     readOnly?: boolean;
+    required?: boolean;
     type?: 'datetime-local' | 'date';
     value?: string;
 }
 
 export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
     (
-        { autoComplete = 'on', autoFocus, disabled, id, max, min, onBlur, onChange, onClick, onKeyDown, onKeyUp, readOnly = false, type = 'date', value },
+        {
+            autoComplete = 'on',
+            autoFocus,
+            disabled,
+            id,
+            max,
+            min,
+            onBlur,
+            onChange,
+            onClick,
+            onKeyDown,
+            onKeyUp,
+            readOnly = false,
+            required = false,
+            type = 'date',
+            value,
+        },
         ref
     ) => {
         return (
@@ -42,6 +59,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
                 onKeyDown={onKeyDown}
                 onKeyUp={onKeyUp}
                 readOnly={readOnly}
+                required={required}
             />
         );
     }
