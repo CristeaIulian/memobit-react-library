@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useComponentEffect } from '../../hooks/useComponentEffect';
 import { up } from '../../icons/up';
 
 import './Card.scss';
@@ -16,6 +17,7 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ children, className, isCollapsed, isCollapsible, isHighlighted, noPadding, title }: CardProps) => {
     const [isCardCollapsed, seIsCardCollapsed] = useState<boolean>(isCollapsed || false);
+    const effectClass = useComponentEffect('Card');
 
     useEffect(() => {
         if (typeof isCollapsed === 'boolean') {
@@ -24,7 +26,7 @@ export const Card: React.FC<CardProps> = ({ children, className, isCollapsed, is
     }, [isCollapsed]);
 
     return (
-        <div className={`card ${className || ''} ${noPadding ? 'no-padding' : ''} ${isHighlighted ? 'is-highlighted' : ''}`}>
+        <div className={`card ${className || ''} ${noPadding ? 'no-padding' : ''} ${isHighlighted ? 'is-highlighted' : ''} ${effectClass}`}>
             {(title || isCollapsible) && (
                 <h3 className={`${isCardCollapsed ? 'content-hidden' : ''}`}>
                     {title}

@@ -4,7 +4,7 @@
     &__content {
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-12);
+        gap: var(--spacing-16);
 
         label {
             color: var(--body-accent-color);
@@ -13,14 +13,20 @@
         }
 
         // temp
-        .dropdown-input-container input {
-            width: 100% !important;
-        }
-
-        // temp
         .dropdown-menu {
             position: fixed !important;
             width: 200px !important;
         }
+    }
+
+    &__section {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-8);
+    }
+
+    &__components {
+        display: flex;
+        gap: var(--spacing-8);
     }
 }

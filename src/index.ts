@@ -38,6 +38,7 @@ export { ToastContainer, ToastProvider, type ToastType, useToast } from './compo
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';
 export { useFiltersPersistence } from './hooks/useFiltersPersistence';
 export { useBodyScrollLock } from './hooks/useBodyScrollLock';
+export { useComponentEffect } from './hooks/useComponentEffect';
 
 // Export helpers
 export { formatDuration } from './helpers/Datetime';

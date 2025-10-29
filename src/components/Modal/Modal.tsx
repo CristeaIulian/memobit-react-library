@@ -1,5 +1,6 @@
 import React, { FC, MouseEvent, ReactElement, ReactNode, useEffect } from 'react';
 
+import { useComponentEffect } from '../../hooks/useComponentEffect';
 import { Button } from '../Button';
 
 import './Modal.scss';
@@ -35,6 +36,8 @@ export const Modal: FC<ModalProps> = ({
     size = 'auto',
     title,
 }: ModalProps): ReactElement | null => {
+    const effectClass = useComponentEffect('Modal');
+
     useEffect(() => {
         const handleEscape = (event: KeyboardEvent) => {
             if (event.key === 'Escape' && onClose) {
@@ -59,7 +62,7 @@ export const Modal: FC<ModalProps> = ({
 
     return (
         <div className="modal-overlay" onClick={onOverlayClick}>
-            <div className={`modal modal--${size} ${className || ''}`} onClick={e => e.stopPropagation()}>
+            <div className={`modal modal--${size} ${className || ''} ${effectClass}`} onClick={e => e.stopPropagation()}>
                 <div className="modal__header">
                     <h2>{title}</h2>
                     <Button variant="plain" prefixIcon="✖" onClick={onClose}></Button>
