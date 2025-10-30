@@ -42,7 +42,6 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
             }
 
             linkElement.href = themeConfig.fontUrl;
-            document.documentElement.style.setProperty('--font-family', themeConfig.fontFamily);
         }
     }, [theme]);
 
