@@ -1,5 +1,7 @@
 import React, { createContext, FC, ReactNode, useEffect, useState } from 'react';
 
+import { getThemeConfig } from './themeConfig';
+
 export type Theme = 'light-blue' | 'luna' | 'mintone' | 'argon-dark' | 'argon-light' | 'crmi' | 'dashdarkx' | 'tailwind-vue-dark' | 'tailwind-vue-light';
 
 export interface ThemeContextType {
@@ -11,6 +13,7 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 
 const THEME_STORAGE_KEY = 'app-theme';
 const DEFAULT_THEME: Theme = 'luna';
+const FONT_LINK_ID = 'theme-font-link';
 
 interface ThemeProviderProps {
     children: ReactNode;
@@ -25,6 +28,22 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem(THEME_STORAGE_KEY, theme);
+
+        const themeConfig = getThemeConfig(theme);
+
+        if (themeConfig) {
+            let linkElement = document.getElementById(FONT_LINK_ID) as HTMLLinkElement;
+
+            if (!linkElement) {
+                linkElement = document.createElement('link');
+                linkElement.id = FONT_LINK_ID;
+                linkElement.rel = 'stylesheet';
+                document.head.appendChild(linkElement);
+            }
+
+            linkElement.href = themeConfig.fontUrl;
+            document.documentElement.style.setProperty('--font-family', themeConfig.fontFamily);
+        }
     }, [theme]);
 
     const setTheme = (newTheme: Theme) => {

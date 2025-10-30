@@ -8,6 +8,7 @@ import { useTheme } from './useTheme';
 
 import './ThemeModal.scss';
 import { Theme } from './ThemeContext';
+import { THEME_CONFIGS } from './themeConfig';
 
 interface ThemeModalProps {
     isOpen: boolean;
@@ -24,17 +25,10 @@ const EFFECTS_STORAGE_KEY = 'effects';
 export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
     const { theme, setTheme } = useTheme();
 
-    const themeOptions: DropdownOption[] = [
-        { label: 'Light Blue', value: 'light-blue' },
-        { label: 'Luna', value: 'luna' },
-        { label: 'MinTone', value: 'mintone' },
-        { label: 'Argon Dashboard Dark', value: 'argon-dark' },
-        { label: 'Aargon Dashboard Light', value: 'argon-light' },
-        { label: 'CRMi', value: 'crmi' },
-        { label: 'DashDark X', value: 'dashdarkx' },
-        { label: 'Tailwind View Dark', value: 'tailwind-vue-dark' },
-        { label: 'Tailwind View Light', value: 'tailwind-vue-light' },
-    ];
+    const themeOptions: DropdownOption[] = THEME_CONFIGS.map(config => ({
+        label: config.label,
+        value: config.value,
+    }));
 
     const componentsWithEffects = ['Card', 'Modal'];
 
