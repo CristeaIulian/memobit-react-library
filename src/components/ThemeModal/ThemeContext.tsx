@@ -1,6 +1,6 @@
 import React, { createContext, FC, ReactNode, useEffect, useState } from 'react';
 
-export type Theme = 'light-blue' | 'luna' | 'mintone';
+export type Theme = 'light-blue' | 'luna' | 'mintone' | 'argon-dark' | 'argon-light' | 'crmi' | 'dashdarkx' | 'tailwind-vue-dark' | 'tailwind-vue-light';
 
 export interface ThemeContextType {
     theme: Theme;

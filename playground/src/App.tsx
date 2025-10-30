@@ -34,6 +34,13 @@ import '../../src/styles/effects.scss';
 import '../../src/styles/theming/luna.scss';
 import '../../src/styles/theming/mintone.scss';
 import '../../src/styles/theming/light-blue.scss';
+import '../../src/styles/theming/argon-dark.scss';
+import '../../src/styles/theming/argon-light.scss';
+import '../../src/styles/theming/crmi.scss';
+import '../../src/styles/theming/dashdarkx.scss';
+import '../../src/styles/theming/tailwind-vue-dark.scss';
+import '../../src/styles/theming/tailwind-vue-light.scss';
+
 import './App.scss';
 
 const theme = 'luna';

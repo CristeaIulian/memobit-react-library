@@ -1,0 +1,201 @@
+// https://dashdarktemplate.webflow.io/reports
+// DashDark X theme - Dark theme
+[data-theme='dashdarkx'] {
+    --font-family: 'Mona sans', sans-serif;
+
+    --body-background: #080f25;
+    --body-color: #aeb9e1;
+    --body-color-accent: #ffffff;
+    --body-color-muted: #aeb9e1;
+    --body-title-color: #ffffff;
+    --body-accent-color: #ffffff;
+    --body-danger-color: #ff5a65;
+
+    --backdrop-color: #0000007f;
+    --text-shadow: #333;
+    --box-shadow: #14142b0f;
+
+    --header-background-color: tranparent;
+    --header-border-bottom-color: tranparent;
+    --header-color: #ffffff;
+    --header-font-weight: 600;
+
+    --card-background-color: #101935;
+    --card-background-accent-color: #2e3037;
+    --card-border-color: #343b4f;
+    --card-border-accent-color: #f6a821; // active items - generally border-left 2-4px
+    --card-color: #949ba2;
+    --card-accent-color: #949ba2;
+    --card-box-shadow: 0 2px 7px 0 var(--general--shadow-01);
+
+    --links-color: #6c72ff;
+    --links-hover-color: #ffffff;
+
+    --delimiter-color: #343b4f;
+    --border-color: #343b4f;
+
+    --button-default-border-color: #6c72ff;
+    --button-default-background-color: #6c72ff;
+    --button-default-color: #ffffff;
+    --button-default-hover-border-color: #212c4d;
+    --button-default-hover-background-color: #212c4d;
+    --button-default-hover-color: #ffffff;
+
+    --button-info-border-color: #57c3ff;
+    --button-info-background-color: transparent;
+    --button-info-color: #ffffff;
+    --button-info-hover-border-color: #57c3ff;
+    --button-info-hover-background-color: #57c3ff19;
+    --button-info-hover-color: #ffffff;
+
+    --button-warn-border-color: #fdb52a;
+    --button-warn-background-color: transparent;
+    --button-warn-color: #ffffff;
+    --button-warn-hover-border-color: #fdb52a;
+    --button-warn-hover-background-color: #fdb52a19;
+    --button-warn-hover-color: #ffffff;
+
+    --button-success-border-color: #14ca74;
+    --button-success-background-color: #14ca74;
+    --button-success-color: #ffffff;
+    --button-success-hover-border-color: #11845b;
+    --button-success-hover-background-color: #11845b;
+    --button-success-hover-color: #ffffff;
+
+    --button-danger-border-color: #ff5a65;
+    --button-danger-background-color: #ff5a65;
+    --button-danger-color: #ffffff;
+    --button-danger-hover-border-color: #dc2b2b;
+    --button-danger-hover-background-color: #dc2b2b;
+    --button-danger-hover-color: #ffffff;
+
+    --button-plain-color: #949ba2;
+    --button-plain-hover-color: #ffffff;
+
+    // needs update from here to bottom
+    --dropdown-border-color: #343b4f;
+    --dropdown-header-background-color: #212c4d;
+    --dropdown-header-border-focus-color: #6c72ff;
+    --dropdown-header-color: #aeb9e1;
+    --dropdown-options-background-color: #212c4d;
+    --dropdown-options-color: #aeb9e1;
+    --dropdown-options-hover-background-color: #37446b;
+    --dropdown-options-hover-color: #ffffff;
+    --dropdown-options-selected-background-color: #6c72ff;
+    --dropdown-options-selected-color: #ffffff;
+    --dropdown-chips-background-color: #37446b;
+    --dropdown-chips-color: #ffffff;
+    --dropdown-chips-border-color: #343b4f;
+    --dropdown-chips-hover-background-color: #6c72ff;
+    --dropdown-action-color: #aeb9e1;
+    --dropdown-action-background-color: #212c4d;
+    --dropdown-action-hover-color: #ffffff;
+    --dropdown-action-hover-background-color: #37446b;
+
+    --badge-padding: 1px 4px;
+
+    --tabs-active-background-color: #6c72ff;
+    --tabs-active-color: #ffffff;
+    --tabs-inactive-background-color: transparent;
+    --tabs-inactive-color: #aeb9e1;
+
+    --modal-background-color: #101935;
+    --modal-border-color: #343b4f;
+    --modal-header-background-color: #212c4d;
+    --modal-header-color: #ffffff;
+    --modal-body-color: #aeb9e1;
+    --modal-footer-background-color: #080f25;
+    --modal-color: #ffffff;
+
+    --list-alternate-background-color: #212c4d;
+    --list-hover-background-color: #37446b;
+
+    --progress-bar-background-color: #7e89ac;
+    --progress--bar-color: #7e89ac;
+
+    --progress-default-bar-border-color: #343b4f;
+    --progress-default-bar-fill-color: #6c72ff;
+
+    --progress-success-bar-border-color: #14ca74;
+    --progress-success-bar-fill-color: #14ca74;
+
+    --progress-info-bar-border-color: #57c3ff;
+    --progress-info-bar-fill-color: #57c3ff;
+
+    --progress-warn-bar-border-color: #fdb52a;
+    --progress-warn-bar-fill-color: #fdb52a;
+
+    --progress-danger-bar-border-color: #ff5a65;
+    --progress-danger-bar-fill-color: #ff5a65;
+
+    --form-control-background-color: #212c4d;
+    --form-control-color: #aeb9e1;
+    --form-control-border-color: #343b4f;
+    --form-control-focus-background-color: #212c4d;
+    --form-control-focus-border-color: #6c72ff;
+    --form-control-focus-color: #ffffff;
+    --form-control-placeholder-color: #7e89ac;
+
+    --form-control-selection-background-color: #6c72ff;
+    --form-control-selection-border-color: #6c72ff;
+    --form-control-selection-color: #fff;
+    --form-control-selection-label-color: #fff;
+
+    --tooltip-background-color: #fdb52a;
+    --tooltip-border-color: #fdb52a;
+    --tooltip-color: #ffffff;
+
+    --popover-background-color: #101935;
+    --popover-border-color: #fdb52a;
+    --popover-color: #fdb52a;
+    --popover-arrow-color: #fdb52a;
+
+    --toast-info-background-color: #57c3ff;
+    --toast-info-color: #ffffff;
+    --toast-info-border-color: #57c3ff;
+
+    --toast-success-background-color: #14ca74;
+    --toast-success-color: #ffffff;
+    --toast-success-border-color: #14ca74;
+
+    --toast-warning-background-color: #fdb52a;
+    --toast-warning-color: #ffffff;
+    --toast-warning-border-color: #fdb52a;
+
+    --toast-danger-background-color: #ff5a65;
+    --toast-danger-color: #ffffff;
+    --toast-danger-border-color: #ff5a65;
+
+    --loader-border-color: #6c72ff33;
+    --loader-border-top-color: #6c72ff;
+
+    --rating-color-success: #14ca74;
+    --rating-color-warn: #fdb52a;
+    --rating-color-danger: #ff5a65;
+    --rating-color-info: #57c3ff;
+    --rating-empty-color: #7e89ac;
+    --rating-empty-label-color: #d9e1fa;
+    --rating-half-rate-empty-color: #7e89ac;
+
+    --slider-track-background-color: #212c4d;
+    --slider-track-border-color: #343b4f;
+    --slider-track-hover-background-color: #37446b;
+    --slider-track-hover-border-color: #6c72ff;
+    --slider-thumb-background-color: #6c72ff;
+    --slider-thumb-border-color: #6c72ff;
+    --slider-thumb-hover-background-color: #9a91fb;
+    --slider-thumb-hover-border-color: #9a91fb;
+
+    --note-container-effect-background-color: #6c72ff19;
+    --note-container-effect-color: #aeb9e1;
+    --note-container-effect-border-lef-tcolor: #6c72ff;
+
+    --infuse-effect-hover-border-color: #6c72ff;
+    --infuse-effect-hover-box-shadow-color: #6c72ff33;
+    --infuse-effect-before-background: linear-gradient(90deg, #6c72ff, #9a91fb);
+
+    --up-lift-effect-hover-border-color: #6c72ff;
+    --up-lift-effect-box-shadow-color: #14142b29;
+    --up-lift-effect-hover-box-shadow-color: #6c72ff33;
+    --up-lift-effect-before-background: linear-gradient(135deg, #6c72ff 0%, #9a91fb 100%);
+}

@@ -7,6 +7,7 @@ import { Modal } from '../Modal';
 import { useTheme } from './useTheme';
 
 import './ThemeModal.scss';
+import { Theme } from './ThemeContext';
 
 interface ThemeModalProps {
     isOpen: boolean;
@@ -27,6 +28,12 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
         { label: 'Light Blue', value: 'light-blue' },
         { label: 'Luna', value: 'luna' },
         { label: 'MinTone', value: 'mintone' },
+        { label: 'Argon Dashboard Dark', value: 'argon-dark' },
+        { label: 'Aargon Dashboard Light', value: 'argon-light' },
+        { label: 'CRMi', value: 'crmi' },
+        { label: 'DashDark X', value: 'dashdarkx' },
+        { label: 'Tailwind View Dark', value: 'tailwind-vue-dark' },
+        { label: 'Tailwind View Light', value: 'tailwind-vue-light' },
     ];
 
     const componentsWithEffects = ['Card', 'Modal'];
@@ -63,7 +70,7 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
 
     const handleThemeChange = (option: DropdownOption | DropdownOption[] | null) => {
         if (option && !Array.isArray(option)) {
-            setTheme(option.value as 'light-blue' | 'luna' | 'mintone');
+            setTheme(option.value as Theme);
         }
     };
 
@@ -116,7 +123,14 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
                 <div className="theme-modal__content">
                     <div className="theme-modal__section">
                         <label htmlFor="theme-selector">Select Theme</label>
-                        <Dropdown id="theme-selector" name="theme" options={themeOptions} value={theme} onChange={handleThemeChange} placeholder="Choose a theme" />
+                        <Dropdown
+                            id="theme-selector"
+                            name="theme"
+                            options={themeOptions}
+                            value={theme}
+                            onChange={handleThemeChange}
+                            placeholder="Choose a theme"
+                        />
                     </div>
 
                     <div className="theme-modal__section">

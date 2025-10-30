@@ -16,7 +16,13 @@
     "./dist/styles/effects.scss": "./dist/styles/effects.scss",
     "./dist/styles/theming/luna.scss": "./dist/styles/theming/luna.scss",
     "./dist/styles/theming/light-blue.scss": "./dist/styles/theming/light-blue.scss",
-    "./dist/styles/theming/mintone.scss": "./dist/styles/theming/mintone.scss"
+    "./dist/styles/theming/mintone.scss": "./dist/styles/theming/mintone.scss",
+    "./dist/styles/theming/argon-dark.scss": "./dist/styles/theming/argon-dark.scss",
+    "./dist/styles/theming/argon-light.scss": "./dist/styles/theming/argon-light.scss",
+    "./dist/styles/theming/crmi.scss": "./dist/styles/theming/crmi.scss",
+    "./dist/styles/theming/dashdarkx.scss": "./dist/styles/theming/dashdarkx.scss",
+    "./dist/styles/theming/tailwind-vue-dark.scss": "./dist/styles/theming/tailwind-vue-dark.scss",
+    "./dist/styles/theming/tailwind-vue-light.scss": "./dist/styles/theming/tailwind-vue-light.scss"
   },
   "files": [
     "dist"
