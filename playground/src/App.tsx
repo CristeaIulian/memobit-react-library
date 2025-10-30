@@ -25,6 +25,7 @@ import {
     ThemeProvider,
     TipsOfTheDay,
     Toast,
+    ToggleButtons,
     usePopover,
 } from '../../src';
 import { useBreakpoint } from '../../src';
@@ -82,6 +83,8 @@ function App() {
     const [sliderValue1, setSliderValue1] = useState<number>(50);
     const [sliderValue2, setSliderValue2] = useState<number>(7);
     const [isThemeModalOpen, setThemeModalOpen] = useState<boolean>(false);
+    const [toggleState2, setToggleState2] = useState<string>('option1');
+    const [toggleState4, setToggleState4] = useState<string>('view1');
 
     const popover = usePopover();
 
@@ -677,6 +680,40 @@ function App() {
                             <h3>Textarea</h3>
                             <div className="component-group">
                                 <Textarea value={textareaField} onChange={value => setTextareaField(value)} />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ToggleButtons Components */}
+                    <section className="playground__section">
+                        <h2>ToggleButtons Component</h2>
+                        <div className="showcase-group">
+                            <h3>2 Buttons Toggle</h3>
+                            <div className="component-group">
+                                <ToggleButtons
+                                    state={toggleState2}
+                                    onToggleChange={setToggleState2}
+                                    states={[
+                                        { key: 'option1', label: 'List View', icon: '☰' },
+                                        { key: 'option2', label: 'Grid View', icon: '▦' },
+                                    ]}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="showcase-group">
+                            <h3>4 Buttons Toggle</h3>
+                            <div className="component-group">
+                                <ToggleButtons
+                                    state={toggleState4}
+                                    onToggleChange={setToggleState4}
+                                    states={[
+                                        { key: 'view1', label: 'Day', icon: '☀' },
+                                        { key: 'view2', label: 'Week', icon: '📅' },
+                                        { key: 'view3', label: 'Month', icon: '📆' },
+                                        { key: 'view4', label: 'Year', icon: '🗓' },
+                                    ]}
+                                />
                             </div>
                         </div>
                     </section>
