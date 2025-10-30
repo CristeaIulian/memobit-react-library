@@ -21,21 +21,6 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         fontUrl: 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap',
     },
     {
-        value: 'argon-dark',
-        label: 'Argon Dashboard Dark',
-        fontUrl: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap',
-    },
-    {
-        value: 'argon-light',
-        label: 'Argon Dashboard Light',
-        fontUrl: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap',
-    },
-    {
-        value: 'crmi',
-        label: 'CRMi',
-        fontUrl: 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap',
-    },
-    {
         value: 'dashdarkx',
         label: 'DashDark X',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap',
@@ -43,11 +28,6 @@ export const THEME_CONFIGS: ThemeConfig[] = [
     {
         value: 'tailwind-vue-dark',
         label: 'Tailwind View Dark',
-        fontUrl: 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swa',
-    },
-    {
-        value: 'tailwind-vue-light',
-        label: 'Tailwind View Light',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swa',
     },
 ];
