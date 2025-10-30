@@ -1,5 +1,6 @@
 import React, { FC, MouseEvent, ReactElement, ReactNode, useEffect } from 'react';
 
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { useComponentEffect } from '../../hooks/useComponentEffect';
 import { Button } from '../Button';
 
@@ -37,6 +38,7 @@ export const Modal: FC<ModalProps> = ({
     title,
 }: ModalProps): ReactElement | null => {
     const effectClass = useComponentEffect('Modal');
+    useBodyScrollLock(isOpen);
 
     useEffect(() => {
         const handleEscape = (event: KeyboardEvent) => {
