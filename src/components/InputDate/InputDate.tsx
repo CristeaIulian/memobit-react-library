@@ -16,7 +16,7 @@ interface InputDateProps {
     onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
     readOnly?: boolean;
     required?: boolean;
-    type?: 'datetime-local' | 'date';
+    type?: 'datetime' | 'date';
     value?: string;
 }
 

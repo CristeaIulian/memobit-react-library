@@ -143,7 +143,7 @@
 
         .dropdown-toggle-button {
             right: 0;
-            background: transparent;
+            background-color: var(--dropdown-header-background-color);
 
             button {
                 border-radius: 0 var(--radius-sm) var(--radius-sm) 0;

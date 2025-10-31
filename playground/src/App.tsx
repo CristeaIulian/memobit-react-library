@@ -61,6 +61,21 @@ function App() {
         },
     ];
 
+    const dropdownLongTextOptions = [
+        {
+            value: 'option-1',
+            label: 'This is a long text',
+        },
+        {
+            value: 'option-2',
+            label: 'This is another long text',
+        },
+        {
+            value: 'option-3',
+            label: 'And here is the 3rd long text',
+        },
+    ];
+
     // const selectedClinic = formatClinicOptions[1];
     const selectedClinic = 'option-2--temp';
 
@@ -366,6 +381,23 @@ function App() {
                                         options={formatClinicOptions}
                                         value={selectedClinic}
                                         onChange={handleClinicSelect}
+                                        placeholder="Caută sau selectează clinica..."
+                                        searchable
+                                        searchValue={clinicSearch}
+                                        onSearchChange={handleClinicSearchChange}
+                                        className="add-results-modal__clinic-dropdown"
+                                        usePortal
+                                    />
+                                </div>
+                            </div>
+                            <div className="showcase-group">
+                                <h3>Dropdown with Long text</h3>
+                                <div className="component-group" style={{ width: '130px' }}>
+                                    <Dropdown
+                                        name="test-dd"
+                                        label="some label"
+                                        options={dropdownLongTextOptions}
+                                        onChange={newOption => console.log('handleLongTextSelect', newOption)}
                                         placeholder="Caută sau selectează clinica..."
                                         searchable
                                         searchValue={clinicSearch}
