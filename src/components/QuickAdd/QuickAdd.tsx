@@ -92,7 +92,7 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 
                     text: 'Cancel',
                     onClick: handleClose,
                     icon: '❎',
-                    variant: 'danger',
+                    variant: 'default',
                     disabled: loading,
                 }}
             >

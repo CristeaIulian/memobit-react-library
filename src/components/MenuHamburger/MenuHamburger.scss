@@ -23,6 +23,10 @@
         overflow: hidden;
         z-index: 999;
         animation: slideDown 0.2s ease;
+
+        button {
+            border-radius: 0 !important;
+        }
     }
 
     &_item {

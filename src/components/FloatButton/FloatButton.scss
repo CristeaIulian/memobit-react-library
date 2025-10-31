@@ -9,7 +9,7 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background-color: var(--body-accent-color);
+    background-color: var(--button-warn-background-color);
     border: none;
     cursor: pointer;
     display: flex;
@@ -21,7 +21,7 @@
     z-index: 1001;
 
     &:hover {
-        background-color: var(--links-hover-color);
+        background-color: var(--button-warn-hover-background-color);
         transform: scale(1.1);
         box-shadow: 0 6px var(--spacing-16) var(--box-shadow);
     }
@@ -31,7 +31,7 @@
     }
 
     &--active {
-        background-color: var(--body-danger-color);
+        background-color: var(--button-info-background-color);
 
         &:hover {
             background-color: var(--button-danger-hover-background-color);

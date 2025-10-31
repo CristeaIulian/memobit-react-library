@@ -50,7 +50,7 @@ export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ isOpen = false, 
                 text: 'Cancel',
                 onClick: onClose,
                 icon: '❎',
-                variant: 'danger',
+                variant: 'default',
                 disabled: isSaving,
             }}
         >
