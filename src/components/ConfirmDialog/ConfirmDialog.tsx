@@ -1,46 +1,56 @@
 import React from 'react';
 
+import { ButtonVariant } from '../Button';
 import { Modal } from '../Modal';
 
 import './ConfirmDialog.scss';
 
 interface ConfirmDialogProps {
-    cancelText?: string;
-    confirmText?: string;
     isOpen: boolean;
     message: string;
-    onCancel: () => void;
-    onConfirm: () => void;
+
+    onSecondaryButtonClick: () => void;
+    onPrimaryButtonClick: () => void;
+    primaryButtonLabel?: string;
+    primaryButtonPrefixIcon?: string;
+    primaryButtonVariant?: ButtonVariant;
+    secondaryButtonLabel?: string;
+    secondaryButtonPrefixIcon?: string;
+    secondaryButtonVariant?: ButtonVariant;
     title: string;
 }
 
-export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
-    cancelText = 'Cancel',
-    confirmText = 'Confirm',
+const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     isOpen = false,
     message,
-    onCancel,
-    onConfirm,
+    onSecondaryButtonClick,
+    onPrimaryButtonClick,
+    primaryButtonLabel = 'Confirm',
+    primaryButtonPrefixIcon = '✓',
+    primaryButtonVariant = 'danger',
+    secondaryButtonLabel = 'Cancel',
+    secondaryButtonPrefixIcon = '❎',
+    secondaryButtonVariant = 'default',
     title,
 }) => {
     return (
         <Modal
             isOpen={isOpen}
             title={title}
-            onClose={onCancel}
+            onClose={onSecondaryButtonClick}
             size="small"
             className="confirm-dialog"
             primaryButton={{
-                text: confirmText,
-                onClick: onConfirm,
-                icon: '✓',
-                variant: 'success',
+                text: primaryButtonLabel,
+                onClick: onPrimaryButtonClick,
+                icon: primaryButtonPrefixIcon,
+                variant: primaryButtonVariant,
             }}
             secondaryButton={{
-                text: cancelText,
-                onClick: onCancel,
-                icon: '❎',
-                variant: 'default',
+                text: secondaryButtonLabel,
+                onClick: onSecondaryButtonClick,
+                icon: secondaryButtonPrefixIcon,
+                variant: secondaryButtonVariant,
             }}
         >
             <div className="confirm-dialog__body">
@@ -49,3 +59,4 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         </Modal>
     );
 };
+export default ConfirmDialog;

@@ -76,6 +76,7 @@ function App() {
 
     const [isChecked, setChecked] = useState<boolean>(false);
     const [isConfirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false);
+    const [isConfirmDialogOpen2, setConfirmDialogOpen2] = useState<boolean>(false);
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
     const [isModalOpen2, setModalOpen2] = useState<boolean>(false);
     const [toastState, setToastState] = useState<string | null>(null);
@@ -254,13 +255,30 @@ function App() {
                                 <ConfirmDialog
                                     message="this is the message"
                                     isOpen={isConfirmDialogOpen}
-                                    onConfirm={() => setConfirmDialogOpen(!isConfirmDialogOpen)}
-                                    onCancel={() => setConfirmDialogOpen(!isConfirmDialogOpen)}
+                                    onPrimaryButtonClick={() => setConfirmDialogOpen(false)}
+                                    onSecondaryButtonClick={() => setConfirmDialogOpen(false)}
                                     title="this is the title"
-                                    confirmText="Confirm"
-                                    cancelText="Cancel"
                                 />
                                 <Button onClick={() => setConfirmDialogOpen(true)}>Show Confirm Dialog</Button>
+                            </div>
+                        </div>
+                        <div className="showcase-group">
+                            <h3>ConfirmDialog with custom button props</h3>
+                            <div className="component-group">
+                                <ConfirmDialog
+                                    message="this is the message"
+                                    isOpen={isConfirmDialogOpen2}
+                                    primaryButtonLabel="Ok"
+                                    primaryButtonPrefixIcon="👌"
+                                    primaryButtonVariant="warning"
+                                    secondaryButtonLabel="Abort"
+                                    secondaryButtonPrefixIcon="🚫"
+                                    secondaryButtonVariant="info"
+                                    onPrimaryButtonClick={() => setConfirmDialogOpen2(false)}
+                                    onSecondaryButtonClick={() => setConfirmDialogOpen2(false)}
+                                    title="this is the title"
+                                />
+                                <Button onClick={() => setConfirmDialogOpen2(true)}>Show Confirm Dialog</Button>
                             </div>
                         </div>
                     </section>

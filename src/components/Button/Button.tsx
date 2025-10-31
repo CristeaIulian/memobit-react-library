@@ -2,7 +2,9 @@ import React, { MouseEvent } from 'react';
 
 import './Button.scss';
 
-interface ButtonProps {
+export type ButtonVariant = 'plain' | 'default' | 'success' | 'info' | 'warning' | 'danger';
+
+export interface ButtonProps {
     borders?: 'sharp' | 'rounded';
     children?: React.ReactNode;
     className?: string;
@@ -13,7 +15,7 @@ interface ButtonProps {
     size?: 'small' | 'medium' | 'large';
     type?: 'button' | 'submit' | 'reset';
     title?: string;
-    variant?: 'plain' | 'default' | 'success' | 'info' | 'warning' | 'danger';
+    variant?: ButtonVariant;
 }
 
 export const Button: React.FC<ButtonProps> = ({

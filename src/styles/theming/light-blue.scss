@@ -2,16 +2,19 @@
 // Light Blue theme - Dark theme with blue tones
 [data-theme='light-blue'] {
     --font-family: 'Open Sans', sans-serif;
+
     --body-background: radial-gradient(farthest-side at 10% 0px, rgb(51, 56, 103) 20%, rgb(23, 25, 59)) 0% 0% / cover no-repeat fixed;
     --body-color: #f4f4f5b3;
     --body-color-accent: #e8ecf7;
     --body-color-muted: #5b5f63;
     --body-title-color: #b8c1ec;
+    --body-sub-title-color: #b8c1ec; // to update
     --body-accent-color: #5b8ff9;
     --body-danger-color: #f5222d;
 
     --backdrop-color: #0000007f;
     --text-shadow: #0d0f1a;
+    --box-shadow: #14142b0f;
 
     --header-background-color: transparent;
     --header-border-bottom-color: #3b3d46;
@@ -22,8 +25,10 @@
     --card-background-accent-color: #242840;
     --card-border-color: #1b1e3c;
     --card-border-accent-color: #5b8ff9; // active items - generally border-left 2-4px
+    --card-hover-border-color: #1b1e3c; // to update
     --card-color: #f4f4f5b3;
     --card-accent-color: #b8c1ec;
+    --card-box-shadow: 0 2px 7px #00000019;
 
     --links-color: #218bc3;
     --links-hover-color: #165c82;

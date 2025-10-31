@@ -2,7 +2,7 @@ import React, { FC, MouseEvent, ReactElement, ReactNode, useEffect } from 'react
 
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { useComponentEffect } from '../../hooks/useComponentEffect';
-import { Button } from '../Button';
+import { Button, ButtonVariant } from '../Button';
 
 import './Modal.scss';
 
@@ -10,7 +10,7 @@ export interface ModalButtonConfig {
     text: string;
     onClick: () => void;
     icon?: string;
-    variant?: 'default' | 'success' | 'danger' | 'warning' | 'plain';
+    variant?: ButtonVariant;
     disabled?: boolean;
 }
 

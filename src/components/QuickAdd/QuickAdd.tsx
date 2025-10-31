@@ -5,16 +5,18 @@ import { InputText } from '../InputText';
 import { Modal } from '../Modal';
 
 import './QuickAdd.scss';
+import { ButtonVariant } from '../Button/Button';
 
 interface QuickAddProps {
     buttonText: string;
+    buttonVariant?: ButtonVariant;
     placeholder: string;
     title: string;
     onSave: (value: string) => Promise<void> | void;
     icon?: string;
 }
 
-export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, placeholder, title, onSave, icon = '➕' }) => {
+export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 'default', placeholder, title, onSave, icon = '➕' }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [value, setValue] = useState('');
     const [loading, setLoading] = useState(false);
@@ -69,7 +71,7 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, placeholder, tit
     return (
         <div className="quick-add">
             {/* Trigger Button */}
-            <Button variant="default" prefixIcon={icon} onClick={handleOpen}>
+            <Button variant={buttonVariant} prefixIcon={icon} onClick={handleOpen}>
                 {buttonText}
             </Button>
 
