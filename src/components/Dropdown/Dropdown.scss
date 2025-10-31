@@ -107,6 +107,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: var(--dropdown-header-background-color);
 
             button {
                 padding: var(--spacing-8) var(--spacing-12);
@@ -143,7 +144,6 @@
 
         .dropdown-toggle-button {
             right: 0;
-            background-color: var(--dropdown-header-background-color);
 
             button {
                 border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
