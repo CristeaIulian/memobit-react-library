@@ -16,6 +16,7 @@ export interface DropdownOption {
 
 export interface DropdownProps {
     allowCustomValue?: boolean;
+    autofocus?: boolean;
     className?: string;
     disabled?: boolean;
     id?: string;
@@ -34,6 +35,7 @@ export interface DropdownProps {
 
 export const Dropdown: React.FC<DropdownProps> = ({
     allowCustomValue = false,
+    autofocus = false,
     className = '',
     disabled = false,
     id = 'dropdown',
@@ -564,6 +566,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     onClick={handleInputClick}
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
+                    autoFocus={autofocus}
                     disabled={disabled}
                 />
 
