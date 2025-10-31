@@ -100,15 +100,15 @@
     --tabs-inactive-background-color: transparent;
     --tabs-inactive-color: #90a1b9;
 
-    --modal-background-color: #0f172bb3;
-    --modal-border-color: #0f172bb3;
-    --modal-header-background-color: #0f172bb3;
-    --modal-header-color: #0f172bb3;
+    --modal-background-color: #0f172bee;
+    --modal-border-color: #0f172bee;
+    --modal-header-background-color: #0f172bee;
+    --modal-header-color: #0f172bee;
     --modal-body-color: #f9f3f4;
-    --modal-footer-background-color: #0f172bb3;
+    --modal-footer-background-color: #0f172bee;
     --modal-color: #f9f3f4;
-    --modal-box-shadow: rgba(0, 0, 0, 0) 0 0 0 0; // new
-    --modal-box-shadow-hover: none; // new
+    --modal-box-shadow: 0 0 3px 1px #111;
+    --modal-box-shadow-hover: 0 0 1px 1px #222;
 
     --list-alternate-background-color: #1d293d;
     --list-hover-background-color: #314158;
