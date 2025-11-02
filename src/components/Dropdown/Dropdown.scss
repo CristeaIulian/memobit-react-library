@@ -32,10 +32,9 @@
             right: var(--spacing-80);
             z-index: 1;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: var(--spacing-4);
-            max-height: var(--spacing-60);
-            overflow-y: auto;
+            overflow: hidden;
             pointer-events: none;
 
             .dropdown-selected-item {
@@ -50,6 +49,7 @@
                 line-height: 1.2;
                 pointer-events: all;
                 max-width: 150px;
+                flex-shrink: 0;
 
                 &:hover {
                     background-color: var(--dropdown-chips-hover-background-color);
@@ -68,18 +68,19 @@
                 }
             }
 
-            // Scrollbar styling for selected items
-            &::-webkit-scrollbar {
-                width: var(--spacing-4);
-            }
-
-            &::-webkit-scrollbar-track {
-                background: transparent;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background: rgba(255, 255, 255, 0.2);
-                border-radius: var(--spacing-2);
+            .dropdown-more-indicator {
+                display: inline-flex;
+                align-items: center;
+                background-color: var(--dropdown-chips-background-color);
+                border: var(--spacing-1) solid var(--dropdown-chips-border-color);
+                color: var(--dropdown-chips-color);
+                padding: var(--spacing-2) var(--spacing-8);
+                border-radius: var(--radius-sm);
+                font-size: var(--font-size-xs);
+                line-height: 1.2;
+                white-space: nowrap;
+                flex-shrink: 0;
+                font-weight: var(--font-weight-medium);
             }
         }
 
@@ -90,79 +91,90 @@
         }
 
         // Adjust input padding when there are selected items in multiple mode
-        &:has(.dropdown-selected-items) .dropdown-input {
-            padding-top: var(--spacing-32);
-            min-height: var(--spacing-48); // Reduced height since we only show one row
+        &:has(.dropdown-selected-items) .input-text {
+            padding-top: 38px;
 
             @media (max-width: 768px) {
-                min-height: var(--spacing-60);
-                padding-top: var(--spacing-40);
+                min-height: var(--spacing-64);
+                padding-top: var(--spacing-48);
             }
         }
 
-        .dropdown-action-button {
+        .dropdown-actions-buttons {
             position: absolute;
+            right: 0;
             top: 50%;
             transform: translateY(-50%);
+            background-color: var(--dropdown-header-background-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--dropdown-header-background-color);
+            padding: 6px;
+            z-index: 1;
+            height: 100%;
 
-            button {
-                padding: var(--spacing-8) var(--spacing-12);
-                border-radius: 0;
+            .dropdown-action-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
-                &:hover {
-                    background-color: var(--dropdown-action-hover-background-color);
-                }
+                button {
+                    padding: var(--spacing-8) var(--spacing-12);
+                    border-radius: 0;
 
-                svg {
-                    fill: var(--dropdown-action-color);
+                    span {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
 
                     &:hover {
-                        fill: var(--dropdown-action-hover-color);
+                        background-color: var(--dropdown-action-hover-background-color);
+                    }
+
+                    svg {
+                        fill: var(--dropdown-action-color);
+
+                        &:hover {
+                            fill: var(--dropdown-action-hover-color);
+                        }
                     }
                 }
             }
-        }
 
-        .dropdown-clear-button {
-            right: var(--spacing-40);
+            .dropdown-clear-button {
+                &:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 var(--spacing-2) var(--control-focus-ring);
+                }
 
-            &:focus {
-                outline: none;
-                box-shadow: 0 0 0 var(--spacing-2) var(--control-focus-ring);
+                @media (max-width: 768px) {
+                    width: var(--spacing-40);
+                    height: var(--spacing-40);
+                    right: var(--spacing-40);
+                }
             }
 
-            @media (max-width: 768px) {
-                width: var(--spacing-40);
-                height: var(--spacing-40);
-                right: var(--spacing-40);
-            }
-        }
+            .dropdown-toggle-button {
+                button {
+                    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+                }
 
-        .dropdown-toggle-button {
-            right: 0;
-
-            button {
-                border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            }
-
-            .dropdown-arrow-icon {
-                width: var(--spacing-16);
-                height: var(--spacing-16);
-                transition: transform 200ms ease-in-out;
-            }
-
-            &:focus {
-                outline: none;
-                box-shadow: inset 0 0 0 var(--spacing-2) var(--control-focus-ring);
-            }
-
-            &.open {
                 .dropdown-arrow-icon {
-                    transform: rotate(180deg);
+                    width: var(--spacing-16);
+                    height: var(--spacing-16);
+                    transition: transform 200ms ease-in-out;
+                }
+
+                &:focus {
+                    outline: none;
+                    box-shadow: inset 0 0 0 var(--spacing-2) var(--control-focus-ring);
+                }
+
+                &.open {
+                    .dropdown-arrow-icon {
+                        transform: rotate(180deg);
+                    }
                 }
             }
         }

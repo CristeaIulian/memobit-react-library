@@ -543,7 +543,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             <div className="dropdown-input-container">
                 {multiple && selectedOptions.length > 0 && (
                     <div className="dropdown-selected-items">
-                        {selectedOptions.slice(0, 5).map(option => (
+                        {selectedOptions.slice(0, 3).map(option => (
                             <div key={option.value} className="dropdown-selected-item">
                                 <span className="dropdown-selected-item-label">{option.label}</span>
                                 <span className="dropdown-selected-item-clear">
@@ -553,7 +553,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                 </span>
                             </div>
                         ))}
-                        {selectedOptions.length > 5 && <div className="dropdown-more-indicator">+{selectedOptions.length - 5} more</div>}
+                        {selectedOptions.length > 3 && <div className="dropdown-more-indicator">+{selectedOptions.length - 3} more</div>}
                     </div>
                 )}
 
@@ -570,19 +570,21 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     disabled={disabled}
                 />
 
-                {((!multiple && selectedOptions.length > 0) || (multiple && selectedOptions.length > 0)) && (
-                    <span className="dropdown-action-button dropdown-clear-button">
-                        <Button variant="plain" onClick={handleClear} disabled={disabled}>
-                            {clearIcon}
+                <div className="dropdown-actions-buttons">
+                    {((!multiple && selectedOptions.length > 0) || (multiple && selectedOptions.length > 0)) && (
+                        <span className="dropdown-action-button dropdown-clear-button">
+                            <Button variant="plain" onClick={handleClear} disabled={disabled}>
+                                {clearIcon}
+                            </Button>
+                        </span>
+                    )}
+
+                    <span className={`dropdown-action-button dropdown-toggle-button ${isOpen ? 'open' : ''}`}>
+                        <Button variant="plain" onClick={toggleDropdown} disabled={disabled}>
+                            {verticalCaret}
                         </Button>
                     </span>
-                )}
-
-                <span className={`dropdown-action-button dropdown-toggle-button ${isOpen ? 'open' : ''}`}>
-                    <Button variant="plain" onClick={toggleDropdown} disabled={disabled}>
-                        {verticalCaret}
-                    </Button>
-                </span>
+                </div>
             </div>
 
             {renderDropdownMenu()}
