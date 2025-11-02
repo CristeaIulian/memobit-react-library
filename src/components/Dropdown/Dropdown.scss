@@ -165,10 +165,6 @@
                     transform: rotate(180deg);
                 }
             }
-
-            @media (max-width: 768px) {
-                padding: 0 var(--spacing-16);
-            }
         }
     }
 
