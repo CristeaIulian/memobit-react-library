@@ -102,16 +102,27 @@
 
         .dropdown-actions-buttons {
             position: absolute;
-            right: 0;
+            right: 1px;
             top: 50%;
             transform: translateY(-50%);
-            background-color: var(--dropdown-header-background-color);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 6px;
             z-index: 1;
-            height: 100%;
+            height: calc(100% - 2px);
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: var(--dropdown-header-background-color);
+                opacity: 0.9;
+                z-index: -1;
+            }
 
             .dropdown-action-button {
                 display: flex;
