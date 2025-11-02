@@ -11,13 +11,13 @@ interface QuickNumberUpdateProps {
     max?: number;
     min?: number;
     onClose: () => void;
-    onSave: (value: number) => Promise<void> | void;
+    onSave: (value: number | undefined) => Promise<void> | void;
     title: string;
     value: number;
 }
 
 export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ isOpen = false, title, onClose, onSave, icon, value, min, max }: QuickNumberUpdateProps) => {
-    const [currentValue, setCurrentValue] = useState<number>(value);
+    const [currentValue, setCurrentValue] = useState<number | undefined>(value);
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
     const handleSave = async () => {
@@ -28,8 +28,7 @@ export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ isOpen = false, 
     };
 
     const handleChange = (newValue: number | undefined): void => {
-        const numValue = newValue || 0;
-        setCurrentValue(numValue);
+        setCurrentValue(newValue);
     };
 
     return (
