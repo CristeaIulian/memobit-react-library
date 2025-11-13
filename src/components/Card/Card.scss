@@ -34,7 +34,7 @@
         align-items: center;
         justify-content: space-between;
 
-        &.content-hidden {
+        &.card-content-hidden {
             margin: 0;
         }
 
@@ -53,13 +53,22 @@
         }
     }
 
-    .content {
+    .card-content {
         height: fit-content;
         transition: 0.5s;
 
-        &.content-collapsed {
+        &.card-content-collapsed {
             height: 0;
             overflow: hidden;
+        }
+    }
+
+    .card-footer {
+        background-color: var(--card-footer-background-color);
+        border-radius: 0 0 var(--radius) var(--radius);
+
+        &.card-footer-collapsed {
+            display: none;
         }
     }
 }

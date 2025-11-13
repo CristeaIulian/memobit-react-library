@@ -240,6 +240,23 @@ function App() {
                                 <Card title="some title">Content here</Card>
                             </div>
                         </div>
+
+                        <div className="showcase-group">
+                            <h3>Card with collapsible footer</h3>
+                            <div className="component-group">
+                                <Card title="some title" isCollapsible footerContent={<span>Here is some footer content</span>}>
+                                    Content here
+                                </Card>
+                            </div>
+                        </div>
+                        <div className="showcase-group">
+                            <h3>Card with always visible footer</h3>
+                            <div className="component-group">
+                                <Card title="some title" isCollapsible footerContent={<span>Here is some footer content</span>} isFooterCollapsible={false}>
+                                    Content here
+                                </Card>
+                            </div>
+                        </div>
                     </section>
 
                     {/* Selection Components */}
