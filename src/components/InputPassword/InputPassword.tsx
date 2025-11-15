@@ -1,8 +1,8 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 
-import './InputText.scss';
+import './InputPassword.scss';
 
-interface InputTextProps {
+interface InputPasswordProps {
     autoComplete?: 'on' | 'off';
     autoFocus?: boolean;
     disabled?: boolean;
@@ -18,7 +18,7 @@ interface InputTextProps {
     value?: string;
 }
 
-export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
+export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
     (
         { autoComplete = 'on', autoFocus, disabled, id, onBlur, onChange, onClick, onKeyDown, onKeyUp, placeholder, readOnly = false, required = false, value },
         ref
@@ -28,8 +28,8 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
                 autoComplete={autoComplete}
                 autoFocus={autoFocus}
                 disabled={disabled}
-                type="text"
-                className="input-text"
+                type="password"
+                className="input-password"
                 id={id}
                 placeholder={placeholder}
                 ref={ref}

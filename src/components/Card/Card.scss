@@ -25,6 +25,12 @@
         color: var(--card-accent-color);
     }
 
+    &.is-clickable {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
     h3 {
         margin: 0 0 var(--spacing-16) 0;
         font-size: var(--font-size-md);

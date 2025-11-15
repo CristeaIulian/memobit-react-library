@@ -11,6 +11,7 @@ export { InputFile } from './components/InputFile';
 export { InputDate } from './components/InputDate';
 export { InputNumber } from './components/InputNumber';
 export { InputText } from './components/InputText';
+export { InputPassword } from './components/InputPassword';
 export { Loading } from './components/Loading';
 export { Login } from './components/Login';
 export { MacronutrientsPieChart } from './components/MacronutrientsPieChart'; // ?

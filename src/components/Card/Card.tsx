@@ -14,6 +14,7 @@ interface CardProps {
     isFooterCollapsible?: boolean;
     isHighlighted?: boolean;
     noPadding?: boolean;
+    onClick?: () => void;
     title?: string;
 }
 
@@ -26,6 +27,7 @@ export const Card: React.FC<CardProps> = ({
     isFooterCollapsible = true,
     isHighlighted,
     noPadding,
+    onClick,
     title,
 }: CardProps) => {
     const [isCardCollapsed, seIsCardCollapsed] = useState<boolean>(isCollapsed || false);
@@ -38,7 +40,10 @@ export const Card: React.FC<CardProps> = ({
     }, [isCollapsed]);
 
     return (
-        <div className={`card ${className || ''} ${noPadding ? 'no-padding' : ''} ${isHighlighted ? 'is-highlighted' : ''} ${effectClass}`}>
+        <div
+            className={`card ${className || ''} ${noPadding ? 'no-padding' : ''} ${isHighlighted ? 'is-highlighted' : ''} ${!!onClick ? 'is-clickable' : ''} ${effectClass}`}
+            onClick={onClick}
+        >
             {(title || isCollapsible) && (
                 <h3 className={`${isCardCollapsed ? 'card-content-hidden' : ''}`}>
                     {title}

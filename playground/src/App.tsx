@@ -460,7 +460,7 @@ function App() {
                         </div>
                     </section>
 
-                    {/* InputText Components */}
+                    {/* InputPassword Components */}
                     <section className="playground__section">
                         <h2>InputText Component</h2>
                         <div className="showcase-group">
