@@ -29,6 +29,7 @@ export { Textarea } from './components/Textarea';
 export { TipsOfTheDay } from './components/TipsOfTheDay';
 export { Toast, type ToastDetails } from './components/Toast';
 export { ToggleButtons } from './components/ToggleButtons';
+export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Popover, usePopover } from './components/Popover';
 export { MenuHamburger, type MenuHamburgerItem } from './components/MenuHamburger';
 export { FloatButton } from './components/FloatButton';

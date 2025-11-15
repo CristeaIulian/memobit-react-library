@@ -1,0 +1,307 @@
+.toggle-switch {
+    display: inline-flex;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+
+    &:focus-visible {
+        .toggle-switch__track {
+            box-shadow: 0 0 0 var(--spacing-2) rgba(0, 123, 255, 0.25);
+        }
+    }
+
+    &__track {
+        position: relative;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        background-color: var(--button-danger-background-color);
+        border: var(--spacing-1) solid var(--button-danger-border-color);
+    }
+
+    &__label {
+        position: absolute;
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        color: var(--button-danger-color);
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        z-index: 1;
+    }
+
+    &__thumb {
+        position: absolute;
+        left: var(--spacing-2);
+        background-color: white;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        box-shadow: 0 var(--spacing-2) var(--spacing-4) rgba(0, 0, 0, 0.2);
+        z-index: 2;
+    }
+
+    &.toggle-switch-small {
+        .toggle-switch__track {
+            min-width: 38px;
+            max-width: 150px;
+            height: 16px;
+            padding: var(--spacing-1);
+            border-radius: 8px;
+        }
+
+        .toggle-switch__label {
+            font-size: 8px;
+            right: var(--spacing-4);
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .toggle-switch__thumb {
+            width: 14px;
+            height: 14px;
+            left: var(--spacing-1);
+        }
+
+        &.toggle-switch-checked {
+            .toggle-switch__label {
+                right: auto;
+                left: var(--spacing-4);
+            }
+
+            .toggle-switch__thumb {
+                left: auto;
+                right: var(--spacing-1);
+            }
+        }
+    }
+
+    &.toggle-switch-medium {
+        .toggle-switch__track {
+            min-width: 60px;
+            max-width: 150px;
+            height: 28px;
+            padding: var(--spacing-2);
+            border-radius: 14px;
+        }
+
+        .toggle-switch__label {
+            font-size: var(--font-size-xs);
+            right: var(--spacing-8);
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .toggle-switch__thumb {
+            width: 22px;
+            height: 22px;
+            left: var(--spacing-2);
+        }
+
+        &.toggle-switch-checked {
+            .toggle-switch__label {
+                right: auto;
+                left: var(--spacing-8);
+            }
+
+            .toggle-switch__thumb {
+                left: auto;
+                right: var(--spacing-2);
+            }
+        }
+    }
+
+    &.toggle-switch-large {
+        .toggle-switch__track {
+            min-width: 80px;
+            max-width: 150px;
+            height: 36px;
+            padding: var(--spacing-2);
+            border-radius: 18px;
+        }
+
+        .toggle-switch__label {
+            font-size: var(--font-size-sm);
+            right: var(--spacing-10);
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .toggle-switch__thumb {
+            width: 30px;
+            height: 30px;
+            left: var(--spacing-2);
+        }
+
+        &.toggle-switch-checked {
+            .toggle-switch__label {
+                right: auto;
+                left: var(--spacing-10);
+            }
+
+            .toggle-switch__thumb {
+                left: auto;
+                right: var(--spacing-2);
+            }
+        }
+    }
+
+    &.toggle-switch-checked {
+        .toggle-switch__track {
+            background-color: var(--button-success-background-color);
+            border-color: var(--button-success-border-color);
+        }
+
+        .toggle-switch__label {
+            color: var(--button-success-color);
+        }
+    }
+
+    &.toggle-switch-default {
+        &:not(.toggle-switch-checked) {
+            .toggle-switch__track {
+                background-color: var(--button-default-background-color);
+                border-color: var(--button-default-border-color);
+            }
+
+            .toggle-switch__label {
+                color: var(--button-default-color);
+            }
+        }
+
+        &.toggle-switch-checked {
+            .toggle-switch__track {
+                background-color: var(--button-default-background-color);
+                border-color: var(--button-default-border-color);
+            }
+
+            .toggle-switch__label {
+                color: var(--button-default-color);
+            }
+        }
+    }
+
+    &.toggle-switch-success {
+        .toggle-switch__track {
+            background-color: var(--button-success-background-color);
+            border-color: var(--button-success-border-color);
+        }
+
+        .toggle-switch__label {
+            color: var(--button-success-color);
+        }
+    }
+
+    &.toggle-switch-info {
+        &:not(.toggle-switch-checked) {
+            .toggle-switch__track {
+                background-color: var(--button-danger-background-color);
+                border-color: var(--button-danger-border-color);
+            }
+
+            .toggle-switch__label {
+                color: var(--button-danger-color);
+            }
+        }
+
+        &.toggle-switch-checked {
+            .toggle-switch__track {
+                background-color: var(--button-info-background-color);
+                border-color: var(--button-info-border-color);
+            }
+
+            .toggle-switch__label {
+                color: var(--button-info-color);
+            }
+        }
+    }
+
+    &.toggle-switch-warning {
+        &:not(.toggle-switch-checked) {
+            .toggle-switch__track {
+                background-color: var(--button-danger-background-color);
+                border-color: var(--button-danger-border-color);
+            }
+
+            .toggle-switch__label {
+                color: var(--button-danger-color);
+            }
+        }
+
+        &.toggle-switch-checked {
+            .toggle-switch__track {
+                background-color: var(--button-warn-background-color);
+                border-color: var(--button-warn-border-color);
+            }
+
+            .toggle-switch__label {
+                color: var(--button-warn-color);
+            }
+        }
+    }
+
+    &.toggle-switch-danger {
+        .toggle-switch__track {
+            background-color: var(--button-danger-background-color);
+            border-color: var(--button-danger-border-color);
+        }
+
+        .toggle-switch__label {
+            color: var(--button-danger-color);
+        }
+
+        &.toggle-switch-checked {
+            .toggle-switch__track {
+                background-color: var(--button-success-background-color);
+                border-color: var(--button-success-border-color);
+            }
+
+            .toggle-switch__label {
+                color: var(--button-success-color);
+            }
+        }
+    }
+
+    &.toggle-switch-plain {
+        .toggle-switch__track {
+            background-color: var(--color-gray-300);
+            border-color: var(--color-gray-400);
+        }
+
+        .toggle-switch__label {
+            color: var(--color-gray-700);
+        }
+
+        &.toggle-switch-checked {
+            .toggle-switch__track {
+                background-color: var(--color-gray-500);
+                border-color: var(--color-gray-600);
+            }
+
+            .toggle-switch__label {
+                color: var(--color-gray-900);
+            }
+        }
+    }
+
+    &.toggle-switch-disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+
+        &:hover {
+            .toggle-switch__track {
+                transform: none;
+            }
+        }
+    }
+
+    &:not(.toggle-switch-disabled):hover {
+        .toggle-switch__track {
+            transform: translateY(-1px);
+        }
+    }
+
+    &:not(.toggle-switch-disabled):active {
+        .toggle-switch__track {
+            transform: translateY(0);
+        }
+    }
+}
