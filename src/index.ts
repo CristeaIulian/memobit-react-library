@@ -2,6 +2,7 @@
 export { BMIHorizontalBarIndicator } from './components/BMIHorizontalBarIndicator';
 export { Button } from './components/Button';
 export { Card } from './components/Card';
+export { ChatBot } from './components/ChatBot';
 export { Checkbox } from './components/Checkbox';
 export { ConfirmDialog } from './components/ConfirmDialog';
 export { Dropdown, type DropdownOption } from './components/Dropdown';

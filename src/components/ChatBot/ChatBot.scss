@@ -1,0 +1,18 @@
+.ChatBot {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--spacing-16);
+    width: 100%;
+
+    .input-container {
+        width: 100%;
+        display: flex;
+    }
+
+    .output-container {
+    }
+
+    @media (max-width: 768px) {
+        row-gap: var(--spacing-8);
+    }
+}

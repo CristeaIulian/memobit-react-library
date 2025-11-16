@@ -6,6 +6,7 @@ import {
     BMIHorizontalBarIndicator,
     Button,
     Card,
+    ChatBot,
     Checkbox,
     ConfirmDialog,
     Dropdown,
@@ -441,6 +442,17 @@ function App() {
                             <h3>InformationTooltip</h3>
                             <div className="component-group">
                                 <InformationTooltip title="This is the info tooltip" direction="right" />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ChatBot Components */}
+                    <section className="playground__section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+                        <h2>ChatBot Component</h2>
+                        <div className="showcase-group">
+                            <h3>ChatBot</h3>
+                            <div className="component-group" style={{ width: '500px' }}>
+                                <ChatBot />
                             </div>
                         </div>
                     </section>
