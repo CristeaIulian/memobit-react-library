@@ -180,21 +180,34 @@
     }
 
     &.toggle-switch-success {
-        .toggle-switch__track {
-            background-color: var(--button-success-background-color);
-            border-color: var(--button-success-border-color);
+        &:not(.toggle-switch-checked) {
+            .toggle-switch__track {
+                background-color: var(--button-default-background-color);
+                border-color: var(--button-default-border-color);
+            }
+
+            .toggle-switch__label {
+                color: var(--button-danger-color);
+            }
         }
 
-        .toggle-switch__label {
-            color: var(--button-success-color);
+        &.toggle-switch-checked {
+            .toggle-switch__track {
+                background-color: var(--button-success-background-color);
+                border-color: var(--button-success-border-color);
+            }
+
+            .toggle-switch__label {
+                color: var(--button-success-color);
+            }
         }
     }
 
     &.toggle-switch-info {
         &:not(.toggle-switch-checked) {
             .toggle-switch__track {
-                background-color: var(--button-danger-background-color);
-                border-color: var(--button-danger-border-color);
+                background-color: var(--button-default-background-color);
+                border-color: var(--button-default-border-color);
             }
 
             .toggle-switch__label {
@@ -217,8 +230,8 @@
     &.toggle-switch-warning {
         &:not(.toggle-switch-checked) {
             .toggle-switch__track {
-                background-color: var(--button-danger-background-color);
-                border-color: var(--button-danger-border-color);
+                background-color: var(--button-default-background-color);
+                border-color: var(--button-default-border-color);
             }
 
             .toggle-switch__label {
@@ -240,8 +253,8 @@
 
     &.toggle-switch-danger {
         .toggle-switch__track {
-            background-color: var(--button-danger-background-color);
-            border-color: var(--button-danger-border-color);
+            background-color: var(--button-default-background-color);
+            border-color: var(--button-default-border-color);
         }
 
         .toggle-switch__label {
@@ -250,12 +263,12 @@
 
         &.toggle-switch-checked {
             .toggle-switch__track {
-                background-color: var(--button-success-background-color);
-                border-color: var(--button-success-border-color);
+                background-color: var(--button-danger-background-color);
+                border-color: var(--button-danger-border-color);
             }
 
             .toggle-switch__label {
-                color: var(--button-success-color);
+                color: var(--button-danger-color);
             }
         }
     }
