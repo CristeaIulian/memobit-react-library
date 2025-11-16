@@ -33,6 +33,7 @@ export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Popover, usePopover } from './components/Popover';
 export { MenuHamburger, type MenuHamburgerItem } from './components/MenuHamburger';
+export { ContextMenu } from './components/ContextMenu';
 export { FloatButton } from './components/FloatButton';
 export { ThemeModal, ThemeContext, ThemeProvider, useTheme } from './components/ThemeModal';
 export { ToastContainer, ToastProvider, type ToastType, useToast } from './components/ContextToast';

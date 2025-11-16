@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { type MouseEvent, useCallback, useState } from 'react';
 
 import { Header } from './Header';
 
@@ -47,6 +47,7 @@ import '../../src/styles/theming/tailwind-vue-dark.scss';
 import '../../src/styles/theming/azure-night.scss';
 
 import './App.scss';
+import { ContextMenu } from '../../src/components/ContextMenu';
 
 function App() {
     const { currentBreakpoint, isMobile, isTablet, isDesktop } = useBreakpoint();
@@ -117,6 +118,7 @@ function App() {
     const [toggleSwitch5, setToggleSwitch5] = useState<boolean>(false);
     const [toggleSwitch6, setToggleSwitch6] = useState<boolean>(true);
     const [toggleSwitch7, setToggleSwitch7] = useState<boolean>(false);
+    const [contextMenuTarget, setContextMenuTarget] = useState<EventTarget | null>(null);
 
     const popover = usePopover();
 
@@ -146,6 +148,24 @@ function App() {
             isActive: false,
         },
     ];
+
+    const handleContextMenuActionsButton = (event: MouseEvent<HTMLButtonElement>): void => {
+        setContextMenuTarget(event.target);
+    };
+
+    const closeMenu = () => {
+        setContextMenuTarget(null);
+    };
+
+    const onActionsEdit = useCallback(() => {
+        alert('Edit clicked');
+        closeMenu();
+    }, []);
+
+    const onActionsDelete = useCallback(() => {
+        alert('Delete clicked');
+        closeMenu();
+    }, []);
 
     return (
         <ThemeProvider>
@@ -857,6 +877,30 @@ function App() {
                             <h3>MenuHamburger Custom</h3>
                             <div className="component-group">
                                 <MenuHamburger items={hamburgerMenuItems} icon="🍓" label="Fruits" />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ContextMenu Components */}
+                    <section className="playground__section">
+                        <h2>ContextMenu Component</h2>
+                        <div className="showcase-group">
+                            <h3>ContextMenu</h3>
+                            <div className="component-group">
+                                {contextMenuTarget && (
+                                    <ContextMenu target={contextMenuTarget} onClose={closeMenu}>
+                                        <>
+                                            <Button onClick={onActionsEdit} prefixIcon="✏️">
+                                                Edit
+                                            </Button>
+                                            <Button onClick={onActionsDelete} prefixIcon="🗑️">
+                                                Delete
+                                            </Button>
+                                        </>
+                                    </ContextMenu>
+                                )}
+
+                                <Button onClick={handleContextMenuActionsButton}>Context menu Opener</Button>
                             </div>
                         </div>
                     </section>
