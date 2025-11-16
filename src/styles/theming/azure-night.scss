@@ -1,0 +1,233 @@
+// Azure Night theme - Modern dark theme with electric blue accent
+// Inspired by IoT dashboard with clean, tech-focused aesthetics
+[data-theme='azure-night'] {
+    --font-family: 'Roboto', sans-serif;
+
+    // Base colors
+    --body-background: #1a1a1a;
+    --body-color: #e0e0e0;
+    --body-color-accent: #ffffff;
+    --body-color-muted: #888888;
+    --body-title-color: #ffffff;
+    --body-sub-title-color: #b0b0b0;
+    --body-accent-color: #4a9eff;
+    --body-danger-color: #f44336;
+
+    --backdrop-color: rgba(0, 0, 0, 0.75);
+    --text-shadow: #000000;
+    --box-shadow: rgba(0, 0, 0, 0.25);
+
+    // Header
+    --header-background-color: #2d2d2d;
+    --header-border-bottom-color: #3a3a3a;
+    --header-color: #b0b0b0;
+    --header-font-weight: 500;
+
+    // Cards
+    --card-background-color: #2d2d2d;
+    --card-background-accent-color: #252525;
+    --card-border-color: #3a3a3a;
+    --card-border-accent-color: #4a9eff; // Electric blue accent
+    --card-hover-border-color: #4a9eff;
+    --card-color: #e0e0e0;
+    --card-accent-color: #4a9eff;
+    --card-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-footer-background-color: #252525;
+    --card-footer-color: #b0b0b0;
+
+    // Links
+    --links-color: #4a9eff;
+    --links-hover-color: #6ab0ff;
+
+    // Borders & Delimiters
+    --delimiter-color: #3a3a3a;
+    --border-color: #3a3a3a;
+
+    // Buttons - Default
+    --button-default-border-color: #4a5568;
+    --button-default-background-color: #3a3a3a;
+    --button-default-color: #e0e0e0;
+    --button-default-hover-border-color: #5a6578;
+    --button-default-hover-background-color: rgba(74, 158, 255, 0.1);
+    --button-default-hover-color: #ffffff;
+
+    // Buttons - Info
+    --button-info-border-color: #2196f3;
+    --button-info-background-color: #1976d2;
+    --button-info-color: #ffffff;
+    --button-info-hover-border-color: #42a5f5;
+    --button-info-hover-background-color: rgba(33, 150, 243, 0.15);
+    --button-info-hover-color: #ffffff;
+
+    // Buttons - Warning
+    --button-warn-border-color: #ff9800;
+    --button-warn-background-color: #f57c00;
+    --button-warn-color: #ffffff;
+    --button-warn-hover-border-color: #ffa726;
+    --button-warn-hover-background-color: rgba(255, 152, 0, 0.15);
+    --button-warn-hover-color: #ffffff;
+
+    // Buttons - Success
+    --button-success-border-color: #4caf50;
+    --button-success-background-color: #388e3c;
+    --button-success-color: #ffffff;
+    --button-success-hover-border-color: #66bb6a;
+    --button-success-hover-background-color: rgba(76, 175, 80, 0.15);
+    --button-success-hover-color: #ffffff;
+
+    // Buttons - Danger
+    --button-danger-border-color: #f44336;
+    --button-danger-background-color: #d32f2f;
+    --button-danger-color: #ffffff;
+    --button-danger-hover-border-color: #ef5350;
+    --button-danger-hover-background-color: rgba(244, 67, 54, 0.15);
+    --button-danger-hover-color: #ffffff;
+
+    // Buttons - Plain
+    --button-plain-color: #b0b0b0;
+    --button-plain-hover-color: #ffffff;
+
+    // Dropdown
+    --dropdown-border-color: #3a3a3a;
+    --dropdown-header-background-color: #2d2d2d;
+    --dropdown-header-border-focus-color: #4a9eff;
+    --dropdown-header-color: #e0e0e0;
+    --dropdown-options-background-color: #2d2d2d;
+    --dropdown-options-color: #e0e0e0;
+    --dropdown-options-hover-background-color: rgba(74, 158, 255, 0.2);
+    --dropdown-options-hover-color: #ffffff;
+    --dropdown-options-selected-background-color: rgba(74, 158, 255, 0.3);
+    --dropdown-options-selected-color: #ffffff;
+    --dropdown-chips-background-color: #3a3a3a;
+    --dropdown-chips-color: #e0e0e0;
+    --dropdown-chips-border-color: #4a5568;
+    --dropdown-chips-hover-background-color: #454545;
+    --dropdown-action-color: #b0b0b0;
+    --dropdown-action-background-color: #2d2d2d;
+    --dropdown-action-hover-color: #ffffff;
+    --dropdown-action-hover-background-color: #3a3a3a;
+
+    // Badge
+    --badge-padding: 2px 6px;
+
+    // Tabs
+    --tabs-active-background-color: rgba(74, 158, 255, 0.2);
+    --tabs-active-color: #4a9eff;
+    --tabs-inactive-background-color: transparent;
+    --tabs-inactive-color: #888888;
+
+    // Modal
+    --modal-background-color: #252525;
+    --modal-border-color: #3a3a3a;
+    --modal-header-background-color: #2d2d2d;
+    --modal-header-color: #ffffff;
+    --modal-body-color: #e0e0e0;
+    --modal-footer-background-color: #202020;
+    --modal-color: #e0e0e0;
+    --modal-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --modal-box-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.6);
+
+    // List
+    --list-alternate-background-color: #2a2a2a;
+    --list-hover-background-color: rgba(74, 158, 255, 0.1);
+
+    // Progress Bar
+    --progress-bar-background-color: #3a3a3a;
+    --progress--bar-color: #4a9eff;
+
+    --progress-default-bar-border-color: #4a5568;
+    --progress-default-bar-fill-color: #888888;
+
+    --progress-success-bar-border-color: #4caf50;
+    --progress-success-bar-fill-color: #4caf50;
+
+    --progress-info-bar-border-color: #2196f3;
+    --progress-info-bar-fill-color: #2196f3;
+
+    --progress-warn-bar-border-color: #ff9800;
+    --progress-warn-bar-fill-color: #ff9800;
+
+    --progress-danger-bar-border-color: #f44336;
+    --progress-danger-bar-fill-color: #f44336;
+
+    // Form Controls
+    --form-control-background-color: #2d2d2d;
+    --form-control-color: #e0e0e0;
+    --form-control-border-color: #3a3a3a;
+    --form-control-focus-background-color: #323232;
+    --form-control-focus-border-color: #4a9eff;
+    --form-control-focus-color: #ffffff;
+    --form-control-placeholder-color: #888888;
+
+    --form-control-selection-background-color: #4a9eff;
+    --form-control-selection-border-color: #4a9eff;
+    --form-control-selection-color: #ffffff;
+    --form-control-selection-label-color: #ffffff;
+
+    // Tooltip
+    --tooltip-background-color: #4a9eff;
+    --tooltip-border-color: #4a9eff;
+    --tooltip-color: #ffffff;
+
+    // Popover
+    --popover-background-color: #2d2d2d;
+    --popover-border-color: #4a9eff;
+    --popover-color: #e0e0e0;
+    --popover-arrow-color: #4a9eff;
+
+    // Toast Notifications
+    --toast-info-background-color: #2196f3;
+    --toast-info-color: #ffffff;
+    --toast-info-border-color: #2196f3;
+
+    --toast-success-background-color: #4caf50;
+    --toast-success-color: #ffffff;
+    --toast-success-border-color: #4caf50;
+
+    --toast-warning-background-color: #ff9800;
+    --toast-warning-color: #ffffff;
+    --toast-warning-border-color: #ff9800;
+
+    --toast-danger-background-color: #f44336;
+    --toast-danger-color: #ffffff;
+    --toast-danger-border-color: #f44336;
+
+    // Loader
+    --loader-border-color: rgba(74, 158, 255, 0.2);
+    --loader-border-top-color: #4a9eff;
+
+    // Rating
+    --rating-color-success: #4caf50;
+    --rating-color-warn: #ff9800;
+    --rating-color-danger: #f44336;
+    --rating-color-info: #2196f3;
+    --rating-empty-color: #555555;
+    --rating-empty-label-color: #e0e0e0;
+    --rating-half-rate-empty-color: #555555;
+
+    // Slider
+    --slider-track-background-color: #3a3a3a;
+    --slider-track-border-color: #4a5568;
+    --slider-track-hover-background-color: #404040;
+    --slider-track-hover-border-color: #5a6578;
+    --slider-thumb-background-color: #4a9eff;
+    --slider-thumb-border-color: #4a9eff;
+    --slider-thumb-hover-background-color: #6ab0ff;
+    --slider-thumb-hover-border-color: #6ab0ff;
+
+    // Note Container Effect
+    --note-container-effect-background-color: rgba(74, 158, 255, 0.1);
+    --note-container-effect-color: #e0e0e0;
+    --note-container-effect-border-lef-tcolor: #4a9eff;
+
+    // Infuse Effect
+    --infuse-effect-hover-border-color: #4a9eff;
+    --infuse-effect-hover-box-shadow-color: rgba(74, 158, 255, 0.3);
+    --infuse-effect-before-background: linear-gradient(90deg, #4a9eff, #6ab0ff);
+
+    // Up-lift Effect
+    --up-lift-effect-hover-border-color: #4a9eff;
+    --up-lift-effect-box-shadow-color: rgba(0, 0, 0, 0.4);
+    --up-lift-effect-hover-box-shadow-color: rgba(74, 158, 255, 0.3);
+    --up-lift-effect-before-background: linear-gradient(135deg, #4a9eff 0%, #6ab0ff 100%);
+}

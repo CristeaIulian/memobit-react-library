@@ -37,6 +37,7 @@ import '../../src/styles/theming/mintone.scss';
 import '../../src/styles/theming/light-blue.scss';
 import '../../src/styles/theming/dashdarkx.scss';
 import '../../src/styles/theming/tailwind-vue-dark.scss';
+import '../../src/styles/theming/azure-night.scss';
 
 import './App.scss';
 

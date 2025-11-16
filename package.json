@@ -18,7 +18,8 @@
     "./dist/styles/theming/light-blue.scss": "./dist/styles/theming/light-blue.scss",
     "./dist/styles/theming/mintone.scss": "./dist/styles/theming/mintone.scss",
     "./dist/styles/theming/dashdarkx.scss": "./dist/styles/theming/dashdarkx.scss",
-    "./dist/styles/theming/tailwind-vue-dark.scss": "./dist/styles/theming/tailwind-vue-dark.scss"
+    "./dist/styles/theming/tailwind-vue-dark.scss": "./dist/styles/theming/tailwind-vue-dark.scss",
+    "./dist/styles/theming/azure-night.scss": "./dist/styles/theming/azure-night.scss"
   },
   "files": [
     "dist"

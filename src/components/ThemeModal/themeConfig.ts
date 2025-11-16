@@ -30,6 +30,11 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         label: 'Tailwind View Dark',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swa',
     },
+    {
+        value: 'azure-night',
+        label: 'Azure Night',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+    },
 ];
 
 export const getThemeConfig = (themeValue: string): ThemeConfig | undefined => {

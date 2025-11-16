@@ -8,6 +8,7 @@ export interface ButtonProps {
     borders?: 'sharp' | 'rounded';
     children?: React.ReactNode;
     className?: string;
+    fullWidth?: boolean;
     disabled?: boolean;
     loading?: boolean;
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -23,6 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
     children,
     className,
     disabled = false,
+    fullWidth = false,
     loading = false,
     onClick,
     prefixIcon,
@@ -33,7 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
     return (
         <button
-            className={`button button-${size} button-${variant} ${borders === 'rounded' ? 'button-rounded' : ''} ${className || ''}`}
+            className={`button button-${size} button-${variant} ${borders === 'rounded' ? 'button-rounded' : ''} ${fullWidth ? 'is-full-width' : ''} ${className || ''}`}
             disabled={disabled}
             onClick={onClick}
             title={title}

@@ -51,6 +51,7 @@ export default {
                 { src: 'src/styles/theming/mintone.scss', dest: 'dist/styles/theming' },
                 { src: 'src/styles/theming/dashdarkx.scss', dest: 'dist/styles/theming' },
                 { src: 'src/styles/theming/tailwind-vue-dark.scss', dest: 'dist/styles/theming' },
+                { src: 'src/styles/theming/azure-night.scss', dest: 'dist/styles/theming' },
             ],
         }),
         terser(),
