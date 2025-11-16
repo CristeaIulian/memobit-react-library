@@ -16,6 +16,8 @@ import {
     InputFile,
     InputNumber,
     InputText,
+    MenuHamburger,
+    MenuHamburgerItem,
     Modal,
     Pagination,
     Popover,
@@ -117,6 +119,33 @@ function App() {
     const [toggleSwitch7, setToggleSwitch7] = useState<boolean>(false);
 
     const popover = usePopover();
+
+    const hamburgerMenuItems: MenuHamburgerItem[] = [
+        {
+            label: 'Notes',
+            icon: '📚',
+            onClick: () => {},
+            isActive: false,
+        },
+        {
+            label: 'Stats',
+            icon: '📊',
+            onClick: () => {},
+            isActive: false,
+        },
+        {
+            label: 'Theme',
+            icon: '🎨',
+            onClick: () => {},
+            isActive: false,
+        },
+        {
+            label: 'Logout',
+            icon: '🛣',
+            onClick: () => {},
+            isActive: false,
+        },
+    ];
 
     return (
         <ThemeProvider>
@@ -803,6 +832,31 @@ function App() {
                                         { key: 'view4', label: 'Year', icon: '🗓' },
                                     ]}
                                 />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* MenuHamburger Components */}
+                    <section className="playground__section">
+                        <h2>MenuHamburger Component</h2>
+                        <div className="showcase-group">
+                            <h3>MenuHamburger Simple</h3>
+                            <div className="component-group">
+                                <MenuHamburger items={hamburgerMenuItems} />
+                            </div>
+                        </div>
+
+                        <div className="showcase-group">
+                            <h3>MenuHamburger Custom (IsCompact / Mobile)</h3>
+                            <div className="component-group">
+                                <MenuHamburger items={hamburgerMenuItems} isCompact showLabel={false} />
+                            </div>
+                        </div>
+
+                        <div className="showcase-group">
+                            <h3>MenuHamburger Custom</h3>
+                            <div className="component-group">
+                                <MenuHamburger items={hamburgerMenuItems} icon="🍓" label="Fruits" />
                             </div>
                         </div>
                     </section>

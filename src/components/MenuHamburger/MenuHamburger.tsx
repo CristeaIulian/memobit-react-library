@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, ReactElement, useRef, useState } from 'react';
 
 import { Button } from '../Button';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
@@ -13,10 +13,14 @@ export interface MenuHamburgerItem {
 }
 
 interface MenuHamburgerProps {
+    icon?: string;
+    isCompact?: boolean;
     items: MenuHamburgerItem[];
+    label?: string;
+    showLabel?: boolean;
 }
 
-export const MenuHamburger: FC<MenuHamburgerProps> = ({ items }) => {
+export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, label, showLabel = true }: MenuHamburgerProps): ReactElement => {
     const { isAtLeast } = useBreakpoint();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -26,10 +30,17 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({ items }) => {
         setIsMenuOpen(false);
     };
 
+    const isAtLeastTablet = isAtLeast('tablet');
+
     return (
         <div className="MenuHamburger" ref={menuRef}>
-            <Button variant="default" onClick={() => setIsMenuOpen(!isMenuOpen)} prefixIcon="☰" aria-label="Menu">
-                {isAtLeast('tablet') ? 'Menu' : ''}
+            <Button
+                variant={isCompact || !isAtLeastTablet ? 'plain' : 'default'}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                prefixIcon={icon ? icon : isCompact || !isAtLeastTablet ? '⋮' : `☰`}
+                aria-label="Menu"
+            >
+                {isAtLeastTablet && showLabel ? (label ? label : 'Menu') : ''}
             </Button>
 
             {isMenuOpen && (
