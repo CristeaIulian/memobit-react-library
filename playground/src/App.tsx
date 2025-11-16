@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import { Header } from './Header';
+
 import {
     BMIHorizontalBarIndicator,
     Button,
@@ -30,6 +33,7 @@ import {
     usePopover,
 } from '../../src';
 import { useBreakpoint } from '../../src';
+
 import '../../src/styles/variables.scss';
 import '../../src/styles/effects.scss';
 import '../../src/styles/theming/luna.scss';
@@ -41,11 +45,8 @@ import '../../src/styles/theming/azure-night.scss';
 
 import './App.scss';
 
-const theme = 'luna';
-
 function App() {
-    document.documentElement.setAttribute('data-theme', theme);
-    const { currentBreakpoint, isMobile, isTablet, isDesktop, isLargeDesktop } = useBreakpoint();
+    const { currentBreakpoint, isMobile, isTablet, isDesktop } = useBreakpoint();
 
     const formatClinicOptions = [
         {
@@ -119,10 +120,7 @@ function App() {
     return (
         <ThemeProvider>
             <div className="playground">
-                <header className="playground__header">
-                    <h1>Component Library Playground</h1>
-                    <p>Test and preview components before building</p>
-                </header>
+                <Header />
 
                 <main className="playground__content">
                     {/* Breakpoint Info */}
@@ -269,7 +267,7 @@ function App() {
                     </section>
 
                     {/* Selection Components */}
-                    <section className="playground__section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+                    <section className="playground__section">
                         <h2>Selection Components</h2>
                         <div className="showcase-group">
                             <h3>Checkbox</h3>
@@ -288,7 +286,7 @@ function App() {
                     </section>
 
                     {/* ConfirmDialog Component */}
-                    <section className="playground__section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+                    <section className="playground__section">
                         <h2>ConfirmDialog Component</h2>
                         <div className="showcase-group">
                             <h3>ConfirmDialog</h3>
@@ -712,7 +710,7 @@ function App() {
                     </section>
 
                     {/* TipsOfTheDay Components */}
-                    <section className="playground__section">
+                    <section className="playground__section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
                         <h2>TipsOfTheDay Component</h2>
                         <div className="showcase-group">
                             <h3>TipsOfTheDay</h3>

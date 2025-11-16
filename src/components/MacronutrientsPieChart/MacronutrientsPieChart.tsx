@@ -191,7 +191,6 @@ export const MacronutrientsPieChart: React.FC<MacronutrientPieChartProps> = ({ d
                             fontSize={Math.max(size / 5, 8)}
                             fill="#222"
                             fontWeight="bold"
-                            fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif"
                         >
                             {slice.value.toFixed(1)}
                         </text>
@@ -210,7 +209,6 @@ export const MacronutrientsPieChart: React.FC<MacronutrientPieChartProps> = ({ d
                             fontSize={Math.max(size / 5, 7)}
                             fill={slice.color}
                             fontWeight="bold"
-                            fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif"
                         >
                             {slice.value.toFixed(1)}
                         </text>

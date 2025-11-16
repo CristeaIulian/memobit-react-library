@@ -1,7 +1,6 @@
 .dropdown-container {
     position: relative;
     width: 100%;
-    font-family: 'Segoe UI', Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     &.disabled {
         cursor: not-allowed;
@@ -227,7 +226,6 @@
         0 var(--spacing-4) var(--spacing-8) -2px var(--shadow);
     max-height: 240px;
     overflow-y: auto;
-    font-family: 'Segoe UI', Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     &--portal {
         margin-top: var(--spacing-4);
