@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Button } from '../Button';
@@ -60,6 +60,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const dropdownRef = useRef<HTMLDivElement>(null);
     const optionsRef = useRef<(HTMLLIElement | null)[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
+    const uid = useId();
 
     // Filter options when filterText changes
     useEffect(() => {
@@ -472,7 +473,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     <ul className="dropdown-options-list">
                         {filteredOptions.map((option, index) => (
                             <li
-                                key={option.value}
+                                key={`dd-option-${uid}-${index}`}
                                 ref={el => {
                                     optionsRef.current[index] = el;
                                 }}
@@ -543,8 +544,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
             <div className="dropdown-input-container">
                 {multiple && selectedOptions.length > 0 && (
                     <div className="dropdown-selected-items">
-                        {selectedOptions.slice(0, 3).map(option => (
-                            <div key={option.value} className="dropdown-selected-item">
+                        {selectedOptions.slice(0, 3).map((option, index) => (
+                            <div key={`dd-input-${uid}-${index}`} className="dropdown-selected-item">
                                 <span className="dropdown-selected-item-label">{option.label}</span>
                                 <span className="dropdown-selected-item-clear">
                                     <Button variant="plain" onClick={() => handleRemoveSelectedOption(option)} disabled={disabled}>

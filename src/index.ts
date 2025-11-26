@@ -4,6 +4,7 @@ export { Button } from './components/Button';
 export { Card } from './components/Card';
 export { ChatBot } from './components/ChatBot';
 export { Checkbox } from './components/Checkbox';
+export { AlertDialog } from './components/AlertDialog';
 export { ConfirmDialog } from './components/ConfirmDialog';
 export { Dropdown, type DropdownOption } from './components/Dropdown';
 export { Flag } from './components/Flag';

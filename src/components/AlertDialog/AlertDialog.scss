@@ -1,0 +1,11 @@
+.alert-dialog {
+    &__body {
+        padding: var(--spacing-16) var(--spacing-24);
+        color: var(--modal-body-color);
+
+        p {
+            margin: 0;
+            line-height: 1.5;
+        }
+    }
+}
