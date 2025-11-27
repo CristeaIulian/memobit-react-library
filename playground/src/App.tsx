@@ -11,6 +11,7 @@ import {
     ConfirmDialog,
     Dropdown,
     DropdownOption,
+    FloatButton,
     formatMoney,
     InformationTooltip,
     InputFile,
@@ -119,6 +120,8 @@ function App() {
     const [toggleSwitch6, setToggleSwitch6] = useState<boolean>(true);
     const [toggleSwitch7, setToggleSwitch7] = useState<boolean>(false);
     const [contextMenuTarget, setContextMenuTarget] = useState<EventTarget | null>(null);
+    const [showFloatButton1, setShowFloatButton1] = useState<boolean>(false);
+    const [showFloatButton2, setShowFloatButton2] = useState<boolean>(false);
 
     const popover = usePopover();
 
@@ -978,6 +981,64 @@ function App() {
                             <div className="component-group">
                                 <Button onClick={() => setThemeModalOpen(true)}>Open Theme Settings</Button>
                                 <ThemeModal isOpen={isThemeModalOpen} onClose={() => setThemeModalOpen(false)} />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* FloatButton Components */}
+                    <section className="playground__section">
+                        <h2>FloatButton Component</h2>
+                        <div className="component-showcase">
+                            <div className="showcase-group">
+                                <h3>FloatButton Button</h3>
+                                <div className="component-group">
+                                    <Button onClick={() => setShowFloatButton1(!showFloatButton1)}>{showFloatButton1 ? 'Hide' : 'Show'} Float Button</Button>
+                                    <div style={{ display: showFloatButton1 ? 'block' : 'none' }}>
+                                        <FloatButton
+                                            actions={[
+                                                {
+                                                    label: 'Add Item',
+                                                    icon: '+',
+                                                    onClick: () => alert('One Item :: Action triggered'),
+                                                },
+                                            ]}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="showcase-group">
+                                <h3>Button Sizes</h3>
+                                <div className="component-group">
+                                    <Button onClick={() => setShowFloatButton2(!showFloatButton2)}>{showFloatButton2 ? 'Hide' : 'Show'} Float Button</Button>
+                                    <div style={{ display: showFloatButton2 ? 'block' : 'none' }}>
+                                        <FloatButton
+                                            actions={[
+                                                {
+                                                    label: 'Add Item',
+                                                    icon: '+',
+                                                    onClick: () => alert('Multiple Items :: First item triggered'),
+                                                },
+                                                {
+                                                    label: 'Import Data',
+                                                    icon: '📥',
+                                                    onClick: () => alert('Multiple Items :: Second item triggered'),
+                                                },
+                                            ]}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="showcase-group">
+                                <h3>Button Style</h3>
+                                <div className="component-group">
+                                    <Button variant="plain">Plain</Button>
+                                    <Button variant="default">Default</Button>
+                                    <Button variant="warning">Warning</Button>
+                                    <Button variant="danger">Danger</Button>
+                                    <Button variant="info">Info</Button>
+                                    <Button variant="success">Success</Button>
+                                </div>
                             </div>
                         </div>
                     </section>

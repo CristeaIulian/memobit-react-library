@@ -8,9 +8,10 @@
 .float-button {
     width: 56px;
     height: 56px;
-    border-radius: 50%;
-    background-color: var(--button-warn-background-color);
-    border: none;
+    color: var(--button-default-color);
+    border-radius: var(--spacing-16);
+    background-color: var(--button-default-background-color);
+    border: var(--spacing-1) solid var(--button-default-border-color);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -21,7 +22,7 @@
     z-index: 1001;
 
     &:hover {
-        background-color: var(--button-warn-hover-background-color);
+        background-color: var(--button-default-hover-background-color);
         transform: scale(1.1);
         box-shadow: 0 6px var(--spacing-16) var(--box-shadow);
     }
@@ -34,7 +35,7 @@
         background-color: var(--button-info-background-color);
 
         &:hover {
-            background-color: var(--button-danger-hover-background-color);
+            background-color: var(--button-info-hover-background-color);
         }
     }
 

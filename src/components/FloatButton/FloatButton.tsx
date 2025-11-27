@@ -53,7 +53,7 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
             )}
 
             <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu} aria-label="Actions menu" title="Actions">
-                <span className="float-button__icon">{isMenuOpen ? '✖️' : '➕'}</span>
+                <span className="float-button__icon">{isMenuOpen ? '✖' : '+'}</span>
             </button>
         </div>
     );

@@ -16,7 +16,7 @@ export { InputText } from './components/InputText';
 export { InputPassword } from './components/InputPassword';
 export { Loading } from './components/Loading';
 export { Login } from './components/Login';
-export { MacronutrientsPieChart } from './components/MacronutrientsPieChart'; // ?
+export { MacronutrientsPieChart } from './components/MacronutrientsPieChart';
 export { Modal } from './components/Modal';
 export { Pagination } from './components/Pagination';
 export { ProgressBar } from './components/ProgressBar';
@@ -49,7 +49,7 @@ export { useComponentEffect } from './hooks/useComponentEffect';
 export { formatDuration } from './helpers/Datetime';
 export { FiltersStorage } from './helpers/FiltersStorage';
 export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
-export { slugify, shortenText } from './helpers/Strings';
+export { slugify, shortenText, truncateText } from './helpers/Strings';
 export { extractDomainFromUrl } from './helpers/Urls';
 export { formatBigNumber, formatMoney } from './helpers/Format';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';

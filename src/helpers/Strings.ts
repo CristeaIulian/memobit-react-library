@@ -21,6 +21,18 @@ export const shortenText = (text: string, startChars: number = 20, endChars: num
     return `${startPart}${separator}${endPart}`;
 };
 
+export const truncateText = (text: string, maxLength: number = 100, separator: string = '...'): string => {
+    if (!text || text.trim() === '') {
+        return '';
+    }
+
+    if (text.length <= maxLength) {
+        return text;
+    }
+
+    return text.substring(0, maxLength).trim() + separator;
+};
+
 export const convertTextToHTMLIndentation = (text: string): { __html: string } => {
     return {
         // don't .replace(/ /g, '&nbsp;') because it will do this with spaces between words as well
