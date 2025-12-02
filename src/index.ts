@@ -46,7 +46,7 @@ export { useBodyScrollLock } from './hooks/useBodyScrollLock';
 export { useComponentEffect } from './hooks/useComponentEffect';
 
 // Export helpers
-export { formatDuration } from './helpers/Datetime';
+export { formatDuration, formatSecondsToMediaTime } from './helpers/Datetime';
 export { FiltersStorage } from './helpers/FiltersStorage';
 export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { slugify, shortenText, truncateText } from './helpers/Strings';

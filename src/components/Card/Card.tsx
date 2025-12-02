@@ -55,7 +55,7 @@ export const Card: React.FC<CardProps> = ({
                 </h3>
             )}
             <div className={`card-content ${isCardCollapsed ? 'card-content-collapsed' : ''}`}>{children}</div>
-            <div className={`card-footer ${isCardCollapsed && isFooterCollapsible ? 'card-footer-collapsed' : ''}`}>{footerContent}</div>
+            {footerContent && <div className={`card-footer ${isCardCollapsed && isFooterCollapsible ? 'card-footer-collapsed' : ''}`}>{footerContent}</div>}
         </div>
     );
 };
