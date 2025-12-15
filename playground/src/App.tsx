@@ -9,6 +9,7 @@ import {
     ChatBot,
     Checkbox,
     ConfirmDialog,
+    ContextMenu,
     Dropdown,
     DropdownOption,
     FloatButton,
@@ -48,7 +49,6 @@ import '../../src/styles/theming/tailwind-vue-dark.scss';
 import '../../src/styles/theming/azure-night.scss';
 
 import './App.scss';
-import { ContextMenu } from '../../src/components/ContextMenu';
 
 function App() {
     const { currentBreakpoint, isMobile, isTablet, isDesktop } = useBreakpoint();
@@ -120,6 +120,7 @@ function App() {
     const [toggleSwitch6, setToggleSwitch6] = useState<boolean>(true);
     const [toggleSwitch7, setToggleSwitch7] = useState<boolean>(false);
     const [contextMenuTarget, setContextMenuTarget] = useState<EventTarget | null>(null);
+    const [contextMenuTarget2, setContextMenuTarget2] = useState<EventTarget | null>(null);
     const [showFloatButton1, setShowFloatButton1] = useState<boolean>(false);
     const [showFloatButton2, setShowFloatButton2] = useState<boolean>(false);
 
@@ -158,6 +159,14 @@ function App() {
 
     const closeMenu = () => {
         setContextMenuTarget(null);
+    };
+
+    const handleContextMenuActionsButton2 = (event: MouseEvent<HTMLButtonElement>): void => {
+        setContextMenuTarget2(event.target);
+    };
+
+    const closeMenu2 = () => {
+        setContextMenuTarget2(null);
     };
 
     const onActionsEdit = useCallback(() => {
@@ -904,6 +913,26 @@ function App() {
                                 )}
 
                                 <Button onClick={handleContextMenuActionsButton}>Context menu Opener</Button>
+                            </div>
+                        </div>
+
+                        <div className="showcase-group">
+                            <h3>ContextMenu right align</h3>
+                            <div className="component-group" style={{ display: 'flex', alignItems: 'end' }}>
+                                {contextMenuTarget2 && (
+                                    <ContextMenu target={contextMenuTarget2} onClose={closeMenu2}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                            <Button onClick={onActionsEdit} prefixIcon="✏️">
+                                                This is the first item and a bit long
+                                            </Button>
+                                            <Button onClick={onActionsDelete} prefixIcon="🗑️">
+                                                This is the second item and a bit long
+                                            </Button>
+                                        </div>
+                                    </ContextMenu>
+                                )}
+
+                                <Button onClick={handleContextMenuActionsButton2}>Context menu Opener</Button>
                             </div>
                         </div>
                     </section>
