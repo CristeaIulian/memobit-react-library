@@ -1,8 +1,12 @@
 .collapsible-section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-8);
+    gap: var(--spacing-16);
     width: 100%;
+
+    &__collapsed {
+        gap: 0;
+    }
 
     &__header {
         display: flex;
@@ -111,6 +115,9 @@
             height 0.3s ease-in-out,
             opacity 0.3s ease-in-out;
         opacity: 1;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-12);
 
         &--collapsed {
             height: 0;

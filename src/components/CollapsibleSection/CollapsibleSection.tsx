@@ -51,7 +51,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     };
 
     return (
-        <div className={`collapsible-section ${className}`}>
+        <div className={`collapsible-section ${className} ${isCollapsed ? 'collapsible-section__collapsed' : ''}`}>
             {title && (
                 <div
                     className={`collapsible-section__header ${toggleSpaceBetween ? 'collapsible-section__header--space-between' : ''} ${toggleSwap ? 'collapsible-section__header--swap' : ''} ${toggleHighlight ? 'collapsible-section__header--highlight' : ''} ${toggleAccent ? 'collapsible-section__header--accent' : ''} ${toggleVariant ? `collapsible-section__header--variant-${toggleVariant}` : ''}`}
