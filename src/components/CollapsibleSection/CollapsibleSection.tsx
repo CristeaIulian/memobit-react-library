@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react';
+import React, { type ReactNode, useState } from 'react';
 
 import { up } from '../../icons/up';
 
@@ -7,25 +7,33 @@ import './CollapsibleSection.scss';
 interface CollapsibleSectionProps {
     children: ReactNode;
     className?: string;
-    collapsibleToggleSpaceBetween?: boolean;
-    collapsibleToggleSwap?: boolean;
     defaultCollapsed?: boolean;
     isCollapsed?: boolean;
-    label?: ReactNode;
     onToggle?: (isCollapsed: boolean) => void;
     rightDetails?: string;
+    title?: ReactNode;
+    toggleAccent?: boolean;
+    toggleHighlight?: boolean;
+    toggleMiddleIcon?: string;
+    toggleSpaceBetween?: boolean;
+    toggleSwap?: boolean;
+    toggleVariant?: 'success' | 'info' | 'warning' | 'danger';
 }
 
-export const CollapsibleSection = ({
+export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     children,
     className = '',
-    collapsibleToggleSpaceBetween,
-    collapsibleToggleSwap,
     defaultCollapsed = false,
     isCollapsed: controlledIsCollapsed,
-    label,
     onToggle,
     rightDetails,
+    title,
+    toggleAccent,
+    toggleHighlight,
+    toggleMiddleIcon,
+    toggleSpaceBetween,
+    toggleSwap,
+    toggleVariant,
 }: CollapsibleSectionProps) => {
     const [internalIsCollapsed, setInternalIsCollapsed] = useState(defaultCollapsed);
 
@@ -44,12 +52,13 @@ export const CollapsibleSection = ({
 
     return (
         <div className={`collapsible-section ${className}`}>
-            {label && (
+            {title && (
                 <div
-                    className={`collapsible-section__header ${collapsibleToggleSpaceBetween ? 'collapsible-section__header--space-between' : ''} ${collapsibleToggleSwap ? 'collapsible-section__header--swap' : ''}`}
+                    className={`collapsible-section__header ${toggleSpaceBetween ? 'collapsible-section__header--space-between' : ''} ${toggleSwap ? 'collapsible-section__header--swap' : ''} ${toggleHighlight ? 'collapsible-section__header--highlight' : ''} ${toggleAccent ? 'collapsible-section__header--accent' : ''} ${toggleVariant ? `collapsible-section__header--variant-${toggleVariant}` : ''}`}
                     onClick={handleToggle}
                 >
-                    <div className="collapsible-section__label">{label}</div>
+                    <div className="collapsible-section__label">{title}</div>
+                    {toggleMiddleIcon && <span>{toggleMiddleIcon}</span>}
                     <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>{up}</span>
                     {rightDetails && <span className="collapsible-section__right-details">{rightDetails}</span>}
                 </div>

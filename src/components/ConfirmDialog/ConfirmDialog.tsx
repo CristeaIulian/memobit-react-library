@@ -32,7 +32,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     secondaryButtonPrefixIcon = '❎',
     secondaryButtonVariant = 'default',
     title,
-}) => {
+}: ConfirmDialogProps) => {
     return (
         <Modal
             isOpen={isOpen}
