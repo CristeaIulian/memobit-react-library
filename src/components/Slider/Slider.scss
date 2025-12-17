@@ -56,22 +56,27 @@
 
     .slider-display {
         text-align: center;
-        margin-bottom: var(--spacing-12);
 
         .slider-value {
             font-size: var(--font-size-xxl);
             font-weight: var(--font-weight-bold);
+        }
 
-            &.slider-value-low {
-                color: var(--rating-color-danger);
+        .slider-state {
+            &-info {
+                color: var(--rating-color-info);
             }
 
-            &.slider-value-medium {
+            &-success {
+                color: var(--rating-color-success);
+            }
+
+            &-warning {
                 color: var(--rating-color-warn);
             }
 
-            &.slider-value-high {
-                color: var(--rating-color-success);
+            &-danger {
+                color: var(--rating-color-danger);
             }
         }
     }
