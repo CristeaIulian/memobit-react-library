@@ -127,6 +127,10 @@ function App() {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [isCollapsed2, setIsCollapsed2] = useState(false);
     const [isCollapsed3, setIsCollapsed3] = useState(false);
+    const [isCollapsed4, setIsCollapsed4] = useState(false);
+    const [isCollapsed5, setIsCollapsed5] = useState(false);
+    const [isCollapsed6, setIsCollapsed6] = useState(false);
+    const [isCollapsed7, setIsCollapsed7] = useState(false);
 
     const popover = usePopover();
 
@@ -346,7 +350,7 @@ function App() {
                     {/* Collapsible Section Component */}
                     <section className="playground__section">
                         <h2>Collapsible Section Component</h2>
-                        <div className="showcase-group">
+                        <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
                             <h3>Self Controllable</h3>
                             <div className="component-group">
                                 <CollapsibleSection label="Details" isCollapsed={isCollapsed2} onToggle={setIsCollapsed2}>
@@ -355,11 +359,59 @@ function App() {
                             </div>
                         </div>
 
-                        <div className="showcase-group">
-                            <h3>Parent Controlled</h3>
-                            <div className="component-group">
+                        <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                            <h3 style={{ margin: 0 }}>Parent Controlled</h3>
+                            <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
                                 <Button onClick={() => setIsCollapsed3(!isCollapsed3)}>Toggle</Button>
                                 <CollapsibleSection isCollapsed={isCollapsed3} onToggle={setIsCollapsed3}>
+                                    <p>Inner content</p>
+                                </CollapsibleSection>
+                            </div>
+                        </div>
+
+                        <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                            <h3>Space between icon & label</h3>
+                            <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
+                                <CollapsibleSection label="Details" isCollapsed={isCollapsed4} onToggle={setIsCollapsed4} collapsibleToggleSpaceBetween>
+                                    <p>Inner content</p>
+                                </CollapsibleSection>
+                            </div>
+                        </div>
+
+                        <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                            <h3>Swap icon & label</h3>
+                            <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
+                                <CollapsibleSection
+                                    label="Details"
+                                    isCollapsed={isCollapsed5}
+                                    onToggle={setIsCollapsed5}
+                                    collapsibleToggleSpaceBetween
+                                    collapsibleToggleSwap
+                                >
+                                    <p>Inner content</p>
+                                </CollapsibleSection>
+                            </div>
+                        </div>
+
+                        <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                            <h3>Toggle with details</h3>
+                            <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
+                                <CollapsibleSection label="Details" isCollapsed={isCollapsed6} onToggle={setIsCollapsed6} rightDetails="7 props">
+                                    <p>Inner content</p>
+                                </CollapsibleSection>
+                            </div>
+                        </div>
+
+                        <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                            <h3>Toggle with details and toggle swap</h3>
+                            <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
+                                <CollapsibleSection
+                                    label="Details"
+                                    isCollapsed={isCollapsed7}
+                                    onToggle={setIsCollapsed7}
+                                    rightDetails="7 props"
+                                    collapsibleToggleSwap
+                                >
                                     <p>Inner content</p>
                                 </CollapsibleSection>
                             </div>

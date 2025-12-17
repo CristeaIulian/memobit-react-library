@@ -75,6 +75,10 @@ body {
         flex-wrap: wrap;
         margin-top: 1rem;
     }
+
+    &.highlight {
+        background-color: var(--card-background-accent-color);
+    }
 }
 
 // Responsive design
