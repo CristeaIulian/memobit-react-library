@@ -1,0 +1,32 @@
+.SignalStrength {
+    display: inline-flex;
+
+    &--excellent {
+        --signal-color: var(--button-success-border-color);
+    }
+
+    &--good {
+        --signal-color: var(--button-info-border-color);
+    }
+
+    &--fair {
+        --signal-color: var(--button-warn-border-color);
+    }
+
+    &--weak {
+        --signal-color: var(--button-danger-border-color);
+    }
+
+    &--unknown {
+        --signal-color: var(--body-color-muted);
+    }
+
+    // Bar element
+    &__bar {
+        // Inactive bar modifier
+        &--inactive {
+            --inactive-color: var(--body-color-muted);
+            opacity: 0.3;
+        }
+    }
+}
