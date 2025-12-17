@@ -8,6 +8,7 @@ import {
     Card,
     ChatBot,
     Checkbox,
+    CollapsibleSection,
     ConfirmDialog,
     ContextMenu,
     Dropdown,
@@ -123,6 +124,9 @@ function App() {
     const [contextMenuTarget2, setContextMenuTarget2] = useState<EventTarget | null>(null);
     const [showFloatButton1, setShowFloatButton1] = useState<boolean>(false);
     const [showFloatButton2, setShowFloatButton2] = useState<boolean>(false);
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed2, setIsCollapsed2] = useState(false);
+    const [isCollapsed3, setIsCollapsed3] = useState(false);
 
     const popover = usePopover();
 
@@ -324,6 +328,40 @@ function App() {
                                 <Card title="some title" isCollapsible footerContent={<span>Here is some footer content</span>} isFooterCollapsible={false}>
                                     Content here
                                 </Card>
+                            </div>
+                        </div>
+                        <div className="showcase-group">
+                            <h3>Card with collapsible area</h3>
+                            <div className="component-group">
+                                <Card title="some title" isCollapsible footerContent={<span>Here is some footer content</span>} isFooterCollapsible={false}>
+                                    always visible content
+                                    <CollapsibleSection label="Details" isCollapsed={isCollapsed} onToggle={setIsCollapsed}>
+                                        <p>Fully controlled</p>
+                                    </CollapsibleSection>
+                                </Card>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Collapsible Section Component */}
+                    <section className="playground__section">
+                        <h2>Collapsible Section Component</h2>
+                        <div className="showcase-group">
+                            <h3>Self Controllable</h3>
+                            <div className="component-group">
+                                <CollapsibleSection label="Details" isCollapsed={isCollapsed2} onToggle={setIsCollapsed2}>
+                                    <p>Inner content</p>
+                                </CollapsibleSection>
+                            </div>
+                        </div>
+
+                        <div className="showcase-group">
+                            <h3>Parent Controlled</h3>
+                            <div className="component-group">
+                                <Button onClick={() => setIsCollapsed3(!isCollapsed3)}>Toggle</Button>
+                                <CollapsibleSection isCollapsed={isCollapsed3} onToggle={setIsCollapsed3}>
+                                    <p>Inner content</p>
+                                </CollapsibleSection>
                             </div>
                         </div>
                     </section>
