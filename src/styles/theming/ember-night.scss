@@ -1,0 +1,206 @@
+// Ember Night theme - Warm dark theme with vibrant amber accent
+// Deep warm backgrounds with glowing amber accents for a cozy tech atmosphere
+[data-theme='ember-night'] {
+    --font-family: Inter, Roboto, sans-serif;
+
+    --body-background: #1a0f0a;
+    --body-color: #fef3c7;
+    --body-color-accent: #ffffff;
+    --body-color-muted: #fcd34d;
+    --body-title-color: #ffffff;
+    --body-sub-title-color: #fde68a;
+    --body-accent-color: #f59e0b;
+    --body-danger-color: #ef4444;
+
+    --backdrop-color: rgba(26, 15, 10, 0.85);
+    --text-shadow: #000000;
+    --box-shadow: rgba(0, 0, 0, 0.4);
+
+    --header-background-color: #291a10;
+    --header-border-bottom-color: #3d2817;
+    --header-color: #fde68a;
+    --header-font-weight: 500;
+
+    --card-background-color: #291a10;
+    --card-background-accent-color: #1f140c;
+    --card-border-color: #3d2817;
+    --card-border-accent-color: #f59e0b;
+    --card-hover-border-color: #f59e0b;
+    --card-color: #fef3c7;
+    --card-accent-color: #f59e0b;
+    --card-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    --card-footer-background-color: #1f140c;
+    --card-footer-color: #fde68a;
+
+    --links-color: #f59e0b;
+    --links-hover-color: #fbbf24;
+
+    --delimiter-color: #3d2817;
+    --border-color: #3d2817;
+
+    --button-default-border-color: #3d2817;
+    --button-default-background-color: #332618;
+    --button-default-color: #fef3c7;
+    --button-default-hover-border-color: #52331f;
+    --button-default-hover-background-color: rgba(245, 158, 11, 0.1);
+    --button-default-hover-color: #ffffff;
+
+    --button-info-border-color: #f59e0b;
+    --button-info-background-color: #d97706;
+    --button-info-color: #ffffff;
+    --button-info-hover-border-color: #fbbf24;
+    --button-info-hover-background-color: rgba(245, 158, 11, 0.15);
+    --button-info-hover-color: #ffffff;
+
+    --button-warn-border-color: #fb923c;
+    --button-warn-background-color: #ea580c;
+    --button-warn-color: #ffffff;
+    --button-warn-hover-border-color: #fdba74;
+    --button-warn-hover-background-color: rgba(251, 146, 60, 0.15);
+    --button-warn-hover-color: #ffffff;
+
+    --button-success-border-color: #22c55e;
+    --button-success-background-color: #16a34a;
+    --button-success-color: #ffffff;
+    --button-success-hover-border-color: #4ade80;
+    --button-success-hover-background-color: rgba(34, 197, 94, 0.15);
+    --button-success-hover-color: #ffffff;
+
+    --button-danger-border-color: #ef4444;
+    --button-danger-background-color: #dc2626;
+    --button-danger-color: #ffffff;
+    --button-danger-hover-border-color: #f87171;
+    --button-danger-hover-background-color: rgba(239, 68, 68, 0.15);
+    --button-danger-hover-color: #ffffff;
+
+    --button-plain-color: #fde68a;
+    --button-plain-hover-color: #ffffff;
+
+    --dropdown-border-color: #3d2817;
+    --dropdown-header-background-color: #291a10;
+    --dropdown-header-border-focus-color: #f59e0b;
+    --dropdown-header-color: #fef3c7;
+    --dropdown-options-background-color: #291a10;
+    --dropdown-options-color: #fef3c7;
+    --dropdown-options-hover-background-color: rgba(245, 158, 11, 0.15);
+    --dropdown-options-hover-color: #ffffff;
+    --dropdown-options-selected-background-color: rgba(245, 158, 11, 0.25);
+    --dropdown-options-selected-color: #ffffff;
+    --dropdown-chips-background-color: #332618;
+    --dropdown-chips-color: #fef3c7;
+    --dropdown-chips-border-color: #52331f;
+    --dropdown-chips-hover-background-color: #3d2817;
+    --dropdown-action-color: #fde68a;
+    --dropdown-action-background-color: #291a10;
+    --dropdown-action-hover-color: #ffffff;
+    --dropdown-action-hover-background-color: #332618;
+
+    --badge-padding: 2px 6px;
+
+    --tabs-active-background-color: rgba(245, 158, 11, 0.2);
+    --tabs-active-color: #f59e0b;
+    --tabs-inactive-background-color: transparent;
+    --tabs-inactive-color: #fcd34d;
+
+    --modal-background-color: #1f140c;
+    --modal-border-color: #3d2817;
+    --modal-header-background-color: #291a10;
+    --modal-header-color: #ffffff;
+    --modal-body-color: #fef3c7;
+    --modal-footer-background-color: #1a0f0a;
+    --modal-color: #fef3c7;
+    --modal-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --modal-box-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.7);
+
+    --list-alternate-background-color: #1f140c;
+    --list-hover-background-color: rgba(245, 158, 11, 0.1);
+
+    --progress-bar-background-color: #332618;
+    --progress--bar-color: #fffbeb;
+
+    --progress-default-bar-border-color: #52331f;
+    --progress-default-bar-fill-color: #fcd34d;
+
+    --progress-success-bar-border-color: #22c55e;
+    --progress-success-bar-fill-color: #22c55e;
+
+    --progress-info-bar-border-color: #f59e0b;
+    --progress-info-bar-fill-color: #f59e0b;
+
+    --progress-warn-bar-border-color: #fb923c;
+    --progress-warn-bar-fill-color: #fb923c;
+
+    --progress-danger-bar-border-color: #ef4444;
+    --progress-danger-bar-fill-color: #ef4444;
+
+    --form-control-background-color: #291a10;
+    --form-control-color: #fef3c7;
+    --form-control-border-color: #3d2817;
+    --form-control-focus-background-color: #332618;
+    --form-control-focus-border-color: #f59e0b;
+    --form-control-focus-color: #ffffff;
+    --form-control-placeholder-color: #fcd34d;
+
+    --form-control-selection-background-color: #f59e0b;
+    --form-control-selection-border-color: #f59e0b;
+    --form-control-selection-color: #ffffff;
+    --form-control-selection-label-color: #ffffff;
+
+    --tooltip-background-color: #f59e0b;
+    --tooltip-border-color: #f59e0b;
+    --tooltip-color: #1a0f0a;
+
+    --popover-background-color: #291a10;
+    --popover-border-color: #f59e0b;
+    --popover-color: #fef3c7;
+    --popover-arrow-color: #f59e0b;
+
+    --toast-info-background-color: #d97706;
+    --toast-info-color: #ffffff;
+    --toast-info-border-color: #f59e0b;
+
+    --toast-success-background-color: #16a34a;
+    --toast-success-color: #ffffff;
+    --toast-success-border-color: #22c55e;
+
+    --toast-warning-background-color: #ea580c;
+    --toast-warning-color: #ffffff;
+    --toast-warning-border-color: #fb923c;
+
+    --toast-danger-background-color: #dc2626;
+    --toast-danger-color: #ffffff;
+    --toast-danger-border-color: #ef4444;
+
+    --loader-border-color: rgba(245, 158, 11, 0.2);
+    --loader-border-top-color: #f59e0b;
+
+    --rating-color-success: #22c55e;
+    --rating-color-warn: #fb923c;
+    --rating-color-danger: #ef4444;
+    --rating-color-info: #f59e0b;
+    --rating-empty-color: #52331f;
+    --rating-empty-label-color: #fef3c7;
+    --rating-half-rate-empty-color: #52331f;
+
+    --slider-track-background-color: #332618;
+    --slider-track-border-color: #52331f;
+    --slider-track-hover-background-color: #3d2817;
+    --slider-track-hover-border-color: #6b4423;
+    --slider-thumb-background-color: #f59e0b;
+    --slider-thumb-border-color: #f59e0b;
+    --slider-thumb-hover-background-color: #fbbf24;
+    --slider-thumb-hover-border-color: #fbbf24;
+
+    --note-container-effect-background-color: rgba(245, 158, 11, 0.1);
+    --note-container-effect-color: #fef3c7;
+    --note-container-effect-border-lef-tcolor: #f59e0b;
+
+    --infuse-effect-hover-border-color: #f59e0b;
+    --infuse-effect-hover-box-shadow-color: rgba(245, 158, 11, 0.4);
+    --infuse-effect-before-background: linear-gradient(90deg, #f59e0b, #fbbf24);
+
+    --up-lift-effect-hover-border-color: #f59e0b;
+    --up-lift-effect-box-shadow-color: rgba(0, 0, 0, 0.5);
+    --up-lift-effect-hover-box-shadow-color: rgba(245, 158, 11, 0.4);
+    --up-lift-effect-before-background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+}

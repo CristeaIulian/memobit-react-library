@@ -50,6 +50,31 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         label: 'Cyber Forest',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
     },
+    {
+        value: 'ember-night',
+        label: 'Ember Night',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap',
+    },
+    {
+        value: 'arctic-blue',
+        label: 'Arctic Blue',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap',
+    },
+    {
+        value: 'ocean-breeze',
+        label: 'Ocean Breeze',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap',
+    },
+    {
+        value: 'lavender-mist',
+        label: 'Lavender Mist',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap',
+    },
+    {
+        value: 'mint-meadow',
+        label: 'Mint Meadow',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap',
+    },
 ];
 
 export const getThemeConfig = (themeValue: string): ThemeConfig | undefined => {
