@@ -35,6 +35,21 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         label: 'Azure Night',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
     },
+    {
+        value: 'ocean-depths',
+        label: 'Ocean Depths',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+    },
+    {
+        value: 'twilight-pulse',
+        label: 'Twilight Pulse',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+    },
+    {
+        value: 'cyber-forest',
+        label: 'Cyber Forest',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+    },
 ];
 
 export const getThemeConfig = (themeValue: string): ThemeConfig | undefined => {

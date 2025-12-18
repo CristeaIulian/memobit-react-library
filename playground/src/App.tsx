@@ -48,6 +48,9 @@ import '../../src/styles/theming/light-blue.scss';
 import '../../src/styles/theming/dashdarkx.scss';
 import '../../src/styles/theming/tailwind-vue-dark.scss';
 import '../../src/styles/theming/azure-night.scss';
+import '../../src/styles/theming/ocean-depths.scss';
+import '../../src/styles/theming/twilight-pulse.scss';
+import '../../src/styles/theming/cyber-forest.scss';
 
 import './App.scss';
 

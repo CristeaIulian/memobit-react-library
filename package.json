@@ -19,7 +19,10 @@
     "./dist/styles/theming/mintone.scss": "./dist/styles/theming/mintone.scss",
     "./dist/styles/theming/dashdarkx.scss": "./dist/styles/theming/dashdarkx.scss",
     "./dist/styles/theming/tailwind-vue-dark.scss": "./dist/styles/theming/tailwind-vue-dark.scss",
-    "./dist/styles/theming/azure-night.scss": "./dist/styles/theming/azure-night.scss"
+    "./dist/styles/theming/azure-night.scss": "./dist/styles/theming/azure-night.scss",
+    "./dist/styles/theming/ocean-depths.scss": "./dist/styles/theming/ocean-depths.scss",
+    "./dist/styles/theming/twilight-pulse.scss": "./dist/styles/theming/twilight-pulse.scss",
+    "./dist/styles/theming/cyber-forest.scss": "./dist/styles/theming/cyber-forest.scss"
   },
   "files": [
     "dist"
