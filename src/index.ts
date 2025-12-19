@@ -9,6 +9,7 @@ export { Checkbox } from './components/Checkbox';
 export { CollapsibleSection } from './components/CollapsibleSection';
 export { ConfirmDialog } from './components/ConfirmDialog';
 export { ContextMenu } from './components/ContextMenu';
+export { Drawer, type DrawerPosition } from './components/Drawer';
 export { Dropdown, type DropdownOption } from './components/Dropdown';
 export { Flag } from './components/Flag';
 export { FloatButton } from './components/FloatButton';

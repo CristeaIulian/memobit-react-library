@@ -12,6 +12,7 @@ import { CheckboxPage } from './pages/CheckboxPage';
 import { CollapsibleSectionPage } from './pages/CollapsibleSectionPage';
 import { ConfirmDialogPage } from './pages/ConfirmDialogPage';
 import { ContextMenuPage } from './pages/ContextMenuPage';
+import { DrawerPage } from './pages/DrawerPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
 import { InformationTooltipPage } from './pages/InformationTooltipPage';
@@ -52,6 +53,7 @@ export const routes: RouteConfig[] = [
     { path: '/collapsible-section', label: 'Collapsible Section', component: CollapsibleSectionPage },
     { path: '/confirm-dialog', label: 'Confirm Dialog', component: ConfirmDialogPage },
     { path: '/context-menu', label: 'Context Menu', component: ContextMenuPage },
+    { path: '/drawer', label: 'Drawer', component: DrawerPage },
     { path: '/dropdown', label: 'Dropdown', component: DropdownPage },
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
     { path: '/information-tooltip', label: 'Information Tooltip', component: InformationTooltipPage },

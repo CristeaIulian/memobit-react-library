@@ -1,0 +1,134 @@
+.drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.3s ease;
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background: var(--card-background-color);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+
+    &--left {
+        left: 0;
+        border-right: 1px solid var(--delimiter-color);
+    }
+
+    &--right {
+        right: 0;
+        border-left: 1px solid var(--delimiter-color);
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--spacing-16);
+        border-bottom: 1px solid var(--delimiter-color);
+        background: var(--card-background-accent-color);
+    }
+
+    &__title {
+        margin: 0;
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-semibold);
+        color: var(--body-color-accent);
+    }
+
+    &__close {
+        background: transparent;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--body-color);
+        padding: var(--spacing-8);
+        line-height: 1;
+        transition: all 0.2s ease;
+        border-radius: var(--radius);
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            background: var(--card-background-color);
+            color: var(--body-color-accent);
+        }
+
+        &:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+    }
+
+    &__content {
+        flex: 1;
+        overflow-y: auto;
+        padding: var(--spacing-16);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(var(--slide-offset, -100%));
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.drawer--left {
+    --slide-offset: -100%;
+}
+
+.drawer--right {
+    --slide-offset: 100%;
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .drawer {
+        width: 85% !important;
+        max-width: 400px;
+    }
+}
+
+// Custom scrollbar for drawer content
+.drawer__content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.drawer__content::-webkit-scrollbar-track {
+    background: var(--card-background-color);
+}
+
+.drawer__content::-webkit-scrollbar-thumb {
+    background: var(--delimiter-color);
+    border-radius: 3px;
+
+    &:hover {
+        background: var(--body-color-muted);
+    }
+}
