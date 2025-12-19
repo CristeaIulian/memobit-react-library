@@ -1,6 +1,7 @@
 // Export components
 export { AlertDialog } from './components/AlertDialog';
 export { BMIHorizontalBarIndicator } from './components/BMIHorizontalBarIndicator';
+export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
 export { Button } from './components/Button';
 export { Card } from './components/Card';
 export { ChatBot } from './components/ChatBot';

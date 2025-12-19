@@ -3,7 +3,11 @@
     "allow": [
       "Bash(npm info:*)",
       "Bash(mkdir:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(dir:*)",
+      "Bash(cat:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run playground:*)"
     ],
     "deny": [],
     "ask": []

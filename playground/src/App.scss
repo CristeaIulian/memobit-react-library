@@ -6,38 +6,34 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    height: 100%;
 }
 
-.playground {
-    min-height: 100vh;
+#root {
+    height: 100%;
+}
 
-    &__content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding-top: var(--spacing-16);
-        display: flex;
-        flex-direction: column;
-        row-gap: var(--spacing-16);
+.page-section {
+    background: var(--card-background-color);
+    border-radius: 8px;
+    padding: var(--spacing-24);
+    border: 1px solid var(--delimiter-color);
+    margin-bottom: var(--spacing-16);
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--spacing-24);
+
+    > h2 {
+        margin: 0;
+        color: var(--card-color);
+        font-size: 1.5rem;
+        font-weight: 600;
     }
 
-    &__section {
-        background: var(--card-background-color);
-        border-radius: 8px;
-        padding: 2rem;
-        border: 1px solid var(--delimiter-color);
-
-        > h2 {
-            margin: 0 0 1.5rem 0;
-            color: var(--card-color);
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        > h3 {
-            margin: 0 0 1rem 0;
-            color: var(--body-color);
-            font-size: 1.2rem;
-        }
+    h3 {
+        margin: 0;
+        color: var(--body-color);
+        font-size: 1.2rem;
     }
 }
 
@@ -69,6 +65,11 @@ body {
 }
 
 .showcase-group {
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-24);
+    border-radius: var(--radius);
+    box-shadow: var(--card-box-shadow);
+
     .component-group {
         display: flex;
         gap: 1rem;
@@ -81,24 +82,9 @@ body {
     }
 }
 
-// Responsive design
 @media (max-width: 768px) {
-    .playground {
-        &__header {
-            padding: 1.5rem 1rem;
-
-            h1 {
-                font-size: 2rem;
-            }
-        }
-
-        &__content {
-            padding: 1rem;
-        }
-
-        &__section {
-            padding: 1.5rem;
-        }
+    .page-section {
+        padding: 1.5rem;
     }
 
     .info-grid {
@@ -109,12 +95,6 @@ body {
         flex-direction: column;
         align-items: flex-start;
     }
-}
-
-// Dark theme enhancements
-body {
-    margin: 0;
-    background: var(--body-background);
 }
 
 // Code block styling for future code examples
