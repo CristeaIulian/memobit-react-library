@@ -34,6 +34,7 @@ import { TipsOfTheDayPage } from './pages/TipsOfTheDayPage';
 import { ToastPage } from './pages/ToastPage';
 import { ToggleButtonsPage } from './pages/ToggleButtonsPage';
 import { ToggleSwitchPage } from './pages/ToggleSwitchPage';
+import { TooltipPage } from './pages/TooltipPage';
 
 export interface RouteConfig {
     path: string;
@@ -75,6 +76,7 @@ export const routes: RouteConfig[] = [
     { path: '/toast', label: 'Toast', component: ToastPage },
     { path: '/toggle-buttons', label: 'Toggle Buttons', component: ToggleButtonsPage },
     { path: '/toggle-switch', label: 'Toggle Switch', component: ToggleSwitchPage },
+    { path: '/tooltip', label: 'Tooltip', component: TooltipPage },
 ];
 
 // Alphabetically sorted routes for sidebar (excluding Home)
