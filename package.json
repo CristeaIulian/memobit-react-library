@@ -14,6 +14,7 @@
     "./dist/index.css": "./dist/index.css",
     "./dist/styles/variables.scss": "./dist/styles/variables.scss",
     "./dist/styles/effects.scss": "./dist/styles/effects.scss",
+    "./dist/styles/utilities.scss": "./dist/styles/utilities.scss",
     "./dist/styles/theming/luna.scss": "./dist/styles/theming/luna.scss",
     "./dist/styles/theming/light-blue.scss": "./dist/styles/theming/light-blue.scss",
     "./dist/styles/theming/mintone.scss": "./dist/styles/theming/mintone.scss",

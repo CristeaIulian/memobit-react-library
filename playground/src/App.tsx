@@ -42,6 +42,7 @@ import { useBreakpoint } from '../../src';
 
 import '../../src/styles/variables.scss';
 import '../../src/styles/effects.scss';
+import '../../src/styles/utilities.scss';
 import '../../src/styles/theming/luna.scss';
 import '../../src/styles/theming/mintone.scss';
 import '../../src/styles/theming/light-blue.scss';
