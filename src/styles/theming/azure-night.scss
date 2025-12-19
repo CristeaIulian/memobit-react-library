@@ -203,4 +203,7 @@
     --up-lift-effect-box-shadow-color: rgba(0, 0, 0, 0.4);
     --up-lift-effect-hover-box-shadow-color: rgba(74, 158, 255, 0.3);
     --up-lift-effect-before-background: linear-gradient(135deg, #4a9eff 0%, #6ab0ff 100%);
+
+    --glow-box-shadow-color: 0 0 20px rgba(74, 158, 255, 0.5), 0 0 40px rgba(74, 158, 255, 0.3);
+    --glow-hover-border-color: rgba(74, 158, 255, 0.5);
 }

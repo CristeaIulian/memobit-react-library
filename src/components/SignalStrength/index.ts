@@ -1,1 +1,1 @@
-export { SignalStrength } from './SignalStrength.tsx';
+export { SignalStrength } from './SignalStrength';

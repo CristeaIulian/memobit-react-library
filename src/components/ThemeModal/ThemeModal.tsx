@@ -37,6 +37,7 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
         { label: 'Note Container', value: 'note-container-effect' },
         { label: 'Infuse', value: 'infuse-effect' },
         { label: 'Up Lift', value: 'up-lift-effect' },
+        { label: 'Glow', value: 'glow-effect' },
     ];
 
     const [selectedEffect, setSelectedEffect] = useState<string>('');

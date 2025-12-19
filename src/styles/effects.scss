@@ -64,19 +64,12 @@
     }
 }
 
-:root {
-    --tw-shadow: 0 1px 2px 0 #0000000c;
-    --tw-ring-shadow: 0 0 #0000;
-    --glow-primary: 0 0 20px #1acee64c;
-    --primary: 187 80% 50%;
-}
-
-.glow {
+.glow-effect {
     transition: 0.3s;
 
     &:hover {
-        box-shadow: var(--glow-primary, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+        box-shadow: var(--glow-box-shadow-color);
         transform: translateY(-2px);
-        border-color: hsl(var(--primary) / 0.3);
+        border-color: var(--glow-hover-border-color);
     }
 }
