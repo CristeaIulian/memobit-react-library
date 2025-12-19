@@ -1,5 +1,8 @@
 // Simple Popover Component SCSS
 .simple-popover {
+    --popover-arrow-size: 6px;
+    --popover-arrow-offset: 12px;
+
     background-color: var(--popover-background-color);
     border: var(--spacing-1) solid var(--popover-border-color);
     border-radius: var(--radius);
@@ -7,7 +10,6 @@
     font-size: var(--font-size-sm);
     max-width: 300px;
     min-width: 120px;
-    z-index: 9999;
     opacity: 0;
     transform: scale(0.95);
     animation: popover-appear 0.2s ease-out forwards;
@@ -29,13 +31,13 @@
         position: absolute;
         width: 0;
         height: 0;
-        border: 6px solid transparent;
+        border: var(--popover-arrow-size) solid transparent;
     }
 
     // Bottom placement (default)
     &--bottom {
         .simple-popover__arrow {
-            top: -12px;
+            top: calc(-1 * var(--popover-arrow-offset));
             left: 50%;
             transform: translateX(-50%);
             border-bottom-color: var(--popover-arrow-color);
@@ -46,11 +48,33 @@
     // Top placement
     &--top {
         .simple-popover__arrow {
-            bottom: -12px;
+            bottom: calc(-1 * var(--popover-arrow-offset));
             left: 50%;
             transform: translateX(-50%);
             border-top-color: var(--popover-arrow-color);
             border-bottom: none;
+        }
+    }
+
+    // Left placement
+    &--left {
+        .simple-popover__arrow {
+            right: calc(-1 * var(--popover-arrow-offset));
+            top: 50%;
+            transform: translateY(-50%);
+            border-left-color: var(--popover-arrow-color);
+            border-right: none;
+        }
+    }
+
+    // Right placement
+    &--right {
+        .simple-popover__arrow {
+            left: calc(-1 * var(--popover-arrow-offset));
+            top: 50%;
+            transform: translateY(-50%);
+            border-right-color: var(--popover-arrow-color);
+            border-left: none;
         }
     }
 }

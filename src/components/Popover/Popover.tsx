@@ -1,31 +1,45 @@
-import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { FC, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import './Popover.scss';
 
-interface PopoverProps {
-    /** Conținutul popover-ului */
-    children: ReactNode;
-    /** Dacă popover-ul este vizibil */
-    visible: boolean;
-    /** Funcție pentru închiderea popover-ului */
-    onClose: () => void;
-    /** Referința la elementul trigger */
-    anchorEl: HTMLElement | null;
-    /** Offset față de elementul anchor */
-    offset?: number;
+type Placement = 'top' | 'bottom' | 'left' | 'right' | 'auto';
+
+interface Position {
+    top: number;
+    left: number;
+    placement: Exclude<Placement, 'auto'>;
 }
 
-export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl, offset = 8 }) => {
+interface PopoverProps {
+    /** Popover content */
+    children: ReactNode;
+    /** Whether the popover is visible */
+    visible: boolean;
+    /** Function to close the popover */
+    onClose: () => void;
+    /** Reference to the trigger element */
+    anchorEl: HTMLElement | null;
+    /** Offset from the anchor element */
+    offset?: number;
+    /** Preferred placement of the popover (defaults to 'auto' which picks the best position) */
+    placement?: Placement;
+}
+
+const VIEWPORT_MARGIN = 20;
+const DEFAULT_OFFSET = 8;
+
+export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl, offset = DEFAULT_OFFSET, placement = 'auto' }) => {
     const popoverRef = useRef<HTMLDivElement>(null);
-    const [position, setPosition] = useState<{ top: number; left: number; placement: string }>({
+    const animationFrameRef = useRef<number | null>(null);
+    const [position, setPosition] = useState<Position>({
         top: 0,
         left: 0,
         placement: 'bottom',
     });
 
-    // Calculează poziția
-    const updatePosition = () => {
+    // Calculate position
+    const updatePosition = useCallback(() => {
         if (!anchorEl || !popoverRef.current || !visible) return;
 
         const anchorRect = anchorEl.getBoundingClientRect();
@@ -35,31 +49,95 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
             height: window.innerHeight,
         };
 
-        let top = anchorRect.bottom + offset;
-        let left = anchorRect.left + (anchorRect.width - popoverRect.width) / 2;
-        let placement = 'bottom';
+        // Helper to check if a position fits in viewport
+        const fitsInViewport = (top: number, left: number): boolean => {
+            return (
+                top >= VIEWPORT_MARGIN &&
+                left >= VIEWPORT_MARGIN &&
+                top + popoverRect.height <= viewport.height - VIEWPORT_MARGIN &&
+                left + popoverRect.width <= viewport.width - VIEWPORT_MARGIN
+            );
+        };
 
-        // Verifică dacă încape jos
-        if (top + popoverRect.height > viewport.height - 20) {
-            // Încearcă sus
-            top = anchorRect.top - popoverRect.height - offset;
-            placement = 'top';
+        // Calculate positions for each placement
+        const positions: Record<Exclude<Placement, 'auto'>, { top: number; left: number }> = {
+            bottom: {
+                top: anchorRect.bottom + offset,
+                left: anchorRect.left + (anchorRect.width - popoverRect.width) / 2,
+            },
+            top: {
+                top: anchorRect.top - popoverRect.height - offset,
+                left: anchorRect.left + (anchorRect.width - popoverRect.width) / 2,
+            },
+            left: {
+                top: anchorRect.top + (anchorRect.height - popoverRect.height) / 2,
+                left: anchorRect.left - popoverRect.width - offset,
+            },
+            right: {
+                top: anchorRect.top + (anchorRect.height - popoverRect.height) / 2,
+                left: anchorRect.right + offset,
+            },
+        };
+
+        // Determine final placement
+        let finalPlacement: Exclude<Placement, 'auto'>;
+        let { top, left } = positions.bottom;
+
+        if (placement === 'auto') {
+            // Try placements in order of preference
+            const preferenceOrder: Array<Exclude<Placement, 'auto'>> = ['bottom', 'top', 'right', 'left'];
+            finalPlacement = preferenceOrder.find((p) => {
+                const pos = positions[p];
+                return fitsInViewport(pos.top, pos.left);
+            }) || 'bottom';
+            ({ top, left } = positions[finalPlacement]);
+        } else {
+            // Use specified placement, fallback to auto if doesn't fit
+            const preferredPos = positions[placement];
+            if (fitsInViewport(preferredPos.top, preferredPos.left)) {
+                finalPlacement = placement;
+                ({ top, left } = preferredPos);
+            } else {
+                // Fallback to best available position
+                const fallbackOrder = (['bottom', 'top', 'right', 'left'] as Array<Exclude<Placement, 'auto'>>).filter((p) => p !== placement);
+                finalPlacement = fallbackOrder.find((p) => {
+                    const pos = positions[p];
+                    return fitsInViewport(pos.top, pos.left);
+                }) || placement;
+                ({ top, left } = positions[finalPlacement]);
+            }
         }
 
-        // Verifică limitele orizontale
-        if (left < 20) left = 20;
-        if (left + popoverRect.width > viewport.width - 20) {
-            left = viewport.width - popoverRect.width - 20;
+        // Constrain to viewport boundaries for horizontal centering on top/bottom
+        if (finalPlacement === 'top' || finalPlacement === 'bottom') {
+            if (left < VIEWPORT_MARGIN) left = VIEWPORT_MARGIN;
+            if (left + popoverRect.width > viewport.width - VIEWPORT_MARGIN) {
+                left = viewport.width - popoverRect.width - VIEWPORT_MARGIN;
+            }
         }
 
-        setPosition({ top, left, placement });
-    };
+        // Constrain to viewport boundaries for vertical centering on left/right
+        if (finalPlacement === 'left' || finalPlacement === 'right') {
+            if (top < VIEWPORT_MARGIN) top = VIEWPORT_MARGIN;
+            if (top + popoverRect.height > viewport.height - VIEWPORT_MARGIN) {
+                top = viewport.height - popoverRect.height - VIEWPORT_MARGIN;
+            }
+        }
+
+        setPosition({ top, left, placement: finalPlacement });
+    }, [anchorEl, visible, offset, placement]);
 
     useEffect(() => {
         if (visible) {
-            requestAnimationFrame(updatePosition);
+            animationFrameRef.current = requestAnimationFrame(updatePosition);
         }
-    }, [visible, anchorEl]);
+
+        return () => {
+            if (animationFrameRef.current !== null) {
+                cancelAnimationFrame(animationFrameRef.current);
+            }
+        };
+    }, [visible, updatePosition]);
 
     useEffect(() => {
         if (!visible) return;
@@ -85,7 +163,7 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
             document.removeEventListener('keydown', handleEscape);
             window.removeEventListener('resize', updatePosition);
         };
-    }, [visible, onClose, anchorEl]);
+    }, [visible, onClose, anchorEl, updatePosition]);
 
     if (!visible || !anchorEl) return null;
 
