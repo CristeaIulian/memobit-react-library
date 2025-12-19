@@ -1,0 +1,73 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+
+    &__container {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+        position: relative;
+    }
+
+    &__content {
+        flex: 1;
+        overflow-y: auto;
+        padding: var(--spacing-16);
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+    }
+
+    &__hamburger {
+        position: fixed;
+        top: 80px;
+        left: var(--spacing-16);
+        z-index: 999;
+        background: var(--card-background-color);
+        border: 1px solid var(--delimiter-color);
+        border-radius: var(--radius);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--body-color-accent);
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background: var(--card-background-accent-color);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    &__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        backdrop-filter: blur(2px);
+    }
+}
+
+@media (min-width: 769px) {
+    .layout__content {
+        padding-left: var(--spacing-24);
+        padding-right: var(--spacing-24);
+    }
+}
+
+@media (max-width: 768px) {
+    .layout__content {
+        padding-top: 60px;
+    }
+}
