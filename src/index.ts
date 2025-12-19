@@ -3,12 +3,14 @@ export { AlertDialog } from './components/AlertDialog';
 export { BMIHorizontalBarIndicator } from './components/BMIHorizontalBarIndicator';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
 export { Button } from './components/Button';
+export { Calendar, type CalendarProps, type CalendarMode, type CalendarDateRange } from './components/Calendar';
 export { Card } from './components/Card';
 export { ChatBot } from './components/ChatBot';
 export { Checkbox } from './components/Checkbox';
 export { CollapsibleSection } from './components/CollapsibleSection';
 export { ConfirmDialog } from './components/ConfirmDialog';
 export { ContextMenu } from './components/ContextMenu';
+export { DatePicker, type DatePickerProps } from './components/DatePicker';
 export { Drawer, type DrawerPosition } from './components/Drawer';
 export { Dropdown, type DropdownOption } from './components/Dropdown';
 export { Flag } from './components/Flag';
@@ -51,7 +53,21 @@ export { useBodyScrollLock } from './hooks/useBodyScrollLock';
 export { useComponentEffect } from './hooks/useComponentEffect';
 
 // Export helpers
-export { formatDuration, formatSecondsToMediaTime } from './helpers/Datetime';
+export {
+    formatDuration,
+    formatSecondsToMediaTime,
+    formatDate,
+    isSameDay,
+    isDateInRange,
+    getDaysInMonth,
+    getMonthMatrix,
+    isToday,
+    isWeekend,
+    addDays,
+    addMonths,
+    isBefore,
+    isAfter,
+} from './helpers/Datetime';
 export { FiltersStorage } from './helpers/FiltersStorage';
 export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { slugify, shortenText, truncateText } from './helpers/Strings';

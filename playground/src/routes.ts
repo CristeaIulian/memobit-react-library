@@ -6,12 +6,14 @@ import { UseBreakpointPage } from './pages/UseBreakpointPage';
 import { BMIHorizontalBarIndicatorPage } from './pages/BMIHorizontalBarIndicatorPage';
 import { BreadcrumbPage } from './pages/BreadcrumbPage';
 import { ButtonPage } from './pages/ButtonPage';
+import { CalendarPage } from './pages/CalendarPage';
 import { CardPage } from './pages/CardPage';
 import { ChatBotPage } from './pages/ChatBotPage';
 import { CheckboxPage } from './pages/CheckboxPage';
 import { CollapsibleSectionPage } from './pages/CollapsibleSectionPage';
 import { ConfirmDialogPage } from './pages/ConfirmDialogPage';
 import { ContextMenuPage } from './pages/ContextMenuPage';
+import { DatePickerPage } from './pages/DatePickerPage';
 import { DrawerPage } from './pages/DrawerPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
@@ -48,12 +50,14 @@ export const routes: RouteConfig[] = [
     { path: '/bmi-horizontal-bar-indicator', label: 'BMI Horizontal Bar Indicator', component: BMIHorizontalBarIndicatorPage },
     { path: '/breadcrumb', label: 'Breadcrumb', component: BreadcrumbPage },
     { path: '/button', label: 'Button', component: ButtonPage },
+    { path: '/calendar', label: 'Calendar', component: CalendarPage },
     { path: '/card', label: 'Card', component: CardPage },
     { path: '/chatbot', label: 'ChatBot', component: ChatBotPage },
     { path: '/checkbox', label: 'Checkbox', component: CheckboxPage },
     { path: '/collapsible-section', label: 'Collapsible Section', component: CollapsibleSectionPage },
     { path: '/confirm-dialog', label: 'Confirm Dialog', component: ConfirmDialogPage },
     { path: '/context-menu', label: 'Context Menu', component: ContextMenuPage },
+    { path: '/datepicker', label: 'DatePicker', component: DatePickerPage },
     { path: '/drawer', label: 'Drawer', component: DrawerPage },
     { path: '/dropdown', label: 'Dropdown', component: DropdownPage },
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },

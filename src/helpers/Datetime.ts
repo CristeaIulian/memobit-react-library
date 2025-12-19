@@ -34,3 +34,146 @@ export const formatSecondsToMediaTime = (seconds: number | undefined): string =>
     // If an hour or more, show h:mm:ss format
     return `${hours}:${formattedMinutes}:${formattedSeconds}`;
 };
+
+/**
+ * Formats a date according to the specified format string
+ * Supported tokens: YYYY, MM, DD, HH, mm, ss
+ */
+export const formatDate = (date: Date, format: string): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return format
+        .replace('YYYY', String(year))
+        .replace('MM', month)
+        .replace('DD', day)
+        .replace('HH', hours)
+        .replace('mm', minutes)
+        .replace('ss', seconds);
+};
+
+/**
+ * Checks if two dates are the same day (ignoring time)
+ */
+export const isSameDay = (date1: Date, date2: Date): boolean => {
+    return (
+        date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getDate() === date2.getDate()
+    );
+};
+
+/**
+ * Checks if a date is within a range (inclusive)
+ */
+export const isDateInRange = (date: Date, start: Date, end: Date): boolean => {
+    const dateTime = date.getTime();
+    return dateTime >= start.getTime() && dateTime <= end.getTime();
+};
+
+/**
+ * Gets the number of days in a specific month
+ */
+export const getDaysInMonth = (year: number, month: number): number => {
+    return new Date(year, month + 1, 0).getDate();
+};
+
+/**
+ * Generates a matrix of dates for calendar display
+ * Returns a 2D array where each sub-array represents a week
+ */
+export const getMonthMatrix = (year: number, month: number, firstDayOfWeek: 0 | 1 = 0): Date[][] => {
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+
+    let startDay = firstDay.getDay();
+    // Adjust for firstDayOfWeek (0=Sunday, 1=Monday)
+    if (firstDayOfWeek === 1) {
+        startDay = startDay === 0 ? 6 : startDay - 1;
+    }
+
+    const weeks: Date[][] = [];
+    let week: Date[] = [];
+
+    // Fill in days from previous month
+    const prevMonthLastDay = new Date(year, month, 0).getDate();
+    for (let i = startDay - 1; i >= 0; i--) {
+        week.push(new Date(year, month - 1, prevMonthLastDay - i));
+    }
+
+    // Fill in days of current month
+    for (let day = 1; day <= daysInMonth; day++) {
+        week.push(new Date(year, month, day));
+        if (week.length === 7) {
+            weeks.push(week);
+            week = [];
+        }
+    }
+
+    // Fill in days from next month
+    if (week.length > 0) {
+        const remainingDays = 7 - week.length;
+        for (let day = 1; day <= remainingDays; day++) {
+            week.push(new Date(year, month + 1, day));
+        }
+        weeks.push(week);
+    }
+
+    return weeks;
+};
+
+/**
+ * Checks if a date is today
+ */
+export const isToday = (date: Date): boolean => {
+    return isSameDay(date, new Date());
+};
+
+/**
+ * Checks if a date is a weekend (Saturday or Sunday)
+ */
+export const isWeekend = (date: Date): boolean => {
+    const day = date.getDay();
+    return day === 0 || day === 6;
+};
+
+/**
+ * Adds days to a date
+ */
+export const addDays = (date: Date, days: number): Date => {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+};
+
+/**
+ * Adds months to a date
+ */
+export const addMonths = (date: Date, months: number): Date => {
+    const result = new Date(date);
+    result.setMonth(result.getMonth() + months);
+    return result;
+};
+
+/**
+ * Checks if date is before another date (ignoring time)
+ */
+export const isBefore = (date: Date, compareDate: Date): boolean => {
+    const d1 = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const d2 = new Date(compareDate.getFullYear(), compareDate.getMonth(), compareDate.getDate());
+    return d1.getTime() < d2.getTime();
+};
+
+/**
+ * Checks if date is after another date (ignoring time)
+ */
+export const isAfter = (date: Date, compareDate: Date): boolean => {
+    const d1 = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const d2 = new Date(compareDate.getFullYear(), compareDate.getMonth(), compareDate.getDate());
+    return d1.getTime() > d2.getTime();
+};

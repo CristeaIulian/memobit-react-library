@@ -1,0 +1,146 @@
+@import '../../styles/variables.scss';
+
+.datepicker {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+
+    &__input {
+        background-color: var(--datepicker-input-background-color);
+        border: 1px solid var(--calendar-border-color);
+        border-radius: var(--radius-sm);
+        color: var(--calendar-day-color);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-8);
+        padding: var(--spacing-12) var(--spacing-16);
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+        min-height: 40px;
+
+        &:hover:not(&--disabled) {
+            border-color: var(--calendar-day-selected-background-color);
+        }
+
+        &--open {
+            border-color: var(--calendar-day-selected-background-color);
+        }
+
+        &--disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+
+    &__value {
+        flex: 1;
+        font-size: var(--font-size-base);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &--placeholder {
+            color: var(--calendar-day-disabled-color);
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    &__clear {
+        background: transparent;
+        border: none;
+        color: var(--calendar-day-disabled-color);
+        cursor: pointer;
+        font-size: 20px;
+        padding: 0;
+        line-height: 1;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: var(--calendar-day-color);
+        }
+    }
+
+    &__icon {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    &__dropdown {
+        background-color: var(--calendar-background-color);
+        border: 1px solid var(--calendar-border-color);
+        border-radius: var(--radius);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        padding: var(--spacing-16);
+        min-width: 280px;
+    }
+
+    &__time {
+        border-top: 1px solid var(--calendar-border-color);
+        margin-top: var(--spacing-16);
+        padding-top: var(--spacing-16);
+    }
+
+    &__time-label {
+        color: var(--calendar-header-color);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        margin-bottom: var(--spacing-8);
+    }
+
+    &__time-inputs {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+
+        span {
+            color: var(--calendar-day-color);
+            font-weight: var(--font-weight-medium);
+        }
+    }
+
+    &__time-input {
+        background-color: var(--datepicker-input-background-color);
+        border: 1px solid var(--calendar-border-color);
+        border-radius: var(--radius-sm);
+        color: var(--calendar-day-color);
+        font-size: var(--font-size-base);
+        padding: var(--spacing-8);
+        text-align: center;
+        width: 50px;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+            outline: none;
+            border-color: var(--calendar-day-selected-background-color);
+        }
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            opacity: 1;
+        }
+    }
+
+    &__time-period {
+        background-color: var(--datepicker-input-background-color);
+        border: 1px solid var(--calendar-border-color);
+        border-radius: var(--radius-sm);
+        color: var(--calendar-day-color);
+        cursor: pointer;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        padding: var(--spacing-8) var(--spacing-12);
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+
+        &:hover {
+            background-color: var(--calendar-day-hover-background-color);
+            border-color: var(--calendar-day-selected-background-color);
+        }
+    }
+}

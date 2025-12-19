@@ -1,0 +1,257 @@
+import React, { useState } from 'react';
+import { DatePicker, CalendarDateRange } from '../../../src';
+
+export const DatePickerPage: React.FC = () => {
+    const [singleDate, setSingleDate] = useState<Date | undefined>(new Date());
+    const [dateWithTime, setDateWithTime] = useState<Date | undefined>(new Date());
+    const [dateWith12h, setDateWith12h] = useState<Date | undefined>(new Date());
+    const [dateWithSeconds, setDateWithSeconds] = useState<Date | undefined>(new Date());
+    const [rangeDate, setRangeDate] = useState<CalendarDateRange | undefined>();
+    const [multipleDates, setMultipleDates] = useState<Date[] | undefined>();
+    const [customFormatDate, setCustomFormatDate] = useState<Date | undefined>();
+
+    const today = new Date();
+    const minDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    const maxDate = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+
+    return (
+        <div className="component-page">
+            <h1>DatePicker</h1>
+            <p>
+                An interactive date picker component combining calendar selection with an input
+                field. Supports single, range, and multiple date selection, with optional time
+                picking functionality.
+            </p>
+
+            <section className="page-section">
+                <h2>Basic Usage</h2>
+                <div className="showcase-group">
+                    <h3>Single Date Selection</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={singleDate}
+                            onChange={setSingleDate}
+                            placeholder="Select a date..."
+                        />
+                    </div>
+                    <p>
+                        Selected: {singleDate ? singleDate.toLocaleDateString() : 'None'}
+                    </p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>With Custom Date Format (DD/MM/YYYY)</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={customFormatDate}
+                            onChange={setCustomFormatDate}
+                            dateFormat="DD/MM/YYYY"
+                            placeholder="DD/MM/YYYY"
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Disabled State</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={singleDate}
+                            onChange={setSingleDate}
+                            disabled
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Not Clearable</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={singleDate}
+                            onChange={setSingleDate}
+                            clearable={false}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>With Time Selection</h2>
+                <div className="showcase-group">
+                    <h3>Date and Time (24-hour format)</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={dateWithTime}
+                            onChange={setDateWithTime}
+                            withTime
+                            placeholder="Select date and time..."
+                        />
+                    </div>
+                    <p>
+                        Selected: {dateWithTime ? dateWithTime.toLocaleString() : 'None'}
+                    </p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Date and Time (12-hour format)</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={dateWith12h}
+                            onChange={setDateWith12h}
+                            withTime
+                            timeFormat="12h"
+                            placeholder="Select date and time..."
+                        />
+                    </div>
+                    <p>
+                        Selected: {dateWith12h ? dateWith12h.toLocaleString() : 'None'}
+                    </p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Date and Time with Seconds</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={dateWithSeconds}
+                            onChange={setDateWithSeconds}
+                            withTime
+                            withSeconds
+                            placeholder="Select date and time..."
+                        />
+                    </div>
+                    <p>
+                        Selected:{' '}
+                        {dateWithSeconds
+                            ? dateWithSeconds.toLocaleString('en-US', {
+                                  year: 'numeric',
+                                  month: '2-digit',
+                                  day: '2-digit',
+                                  hour: '2-digit',
+                                  minute: '2-digit',
+                                  second: '2-digit',
+                              })
+                            : 'None'}
+                    </p>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Range Selection</h2>
+                <div className="showcase-group">
+                    <h3>Date Range Picker</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            mode="range"
+                            value={rangeDate}
+                            onChange={setRangeDate}
+                            placeholder="Select date range..."
+                            autoClose={false}
+                        />
+                    </div>
+                    <p>
+                        Selected:{' '}
+                        {rangeDate
+                            ? `${rangeDate.start.toLocaleDateString()} - ${rangeDate.end.toLocaleDateString()}`
+                            : 'None'}
+                    </p>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Multiple Selection</h2>
+                <div className="showcase-group">
+                    <h3>Multiple Dates</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            mode="multiple"
+                            value={multipleDates}
+                            onChange={setMultipleDates}
+                            placeholder="Select multiple dates..."
+                            autoClose={false}
+                        />
+                    </div>
+                    <p>
+                        Selected:{' '}
+                        {multipleDates && multipleDates.length > 0
+                            ? multipleDates.map(d => d.toLocaleDateString()).join(', ')
+                            : 'None'}
+                    </p>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>With Constraints</h2>
+                <div className="showcase-group">
+                    <h3>Min/Max Dates</h3>
+                    <p>
+                        Allowed range: {minDate.toLocaleDateString()} to{' '}
+                        {maxDate.toLocaleDateString()}
+                    </p>
+                    <div className="component-group">
+                        <DatePicker
+                            value={singleDate}
+                            onChange={setSingleDate}
+                            minDate={minDate}
+                            maxDate={maxDate}
+                            placeholder="Select date within range..."
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Monday as First Day of Week</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={singleDate}
+                            onChange={setSingleDate}
+                            firstDayOfWeek={1}
+                            placeholder="Week starts Monday..."
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Without Today Button</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={singleDate}
+                            onChange={setSingleDate}
+                            showToday={false}
+                            placeholder="No today button..."
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Multiple DatePickers</h2>
+                <div className="showcase-group">
+                    <h3>Side by Side</h3>
+                    <div
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                            gap: '16px',
+                        }}
+                    >
+                        <DatePicker
+                            value={singleDate}
+                            onChange={setSingleDate}
+                            placeholder="Start date..."
+                        />
+                        <DatePicker
+                            value={singleDate}
+                            onChange={setSingleDate}
+                            placeholder="End date..."
+                        />
+                        <DatePicker
+                            value={dateWithTime}
+                            onChange={setDateWithTime}
+                            withTime
+                            placeholder="Date with time..."
+                        />
+                    </div>
+                </div>
+            </section>
+        </div>
+    );
+};
