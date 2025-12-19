@@ -1,0 +1,82 @@
+.tooltip-trigger {
+    display: inline-block;
+    cursor: default;
+}
+
+.tooltip {
+    position: fixed;
+    z-index: 9999;
+    background: var(--card-background-accent-color);
+    color: var(--body-color-accent);
+    padding: var(--spacing-8) var(--spacing-12);
+    border-radius: var(--radius);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.4;
+    max-width: 300px;
+    word-wrap: break-word;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--delimiter-color);
+    animation: tooltipFadeIn 0.2s ease;
+    pointer-events: none;
+
+    &__arrow {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: var(--card-background-accent-color);
+        border: 1px solid var(--delimiter-color);
+        transform: rotate(45deg);
+
+        &--top {
+            bottom: -5px;
+            left: 50%;
+            margin-left: -4px;
+            border-top: none;
+            border-left: none;
+        }
+
+        &--bottom {
+            top: -5px;
+            left: 50%;
+            margin-left: -4px;
+            border-bottom: none;
+            border-right: none;
+        }
+
+        &--left {
+            right: -5px;
+            top: 50%;
+            margin-top: -4px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        &--right {
+            left: -5px;
+            top: 50%;
+            margin-top: -4px;
+            border-right: none;
+            border-top: none;
+        }
+    }
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .tooltip {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-6) var(--spacing-10);
+        max-width: 200px;
+    }
+}

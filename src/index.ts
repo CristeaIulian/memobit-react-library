@@ -42,6 +42,7 @@ export { Toast, type ToastDetails } from './components/Toast';
 export { ToastContainer, ToastProvider, type ToastType, useToast } from './components/ContextToast';
 export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
+export { Tooltip, type TooltipPosition } from './components/Tooltip';
 
 // Export hooks
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';
