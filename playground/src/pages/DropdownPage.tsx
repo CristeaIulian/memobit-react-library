@@ -15,6 +15,24 @@ export const DropdownPage: React.FC = () => {
         { value: 'option-3', label: 'And here is the 3rd long text' },
     ];
 
+    const largeListOptions = [
+        { value: 'country-1', label: 'United States', details: 'North America' },
+        { value: 'country-2', label: 'United Kingdom', details: 'Europe' },
+        { value: 'country-3', label: 'Canada', details: 'North America' },
+        { value: 'country-4', label: 'Australia', details: 'Oceania' },
+        { value: 'country-5', label: 'Germany', details: 'Europe' },
+        { value: 'country-6', label: 'France', details: 'Europe' },
+        { value: 'country-7', label: 'Japan', details: 'Asia' },
+        { value: 'country-8', label: 'Brazil', details: 'South America' },
+        { value: 'country-9', label: 'India', details: 'Asia' },
+        { value: 'country-10', label: 'Mexico', details: 'North America' },
+        { value: 'country-11', label: 'Italy', details: 'Europe' },
+        { value: 'country-12', label: 'Spain', details: 'Europe' },
+        { value: 'country-13', label: 'South Korea', details: 'Asia' },
+        { value: 'country-14', label: 'Netherlands', details: 'Europe' },
+        { value: 'country-15', label: 'Switzerland', details: 'Europe' },
+    ];
+
     const selectedClinic = 'option-2--temp';
     const clinicSearch = '2nd';
 
@@ -135,6 +153,35 @@ export const DropdownPage: React.FC = () => {
                             searchValue={clinicSearch}
                             onSearchChange={handleClinicSearchChange}
                             usePortal
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Dropdown with Large List (15 items)</h3>
+                    <div className="component-group" style={{ width: '60%' }}>
+                        <Dropdown
+                            name="country-dropdown"
+                            label="Select Country"
+                            options={largeListOptions}
+                            onChange={newOption => console.log('handleCountrySelect', newOption)}
+                            placeholder="Search or select a country..."
+                            searchable
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Large List with Multi-Select</h3>
+                    <div className="component-group" style={{ width: '60%' }}>
+                        <Dropdown
+                            name="countries-multi-dropdown"
+                            label="Select Countries"
+                            options={largeListOptions}
+                            multiple
+                            onChange={newOptions => console.log('handleCountriesSelect', newOptions)}
+                            placeholder="Search or select countries..."
+                            searchable
                         />
                     </div>
                 </div>
