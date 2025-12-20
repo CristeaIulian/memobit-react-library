@@ -17,6 +17,7 @@ export { Flag } from './components/Flag';
 export { FloatButton } from './components/FloatButton';
 export { InformationTooltip } from './components/InformationTooltip';
 export { InputDate } from './components/InputDate';
+export { InputEmail, validateEmail, type InputEmailProps } from './components/InputEmail';
 export { InputFile } from './components/InputFile';
 export { InputNumber } from './components/InputNumber';
 export { InputPassword } from './components/InputPassword';

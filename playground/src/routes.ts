@@ -19,6 +19,7 @@ import { DropdownPage } from './pages/DropdownPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
 import { InformationTooltipPage } from './pages/InformationTooltipPage';
 import { InputFilePage } from './pages/InputFilePage';
+import { InputEmailPage } from './pages/InputEmailPage';
 import { InputNumberPage } from './pages/InputNumberPage';
 import { InputTextPage } from './pages/InputTextPage';
 import { MenuHamburgerPage } from './pages/MenuHamburgerPage';
@@ -63,6 +64,7 @@ export const routes: RouteConfig[] = [
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
     { path: '/information-tooltip', label: 'Information Tooltip', component: InformationTooltipPage },
     { path: '/input-file', label: 'Input File', component: InputFilePage },
+    { path: '/input-email', label: 'Input Email', component: InputEmailPage },
     { path: '/input-number', label: 'Input Number', component: InputNumberPage },
     { path: '/input-text', label: 'Input Text', component: InputTextPage },
     { path: '/menu-hamburger', label: 'Menu Hamburger', component: MenuHamburgerPage },
