@@ -37,6 +37,7 @@ export { Radio } from './components/Radio';
 export { Rating } from './components/Rating';
 export { Separator, type SeparatorProps, type SeparatorOrientation, type SeparatorStyle, type SeparatorAlign } from './components/Separator';
 export { SignalStrength } from './components/SignalStrength';
+export { Skeleton, type SkeletonProps, type SkeletonVariant, type SkeletonAnimation } from './components/Skeleton';
 export { Slider } from './components/Slider';
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';
 export { Textarea } from './components/Textarea';
