@@ -29,6 +29,7 @@ import { PopoverPage } from './pages/PopoverPage';
 import { ProgressBarPage } from './pages/ProgressBarPage';
 import { RadioPage } from './pages/RadioPage';
 import { RatingPage } from './pages/RatingPage';
+import { SeparatorPage } from './pages/SeparatorPage';
 import { SliderPage } from './pages/SliderPage';
 import { SuggestionsListPage } from './pages/SuggestionsListPage';
 import { TextareaPage } from './pages/TextareaPage';
@@ -74,6 +75,7 @@ export const routes: RouteConfig[] = [
     { path: '/progress-bar', label: 'Progress Bar', component: ProgressBarPage },
     { path: '/radio', label: 'Radio', component: RadioPage },
     { path: '/rating', label: 'Rating', component: RatingPage },
+    { path: '/separator', label: 'Separator', component: SeparatorPage },
     { path: '/slider', label: 'Slider', component: SliderPage },
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
     { path: '/textarea', label: 'Textarea', component: TextareaPage },
