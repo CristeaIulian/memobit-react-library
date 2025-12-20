@@ -31,6 +31,7 @@ import { PopoverPage } from './pages/PopoverPage';
 import { ProgressBarPage } from './pages/ProgressBarPage';
 import { RadioPage } from './pages/RadioPage';
 import { RatingPage } from './pages/RatingPage';
+import { SearchPage } from './pages/SearchPage';
 import { SeparatorPage } from './pages/SeparatorPage';
 import { SkeletonPage } from './pages/SkeletonPage';
 import { SliderPage } from './pages/SliderPage';
@@ -80,6 +81,7 @@ export const routes: RouteConfig[] = [
     { path: '/progress-bar', label: 'Progress Bar', component: ProgressBarPage },
     { path: '/radio', label: 'Radio', component: RadioPage },
     { path: '/rating', label: 'Rating', component: RatingPage },
+    { path: '/search', label: 'Search', component: SearchPage },
     { path: '/separator', label: 'Separator', component: SeparatorPage },
     { path: '/skeleton', label: 'Skeleton', component: SkeletonPage },
     { path: '/slider', label: 'Slider', component: SliderPage },

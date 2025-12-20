@@ -37,6 +37,7 @@ export { QuickNumberUpdate } from './components/QuickNumberUpdate';
 export { QuickOptionUpdate } from './components/QuickOptionUpdate';
 export { Radio } from './components/Radio';
 export { Rating } from './components/Rating';
+export { Search, type SearchProps } from './components/Search';
 export { Separator, type SeparatorProps, type SeparatorOrientation, type SeparatorStyle, type SeparatorAlign } from './components/Separator';
 export { SignalStrength } from './components/SignalStrength';
 export { Skeleton, type SkeletonProps, type SkeletonVariant, type SkeletonAnimation } from './components/Skeleton';

@@ -1,0 +1,32 @@
+.search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    &__icon {
+        position: absolute;
+        left: var(--spacing-12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--form-control-placeholder-color);
+        pointer-events: none;
+        z-index: 1;
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    .input-text {
+        padding-left: var(--spacing-40);
+    }
+
+    &:focus-within {
+        .search__icon {
+            color: var(--form-control-focus-border-color);
+        }
+    }
+}
