@@ -13,7 +13,7 @@ export { ConfirmDialog } from './components/ConfirmDialog';
 export { ContextMenu } from './components/ContextMenu';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';
 export { Drawer, type DrawerPosition } from './components/Drawer';
-export { Dropdown, type DropdownOption } from './components/Dropdown';
+export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
 export { Flag } from './components/Flag';
 export { FloatButton } from './components/FloatButton';
 export { InformationTooltip } from './components/InformationTooltip';

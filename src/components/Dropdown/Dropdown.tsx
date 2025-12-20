@@ -14,6 +14,8 @@ export interface DropdownOption {
     value: string | number;
 }
 
+export type DropdownSelectedCountDisplay = 'inline' | 'floating' | 'none';
+
 export interface DropdownProps {
     allowCustomValue?: boolean;
     autofocus?: boolean;
@@ -29,6 +31,7 @@ export interface DropdownProps {
     placeholder?: string;
     searchable?: boolean;
     searchValue?: string;
+    selectedCountDisplay?: DropdownSelectedCountDisplay;
     usePortal?: boolean;
     value?: number | number[] | string | string[] | null;
 }
@@ -48,6 +51,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     placeholder = 'Select an option',
     searchable = false,
     searchValue,
+    selectedCountDisplay = 'inline',
     usePortal = false,
     value,
 }) => {
@@ -452,10 +456,32 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const getPlaceholderText = (): string => {
+        // In multiple mode with selected items
         if (multiple && selectedOptions.length > 0) {
-            return `${selectedOptions.length} selected`;
+            // Only show count in placeholder if using inline mode
+            if (selectedCountDisplay === 'inline') {
+                return `${selectedOptions.length} selected`;
+            }
+            // For floating or none mode, hide placeholder when items are selected
+            return '';
         }
         return placeholder;
+    };
+
+    const renderSelectedCount = () => {
+        if (!multiple || selectedOptions.length === 0 || selectedCountDisplay === 'none') {
+            return null;
+        }
+
+        if (selectedCountDisplay === 'floating') {
+            return (
+                <div className="dropdown-selected-count">
+                    {selectedOptions.length} selected
+                </div>
+            );
+        }
+
+        return null;
     };
 
     const shouldShowCreateOption = (): boolean => {
@@ -604,6 +630,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         </Button>
                     </span>
                 </div>
+
+                {renderSelectedCount()}
             </div>
 
             {renderDropdownMenu()}

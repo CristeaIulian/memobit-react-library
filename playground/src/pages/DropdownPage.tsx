@@ -186,6 +186,57 @@ export const DropdownPage: React.FC = () => {
                     </div>
                 </div>
 
+                <div className="showcase-group">
+                    <h3>Selected Count Display Options (Multi-Select)</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
+                        The selectedCountDisplay prop controls how the selection count is shown, preventing height changes in forms.
+                    </p>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Inline (Default) - Shows inside placeholder</h4>
+                            <Dropdown
+                                name="inline-count"
+                                label="Countries (Inline)"
+                                options={largeListOptions}
+                                multiple
+                                selectedCountDisplay="inline"
+                                onChange={newOptions => console.log('inline', newOptions)}
+                                placeholder="Select countries..."
+                                searchable
+                            />
+                        </div>
+
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Floating - Shows below input (maintains height)</h4>
+                            <Dropdown
+                                name="floating-count"
+                                label="Countries (Floating)"
+                                options={largeListOptions}
+                                multiple
+                                selectedCountDisplay="floating"
+                                onChange={newOptions => console.log('floating', newOptions)}
+                                placeholder="Select countries..."
+                                searchable
+                            />
+                        </div>
+
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>None - Hides count completely</h4>
+                            <Dropdown
+                                name="none-count"
+                                label="Countries (No Count)"
+                                options={largeListOptions}
+                                multiple
+                                selectedCountDisplay="none"
+                                onChange={newOptions => console.log('none', newOptions)}
+                                placeholder="Select countries..."
+                                searchable
+                            />
+                        </div>
+                    </div>
+                </div>
+
                 <div className="showcase-group" style={{ marginTop: '600px' }}>
                     <h3>Dropdown Near Bottom (Auto Opens Upward)</h3>
                     <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>

@@ -1,1 +1,1 @@
-export { Dropdown, type DropdownOption } from './Dropdown';
+export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './Dropdown';

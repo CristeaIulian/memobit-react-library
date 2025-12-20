@@ -99,6 +99,15 @@
             }
         }
 
+        .dropdown-selected-count {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            font-size: var(--font-size-xs);
+            color: var(--body-color-muted);
+            pointer-events: none;
+        }
+
         .dropdown-actions-buttons {
             position: absolute;
             right: 1px;
