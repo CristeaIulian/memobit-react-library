@@ -3,6 +3,7 @@ import React from 'react';
 // Import pages
 import { Home } from './pages/Home';
 import { UseBreakpointPage } from './pages/UseBreakpointPage';
+import { AccordionPage } from './pages/AccordionPage';
 import { BMIHorizontalBarIndicatorPage } from './pages/BMIHorizontalBarIndicatorPage';
 import { BreadcrumbPage } from './pages/BreadcrumbPage';
 import { ButtonPage } from './pages/ButtonPage';
@@ -50,6 +51,7 @@ export interface RouteConfig {
 export const routes: RouteConfig[] = [
     { path: '/', label: 'Home', component: Home },
     { path: '/use-breakpoint', label: 'useBreakpoint Hook', component: UseBreakpointPage },
+    { path: '/accordion', label: 'Accordion', component: AccordionPage },
     { path: '/bmi-horizontal-bar-indicator', label: 'BMI Horizontal Bar Indicator', component: BMIHorizontalBarIndicatorPage },
     { path: '/breadcrumb', label: 'Breadcrumb', component: BreadcrumbPage },
     { path: '/button', label: 'Button', component: ButtonPage },

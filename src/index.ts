@@ -1,4 +1,5 @@
 // Export components
+export { Accordion, type AccordionProps, type AccordionItemData } from './components/Accordion';
 export { AlertDialog } from './components/AlertDialog';
 export { BMIHorizontalBarIndicator } from './components/BMIHorizontalBarIndicator';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';

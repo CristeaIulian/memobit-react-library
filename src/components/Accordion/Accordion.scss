@@ -1,0 +1,116 @@
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.accordion-item {
+    background-color: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+
+    &:hover:not(&--disabled) {
+        border-color: var(--body-accent-color);
+    }
+
+    &__header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-12);
+        padding: var(--spacing-16);
+        background-color: var(--card-background-color);
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        transition: background-color 0.2s ease;
+
+        &:hover:not(:disabled) {
+            background-color: var(--card-background-accent-color);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    }
+
+    &__title {
+        flex: 1;
+        color: var(--body-color);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--body-color-muted);
+        transition: transform 0.3s ease;
+
+        svg {
+            display: block;
+        }
+    }
+
+    &--expanded {
+        .accordion-item__icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-item__content-wrapper {
+            max-height: 1000px;
+            opacity: 1;
+        }
+    }
+
+    &--disabled {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    &__content-wrapper {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+
+    &__content {
+        padding: var(--spacing-16);
+        padding-top: 0;
+        color: var(--body-color);
+        font-size: var(--font-size-sm);
+        line-height: 1.6;
+
+        p {
+            margin: 0 0 var(--spacing-12) 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        ul,
+        ol {
+            margin: 0 0 var(--spacing-12) 0;
+            padding-left: var(--spacing-24);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        li {
+            margin-bottom: var(--spacing-4);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
