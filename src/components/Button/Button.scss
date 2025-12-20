@@ -91,14 +91,14 @@
     }
 
     &.button-warning {
-        background-color: var(--button-warn-background-color);
-        border-color: var(--button-warn-border-color);
-        color: var(--button-warn-color);
+        background-color: var(--button-warning-background-color);
+        border-color: var(--button-warning-border-color);
+        color: var(--button-warning-color);
 
         &:hover {
-            background-color: var(--button-warn-hover-background-color);
-            border-color: var(--button-warn-hover-border-color);
-            color: var(--button-warn-hover-color);
+            background-color: var(--button-warning-hover-background-color);
+            border-color: var(--button-warning-hover-border-color);
+            color: var(--button-warning-hover-color);
         }
     }
 

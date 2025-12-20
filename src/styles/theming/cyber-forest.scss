@@ -52,12 +52,12 @@
     --button-info-hover-background-color: rgba(16, 185, 129, 0.15);
     --button-info-hover-color: #ffffff;
 
-    --button-warn-border-color: #fbbf24;
-    --button-warn-background-color: #f59e0b;
-    --button-warn-color: #ffffff;
-    --button-warn-hover-border-color: #fcd34d;
-    --button-warn-hover-background-color: rgba(251, 191, 36, 0.15);
-    --button-warn-hover-color: #ffffff;
+    --button-warning-border-color: #fbbf24;
+    --button-warning-background-color: #f59e0b;
+    --button-warning-color: #ffffff;
+    --button-warning-hover-border-color: #fcd34d;
+    --button-warning-hover-background-color: rgba(251, 191, 36, 0.15);
+    --button-warning-hover-color: #ffffff;
 
     --button-success-border-color: #10b981;
     --button-success-background-color: #059669;
@@ -127,8 +127,8 @@
     --progress-info-bar-border-color: #10b981;
     --progress-info-bar-fill-color: #10b981;
 
-    --progress-warn-bar-border-color: #fbbf24;
-    --progress-warn-bar-fill-color: #fbbf24;
+    --progress-warning-bar-border-color: #fbbf24;
+    --progress-warning-bar-fill-color: #fbbf24;
 
     --progress-danger-bar-border-color: #f87171;
     --progress-danger-bar-fill-color: #f87171;
@@ -189,7 +189,7 @@
     --loader-border-top-color: #10b981;
 
     --rating-color-success: #10b981;
-    --rating-color-warn: #fbbf24;
+    --rating-color-warning: #fbbf24;
     --rating-color-danger: #f87171;
     --rating-color-info: #10b981;
     --rating-empty-color: #2d5241;

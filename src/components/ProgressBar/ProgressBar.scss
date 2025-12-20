@@ -24,8 +24,8 @@
         }
 
         &.progress-bar-warning {
-            background-color: var(--progress-warn-bar-fill-color);
-            border: var(--spacing-1) solid var(--progress-warn-bar-border-color);
+            background-color: var(--progress-warning-bar-fill-color);
+            border: var(--spacing-1) solid var(--progress-warning-bar-border-color);
         }
 
         &.progress-bar-danger {

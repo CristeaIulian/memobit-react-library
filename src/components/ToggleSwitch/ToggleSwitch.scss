@@ -241,12 +241,12 @@
 
         &.toggle-switch-checked {
             .toggle-switch__track {
-                background-color: var(--button-warn-background-color);
-                border-color: var(--button-warn-border-color);
+                background-color: var(--button-warning-background-color);
+                border-color: var(--button-warning-border-color);
             }
 
             .toggle-switch__label {
-                color: var(--button-warn-color);
+                color: var(--button-warning-color);
             }
         }
     }
