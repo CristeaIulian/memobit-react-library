@@ -1,0 +1,44 @@
+.mini-stats-card {
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-12);
+        padding: var(--spacing-24);
+    }
+
+    &__value {
+        font-size: var(--font-size-xxl);
+        font-weight: var(--font-weight-bold);
+        line-height: 1.2;
+        text-align: center;
+
+        &--default {
+            color: var(--body-color);
+        }
+
+        &--success {
+            color: var(--rating-color-success);
+        }
+
+        &--warning {
+            color: var(--rating-color-warn);
+        }
+
+        &--danger {
+            color: var(--rating-color-danger);
+        }
+
+        &--info {
+            color: var(--rating-color-info);
+        }
+    }
+
+    &__label {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        color: var(--body-color-muted);
+        text-align: center;
+    }
+}

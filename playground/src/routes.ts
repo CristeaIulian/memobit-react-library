@@ -24,6 +24,7 @@ import { InputEmailPage } from './pages/InputEmailPage';
 import { InputNumberPage } from './pages/InputNumberPage';
 import { InputTextPage } from './pages/InputTextPage';
 import { MenuHamburgerPage } from './pages/MenuHamburgerPage';
+import { MiniStatsCardPage } from './pages/MiniStatsCardPage';
 import { ModalPage } from './pages/ModalPage';
 import { PaginationPage } from './pages/PaginationPage';
 import { PopoverPage } from './pages/PopoverPage';
@@ -72,6 +73,7 @@ export const routes: RouteConfig[] = [
     { path: '/input-number', label: 'Input Number', component: InputNumberPage },
     { path: '/input-text', label: 'Input Text', component: InputTextPage },
     { path: '/menu-hamburger', label: 'Menu Hamburger', component: MenuHamburgerPage },
+    { path: '/mini-stats-card', label: 'Mini Stats Card', component: MiniStatsCardPage },
     { path: '/modal', label: 'Modal', component: ModalPage },
     { path: '/pagination', label: 'Pagination', component: PaginationPage },
     { path: '/popover', label: 'Popover', component: PopoverPage },
