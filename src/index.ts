@@ -27,7 +27,7 @@ export { Loading } from './components/Loading';
 export { Login } from './components/Login';
 export { MacronutrientsPieChart } from './components/MacronutrientsPieChart';
 export { MenuHamburger, type MenuHamburgerItem } from './components/MenuHamburger';
-export { MiniStatsCard, type MiniStatsCardProps, type MiniStatsCardVariant } from './components/MiniStatsCard';
+export { MiniStatsCard, type MiniStatsCardProps, type MiniStatsCardVariant, type MiniStatsCardAlign, type MiniStatsCardLabelPosition, type MiniStatsCardTrendVariant } from './components/MiniStatsCard';
 export { Modal } from './components/Modal';
 export { Pagination } from './components/Pagination';
 export { Popover, usePopover } from './components/Popover';

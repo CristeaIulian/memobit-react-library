@@ -2,17 +2,32 @@
     &__content {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
         gap: var(--spacing-12);
         padding: var(--spacing-24);
     }
 
+    &__value-container {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
     &__value {
-        font-size: var(--font-size-xxl);
-        font-weight: var(--font-weight-bold);
+        display: flex;
+        align-items: baseline;
+        gap: var(--spacing-4);
         line-height: 1.2;
-        text-align: center;
+
+        &-number {
+            font-size: var(--font-size-xxl);
+            font-weight: var(--font-weight-bold);
+        }
+
+        &-unit {
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-medium);
+            opacity: 0.8;
+        }
 
         &--default {
             color: var(--body-color);
@@ -39,6 +54,68 @@
         font-size: var(--font-size-sm);
         font-weight: var(--font-weight-medium);
         color: var(--body-color-muted);
-        text-align: center;
+    }
+
+    &__trend {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-semibold);
+
+        &-arrow {
+            font-size: var(--font-size-md);
+        }
+
+        &--success {
+            color: var(--rating-color-success);
+        }
+
+        &--warning {
+            color: var(--rating-color-warn);
+        }
+
+        &--danger {
+            color: var(--rating-color-danger);
+        }
+    }
+
+    &__footer {
+        padding: var(--spacing-12) var(--spacing-24);
+        border-top: var(--spacing-1) solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    // Alignment variants
+    &--align-left {
+        .mini-stats-card__content {
+            align-items: flex-start;
+        }
+
+        .mini-stats-card__label {
+            text-align: left;
+        }
+    }
+
+    &--align-center {
+        .mini-stats-card__content {
+            align-items: center;
+        }
+
+        .mini-stats-card__label {
+            text-align: center;
+        }
+    }
+
+    &--align-right {
+        .mini-stats-card__content {
+            align-items: flex-end;
+        }
+
+        .mini-stats-card__label {
+            text-align: right;
+        }
     }
 }
