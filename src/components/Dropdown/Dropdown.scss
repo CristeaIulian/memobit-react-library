@@ -89,16 +89,6 @@
                 box-shadow 200ms ease-in-out;
         }
 
-        // Adjust input padding when there are selected items in multiple mode
-        &:has(.dropdown-selected-items) .input-text {
-            padding-top: 38px;
-
-            @media (max-width: 768px) {
-                min-height: var(--spacing-64);
-                padding-top: var(--spacing-48);
-            }
-        }
-
         .dropdown-selected-count {
             position: absolute;
             bottom: -20px;
@@ -207,6 +197,24 @@
 
         input[type='text'] {
             min-height: var(--spacing-40);
+        }
+    }
+
+    // Only add padding for inline mode (where placeholder shows count)
+    &.count-display-inline {
+        .dropdown-input-container:has(.dropdown-selected-items) .input-text {
+            padding-top: 38px;
+
+            @media (max-width: 768px) {
+                padding-top: var(--spacing-48);
+            }
+        }
+    }
+
+    // Allow overflow for floating mode to show the count below
+    &.count-display-floating {
+        .dropdown-input-container {
+            overflow: visible;
         }
     }
 

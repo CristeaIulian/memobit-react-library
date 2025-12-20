@@ -456,13 +456,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const getPlaceholderText = (): string => {
-        // In multiple mode with selected items
-        if (multiple && selectedOptions.length > 0) {
-            // Only show count in placeholder if using inline mode
-            if (selectedCountDisplay === 'inline') {
+        // Don't show placeholder when items are selected
+        if (selectedOptions.length > 0) {
+            // In multiple mode with inline display, show count
+            if (multiple && selectedCountDisplay === 'inline') {
                 return `${selectedOptions.length} selected`;
             }
-            // For floating or none mode, hide placeholder when items are selected
+            // For all other cases when something is selected, hide placeholder
             return '';
         }
         return placeholder;
@@ -578,7 +578,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
 
     return (
-        <div className={`dropdown-container ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${className}`} ref={dropdownRef}>
+        <div className={`dropdown-container ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${multiple ? `count-display-${selectedCountDisplay}` : ''} ${className}`} ref={dropdownRef}>
             {label && (
                 <label htmlFor={id} className="dropdown-label">
                     {label}
