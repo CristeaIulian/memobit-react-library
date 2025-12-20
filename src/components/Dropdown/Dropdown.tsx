@@ -57,9 +57,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [focusedIndex, setFocusedIndex] = useState<number>(-1);
     const [selectedOptions, setSelectedOptions] = useState<DropdownOption[]>([]);
     const [portalPosition, setPortalPosition] = useState<{ top: number; left: number; width: number }>({ top: 0, left: 0, width: 0 });
+    const [shouldOpenUpward, setShouldOpenUpward] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const optionsRef = useRef<(HTMLLIElement | null)[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
     const uid = useId();
 
     // Filter options when filterText changes
@@ -143,31 +145,45 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
     }, [searchValue, searchable]);
 
-    // Update portal position when dropdown opens or on scroll/resize
+    // Calculate if dropdown should open upward and update portal position
     useEffect(() => {
-        if (!usePortal || !isOpen || !dropdownRef.current) return;
+        if (!isOpen || !dropdownRef.current) return;
 
-        const updatePosition = () => {
-            if (dropdownRef.current) {
-                const rect = dropdownRef.current.getBoundingClientRect();
+        const calculatePosition = () => {
+            if (!dropdownRef.current) return;
+
+            const rect = dropdownRef.current.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const dropdownMenuHeight = 300; // Approximate max height of dropdown menu
+
+            // Calculate available space above and below
+            const spaceBelow = viewportHeight - rect.bottom;
+            const spaceAbove = rect.top;
+
+            // Determine if should open upward
+            const openUpward = spaceBelow < dropdownMenuHeight && spaceAbove > spaceBelow;
+            setShouldOpenUpward(openUpward);
+
+            // Update portal position if using portal
+            if (usePortal) {
                 setPortalPosition({
-                    top: rect.bottom + window.scrollY,
+                    top: openUpward ? rect.top + window.scrollY : rect.bottom + window.scrollY,
                     left: rect.left + window.scrollX,
                     width: rect.width,
                 });
             }
         };
 
-        updatePosition();
+        calculatePosition();
 
-        window.addEventListener('scroll', updatePosition, true);
-        window.addEventListener('resize', updatePosition);
+        window.addEventListener('scroll', calculatePosition, true);
+        window.addEventListener('resize', calculatePosition);
 
         return () => {
-            window.removeEventListener('scroll', updatePosition, true);
-            window.removeEventListener('resize', updatePosition);
+            window.removeEventListener('scroll', calculatePosition, true);
+            window.removeEventListener('resize', calculatePosition);
         };
-    }, [usePortal, isOpen]);
+    }, [isOpen, usePortal]);
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -456,12 +472,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
         const menuContent = (
             <div
-                className={`dropdown-menu ${usePortal ? 'dropdown-menu--portal' : ''}`}
+                ref={menuRef}
+                className={`dropdown-menu ${usePortal ? 'dropdown-menu--portal' : ''} ${shouldOpenUpward ? 'dropdown-menu--upward' : ''}`}
                 style={
                     usePortal
                         ? {
                               position: 'absolute',
-                              top: `${portalPosition.top}px`,
+                              top: shouldOpenUpward ? 'auto' : `${portalPosition.top}px`,
+                              bottom: shouldOpenUpward ? `${window.innerHeight - portalPosition.top}px` : 'auto',
                               left: `${portalPosition.left}px`,
                               width: `${portalPosition.width}px`,
                               zIndex: 9999,

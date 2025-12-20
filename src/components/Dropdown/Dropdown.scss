@@ -231,6 +231,13 @@
         margin-top: var(--spacing-4);
     }
 
+    &--upward {
+        margin-top: 0;
+        margin-bottom: var(--spacing-4);
+        bottom: 100%;
+        top: auto;
+    }
+
     // Custom scrollbar for dark theme
     &::-webkit-scrollbar {
         width: var(--spacing-8);

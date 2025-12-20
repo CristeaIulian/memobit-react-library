@@ -185,6 +185,23 @@ export const DropdownPage: React.FC = () => {
                         />
                     </div>
                 </div>
+
+                <div className="showcase-group" style={{ marginTop: '600px' }}>
+                    <h3>Dropdown Near Bottom (Auto Opens Upward)</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
+                        This dropdown is positioned near the bottom of the page. It should automatically open upward to stay visible.
+                    </p>
+                    <div className="component-group" style={{ width: '60%' }}>
+                        <Dropdown
+                            name="bottom-dropdown"
+                            label="Select Country (Opens Upward)"
+                            options={largeListOptions}
+                            onChange={newOption => console.log('handleBottomSelect', newOption)}
+                            placeholder="Search or select a country..."
+                            searchable
+                        />
+                    </div>
+                </div>
             </section>
         </div>
     );
