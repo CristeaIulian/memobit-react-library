@@ -9,6 +9,7 @@ interface InputTextProps {
     error?: string;
     id?: string;
     label?: string;
+    maxLength?: number;
     onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
     onChange?: (value: string) => void;
     onClick?: (event: MouseEvent<HTMLInputElement>) => void;
@@ -29,6 +30,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
             error,
             id,
             label,
+            maxLength,
             onBlur,
             onChange,
             onClick,
@@ -56,6 +58,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
                     type="text"
                     className={`input-text ${error ? 'input-text-error' : ''}`}
                     id={id}
+                    maxLength={maxLength}
                     placeholder={placeholder}
                     ref={ref}
                     value={value}

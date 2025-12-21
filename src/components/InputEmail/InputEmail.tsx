@@ -9,6 +9,7 @@ export interface InputEmailProps {
     error?: string;
     id?: string;
     label?: string;
+    maxLength?: number;
     onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
     onChange?: (value: string) => void;
     onClick?: (event: MouseEvent<HTMLInputElement>) => void;
@@ -20,7 +21,6 @@ export interface InputEmailProps {
     required?: boolean;
     showValidation?: boolean;
     validateOn?: 'blur' | 'change' | 'both';
-    errorMessage?: string;
     value?: string;
 }
 
@@ -39,9 +39,10 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
             autoComplete = 'on',
             autoFocus,
             disabled,
-            error,
+            error = 'Please enter a valid email address',
             id,
             label,
+            maxLength,
             onBlur,
             onChange,
             onClick,
@@ -53,7 +54,6 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
             required = false,
             showValidation = false,
             validateOn = 'blur',
-            errorMessage = 'Please enter a valid email address',
             value,
         },
         ref
@@ -122,6 +122,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
                     type="email"
                     className={`input-email ${showError ? 'input-email--error' : ''} ${isValid && isTouched && showValidation ? 'input-email--valid' : ''}`}
                     id={id}
+                    maxLength={maxLength}
                     placeholder={placeholder}
                     ref={ref}
                     value={value}
@@ -133,7 +134,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
                     readOnly={readOnly}
                     required={required}
                 />
-                {showError && <span className="input-email-error-message">{errorMessage}</span>}
+                {showError && <span className="input-email-error-message">{error}</span>}
             </div>
         );
     }

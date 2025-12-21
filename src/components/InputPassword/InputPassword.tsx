@@ -9,6 +9,7 @@ interface InputPasswordProps {
     error?: string;
     id?: string;
     label?: string;
+    maxLength?: number;
     onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
     onChange?: (value: string) => void;
     onClick?: (event: MouseEvent<HTMLInputElement>) => void;
@@ -29,6 +30,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
             error,
             id,
             label,
+            maxLength,
             onBlur,
             onChange,
             onClick,
@@ -56,6 +58,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
                     type="password"
                     className="input-password"
                     id={id}
+                    maxLength={maxLength}
                     placeholder={placeholder}
                     ref={ref}
                     value={value}
