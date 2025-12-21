@@ -7,7 +7,9 @@ interface TextareaProps {
     autoFocus?: boolean;
     cols?: number;
     disabled?: boolean;
+    error?: string;
     id?: string;
+    label?: string;
     maxLength?: number;
     onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
     onChange?: (value: string) => void;
@@ -16,30 +18,61 @@ interface TextareaProps {
     onKeyUp?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
     placeholder?: string;
     rows?: number;
+    required?: boolean;
     value?: string;
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-    ({ autoComplete = 'on', autoFocus, cols, disabled, id, maxLength, onBlur, onChange, onClick, onKeyDown, onKeyUp, placeholder, rows, value }, ref) => {
+    (
+        {
+            autoComplete = 'on',
+            autoFocus,
+            cols,
+            disabled,
+            error,
+            id,
+            label,
+            maxLength,
+            onBlur,
+            onChange,
+            onClick,
+            onKeyDown,
+            onKeyUp,
+            placeholder,
+            required,
+            rows,
+            value,
+        },
+        ref
+    ) => {
         return (
-            <textarea
-                autoComplete={autoComplete}
-                autoFocus={autoFocus}
-                className="textarea"
-                cols={cols}
-                disabled={disabled}
-                id={id}
-                maxLength={maxLength}
-                onBlur={onBlur}
-                onChange={e => onChange?.(e.target.value)}
-                onClick={onClick}
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
-                placeholder={placeholder}
-                ref={ref}
-                rows={rows}
-                value={value}
-            />
+            <div className="textarea-wrapper">
+                {label && (
+                    <label htmlFor={id} className="textarea-label">
+                        {label}
+                        {required && <span className="textarea-required">*</span>}
+                    </label>
+                )}
+                <textarea
+                    autoComplete={autoComplete}
+                    autoFocus={autoFocus}
+                    className="textarea"
+                    cols={cols}
+                    disabled={disabled}
+                    id={id}
+                    maxLength={maxLength}
+                    onBlur={onBlur}
+                    onChange={e => onChange?.(e.target.value)}
+                    onClick={onClick}
+                    onKeyDown={onKeyDown}
+                    onKeyUp={onKeyUp}
+                    placeholder={placeholder}
+                    ref={ref}
+                    rows={rows}
+                    value={value}
+                />
+                {error && <span className="textarea-error-message">{error}</span>}
+            </div>
         );
     }
 );

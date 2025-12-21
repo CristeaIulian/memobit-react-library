@@ -6,7 +6,9 @@ interface InputPasswordProps {
     autoComplete?: 'on' | 'off';
     autoFocus?: boolean;
     disabled?: boolean;
+    error?: string;
     id?: string;
+    label?: string;
     onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
     onChange?: (value: string) => void;
     onClick?: (event: MouseEvent<HTMLInputElement>) => void;
@@ -20,28 +22,53 @@ interface InputPasswordProps {
 
 export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
     (
-        { autoComplete = 'on', autoFocus, disabled, id, onBlur, onChange, onClick, onKeyDown, onKeyUp, placeholder, readOnly = false, required = false, value },
+        {
+            autoComplete = 'on',
+            autoFocus,
+            disabled,
+            error,
+            id,
+            label,
+            onBlur,
+            onChange,
+            onClick,
+            onKeyDown,
+            onKeyUp,
+            placeholder,
+            readOnly = false,
+            required = false,
+            value,
+        },
         ref
     ) => {
         return (
-            <input
-                autoComplete={autoComplete}
-                autoFocus={autoFocus}
-                disabled={disabled}
-                type="password"
-                className="input-password"
-                id={id}
-                placeholder={placeholder}
-                ref={ref}
-                value={value}
-                onBlur={onBlur}
-                onChange={e => onChange?.(e.target.value)}
-                onClick={onClick}
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
-                readOnly={readOnly}
-                required={required}
-            />
+            <div className="input-password-wrapper">
+                {label && (
+                    <label htmlFor={id} className="input-password-label">
+                        {label}
+                        {required && <span className="input-password-required">*</span>}
+                    </label>
+                )}
+                <input
+                    autoComplete={autoComplete}
+                    autoFocus={autoFocus}
+                    disabled={disabled}
+                    type="password"
+                    className="input-password"
+                    id={id}
+                    placeholder={placeholder}
+                    ref={ref}
+                    value={value}
+                    onBlur={onBlur}
+                    onChange={e => onChange?.(e.target.value)}
+                    onClick={onClick}
+                    onKeyDown={onKeyDown}
+                    onKeyUp={onKeyUp}
+                    readOnly={readOnly}
+                    required={required}
+                />
+                {error && <span className="input-password-error-message">{error}</span>}
+            </div>
         );
     }
 );

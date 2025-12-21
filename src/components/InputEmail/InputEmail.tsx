@@ -6,7 +6,9 @@ export interface InputEmailProps {
     autoComplete?: 'on' | 'off';
     autoFocus?: boolean;
     disabled?: boolean;
+    error?: string;
     id?: string;
+    label?: string;
     onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
     onChange?: (value: string) => void;
     onClick?: (event: MouseEvent<HTMLInputElement>) => void;
@@ -37,7 +39,9 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
             autoComplete = 'on',
             autoFocus,
             disabled,
+            error,
             id,
+            label,
             onBlur,
             onChange,
             onClick,
@@ -105,6 +109,12 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
 
         return (
             <div className="input-email-wrapper">
+                {label && (
+                    <label htmlFor={id} className="input-email-label">
+                        {label}
+                        {required && <span className="input-email-required">*</span>}
+                    </label>
+                )}
                 <input
                     autoComplete={autoComplete}
                     autoFocus={autoFocus}
@@ -123,9 +133,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
                     readOnly={readOnly}
                     required={required}
                 />
-                {showError && (
-                    <span className="input-email-error-message">{errorMessage}</span>
-                )}
+                {showError && <span className="input-email-error-message">{errorMessage}</span>}
             </div>
         );
     }
