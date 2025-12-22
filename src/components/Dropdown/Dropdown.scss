@@ -189,6 +189,15 @@
         }
     }
 
+    &.dropdown-error {
+        border-color: var(--body-danger-color);
+
+        &:focus {
+            border-color: var(--body-danger-color);
+            box-shadow: 0 0 0 var(--spacing-2) var(--box-shadow);
+        }
+    }
+
     // Special styling for multiple mode
     &.multiple {
         .dropdown-input-container {
@@ -358,6 +367,11 @@
         padding: var(--spacing-12);
         font-style: italic;
         text-align: center;
+    }
+
+    .dropdown-error-message {
+        font-size: var(--font-size-xs);
+        color: var(--body-danger-color);
     }
 
     // Mobile responsive adjustments

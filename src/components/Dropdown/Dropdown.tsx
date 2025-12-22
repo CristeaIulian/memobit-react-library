@@ -21,6 +21,7 @@ export interface DropdownProps {
     autofocus?: boolean;
     className?: string;
     disabled?: boolean;
+    error?: string;
     id?: string;
     label?: string;
     multiple?: boolean;
@@ -41,6 +42,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     autofocus = false,
     className = '',
     disabled = false,
+    error,
     id = 'dropdown',
     label,
     multiple = false,
@@ -474,11 +476,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
 
         if (selectedCountDisplay === 'floating') {
-            return (
-                <div className="dropdown-selected-count">
-                    {selectedOptions.length} selected
-                </div>
-            );
+            return <div className="dropdown-selected-count">{selectedOptions.length} selected</div>;
         }
 
         return null;
@@ -578,7 +576,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
 
     return (
-        <div className={`dropdown-container ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${multiple ? `count-display-${selectedCountDisplay}` : ''} ${className}`} ref={dropdownRef}>
+        <div
+            className={`dropdown-container ${error ? 'dropdown-error' : ''} ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${multiple ? `count-display-${selectedCountDisplay}` : ''} ${className}`}
+            ref={dropdownRef}
+        >
             {label && (
                 <label htmlFor={id} className="dropdown-label">
                     {label}
@@ -635,6 +636,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
             </div>
 
             {renderDropdownMenu()}
+
+            {error && <span className="dropdown-error-message">{error}</span>}
         </div>
     );
 };
