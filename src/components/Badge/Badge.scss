@@ -1,0 +1,35 @@
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-4) var(--spacing-12);
+    border-radius: var(--spacing-12);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    line-height: 1.5;
+    transition: all 0.2s ease;
+
+    &--default {
+        background-color: color-mix(in srgb, var(--button-default-background-color) 20%, transparent);
+        color: var(--button-default-background-color);
+    }
+
+    &--info {
+        background-color: color-mix(in srgb, var(--button-info-background-color) 20%, transparent);
+        color: var(--button-info-background-color);
+    }
+
+    &--success {
+        background-color: color-mix(in srgb, var(--button-success-background-color) 20%, transparent);
+        color: var(--button-success-background-color);
+    }
+
+    &--warning {
+        background-color: color-mix(in srgb, var(--button-warning-background-color) 20%, transparent);
+        color: var(--button-warning-background-color);
+    }
+
+    &--danger {
+        background-color: color-mix(in srgb, var(--button-danger-background-color) 20%, transparent);
+        color: var(--button-danger-background-color);
+    }
+}
