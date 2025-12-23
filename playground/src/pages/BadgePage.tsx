@@ -27,6 +27,27 @@ export const BadgePage: FC = () => {
                         <Badge variant="danger">Danger</Badge>
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Badge Sizes</h3>
+                    <div className="component-group">
+                        <div>
+                            <Badge variant="success" size="small">
+                                Small
+                            </Badge>
+                        </div>
+                        <div>
+                            <Badge variant="success" size="medium">
+                                Medium
+                            </Badge>
+                        </div>
+                        <div>
+                            <Badge variant="success" size="large">
+                                Large
+                            </Badge>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     );

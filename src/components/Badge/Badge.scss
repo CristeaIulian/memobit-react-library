@@ -2,34 +2,49 @@
     display: inline-flex;
     align-items: center;
     padding: var(--spacing-4) var(--spacing-12);
-    border-radius: var(--spacing-12);
+    border-radius: var(--radius-sm);
     font-size: var(--font-size-xs);
     font-weight: 600;
     line-height: 1.5;
     transition: all 0.2s ease;
 
-    &--default {
+    &-variant--default {
         background-color: color-mix(in srgb, var(--button-default-hover-background-color) 100%, transparent);
         color: var(--button-default-color);
     }
 
-    &--info {
+    &-variant--info {
         background-color: color-mix(in srgb, var(--button-info-background-color) 20%, transparent);
         color: var(--button-info-background-color);
     }
 
-    &--success {
+    &-variant--success {
         background-color: color-mix(in srgb, var(--button-success-background-color) 20%, transparent);
         color: var(--button-success-background-color);
     }
 
-    &--warning {
+    &-variant--warning {
         background-color: color-mix(in srgb, var(--button-warning-background-color) 20%, transparent);
         color: var(--button-warning-background-color);
     }
 
-    &--danger {
+    &-variant--danger {
         background-color: color-mix(in srgb, var(--button-danger-background-color) 20%, transparent);
         color: var(--button-danger-background-color);
+    }
+
+    &-size--small {
+        padding: var(--spacing-2) var(--spacing-8);
+        font-size: var(--font-size-xs);
+    }
+
+    &-size--medium {
+        padding: var(--spacing-4) var(--spacing-8);
+        font-size: var(--font-size-xs);
+    }
+
+    &-size--large {
+        padding: var(--spacing-8) var(--spacing-12);
+        font-size: var(--font-size-sm);
     }
 }
