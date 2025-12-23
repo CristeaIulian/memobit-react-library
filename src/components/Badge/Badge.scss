@@ -9,8 +9,8 @@
     transition: all 0.2s ease;
 
     &--default {
-        background-color: color-mix(in srgb, var(--button-default-background-color) 20%, transparent);
-        color: var(--button-default-background-color);
+        background-color: color-mix(in srgb, var(--button-default-hover-background-color) 100%, transparent);
+        color: var(--button-default-color);
     }
 
     &--info {

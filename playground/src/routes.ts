@@ -4,6 +4,7 @@ import React from 'react';
 import { Home } from './pages/Home';
 import { UseBreakpointPage } from './pages/UseBreakpointPage';
 import { AccordionPage } from './pages/AccordionPage';
+import { BadgePage } from './pages/BadgePage';
 import { BMIHorizontalBarIndicatorPage } from './pages/BMIHorizontalBarIndicatorPage';
 import { BreadcrumbPage } from './pages/BreadcrumbPage';
 import { ButtonPage } from './pages/ButtonPage';
@@ -54,6 +55,7 @@ export const routes: RouteConfig[] = [
     { path: '/', label: 'Home', component: Home },
     { path: '/use-breakpoint', label: 'useBreakpoint Hook', component: UseBreakpointPage },
     { path: '/accordion', label: 'Accordion', component: AccordionPage },
+    { path: '/badge', label: 'Badge', component: BadgePage },
     { path: '/bmi-horizontal-bar-indicator', label: 'BMI Horizontal Bar Indicator', component: BMIHorizontalBarIndicatorPage },
     { path: '/breadcrumb', label: 'Breadcrumb', component: BreadcrumbPage },
     { path: '/button', label: 'Button', component: ButtonPage },
@@ -96,6 +98,4 @@ export const routes: RouteConfig[] = [
 ];
 
 // Alphabetically sorted routes for sidebar (excluding Home)
-export const sortedRoutes = routes
-    .filter(r => r.path !== '/')
-    .sort((a, b) => a.label.localeCompare(b.label));
+export const sortedRoutes = routes.filter(r => r.path !== '/').sort((a, b) => a.label.localeCompare(b.label));

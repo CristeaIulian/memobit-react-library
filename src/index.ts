@@ -1,6 +1,7 @@
 // Export components
 export { Accordion, type AccordionProps, type AccordionItemData } from './components/Accordion';
 export { AlertDialog } from './components/AlertDialog';
+export { Badge, type BadgeVariant } from './components/Badge';
 export { BMIHorizontalBarIndicator } from './components/BMIHorizontalBarIndicator';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
 export { Button } from './components/Button';
@@ -27,7 +28,14 @@ export { Loading } from './components/Loading';
 export { Login } from './components/Login';
 export { MacronutrientsPieChart } from './components/MacronutrientsPieChart';
 export { MenuHamburger, type MenuHamburgerItem } from './components/MenuHamburger';
-export { MiniStatsCard, type MiniStatsCardProps, type MiniStatsCardVariant, type MiniStatsCardAlign, type MiniStatsCardLabelPosition, type MiniStatsCardTrendVariant } from './components/MiniStatsCard';
+export {
+    MiniStatsCard,
+    type MiniStatsCardProps,
+    type MiniStatsCardVariant,
+    type MiniStatsCardAlign,
+    type MiniStatsCardLabelPosition,
+    type MiniStatsCardTrendVariant,
+} from './components/MiniStatsCard';
 export { Modal } from './components/Modal';
 export { Pagination } from './components/Pagination';
 export { Popover, usePopover } from './components/Popover';

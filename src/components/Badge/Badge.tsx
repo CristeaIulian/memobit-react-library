@@ -1,15 +1,15 @@
-import React, { MouseEvent } from 'react';
+import React, { FC, ReactNode } from 'react';
 
-import './Button.scss';
+import './Badge.scss';
 
 export type BadgeVariant = 'default' | 'success' | 'info' | 'warning' | 'danger';
 
 export interface BadgeProps {
-    variant: BadgeVariant;
-    children: React.ReactNode;
-    className: string;
+    variant?: BadgeVariant;
+    children: ReactNode;
+    className?: string;
 }
 
-export const Badge: React.FC<BadgeProps> = ({ variant = 'default', children, className = '' }: BadgeProps) => {
+export const Badge: FC<BadgeProps> = ({ variant = 'default', children, className = '' }: BadgeProps) => {
     return <span className={`badge badge--${variant} ${className}`}>{children}</span>;
 };
