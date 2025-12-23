@@ -43,12 +43,16 @@ export const Home: React.FC = () => {
                         <span className="mixin-mobile">@mobile</span>
                         <span className="mixin-tablet">@tablet</span>
                         <span className="mixin-desktop">@desktop</span>
+                        <span className="mixin-not-mobile">@not-mobile</span>
+                        <span className="mixin-not-desktop">@not-desktop</span>
                     </div>
                     <div className="info-card">
                         <strong>Breakpoint using class:</strong>
                         <span className="mobile">.mobile</span>
                         <span className="tablet">.tablet</span>
                         <span className="desktop">.desktop</span>
+                        <span className="not-mobile">.not-mobile</span>
+                        <span className="not-desktop">.not-desktop</span>
                     </div>
                 </div>
             </section>

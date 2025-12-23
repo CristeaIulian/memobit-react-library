@@ -11,6 +11,9 @@
             .mixin-desktop {
                 display: none;
             }
+            .mixin-not-mobile {
+                display: none;
+            }
         }
 
         @include tablet {
@@ -27,6 +30,9 @@
                 display: none;
             }
             .mixin-tablet {
+                display: none;
+            }
+            .mixin-not-desktop {
                 display: none;
             }
         }
