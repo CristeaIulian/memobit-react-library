@@ -13,7 +13,10 @@ export const Home: React.FC = () => {
         <div className="home">
             <header className="home__header">
                 <h1>Component Library Playground</h1>
-                <p>Welcome to the interactive playground for testing and previewing components. Select a component from the sidebar to explore its features and variations.</p>
+                <p>
+                    Welcome to the interactive playground for testing and previewing components. Select a component from the sidebar to explore its features and
+                    variations.
+                </p>
             </header>
 
             <section className="page-section">
@@ -33,6 +36,19 @@ export const Home: React.FC = () => {
                     </div>
                     <div className="info-card">
                         <strong>Format Money:</strong> {formatMoney(23)}
+                    </div>
+
+                    <div className="info-card">
+                        <strong>Breakpoint using mixin:</strong>
+                        <span className="mixin-mobile">@mobile</span>
+                        <span className="mixin-tablet">@tablet</span>
+                        <span className="mixin-desktop">@desktop</span>
+                    </div>
+                    <div className="info-card">
+                        <strong>Breakpoint using class:</strong>
+                        <span className="mobile">.mobile</span>
+                        <span className="tablet">.tablet</span>
+                        <span className="desktop">.desktop</span>
                     </div>
                 </div>
             </section>

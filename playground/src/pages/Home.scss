@@ -1,4 +1,37 @@
+@use '../../../src/styles/utilities' as *;
+
 .home {
+    .info-card {
+        @include flex-column;
+
+        @include mobile {
+            .mixin-tablet {
+                display: none;
+            }
+            .mixin-desktop {
+                display: none;
+            }
+        }
+
+        @include tablet {
+            .mixin-mobile {
+                display: none;
+            }
+            .mixin-desktop {
+                display: none;
+            }
+        }
+
+        @include desktop {
+            .mixin-mobile {
+                display: none;
+            }
+            .mixin-tablet {
+                display: none;
+            }
+        }
+    }
+
     &__header {
         margin-bottom: var(--spacing-24);
 

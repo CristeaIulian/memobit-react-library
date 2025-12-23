@@ -26,30 +26,6 @@
     }
 }
 
-// Flexbox helpers
-.flex-space-around {
-    display: flex;
-    justify-content: space-around;
-    column-gap: var(--spacing-16);
-}
-
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.flex-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.flex-column {
-    display: flex;
-    flex-direction: column;
-}
-
 // Text alignment
 .text-center {
     text-align: center;
@@ -69,6 +45,11 @@
 }
 
 // Flex mixins
+@mixin flex-around {
+    display: flex;
+    justify-content: space-around;
+}
+
 @mixin flex-center {
     display: flex;
     align-items: center;
@@ -84,6 +65,39 @@
 @mixin flex-column {
     display: flex;
     flex-direction: column;
+}
+
+@mixin flex-wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@mixin flex-wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+// Flexbox helpers
+.flex-around {
+    @include flex-around;
+}
+
+.flex-center {
+    @include flex-center;
+}
+
+.flex-between {
+    @include flex-between;
+}
+
+.flex-column {
+    @include flex-column;
+}
+
+.flex-wrap {
+    @include flex-wrap;
 }
 
 // Typography
@@ -116,5 +130,23 @@
 @mixin desktop {
     @media (min-width: 1025px) {
         @content;
+    }
+}
+
+.mobile {
+    @media (min-width: 768px) {
+        display: none;
+    }
+}
+
+.tablet {
+    @media (max-width: 768px) or (min-width: 1024px) {
+        display: none;
+    }
+}
+
+.desktop {
+    @media (max-width: 1024px) {
+        display: none;
     }
 }
