@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Header } from '../../Header/Header';
-import { Sidebar } from '../Sidebar/Sidebar';
-import { useBreakpoint } from '../../../../src';
+import { Header } from '../../Header';
+import { Sidebar, SidebarSection, useBreakpoint } from '../../../../src';
+import { sortedRoutes } from '../../routes';
 
 import './Layout.scss';
 
@@ -13,17 +14,43 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
     const { isMobile } = useBreakpoint();
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(!isMobile);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
+
+    // Convert routes to sidebar sections
+    const sidebarSections: SidebarSection[] = [
+        {
+            items: [
+                {
+                    id: 'home',
+                    label: 'Home',
+                    isActive: location.pathname === '/',
+                    onClick: () => navigate('/'),
+                },
+            ],
+            showDivider: true,
+        },
+        {
+            items: sortedRoutes.map(route => ({
+                id: route.path,
+                label: route.label,
+                isActive: location.pathname === route.path,
+                onClick: () => navigate(route.path),
+            })),
+            showDivider: false,
+        },
+    ];
 
     return (
         <div className="layout">
             <Header />
 
             <div className="layout__container">
-                <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} isMobile={isMobile} />
+                <Sidebar sections={sidebarSections} isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} isMobile={isMobile} />
 
                 {isMobile && isSidebarOpen && <div className="layout__overlay" onClick={() => setIsSidebarOpen(false)} />}
 

@@ -33,6 +33,7 @@ import { RadioPage } from './pages/RadioPage';
 import { RatingPage } from './pages/RatingPage';
 import { SearchPage } from './pages/SearchPage';
 import { SeparatorPage } from './pages/SeparatorPage';
+import { SidebarPage } from './pages/SidebarPage';
 import { SkeletonPage } from './pages/SkeletonPage';
 import { SliderPage } from './pages/SliderPage';
 import { SuggestionsListPage } from './pages/SuggestionsListPage';
@@ -83,6 +84,7 @@ export const routes: RouteConfig[] = [
     { path: '/rating', label: 'Rating', component: RatingPage },
     { path: '/search', label: 'Search', component: SearchPage },
     { path: '/separator', label: 'Separator', component: SeparatorPage },
+    { path: '/sidebar', label: 'Sidebar', component: SidebarPage },
     { path: '/skeleton', label: 'Skeleton', component: SkeletonPage },
     { path: '/slider', label: 'Slider', component: SliderPage },
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
