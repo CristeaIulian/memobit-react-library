@@ -1,17 +1,19 @@
-import { type ReactElement, type CSSProperties, useEffect, useRef, useState } from 'react';
+import { type ReactElement, type CSSProperties, type MouseEvent, useEffect, useRef, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
 import './ContextMenu.scss';
 
 interface ContextMenuProps {
-    target: EventTarget;
-    onClose?: () => void;
+    autoClose?: boolean;
     children: ReactElement;
+    onClose?: () => void;
+    target: EventTarget;
 }
 
-export const ContextMenu = ({ target, onClose, children }: ContextMenuProps) => {
+export const ContextMenu = ({ target, onClose, children, autoClose = false }: ContextMenuProps) => {
     const menuRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
     const [menuStyle, setMenuStyle] = useState<CSSProperties>(() => {
         if (!target) {
             return { opacity: 0 };
@@ -74,12 +76,22 @@ export const ContextMenu = ({ target, onClose, children }: ContextMenuProps) => 
                 left: `${left}px`,
                 opacity: 1,
             });
+
+            // Trigger animation after positioning
+            setIsVisible(true);
         });
 
         return () => {
             cancelAnimationFrame(frameId);
         };
     }, [target]);
+
+    const handleMenuClick = (event: MouseEvent<HTMLDivElement>) => {
+        if (autoClose) {
+            // Close menu when any descendant is clicked
+            onClose?.();
+        }
+    };
 
     if (!target) {
         return null;
@@ -96,7 +108,12 @@ export const ContextMenu = ({ target, onClose, children }: ContextMenuProps) => 
                 className="memobit-context-menu-back-drop"
                 onClick={onClose}
             />
-            <div ref={menuRef} className="memobit-context-menu" style={menuStyle}>
+            <div
+                ref={menuRef}
+                className={`memobit-context-menu ${isVisible ? 'memobit-context-menu--visible' : ''}`}
+                style={menuStyle}
+                onClick={handleMenuClick}
+            >
                 {children}
             </div>
         </>,

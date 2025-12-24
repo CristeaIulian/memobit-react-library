@@ -1,6 +1,7 @@
-import React, { FC, ReactElement, useRef, useState } from 'react';
+import React, { type FC, type ReactElement, type MouseEvent, useState } from 'react';
 
 import { Button } from '../Button';
+import { ContextMenu } from '../ContextMenu';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 
 import './MenuHamburger.scss';
@@ -22,30 +23,36 @@ interface MenuHamburgerProps {
 
 export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, label, showLabel = true }: MenuHamburgerProps): ReactElement => {
     const { isAtLeast } = useBreakpoint();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const menuRef = useRef<HTMLDivElement>(null);
+    const [menuTarget, setMenuTarget] = useState<EventTarget | null>(null);
+
+    const handleButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+        setMenuTarget(event.currentTarget);
+    };
+
+    const closeMenu = () => {
+        setMenuTarget(null);
+    };
 
     const handleItemClick = (item: MenuHamburgerItem) => {
         item.onClick();
-        setIsMenuOpen(false);
+        closeMenu();
     };
 
     const isAtLeastTablet = isAtLeast('tablet');
 
     return (
-        <div className="MenuHamburger" ref={menuRef}>
+        <div className="MenuHamburger">
             <Button
                 variant={isCompact || !isAtLeastTablet ? 'plain' : 'default'}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                onClick={handleButtonClick}
                 prefixIcon={icon ? icon : isCompact || !isAtLeastTablet ? '⋮' : `☰`}
                 aria-label="Menu"
             >
                 {isAtLeastTablet && showLabel ? (label ? label : 'Menu') : ''}
             </Button>
 
-            {isMenuOpen && (
-                <>
-                    <div className="MenuHamburger_overlay" onClick={() => setIsMenuOpen(false)} />
+            {menuTarget && (
+                <ContextMenu target={menuTarget} onClose={closeMenu}>
                     <div className="MenuHamburger_dropdown">
                         {items.map((item, index) => (
                             <Button
@@ -59,7 +66,7 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, 
                             </Button>
                         ))}
                     </div>
-                </>
+                </ContextMenu>
             )}
         </div>
     );

@@ -1,7 +1,9 @@
 .memobit-context-menu-back-drop {
     background-color: var(--backdrop-color);
     opacity: 0.2;
+    animation: fadeIn 0.2s ease;
 }
+
 .memobit-context-menu {
     position: fixed;
     z-index: 1000;
@@ -14,4 +16,21 @@
     max-width: calc(100vw - 16px);
     box-sizing: border-box;
     overflow: auto;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &--visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

@@ -25,11 +25,13 @@ export const ContextMenuPage: React.FC = () => {
     const onActionsEdit = useCallback(() => {
         alert('Edit clicked');
         closeMenu();
+        closeMenu2();
     }, []);
 
     const onActionsDelete = useCallback(() => {
         alert('Delete clicked');
         closeMenu();
+        closeMenu2();
     }, []);
 
     return (
