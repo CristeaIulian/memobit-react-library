@@ -17,7 +17,6 @@ export { Drawer, type DrawerPosition } from './components/Drawer';
 export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
 export { Flag } from './components/Flag';
 export { FloatButton } from './components/FloatButton';
-export { InformationTooltip } from './components/InformationTooltip';
 export { InputDate } from './components/InputDate';
 export { InputEmail, validateEmail, type InputEmailProps } from './components/InputEmail';
 export { InputFile } from './components/InputFile';

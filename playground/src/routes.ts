@@ -19,7 +19,6 @@ import { DatePickerPage } from './pages/DatePickerPage';
 import { DrawerPage } from './pages/DrawerPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
-import { InformationTooltipPage } from './pages/InformationTooltipPage';
 import { InputFilePage } from './pages/InputFilePage';
 import { InputEmailPage } from './pages/InputEmailPage';
 import { InputNumberPage } from './pages/InputNumberPage';
@@ -70,7 +69,6 @@ export const routes: RouteConfig[] = [
     { path: '/drawer', label: 'Drawer', component: DrawerPage },
     { path: '/dropdown', label: 'Dropdown', component: DropdownPage },
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
-    { path: '/information-tooltip', label: 'Information Tooltip', component: InformationTooltipPage },
     { path: '/input-file', label: 'Input File', component: InputFilePage },
     { path: '/input-email', label: 'Input Email', component: InputEmailPage },
     { path: '/input-number', label: 'Input Number', component: InputNumberPage },
