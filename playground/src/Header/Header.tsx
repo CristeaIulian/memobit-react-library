@@ -9,7 +9,8 @@ export const Header = () => {
 
     return (
         <div className="appHeader">
-            <header style={{ display: 'flex', flexDirection: 'column', rowGap: '8px' }}>
+            <header className="mobile">Playground</header>
+            <header className="not-mobile">
                 <h1>Component Library Playground</h1>
                 <p>Test and preview components before building</p>
             </header>

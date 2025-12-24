@@ -32,35 +32,35 @@ export const ProgressBarPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>Default</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="default" value={23} />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Success</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="success" value={75} />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Info</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="info" value={50} />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Warning</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="warning" value={65} />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Danger</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="danger" value={30} />
                     </div>
                 </div>
@@ -71,35 +71,35 @@ export const ProgressBarPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>Default Striped</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="default" value={40} striped />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Success Striped</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="success" value={60} striped />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Info Striped</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="info" value={75} striped />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Warning Striped</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="warning" value={55} striped />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Danger Striped</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="danger" value={85} striped />
                     </div>
                 </div>
@@ -110,28 +110,28 @@ export const ProgressBarPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>Success Animated</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="success" value={70} striped animated />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Info Animated</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="info" value={45} striped animated />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Warning Animated</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="warning" value={60} striped animated />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Danger Animated</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="danger" value={90} striped animated />
                     </div>
                 </div>
@@ -142,28 +142,28 @@ export const ProgressBarPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>With Percentage (Default)</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="info" value={68} />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Without Percentage</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="info" value={68} showPercentage={false} />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>With Custom Label</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="success" value={82} label="Download" />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Label Only (No Percentage)</h3>
-                    <div style={{ width: '300px' }}>
+                    <div>
                         <ProgressBar state="warning" value={45} label="Processing" showPercentage={false} />
                     </div>
                 </div>
@@ -176,7 +176,6 @@ export const ProgressBarPage: React.FC = () => {
                     <h3>File Upload Simulation</h3>
                     <div
                         style={{
-                            width: '400px',
                             padding: '16px',
                             border: '1px solid var(--border-color)',
                             borderRadius: '8px',
@@ -191,14 +190,11 @@ export const ProgressBarPage: React.FC = () => {
                             striped
                             animated={uploadProgress < 100}
                         />
-                        <Button
-                            variant={uploadProgress >= 100 ? 'success' : 'info'}
-                            onClick={startUpload}
-                            disabled={isUploading}
-                            style={{ marginTop: '12px' }}
-                        >
-                            {uploadProgress >= 100 ? 'Upload Complete' : isUploading ? 'Uploading...' : 'Start Upload'}
-                        </Button>
+                        <div style={{ marginTop: '12px' }}>
+                            <Button variant={uploadProgress >= 100 ? 'success' : 'info'} onClick={startUpload} disabled={isUploading}>
+                                {uploadProgress >= 100 ? 'Upload Complete' : isUploading ? 'Uploading...' : 'Start Upload'}
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
@@ -206,7 +202,6 @@ export const ProgressBarPage: React.FC = () => {
                     <h3>Storage Usage</h3>
                     <div
                         style={{
-                            width: '400px',
                             padding: '16px',
                             border: '1px solid var(--border-color)',
                             borderRadius: '8px',
@@ -215,13 +210,9 @@ export const ProgressBarPage: React.FC = () => {
                         <div style={{ marginBottom: '8px' }}>
                             <strong>Storage Usage</strong>
                         </div>
-                        <div style={{ marginBottom: '12px', fontSize: '14px', color: 'var(--body-color-muted)' }}>
-                            7.5 GB of 10 GB used
-                        </div>
+                        <div style={{ marginBottom: '12px', fontSize: '14px', color: 'var(--body-color-muted)' }}>7.5 GB of 10 GB used</div>
                         <ProgressBar state="warning" value={75} label="Storage" striped />
-                        <p style={{ marginTop: '8px', fontSize: '12px', color: 'var(--body-color-muted)' }}>
-                            You're running low on storage space
-                        </p>
+                        <p style={{ marginTop: '8px', fontSize: '12px', color: 'var(--body-color-muted)' }}>You're running low on storage space</p>
                     </div>
                 </div>
 
@@ -229,7 +220,6 @@ export const ProgressBarPage: React.FC = () => {
                     <h3>Multi-Step Progress</h3>
                     <div
                         style={{
-                            width: '400px',
                             padding: '16px',
                             border: '1px solid var(--border-color)',
                             borderRadius: '8px',
@@ -253,9 +243,7 @@ export const ProgressBarPage: React.FC = () => {
                                     <ProgressBar state="info" value={60} striped animated />
                                 </div>
                                 <div>
-                                    <div style={{ fontSize: '14px', marginBottom: '4px', color: 'var(--body-color-muted)' }}>
-                                        Step 4: Configure
-                                    </div>
+                                    <div style={{ fontSize: '14px', marginBottom: '4px', color: 'var(--body-color-muted)' }}>Step 4: Configure</div>
                                     <ProgressBar state="default" value={0} showPercentage={false} />
                                 </div>
                             </div>
@@ -267,7 +255,6 @@ export const ProgressBarPage: React.FC = () => {
                     <h3>Skill Levels</h3>
                     <div
                         style={{
-                            width: '400px',
                             padding: '16px',
                             border: '1px solid var(--border-color)',
                             borderRadius: '8px',

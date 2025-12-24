@@ -28,7 +28,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 {isMobile && isSidebarOpen && <div className="layout__overlay" onClick={() => setIsSidebarOpen(false)} />}
 
                 <main className="layout__content">
-                    {isMobile && (
+                    {isMobile && !isSidebarOpen && (
                         <button className="layout__hamburger" onClick={toggleSidebar} aria-label="Toggle navigation">
                             ☰
                         </button>

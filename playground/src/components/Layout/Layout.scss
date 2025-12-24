@@ -22,21 +22,22 @@
 
     &__hamburger {
         position: fixed;
-        top: 80px;
+        top: 85px;
         left: var(--spacing-16);
-        z-index: 999;
+        z-index: 900;
         background: var(--card-background-color);
         border: 1px solid var(--delimiter-color);
         border-radius: var(--radius);
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.5rem;
         cursor: pointer;
         color: var(--body-color-accent);
-        transition: background-color 0.2s ease;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
         &:hover {
             background: var(--card-background-accent-color);
@@ -54,8 +55,9 @@
         right: 0;
         bottom: 0;
         background: rgba(0, 0, 0, 0.5);
-        z-index: 998;
+        z-index: 999;
         backdrop-filter: blur(2px);
+        animation: fadeIn 0.2s ease;
     }
 }
 
@@ -69,5 +71,18 @@
 @media (max-width: 768px) {
     .layout__content {
         padding-top: 60px;
+    }
+
+    .layout__hamburger {
+        top: 80px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
