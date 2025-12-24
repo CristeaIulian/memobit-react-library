@@ -17,6 +17,7 @@
         display: flex;
         align-items: center;
         padding: 0 var(--spacing-4);
+        transition: width 0.3s ease;
 
         &.progress-bar-success {
             background-color: var(--progress-success-bar-fill-color);
@@ -37,5 +38,32 @@
             background-color: var(--progress-info-bar-fill-color);
             border: var(--spacing-1) solid var(--progress-info-bar-border-color);
         }
+
+        &.progress-bar-striped {
+            background-image: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.15) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.15) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 1rem 1rem;
+        }
+
+        &.progress-bar-animated {
+            animation: progress-bar-stripes 1s linear infinite;
+        }
+    }
+}
+
+@keyframes progress-bar-stripes {
+    0% {
+        background-position: 1rem 0;
+    }
+    100% {
+        background-position: 0 0;
     }
 }
