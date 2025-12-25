@@ -198,6 +198,11 @@
         }
     }
 
+    .dropdown-error-message {
+        font-size: var(--font-size-xs);
+        color: var(--body-danger-color);
+    }
+
     // Special styling for multiple mode
     &.multiple {
         .dropdown-input-container {
@@ -367,11 +372,6 @@
         padding: var(--spacing-12);
         font-style: italic;
         text-align: center;
-    }
-
-    .dropdown-error-message {
-        font-size: var(--font-size-xs);
-        color: var(--body-danger-color);
     }
 
     // Mobile responsive adjustments

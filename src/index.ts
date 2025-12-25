@@ -36,6 +36,7 @@ export {
     type MiniStatsCardTrendVariant,
 } from './components/MiniStatsCard';
 export { Modal } from './components/Modal';
+export { NavBar, type NavBarItem } from './components/NavBar';
 export { Pagination } from './components/Pagination';
 export { Popover, usePopover } from './components/Popover';
 export { ProgressBar } from './components/ProgressBar';

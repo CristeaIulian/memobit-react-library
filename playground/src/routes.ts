@@ -26,6 +26,7 @@ import { InputTextPage } from './pages/InputTextPage';
 import { MenuHamburgerPage } from './pages/MenuHamburgerPage';
 import { MiniStatsCardPage } from './pages/MiniStatsCardPage';
 import { ModalPage } from './pages/ModalPage';
+import { NavBarPage } from './pages/NavBarPage';
 import { PaginationPage } from './pages/PaginationPage';
 import { PopoverPage } from './pages/PopoverPage';
 import { ProgressBarPage } from './pages/ProgressBarPage';
@@ -77,6 +78,7 @@ export const routes: RouteConfig[] = [
     { path: '/menu-hamburger', label: 'Menu Hamburger', component: MenuHamburgerPage },
     { path: '/mini-stats-card', label: 'Mini Stats Card', component: MiniStatsCardPage },
     { path: '/modal', label: 'Modal', component: ModalPage },
+    { path: '/navbar', label: 'NavBar', component: NavBarPage },
     { path: '/pagination', label: 'Pagination', component: PaginationPage },
     { path: '/popover', label: 'Popover', component: PopoverPage },
     { path: '/progress-bar', label: 'Progress Bar', component: ProgressBarPage },
