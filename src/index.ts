@@ -61,11 +61,22 @@ export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
 
+// Export Auth components
+export { Login as AuthLogin } from './components/Auth/Login';
+export { ChangePasswordModal } from './components/Auth/ChangePasswordModal';
+
+// Export Auth context
+export { AuthContext, AuthProvider } from './contexts/AuthContext';
+
+// Export Auth types
+export type { User, LoginCredentials, LoginResponse, VerifyResponse, AuthConfig, AuthContextValue } from './types/auth.types';
+
 // Export hooks
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';
 export { useFiltersPersistence } from './hooks/useFiltersPersistence';
 export { useBodyScrollLock } from './hooks/useBodyScrollLock';
 export { useComponentEffect } from './hooks/useComponentEffect';
+export { useAuth } from './hooks/useAuth';
 
 // Export helpers
 export {

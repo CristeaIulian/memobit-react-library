@@ -1,0 +1,42 @@
+.LoginPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--body-background);
+    padding: var(--spacing-24);
+}
+
+.LoginPage__card {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--spacing-48);
+    background: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--card-box-shadow);
+}
+
+.LoginPage__title {
+    margin: 0 0 var(--spacing-32) 0;
+    font-size: var(--font-size-xxl);
+    font-weight: 600;
+    text-align: center;
+    color: var(--body-title-color);
+}
+
+.LoginPage__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+}
+
+.LoginPage__error {
+    padding: var(--spacing-12);
+    background: rgba(255, 90, 101, 0.1);
+    color: var(--body-danger-color);
+    border: 1px solid var(--body-danger-color);
+    border-radius: var(--radius);
+    font-size: var(--font-size-sm);
+    text-align: center;
+}
