@@ -13,19 +13,6 @@
     }
 }
 
-// control tablet below/beyond
-@media (max-width: 768px) {
-    .tablet-and-higher {
-        display: none !important;
-    }
-}
-
-@media (min-width: 768px) {
-    .mobile-only {
-        display: none !important;
-    }
-}
-
 // Text alignment
 .text-center {
     text-align: center;
