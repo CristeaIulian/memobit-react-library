@@ -203,7 +203,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     }
                 }
                 setIsOpen(false);
-                if (multiple && searchable) {
+
+                // Restore the selected value text when closing in single selection mode
+                if (!multiple && selectedOptions.length > 0) {
+                    setFilterText(selectedOptions[0].label);
+                } else if (multiple && searchable) {
                     setFilterText('');
                 }
             }
@@ -214,7 +218,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [multiple, searchable, usePortal, isOpen]);
+    }, [multiple, searchable, usePortal, isOpen, selectedOptions]);
 
     const handleOptionClick = (option: DropdownOption) => {
         if (multiple) {
@@ -331,6 +335,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
         setIsOpen(true);
 
+        // Clear filter text in single-select mode to show all options
+        if (!multiple && searchable) {
+            setFilterText('');
+        }
+
         if (multiple || searchable) {
             inputRef.current?.focus();
         }
@@ -343,6 +352,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
         if (!isOpen) {
             setFocusedIndex(-1);
+
+            // Clear filter text in single-select mode to show all options
+            if (!multiple && searchable) {
+                setFilterText('');
+            }
+
             if (multiple || searchable) {
                 inputRef.current?.focus();
             }
@@ -414,8 +429,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 e.preventDefault();
                 setIsOpen(false);
 
-                // Restore the selected value text when closing (for non-searchable single selection)
-                if (!multiple && !searchable && selectedOptions.length > 0) {
+                // Restore the selected value text when closing in single selection mode
+                if (!multiple && selectedOptions.length > 0) {
                     setFilterText(selectedOptions[0].label);
                 } else if (multiple && searchable) {
                     setFilterText('');
