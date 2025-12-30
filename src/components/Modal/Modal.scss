@@ -10,18 +10,8 @@
     padding: var(--spacing-16);
     --available-height: 100vh;
 
-    // Default: center mode
-    &--center {
-        align-items: center;
-        justify-content: center;
-    }
-
-    // Top mode: for tall modals or when keyboard is visible
-    &--top {
-        align-items: flex-start;
-        justify-content: center;
-        padding-top: var(--spacing-16);
-    }
+    align-items: center;
+    justify-content: center;
 }
 
 .modal {
