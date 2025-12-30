@@ -1,4 +1,5 @@
 import React, { FC, MouseEvent, ReactElement, ReactNode, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { useComponentEffect } from '../../hooks/useComponentEffect';
@@ -24,6 +25,7 @@ interface ModalProps {
     secondaryButton?: ModalButtonConfig;
     size?: 'small' | 'medium' | 'large' | 'auto';
     title?: string;
+    usePortal?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -36,6 +38,7 @@ export const Modal: FC<ModalProps> = ({
     secondaryButton,
     size = 'auto',
     title,
+    usePortal = false,
 }: ModalProps): ReactElement | null => {
     const effectClass = useComponentEffect('Modal');
     useBodyScrollLock(isOpen);
@@ -66,7 +69,7 @@ export const Modal: FC<ModalProps> = ({
 
     const hasFooter = primaryButton || secondaryButton;
 
-    return (
+    const modalContent = (
         <div ref={overlayRef} className="modal-overlay" onClick={onOverlayClick}>
             <div ref={modalRef} className={`modal modal--${size} ${className || ''} ${effectClass}`} onClick={e => e.stopPropagation()}>
                 <div className="modal__header">
@@ -101,4 +104,10 @@ export const Modal: FC<ModalProps> = ({
             </div>
         </div>
     );
+
+    if (usePortal) {
+        return createPortal(modalContent, document.body);
+    }
+
+    return modalContent;
 };
