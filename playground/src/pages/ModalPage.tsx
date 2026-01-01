@@ -12,6 +12,7 @@ export const ModalPage: React.FC = () => {
     const [isMediumOpen, setMediumOpen] = useState<boolean>(false);
     const [isLargeOpen, setLargeOpen] = useState<boolean>(false);
     const [isCustomOverlayOpen, setCustomOverlayOpen] = useState<boolean>(false);
+    const [isTertiaryButtonOpen, setTertiaryButtonOpen] = useState<boolean>(false);
     const [formData, setFormData] = useState({ name: '', email: '' });
 
     const handleFormSubmit = () => {
@@ -315,6 +316,55 @@ export const ModalPage: React.FC = () => {
                             </div>
                         </Modal>
                         <Button onClick={() => setCustomOverlayOpen(true)}>Show Custom Overlay Modal</Button>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Modal with Tertiary Button</h3>
+                    <div className="component-group">
+                        <Modal
+                            isOpen={isTertiaryButtonOpen}
+                            onClose={() => setTertiaryButtonOpen(false)}
+                            title="Document Changes"
+                            primaryButton={{
+                                text: 'Save & Close',
+                                onClick: () => {
+                                    console.log('Document saved and closed');
+                                    setTertiaryButtonOpen(false);
+                                },
+                                icon: '✓',
+                                variant: 'success',
+                            }}
+                            secondaryButton={{
+                                text: 'Save as Draft',
+                                onClick: () => {
+                                    console.log('Document saved as draft');
+                                    setTertiaryButtonOpen(false);
+                                },
+                                icon: '💾',
+                                variant: 'info',
+                            }}
+                            tertiaryButton={{
+                                text: 'Discard',
+                                onClick: () => {
+                                    console.log('Changes discarded');
+                                    setTertiaryButtonOpen(false);
+                                },
+                                icon: '🗑️',
+                                variant: 'danger',
+                            }}
+                        >
+                            <div style={{ padding: '16px' }}>
+                                <p>You have unsaved changes in your document.</p>
+                                <p style={{ marginTop: '8px' }}>This modal demonstrates a tertiary button for edge cases where three actions are needed:</p>
+                                <ul style={{ marginTop: '12px', paddingLeft: '20px' }}>
+                                    <li><strong>Save & Close</strong> - Commits and exits</li>
+                                    <li><strong>Save as Draft</strong> - Saves without publishing</li>
+                                    <li><strong>Discard</strong> - Abandons all changes</li>
+                                </ul>
+                            </div>
+                        </Modal>
+                        <Button onClick={() => setTertiaryButtonOpen(true)}>Show Tertiary Button Modal</Button>
                     </div>
                 </div>
             </section>

@@ -23,6 +23,7 @@ interface ModalProps {
     onOverlayClick?: (event: MouseEvent) => void;
     primaryButton?: ModalButtonConfig;
     secondaryButton?: ModalButtonConfig;
+    tertiaryButton?: ModalButtonConfig;
     size?: 'small' | 'medium' | 'large' | 'auto';
     title?: string;
     usePortal?: boolean;
@@ -36,6 +37,7 @@ export const Modal: FC<ModalProps> = ({
     onOverlayClick,
     primaryButton,
     secondaryButton,
+    tertiaryButton,
     size = 'auto',
     title,
     usePortal = false,
@@ -45,7 +47,6 @@ export const Modal: FC<ModalProps> = ({
 
     const modalRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
-    const [positionMode, setPositionMode] = useState<'center' | 'top'>('center');
 
     useEffect(() => {
         const handleEscape = (event: KeyboardEvent) => {
@@ -67,7 +68,7 @@ export const Modal: FC<ModalProps> = ({
         return null;
     }
 
-    const hasFooter = primaryButton || secondaryButton;
+    const hasFooter = primaryButton || secondaryButton || tertiaryButton;
 
     const modalContent = (
         <div ref={overlayRef} className="modal-overlay" onClick={onOverlayClick}>
@@ -97,6 +98,16 @@ export const Modal: FC<ModalProps> = ({
                                 disabled={secondaryButton.disabled}
                             >
                                 {secondaryButton.text}
+                            </Button>
+                        )}
+                        {tertiaryButton && (
+                            <Button
+                                variant={tertiaryButton.variant || 'default'}
+                                prefixIcon={tertiaryButton.icon}
+                                onClick={tertiaryButton.onClick}
+                                disabled={tertiaryButton.disabled}
+                            >
+                                {tertiaryButton.text}
                             </Button>
                         )}
                     </div>
