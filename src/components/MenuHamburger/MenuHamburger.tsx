@@ -47,6 +47,7 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, 
                 onClick={handleButtonClick}
                 prefixIcon={icon ? icon : isCompact || !isAtLeastTablet ? '⋮' : `☰`}
                 aria-label="Menu"
+                className={icon ? '' : 'MenuHamburger__opnener-three-dots'}
             >
                 {isAtLeastTablet && showLabel ? (label ? label : 'Menu') : ''}
             </Button>

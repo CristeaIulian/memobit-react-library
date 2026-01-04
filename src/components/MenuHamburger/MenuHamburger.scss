@@ -1,6 +1,10 @@
 .MenuHamburger {
     position: relative;
 
+    &__opnener-three-dots {
+        padding: var(--spacing-8) var(--spacing-12) !important;
+    }
+
     &_dropdown {
         display: flex;
         flex-direction: column;

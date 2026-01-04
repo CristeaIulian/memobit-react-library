@@ -51,10 +51,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
     onSearchChange,
     options,
     placeholder = 'Select an option',
-    searchable = false,
+    searchable = true,
     searchValue,
     selectedCountDisplay = 'inline',
-    usePortal = false,
+    usePortal = true,
     value,
 }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);

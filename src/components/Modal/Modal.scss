@@ -1,3 +1,5 @@
+@use '../../styles/utilities.scss' as *;
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -77,8 +79,14 @@
     }
 }
 
-@media (max-width: 1200px) {
+@include mobile {
     .modal-overlay {
         padding: var(--spacing-8);
+    }
+
+    .modal {
+        &__footer {
+            justify-content: space-between;
+        }
     }
 }

@@ -1,3 +1,5 @@
+@use '../../styles/utilities.scss' as *;
+
 .button {
     background-color: var(--button-default-background-color);
     color: var(--button-default-color);
@@ -147,5 +149,11 @@
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@include mobile {
+    .button {
+        padding: var(--spacing-12);
     }
 }

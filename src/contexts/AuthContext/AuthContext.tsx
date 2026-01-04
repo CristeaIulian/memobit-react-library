@@ -65,6 +65,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
                     body: JSON.stringify({
                         username: credentials.username,
                         password: credentials.password,
+                        rememberMe: credentials.rememberMe,
                     }),
                 });
 
