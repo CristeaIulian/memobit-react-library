@@ -62,7 +62,6 @@ export const DropdownPage: React.FC = () => {
                             value={selectedClinic}
                             onChange={handleClinicSelect}
                             placeholder="Caută sau selectează clinica..."
-                            searchable
                             searchValue={clinicSearch}
                             onSearchChange={handleClinicSearchChange}
                         />
@@ -78,7 +77,6 @@ export const DropdownPage: React.FC = () => {
                             value={selectedClinic}
                             onChange={handleClinicSelect}
                             placeholder="Caută sau selectează clinica..."
-                            searchable
                             searchValue={clinicSearch}
                             onSearchChange={handleClinicSearchChange}
                             allowCustomValue
@@ -96,7 +94,6 @@ export const DropdownPage: React.FC = () => {
                             multiple
                             onChange={handleClinicSelect}
                             placeholder="Caută sau selectează clinica..."
-                            searchable
                             searchValue={clinicSearch}
                             onSearchChange={handleClinicSearchChange}
                             allowCustomValue
@@ -114,7 +111,6 @@ export const DropdownPage: React.FC = () => {
                             value={selectedClinic}
                             onChange={handleClinicSelect}
                             placeholder="Caută sau selectează clinica..."
-                            searchable
                             searchValue={clinicSearch}
                             onSearchChange={handleClinicSearchChange}
                             allowCustomValue
@@ -132,10 +128,8 @@ export const DropdownPage: React.FC = () => {
                             value={selectedClinic}
                             onChange={handleClinicSelect}
                             placeholder="Caută sau selectează clinica..."
-                            searchable
                             searchValue={clinicSearch}
                             onSearchChange={handleClinicSearchChange}
-                            usePortal
                         />
                     </div>
                 </div>
@@ -149,10 +143,8 @@ export const DropdownPage: React.FC = () => {
                             options={dropdownLongTextOptions}
                             onChange={newOption => console.log('handleLongTextSelect', newOption)}
                             placeholder="Caută sau selectează clinica..."
-                            searchable
                             searchValue={clinicSearch}
                             onSearchChange={handleClinicSearchChange}
-                            usePortal
                         />
                     </div>
                 </div>
@@ -166,7 +158,6 @@ export const DropdownPage: React.FC = () => {
                             options={largeListOptions}
                             onChange={newOption => console.log('handleCountrySelect', newOption)}
                             placeholder="Search or select a country..."
-                            searchable
                         />
                     </div>
                 </div>
@@ -181,7 +172,6 @@ export const DropdownPage: React.FC = () => {
                             multiple
                             onChange={newOptions => console.log('handleCountriesSelect', newOptions)}
                             placeholder="Search or select countries..."
-                            searchable
                         />
                     </div>
                 </div>
@@ -203,7 +193,6 @@ export const DropdownPage: React.FC = () => {
                                 selectedCountDisplay="inline"
                                 onChange={newOptions => console.log('inline', newOptions)}
                                 placeholder="Select countries..."
-                                searchable
                             />
                         </div>
 
@@ -217,7 +206,6 @@ export const DropdownPage: React.FC = () => {
                                 selectedCountDisplay="floating"
                                 onChange={newOptions => console.log('floating', newOptions)}
                                 placeholder="Select countries..."
-                                searchable
                             />
                         </div>
 
@@ -231,7 +219,6 @@ export const DropdownPage: React.FC = () => {
                                 selectedCountDisplay="none"
                                 onChange={newOptions => console.log('none', newOptions)}
                                 placeholder="Select countries..."
-                                searchable
                             />
                         </div>
                     </div>
@@ -249,7 +236,6 @@ export const DropdownPage: React.FC = () => {
                             options={largeListOptions}
                             onChange={newOption => console.log('handleBottomSelect', newOption)}
                             placeholder="Search or select a country..."
-                            searchable
                         />
                     </div>
                 </div>

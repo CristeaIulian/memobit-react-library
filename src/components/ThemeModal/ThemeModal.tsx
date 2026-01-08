@@ -125,8 +125,6 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
                             value={theme}
                             onChange={handleThemeChange}
                             placeholder="Choose a theme"
-                            usePortal
-                            searchable
                         />
                     </div>
 
@@ -139,8 +137,6 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
                             value={selectedEffect}
                             onChange={handleEffectChange}
                             placeholder="Choose an effect"
-                            usePortal
-                            searchable
                         />
                     </div>
 
