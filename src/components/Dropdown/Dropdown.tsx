@@ -131,18 +131,36 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     setSelectedOptions([selectedOption]);
                     // Set filterText for both searchable and non-searchable to show the selected value
                     setFilterText(selectedOption.label);
+                } else if (allowCustomValue && typeof value === 'string' && value.trim()) {
+                    // If custom values are allowed and value is a non-empty string, show it as a custom option
+                    const customOption: DropdownOption = {
+                        label: value.trim(),
+                        value: value.trim(),
+                        className: 'custom-option',
+                    };
+                    setSelectedOptions([customOption]);
+                    setFilterText(value.trim());
                 } else {
                     // If value doesn't match any option, clear selection
                     setSelectedOptions([]);
                     setFilterText('');
                 }
             }
+        } else if (allowCustomValue && !multiple && typeof value === 'string' && value.trim()) {
+            // If no options but custom values are allowed and value is a non-empty string, show it
+            const customOption: DropdownOption = {
+                label: value.trim(),
+                value: value.trim(),
+                className: 'custom-option',
+            };
+            setSelectedOptions([customOption]);
+            setFilterText(value.trim());
         } else {
             // If no options available yet, clear the display
             setSelectedOptions([]);
             setFilterText('');
         }
-    }, [value, options, multiple, searchable]);
+    }, [value, options, multiple, searchable, allowCustomValue]);
 
     // Sync external searchValue with internal filterText
     useEffect(() => {

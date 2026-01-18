@@ -26,6 +26,8 @@
     overflow-y: auto;
     position: relative;
     box-shadow: var(--modal-box-shadow);
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
 
     &:hover {
         box-shadow: var(--modal-box-shadow-hover);
