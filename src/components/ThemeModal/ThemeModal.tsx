@@ -70,7 +70,9 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
     };
 
     const handleEffectChange = (option: DropdownOption | DropdownOption[] | null) => {
-        if (option && !Array.isArray(option)) {
+        if (!option || Array.isArray(option)) {
+            setSelectedEffect('');
+        } else {
             setSelectedEffect(option.value as string);
         }
     };
