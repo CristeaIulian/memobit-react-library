@@ -12,7 +12,7 @@
         justify-content: center;
         color: var(--form-control-placeholder-color);
         pointer-events: none;
-        z-index: 1;
+        z-index: 2;
 
         svg {
             width: 18px;
@@ -20,13 +20,42 @@
         }
     }
 
+    &__clear {
+        position: absolute;
+        right: var(--spacing-8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        padding: var(--spacing-4);
+        cursor: pointer;
+        color: var(--form-control-placeholder-color);
+        z-index: 2;
+        border-radius: var(--radius-sm);
+        transition: color 0.15s ease;
+
+        &:hover {
+            color: var(--form-control-color);
+        }
+
+        &:focus {
+            outline: none;
+            color: var(--form-control-focus-border-color);
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
     .input-text {
         padding-left: var(--spacing-40);
     }
 
-    &:focus-within {
-        .search__icon {
-            color: var(--form-control-focus-border-color);
-        }
+    &:has(.search__clear) .input-text {
+        padding-right: var(--spacing-40);
     }
+
 }
