@@ -5,10 +5,10 @@ import { Dropdown, DropdownOption } from '../Dropdown';
 import { Modal } from '../Modal';
 
 import { useTheme } from './useTheme';
-
-import './ThemeModal.scss';
 import { Theme } from './ThemeContext';
 import { THEME_CONFIGS } from './themeConfig';
+
+import './ThemeModal.scss';
 
 interface ThemeModalProps {
     isOpen: boolean;
