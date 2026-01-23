@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 // Simple Popover Component SCSS
 .simple-popover {
     --popover-arrow-size: 6px;
@@ -80,7 +82,7 @@
 }
 
 // Mobile
-@media (max-width: 768px) {
+@include mobile {
     .simple-popover {
         max-width: calc(100vw - var(--spacing-40));
         font-size: var(--font-size-xs);

@@ -1,14 +1,14 @@
+@use '../../../src/styles/utilities' as *;
+
 .appHeader {
     background-color: var(--header-background-color);
     padding: var(--spacing-16);
     border-bottom: var(--spacing-1) solid var(--header-border-bottom-color);
-    display: flex;
+    @include flex-between;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     gap: var(--spacing-12);
 
-    @media (max-width: 768px) {
+    @include mobile {
         padding: var(--spacing-12) var(--spacing-16);
         gap: var(--spacing-8);
     }
@@ -16,13 +16,11 @@
     header {
         flex: 1;
         min-width: 0;
-        display: flex;
-        flex-direction: column;
+        @include flex-column;
         row-gap: var(--spacing-8);
 
-        @media (max-width: 768px) {
-            display: flex;
-            flex-direction: column;
+        @include mobile {
+            @include flex-column;
             gap: var(--spacing-4);
         }
     }
@@ -36,7 +34,7 @@
         column-gap: var(--spacing-16);
         color: var(--body-accent-color);
 
-        @media (max-width: 768px) {
+        @include mobile {
             font-size: var(--font-size-xl);
         }
     }
@@ -45,7 +43,7 @@
         color: var(--body-color-muted);
         margin: 0;
 
-        @media (max-width: 768px) {
+        @include mobile {
             font-size: var(--font-size-sm);
             display: none;
         }

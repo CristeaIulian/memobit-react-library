@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .drawer-overlay {
     position: fixed;
     top: 0;
@@ -16,8 +18,7 @@
     bottom: 0;
     background: var(--card-background-color);
     z-index: 1001;
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     animation: slideIn 0.3s ease;
 
@@ -32,9 +33,7 @@
     }
 
     &__header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        @include flex-between;
         padding: var(--spacing-16);
         border-bottom: 1px solid var(--delimiter-color);
         background: var(--card-background-accent-color);
@@ -59,9 +58,7 @@
         border-radius: var(--radius);
         width: 32px;
         height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include flex-center;
 
         &:hover {
             background: var(--card-background-color);
@@ -108,7 +105,7 @@
 }
 
 // Responsive
-@media (max-width: 768px) {
+@include mobile {
     .drawer {
         width: 85% !important;
         max-width: 400px;

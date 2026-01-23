@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .navbar {
     display: flex;
     align-items: center;
@@ -101,7 +103,7 @@
         flex-shrink: 0;
     }
 
-    @media (max-width: 768px) {
+    @include mobile {
         gap: var(--spacing-12);
         padding: var(--spacing-8) var(--spacing-16);
 

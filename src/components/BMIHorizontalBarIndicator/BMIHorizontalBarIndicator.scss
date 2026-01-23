@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .horizontal-bar-container {
     width: 100%;
     max-width: 600px;
@@ -51,9 +53,7 @@
 
 .bar-segment {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
     transition: all 0.3s ease;
 }
 
@@ -81,9 +81,7 @@
 }
 
 .label-segment {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center;
 }
 
 .label-text {
@@ -94,13 +92,14 @@
     line-height: 1.2;
 }
 
-@media (max-width: 600px) {
+@include mobile {
     .horizontal-bar {
         height: var(--spacing-40);
     }
 
     .range-text {
         font-size: var(--font-size-xxs);
+        text-align: center;
     }
 
     .label-text {
@@ -110,15 +109,5 @@
     .indicator-value {
         font-size: var(--font-size-xs);
         padding: var(--spacing-4) var(--spacing-8);
-    }
-}
-
-@media (max-width: 400px) {
-    .range-text {
-        font-size: var(--font-size-xxs);
-    }
-
-    .label-text {
-        font-size: var(--font-size-xxs);
     }
 }

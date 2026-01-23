@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .tooltip-trigger {
     display: inline-block;
     cursor: default;
@@ -73,7 +75,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@include mobile {
     .tooltip {
         font-size: var(--font-size-xs);
         padding: var(--spacing-4) var(--spacing-8);

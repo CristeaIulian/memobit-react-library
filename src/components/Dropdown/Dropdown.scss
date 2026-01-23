@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .dropdown-container {
     position: relative;
     width: 100%;
@@ -55,13 +57,11 @@
                 }
 
                 .dropdown-selected-item-label {
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
+                    @include text-truncate;
                     margin-right: var(--spacing-4);
                 }
 
-                @media (max-width: 768px) {
+                @include mobile {
                     max-width: 120px;
                     font-size: var(--font-size-xs);
                 }
@@ -103,9 +103,7 @@
             right: 1px;
             top: 50%;
             transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include flex-center;
             padding: 0 6px;
             z-index: 1;
             height: calc(100% - 2px);
@@ -123,18 +121,14 @@
             }
 
             .dropdown-action-button {
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                @include flex-center;
 
                 button {
                     padding: var(--spacing-8) var(--spacing-12);
                     border-radius: 0;
 
                     span {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
+                        @include flex-center;
                     }
 
                     &:hover {
@@ -157,7 +151,7 @@
                     box-shadow: 0 0 0 var(--spacing-2) var(--control-focus-ring);
                 }
 
-                @media (max-width: 768px) {
+                @include mobile {
                     width: var(--spacing-40);
                     height: var(--spacing-40);
                     right: var(--spacing-40);
@@ -219,7 +213,7 @@
         .dropdown-input-container:has(.dropdown-selected-items) .input-text {
             padding-top: 38px;
 
-            @media (max-width: 768px) {
+            @include mobile {
                 padding-top: var(--spacing-48);
             }
         }
@@ -233,7 +227,7 @@
     }
 
     // Mobile-specific improvements
-    @media (max-width: 768px) {
+    @include mobile {
         .dropdown-input-container {
             .dropdown-selected-items {
                 right: var(--spacing-100); // More space for buttons on mobile
@@ -333,9 +327,7 @@
                     height: var(--spacing-16);
                     border: var(--spacing-2) solid var(--form-control-selection-border-color);
                     border-radius: var(--spacing-4);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    @include flex-center;
                     background-color: transparent;
                     transition: all 200ms ease-in-out;
 
@@ -358,7 +350,7 @@
                 }
             }
 
-            @media (max-width: 768px) {
+            @include mobile {
                 padding: var(--spacing-16) var(--spacing-12);
 
                 .dropdown-option-content {
@@ -375,7 +367,7 @@
     }
 
     // Mobile responsive adjustments
-    @media (max-width: 768px) {
+    @include mobile {
         max-height: var(--spacing-300);
 
         // Better touch targets on mobile

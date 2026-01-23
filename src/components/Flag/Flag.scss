@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .flag {
     display: inline-block;
     line-height: 1;
@@ -22,7 +24,7 @@
     }
 
     // Mobile and desktop friendly
-    @media (max-width: 768px) {
+    @include mobile {
         img {
             // Slightly larger on mobile for better touch interaction
             transform: scale(1.05);

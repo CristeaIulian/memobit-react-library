@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .sidebar {
     --sidebar-width: 280px;
 
@@ -9,8 +11,7 @@
     transition: transform 0.3s ease;
 
     &__nav {
-        display: flex;
-        flex-direction: column;
+        @include flex-column;
         gap: var(--spacing-4);
         padding: var(--spacing-16);
     }
@@ -62,7 +63,7 @@
         margin: var(--spacing-8) 0;
     }
 
-    @media (min-width: 769px) {
+    @include not-mobile {
         position: sticky;
         top: 0;
         height: 100vh;

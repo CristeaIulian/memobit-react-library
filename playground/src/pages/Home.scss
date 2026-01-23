@@ -67,9 +67,7 @@
         padding: var(--spacing-16);
         text-decoration: none;
         color: var(--body-color-accent);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        @include flex-between;
         transition: all 0.2s ease;
 
         &:hover {
@@ -98,7 +96,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@include mobile {
     .home {
         &__header {
             h1 {
