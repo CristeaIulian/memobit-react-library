@@ -63,12 +63,6 @@
         margin: var(--spacing-8) 0;
     }
 
-    @include not-mobile {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-    }
-
     &--mobile {
         position: fixed;
         top: 0;
@@ -98,5 +92,13 @@
 
     &:hover {
         background: var(--body-color-muted);
+    }
+}
+
+@include not-mobile {
+    .sidebar {
+        position: sticky;
+        top: 0;
+        height: 100%;
     }
 }
