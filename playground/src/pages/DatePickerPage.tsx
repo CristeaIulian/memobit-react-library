@@ -9,10 +9,43 @@ export const DatePickerPage: React.FC = () => {
     const [rangeDate, setRangeDate] = useState<CalendarDateRange | undefined>();
     const [multipleDates, setMultipleDates] = useState<Date[] | undefined>();
     const [customFormatDate, setCustomFormatDate] = useState<Date | undefined>();
+    const [birthDate, setBirthDate] = useState<Date | undefined>();
 
     const today = new Date();
     const minDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
     const maxDate = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+
+    const handleSingleDateChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        setSingleDate(value as Date | undefined);
+    };
+
+    const handleDateWithTimeChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        setDateWithTime(value as Date | undefined);
+    };
+
+    const handleDateWith12hChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        setDateWith12h(value as Date | undefined);
+    };
+
+    const handleDateWithSecondsChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        setDateWithSeconds(value as Date | undefined);
+    };
+
+    const handleRangeDateChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        setRangeDate(value as CalendarDateRange | undefined);
+    };
+
+    const handleMultipleDatesChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        setMultipleDates(value as Date[] | undefined);
+    };
+
+    const handleCustomFormatDateChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        setCustomFormatDate(value as Date | undefined);
+    };
+
+    const handleBirthDateChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        setBirthDate(value as Date | undefined);
+    };
 
     return (
         <div className="component-page">
@@ -30,7 +63,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             placeholder="Select a date..."
                         />
                     </div>
@@ -44,7 +77,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={customFormatDate}
-                            onChange={setCustomFormatDate}
+                            onChange={handleCustomFormatDateChange}
                             dateFormat="DD/MM/YYYY"
                             placeholder="DD/MM/YYYY"
                         />
@@ -56,7 +89,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             disabled
                         />
                     </div>
@@ -67,7 +100,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             clearable={false}
                         />
                     </div>
@@ -81,7 +114,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={dateWithTime}
-                            onChange={setDateWithTime}
+                            onChange={handleDateWithTimeChange}
                             withTime
                             placeholder="Select date and time..."
                         />
@@ -96,7 +129,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={dateWith12h}
-                            onChange={setDateWith12h}
+                            onChange={handleDateWith12hChange}
                             withTime
                             timeFormat="12h"
                             placeholder="Select date and time..."
@@ -112,7 +145,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={dateWithSeconds}
-                            onChange={setDateWithSeconds}
+                            onChange={handleDateWithSecondsChange}
                             withTime
                             withSeconds
                             placeholder="Select date and time..."
@@ -142,7 +175,7 @@ export const DatePickerPage: React.FC = () => {
                         <DatePicker
                             mode="range"
                             value={rangeDate}
-                            onChange={setRangeDate}
+                            onChange={handleRangeDateChange}
                             placeholder="Select date range..."
                             autoClose={false}
                         />
@@ -164,7 +197,7 @@ export const DatePickerPage: React.FC = () => {
                         <DatePicker
                             mode="multiple"
                             value={multipleDates}
-                            onChange={setMultipleDates}
+                            onChange={handleMultipleDatesChange}
                             placeholder="Select multiple dates..."
                             autoClose={false}
                         />
@@ -174,6 +207,27 @@ export const DatePickerPage: React.FC = () => {
                         {multipleDates && multipleDates.length > 0
                             ? multipleDates.map(d => d.toLocaleDateString()).join(', ')
                             : 'None'}
+                    </p>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Quick Year/Month Selection</h2>
+                <div className="showcase-group">
+                    <h3>Birth Date Selection</h3>
+                    <p>
+                        Click on the month or year in the calendar header to quickly navigate.
+                        Useful for selecting dates far in the past (e.g., birth dates).
+                    </p>
+                    <div className="component-group">
+                        <DatePicker
+                            value={birthDate}
+                            onChange={handleBirthDateChange}
+                            placeholder="Select your birth date..."
+                        />
+                    </div>
+                    <p>
+                        Selected: {birthDate ? birthDate.toLocaleDateString() : 'None'}
                     </p>
                 </div>
             </section>
@@ -189,7 +243,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             minDate={minDate}
                             maxDate={maxDate}
                             placeholder="Select date within range..."
@@ -202,7 +256,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             firstDayOfWeek={1}
                             placeholder="Week starts Monday..."
                         />
@@ -214,7 +268,7 @@ export const DatePickerPage: React.FC = () => {
                     <div className="component-group">
                         <DatePicker
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             showToday={false}
                             placeholder="No today button..."
                         />
@@ -235,17 +289,17 @@ export const DatePickerPage: React.FC = () => {
                     >
                         <DatePicker
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             placeholder="Start date..."
                         />
                         <DatePicker
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             placeholder="End date..."
                         />
                         <DatePicker
                             value={dateWithTime}
-                            onChange={setDateWithTime}
+                            onChange={handleDateWithTimeChange}
                             withTime
                             placeholder="Date with time..."
                         />
