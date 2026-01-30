@@ -11,6 +11,7 @@ import {
 import './Calendar.scss';
 
 export type CalendarMode = 'single' | 'range' | 'multiple';
+export type CalendarView = 'days' | 'months' | 'years';
 
 export interface CalendarDateRange {
     start: Date;
@@ -28,6 +29,8 @@ export interface CalendarProps {
     showToday?: boolean;
     className?: string;
 }
+
+const YEARS_PER_PAGE = 12;
 
 const MONTH_NAMES = [
     'January',
@@ -69,6 +72,12 @@ export const Calendar: React.FC<CalendarProps> = ({
             }
         }
         return new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    });
+
+    const [view, setView] = useState<CalendarView>('days');
+    const [yearsRangeStart, setYearsRangeStart] = useState(() => {
+        const year = currentMonth.getFullYear();
+        return Math.floor(year / YEARS_PER_PAGE) * YEARS_PER_PAGE;
     });
 
     const [rangeStart, setRangeStart] = useState<Date | null>(null);
@@ -176,9 +185,53 @@ export const Calendar: React.FC<CalendarProps> = ({
     const handleTodayClick = () => {
         const today = new Date();
         setCurrentMonth(new Date(today.getFullYear(), today.getMonth(), 1));
+        setView('days');
         if (mode === 'single') {
             onChange?.(today);
         }
+    };
+
+    const handleMonthHeaderClick = () => {
+        setView('months');
+    };
+
+    const handleYearHeaderClick = () => {
+        setYearsRangeStart(Math.floor(currentMonth.getFullYear() / YEARS_PER_PAGE) * YEARS_PER_PAGE);
+        setView('years');
+    };
+
+    const handleMonthSelect = (monthIndex: number) => {
+        setCurrentMonth(new Date(currentMonth.getFullYear(), monthIndex, 1));
+        setView('days');
+    };
+
+    const handleYearSelect = (year: number) => {
+        setCurrentMonth(new Date(year, currentMonth.getMonth(), 1));
+        setView('months');
+    };
+
+    const handlePreviousYears = () => {
+        setYearsRangeStart(yearsRangeStart - YEARS_PER_PAGE);
+    };
+
+    const handleNextYears = () => {
+        setYearsRangeStart(yearsRangeStart + YEARS_PER_PAGE);
+    };
+
+    const handlePreviousYear = () => {
+        setCurrentMonth(new Date(currentMonth.getFullYear() - 1, currentMonth.getMonth(), 1));
+    };
+
+    const handleNextYear = () => {
+        setCurrentMonth(new Date(currentMonth.getFullYear() + 1, currentMonth.getMonth(), 1));
+    };
+
+    const getYearsInRange = (): number[] => {
+        const years: number[] = [];
+        for (let i = 0; i < YEARS_PER_PAGE; i++) {
+            years.push(yearsRangeStart + i);
+        }
+        return years;
     };
 
     const getDayClassName = (date: Date): string => {
@@ -215,8 +268,64 @@ export const Calendar: React.FC<CalendarProps> = ({
         return classes.join(' ');
     };
 
-    return (
-        <div className={`calendar ${className}`}>
+    const renderHeader = () => {
+        if (view === 'years') {
+            return (
+                <div className="calendar__header">
+                    <button
+                        type="button"
+                        className="calendar__nav-button"
+                        onClick={handlePreviousYears}
+                        aria-label="Previous years"
+                    >
+                        ‹
+                    </button>
+                    <div className="calendar__month-year">
+                        {yearsRangeStart} - {yearsRangeStart + YEARS_PER_PAGE - 1}
+                    </div>
+                    <button
+                        type="button"
+                        className="calendar__nav-button"
+                        onClick={handleNextYears}
+                        aria-label="Next years"
+                    >
+                        ›
+                    </button>
+                </div>
+            );
+        }
+
+        if (view === 'months') {
+            return (
+                <div className="calendar__header">
+                    <button
+                        type="button"
+                        className="calendar__nav-button"
+                        onClick={handlePreviousYear}
+                        aria-label="Previous year"
+                    >
+                        ‹
+                    </button>
+                    <button
+                        type="button"
+                        className="calendar__header-button"
+                        onClick={handleYearHeaderClick}
+                    >
+                        {currentMonth.getFullYear()}
+                    </button>
+                    <button
+                        type="button"
+                        className="calendar__nav-button"
+                        onClick={handleNextYear}
+                        aria-label="Next year"
+                    >
+                        ›
+                    </button>
+                </div>
+            );
+        }
+
+        return (
             <div className="calendar__header">
                 <button
                     type="button"
@@ -227,7 +336,20 @@ export const Calendar: React.FC<CalendarProps> = ({
                     ‹
                 </button>
                 <div className="calendar__month-year">
-                    {MONTH_NAMES[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+                    <button
+                        type="button"
+                        className="calendar__header-button"
+                        onClick={handleMonthHeaderClick}
+                    >
+                        {MONTH_NAMES[currentMonth.getMonth()]}
+                    </button>
+                    <button
+                        type="button"
+                        className="calendar__header-button"
+                        onClick={handleYearHeaderClick}
+                    >
+                        {currentMonth.getFullYear()}
+                    </button>
                 </div>
                 <button
                     type="button"
@@ -238,45 +360,102 @@ export const Calendar: React.FC<CalendarProps> = ({
                     ›
                 </button>
             </div>
+        );
+    };
 
-            {showToday && (
-                <div className="calendar__today-section">
+    const renderYearsGrid = () => {
+        const years = getYearsInRange();
+        const currentYear = new Date().getFullYear();
+        const selectedYear = currentMonth.getFullYear();
+
+        return (
+            <div className="calendar__years-grid">
+                {years.map(year => (
                     <button
+                        key={year}
                         type="button"
-                        className="calendar__today-button"
-                        onClick={handleTodayClick}
+                        className={`calendar__year-item ${year === selectedYear ? 'calendar__year-item--selected' : ''} ${year === currentYear ? 'calendar__year-item--current' : ''}`}
+                        onClick={() => handleYearSelect(year)}
                     >
-                        Today
+                        {year}
                     </button>
-                </div>
-            )}
-
-            <div className="calendar__weekdays">
-                {dayNames.map(day => (
-                    <div key={day} className="calendar__weekday">
-                        {day}
-                    </div>
                 ))}
             </div>
+        );
+    };
 
-            <div className="calendar__days">
-                {monthMatrix.map((week, weekIndex) => (
-                    <div key={weekIndex} className="calendar__week">
-                        {week.map((date, dayIndex) => (
+    const renderMonthsGrid = () => {
+        const currentMonthIndex = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
+        const selectedMonthIndex = currentMonth.getMonth();
+        const selectedYear = currentMonth.getFullYear();
+
+        return (
+            <div className="calendar__months-grid">
+                {MONTH_NAMES.map((month, index) => (
+                    <button
+                        key={month}
+                        type="button"
+                        className={`calendar__month-item ${index === selectedMonthIndex && selectedYear === currentMonth.getFullYear() ? 'calendar__month-item--selected' : ''} ${index === currentMonthIndex && currentYear === currentMonth.getFullYear() ? 'calendar__month-item--current' : ''}`}
+                        onClick={() => handleMonthSelect(index)}
+                    >
+                        {month.substring(0, 3)}
+                    </button>
+                ))}
+            </div>
+        );
+    };
+
+    return (
+        <div className={`calendar ${className}`}>
+            {renderHeader()}
+
+            {view === 'years' && renderYearsGrid()}
+
+            {view === 'months' && renderMonthsGrid()}
+
+            {view === 'days' && (
+                <>
+                    {showToday && (
+                        <div className="calendar__today-section">
                             <button
-                                key={dayIndex}
                                 type="button"
-                                className={getDayClassName(date)}
-                                onClick={() => handleDateClick(date)}
-                                disabled={isDateDisabled(date)}
-                                aria-label={date.toDateString()}
+                                className="calendar__today-button"
+                                onClick={handleTodayClick}
                             >
-                                {date.getDate()}
+                                Today
                             </button>
+                        </div>
+                    )}
+
+                    <div className="calendar__weekdays">
+                        {dayNames.map(day => (
+                            <div key={day} className="calendar__weekday">
+                                {day}
+                            </div>
                         ))}
                     </div>
-                ))}
-            </div>
+
+                    <div className="calendar__days">
+                        {monthMatrix.map((week, weekIndex) => (
+                            <div key={weekIndex} className="calendar__week">
+                                {week.map((date, dayIndex) => (
+                                    <button
+                                        key={dayIndex}
+                                        type="button"
+                                        className={getDayClassName(date)}
+                                        onClick={() => handleDateClick(date)}
+                                        disabled={isDateDisabled(date)}
+                                        aria-label={date.toDateString()}
+                                    >
+                                        {date.getDate()}
+                                    </button>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
         </div>
     );
 };

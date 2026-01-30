@@ -18,10 +18,29 @@
 
     &__month-year {
         flex: 1;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-4);
         font-weight: var(--font-weight-medium);
         color: var(--calendar-header-color);
         font-size: var(--font-size-base);
+    }
+
+    &__header-button {
+        background: transparent;
+        border: none;
+        color: var(--calendar-header-color);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--font-size-base);
+        cursor: pointer;
+        padding: var(--spacing-4) var(--spacing-8);
+        border-radius: var(--radius-sm);
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: var(--calendar-day-hover-background-color);
+        }
     }
 
     &__nav-button {
@@ -156,6 +175,42 @@
             &:hover {
                 background-color: transparent;
             }
+        }
+    }
+
+    &__years-grid,
+    &__months-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-8);
+        padding: var(--spacing-8) 0;
+    }
+
+    &__year-item,
+    &__month-item {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        color: var(--calendar-day-color);
+        cursor: pointer;
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-12) var(--spacing-8);
+        text-align: center;
+        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+        &:hover {
+            background-color: var(--calendar-day-hover-background-color);
+        }
+
+        &--selected {
+            background-color: var(--calendar-day-selected-background-color);
+            color: var(--calendar-day-selected-color);
+            border-color: var(--calendar-day-selected-background-color);
+        }
+
+        &--current {
+            border-color: var(--calendar-day-today-border-color);
+            font-weight: var(--font-weight-medium);
         }
     }
 }
