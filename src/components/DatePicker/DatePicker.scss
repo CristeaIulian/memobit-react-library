@@ -17,7 +17,9 @@
         justify-content: space-between;
         gap: var(--spacing-8);
         padding: var(--spacing-12) var(--spacing-16);
-        transition: border-color 0.2s ease, background-color 0.2s ease;
+        transition:
+            border-color 0.2s ease,
+            background-color 0.2s ease;
         min-height: 40px;
 
         &:hover:not(&--disabled) {
@@ -36,7 +38,7 @@
 
     &__value {
         flex: 1;
-        font-size: var(--font-size-base);
+        font-size: var(--font-size-md);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -110,7 +112,7 @@
         border: 1px solid var(--calendar-border-color);
         border-radius: var(--radius-sm);
         color: var(--calendar-day-color);
-        font-size: var(--font-size-base);
+        font-size: var(--font-size-md);
         padding: var(--spacing-8);
         text-align: center;
         width: 50px;
@@ -136,7 +138,9 @@
         font-size: var(--font-size-sm);
         font-weight: var(--font-weight-medium);
         padding: var(--spacing-8) var(--spacing-12);
-        transition: background-color 0.2s ease, border-color 0.2s ease;
+        transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease;
 
         &:hover {
             background-color: var(--calendar-day-hover-background-color);

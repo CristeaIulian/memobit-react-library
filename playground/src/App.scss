@@ -17,7 +17,7 @@ body {
 
 .page-section {
     background: var(--card-background-color);
-    border-radius: 8px;
+    border-radius: var(--radius);
     padding: var(--spacing-24);
     border: 1px solid var(--delimiter-color);
     margin-bottom: var(--spacing-16);

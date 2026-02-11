@@ -2,8 +2,7 @@
 
 // Simple Popover Component SCSS
 .simple-popover {
-    --popover-arrow-size: 6px;
-    --popover-arrow-offset: 12px;
+    --popover-arrow-offset: var(--spacing-12);
 
     background-color: var(--popover-background-color);
     border: var(--spacing-1) solid var(--popover-border-color);
@@ -33,7 +32,7 @@
         position: absolute;
         width: 0;
         height: 0;
-        border: var(--popover-arrow-size) solid transparent;
+        border: var(--spacing-8) solid transparent;
     }
 
     // Bottom placement (default)
