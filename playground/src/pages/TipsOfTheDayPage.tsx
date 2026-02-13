@@ -8,7 +8,7 @@ export const TipsOfTheDayPage: React.FC = () => {
             <h1>Tips Of The Day Component</h1>
             <p>A component for displaying daily tips or helpful hints.</p>
 
-            <section className="page-section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+            <section className="page-section" style={{ backgroundColor: 'var(--card-background-accent-color)' }}>
                 <h2>Tips Display</h2>
                 <div className="showcase-group">
                     <div className="component-group">

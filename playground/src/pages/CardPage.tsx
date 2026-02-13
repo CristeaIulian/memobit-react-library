@@ -10,7 +10,7 @@ export const CardPage: React.FC = () => {
             <h1>Card Component</h1>
             <p>A versatile card component with optional collapsible sections and footers.</p>
 
-            <section className="page-section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+            <section className="page-section" style={{ backgroundColor: 'var(--card-background-accent-color)' }}>
                 <h2>Card Variations</h2>
 
                 <div className="showcase-group">

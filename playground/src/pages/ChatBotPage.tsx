@@ -8,7 +8,7 @@ export const ChatBotPage: React.FC = () => {
             <h1>ChatBot Component</h1>
             <p>An interactive chatbot component for AI-powered conversations.</p>
 
-            <section className="page-section" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+            <section className="page-section" style={{ backgroundColor: 'var(--card-background-accent-color)' }}>
                 <h2>ChatBot</h2>
                 <div className="showcase-group">
                     <div className="component-group" style={{ width: '500px' }}>

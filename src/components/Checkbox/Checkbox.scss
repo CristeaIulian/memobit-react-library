@@ -24,7 +24,7 @@
     &:focus + .checkbox-label .checkbox-box {
         outline: none;
         border-color: var(--form-control-selection-background-color);
-        box-shadow: 0 0 0 var(--spacing-2) var(--control-focus-ring);
+        box-shadow: 0 0 0 var(--spacing-2) var(--form-control-focus-ring);
     }
 
     &:checked + .checkbox-label .checkbox-box {
