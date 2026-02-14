@@ -27,6 +27,7 @@ export interface CalendarProps {
     disabledDates?: Date[] | ((date: Date) => boolean);
     firstDayOfWeek?: 0 | 1;
     showToday?: boolean;
+    yearOnly?: boolean;
     className?: string;
 }
 
@@ -59,6 +60,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     disabledDates,
     firstDayOfWeek = 0,
     showToday = true,
+    yearOnly = false,
     className = '',
 }: CalendarProps) => {
     const [currentMonth, setCurrentMonth] = useState(() => {
@@ -336,20 +338,28 @@ export const Calendar: React.FC<CalendarProps> = ({
                     ‹
                 </button>
                 <div className="calendar__month-year">
-                    <button
-                        type="button"
-                        className="calendar__header-button"
-                        onClick={handleMonthHeaderClick}
-                    >
-                        {MONTH_NAMES[currentMonth.getMonth()]}
-                    </button>
-                    <button
-                        type="button"
-                        className="calendar__header-button"
-                        onClick={handleYearHeaderClick}
-                    >
-                        {currentMonth.getFullYear()}
-                    </button>
+                    {yearOnly ? (
+                        <span className="calendar__header-label">
+                            {MONTH_NAMES[currentMonth.getMonth()]}
+                        </span>
+                    ) : (
+                        <>
+                            <button
+                                type="button"
+                                className="calendar__header-button"
+                                onClick={handleMonthHeaderClick}
+                            >
+                                {MONTH_NAMES[currentMonth.getMonth()]}
+                            </button>
+                            <button
+                                type="button"
+                                className="calendar__header-button"
+                                onClick={handleYearHeaderClick}
+                            >
+                                {currentMonth.getFullYear()}
+                            </button>
+                        </>
+                    )}
                 </div>
                 <button
                     type="button"
@@ -416,7 +426,7 @@ export const Calendar: React.FC<CalendarProps> = ({
 
             {view === 'days' && (
                 <>
-                    {showToday && (
+                    {showToday && !yearOnly && (
                         <div className="calendar__today-section">
                             <button
                                 type="button"

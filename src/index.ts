@@ -23,6 +23,7 @@ export { InputFile } from './components/InputFile';
 export { InputNumber } from './components/InputNumber';
 export { InputPassword } from './components/InputPassword';
 export { InputText } from './components/InputText';
+export { InputTime } from './components/InputTime';
 export { Loading } from './components/Loading';
 export { Login } from './components/Login';
 export { MacronutrientsPieChart } from './components/MacronutrientsPieChart';

@@ -27,6 +27,13 @@
         font-size: var(--font-size-md);
     }
 
+    &__header-label {
+        color: var(--calendar-header-color);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--font-size-md);
+        padding: var(--spacing-4) var(--spacing-8);
+    }
+
     &__header-button {
         background: transparent;
         border: none;
