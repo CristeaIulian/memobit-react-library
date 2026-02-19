@@ -25,7 +25,6 @@
     &__bar {
         // Inactive bar modifier
         &--inactive {
-            --inactive-color: var(--body-color-muted);
             opacity: 0.3;
         }
     }

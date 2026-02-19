@@ -55,7 +55,7 @@ export function SignalStrength({ value, state, size = 16, className = '' }: Sign
                 width="3"
                 height="5"
                 rx="1"
-                fill={bars >= 1 ? 'var(--signal-color)' : 'var(--inactive-color)'}
+                fill={bars >= 1 ? 'var(--signal-color)' : 'var(--body-color-muted)'}
                 className={`SignalStrength__bar ${bars >= 1 ? '' : 'SignalStrength__bar--inactive'}`}
             />
 
@@ -66,7 +66,7 @@ export function SignalStrength({ value, state, size = 16, className = '' }: Sign
                 width="3"
                 height="9"
                 rx="1"
-                fill={bars >= 2 ? 'var(--signal-color)' : 'var(--inactive-color)'}
+                fill={bars >= 2 ? 'var(--signal-color)' : 'var(--body-color-muted)'}
                 className={`SignalStrength__bar ${bars >= 2 ? '' : 'SignalStrength__bar--inactive'}`}
             />
 
@@ -77,7 +77,7 @@ export function SignalStrength({ value, state, size = 16, className = '' }: Sign
                 width="3"
                 height="13"
                 rx="1"
-                fill={bars >= 3 ? 'var(--signal-color)' : 'var(--inactive-color)'}
+                fill={bars >= 3 ? 'var(--signal-color)' : 'var(--body-color-muted)'}
                 className={`SignalStrength__bar ${bars >= 3 ? '' : 'SignalStrength__bar--inactive'}`}
             />
 
@@ -88,7 +88,7 @@ export function SignalStrength({ value, state, size = 16, className = '' }: Sign
                 width="3"
                 height="17"
                 rx="1"
-                fill={bars >= 4 ? 'var(--signal-color)' : 'var(--inactive-color)'}
+                fill={bars >= 4 ? 'var(--signal-color)' : 'var(--body-color-muted)'}
                 className={`SignalStrength__bar ${bars >= 4 ? '' : 'SignalStrength__bar--inactive'}`}
             />
         </svg>
