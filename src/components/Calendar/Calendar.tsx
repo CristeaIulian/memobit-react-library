@@ -29,6 +29,11 @@ export interface CalendarProps {
     showToday?: boolean;
     yearOnly?: boolean;
     className?: string;
+    currentMonth?: Date;
+    onMonthChange?: (month: Date) => void;
+    showHeader?: boolean;
+    rangeStart?: Date | null;
+    onRangeStartChange?: (date: Date | null) => void;
 }
 
 const YEARS_PER_PAGE = 12;
@@ -62,8 +67,13 @@ export const Calendar: React.FC<CalendarProps> = ({
     showToday = true,
     yearOnly = false,
     className = '',
+    currentMonth,
+    onMonthChange,
+    showHeader = true,
+    rangeStart,
+    onRangeStartChange,
 }: CalendarProps) => {
-    const [currentMonth, setCurrentMonth] = useState(() => {
+    const [internalMonth, setInternalMonth] = useState(() => {
         if (value) {
             if (value instanceof Date) {
                 return new Date(value.getFullYear(), value.getMonth(), 1);
@@ -78,19 +88,21 @@ export const Calendar: React.FC<CalendarProps> = ({
 
     const [view, setView] = useState<CalendarView>('days');
     const [yearsRangeStart, setYearsRangeStart] = useState(() => {
-        const year = currentMonth.getFullYear();
+        const year = (currentMonth ?? internalMonth).getFullYear();
         return Math.floor(year / YEARS_PER_PAGE) * YEARS_PER_PAGE;
     });
 
-    const [rangeStart, setRangeStart] = useState<Date | null>(null);
+    const [internalRangeStart, setInternalRangeStart] = useState<Date | null>(null);
+    const displayMonth = currentMonth ?? internalMonth;
+    const rangeStartValue = rangeStart ?? internalRangeStart;
 
     const monthMatrix = useMemo(() => {
         return getMonthMatrix(
-            currentMonth.getFullYear(),
-            currentMonth.getMonth(),
+            displayMonth.getFullYear(),
+            displayMonth.getMonth(),
             firstDayOfWeek
         );
-    }, [currentMonth, firstDayOfWeek]);
+    }, [displayMonth, firstDayOfWeek]);
 
     const dayNames = firstDayOfWeek === 1 ? DAY_NAMES_SHORT_MONDAY_FIRST : DAY_NAMES_SHORT;
 
@@ -115,8 +127,13 @@ export const Calendar: React.FC<CalendarProps> = ({
             return isSameDay(date, value);
         }
 
-        if (mode === 'range' && value && 'start' in value) {
-            return isSameDay(date, value.start) || isSameDay(date, value.end);
+        if (mode === 'range') {
+            if (value && 'start' in value) {
+                return isSameDay(date, value.start) || isSameDay(date, value.end);
+            }
+            if (rangeStartValue) {
+                return isSameDay(date, rangeStartValue);
+            }
         }
 
         if (mode === 'multiple' && Array.isArray(value)) {
@@ -136,16 +153,16 @@ export const Calendar: React.FC<CalendarProps> = ({
     };
 
     const isDateInHoverRange = (date: Date): boolean => {
-        if (mode === 'range' && rangeStart && !value) {
+        if (mode === 'range' && rangeStartValue && !value) {
             const dateTime = date.getTime();
-            const startTime = rangeStart.getTime();
+            const startTime = rangeStartValue.getTime();
             return dateTime > startTime;
         }
         return false;
     };
 
     const isCurrentMonthDate = (date: Date): boolean => {
-        return date.getMonth() === currentMonth.getMonth();
+        return date.getMonth() === displayMonth.getMonth();
     };
 
     const handleDateClick = (date: Date) => {
@@ -154,14 +171,22 @@ export const Calendar: React.FC<CalendarProps> = ({
         if (mode === 'single') {
             onChange?.(date);
         } else if (mode === 'range') {
-            if (!rangeStart) {
-                setRangeStart(date);
-                onChange?.(undefined);
+            if (!rangeStartValue) {
+                if (onRangeStartChange) {
+                    onRangeStartChange(date);
+                } else {
+                    setInternalRangeStart(date);
+                    onChange?.(undefined);
+                }
             } else {
-                const start = isBefore(date, rangeStart) ? date : rangeStart;
-                const end = isBefore(date, rangeStart) ? rangeStart : date;
+                const start = isBefore(date, rangeStartValue) ? date : rangeStartValue;
+                const end = isBefore(date, rangeStartValue) ? rangeStartValue : date;
                 onChange?.({ start, end });
-                setRangeStart(null);
+                if (onRangeStartChange) {
+                    onRangeStartChange(null);
+                } else {
+                    setInternalRangeStart(null);
+                }
             }
         } else if (mode === 'multiple') {
             const currentValues = Array.isArray(value) ? value : [];
@@ -177,16 +202,31 @@ export const Calendar: React.FC<CalendarProps> = ({
     };
 
     const handlePreviousMonth = () => {
-        setCurrentMonth(addMonths(currentMonth, -1));
+        const next = addMonths(displayMonth, -1);
+        if (onMonthChange) {
+            onMonthChange(next);
+        } else {
+            setInternalMonth(next);
+        }
     };
 
     const handleNextMonth = () => {
-        setCurrentMonth(addMonths(currentMonth, 1));
+        const next = addMonths(displayMonth, 1);
+        if (onMonthChange) {
+            onMonthChange(next);
+        } else {
+            setInternalMonth(next);
+        }
     };
 
     const handleTodayClick = () => {
         const today = new Date();
-        setCurrentMonth(new Date(today.getFullYear(), today.getMonth(), 1));
+        const nextMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        if (onMonthChange) {
+            onMonthChange(nextMonth);
+        } else {
+            setInternalMonth(nextMonth);
+        }
         setView('days');
         if (mode === 'single') {
             onChange?.(today);
@@ -194,21 +234,34 @@ export const Calendar: React.FC<CalendarProps> = ({
     };
 
     const handleMonthHeaderClick = () => {
-        setView('months');
+        if (showHeader) {
+            setView('months');
+        }
     };
 
     const handleYearHeaderClick = () => {
-        setYearsRangeStart(Math.floor(currentMonth.getFullYear() / YEARS_PER_PAGE) * YEARS_PER_PAGE);
+        if (!showHeader) return;
+        setYearsRangeStart(Math.floor(displayMonth.getFullYear() / YEARS_PER_PAGE) * YEARS_PER_PAGE);
         setView('years');
     };
 
     const handleMonthSelect = (monthIndex: number) => {
-        setCurrentMonth(new Date(currentMonth.getFullYear(), monthIndex, 1));
+        const next = new Date(displayMonth.getFullYear(), monthIndex, 1);
+        if (onMonthChange) {
+            onMonthChange(next);
+        } else {
+            setInternalMonth(next);
+        }
         setView('days');
     };
 
     const handleYearSelect = (year: number) => {
-        setCurrentMonth(new Date(year, currentMonth.getMonth(), 1));
+        const next = new Date(year, displayMonth.getMonth(), 1);
+        if (onMonthChange) {
+            onMonthChange(next);
+        } else {
+            setInternalMonth(next);
+        }
         setView('months');
     };
 
@@ -221,11 +274,21 @@ export const Calendar: React.FC<CalendarProps> = ({
     };
 
     const handlePreviousYear = () => {
-        setCurrentMonth(new Date(currentMonth.getFullYear() - 1, currentMonth.getMonth(), 1));
+        const next = new Date(displayMonth.getFullYear() - 1, displayMonth.getMonth(), 1);
+        if (onMonthChange) {
+            onMonthChange(next);
+        } else {
+            setInternalMonth(next);
+        }
     };
 
     const handleNextYear = () => {
-        setCurrentMonth(new Date(currentMonth.getFullYear() + 1, currentMonth.getMonth(), 1));
+        const next = new Date(displayMonth.getFullYear() + 1, displayMonth.getMonth(), 1);
+        if (onMonthChange) {
+            onMonthChange(next);
+        } else {
+            setInternalMonth(next);
+        }
     };
 
     const getYearsInRange = (): number[] => {
@@ -313,7 +376,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                         className="calendar__header-button"
                         onClick={handleYearHeaderClick}
                     >
-                        {currentMonth.getFullYear()}
+                        {displayMonth.getFullYear()}
                     </button>
                     <button
                         type="button"
@@ -340,7 +403,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                 <div className="calendar__month-year">
                     {yearOnly ? (
                         <span className="calendar__header-label">
-                            {MONTH_NAMES[currentMonth.getMonth()]}
+                            {MONTH_NAMES[displayMonth.getMonth()]}
                         </span>
                     ) : (
                         <>
@@ -349,14 +412,14 @@ export const Calendar: React.FC<CalendarProps> = ({
                                 className="calendar__header-button"
                                 onClick={handleMonthHeaderClick}
                             >
-                                {MONTH_NAMES[currentMonth.getMonth()]}
+                                {MONTH_NAMES[displayMonth.getMonth()]}
                             </button>
                             <button
                                 type="button"
                                 className="calendar__header-button"
                                 onClick={handleYearHeaderClick}
                             >
-                                {currentMonth.getFullYear()}
+                                {displayMonth.getFullYear()}
                             </button>
                         </>
                     )}
@@ -376,7 +439,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     const renderYearsGrid = () => {
         const years = getYearsInRange();
         const currentYear = new Date().getFullYear();
-        const selectedYear = currentMonth.getFullYear();
+        const selectedYear = displayMonth.getFullYear();
 
         return (
             <div className="calendar__years-grid">
@@ -397,8 +460,8 @@ export const Calendar: React.FC<CalendarProps> = ({
     const renderMonthsGrid = () => {
         const currentMonthIndex = new Date().getMonth();
         const currentYear = new Date().getFullYear();
-        const selectedMonthIndex = currentMonth.getMonth();
-        const selectedYear = currentMonth.getFullYear();
+        const selectedMonthIndex = displayMonth.getMonth();
+        const selectedYear = displayMonth.getFullYear();
 
         return (
             <div className="calendar__months-grid">
@@ -406,7 +469,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                     <button
                         key={month}
                         type="button"
-                        className={`calendar__month-item ${index === selectedMonthIndex && selectedYear === currentMonth.getFullYear() ? 'calendar__month-item--selected' : ''} ${index === currentMonthIndex && currentYear === currentMonth.getFullYear() ? 'calendar__month-item--current' : ''}`}
+                        className={`calendar__month-item ${index === selectedMonthIndex && selectedYear === displayMonth.getFullYear() ? 'calendar__month-item--selected' : ''} ${index === currentMonthIndex && currentYear === displayMonth.getFullYear() ? 'calendar__month-item--current' : ''}`}
                         onClick={() => handleMonthSelect(index)}
                     >
                         {month.substring(0, 3)}
@@ -418,7 +481,7 @@ export const Calendar: React.FC<CalendarProps> = ({
 
     return (
         <div className={`calendar ${className}`}>
-            {renderHeader()}
+            {showHeader && renderHeader()}
 
             {view === 'years' && renderYearsGrid()}
 

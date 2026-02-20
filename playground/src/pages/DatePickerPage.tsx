@@ -105,6 +105,17 @@ export const DatePickerPage: React.FC = () => {
                         />
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Always Visible</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            value={singleDate}
+                            onChange={handleSingleDateChange}
+                            alwaysOpen
+                        />
+                    </div>
+                </div>
             </section>
 
             <section className="page-section">

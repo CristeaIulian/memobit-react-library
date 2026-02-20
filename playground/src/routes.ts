@@ -16,13 +16,19 @@ import { CardPage } from './pages/CardPage';
 import { ChatBotPage } from './pages/ChatBotPage';
 import { CheckboxPage } from './pages/CheckboxPage';
 import { CollapsibleSectionPage } from './pages/CollapsibleSectionPage';
+import { ColorPickerPage } from './pages/ColorPickerPage';
+import { CommandPalettePage } from './pages/CommandPalettePage';
 import { ConfirmDialogPage } from './pages/ConfirmDialogPage';
 import { ContextMenuPage } from './pages/ContextMenuPage';
 import { ContextToastPage } from './pages/ContextToastPage';
 import { CountryWithFlagPage } from './pages/CountryWithFlagPage';
+import { DataTablePage } from './pages/DataTablePage';
 import { DatePickerPage } from './pages/DatePickerPage';
+import { DateRangePickerPage } from './pages/DateRangePickerPage';
 import { DrawerPage } from './pages/DrawerPage';
 import { DropdownPage } from './pages/DropdownPage';
+import { EmptyStatePage } from './pages/EmptyStatePage';
+import { FileDropzonePage } from './pages/FileDropzonePage';
 import { FlagPage } from './pages/FlagPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
 import { InputDatePage } from './pages/InputDatePage';
@@ -85,13 +91,19 @@ export const routes: RouteConfig[] = [
     { path: '/chatbot', label: 'ChatBot', component: ChatBotPage },
     { path: '/checkbox', label: 'Checkbox', component: CheckboxPage },
     { path: '/collapsible-section', label: 'Collapsible Section', component: CollapsibleSectionPage },
+    { path: '/color-picker', label: 'Color Picker', component: ColorPickerPage },
+    { path: '/command-palette', label: 'Command Palette', component: CommandPalettePage },
     { path: '/confirm-dialog', label: 'Confirm Dialog', component: ConfirmDialogPage },
     { path: '/context-menu', label: 'Context Menu', component: ContextMenuPage },
     { path: '/context-toast', label: 'Context Toast', component: ContextToastPage },
     { path: '/country-with-flag', label: 'Country With Flag', component: CountryWithFlagPage },
+    { path: '/data-table', label: 'Data Table', component: DataTablePage },
     { path: '/datepicker', label: 'DatePicker', component: DatePickerPage },
+    { path: '/date-range-picker', label: 'Date Range Picker', component: DateRangePickerPage },
     { path: '/drawer', label: 'Drawer', component: DrawerPage },
     { path: '/dropdown', label: 'Dropdown', component: DropdownPage },
+    { path: '/empty-state', label: 'Empty State', component: EmptyStatePage },
+    { path: '/file-dropzone', label: 'File Dropzone', component: FileDropzonePage },
     { path: '/flag', label: 'Flag', component: FlagPage },
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
     { path: '/input-date', label: 'Input Date', component: InputDatePage },

@@ -15,6 +15,7 @@ export interface DatePickerProps extends Omit<CalendarProps, 'onChange' | 'value
     disabled?: boolean;
     clearable?: boolean;
     autoClose?: boolean;
+    alwaysOpen?: boolean;
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
@@ -29,9 +30,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     disabled = false,
     clearable = true,
     autoClose = true,
+    alwaysOpen = false,
     ...calendarProps
 }: DatePickerProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenInternal, setIsOpenInternal] = useState(false);
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
@@ -49,7 +51,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         }
     }, [value, withTime, timeFormat]);
 
+    const isOpen = alwaysOpen ? !disabled : isOpenInternal;
+
     useEffect(() => {
+        if (alwaysOpen) return;
         const handleClickOutside = (event: MouseEvent) => {
             if (
                 isOpen &&
@@ -58,13 +63,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 !inputRef.current.contains(event.target as Node) &&
                 !dropdownRef.current.contains(event.target as Node)
             ) {
-                setIsOpen(false);
+                setIsOpenInternal(false);
             }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isOpen]);
+    }, [alwaysOpen, isOpen]);
 
     const formatDisplayValue = (): string => {
         if (!value) return '';
@@ -96,8 +101,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const handleCalendarChange = (newValue: Date | CalendarDateRange | Date[] | undefined) => {
         if (!withTime || !(newValue instanceof Date)) {
             onChange?.(newValue);
-            if (autoClose && mode !== 'multiple') {
-                setIsOpen(false);
+            if (autoClose && mode !== 'multiple' && !alwaysOpen) {
+                setIsOpenInternal(false);
             }
             return;
         }
@@ -107,8 +112,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         updatedDate.setHours(actualHours, minutes, seconds);
 
         onChange?.(updatedDate);
-        if (autoClose) {
-            setIsOpen(false);
+        if (autoClose && !alwaysOpen) {
+            setIsOpenInternal(false);
         }
     };
 
@@ -153,7 +158,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 className={`datepicker__input ${disabled ? 'datepicker__input--disabled' : ''} ${
                     isOpen ? 'datepicker__input--open' : ''
                 }`}
-                onClick={() => !disabled && setIsOpen(!isOpen)}
+                onClick={() => !disabled && !alwaysOpen && setIsOpenInternal(!isOpen)}
             >
                 <span className={`datepicker__value ${!displayValue ? 'datepicker__value--placeholder' : ''}`}>
                     {displayValue || placeholder}
@@ -174,8 +179,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             </div>
 
             {isOpen &&
-                createPortal(
-                    <div ref={dropdownRef} className="datepicker__dropdown" style={getDropdownPosition()}>
+                (alwaysOpen ? (
+                    <div ref={dropdownRef} className="datepicker__dropdown datepicker__dropdown--inline">
                         <Calendar
                             {...calendarProps}
                             mode={mode}
@@ -245,9 +250,83 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                                 </div>
                             </div>
                         )}
-                    </div>,
-                    document.body
-                )}
+                    </div>
+                ) : (
+                    createPortal(
+                        <div ref={dropdownRef} className="datepicker__dropdown" style={getDropdownPosition()}>
+                            <Calendar
+                                {...calendarProps}
+                                mode={mode}
+                                value={value}
+                                onChange={handleCalendarChange}
+                            />
+
+                            {withTime && mode === 'single' && value instanceof Date && (
+                                <div className="datepicker__time">
+                                    <div className="datepicker__time-label">Time</div>
+                                    <div className="datepicker__time-inputs">
+                                        <input
+                                            type="number"
+                                            className="datepicker__time-input"
+                                            value={hours}
+                                            onChange={e => {
+                                                const val = parseInt(e.target.value) || 0;
+                                                const max = timeFormat === '12h' ? 12 : 23;
+                                                setHours(Math.min(Math.max(val, 0), max));
+                                            }}
+                                            onBlur={handleTimeChange}
+                                            min="0"
+                                            max={timeFormat === '12h' ? '12' : '23'}
+                                        />
+                                        <span>:</span>
+                                        <input
+                                            type="number"
+                                            className="datepicker__time-input"
+                                            value={minutes}
+                                            onChange={e => {
+                                                const val = parseInt(e.target.value) || 0;
+                                                setMinutes(Math.min(Math.max(val, 0), 59));
+                                            }}
+                                            onBlur={handleTimeChange}
+                                            min="0"
+                                            max="59"
+                                        />
+                                        {withSeconds && (
+                                            <>
+                                                <span>:</span>
+                                                <input
+                                                    type="number"
+                                                    className="datepicker__time-input"
+                                                    value={seconds}
+                                                    onChange={e => {
+                                                        const val = parseInt(e.target.value) || 0;
+                                                        setSeconds(Math.min(Math.max(val, 0), 59));
+                                                    }}
+                                                    onBlur={handleTimeChange}
+                                                    min="0"
+                                                    max="59"
+                                                />
+                                            </>
+                                        )}
+                                        {timeFormat === '12h' && (
+                                            <button
+                                                type="button"
+                                                className="datepicker__time-period"
+                                                onClick={() => {
+                                                    setIsPM(!isPM);
+                                                    setTimeout(handleTimeChange, 0);
+                                                }}
+                                            >
+                                                {isPM ? 'PM' : 'AM'}
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>,
+                        document.body
+                    )
+                ))}
         </div>
     );
 };

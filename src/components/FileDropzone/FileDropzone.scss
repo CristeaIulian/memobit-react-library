@@ -1,0 +1,62 @@
+.file-dropzone {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12);
+
+    &__label {
+        font-weight: 600;
+    }
+
+    &__area {
+        border: 2px dashed var(--delimiter-color);
+        border-radius: var(--radius);
+        padding: var(--spacing-24);
+        text-align: center;
+        background: var(--card-background-color);
+        cursor: pointer;
+        transition: border-color 0.2s ease;
+        position: relative;
+
+        input {
+            display: none;
+        }
+    }
+
+    &__area.is-dragging {
+        border-color: var(--accent-color);
+        background: var(--card-background-accent-color);
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        color: var(--body-color);
+    }
+
+    &__files {
+        background: var(--card-background-accent-color);
+        border-radius: var(--radius);
+        padding: var(--spacing-12);
+        border: 1px solid var(--delimiter-color);
+
+        ul {
+            margin: 0;
+            padding-left: 16px;
+        }
+    }
+
+    &__previews {
+        display: flex;
+        gap: var(--spacing-12);
+        flex-wrap: wrap;
+
+        img {
+            width: 96px;
+            height: 96px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            border: 1px solid var(--delimiter-color);
+        }
+    }
+}

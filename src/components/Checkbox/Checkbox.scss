@@ -37,6 +37,22 @@
         }
     }
 
+    &:indeterminate + .checkbox-label .checkbox-box {
+        background-color: var(--form-control-selection-background-color);
+        border-color: var(--form-control-selection-background-color);
+
+        &::after {
+            content: '';
+            width: 10px;
+            height: 2px;
+            background-color: var(--form-control-selection-color);
+            border-radius: 2px;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            transition: all 0.2s ease;
+        }
+    }
+
     &:disabled + .checkbox-label {
         cursor: not-allowed;
     }

@@ -1,0 +1,32 @@
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-12);
+    padding: var(--spacing-24);
+    border: 1px dashed var(--delimiter-color);
+    border-radius: var(--radius);
+    background: var(--card-background-color);
+
+    &__icon {
+        font-size: 2rem;
+    }
+
+    &__title {
+        margin: 0;
+    }
+
+    &__description {
+        margin: 0;
+        color: var(--body-color-muted);
+        max-width: 420px;
+    }
+
+    &__actions {
+        display: flex;
+        gap: var(--spacing-12);
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

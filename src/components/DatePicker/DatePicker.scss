@@ -83,6 +83,12 @@
         min-width: 280px;
     }
 
+    &__dropdown--inline {
+        position: static;
+        margin-top: var(--spacing-12);
+        box-shadow: none;
+    }
+
     &__time {
         border-top: 1px solid var(--calendar-border-color);
         margin-top: var(--spacing-16);
