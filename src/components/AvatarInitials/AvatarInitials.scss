@@ -1,0 +1,43 @@
+.avatar-initials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: var(--font-family, sans-serif);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-none);
+    user-select: none;
+
+    // Sizes
+    &--small {
+        width: 28px;
+        height: 28px;
+        font-size: var(--font-size-xxs);
+    }
+
+    &--medium {
+        width: 40px;
+        height: 40px;
+        font-size: var(--font-size-sm);
+    }
+
+    &--large {
+        width: 56px;
+        height: 56px;
+        font-size: var(--font-size-md);
+    }
+
+    // Shapes
+    &--rounded {
+        border-radius: var(--radius-full);
+    }
+
+    &--squared {
+        border-radius: var(--radius-sm);
+    }
+
+    &__text {
+        display: block;
+        letter-spacing: 0.04em;
+    }
+}

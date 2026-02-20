@@ -1,0 +1,93 @@
+.input-phone-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.input-phone-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    color: var(--form-control-color);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+}
+
+.input-phone-required {
+    color: var(--body-danger-color);
+    font-size: var(--font-size-sm);
+}
+
+.input-phone-field {
+    display: flex;
+    align-items: center;
+    background-color: var(--form-control-background-color);
+    border: 1px solid var(--form-control-border-color);
+    border-radius: var(--radius-sm);
+    padding: 0 var(--spacing-12);
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+
+    &:focus-within {
+        background-color: var(--form-control-focus-background-color);
+        border-color: var(--form-control-focus-border-color);
+        box-shadow: 0 0 0 3px var(--form-control-focus-ring);
+        outline: none;
+    }
+
+    &--error {
+        border-color: var(--body-danger-color);
+
+        &:focus-within {
+            box-shadow: 0 0 0 3px rgba(219, 82, 75, 0.25);
+        }
+    }
+
+    &--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+.input-phone-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--form-control-placeholder-color);
+    margin-right: var(--spacing-8);
+    pointer-events: none;
+}
+
+.input-phone {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--form-control-color);
+    font-size: var(--font-size-sm);
+    font-family: inherit;
+    line-height: var(--line-height-normal);
+    padding: var(--spacing-8) 0;
+    width: 100%;
+
+    &::placeholder {
+        color: var(--form-control-placeholder-color);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    // Removes browser default tel styling
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+}
+
+.input-phone-error-message {
+    color: var(--body-danger-color);
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-normal);
+}

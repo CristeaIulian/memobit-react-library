@@ -1,0 +1,63 @@
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &--vertical {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &--horizontal {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        padding: var(--spacing-8) var(--spacing-12);
+        color: var(--body-color);
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-normal);
+        transition: background-color var(--transition-fast), color var(--transition-fast);
+        border-radius: var(--radius-sm);
+
+        &--alternate {
+            background-color: var(--list-alternate-background-color);
+        }
+
+        &--disabled {
+            opacity: 0.45;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+    }
+
+    // Selectable variant
+    &--selectable &__item {
+        cursor: pointer;
+        user-select: none;
+
+        &:hover:not(&--disabled) {
+            background-color: var(--list-hover-background-color);
+            color: var(--body-color-accent);
+        }
+
+        &--active {
+            background-color: var(--list-hover-background-color);
+            color: var(--body-color-accent);
+            border-left: 3px solid var(--card-border-accent-color);
+            padding-left: calc(var(--spacing-12) - 3px);
+
+            // For horizontal lists the active indicator makes more sense on the bottom
+            .list--horizontal & {
+                border-left: none;
+                border-bottom: 3px solid var(--card-border-accent-color);
+                padding-left: var(--spacing-12);
+                padding-bottom: calc(var(--spacing-8) - 3px);
+            }
+        }
+    }
+}

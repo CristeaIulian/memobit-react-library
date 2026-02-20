@@ -1,6 +1,7 @@
 // Export components
 export { Accordion, type AccordionProps, type AccordionItemData } from './components/Accordion';
 export { AlertDialog } from './components/AlertDialog';
+export { AvatarInitials } from './components/AvatarInitials';
 export { Badge, type BadgeVariant } from './components/Badge';
 export { BMIHorizontalBarIndicator } from './components/BMIHorizontalBarIndicator';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
@@ -12,6 +13,7 @@ export { Checkbox } from './components/Checkbox';
 export { CollapsibleSection } from './components/CollapsibleSection';
 export { ConfirmDialog } from './components/ConfirmDialog';
 export { ContextMenu } from './components/ContextMenu';
+export { CountryWithFlag } from './components/CountryWithFlag';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';
 export { Drawer, type DrawerPosition } from './components/Drawer';
 export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
@@ -22,8 +24,10 @@ export { InputEmail, validateEmail, type InputEmailProps } from './components/In
 export { InputFile } from './components/InputFile';
 export { InputNumber } from './components/InputNumber';
 export { InputPassword } from './components/InputPassword';
+export { InputPhone } from './components/InputPhone';
 export { InputText } from './components/InputText';
 export { InputTime } from './components/InputTime';
+export { List } from './components/List';
 export { Loading } from './components/Loading';
 export { Login } from './components/Login';
 export { MacronutrientsPieChart } from './components/MacronutrientsPieChart';
