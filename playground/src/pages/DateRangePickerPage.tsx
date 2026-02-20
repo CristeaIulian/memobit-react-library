@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import { DateRangePicker } from '../../../src';
 
 export const DateRangePickerPage: React.FC = () => {
-    const [range, setRange] = useState({ start: '2026-02-10', end: '2026-02-18' });
+    const [range, setRange] = useState<{ start?: string; end?: string }>({
+        start: '2026-02-10',
+        end: '2026-02-18',
+    });
 
     return (
         <div className="component-page">
