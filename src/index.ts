@@ -29,7 +29,6 @@ export { InputText } from './components/InputText';
 export { InputTime } from './components/InputTime';
 export { List } from './components/List';
 export { Loading } from './components/Loading';
-export { Login } from './components/Login';
 export { MacronutrientsPieChart } from './components/MacronutrientsPieChart';
 export { MenuHamburger, type MenuHamburgerItem } from './components/MenuHamburger';
 export {

@@ -4,6 +4,9 @@ import React from 'react';
 import { Home } from './pages/Home';
 import { UseBreakpointPage } from './pages/UseBreakpointPage';
 import { AccordionPage } from './pages/AccordionPage';
+import { AlertDialogPage } from './pages/AlertDialogPage';
+import { AuthLoginPage } from './pages/AuthLoginPage';
+import { AvatarInitialsPage } from './pages/AvatarInitialsPage';
 import { BadgePage } from './pages/BadgePage';
 import { BMIHorizontalBarIndicatorPage } from './pages/BMIHorizontalBarIndicatorPage';
 import { BreadcrumbPage } from './pages/BreadcrumbPage';
@@ -15,14 +18,24 @@ import { CheckboxPage } from './pages/CheckboxPage';
 import { CollapsibleSectionPage } from './pages/CollapsibleSectionPage';
 import { ConfirmDialogPage } from './pages/ConfirmDialogPage';
 import { ContextMenuPage } from './pages/ContextMenuPage';
+import { ContextToastPage } from './pages/ContextToastPage';
+import { CountryWithFlagPage } from './pages/CountryWithFlagPage';
 import { DatePickerPage } from './pages/DatePickerPage';
 import { DrawerPage } from './pages/DrawerPage';
 import { DropdownPage } from './pages/DropdownPage';
+import { FlagPage } from './pages/FlagPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
+import { InputDatePage } from './pages/InputDatePage';
 import { InputFilePage } from './pages/InputFilePage';
 import { InputEmailPage } from './pages/InputEmailPage';
 import { InputNumberPage } from './pages/InputNumberPage';
+import { InputPasswordPage } from './pages/InputPasswordPage';
+import { InputPhonePage } from './pages/InputPhonePage';
 import { InputTextPage } from './pages/InputTextPage';
+import { InputTimePage } from './pages/InputTimePage';
+import { ListPage } from './pages/ListPage';
+import { LoadingPage } from './pages/LoadingPage';
+import { MacronutrientsPieChartPage } from './pages/MacronutrientsPieChartPage';
 import { MenuHamburgerPage } from './pages/MenuHamburgerPage';
 import { MiniStatsCardPage } from './pages/MiniStatsCardPage';
 import { ModalPage } from './pages/ModalPage';
@@ -30,10 +43,14 @@ import { NavBarPage } from './pages/NavBarPage';
 import { PaginationPage } from './pages/PaginationPage';
 import { PopoverPage } from './pages/PopoverPage';
 import { ProgressBarPage } from './pages/ProgressBarPage';
+import { QuickAddPage } from './pages/QuickAddPage';
+import { QuickNumberUpdatePage } from './pages/QuickNumberUpdatePage';
+import { QuickOptionUpdatePage } from './pages/QuickOptionUpdatePage';
 import { RadioPage } from './pages/RadioPage';
 import { RatingPage } from './pages/RatingPage';
 import { SearchPage } from './pages/SearchPage';
 import { SeparatorPage } from './pages/SeparatorPage';
+import { SignalStrengthPage } from './pages/SignalStrengthPage';
 import { SidebarPage } from './pages/SidebarPage';
 import { SkeletonPage } from './pages/SkeletonPage';
 import { SliderPage } from './pages/SliderPage';
@@ -56,6 +73,9 @@ export const routes: RouteConfig[] = [
     { path: '/', label: 'Home', component: Home },
     { path: '/use-breakpoint', label: 'useBreakpoint Hook', component: UseBreakpointPage },
     { path: '/accordion', label: 'Accordion', component: AccordionPage },
+    { path: '/alert-dialog', label: 'Alert Dialog', component: AlertDialogPage },
+    { path: '/auth-login', label: 'Auth Login', component: AuthLoginPage },
+    { path: '/avatar-initials', label: 'Avatar Initials', component: AvatarInitialsPage },
     { path: '/badge', label: 'Badge', component: BadgePage },
     { path: '/bmi-horizontal-bar-indicator', label: 'BMI Horizontal Bar Indicator', component: BMIHorizontalBarIndicatorPage },
     { path: '/breadcrumb', label: 'Breadcrumb', component: BreadcrumbPage },
@@ -67,14 +87,24 @@ export const routes: RouteConfig[] = [
     { path: '/collapsible-section', label: 'Collapsible Section', component: CollapsibleSectionPage },
     { path: '/confirm-dialog', label: 'Confirm Dialog', component: ConfirmDialogPage },
     { path: '/context-menu', label: 'Context Menu', component: ContextMenuPage },
+    { path: '/context-toast', label: 'Context Toast', component: ContextToastPage },
+    { path: '/country-with-flag', label: 'Country With Flag', component: CountryWithFlagPage },
     { path: '/datepicker', label: 'DatePicker', component: DatePickerPage },
     { path: '/drawer', label: 'Drawer', component: DrawerPage },
     { path: '/dropdown', label: 'Dropdown', component: DropdownPage },
+    { path: '/flag', label: 'Flag', component: FlagPage },
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
+    { path: '/input-date', label: 'Input Date', component: InputDatePage },
     { path: '/input-file', label: 'Input File', component: InputFilePage },
     { path: '/input-email', label: 'Input Email', component: InputEmailPage },
     { path: '/input-number', label: 'Input Number', component: InputNumberPage },
+    { path: '/input-password', label: 'Input Password', component: InputPasswordPage },
+    { path: '/input-phone', label: 'Input Phone', component: InputPhonePage },
     { path: '/input-text', label: 'Input Text', component: InputTextPage },
+    { path: '/input-time', label: 'Input Time', component: InputTimePage },
+    { path: '/list', label: 'List', component: ListPage },
+    { path: '/loading', label: 'Loading', component: LoadingPage },
+    { path: '/macronutrients-pie-chart', label: 'Macronutrients Pie Chart', component: MacronutrientsPieChartPage },
     { path: '/menu-hamburger', label: 'Menu Hamburger', component: MenuHamburgerPage },
     { path: '/mini-stats-card', label: 'Mini Stats Card', component: MiniStatsCardPage },
     { path: '/modal', label: 'Modal', component: ModalPage },
@@ -82,10 +112,14 @@ export const routes: RouteConfig[] = [
     { path: '/pagination', label: 'Pagination', component: PaginationPage },
     { path: '/popover', label: 'Popover', component: PopoverPage },
     { path: '/progress-bar', label: 'Progress Bar', component: ProgressBarPage },
+    { path: '/quick-add', label: 'Quick Add', component: QuickAddPage },
+    { path: '/quick-number-update', label: 'Quick Number Update', component: QuickNumberUpdatePage },
+    { path: '/quick-option-update', label: 'Quick Option Update', component: QuickOptionUpdatePage },
     { path: '/radio', label: 'Radio', component: RadioPage },
     { path: '/rating', label: 'Rating', component: RatingPage },
     { path: '/search', label: 'Search', component: SearchPage },
     { path: '/separator', label: 'Separator', component: SeparatorPage },
+    { path: '/signal-strength', label: 'Signal Strength', component: SignalStrengthPage },
     { path: '/sidebar', label: 'Sidebar', component: SidebarPage },
     { path: '/skeleton', label: 'Skeleton', component: SkeletonPage },
     { path: '/slider', label: 'Slider', component: SliderPage },
