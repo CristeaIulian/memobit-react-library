@@ -8,17 +8,18 @@
     padding: var(--spacing-16);
 
     &__label {
-        font-weight: 600;
+        font-weight: var(--font-weight-semibold);
         color: var(--body-color);
     }
 
     &__inputs {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: var(--spacing-8);
 
         .input-text-wrapper {
-            min-width: 130px;
+            flex: 1 1 var(--spacing-100);
         }
 
         .input-text {
@@ -26,10 +27,29 @@
         }
     }
 
+    &__separator {
+        color: var(--body-color-muted);
+    }
+
+    &__toggle {
+        margin-left: auto;
+    }
+
     &__calendar {
         display: flex;
         flex-direction: column;
         gap: var(--spacing-12);
+    }
+
+    &__overlay {
+        background: var(--card-background-color);
+        border: var(--spacing-1) solid var(--delimiter-color);
+        border-radius: var(--radius);
+        box-shadow: var(--card-box-shadow);
+        max-height: calc(100vh - var(--spacing-32));
+        max-width: calc(100vw - var(--spacing-32));
+        overflow: auto;
+        padding: var(--spacing-16);
     }
 
     &__nav {
@@ -39,13 +59,17 @@
         gap: var(--spacing-12);
 
         .button {
-            padding: 6px 12px;
+            padding: var(--spacing-8) var(--spacing-12);
         }
     }
 
     &__months {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        display: flex;
+        flex-wrap: wrap;
         gap: var(--spacing-16);
+
+        .calendar {
+            flex: 1 1 var(--spacing-200);
+        }
     }
 }

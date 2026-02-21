@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { Calendar, type CalendarDateRange } from '../Calendar';
 import { Button } from '../Button';
@@ -18,6 +19,8 @@ export interface DateRangePickerProps {
     onChange?: (range: DateRange) => void;
     min?: string;
     max?: string;
+    alwaysOpen?: boolean;
+    autoClose?: boolean;
 }
 
 const toDate = (value?: string) => {
@@ -34,10 +37,22 @@ const toKey = (date: Date) => {
     return `${year}-${month}-${day}`;
 };
 
-export const DateRangePicker: React.FC<DateRangePickerProps> = ({ label, value, onChange, min, max }) => {
+export const DateRangePicker: React.FC<DateRangePickerProps> = ({
+    label,
+    value,
+    onChange,
+    min,
+    max,
+    alwaysOpen = false,
+    autoClose = true,
+}) => {
     const [internalRange, setInternalRange] = useState<DateRange>({});
     const [baseMonth, setBaseMonth] = useState(() => new Date());
     const [rangeStart, setRangeStart] = useState<Date | null>(null);
+    const [isCalendarOpen, setIsCalendarOpen] = useState(alwaysOpen);
+    const [overlayStyle, setOverlayStyle] = useState<React.CSSProperties>({});
+    const containerRef = useRef<HTMLDivElement>(null);
+    const overlayRef = useRef<HTMLDivElement>(null);
 
     const range = value ?? internalRange;
     const startDate = toDate(range.start);
@@ -56,6 +71,9 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ label, value, 
         if (next && typeof next === 'object' && 'start' in next) {
             updateRange({ start: toKey(next.start), end: toKey(next.end) });
             setRangeStart(null);
+            if (!alwaysOpen && autoClose) {
+                setIsCalendarOpen(false);
+            }
         }
     };
 
@@ -64,59 +82,163 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ label, value, 
     };
 
     const secondMonth = useMemo(() => addMonths(baseMonth, 1), [baseMonth]);
+    const isCalendarVisible = alwaysOpen || isCalendarOpen;
+    const isOverlayMode = !alwaysOpen && isCalendarOpen;
+
+    const updateOverlayPosition = useCallback(() => {
+        if (!isOverlayMode || !containerRef.current || !overlayRef.current) {
+            return;
+        }
+
+        const anchorRect = containerRef.current.getBoundingClientRect();
+        const panelRect = overlayRef.current.getBoundingClientRect();
+        const viewportMargin = 16;
+        const offset = 8;
+        const availableBelow = window.innerHeight - anchorRect.bottom - viewportMargin;
+        const availableAbove = anchorRect.top - viewportMargin;
+        const shouldOpenAbove = availableBelow < panelRect.height && availableAbove > panelRect.height;
+
+        const top = shouldOpenAbove
+            ? anchorRect.top - panelRect.height - offset
+            : anchorRect.bottom + offset;
+        const constrainedTop = Math.max(viewportMargin, Math.min(top, window.innerHeight - panelRect.height - viewportMargin));
+        const unconstrainedLeft = anchorRect.left;
+        const constrainedLeft = Math.max(
+            viewportMargin,
+            Math.min(unconstrainedLeft, window.innerWidth - panelRect.width - viewportMargin)
+        );
+
+        setOverlayStyle({
+            position: 'fixed',
+            top: `${constrainedTop}px`,
+            left: `${constrainedLeft}px`,
+            zIndex: 1000,
+        });
+    }, [isOverlayMode]);
+
+    useEffect(() => {
+        if (alwaysOpen) {
+            setIsCalendarOpen(true);
+        }
+    }, [alwaysOpen]);
+
+    useEffect(() => {
+        if (!isOverlayMode) {
+            return;
+        }
+
+        const animationFrame = requestAnimationFrame(updateOverlayPosition);
+        window.addEventListener('resize', updateOverlayPosition);
+        window.addEventListener('scroll', updateOverlayPosition, true);
+
+        return () => {
+            cancelAnimationFrame(animationFrame);
+            window.removeEventListener('resize', updateOverlayPosition);
+            window.removeEventListener('scroll', updateOverlayPosition, true);
+        };
+    }, [baseMonth, isOverlayMode, updateOverlayPosition]);
+
+    useEffect(() => {
+        if (!isOverlayMode) {
+            return;
+        }
+
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as Node;
+            if (containerRef.current?.contains(target) || overlayRef.current?.contains(target)) {
+                return;
+            }
+
+            setIsCalendarOpen(false);
+        };
+
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setIsCalendarOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleEscape);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleEscape);
+        };
+    }, [isOverlayMode]);
+
+    const calendarContent = (
+        <div className="date-range-picker__calendar">
+            <div className="date-range-picker__nav">
+                <Button variant="default" onClick={() => setBaseMonth(addMonths(baseMonth, -1))}>
+                    Prev
+                </Button>
+                <span>
+                    {baseMonth.toLocaleString('default', { month: 'long' })} {baseMonth.getFullYear()} -
+                    {secondMonth.toLocaleString('default', { month: 'long' })} {secondMonth.getFullYear()}
+                </span>
+                <Button variant="default" onClick={() => setBaseMonth(addMonths(baseMonth, 1))}>
+                    Next
+                </Button>
+            </div>
+
+            <div className="date-range-picker__months">
+                <Calendar
+                    mode="range"
+                    value={calendarValue}
+                    onChange={handleRangeChange}
+                    rangeStart={rangeStart}
+                    onRangeStartChange={handleRangeStartChange}
+                    currentMonth={baseMonth}
+                    onMonthChange={setBaseMonth}
+                    showHeader={false}
+                    showToday={false}
+                    minDate={min ? toDate(min) : undefined}
+                    maxDate={max ? toDate(max) : undefined}
+                />
+                <Calendar
+                    mode="range"
+                    value={calendarValue}
+                    onChange={handleRangeChange}
+                    rangeStart={rangeStart}
+                    onRangeStartChange={handleRangeStartChange}
+                    currentMonth={secondMonth}
+                    onMonthChange={setBaseMonth}
+                    showHeader={false}
+                    showToday={false}
+                    minDate={min ? toDate(min) : undefined}
+                    maxDate={max ? toDate(max) : undefined}
+                />
+            </div>
+        </div>
+    );
 
     return (
-        <div className="date-range-picker">
+        <div ref={containerRef} className="date-range-picker">
             {label && <label className="date-range-picker__label">{label}</label>}
             <div className="date-range-picker__inputs">
                 <InputText readOnly value={range.start ?? ''} placeholder="Start date" />
-                <span>to</span>
+                <span className="date-range-picker__separator">to</span>
                 <InputText readOnly value={range.end ?? ''} placeholder="End date" />
+                {!alwaysOpen && (
+                    <Button
+                        className="date-range-picker__toggle"
+                        variant="default"
+                        onClick={() => setIsCalendarOpen(previous => !previous)}
+                    >
+                        {isCalendarVisible ? 'Hide calendar' : 'Choose dates'}
+                    </Button>
+                )}
             </div>
 
-            <div className="date-range-picker__calendar">
-                <div className="date-range-picker__nav">
-                    <Button variant="default" onClick={() => setBaseMonth(addMonths(baseMonth, -1))}>
-                        Prev
-                    </Button>
-                    <span>
-                        {baseMonth.toLocaleString('default', { month: 'long' })} {baseMonth.getFullYear()} -
-                        {secondMonth.toLocaleString('default', { month: 'long' })} {secondMonth.getFullYear()}
-                    </span>
-                    <Button variant="default" onClick={() => setBaseMonth(addMonths(baseMonth, 1))}>
-                        Next
-                    </Button>
-                </div>
-
-                <div className="date-range-picker__months">
-                    <Calendar
-                        mode="range"
-                        value={calendarValue}
-                        onChange={handleRangeChange}
-                        rangeStart={rangeStart}
-                        onRangeStartChange={handleRangeStartChange}
-                        currentMonth={baseMonth}
-                        onMonthChange={setBaseMonth}
-                        showHeader={false}
-                        showToday={false}
-                        minDate={min ? toDate(min) : undefined}
-                        maxDate={max ? toDate(max) : undefined}
-                    />
-                    <Calendar
-                        mode="range"
-                        value={calendarValue}
-                        onChange={handleRangeChange}
-                        rangeStart={rangeStart}
-                        onRangeStartChange={handleRangeStartChange}
-                        currentMonth={secondMonth}
-                        onMonthChange={setBaseMonth}
-                        showHeader={false}
-                        showToday={false}
-                        minDate={min ? toDate(min) : undefined}
-                        maxDate={max ? toDate(max) : undefined}
-                    />
-                </div>
-            </div>
+            {alwaysOpen && isCalendarVisible && calendarContent}
+            {isOverlayMode &&
+                createPortal(
+                    <div ref={overlayRef} className="date-range-picker__overlay" style={overlayStyle}>
+                        {calendarContent}
+                    </div>,
+                    document.body
+                )}
         </div>
     );
 };
