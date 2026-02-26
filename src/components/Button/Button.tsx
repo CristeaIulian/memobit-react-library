@@ -14,6 +14,7 @@ export interface ButtonProps {
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
     prefixIcon?: string;
     size?: 'small' | 'medium' | 'large';
+    sufixIcon?: string;
     type?: 'button' | 'submit' | 'reset';
     title?: string;
     variant?: ButtonVariant;
@@ -29,6 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
     onClick,
     prefixIcon,
     variant = 'default',
+    sufixIcon,
     size = 'medium',
     title,
     type = 'button',
@@ -50,6 +52,7 @@ export const Button: React.FC<ButtonProps> = ({
                 <>
                     {prefixIcon && <span>{prefixIcon}</span>}
                     {children && <span>{children}</span>}
+                    {sufixIcon && <span>{sufixIcon}</span>}
                 </>
             )}
         </button>

@@ -104,7 +104,7 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
             isOpen={isOpen}
             onClose={onClose}
             title="Theme Settings"
-            size="auto"
+            size="small"
             primaryButton={{
                 text: 'Save',
                 onClick: handleSave,

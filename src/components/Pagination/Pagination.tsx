@@ -9,9 +9,10 @@ interface PaginationProps {
     currentPage: number;
     totalPages: number;
     onPageChange: (page: number) => void;
+    showPagesNumbers?: boolean;
 }
 
-export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
+export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPageChange, showPagesNumbers = false }: PaginationProps) => {
     const { isAtLeast } = useBreakpoint();
 
     const getVisiblePages = () => {
@@ -62,13 +63,15 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPag
                 </Button>
             ))}
 
-            <Button variant="default" borders="sharp" disabled={currentPage === totalPages} prefixIcon="»" onClick={() => onPageChange(currentPage + 1)}>
+            <Button variant="default" borders="sharp" disabled={currentPage === totalPages} sufixIcon="»" onClick={() => onPageChange(currentPage + 1)}>
                 {isAtLeast('desktop') ? 'Next' : ''}
             </Button>
 
-            <span className="page-info">
-                Page {currentPage} of {totalPages}
-            </span>
+            {showPagesNumbers && (
+                <span className="page-info">
+                    Page {currentPage} of {totalPages}
+                </span>
+            )}
         </div>
     );
 };
