@@ -16,7 +16,7 @@ interface QuickAddProps {
     icon?: string;
 }
 
-export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 'default', placeholder, title, onSave, icon = '➕' }) => {
+export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 'default', placeholder, title, onSave, icon = '+' }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [value, setValue] = useState('');
     const [loading, setLoading] = useState(false);

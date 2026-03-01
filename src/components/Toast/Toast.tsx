@@ -20,17 +20,12 @@ interface ToastProps extends ToastDetails {
 
 export const Toast: FC<ToastProps> = ({ message, type = 'success', onClose, timeout = 3000, action }: ToastProps) => {
     useEffect(() => {
-        // Don't auto-close if there's an action button
-        if (action) {
-            return;
-        }
-
         const timer = setTimeout(() => {
             onClose();
         }, timeout);
 
         return () => clearTimeout(timer);
-    }, [onClose, timeout, action]);
+    }, [onClose, timeout]);
 
     return (
         <div className={`toast toast-${type}`}>

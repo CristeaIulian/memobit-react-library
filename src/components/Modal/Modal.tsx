@@ -80,6 +80,16 @@ export const Modal: FC<ModalProps> = ({
                 {children}
                 {hasFooter && (
                     <div className="modal__footer">
+                        {tertiaryButton && (
+                            <Button
+                                variant={tertiaryButton.variant || 'default'}
+                                prefixIcon={tertiaryButton.icon}
+                                onClick={tertiaryButton.onClick}
+                                disabled={tertiaryButton.disabled}
+                            >
+                                {tertiaryButton.text}
+                            </Button>
+                        )}
                         {primaryButton && (
                             <Button
                                 variant={primaryButton.variant || 'success'}
@@ -98,16 +108,6 @@ export const Modal: FC<ModalProps> = ({
                                 disabled={secondaryButton.disabled}
                             >
                                 {secondaryButton.text}
-                            </Button>
-                        )}
-                        {tertiaryButton && (
-                            <Button
-                                variant={tertiaryButton.variant || 'default'}
-                                prefixIcon={tertiaryButton.icon}
-                                onClick={tertiaryButton.onClick}
-                                disabled={tertiaryButton.disabled}
-                            >
-                                {tertiaryButton.text}
                             </Button>
                         )}
                     </div>

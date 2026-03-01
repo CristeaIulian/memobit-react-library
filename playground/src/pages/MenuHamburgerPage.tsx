@@ -24,7 +24,7 @@ export const MenuHamburgerPage: React.FC = () => {
         },
         {
             label: 'Logout',
-            icon: '🛣',
+            icon: '🚪',
             onClick: () => {},
             isActive: false,
         },
