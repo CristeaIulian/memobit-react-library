@@ -36,7 +36,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "playground": "parcel playground/public/index.html --dist-dir playground/dist",
+    "playground": "parcel playground/public/index.html --dist-dir playground/dist --port 3016",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css}\"",
