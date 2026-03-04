@@ -43,7 +43,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     className = '',
     disabled = false,
     error,
-    id = 'dropdown',
+    id,
     label,
     multiple = false,
     name,
@@ -69,6 +69,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const inputRef = useRef<HTMLInputElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
     const uid = useId();
+    const inputId = id ?? `dropdown-${uid}`;
 
     // Filter options when filterText changes
     useEffect(() => {
@@ -614,7 +615,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             ref={dropdownRef}
         >
             {label && (
-                <label htmlFor={id} className="dropdown-label">
+                <label htmlFor={inputId} className="dropdown-label">
                     {label}
                 </label>
             )}
@@ -638,7 +639,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
                 <InputText
                     ref={inputRef}
-                    id={id}
+                    id={inputId}
                     placeholder={getPlaceholderText()}
                     value={getDisplayText()}
                     onChange={searchable || multiple ? handleInputChange : () => {}}
