@@ -1,7 +1,7 @@
 .toggle-buttons {
     display: flex;
     column-gap: var(--spacing-1);
-    align-items: center;
+    align-items: stretch;
     height: 100%;
 
     .button {
