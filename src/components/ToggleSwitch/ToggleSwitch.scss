@@ -45,7 +45,7 @@
         .toggle-switch__track {
             min-width: 38px;
             height: 16px;
-            padding: var(--spacing-1) 18px;
+            padding: var(--spacing-1) 6px var(--spacing-1) 18px;
             border-radius: 8px;
         }
 
@@ -60,6 +60,11 @@
         }
 
         &.toggle-switch-checked {
+            .toggle-switch__track {
+                padding-left: 6px;
+                padding-right: 18px;
+            }
+
             .toggle-switch__label {
                 margin-left: 0;
                 margin-right: auto;
@@ -76,7 +81,7 @@
         .toggle-switch__track {
             min-width: 60px;
             height: 28px;
-            padding: var(--spacing-2) 28px;
+            padding: var(--spacing-2) 8px var(--spacing-2) 28px;
             border-radius: 14px;
         }
 
@@ -91,6 +96,11 @@
         }
 
         &.toggle-switch-checked {
+            .toggle-switch__track {
+                padding-left: 8px;
+                padding-right: 28px;
+            }
+
             .toggle-switch__label {
                 margin-left: 0;
                 margin-right: auto;
@@ -107,7 +117,7 @@
         .toggle-switch__track {
             min-width: 80px;
             height: 36px;
-            padding: var(--spacing-2) 36px;
+            padding: var(--spacing-2) 10px var(--spacing-2) 36px;
             border-radius: 18px;
         }
 
@@ -122,6 +132,11 @@
         }
 
         &.toggle-switch-checked {
+            .toggle-switch__track {
+                padding-left: 10px;
+                padding-right: 36px;
+            }
+
             .toggle-switch__label {
                 margin-left: 0;
                 margin-right: auto;
