@@ -55,6 +55,7 @@ export { QuickNumberUpdate } from './components/QuickNumberUpdate';
 export { QuickOptionUpdate } from './components/QuickOptionUpdate';
 export { Radio } from './components/Radio';
 export { Rating } from './components/Rating';
+export { ScrollToTop } from './components/ScrollToTop';
 export { Search, type SearchProps } from './components/Search';
 export { Separator, type SeparatorProps, type SeparatorOrientation, type SeparatorStyle, type SeparatorAlign } from './components/Separator';
 export { Sidebar, type SidebarItem, type SidebarSection } from './components/Sidebar';
@@ -105,6 +106,7 @@ export {
     isAfter,
 } from './helpers/Datetime';
 export { FiltersStorage } from './helpers/FiltersStorage';
+export { highlightText } from './helpers/Highlight';
 export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { slugify, shortenText, truncateText } from './helpers/Strings';
 export { extractDomainFromUrl } from './helpers/Urls';

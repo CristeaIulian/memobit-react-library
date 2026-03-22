@@ -31,6 +31,7 @@ import { EmptyStatePage } from './pages/EmptyStatePage';
 import { FileDropzonePage } from './pages/FileDropzonePage';
 import { FlagPage } from './pages/FlagPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
+import { HighlightPage } from './pages/HighlightPage';
 import { InputDatePage } from './pages/InputDatePage';
 import { InputFilePage } from './pages/InputFilePage';
 import { InputEmailPage } from './pages/InputEmailPage';
@@ -54,6 +55,7 @@ import { QuickNumberUpdatePage } from './pages/QuickNumberUpdatePage';
 import { QuickOptionUpdatePage } from './pages/QuickOptionUpdatePage';
 import { RadioPage } from './pages/RadioPage';
 import { RatingPage } from './pages/RatingPage';
+import { ScrollToTopPage } from './pages/ScrollToTopPage';
 import { SearchPage } from './pages/SearchPage';
 import { SeparatorPage } from './pages/SeparatorPage';
 import { SignalStrengthPage } from './pages/SignalStrengthPage';
@@ -106,6 +108,7 @@ export const routes: RouteConfig[] = [
     { path: '/file-dropzone', label: 'File Dropzone', component: FileDropzonePage },
     { path: '/flag', label: 'Flag', component: FlagPage },
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
+    { path: '/highlight', label: 'Highlight', component: HighlightPage },
     { path: '/input-date', label: 'Input Date', component: InputDatePage },
     { path: '/input-file', label: 'Input File', component: InputFilePage },
     { path: '/input-email', label: 'Input Email', component: InputEmailPage },
@@ -129,6 +132,7 @@ export const routes: RouteConfig[] = [
     { path: '/quick-option-update', label: 'Quick Option Update', component: QuickOptionUpdatePage },
     { path: '/radio', label: 'Radio', component: RadioPage },
     { path: '/rating', label: 'Rating', component: RatingPage },
+    { path: '/scroll-to-top', label: 'Scroll To Top', component: ScrollToTopPage },
     { path: '/search', label: 'Search', component: SearchPage },
     { path: '/separator', label: 'Separator', component: SeparatorPage },
     { path: '/signal-strength', label: 'Signal Strength', component: SignalStrengthPage },
