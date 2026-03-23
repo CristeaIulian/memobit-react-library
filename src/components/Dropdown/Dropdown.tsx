@@ -221,6 +221,31 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         return;
                     }
                 }
+
+                // Auto-create custom value on close when allowCustomValue is enabled
+                if (allowCustomValue && !multiple && filterText.trim()) {
+                    const matchesSelection = selectedOptions.length > 0 &&
+                        selectedOptions[0].label.toLowerCase() === filterText.trim().toLowerCase();
+
+                    if (!matchesSelection) {
+                        const existingOption = options.find(
+                            o => o.label.toLowerCase() === filterText.toLowerCase() || o.value.toString() === filterText
+                        );
+                        const resolvedOption: DropdownOption = existingOption || {
+                            label: filterText.trim(),
+                            value: filterText.trim(),
+                            className: 'custom-option',
+                        };
+                        setSelectedOptions([resolvedOption]);
+                        setFilterText(resolvedOption.label);
+                        setIsOpen(false);
+                        if (onChange) {
+                            onChange(resolvedOption, name);
+                        }
+                        return;
+                    }
+                }
+
                 setIsOpen(false);
 
                 // Restore the selected value text when closing in single selection mode
@@ -237,7 +262,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [multiple, searchable, usePortal, isOpen, selectedOptions]);
+    }, [allowCustomValue, filterText, isOpen, multiple, name, onChange, options, searchable, selectedOptions, usePortal]);
 
     const handleOptionClick = (option: DropdownOption) => {
         if (multiple) {

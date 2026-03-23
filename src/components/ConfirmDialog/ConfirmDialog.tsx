@@ -29,7 +29,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     primaryButtonPrefixIcon = '✓',
     primaryButtonVariant = 'danger',
     secondaryButtonLabel = 'Cancel',
-    secondaryButtonPrefixIcon = '❎',
+    secondaryButtonPrefixIcon = '✖',
     secondaryButtonVariant = 'default',
     title,
 }: ConfirmDialogProps) => {
