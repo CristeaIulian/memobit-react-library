@@ -4,10 +4,16 @@ import './ContextToast.scss';
 
 export type ToastType = 'info' | 'success' | 'warning' | 'danger';
 
+export interface ContextToastAction {
+    label: string;
+    onClick: () => void;
+}
+
 interface ToastProps {
     id: string;
     message: string;
     type?: ToastType;
+    action?: ContextToastAction;
     onClose: (id: string) => void;
     timeout: number;
 }
@@ -17,11 +23,12 @@ interface ToastItem {
     message: string;
     type: ToastType;
     timeout: number;
+    action?: ContextToastAction;
 }
 
 interface ToastContextValue {
     toasts: ToastItem[];
-    addToast: (message: string, type?: ToastType, timeout?: number) => string;
+    addToast: (message: string, type?: ToastType, timeout?: number, action?: ContextToastAction) => string;
     removeToast: (id: string) => void;
 }
 
@@ -55,7 +62,7 @@ const CloseIcon = () => (
 );
 
 // ContextToast Component for individual notifications
-const ContextToast = ({ id, message, type = 'info', onClose, timeout = 2000 }: ToastProps) => {
+const ContextToast = ({ id, message, type = 'info', action, onClose, timeout = 2000 }: ToastProps) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             onClose(id);
@@ -71,9 +78,19 @@ const ContextToast = ({ id, message, type = 'info', onClose, timeout = 2000 }: T
         setTimeout(() => onClose(id), 300); // Match animation duration
     };
 
+    const handleAction = () => {
+        action?.onClick();
+        handleClose();
+    };
+
     return (
         <div className={`toast toast--${type} ${isExiting ? 'toast--exiting' : ''}`}>
             <div className="toast__message">{message}</div>
+            {action && (
+                <button onClick={handleAction} className="toast__action-button">
+                    {action.label}
+                </button>
+            )}
             <button onClick={handleClose} className="toast__close-button">
                 <CloseIcon />
             </button>
@@ -88,7 +105,7 @@ export const ToastContainer = ({ position = 'bottom-right' }: ToastContainerProp
     return (
         <div className={`toast-container toast-container--${position}`}>
             {toasts.map(toast => (
-                <ContextToast key={toast.id} id={toast.id} message={toast.message} type={toast.type} timeout={toast.timeout} onClose={removeToast} />
+                <ContextToast key={toast.id} id={toast.id} message={toast.message} type={toast.type} action={toast.action} timeout={toast.timeout} onClose={removeToast} />
             ))}
         </div>
     );
@@ -100,13 +117,13 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }: ToastP
 
     // Handle removing a toast
     const removeToast = (id: string) => {
-        setToasts(toasts.filter(toast => toast.id !== id));
+        setToasts(prev => prev.filter(toast => toast.id !== id));
     };
 
     // Add a new toast
-    const addToast = (message: string, type: ToastType = 'info', timeout = 1500) => {
+    const addToast = (message: string, type: ToastType = 'info', timeout = 1500, action?: ContextToastAction) => {
         const id = Date.now().toString();
-        setToasts([...toasts, { id, message, type, timeout }]);
+        setToasts(prev => [...prev, { id, message, type, timeout, action }]);
         return id;
     };
 

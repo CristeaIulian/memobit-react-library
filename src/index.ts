@@ -67,7 +67,7 @@ export { Textarea } from './components/Textarea';
 export { ThemeModal, ThemeContext, ThemeProvider, useTheme } from './components/ThemeModal';
 export { TipsOfTheDay } from './components/TipsOfTheDay';
 export { Toast, type ToastAction, type ToastDetails } from './components/Toast';
-export { ToastContainer, ToastProvider, type ToastType, useToast } from './components/ContextToast';
+export { type ContextToastAction, ToastContainer, ToastProvider, type ToastType, useToast } from './components/ContextToast';
 export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';

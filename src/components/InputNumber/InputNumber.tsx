@@ -40,7 +40,12 @@ export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
                     min={min}
                     onChange={e => onChange?.(e.target.value ? Number(e.target.value) : undefined)}
                     onClick={onClick}
-                    onKeyDown={onKeyDown}
+                    onKeyDown={e => {
+                        if (e.key === 'e' || e.key === 'E') {
+                            e.preventDefault();
+                        }
+                        onKeyDown?.(e);
+                    }}
                     placeholder={placeholder}
                     ref={ref}
                     step={step}

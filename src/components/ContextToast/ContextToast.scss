@@ -72,6 +72,24 @@
         margin-right: var(--spacing-12);
     }
 
+    &__action-button {
+        background: none;
+        border: 1px solid currentColor;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        color: inherit;
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+        padding: var(--spacing-2) var(--spacing-8);
+        white-space: nowrap;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
     &__close-button {
         background: none;
         border: none;
