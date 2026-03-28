@@ -75,7 +75,7 @@ export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ isOpen = f
             >
                 <div className="quick-set-list">
                     {list &&
-                        list.map(({ key, label }, index) => (
+                        list.map(({ key, label }) => (
                             <Radio
                                 key={`quick-update-ownership-${key}`}
                                 name="ownership"

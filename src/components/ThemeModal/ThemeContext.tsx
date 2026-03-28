@@ -1,4 +1,4 @@
-import React, { createContext, FC, ReactNode, useEffect, useState } from 'react';
+import { createContext, FC, ReactNode, useEffect, useState } from 'react';
 
 import { getThemeConfig } from './themeConfig';
 

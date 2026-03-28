@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, type MouseEvent, useState } from 'react';
+import { type FC, type ReactElement, type MouseEvent, useState } from 'react';
 
 import { Button } from '../Button';
 import { ContextMenu } from '../ContextMenu';

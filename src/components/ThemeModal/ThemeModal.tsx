@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { Checkbox } from '../Checkbox';
 import { Dropdown, DropdownOption } from '../Dropdown';

@@ -86,7 +86,7 @@ export const ContextMenu = ({ target, onClose, children, autoClose = false }: Co
         };
     }, [target]);
 
-    const handleMenuClick = (event: MouseEvent<HTMLDivElement>) => {
+    const handleMenuClick = (_event: MouseEvent<HTMLDivElement>) => {
         if (autoClose) {
             // Close menu when any descendant is clicked
             onClose?.();

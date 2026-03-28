@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, ReactElement, ReactNode, useEffect, useRef, useState } from 'react';
+import { FC, MouseEvent, ReactElement, ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
