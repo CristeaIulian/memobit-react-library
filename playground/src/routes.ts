@@ -40,6 +40,7 @@ import { InputPasswordPage } from './pages/InputPasswordPage';
 import { InputPhonePage } from './pages/InputPhonePage';
 import { InputTextPage } from './pages/InputTextPage';
 import { InputTimePage } from './pages/InputTimePage';
+import { InputUrlPage } from './pages/InputUrlPage';
 import { ListPage } from './pages/ListPage';
 import { LoadingPage } from './pages/LoadingPage';
 import { MacronutrientsPieChartPage } from './pages/MacronutrientsPieChartPage';
@@ -117,6 +118,7 @@ export const routes: RouteConfig[] = [
     { path: '/input-phone', label: 'Input Phone', component: InputPhonePage },
     { path: '/input-text', label: 'Input Text', component: InputTextPage },
     { path: '/input-time', label: 'Input Time', component: InputTimePage },
+    { path: '/input-url', label: 'Input Url', component: InputUrlPage },
     { path: '/list', label: 'List', component: ListPage },
     { path: '/loading', label: 'Loading', component: LoadingPage },
     { path: '/macronutrients-pie-chart', label: 'Macronutrients Pie Chart', component: MacronutrientsPieChartPage },
