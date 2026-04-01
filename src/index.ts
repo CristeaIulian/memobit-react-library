@@ -110,6 +110,6 @@ export { FiltersStorage } from './helpers/FiltersStorage';
 export { highlightText } from './helpers/Highlight';
 export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { slugify, shortenText, truncateText } from './helpers/Strings';
-export { extractDomainFromUrl } from './helpers/Urls';
+export { extractDomainFromUrl, stripQueryString } from './helpers/Urls';
 export { formatBigNumber, formatMoney } from './helpers/Format';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
