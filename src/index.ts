@@ -34,6 +34,7 @@ export { InputPhone } from './components/InputPhone';
 export { InputText } from './components/InputText';
 export { InputTime } from './components/InputTime';
 export { InputUrl } from './components/InputUrl';
+export { RichTextEditor } from './components/RichTextEditor';
 export { List } from './components/List';
 export { Loading } from './components/Loading';
 export { MacronutrientsPieChart } from './components/MacronutrientsPieChart';
