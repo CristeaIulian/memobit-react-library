@@ -48,7 +48,7 @@ export const InputUrl = forwardRef<HTMLInputElement, InputUrlProps>(
             onKeyDown,
             onKeyUp,
             onValidationChange,
-            placeholder = 'https://',
+            placeholder = 'https://...',
             readOnly = false,
             required = false,
             validationErrorMessage,
