@@ -5,9 +5,10 @@ import './ScrollToTop.scss';
 interface ScrollToTopProps {
     scrollContainer?: HTMLElement | null;
     scrollThreshold?: number;
+    className?: string;
 }
 
-export const ScrollToTop: FC<ScrollToTopProps> = ({ scrollContainer, scrollThreshold = 200 }) => {
+export const ScrollToTop: FC<ScrollToTopProps> = ({ scrollContainer, scrollThreshold = 200, className }) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -40,7 +41,7 @@ export const ScrollToTop: FC<ScrollToTopProps> = ({ scrollContainer, scrollThres
     }
 
     return (
-        <button className="scroll-to-top" onClick={scrollToTop} title="Scroll to top">
+        <button className={`scroll-to-top${className ? ` ${className}` : ''}`} onClick={scrollToTop} title="Scroll to top">
             <span className="scroll-to-top__icon">&#9650;</span>
         </button>
     );

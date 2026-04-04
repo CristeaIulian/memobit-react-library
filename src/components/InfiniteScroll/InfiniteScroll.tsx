@@ -20,7 +20,7 @@ interface InfiniteScrollProps {
     isLoading?: boolean; // external loading state
     threshold?: number; // IntersectionObserver threshold (0–1, default: 0)
     rootMargin?: string; // IntersectionObserver rootMargin (default: '0px')
-    height?: CSSProperties['height']; // container height (default: '100%')
+    height?: CSSProperties['height']; // container height. If omitted, the container grows with its parent (use CSS to size it, e.g. via flex).
     onScrollChange?: (info: ScrollInfo) => void; // emits scroll position info
     endMessage?: ReactNode; // shown when !hasMore and !isLoading
     className?: string;
@@ -35,7 +35,7 @@ export const InfiniteScroll = ({
     isLoading = false,
     threshold = 0,
     rootMargin = '0px',
-    height = '100%',
+    height,
     onScrollChange,
     endMessage,
     className,
@@ -102,7 +102,7 @@ export const InfiniteScroll = ({
     }, [handleScroll]);
 
     return (
-        <div ref={containerRef} className={`infinite-scroll${className ? ` ${className}` : ''}`} style={{ height }}>
+        <div ref={containerRef} className={`infinite-scroll${className ? ` ${className}` : ''}`} style={height !== undefined ? { height } : undefined}>
             {/* ── Content ── */}
             {children}
 
