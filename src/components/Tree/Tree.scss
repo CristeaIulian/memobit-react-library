@@ -1,0 +1,254 @@
+// ─── Tree Component ───────────────────────────────────────────────────────────
+// Hierarchical expandable nodes.
+// Uses arctic-blue CSS custom properties + variables.scss tokens.
+// ─────────────────────────────────────────────────────────────────────────────
+@use 'sass:map';
+
+// ── Variant map ───────────────────────────────────────────────────────────────
+$tree-variants: (
+    info: (
+        label: var(--body-accent-color),
+        badge-bg: rgba(59, 130, 246, 0.18),
+        badge-color: #93c5fd,
+        guide: rgba(96, 165, 250, 0.25),
+    ),
+    success: (
+        label: var(--button-success-border-color),
+        badge-bg: rgba(16, 185, 129, 0.15),
+        badge-color: #34d399,
+        guide: rgba(52, 211, 153, 0.25),
+    ),
+    warning: (
+        label: var(--button-warning-border-color),
+        badge-bg: rgba(245, 158, 11, 0.15),
+        badge-color: #fbbf24,
+        guide: rgba(251, 191, 36, 0.25),
+    ),
+    danger: (
+        label: var(--body-danger-color),
+        badge-bg: rgba(239, 68, 68, 0.15),
+        badge-color: #f87171,
+        guide: rgba(248, 113, 113, 0.25),
+    ),
+);
+
+// ── Config ────────────────────────────────────────────────────────────────────
+$indent: 20px;
+$row-height: 34px;
+$guide-width: 1px;
+
+// ── Root ──────────────────────────────────────────────────────────────────────
+.tree {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size-sm);
+    color: var(--body-color);
+    user-select: none;
+}
+
+// ── Children (sub-list) ───────────────────────────────────────────────────────
+.tree__children {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none; // collapsed by default
+
+    &--open {
+        display: block;
+    }
+
+    &--animated {
+        // When opening we switch from display:none → display:block,
+        // then animate height via a max-height trick.
+        &.tree__children--open {
+            animation: tree-open var(--duration-slide) ease forwards;
+        }
+    }
+}
+
+@keyframes tree-open {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// ── Row ───────────────────────────────────────────────────────────────────────
+.tree__row {
+    display: flex;
+    align-items: center;
+    height: $row-height;
+    padding-left: calc(var(--depth, 0) * #{$indent});
+    padding-right: var(--spacing-8);
+    gap: var(--spacing-8);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast);
+    position: relative;
+    outline: none;
+
+    &:hover {
+        background: var(--list-hover-background-color);
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 2px var(--form-control-focus-ring);
+    }
+
+    // ── Selected ──────────────────────────────────────────────────────────────
+    &--selected {
+        background: rgba(96, 165, 250, 0.12);
+
+        .tree__label {
+            color: var(--body-accent-color);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .tree__chevron {
+            color: var(--body-accent-color);
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: calc(var(--depth, 0) * #{$indent});
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 60%;
+            border-radius: var(--radius-full);
+            background: var(--body-accent-color);
+        }
+    }
+
+    // ── Disabled ──────────────────────────────────────────────────────────────
+    &--disabled {
+        opacity: 0.38;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    // ── Variants ──────────────────────────────────────────────────────────────
+    @each $name, $map in $tree-variants {
+        &--#{$name} {
+            .tree__label {
+                color: map.get($map, label);
+            }
+            .tree__icon {
+                color: map.get($map, label);
+            }
+        }
+    }
+}
+
+// ── Indent guides ─────────────────────────────────────────────────────────────
+// One <span> is rendered per ancestor. Each is taken out of flow and
+// pinned at its own column using --guide-level, so they never stack inline.
+.tree__guide {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    // Centre the line under that ancestor's toggle icon:
+    // guide-level * indent  →  left edge of that column
+    // + half indent          →  centre of that column's toggle
+    // - half line width      →  centre the 1px line itself
+    left: calc(var(--guide-level, 0) * #{$indent} + #{$indent} * 0.5 - #{$guide-width} * 0.5);
+    width: $guide-width;
+    background: var(--delimiter-color);
+    border-radius: var(--radius-full);
+    pointer-events: none;
+}
+
+// ── Toggle (chevron / leaf dot) ───────────────────────────────────────────────
+.tree__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--body-color-muted);
+}
+
+.tree__chevron {
+    transition:
+        transform var(--transition-fast),
+        color var(--transition-fast);
+    color: var(--body-color-muted);
+
+    &--open {
+        transform: rotate(90deg);
+        color: var(--body-accent-color);
+    }
+}
+
+.tree__leaf-dot {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: var(--delimiter-color);
+    margin: auto;
+}
+
+// ── Icon ──────────────────────────────────────────────────────────────────────
+.tree__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1em;
+    line-height: 1;
+    color: var(--body-color-muted);
+    transition: color var(--transition-fast);
+}
+
+// ── Label ─────────────────────────────────────────────────────────────────────
+.tree__label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+    color: var(--body-color);
+    line-height: var(--line-height-tight);
+    transition:
+        color var(--transition-fast),
+        font-weight var(--transition-fast);
+
+    .tree__row:hover & {
+        color: var(--body-color-accent);
+    }
+}
+
+// ── Badge ─────────────────────────────────────────────────────────────────────
+.tree__badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 var(--spacing-4);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xxs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.03em;
+    background: var(--card-background-accent-color);
+    color: var(--body-color-muted);
+
+    @each $name, $map in $tree-variants {
+        &--#{$name} {
+            background: map.get($map, badge-bg);
+            color: map.get($map, badge-color);
+        }
+    }
+}
