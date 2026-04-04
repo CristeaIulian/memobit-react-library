@@ -18,6 +18,7 @@ export interface SearchProps {
     autoFocus?: boolean;
     disabled?: boolean;
     id?: string;
+    label?: string;
     onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
     onChange?: (value: string) => void;
     onClick?: (event: MouseEvent<HTMLInputElement>) => void;
@@ -37,6 +38,7 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
             autoFocus,
             disabled,
             id,
+            label,
             onBlur,
             onChange,
             onClick,
@@ -64,6 +66,7 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
                     autoFocus={autoFocus}
                     disabled={disabled}
                     id={id}
+                    label={label}
                     onBlur={onBlur}
                     onChange={onChange}
                     onClick={onClick}
