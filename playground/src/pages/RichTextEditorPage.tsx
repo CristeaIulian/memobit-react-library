@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { RichTextEditor } from '../../../src';
+import { Button, RichTextEditor } from '../../../src';
 
 export const RichTextEditorPage: React.FC = () => {
     const [basicContent, setBasicContent] = useState<string>('');
@@ -43,7 +43,7 @@ export const RichTextEditorPage: React.FC = () => {
                     {basicContent && (
                         <div className="output-preview">
                             <strong>HTML output:</strong>
-                            <pre style={{ textWrap: 'auto' }}>{basicContent}</pre>
+                            <pre style={{ textWrap: 'wrap' }}>{basicContent}</pre>
                         </div>
                     )}
                 </div>
@@ -94,7 +94,7 @@ export const RichTextEditorPage: React.FC = () => {
                     {markdownContent && (
                         <div className="output-preview">
                             <strong>Markdown output:</strong>
-                            <pre style={{ textWrap: 'auto' }}>{markdownContent}</pre>
+                            <pre style={{ textWrap: 'wrap' }}>{markdownContent}</pre>
                         </div>
                     )}
                 </div>
@@ -119,7 +119,7 @@ export const RichTextEditorPage: React.FC = () => {
                     {advancedContent && (
                         <div className="output-preview">
                             <strong>HTML output:</strong>
-                            <pre style={{ textWrap: 'auto' }}>{advancedContent}</pre>
+                            <pre style={{ textWrap: 'wrap' }}>{advancedContent}</pre>
                         </div>
                     )}
                 </div>
@@ -145,7 +145,7 @@ export const RichTextEditorPage: React.FC = () => {
                     {markdownContent && (
                         <div className="output-preview">
                             <strong>Markdown output:</strong>
-                            <pre style={{ textWrap: 'auto' }}>{markdownContent}</pre>
+                            <pre style={{ textWrap: 'wrap' }}>{markdownContent}</pre>
                         </div>
                     )}
                 </div>
@@ -187,7 +187,7 @@ export const RichTextEditorPage: React.FC = () => {
                                 if (submitError) setSubmitError(undefined);
                             }}
                         />
-                        <button onClick={handleSubmit}>Submit</button>
+                        <Button onClick={handleSubmit}>Submit</Button>
                     </div>
                 </div>
             </section>
