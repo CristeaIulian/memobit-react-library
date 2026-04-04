@@ -18,6 +18,7 @@ import { CheckboxPage } from './pages/CheckboxPage';
 import { CollapsibleSectionPage } from './pages/CollapsibleSectionPage';
 import { ColorPickerPage } from './pages/ColorPickerPage';
 import { CommandPalettePage } from './pages/CommandPalettePage';
+import { ConfettiPage } from './pages/ConfettiPage';
 import { ConfirmDialogPage } from './pages/ConfirmDialogPage';
 import { ContextMenuPage } from './pages/ContextMenuPage';
 import { ContextToastPage } from './pages/ContextToastPage';
@@ -41,6 +42,7 @@ import { InputPhonePage } from './pages/InputPhonePage';
 import { InputTextPage } from './pages/InputTextPage';
 import { InputTimePage } from './pages/InputTimePage';
 import { InputUrlPage } from './pages/InputUrlPage';
+import { InfiniteScrollPage } from './pages/InfiniteScrollPage';
 import { RichTextEditorPage } from './pages/RichTextEditorPage';
 import { ListPage } from './pages/ListPage';
 import { LoadingPage } from './pages/LoadingPage';
@@ -72,6 +74,10 @@ import { ToastPage } from './pages/ToastPage';
 import { ToggleButtonsPage } from './pages/ToggleButtonsPage';
 import { ToggleSwitchPage } from './pages/ToggleSwitchPage';
 import { TooltipPage } from './pages/TooltipPage';
+import { TimelinePage } from './pages/TimelinePage';
+import { TreePage } from './pages/TreePage';
+import { DiffViewerPage } from './pages/DiffViewerPage';
+import { InputMaskPage } from './pages/InputMaskPage';
 
 export interface RouteConfig {
     path: string;
@@ -97,6 +103,7 @@ export const routes: RouteConfig[] = [
     { path: '/collapsible-section', label: 'Collapsible Section', component: CollapsibleSectionPage },
     { path: '/color-picker', label: 'Color Picker', component: ColorPickerPage },
     { path: '/command-palette', label: 'Command Palette', component: CommandPalettePage },
+    { path: '/confetti', label: 'Confetti', component: ConfettiPage },
     { path: '/confirm-dialog', label: 'Confirm Dialog', component: ConfirmDialogPage },
     { path: '/context-menu', label: 'Context Menu', component: ContextMenuPage },
     { path: '/context-toast', label: 'Context Toast', component: ContextToastPage },
@@ -105,6 +112,7 @@ export const routes: RouteConfig[] = [
     { path: '/datepicker', label: 'DatePicker', component: DatePickerPage },
     { path: '/date-range-picker', label: 'Date Range Picker', component: DateRangePickerPage },
     { path: '/drawer', label: 'Drawer', component: DrawerPage },
+    { path: '/diff-viewer', label: 'Diff Viewer', component: DiffViewerPage },
     { path: '/dropdown', label: 'Dropdown', component: DropdownPage },
     { path: '/empty-state', label: 'Empty State', component: EmptyStatePage },
     { path: '/file-dropzone', label: 'File Dropzone', component: FileDropzonePage },
@@ -114,12 +122,14 @@ export const routes: RouteConfig[] = [
     { path: '/input-date', label: 'Input Date', component: InputDatePage },
     { path: '/input-file', label: 'Input File', component: InputFilePage },
     { path: '/input-email', label: 'Input Email', component: InputEmailPage },
+    { path: '/input-mask', label: 'Input Mask', component: InputMaskPage },
     { path: '/input-number', label: 'Input Number', component: InputNumberPage },
     { path: '/input-password', label: 'Input Password', component: InputPasswordPage },
     { path: '/input-phone', label: 'Input Phone', component: InputPhonePage },
     { path: '/input-text', label: 'Input Text', component: InputTextPage },
     { path: '/input-time', label: 'Input Time', component: InputTimePage },
     { path: '/input-url', label: 'Input Url', component: InputUrlPage },
+    { path: '/infinite-scroll', label: 'Infinite Scroll', component: InfiniteScrollPage },
     { path: '/rich-text-editor', label: 'Rich Text Editor', component: RichTextEditorPage },
     { path: '/list', label: 'List', component: ListPage },
     { path: '/loading', label: 'Loading', component: LoadingPage },
@@ -146,11 +156,13 @@ export const routes: RouteConfig[] = [
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
     { path: '/textarea', label: 'Textarea', component: TextareaPage },
     { path: '/theme-modal', label: 'Theme Modal', component: ThemeModalPage },
+    { path: '/timeline', label: 'Timeline', component: TimelinePage },
     { path: '/tips-of-the-day', label: 'Tips Of The Day', component: TipsOfTheDayPage },
     { path: '/toast', label: 'Toast', component: ToastPage },
     { path: '/toggle-buttons', label: 'Toggle Buttons', component: ToggleButtonsPage },
     { path: '/toggle-switch', label: 'Toggle Switch', component: ToggleSwitchPage },
     { path: '/tooltip', label: 'Tooltip', component: TooltipPage },
+    { path: '/tree', label: 'Tree', component: TreePage },
 ];
 
 // Alphabetically sorted routes for sidebar (excluding Home)

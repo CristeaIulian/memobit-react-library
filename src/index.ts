@@ -18,6 +18,7 @@ export { CountryWithFlag } from './components/CountryWithFlag';
 export { ColorPicker, type ColorPickerProps } from './components/ColorPicker';
 export { DataTable, type DataTableColumn, type DataTableProps, type SortDirection } from './components/DataTable';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';
+export { DiffViewer } from './components/DiffViewer';
 export { DateRangePicker, type DateRangePickerProps } from './components/DateRangePicker';
 export { Drawer, type DrawerPosition } from './components/Drawer';
 export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
@@ -28,6 +29,7 @@ export { FloatButton } from './components/FloatButton';
 export { InputDate } from './components/InputDate';
 export { InputEmail, validateEmail, type InputEmailProps } from './components/InputEmail';
 export { InputFile } from './components/InputFile';
+export { InputMask, InputMaskPresets, type InputMaskHandle } from './components/InputMask';
 export { InputNumber } from './components/InputNumber';
 export { InputPassword } from './components/InputPassword';
 export { InputPhone } from './components/InputPhone';
@@ -39,6 +41,8 @@ export { List } from './components/List';
 export { Loading } from './components/Loading';
 export { MacronutrientsPieChart } from './components/MacronutrientsPieChart';
 export { MenuHamburger, type MenuHamburgerItem } from './components/MenuHamburger';
+export { Confetti, type ConfettiHandle } from './components/Confetti';
+export { InfiniteScroll, type ScrollInfo } from './components/InfiniteScroll';
 export {
     MiniStatsCard,
     type MiniStatsCardProps,
@@ -70,9 +74,11 @@ export { ThemeModal, ThemeContext, ThemeProvider, useTheme } from './components/
 export { TipsOfTheDay } from './components/TipsOfTheDay';
 export { Toast, type ToastAction, type ToastDetails } from './components/Toast';
 export { type ContextToastAction, ToastContainer, ToastProvider, type ToastType, useToast } from './components/ContextToast';
+export { Timeline, type TimelineItem, type TimelineOrientation, type TimelineSize } from './components/Timeline';
 export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
+export { Tree, type TreeNode } from './components/Tree';
 
 // Export Auth components
 export { Login as AuthLogin } from './components/Auth/Login';
