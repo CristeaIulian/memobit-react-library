@@ -1,0 +1,320 @@
+@use 'sass:map';
+// ─── Timeline Component ───────────────────────────────────────────────────────
+// Vertical / horizontal sequence of events.
+// Relies on arctic-blue CSS custom properties + variables.scss tokens.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Variant palette map ───────────────────────────────────────────────────────
+$timeline-variants: (
+    default: (
+        dot-bg: var(--card-background-color),
+        dot-border: var(--border-color),
+        dot-glow: transparent,
+        badge-bg: var(--card-background-color),
+        badge-color: var(--body-color-muted),
+    ),
+    info: (
+        dot-bg: var(--button-info-background-color),
+        dot-border: var(--button-info-border-color),
+        dot-glow: rgba(96, 165, 250, 0.4),
+        badge-bg: rgba(59, 130, 246, 0.2),
+        badge-color: #93c5fd,
+    ),
+    success: (
+        dot-bg: var(--button-success-background-color),
+        dot-border: var(--button-success-border-color),
+        dot-glow: rgba(52, 211, 153, 0.4),
+        badge-bg: rgba(16, 185, 129, 0.15),
+        badge-color: #34d399,
+    ),
+    warning: (
+        dot-bg: var(--button-warning-background-color),
+        dot-border: var(--button-warning-border-color),
+        dot-glow: rgba(251, 191, 36, 0.4),
+        badge-bg: rgba(245, 158, 11, 0.15),
+        badge-color: #fbbf24,
+    ),
+    danger: (
+        dot-bg: var(--button-danger-background-color),
+        dot-border: var(--button-danger-border-color),
+        dot-glow: rgba(248, 113, 113, 0.4),
+        badge-bg: rgba(239, 68, 68, 0.15),
+        badge-color: #f87171,
+    ),
+);
+
+// ── Size scale ────────────────────────────────────────────────────────────────
+$size-dot: (
+    sm: 10px,
+    md: 14px,
+    lg: 18px,
+);
+$size-gap: (
+    sm: var(--spacing-12),
+    md: var(--spacing-20),
+    lg: var(--spacing-32),
+);
+$size-font: (
+    sm: var(--font-size-xs),
+    md: var(--font-size-sm),
+    lg: var(--font-size-md),
+);
+
+// ── Root ──────────────────────────────────────────────────────────────────────
+.timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    position: relative;
+
+    // ── VERTICAL (default) ────────────────────────────────────────────────────
+    &--vertical {
+        flex-direction: column;
+        gap: 0;
+
+        .timeline__item {
+            display: grid;
+            grid-template-columns: 28px 1fr;
+            gap: 0 var(--spacing-16);
+            position: relative;
+        }
+
+        .timeline__node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 28px;
+        }
+
+        .timeline__connector {
+            flex: 1;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--border-color) 0%, transparent 100%);
+            margin-top: var(--spacing-4);
+            min-height: var(--spacing-20);
+        }
+
+        .timeline__content {
+            padding-bottom: var(--spacing-24);
+        }
+    }
+
+    // ── HORIZONTAL ────────────────────────────────────────────────────────────
+    &--horizontal {
+        flex-direction: row;
+        align-items: flex-start;
+        overflow-x: auto;
+        gap: 0;
+        padding-bottom: var(--spacing-8);
+
+        .timeline__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 120px;
+            position: relative;
+        }
+
+        .timeline__node {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            margin-bottom: var(--spacing-12);
+        }
+
+        .timeline__connector {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, var(--border-color) 0%, transparent 100%);
+            margin-left: var(--spacing-4);
+        }
+
+        .timeline__content {
+            text-align: center;
+            padding: 0 var(--spacing-8);
+        }
+
+        .timeline__header {
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-4);
+        }
+
+        .timeline__timestamp {
+            display: block;
+            text-align: center;
+        }
+    }
+
+    // ── SIZES ─────────────────────────────────────────────────────────────────
+    @each $s, $dot in $size-dot {
+        &--#{$s} {
+            .timeline__dot {
+                width: $dot;
+                height: $dot;
+            }
+
+            .timeline__title {
+                font-size: map.get($size-font, $s);
+            }
+
+            .timeline__description {
+                font-size: map.get($size-font, $s);
+            }
+
+            &.timeline--horizontal .timeline__item {
+                min-width: if($s == sm, 90px, if($s == lg, 160px, 120px));
+            }
+        }
+    }
+}
+
+// ── Item ──────────────────────────────────────────────────────────────────────
+.timeline__item {
+    transition: opacity var(--transition-moderate);
+
+    &--active {
+        .timeline__title {
+            color: var(--body-accent-color);
+            font-weight: var(--font-weight-semibold);
+        }
+    }
+
+    &--muted {
+        opacity: 0.45;
+    }
+}
+
+// ── Dot ───────────────────────────────────────────────────────────────────────
+.timeline__dot {
+    border-radius: var(--radius-full);
+    border: 2px solid var(--border-color);
+    background: var(--card-background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition:
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+
+    // Variant overrides
+    @each $name, $map in $timeline-variants {
+        &--#{$name} {
+            background: map.get($map, dot-bg);
+            border-color: map.get($map, dot-border);
+
+            @if $name != default {
+                box-shadow: 0 0 0 3px map.get($map, dot-glow);
+            }
+        }
+    }
+}
+
+.timeline__dot-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6em;
+    line-height: 1;
+    color: #fff;
+}
+
+// ── Connector ─────────────────────────────────────────────────────────────────
+.timeline__connector {
+    transition: background var(--transition-moderate);
+}
+
+// ── Content ───────────────────────────────────────────────────────────────────
+.timeline__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.timeline__header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-8);
+}
+
+.timeline__title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--body-color);
+    line-height: var(--line-height-tight);
+    transition: color var(--transition-fast);
+}
+
+.timeline__description {
+    font-size: var(--font-size-sm);
+    color: var(--body-color-muted);
+    line-height: var(--line-height-normal);
+    margin: 0;
+}
+
+.timeline__timestamp {
+    font-size: var(--font-size-xs);
+    color: var(--body-color-muted);
+    font-weight: var(--font-weight-light);
+    letter-spacing: 0.02em;
+}
+
+// ── Badge ─────────────────────────────────────────────────────────────────────
+.timeline__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px var(--spacing-8);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xxs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    @each $name, $map in $timeline-variants {
+        &--#{$name} {
+            background: map.get($map, badge-bg);
+            color: map.get($map, badge-color);
+        }
+    }
+}
+
+// ── Animation ─────────────────────────────────────────────────────────────────
+.timeline--animated {
+    .timeline__item {
+        opacity: 0;
+        transform: translateY(8px);
+        animation: timeline-fade-in var(--duration-slide) ease forwards;
+        animation-delay: calc(var(--item-index, 0) * 80ms);
+    }
+
+    &.timeline--horizontal .timeline__item {
+        transform: translateX(-8px);
+    }
+}
+
+@keyframes timeline-fade-in {
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+// Muted items preserve reduced opacity after animation
+.timeline--animated .timeline__item--muted {
+    animation-name: timeline-fade-in-muted;
+}
+
+@keyframes timeline-fade-in-muted {
+    to {
+        opacity: 0.45;
+        transform: translate(0, 0);
+    }
+}
