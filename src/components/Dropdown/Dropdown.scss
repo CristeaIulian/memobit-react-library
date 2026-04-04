@@ -23,8 +23,11 @@
         width: 100%;
         background-color: var(--dropdown-header-background-color);
         color: var(--dropdown-header-color);
-        border: var(--spacing-1) solid var(--dropdown-header-border-focus-color);
         overflow: hidden;
+
+        .input-text {
+            background-color: transparent;
+        }
 
         .dropdown-selected-items {
             position: absolute;
