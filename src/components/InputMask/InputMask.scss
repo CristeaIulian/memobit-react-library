@@ -1,0 +1,238 @@
+// ─── InputMask Component ──────────────────────────────────────────────────────
+// Formatted input for IBANs, credit cards, serial numbers, etc.
+// Uses arctic-blue CSS custom properties + variables.scss tokens.
+// ─────────────────────────────────────────────────────────────────────────────
+@use 'sass:map';
+
+// ── Variant map ───────────────────────────────────────────────────────────────
+$variants: (
+    default: (
+        border: var(--form-control-border-color),
+        focus-border: var(--form-control-focus-border-color),
+        focus-ring: var(--form-control-focus-ring),
+        counter: var(--body-color-muted),
+    ),
+    success: (
+        border: var(--button-success-border-color),
+        focus-border: var(--button-success-border-color),
+        focus-ring: rgba(52, 211, 153, 0.3),
+        counter: var(--button-success-border-color),
+    ),
+    danger: (
+        border: var(--button-danger-border-color),
+        focus-border: var(--button-danger-border-color),
+        focus-ring: rgba(248, 113, 113, 0.3),
+        counter: var(--button-danger-border-color),
+    ),
+);
+
+// ── Size scale ────────────────────────────────────────────────────────────────
+$sizes: (
+    sm: (
+        height: 34px,
+        font: var(--font-size-xs),
+        px: var(--spacing-8),
+        icon: 14px,
+    ),
+    md: (
+        height: 40px,
+        font: var(--font-size-sm),
+        px: var(--spacing-12),
+        icon: 16px,
+    ),
+    lg: (
+        height: 48px,
+        font: var(--font-size-md),
+        px: var(--spacing-16),
+        icon: 18px,
+    ),
+);
+
+// ── Root ──────────────────────────────────────────────────────────────────────
+.input-mask {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    width: 100%;
+}
+
+// ── Label ─────────────────────────────────────────────────────────────────────
+.input-mask__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--body-color);
+    line-height: var(--line-height-tight);
+    cursor: pointer;
+}
+
+// ── Field wrapper ─────────────────────────────────────────────────────────────
+.input-mask__field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+// ── Input ─────────────────────────────────────────────────────────────────────
+.input-mask__input {
+    width: 100%;
+    border: 1px solid var(--form-control-border-color);
+    border-radius: var(--radius);
+    background: var(--form-control-background-color);
+    color: var(--form-control-color);
+    outline: none;
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast);
+
+    // Placeholder (unfilled mask chars)
+    &::placeholder {
+        color: var(--form-control-placeholder-color);
+        opacity: 0.5;
+    }
+
+    &:focus {
+        background: var(--form-control-focus-background-color);
+        border-color: var(--form-control-focus-border-color);
+        box-shadow: 0 0 0 3px var(--form-control-focus-ring);
+    }
+
+    &--filled {
+        border-color: var(--button-success-border-color);
+    }
+}
+
+// ── Mono ──────────────────────────────────────────────────────────────────────
+.input-mask--mono .input-mask__input {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+    letter-spacing: 0.08em;
+}
+
+// ── Sizes ─────────────────────────────────────────────────────────────────────
+@each $s, $map in $sizes {
+    .input-mask--#{$s} {
+        .input-mask__input {
+            height: map.get($map, height);
+            font-size: map.get($map, font);
+            padding: 0 map.get($map, px);
+        }
+
+        // shift right when icon present
+        &.input-mask--has-icon .input-mask__input {
+            padding-left: calc(map.get($map, px) + map.get($map, icon) + var(--spacing-8));
+        }
+
+        // shift left when counter/suffix present
+        .input-mask__input {
+            padding-right: calc(map.get($map, px) + 40px); // room for counter
+        }
+
+        &.input-mask--has-suffix .input-mask__input {
+            padding-right: calc(map.get($map, px) + 40px + 32px);
+        }
+
+        .input-mask__icon {
+            left: map.get($map, px);
+            width: map.get($map, icon);
+            height: map.get($map, icon);
+            font-size: map.get($map, icon);
+        }
+    }
+}
+
+// ── Variants ──────────────────────────────────────────────────────────────────
+@each $name, $map in $variants {
+    .input-mask--#{$name} {
+        .input-mask__input {
+            border-color: map.get($map, border);
+
+            &:focus {
+                border-color: map.get($map, focus-border);
+                box-shadow: 0 0 0 3px map.get($map, focus-ring);
+            }
+        }
+
+        .input-mask__counter {
+            color: map.get($map, counter);
+        }
+    }
+}
+
+// ── Icon ──────────────────────────────────────────────────────────────────────
+.input-mask__icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--body-color-muted);
+    pointer-events: none;
+    transition: color var(--transition-fast);
+
+    .input-mask__input:focus ~ &,
+    .input-mask__field:focus-within & {
+        color: var(--body-accent-color);
+    }
+}
+
+// ── Counter ───────────────────────────────────────────────────────────────────
+.input-mask__counter {
+    position: absolute;
+    right: var(--spacing-12);
+    font-size: var(--font-size-xxs);
+    font-weight: var(--font-weight-medium);
+    color: var(--body-color-muted);
+    pointer-events: none;
+    white-space: nowrap;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    letter-spacing: 0.04em;
+    transition: color var(--transition-fast);
+
+    .input-mask--has-suffix & {
+        right: calc(var(--spacing-12) + 36px);
+    }
+}
+
+// ── Suffix ────────────────────────────────────────────────────────────────────
+.input-mask__suffix {
+    position: absolute;
+    right: var(--spacing-8);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+}
+
+// ── Hint & error ──────────────────────────────────────────────────────────────
+.input-mask__hint {
+    font-size: var(--font-size-xs);
+    color: var(--body-color-muted);
+    margin: 0;
+    line-height: var(--line-height-normal);
+}
+
+.input-mask__error {
+    font-size: var(--font-size-xs);
+    color: var(--body-danger-color);
+    margin: 0;
+    line-height: var(--line-height-normal);
+}
+
+// ── Disabled ──────────────────────────────────────────────────────────────────
+.input-mask--disabled {
+    opacity: 0.45;
+    pointer-events: none;
+
+    .input-mask__input {
+        cursor: not-allowed;
+    }
+}
+
+// ── Read-only ─────────────────────────────────────────────────────────────────
+.input-mask--readonly .input-mask__input {
+    background: var(--card-background-accent-color);
+    cursor: default;
+
+    &:focus {
+        box-shadow: none;
+        border-color: var(--form-control-border-color);
+    }
+}
