@@ -1,0 +1,123 @@
+.infinite-scroll-page {
+    .infinite-scroll-demo-item {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-12) var(--spacing-16);
+        border-bottom: var(--spacing-1) solid var(--border-color);
+        font-size: var(--font-size-sm);
+        color: var(--body-color);
+
+        strong {
+            font-weight: var(--font-weight-semibold);
+        }
+
+        span {
+            color: var(--body-color-muted);
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    // ── Scroll info panel ─────────────────────────────────────────────────────
+    .infinite-scroll-info-panel {
+        width: 200px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-8);
+        padding: var(--spacing-12);
+        background-color: var(--card-background-color);
+        border: var(--spacing-1) solid var(--card-border-color);
+        border-radius: var(--radius-sm);
+        font-size: var(--font-size-xs);
+
+        h4 {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--body-title-color);
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            td {
+                padding: var(--spacing-4) 0;
+                color: var(--body-color);
+                border-bottom: var(--spacing-1) solid var(--border-color);
+
+                &:first-child {
+                    color: var(--body-color-muted);
+                    width: 60%;
+                }
+
+                &:last-child {
+                    font-weight: var(--font-weight-medium);
+                    text-align: right;
+                }
+            }
+
+            tr:last-child td {
+                border-bottom: none;
+            }
+        }
+
+        p {
+            color: var(--body-color-muted);
+            margin: 0;
+        }
+    }
+
+    // ── Vertical progress bar ─────────────────────────────────────────────────
+    .infinite-scroll-progress-bar {
+        width: 6px;
+        height: 120px;
+        background-color: var(--progress-bar-background-color, #e0f2fe);
+        border-radius: var(--radius-full);
+        overflow: hidden;
+        align-self: center;
+        margin-top: var(--spacing-8);
+        position: relative;
+
+        &__fill {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: var(--loader-border-top-color, #0891b2);
+            border-radius: var(--radius-full);
+            transition: height var(--transition-fast);
+        }
+    }
+
+    // ── Card grid ─────────────────────────────────────────────────────────────
+    .infinite-scroll-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: var(--spacing-12);
+        padding: var(--spacing-4);
+    }
+
+    .infinite-scroll-demo-card {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-12);
+        background-color: var(--card-background-color);
+        border: var(--spacing-1) solid var(--card-border-color);
+        border-radius: var(--radius-sm);
+        font-size: var(--font-size-sm);
+        color: var(--body-color);
+
+        strong {
+            font-weight: var(--font-weight-semibold);
+        }
+
+        span {
+            color: var(--body-color-muted);
+        }
+    }
+}

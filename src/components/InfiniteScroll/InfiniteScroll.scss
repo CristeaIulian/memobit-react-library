@@ -1,0 +1,57 @@
+.infinite-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+
+    // ── Sentinel ──────────────────────────────────────────────────────────────
+    &__sentinel {
+        height: 1px;
+        width: 100%;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    // ── Loader ───────────────────────────────────────────────────────────────
+    &__loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-8);
+        padding: var(--spacing-16) var(--spacing-12);
+        width: 100%;
+    }
+
+    &__spinner {
+        width: var(--spacing-20);
+        height: var(--spacing-20);
+        border-radius: var(--radius-full);
+        border: 2px solid var(--loader-border-color, rgba(8, 145, 178, 0.2));
+        border-top-color: var(--loader-border-top-color, #0891b2);
+        animation: infinite-scroll-spin 0.7s linear infinite;
+        flex-shrink: 0;
+    }
+
+    &__loader-text {
+        font-size: var(--font-size-sm);
+        color: var(--body-color-muted);
+    }
+
+    // ── End message ───────────────────────────────────────────────────────────
+    &__end {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--spacing-16) var(--spacing-12);
+        font-size: var(--font-size-sm);
+        color: var(--body-color-muted);
+        width: 100%;
+    }
+}
+
+@keyframes infinite-scroll-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
