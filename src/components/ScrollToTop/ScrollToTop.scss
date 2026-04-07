@@ -2,7 +2,7 @@
 
 .scroll-to-top {
     position: fixed;
-    bottom: calc(var(--spacing-24) + 66px);
+    bottom: var(--spacing-24);
     right: var(--spacing-24);
     z-index: 999;
     width: 56px;
@@ -32,6 +32,11 @@
     }
 }
 
+// Auto-lift above a FloatButton when one is present on the page
+body:has(.float-button-container) .scroll-to-top {
+    bottom: calc(var(--spacing-24) + 66px);
+}
+
 @keyframes scrollToTopFadeIn {
     from {
         opacity: 0;
@@ -45,9 +50,13 @@
 
 @include mobile {
     .scroll-to-top {
-        bottom: calc(var(--spacing-16) + 58px);
+        bottom: var(--spacing-16);
         right: var(--spacing-16);
         width: var(--spacing-48);
         height: var(--spacing-48);
+    }
+
+    body:has(.float-button-container) .scroll-to-top {
+        bottom: calc(var(--spacing-16) + 58px);
     }
 }
