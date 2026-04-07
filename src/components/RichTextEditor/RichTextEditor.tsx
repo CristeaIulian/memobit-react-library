@@ -1,5 +1,9 @@
 import React, { FocusEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 
+import { htmlToMarkdown } from '../../helpers/HtmlContent';
+
+import { ADVANCED_BUTTONS, DEFAULT_TABLE_HTML, HEADING_LEVELS, HISTORY_BUTTONS, makeTableRow, TOOLBAR_BUTTONS } from './helpers';
+
 import './RichTextEditor.scss';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -18,123 +22,6 @@ interface RichTextEditorProps {
     required?: boolean;
     value?: string;
 }
-
-// ─── HTML → Markdown ─────────────────────────────────────────────────────────
-
-const htmlToMarkdown = (html: string): string => {
-    const div = document.createElement('div');
-    div.innerHTML = html;
-
-    const processNode = (node: Node): string => {
-        if (node.nodeType === Node.TEXT_NODE) return (node.textContent ?? '').replace(/\u00a0/g, ' ');
-
-        if (node.nodeType !== Node.ELEMENT_NODE) return '';
-
-        const el = node as HTMLElement;
-        const tag = el.tagName.toLowerCase();
-        const children = Array.from(el.childNodes).map(processNode).join('');
-
-        switch (tag) {
-            case 'b':
-            case 'strong':
-                return `**${children}**`;
-            case 'i':
-            case 'em':
-                return `*${children}*`;
-            case 'u':
-                return `<u>${children}</u>`;
-            case 'h1':
-                return `# ${children}\n\n`;
-            case 'h2':
-                return `## ${children}\n\n`;
-            case 'h3':
-                return `### ${children}\n\n`;
-            case 'h4':
-                return `#### ${children}\n\n`;
-            case 'h5':
-                return `##### ${children}\n\n`;
-            case 'h6':
-                return `###### ${children}\n\n`;
-            case 'p':
-                return `${children}\n\n`;
-            case 'br':
-                return '\n';
-            case 'a':
-                return `[${children}](${el.getAttribute('href') ?? ''})`;
-            case 'ul': {
-                const items = Array.from(el.children).map(li => {
-                    const checkbox = li.querySelector('input[type="checkbox"]');
-                    if (checkbox) {
-                        const checked = (checkbox as HTMLInputElement).checked;
-                        const text = (li.textContent ?? '').trim();
-                        return `- [${checked ? 'x' : ' '}] ${text}`;
-                    }
-                    return `- ${processNode(li)}`;
-                });
-                return items.join('\n') + '\n\n';
-            }
-            case 'ol': {
-                const items = Array.from(el.children).map((li, i) => `${i + 1}. ${processNode(li)}`);
-                return items.join('\n') + '\n\n';
-            }
-            case 'li':
-                return children;
-            case 'code':
-                return `\`${children}\``;
-            case 'pre':
-                return `\`\`\`\n${el.textContent ?? ''}\n\`\`\`\n\n`;
-            case 'table': {
-                const rows = Array.from(el.querySelectorAll('tr'));
-                if (!rows.length) return '';
-                const header = Array.from(rows[0].querySelectorAll('th,td'))
-                    .map(cell => cell.textContent ?? '')
-                    .join(' | ');
-                const divider = Array.from(rows[0].querySelectorAll('th,td'))
-                    .map(() => '---')
-                    .join(' | ');
-                const body = rows.slice(1).map(row =>
-                    Array.from(row.querySelectorAll('td'))
-                        .map(cell => cell.textContent ?? '')
-                        .join(' | ')
-                );
-                return [header, divider, ...body].join('\n') + '\n\n';
-            }
-            case 'div':
-                return `${children}\n`;
-            default:
-                return children;
-        }
-    };
-
-    return Array.from(div.childNodes).map(processNode).join('').trim();
-};
-
-// ─── Toolbar button definitions ───────────────────────────────────────────────
-
-interface ToolbarButton {
-    command: string;
-    value?: string;
-    label: string;
-    title: string;
-    isAdvanced?: boolean;
-}
-
-const TOOLBAR_BUTTONS: ToolbarButton[] = [
-    { command: 'bold', label: 'B', title: 'Bold (Ctrl+B)' },
-    { command: 'italic', label: 'I', title: 'Italic (Ctrl+I)' },
-    { command: 'underline', label: 'U', title: 'Underline (Ctrl+U)' },
-    { command: 'insertUnorderedList', label: '• List', title: 'Unordered List' },
-    { command: 'insertOrderedList', label: '1. List', title: 'Ordered List' },
-];
-
-const HISTORY_BUTTONS: ToolbarButton[] = [
-    { command: 'undo', label: '↩ Undo', title: 'Undo (Ctrl+Z)' },
-    { command: 'redo', label: '↪ Redo', title: 'Redo (Ctrl+Shift+Z)' },
-];
-
-const HEADING_LEVELS = [1, 2, 3, 4, 5, 6];
-
-const ADVANCED_BUTTONS: ToolbarButton[] = [{ command: 'formatBlock', value: 'pre', label: 'Code Block', title: 'Code Block', isAdvanced: true }];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -399,18 +286,7 @@ export const RichTextEditor = ({
 
     // ── Table insertion ───────────────────────────────────────────────────────
     const insertTable = useCallback(() => {
-        const tableHtml = `
-            <table class="rte-table">
-                <thead>
-                    <tr><th contenteditable="true">Header 1</th><th contenteditable="true">Header 2</th><th contenteditable="true">Header 3</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td contenteditable="true">Cell</td><td contenteditable="true">Cell</td><td contenteditable="true">Cell</td></tr>
-                    <tr><td contenteditable="true">Cell</td><td contenteditable="true">Cell</td><td contenteditable="true">Cell</td></tr>
-                </tbody>
-            </table><p><br></p>
-        `;
-        exec('insertHTML', tableHtml);
+        exec('insertHTML', DEFAULT_TABLE_HTML);
     }, [exec]);
 
     // ── Get cell at caret ────────────────────────────────────────────────────
@@ -447,17 +323,6 @@ export const RichTextEditor = ({
     }, []);
 
     // ── Table mutation helpers ────────────────────────────────────────────────
-    const makeRow = (colCount: number): HTMLTableRowElement => {
-        const tr = document.createElement('tr');
-        for (let i = 0; i < colCount; i++) {
-            const td = document.createElement('td');
-            td.setAttribute('contenteditable', 'true');
-            td.textContent = 'Cell';
-            tr.appendChild(td);
-        }
-        return tr;
-    };
-
     const addRowBelow = useCallback(() => {
         if (!activeTable) return;
         snapshotForUndo();
@@ -467,7 +332,7 @@ export const RichTextEditor = ({
         const refRow = caretRow ?? tbody.querySelector('tr:last-child');
         if (!refRow) return;
         const colCount = refRow.querySelectorAll('td,th').length;
-        tbody.insertBefore(makeRow(colCount), refRow.nextSibling);
+        tbody.insertBefore(makeTableRow(colCount), refRow.nextSibling);
         emitChange();
         showTableToolbar(activeTable);
     }, [activeTable, snapshotForUndo, getCaretCell, emitChange, showTableToolbar]);
@@ -481,7 +346,7 @@ export const RichTextEditor = ({
         const refRow = caretRow ?? tbody.querySelector('tr:first-child');
         if (!refRow) return;
         const colCount = refRow.querySelectorAll('td,th').length;
-        tbody.insertBefore(makeRow(colCount), refRow);
+        tbody.insertBefore(makeTableRow(colCount), refRow);
         emitChange();
         showTableToolbar(activeTable);
     }, [activeTable, snapshotForUndo, getCaretCell, emitChange, showTableToolbar]);
