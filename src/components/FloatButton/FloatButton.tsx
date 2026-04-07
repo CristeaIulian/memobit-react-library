@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
 
+import { Tooltip } from '../Tooltip';
+
 import './FloatButton.scss';
 
 export interface FloatButtonAction {
@@ -19,9 +21,11 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
     if (actions.length === 1) {
         return (
             <div className="float-button-container">
-                <button className="float-button" onClick={actions[0].onClick} aria-label={actions[0].label} title={actions[0].label}>
-                    <span className="float-button__icon">{actions[0].icon}</span>
-                </button>
+                <Tooltip content={actions[0].label} position="left">
+                    <button className="float-button" onClick={actions[0].onClick} aria-label={actions[0].label}>
+                        <span className="float-button__icon">{actions[0].icon}</span>
+                    </button>
+                </Tooltip>
             </div>
         );
     }
@@ -43,18 +47,22 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
                     <div className="float-button-overlay" onClick={() => setIsMenuOpen(false)} />
                     <div className="float-button-menu">
                         {actions.map((action, index) => (
-                            <button key={index} className="float-button-menu__item" onClick={() => handleActionClick(action)} title={action.label}>
-                                <span className="float-button-menu__icon">{action.icon}</span>
-                                <span className="float-button-menu__label">{action.label}</span>
-                            </button>
+                            <Tooltip key={index} content={action.label} position="left">
+                                <button className="float-button-menu__item" onClick={() => handleActionClick(action)}>
+                                    <span className="float-button-menu__icon">{action.icon}</span>
+                                    <span className="float-button-menu__label">{action.label}</span>
+                                </button>
+                            </Tooltip>
                         ))}
                     </div>
                 </>
             )}
 
-            <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu} aria-label="Actions menu" title="Actions">
-                <span className="float-button__icon">{isMenuOpen ? '✖' : '+'}</span>
-            </button>
+            <Tooltip content="Actions" position="left" disabled={isMenuOpen}>
+                <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu} aria-label="Actions menu">
+                    <span className="float-button__icon">{isMenuOpen ? '✖' : '+'}</span>
+                </button>
+            </Tooltip>
         </div>
     );
 };
