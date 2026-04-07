@@ -33,6 +33,21 @@
         color: var(--button-danger-background-color);
     }
 
+    &-variant--custom {
+        background-color: transparent;
+        border: 1px solid var(--badge-custom-color);
+        color: var(--body-color);
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--badge-custom-color) 20%, transparent);
+        }
+
+        &.badge--active {
+            background-color: var(--badge-custom-color);
+            color: var(--button-info-color, #fff);
+        }
+    }
+
     &-size--small {
         padding: var(--spacing-2) var(--spacing-8);
         font-size: var(--font-size-xs);
