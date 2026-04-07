@@ -1,0 +1,212 @@
+@use '../../styles/utilities' as *;
+
+// ─── TimelineMarkers ─────────────────────────────────────────────────────────
+// Vertical track with year / date / empty dot markers alongside content items.
+// Designed to wrap lists of cards, table rows, etc.
+// ─────────────────────────────────────────────────────────────────────────────
+
+.timeline-markers {
+    position: relative;
+    margin-left: var(--spacing-100);
+
+    // ── Track ─────────────────────────────────────────────────────────────────
+    &__track {
+        position: absolute;
+        left: calc(-1 * var(--spacing-16));
+        top: 0;
+        bottom: 0;
+        width: var(--spacing-2);
+        background: var(--delimiter-color);
+        border-radius: var(--spacing-1);
+    }
+
+    // ── Marker (container for dot + labels) ───────────────────────────────────
+    &__marker {
+        position: absolute;
+        left: calc(-1 * var(--spacing-100));
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        z-index: 1;
+        top: 50%;
+        transform: translateY(-50%);
+        width: var(--spacing-100);
+        padding-right: var(--spacing-8);
+        cursor: default;
+    }
+
+    // ── Dots ──────────────────────────────────────────────────────────────────
+    &__dot {
+        border-radius: 50%;
+        flex-shrink: 0;
+
+        &--year {
+            width: var(--spacing-12);
+            height: var(--spacing-12);
+            background: var(--body-accent-color);
+            border: var(--spacing-2) solid var(--card-background-color);
+            box-shadow: 0 0 0 var(--spacing-2) var(--body-accent-color);
+        }
+
+        &--date {
+            width: var(--spacing-8);
+            height: var(--spacing-8);
+            background: var(--body-color-muted);
+        }
+
+        &--small {
+            width: var(--spacing-4);
+            height: var(--spacing-4);
+            background: var(--delimiter-color);
+        }
+    }
+
+    // ── Labels ────────────────────────────────────────────────────────────────
+    &__labels {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: var(--spacing-2);
+        margin-right: var(--spacing-8);
+    }
+
+    &__label {
+        white-space: nowrap;
+
+        &--year {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            color: var(--body-accent-color);
+            background: var(--card-background-color);
+            padding: var(--spacing-2) var(--spacing-8);
+            border-radius: var(--radius-sm);
+            border: var(--spacing-1) solid var(--body-accent-color);
+        }
+
+        &--date {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            color: var(--body-color-muted);
+        }
+    }
+
+    &__marker--date &__label {
+        margin-right: var(--spacing-8);
+    }
+
+    // ── Mobile separator (hidden on desktop, shown on mobile) ─────────────────
+    &__separator {
+        display: none;
+    }
+}
+
+// ── Tablet ────────────────────────────────────────────────────────────────────
+@include not-desktop {
+    .timeline-markers {
+        margin-left: var(--spacing-80);
+
+        &__track {
+            left: calc(-1 * var(--spacing-12));
+        }
+
+        &__marker {
+            left: calc(-1 * var(--spacing-80));
+            width: var(--spacing-80);
+            padding-right: var(--spacing-4);
+        }
+
+        &__label {
+            margin-right: var(--spacing-4);
+
+            &--year {
+                font-size: var(--font-size-xxs);
+                padding: var(--spacing-1) var(--spacing-4);
+            }
+
+            &--date {
+                font-size: var(--font-size-xxs);
+            }
+        }
+
+        &__dot {
+            &--year {
+                width: var(--spacing-8);
+                height: var(--spacing-8);
+            }
+        }
+    }
+}
+
+// ── Mobile ────────────────────────────────────────────────────────────────────
+@include mobile {
+    .timeline-markers {
+        margin-left: 0;
+
+        // Hide vertical timeline on mobile
+        &__track,
+        &__marker {
+            display: none;
+        }
+
+        // Show horizontal separator on mobile
+        &__separator {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-12);
+            padding: var(--spacing-12) var(--spacing-16);
+            background: var(--dropdown-header-background-color);
+            border-bottom: var(--spacing-1) solid var(--delimiter-color);
+
+            &::before,
+            &::after {
+                content: '';
+                flex: 1;
+                height: var(--spacing-1);
+                background: var(--delimiter-color);
+            }
+        }
+
+        &__separator-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            color: var(--body-accent-color);
+            white-space: nowrap;
+        }
+    }
+}
+
+// ── Print ─────────────────────────────────────────────────────────────────────
+@media print {
+    .timeline-markers {
+        &__track {
+            background: #cccccc;
+        }
+
+        &__dot {
+            &--year {
+                background: #333333;
+                box-shadow: 0 0 0 var(--spacing-2) #333333;
+            }
+
+            &--date {
+                background: #666666;
+            }
+
+            &--small {
+                background: #cccccc;
+            }
+        }
+
+        &__label {
+            &--year {
+                background: #ffffff;
+                color: #333333;
+                border-color: #333333;
+            }
+
+            &--date {
+                color: #666666;
+            }
+        }
+    }
+}

@@ -75,6 +75,14 @@ export { TipsOfTheDay } from './components/TipsOfTheDay';
 export { Toast, type ToastAction, type ToastDetails } from './components/Toast';
 export { type ContextToastAction, ToastContainer, ToastProvider, type ToastType, useToast } from './components/ContextToast';
 export { Timeline, type TimelineItem, type TimelineOrientation, type TimelineSize } from './components/Timeline';
+export {
+    TimelineMarkers,
+    TimelineMarkerDot,
+    TimelineMobileSeparator,
+    calculateTimelineMarkers,
+    type TimelineMarkerInfo,
+    type TimelineMarkersItem,
+} from './components/TimelineMarkers';
 export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
@@ -120,3 +128,4 @@ export { slugify, shortenText, truncateText } from './helpers/Strings';
 export { extractDomainFromUrl, stripQueryString } from './helpers/Urls';
 export { formatBigNumber, formatMoney } from './helpers/Format';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
+export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
