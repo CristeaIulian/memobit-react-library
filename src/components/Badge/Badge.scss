@@ -47,4 +47,16 @@
         padding: var(--spacing-8) var(--spacing-12);
         font-size: var(--font-size-sm);
     }
+
+    &--clickable {
+        cursor: pointer;
+    }
+
+    &--active {
+        opacity: 1;
+    }
+
+    &--inactive {
+        opacity: 0.5;
+    }
 }

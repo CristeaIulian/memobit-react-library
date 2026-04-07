@@ -2,7 +2,7 @@
 export { Accordion, type AccordionProps, type AccordionItemData } from './components/Accordion';
 export { AlertDialog } from './components/AlertDialog';
 export { AvatarInitials } from './components/AvatarInitials';
-export { Badge, type BadgeVariant } from './components/Badge';
+export { Badge, type BadgeVariant, type BadgeProps } from './components/Badge';
 export { BMIHorizontalBarIndicator } from './components/BMIHorizontalBarIndicator';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
 export { Button } from './components/Button';

@@ -20,8 +20,12 @@ export interface MiniStatsCardProps {
     align?: MiniStatsCardAlign;
     /** Label position */
     labelPosition?: MiniStatsCardLabelPosition;
-    /** Optional trend value (percentage) */
+    /** Optional trend value (percentage by default) */
     trend?: number;
+    /** Unit for the trend value (defaults to '%') */
+    trendUnit?: string;
+    /** Optional label displayed after the trend (overrides trendUnit) */
+    trendLabel?: string;
     /** Color variant for the trend */
     trendVariant?: MiniStatsCardTrendVariant;
     /** Optional footer content */
@@ -38,6 +42,8 @@ export const MiniStatsCard: React.FC<MiniStatsCardProps> = ({
     align = 'center',
     labelPosition = 'bottom',
     trend,
+    trendUnit = '%',
+    trendLabel,
     trendVariant = 'success',
     footer,
     className = '',
@@ -60,11 +66,13 @@ export const MiniStatsCard: React.FC<MiniStatsCardProps> = ({
         const isNegative = trend < 0;
         const trendValue = Math.abs(trend);
 
+        const displayText = trendLabel ?? (trendUnit ? `${trendValue}${trendUnit}` : `${trendValue}`);
+
         return (
             <div className={`mini-stats-card__trend mini-stats-card__trend--${trendVariant}`}>
                 {isPositive && <span className="mini-stats-card__trend-arrow">↑</span>}
                 {isNegative && <span className="mini-stats-card__trend-arrow">↓</span>}
-                <span className="mini-stats-card__trend-value">{trendValue}%</span>
+                <span className="mini-stats-card__trend-value">{displayText}</span>
             </div>
         );
     };
