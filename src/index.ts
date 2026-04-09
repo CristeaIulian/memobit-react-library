@@ -64,7 +64,7 @@ export { Rating } from './components/Rating';
 export { ScrollToTop } from './components/ScrollToTop';
 export { Search, type SearchProps } from './components/Search';
 export { Separator, type SeparatorProps, type SeparatorOrientation, type SeparatorStyle, type SeparatorAlign } from './components/Separator';
-export { Sidebar, type SidebarItem, type SidebarSection } from './components/Sidebar';
+export { Sidebar, type SidebarItem, type SidebarSection, SidebarProvider, useSidebar } from './components/Sidebar';
 export { SignalStrength } from './components/SignalStrength';
 export { Skeleton, type SkeletonProps, type SkeletonVariant, type SkeletonAnimation } from './components/Skeleton';
 export { Slider } from './components/Slider';

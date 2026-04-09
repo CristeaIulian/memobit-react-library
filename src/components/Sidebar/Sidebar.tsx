@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react';
 
+import { useSidebar } from './SidebarContext';
+
 import './Sidebar.scss';
 
 export interface SidebarItem {
@@ -17,9 +19,6 @@ export interface SidebarSection {
 
 interface SidebarProps {
     sections: SidebarSection[];
-    isOpen?: boolean;
-    onClose?: () => void;
-    isMobile?: boolean;
     width?: string;
     className?: string;
     renderItem?: (item: SidebarItem) => ReactNode;
@@ -27,19 +26,18 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({
     sections,
-    isOpen = true,
-    onClose,
-    isMobile = false,
     width = '280px',
     className = '',
     renderItem,
 }) => {
+    const { isMobile, isOpen, close } = useSidebar();
+
     const handleItemClick = (item: SidebarItem) => {
         if (item.onClick) {
             item.onClick();
         }
-        if (isMobile && onClose) {
-            onClose();
+        if (isMobile) {
+            close();
         }
     };
 
@@ -55,18 +53,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
     );
 
     return (
-        <aside
-            className={`sidebar ${isOpen ? 'sidebar--open' : ''} ${isMobile ? 'sidebar--mobile' : ''} ${className}`}
-            style={{ '--sidebar-width': width } as React.CSSProperties}
-        >
-            <nav className="sidebar__nav">
-                {sections.map((section, sectionIndex) => (
-                    <React.Fragment key={sectionIndex}>
-                        {section.items.map(item => (renderItem ? renderItem(item) : defaultRenderItem(item)))}
-                        {section.showDivider && sectionIndex < sections.length - 1 && <div className="sidebar__divider" />}
-                    </React.Fragment>
-                ))}
-            </nav>
-        </aside>
+        <>
+            {isMobile && isOpen && <div className="sidebar__overlay" onClick={close} />}
+            <aside
+                className={`sidebar ${isOpen ? 'sidebar--open' : ''} ${isMobile ? 'sidebar--mobile' : ''} ${className}`}
+                style={{ '--sidebar-width': width } as React.CSSProperties}
+            >
+                <nav className="sidebar__nav">
+                    {sections.map((section, sectionIndex) => (
+                        <React.Fragment key={sectionIndex}>
+                            {section.items.map(item => (renderItem ? renderItem(item) : defaultRenderItem(item)))}
+                            {section.showDivider && sectionIndex < sections.length - 1 && <div className="sidebar__divider" />}
+                        </React.Fragment>
+                    ))}
+                </nav>
+            </aside>
+        </>
     );
 };
