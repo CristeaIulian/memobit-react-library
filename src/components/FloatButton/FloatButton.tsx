@@ -47,22 +47,18 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
                     <div className="float-button-overlay" onClick={() => setIsMenuOpen(false)} />
                     <div className="float-button-menu">
                         {actions.map((action, index) => (
-                            <Tooltip key={index} content={action.label} position="left">
-                                <button className="float-button-menu__item" onClick={() => handleActionClick(action)}>
-                                    <span className="float-button-menu__icon">{action.icon}</span>
-                                    <span className="float-button-menu__label">{action.label}</span>
-                                </button>
-                            </Tooltip>
+                            <button key={`float-button-${index}`} className="float-button-menu__item" onClick={() => handleActionClick(action)}>
+                                <span className="float-button-menu__icon">{action.icon}</span>
+                                <span className="float-button-menu__label">{action.label}</span>
+                            </button>
                         ))}
                     </div>
                 </>
             )}
 
-            <Tooltip content="Actions" position="left" disabled={isMenuOpen}>
-                <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu} aria-label="Actions menu">
-                    <span className="float-button__icon">{isMenuOpen ? '✖' : '+'}</span>
-                </button>
-            </Tooltip>
+            <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu} aria-label="Actions menu">
+                <span className="float-button__icon">{isMenuOpen ? '✖' : '+'}</span>
+            </button>
         </div>
     );
 };
