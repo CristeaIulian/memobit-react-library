@@ -23,7 +23,7 @@ import { ConfirmDialogPage } from './pages/ConfirmDialogPage';
 import { ContextMenuPage } from './pages/ContextMenuPage';
 import { ContextToastPage } from './pages/ContextToastPage';
 import { CountryWithFlagPage } from './pages/CountryWithFlagPage';
-import { DataTablePage } from './pages/DataTablePage';
+import { DataViewPage } from './pages/DataViewPage';
 import { DatePickerPage } from './pages/DatePickerPage';
 import { DateRangePickerPage } from './pages/DateRangePickerPage';
 import { DrawerPage } from './pages/DrawerPage';
@@ -108,7 +108,7 @@ export const routes: RouteConfig[] = [
     { path: '/context-menu', label: 'Context Menu', component: ContextMenuPage },
     { path: '/context-toast', label: 'Context Toast', component: ContextToastPage },
     { path: '/country-with-flag', label: 'Country With Flag', component: CountryWithFlagPage },
-    { path: '/data-table', label: 'Data Table', component: DataTablePage },
+    { path: '/data-view', label: 'Data View', component: DataViewPage },
     { path: '/datepicker', label: 'DatePicker', component: DatePickerPage },
     { path: '/date-range-picker', label: 'Date Range Picker', component: DateRangePickerPage },
     { path: '/drawer', label: 'Drawer', component: DrawerPage },

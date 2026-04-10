@@ -154,8 +154,6 @@
             align-items: center;
             gap: var(--spacing-12);
             padding: var(--spacing-12) var(--spacing-16);
-            background: var(--dropdown-header-background-color);
-            border-bottom: var(--spacing-1) solid var(--delimiter-color);
 
             &::before,
             &::after {

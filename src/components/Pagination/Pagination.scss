@@ -1,19 +1,41 @@
 @use '../../styles/utilities' as *;
 
 .pagination {
-    @include flex-center;
-    gap: var(--spacing-8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-12);
+    flex-wrap: wrap;
     margin-top: var(--spacing-8);
+
+    &__pages {
+        @include flex-center;
+        gap: var(--spacing-8);
+    }
 
     .page-info {
         color: var(--body-color);
         font-size: var(--font-size-sm);
     }
+
+    &__page-size {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+        font-size: var(--font-size-sm);
+        color: var(--body-color);
+
+        .dropdown-container {
+            min-width: 120px;
+        }
+    }
 }
 
 @include tablet {
     .pagination {
-        flex-wrap: wrap;
+        &__pages {
+            flex-wrap: wrap;
+        }
 
         .page-info {
             width: 100%;

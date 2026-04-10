@@ -1,0 +1,202 @@
+@use '../../styles/utilities.scss' as *;
+
+.data-view {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    width: 100%;
+
+    &__wrapper {
+        overflow-x: auto;
+        border: var(--spacing-1) solid var(--delimiter-color);
+        border-radius: var(--radius);
+        background: var(--card-background-color);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: var(--spacing-12) var(--spacing-16);
+        text-align: left;
+        border-bottom: var(--spacing-1) solid var(--delimiter-color);
+    }
+
+    th {
+        background: var(--card-background-accent-color);
+        color: var(--body-color);
+        font-weight: var(--font-weight-semibold);
+        user-select: none;
+        position: relative;
+    }
+
+    tr {
+        position: relative;
+    }
+
+    tr.is-selected {
+        background: var(--card-background-accent-color);
+    }
+
+    .is-sortable {
+        cursor: pointer;
+    }
+
+    &__sort-indicator {
+        margin-left: var(--spacing-8);
+        font-size: var(--font-size-xs);
+        opacity: 0.7;
+    }
+
+    &__resizer {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 6px;
+        height: 100%;
+        cursor: col-resize;
+    }
+
+    &__checkbox {
+        width: 40px;
+        text-align: center;
+
+        .checkbox-wrapper {
+            justify-content: center;
+        }
+    }
+
+    &__empty {
+        text-align: center;
+        padding: var(--spacing-24);
+        color: var(--body-color);
+    }
+
+    &__row--clickable {
+        cursor: pointer;
+
+        &:hover {
+            background: var(--card-background-accent-color);
+        }
+    }
+
+    &__timeline-cell {
+        width: 0;
+        padding: 0;
+        border: none;
+        position: relative;
+        overflow: visible;
+    }
+
+    &__table-actions {
+        display: flex;
+        gap: var(--spacing-8);
+    }
+
+    // ── Card mode ───────────────────────────────────────────────────────
+
+    &--cards {
+        gap: 0;
+    }
+
+    &__cards {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-12);
+    }
+
+    &__card {
+        position: relative;
+        background: var(--card-background-color);
+        border: var(--spacing-1) solid var(--delimiter-color);
+        border-radius: var(--radius);
+        padding: var(--spacing-16);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-12);
+
+        &--clickable {
+            cursor: pointer;
+
+            &:hover {
+                border-color: var(--body-accent-color);
+            }
+        }
+
+        &--selected {
+            border-color: var(--body-accent-color);
+            background: var(--card-background-accent-color);
+        }
+    }
+
+    &__card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: var(--spacing-8);
+    }
+
+    &__card-title-row {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-4);
+    }
+
+    &__card-title {
+        font-weight: var(--font-weight-semibold);
+        color: var(--body-color-accent);
+        font-size: var(--font-size-base);
+    }
+
+    &__card-subtitle {
+        font-size: var(--font-size-sm);
+        color: var(--body-color);
+    }
+
+    &__card-badges {
+        display: flex;
+        gap: var(--spacing-4);
+        flex-shrink: 0;
+    }
+
+    &__card-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-8);
+    }
+
+    &__card-field {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    &__card-label {
+        font-size: var(--font-size-sm);
+        color: var(--body-color);
+    }
+
+    &__card-value {
+        font-size: var(--font-size-sm);
+        color: var(--body-color-accent);
+        font-weight: var(--font-weight-medium);
+        text-align: right;
+    }
+
+    &__card-actions {
+        display: flex;
+        gap: var(--spacing-8);
+        justify-content: flex-end;
+        padding-top: var(--spacing-8);
+        border-top: var(--spacing-1) solid var(--delimiter-color);
+    }
+}
+
+// When timeline is active, allow markers to overflow into the left margin
+.timeline-markers .data-view__wrapper {
+    overflow: visible;
+}
