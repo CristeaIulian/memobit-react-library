@@ -319,7 +319,7 @@ export function DataView<T>({
         return (
             <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`}>
                 <CardView
-                    data={sortedData}
+                    data={pagedData}
                     columns={columns}
                     rowKey={resolvedRowKey}
                     card={card}
@@ -337,6 +337,18 @@ export function DataView<T>({
                             updateSelection(selectedIds.filter(id => id !== rowId));
                         }
                     }}
+                />
+
+                <Pagination
+                    currentPage={safeCurrentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                    pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
+                    pageSize={showPageSize ? pageSize : undefined}
+                    onPageSizeChange={showPageSize ? (nextSize) => {
+                        setPageSize(nextSize);
+                        setCurrentPage(1);
+                    } : undefined}
                 />
             </div>
         );
