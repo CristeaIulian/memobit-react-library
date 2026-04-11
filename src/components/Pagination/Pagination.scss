@@ -44,3 +44,19 @@
         }
     }
 }
+
+@include mobile {
+    .pagination {
+        flex-direction: column;
+        align-items: stretch;
+
+        &__pages {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        &__page-size {
+            justify-content: center;
+        }
+    }
+}

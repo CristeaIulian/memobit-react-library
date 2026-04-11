@@ -27,7 +27,7 @@ export const Pagination: FC<PaginationProps> = ({
     onPageSizeChange,
     pageSizeLabel = 'Rows',
 }: PaginationProps) => {
-    const { isAtLeast } = useBreakpoint();
+    const { isAtLeast, isMobile } = useBreakpoint();
 
     const showPageSize = pageSizeOptions && pageSize !== undefined && onPageSizeChange;
 
@@ -37,7 +37,7 @@ export const Pagination: FC<PaginationProps> = ({
     }));
 
     const getVisiblePages = () => {
-        const delta = 2;
+        const delta = isMobile ? 0 : 2;
         const range = [];
         const rangeWithDots = [];
 
