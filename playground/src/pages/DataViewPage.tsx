@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Badge, Button, DataView, type DataViewColumn } from '../../../src';
 
@@ -54,6 +54,73 @@ const statusVariantMap: Record<string, 'success' | 'danger' | 'warning'> = {
 export const DataViewPage: React.FC = () => {
     const [selectedCount, setSelectedCount] = useState(0);
 
+    // ── Filters + Sorting example ───────────────────────────────────────
+    const [nameFilter, setNameFilter] = useState('');
+    const [roleFilter, setRoleFilter] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
+
+    const filteredUsers = useMemo(() => {
+        return users.filter(u => {
+            const matchName = !nameFilter || u.name.toLowerCase().includes(nameFilter.toLowerCase());
+            const matchRole = !roleFilter || u.role.toLowerCase().includes(roleFilter.toLowerCase());
+            const matchStatus = !statusFilter || u.status.toLowerCase().includes(statusFilter.toLowerCase());
+            return matchName && matchRole && matchStatus;
+        });
+    }, [nameFilter, roleFilter, statusFilter]);
+
+    const filterColumns: DataViewColumn<UserRow>[] = [
+        {
+            key: 'name',
+            header: 'Name',
+            sortable: true,
+            filter: (
+                <input
+                    style={{ width: '100%', padding: '4px 8px', boxSizing: 'border-box', borderRadius: 4, border: '1px solid var(--delimiter-color)', background: 'var(--card-background-color)', color: 'var(--body-color)', fontSize: 13 }}
+                    placeholder="Search name…"
+                    value={nameFilter}
+                    onChange={e => setNameFilter(e.target.value)}
+                />
+            ),
+        },
+        {
+            key: 'role',
+            header: 'Role',
+            sortable: true,
+            filter: (
+                <input
+                    style={{ width: '100%', padding: '4px 8px', boxSizing: 'border-box', borderRadius: 4, border: '1px solid var(--delimiter-color)', background: 'var(--card-background-color)', color: 'var(--body-color)', fontSize: 13 }}
+                    placeholder="Search role…"
+                    value={roleFilter}
+                    onChange={e => setRoleFilter(e.target.value)}
+                />
+            ),
+        },
+        {
+            key: 'score',
+            header: 'Score',
+            sortable: true,
+        },
+        {
+            key: 'status',
+            header: 'Status',
+            sortable: true,
+            filter: (
+                <input
+                    style={{ width: '100%', padding: '4px 8px', boxSizing: 'border-box', borderRadius: 4, border: '1px solid var(--delimiter-color)', background: 'var(--card-background-color)', color: 'var(--body-color)', fontSize: 13 }}
+                    placeholder="Search status…"
+                    value={statusFilter}
+                    onChange={e => setStatusFilter(e.target.value)}
+                />
+            ),
+        },
+        {
+            key: 'joinedAt',
+            header: 'Joined',
+            sortable: true,
+            hideInCard: true,
+        },
+    ];
+
     // ── Basic columns ───────────────────────────────────────────────────
 
     const basicColumns: DataViewColumn<UserRow>[] = [
@@ -97,6 +164,37 @@ export const DataViewPage: React.FC = () => {
                 Responsive data display with table mode (desktop) and card mode (mobile). Supports sorting, selection, column resizing, pagination, timeline
                 markers, actions, and card configuration.
             </p>
+
+            {/* Filters + Sorting */}
+            <section className="page-section">
+                <h2>Filters &amp; Sorting</h2>
+                <p>
+                    Each column optionally accepts a <code>filter</code> node rendered in a dedicated filter row below the headers.
+                    Sorting is built in — click any sortable column header to toggle asc/desc. Both are optional per-column.
+                </p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <DataView<UserRow>
+                            columns={filterColumns}
+                            data={filteredUsers}
+                            rowKey={row => row.id}
+                            card={{
+                                title: row => row.name,
+                                subtitle: row => `${row.role} · ${row.status}`,
+                                badges: row => (
+                                    <Badge variant={row.status === 'Active' ? 'success' : row.status === 'On Hold' ? 'warning' : 'danger'}>
+                                        {row.status}
+                                    </Badge>
+                                ),
+                            }}
+                            empty={{
+                                title: 'No results',
+                                description: 'Try changing the filter values.',
+                            }}
+                        />
+                    </div>
+                </div>
+            </section>
 
             {/* Basic table */}
             <section className="page-section">

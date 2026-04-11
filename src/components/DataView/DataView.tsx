@@ -21,6 +21,8 @@ export type SortDirection = 'asc' | 'desc';
 export interface DataViewColumn<T> {
     key: string;
     header: React.ReactNode;
+    /** Optional filter input rendered below the column header (table) or in the filter bar (card) */
+    filter?: React.ReactNode;
     accessor?: (row: T) => React.ReactNode;
     sortAccessor?: (row: T) => string | number;
     sortable?: boolean;
@@ -71,6 +73,20 @@ export interface DataViewProps<T> {
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const DEFAULT_PAGE_SIZES = [5, 10, 20, 50];
+
+// ─── Sort icon ───────────────────────────────────────────────────────────────
+
+interface SortIconProps {
+    state: 'unsorted' | 'asc' | 'desc';
+}
+
+function SortIcon({ state }: SortIconProps) {
+    return (
+        <span className={`data-view__sort-icon data-view__sort-icon--${state}`} aria-hidden="true">
+            {state === 'asc' ? '↑' : state === 'desc' ? '↓' : '↕'}
+        </span>
+    );
+}
 
 // ─── Card View ───────────────────────────────────────────────────────────────
 
@@ -125,7 +141,6 @@ function CardView<T>({
         <div className="data-view__cards">
             {data.map((row, index) => {
                 const marker = timelineMarkers.get(index);
-
                 const rowId = rowKey(row, index);
                 const isSelected = selectable && selectedIds.includes(rowId);
 
@@ -262,6 +277,7 @@ export function DataView<T>({
     const totalPages = Math.max(1, Math.ceil(sortedData.length / pageSize));
     const safeCurrentPage = Math.min(currentPage, totalPages);
     const pagedData = sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
+
     // Timeline markers for table mode — must be called before any conditional return
     const tableTimelineMarkers = useMemo(() => {
         if (!timeline) return new Map<number, TimelineMarkerInfo>();
@@ -286,6 +302,7 @@ export function DataView<T>({
             setSortKey(column.key);
             setSortDirection('asc');
         }
+        setCurrentPage(1);
     };
 
     const handleResizeStart = (event: React.MouseEvent, columnKey: string) => {
@@ -311,6 +328,8 @@ export function DataView<T>({
         window.addEventListener('mouseup', handleMouseUp);
     };
 
+    const hasFilters = columns.some(col => col.filter);
+
     // ── Card mode (mobile) ───────────────────────────────────────────────────
 
     const showCards = responsive && isMobile;
@@ -318,6 +337,21 @@ export function DataView<T>({
     if (showCards) {
         return (
             <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`}>
+                {hasFilters && (
+                    <div className="data-view__filter-bar">
+                        {columns
+                            .filter(col => col.filter)
+                            .map(col => (
+                                <div key={col.key} className="data-view__filter-bar-item">
+                                    {typeof col.header === 'string' && (
+                                        <span className="data-view__filter-bar-label">{col.header}</span>
+                                    )}
+                                    {col.filter}
+                                </div>
+                            ))}
+                    </div>
+                )}
+
                 <CardView
                     data={pagedData}
                     columns={columns}
@@ -366,6 +400,7 @@ export function DataView<T>({
             <div className="data-view__wrapper">
                 <table>
                     <thead>
+                        {/* ── Column header row ── */}
                         <tr>
                             {showTimeline && <th className="data-view__timeline-cell" />}
                             {selectable && (
@@ -390,12 +425,18 @@ export function DataView<T>({
                                     className={column.sortable ? 'is-sortable' : ''}
                                     onClick={() => toggleSort(column)}
                                 >
-                                    <span>{column.header}</span>
-                                    {column.sortable && sortKey === column.key && (
-                                        <span className="data-view__sort-indicator">
-                                            {sortDirection === 'asc' ? 'ASC' : 'DESC'}
-                                        </span>
-                                    )}
+                                    <span className="data-view__th-content">
+                                        <span>{column.header}</span>
+                                        {column.sortable && (
+                                            <SortIcon
+                                                state={
+                                                    sortKey === column.key
+                                                        ? sortDirection
+                                                        : 'unsorted'
+                                                }
+                                            />
+                                        )}
+                                    </span>
                                     <span
                                         className="data-view__resizer"
                                         onMouseDown={event => handleResizeStart(event, column.key)}
@@ -405,6 +446,24 @@ export function DataView<T>({
                             ))}
                             {actions && <th>Actions</th>}
                         </tr>
+
+                        {/* ── Filter row (only when at least one column has a filter) ── */}
+                        {hasFilters && (
+                            <tr className="data-view__filter-row">
+                                {showTimeline && <td className="data-view__filter-cell data-view__filter-cell--spacer" />}
+                                {selectable && <td className="data-view__filter-cell data-view__filter-cell--spacer" />}
+                                {tableColumns.map(column => (
+                                    <td
+                                        key={column.key}
+                                        className="data-view__filter-cell"
+                                        style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}
+                                    >
+                                        {column.filter ?? null}
+                                    </td>
+                                ))}
+                                {actions && <td className="data-view__filter-cell data-view__filter-cell--spacer" />}
+                            </tr>
+                        )}
                     </thead>
                     <tbody>
                         {pagedData.length === 0 ? (
