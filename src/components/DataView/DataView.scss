@@ -143,12 +143,15 @@
         display: flex;
         flex-direction: column;
         gap: var(--spacing-4);
+        min-width: 0;
     }
 
     &__card-title {
         font-weight: var(--font-weight-semibold);
         color: var(--body-color-accent);
         font-size: var(--font-size-base);
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 
     &__card-subtitle {
@@ -185,6 +188,9 @@
         color: var(--body-color-accent);
         font-weight: var(--font-weight-medium);
         text-align: right;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        min-width: 0;
     }
 
     &__card-actions {
