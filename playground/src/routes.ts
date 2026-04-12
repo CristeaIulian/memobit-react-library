@@ -66,6 +66,7 @@ import { SignalStrengthPage } from './pages/SignalStrengthPage';
 import { SidebarPage } from './pages/SidebarPage';
 import { SkeletonPage } from './pages/SkeletonPage';
 import { SliderPage } from './pages/SliderPage';
+import { SplitPanelPage } from './pages/SplitPanelPage';
 import { SuggestionsListPage } from './pages/SuggestionsListPage';
 import { TextareaPage } from './pages/TextareaPage';
 import { ThemeModalPage } from './pages/ThemeModalPage';
@@ -153,6 +154,7 @@ export const routes: RouteConfig[] = [
     { path: '/sidebar', label: 'Sidebar', component: SidebarPage },
     { path: '/skeleton', label: 'Skeleton', component: SkeletonPage },
     { path: '/slider', label: 'Slider', component: SliderPage },
+    { path: '/split-panel', label: 'Split Panel', component: SplitPanelPage },
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
     { path: '/textarea', label: 'Textarea', component: TextareaPage },
     { path: '/theme-modal', label: 'Theme Modal', component: ThemeModalPage },

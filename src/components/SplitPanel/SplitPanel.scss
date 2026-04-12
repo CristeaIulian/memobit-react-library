@@ -1,0 +1,118 @@
+// Body-level class added when the panel is open — makes Layout scroll properly
+body.split-panel-active {
+    overflow: hidden;
+
+    .Layout {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .Layout__content {
+        overflow: hidden;
+        padding: 0;
+    }
+}
+
+.split-panel {
+    // Closed state — transparent passthrough
+    &--open {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    &__left {
+        overflow-y: auto;
+        flex-shrink: 0;
+        min-width: 0;
+        padding: var(--spacing-24);
+    }
+
+    &__divider {
+        width: 6px;
+        flex-shrink: 0;
+        background: var(--border-color);
+        cursor: col-resize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background var(--transition-fast);
+        position: relative;
+
+        &:hover,
+        &:active {
+            background: var(--body-accent-color);
+
+            .split-panel__divider-handle {
+                background: var(--body-color-accent);
+            }
+        }
+    }
+
+    &__divider-handle {
+        width: 2px;
+        height: 40px;
+        border-radius: var(--radius-full);
+        background: var(--body-sub-title-color);
+        pointer-events: none;
+    }
+
+    &__right {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-left: 1px solid var(--border-color);
+        background: var(--body-background);
+    }
+
+    &__right-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-16);
+        padding: var(--spacing-16) var(--spacing-24);
+        border-bottom: 1px solid var(--border-color);
+        background: var(--card-background-color);
+        flex-shrink: 0;
+    }
+
+    &__right-title {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        margin: 0;
+        color: var(--body-title-color);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: none;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        color: var(--body-sub-title-color);
+        font-size: var(--font-size-md);
+        flex-shrink: 0;
+        transition: background var(--transition-fast), color var(--transition-fast);
+
+        &:hover {
+            background: var(--border-color);
+            color: var(--body-title-color);
+        }
+    }
+
+    &__right-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: var(--spacing-24);
+    }
+}

@@ -68,6 +68,7 @@ export { Sidebar, type SidebarItem, type SidebarSection, SidebarProvider, useSid
 export { SignalStrength } from './components/SignalStrength';
 export { Skeleton, type SkeletonProps, type SkeletonVariant, type SkeletonAnimation } from './components/Skeleton';
 export { Slider } from './components/Slider';
+export { SplitPanel } from './components/SplitPanel';
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';
 export { Textarea } from './components/Textarea';
 export { ThemeModal, ThemeContext, ThemeProvider, useTheme } from './components/ThemeModal';
