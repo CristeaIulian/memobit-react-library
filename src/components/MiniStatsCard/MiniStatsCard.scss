@@ -4,6 +4,11 @@
         flex-direction: column;
         gap: var(--spacing-12);
         padding: var(--spacing-24);
+
+        @media (max-width: 768px) {
+            gap: var(--spacing-4);
+            padding: var(--spacing-12);
+        }
     }
 
     &__value-container {
@@ -21,12 +26,20 @@
         &-number {
             font-size: var(--font-size-xxl);
             font-weight: var(--font-weight-bold);
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-lg);
+            }
         }
 
         &-unit {
             font-size: var(--font-size-md);
             font-weight: var(--font-weight-medium);
             opacity: 0.8;
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-sm);
+            }
         }
 
         &--default {
