@@ -8,6 +8,8 @@
     padding: var(--spacing-12) var(--spacing-24);
     background: var(--card-background-color);
     border-bottom: var(--spacing-1) solid var(--delimiter-color);
+    border-radius: var(--radius);
+    box-sizing: border-box;
     z-index: 100;
 
     &--fixed {
@@ -40,6 +42,7 @@
         align-items: center;
         gap: var(--spacing-8);
         flex: 1;
+        min-width: 0;
     }
 
     &__item {

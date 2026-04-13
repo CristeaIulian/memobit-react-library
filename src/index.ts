@@ -19,7 +19,7 @@ export { ColorPicker, type ColorPickerProps } from './components/ColorPicker';
 export { DataView, type DataViewColumn, type DataViewProps, type DataViewCardConfig, type DataViewTimelineConfig, type DataViewEmptyConfig, type SortDirection } from './components/DataView';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';
 export { DiffViewer } from './components/DiffViewer';
-export { DateRangePicker, type DateRangePickerProps } from './components/DateRangePicker';
+export { DateRangePicker, type DateRangePickerProps, type DateRangePreset } from './components/DateRangePicker';
 export { Drawer, type DrawerPosition } from './components/Drawer';
 export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
 export { EmptyState, type EmptyStateProps } from './components/EmptyState';
