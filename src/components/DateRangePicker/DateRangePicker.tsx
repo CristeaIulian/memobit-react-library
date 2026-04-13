@@ -13,6 +13,11 @@ interface DateRange {
     end?: string;
 }
 
+export interface DateRangePreset {
+    label: string;
+    days: number;
+}
+
 export interface DateRangePickerProps {
     label?: string;
     value?: DateRange;
@@ -21,6 +26,7 @@ export interface DateRangePickerProps {
     max?: string;
     alwaysOpen?: boolean;
     autoClose?: boolean;
+    presets?: DateRangePreset[];
 }
 
 const toDate = (value?: string) => {
@@ -45,6 +51,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
     max,
     alwaysOpen = false,
     autoClose = true,
+    presets,
 }) => {
     const [internalRange, setInternalRange] = useState<DateRange>({});
     const [baseMonth, setBaseMonth] = useState(() => new Date());
@@ -79,6 +86,13 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
 
     const handleRangeStartChange = (date: Date | null) => {
         setRangeStart(date);
+    };
+
+    const handlePreset = (days: number) => {
+        const end = new Date();
+        const start = new Date();
+        start.setDate(start.getDate() - days);
+        updateRange({ start: toKey(start), end: toKey(end) });
     };
 
     const secondMonth = useMemo(() => addMonths(baseMonth, 1), [baseMonth]);
@@ -215,7 +229,41 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
 
     return (
         <div ref={containerRef} className="date-range-picker">
-            {label && <label className="date-range-picker__label">{label}</label>}
+            {label && presets && presets.length > 0 ? (
+                <div className="date-range-picker__label-row">
+                    <label className="date-range-picker__label">{label}</label>
+                    <div className="date-range-picker__presets">
+                        {presets.map(preset => (
+                            <Button
+                                key={preset.days}
+                                size="small"
+                                variant="default"
+                                onClick={() => handlePreset(preset.days)}
+                            >
+                                {preset.label}
+                            </Button>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                <>
+                    {label && <label className="date-range-picker__label">{label}</label>}
+                    {presets && presets.length > 0 && (
+                        <div className="date-range-picker__presets">
+                            {presets.map(preset => (
+                                <Button
+                                    key={preset.days}
+                                    size="small"
+                                    variant="default"
+                                    onClick={() => handlePreset(preset.days)}
+                                >
+                                    {preset.label}
+                                </Button>
+                            ))}
+                        </div>
+                    )}
+                </>
+            )}
             <div className="date-range-picker__inputs">
                 <InputText readOnly value={range.start ?? ''} placeholder="Start date" />
                 <span className="date-range-picker__separator">to</span>

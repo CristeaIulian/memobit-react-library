@@ -7,9 +7,22 @@
     border-radius: var(--radius);
     padding: var(--spacing-16);
 
+    &__label-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-8);
+    }
+
     &__label {
         font-weight: var(--font-weight-semibold);
         color: var(--body-color);
+    }
+
+    &__presets {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-4);
     }
 
     &__inputs {

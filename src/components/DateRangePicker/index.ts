@@ -1,1 +1,1 @@
-export { DateRangePicker, type DateRangePickerProps } from './DateRangePicker';
+export { DateRangePicker, type DateRangePickerProps, type DateRangePreset } from './DateRangePicker';

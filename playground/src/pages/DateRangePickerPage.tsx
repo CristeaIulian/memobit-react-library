@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 
-import { DateRangePicker } from '../../../src';
+import { DateRangePicker, type DateRangePreset } from '../../../src';
+
+const PRESETS: DateRangePreset[] = [
+    { label: '7d', days: 7 },
+    { label: '14d', days: 14 },
+    { label: '30d', days: 30 },
+    { label: '90d', days: 90 },
+];
 
 export const DateRangePickerPage: React.FC = () => {
     const [compactRange, setCompactRange] = useState<{ start?: string; end?: string }>({
         start: '2026-02-10',
         end: '2026-02-18',
+    });
+    const [presetsRange, setPresetsRange] = useState<{ start?: string; end?: string }>({
+        start: '2026-03-14',
+        end: '2026-04-13',
     });
     const [alwaysOpenRange, setAlwaysOpenRange] = useState<{ start?: string; end?: string }>({
         start: '2026-03-05',
@@ -32,6 +43,21 @@ export const DateRangePickerPage: React.FC = () => {
                     </div>
                     <p>
                         Selected: {compactRange.start ?? 'none'} to {compactRange.end ?? 'none'}
+                    </p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>With presets</h3>
+                    <div className="component-group">
+                        <DateRangePicker
+                            label="Date Range"
+                            value={presetsRange}
+                            onChange={setPresetsRange}
+                            presets={PRESETS}
+                        />
+                    </div>
+                    <p>
+                        Selected: {presetsRange.start ?? 'none'} to {presetsRange.end ?? 'none'}
                     </p>
                 </div>
 
