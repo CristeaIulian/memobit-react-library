@@ -81,11 +81,13 @@ export const NavBarPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>Simple NavBar</h3>
-                    <div style={{ border: '1px solid var(--delimiter-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
                         <NavBar items={basicItems} />
                         <div style={{ padding: '32px', background: 'var(--body-background)' }}>
                             <h3>Page Content</h3>
-                            <p>Active Item: <strong>{activeItem}</strong></p>
+                            <p>
+                                Active Item: <strong>{activeItem}</strong>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +98,7 @@ export const NavBarPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>Full NavBar</h3>
-                    <div style={{ border: '1px solid var(--delimiter-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
                         <NavBar
                             items={basicItems}
                             logo={
@@ -107,7 +109,7 @@ export const NavBarPage: React.FC = () => {
                             }
                             actions={
                                 <>
-                                    <Button variant="secondary">Login</Button>
+                                    <Button variant="warning">Login</Button>
                                     <Button>Sign Up</Button>
                                 </>
                             }
@@ -125,7 +127,7 @@ export const NavBarPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>NavBar with Icons</h3>
-                    <div style={{ border: '1px solid var(--delimiter-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
                         <NavBar
                             items={itemsWithIcons}
                             logo={<span style={{ fontSize: '24px' }}>📱</span>}
@@ -137,10 +139,10 @@ export const NavBarPage: React.FC = () => {
                         />
                         <div style={{ padding: '32px', background: 'var(--body-background)' }}>
                             <h3>Dashboard</h3>
-                            <p>Current section: <strong>{activeItem}</strong></p>
-                            <p style={{ fontSize: '14px', color: 'var(--body-color-muted)' }}>
-                                Note: Settings is disabled
+                            <p>
+                                Current section: <strong>{activeItem}</strong>
                             </p>
+                            <p style={{ fontSize: '14px', color: 'var(--body-color-muted)' }}>Note: Settings is disabled</p>
                         </div>
                     </div>
                 </div>
@@ -156,7 +158,9 @@ export const NavBarPage: React.FC = () => {
                         <div style={{ padding: '32px', background: 'var(--body-background)' }}>
                             <h3>Content Area</h3>
                             <p>Scroll down to see the sticky behavior.</p>
-                            <div style={{ height: '500px', padding: '16px', background: 'var(--card-background-color)', borderRadius: '8px', marginTop: '16px' }}>
+                            <div
+                                style={{ height: '500px', padding: '16px', background: 'var(--card-background-color)', borderRadius: '8px', marginTop: '16px' }}
+                            >
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
                                 <p style={{ marginTop: '100px' }}>Keep scrolling...</p>
                                 <p style={{ marginTop: '100px' }}>The navbar stays at the top!</p>
@@ -172,7 +176,7 @@ export const NavBarPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>Custom Item Renderer</h3>
-                    <div style={{ border: '1px solid var(--delimiter-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
                         <NavBar
                             items={itemsWithIcons}
                             logo={<span style={{ fontSize: '24px' }}>🎨</span>}
@@ -193,7 +197,6 @@ export const NavBarPage: React.FC = () => {
                                         gap: '8px',
                                         padding: '8px 16px',
                                         textDecoration: 'none',
-                                        borderRadius: 'var(--radius)',
                                     }}
                                 >
                                     {item.icon && <span>{item.icon}</span>}
@@ -217,7 +220,7 @@ export const NavBarPage: React.FC = () => {
                     <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '16px' }}>
                         Resize your browser window to see the responsive behavior. Items will scroll horizontally on smaller screens.
                     </p>
-                    <div style={{ border: '1px solid var(--delimiter-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
                         <NavBar
                             items={[
                                 ...itemsWithIcons,
