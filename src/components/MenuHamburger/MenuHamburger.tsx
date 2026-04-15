@@ -11,6 +11,7 @@ export interface MenuHamburgerItem {
     icon: string;
     onClick: () => void;
     isActive: boolean;
+    separator?: boolean;
 }
 
 interface MenuHamburgerProps {
@@ -56,15 +57,17 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, 
                 <ContextMenu target={menuTarget} onClose={closeMenu}>
                     <div className="MenuHamburger_dropdown">
                         {items.map((item, index) => (
-                            <Button
-                                variant={'plain'}
-                                key={index}
-                                className={`MenuHamburger_item ${item.isActive ? 'MenuHamburger_item--active' : ''}`}
-                                onClick={() => handleItemClick(item)}
-                            >
-                                <span className="MenuHamburger_item__icon">{item.icon}</span>
-                                <span className="MenuHamburger_item__label">{item.label}</span>
-                            </Button>
+                            <div key={index} className="MenuHamburger_entry">
+                                {item.separator && <div className="MenuHamburger_separator" />}
+                                <Button
+                                    variant={'plain'}
+                                    className={`MenuHamburger_item ${item.isActive ? 'MenuHamburger_item--active' : ''}`}
+                                    onClick={() => handleItemClick(item)}
+                                >
+                                    <span className="MenuHamburger_item__icon">{item.icon}</span>
+                                    <span className="MenuHamburger_item__label">{item.label}</span>
+                                </Button>
+                            </div>
                         ))}
                     </div>
                 </ContextMenu>
