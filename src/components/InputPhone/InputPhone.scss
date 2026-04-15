@@ -26,7 +26,10 @@
     border: 1px solid var(--form-control-border-color);
     border-radius: var(--radius-sm);
     padding: 0 var(--spacing-12);
-    transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition:
+        border-color var(--transition-fast),
+        background-color var(--transition-fast),
+        box-shadow var(--transition-fast);
 
     &:focus-within {
         background-color: var(--form-control-focus-background-color);
