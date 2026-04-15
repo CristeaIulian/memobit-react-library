@@ -62,6 +62,7 @@ export interface DataViewProps<T> {
     showPageSize?: boolean;
     card?: DataViewCardConfig<T>;
     actions?: (row: T) => React.ReactNode;
+    actionsWidth?: number;
     timeline?: DataViewTimelineConfig<T>;
     onRowClick?: (row: T) => void;
     rowClassName?: (row: T) => string;
@@ -225,6 +226,7 @@ export function DataView<T>({
     showPageSize = true,
     card,
     actions,
+    actionsWidth,
     timeline,
     onRowClick,
     rowClassName,
@@ -444,7 +446,7 @@ export function DataView<T>({
                                     />
                                 </th>
                             ))}
-                            {actions && <th>Actions</th>}
+                            {actions && <th className="data-view__actions-header" style={actionsWidth ? { width: actionsWidth } : undefined}>Actions</th>}
                         </tr>
 
                         {/* ── Filter row (only when at least one column has a filter) ── */}
@@ -517,7 +519,7 @@ export function DataView<T>({
                                             </td>
                                         ))}
                                         {actions && (
-                                            <td>
+                                            <td className="data-view__actions-cell" style={actionsWidth ? { width: actionsWidth } : undefined}>
                                                 <div
                                                     className="data-view__table-actions"
                                                     onClick={e => e.stopPropagation()}
