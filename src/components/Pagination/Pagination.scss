@@ -2,15 +2,33 @@
 
 .pagination {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: var(--spacing-12);
     flex-wrap: wrap;
-    margin-top: var(--spacing-8);
+    width: 100%;
+    justify-content: space-around;
 
     &__pages {
         @include flex-center;
         gap: var(--spacing-8);
+        flex: 1;
+    }
+
+    &--left .pagination__pages {
+        justify-content: flex-start;
+    }
+
+    &--center .pagination__pages {
+        justify-content: center;
+        flex: none;
+    }
+
+    &--right {
+        flex-direction: row-reverse;
+
+        .pagination__pages {
+            justify-content: flex-end;
+        }
     }
 
     .page-info {
