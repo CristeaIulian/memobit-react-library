@@ -1,8 +1,9 @@
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: var(--spacing-4) var(--spacing-12);
-    border-radius: var(--radius-sm);
+    padding: var(--spacing-8) var(--spacing-12);
+    border: var(--spacing-1) solid transparent;
+    border-radius: var(--radius-full);
     font-size: var(--font-size-xs);
     font-weight: 600;
     line-height: 1.5;
@@ -49,18 +50,13 @@
     }
 
     &-size--small {
-        padding: var(--spacing-2) var(--spacing-8);
-        font-size: var(--font-size-xs);
-    }
-
-    &-size--medium {
         padding: var(--spacing-4) var(--spacing-8);
         font-size: var(--font-size-xs);
     }
 
-    &-size--large {
+    &-size--medium {
         padding: var(--spacing-8) var(--spacing-12);
-        font-size: var(--font-size-sm);
+        font-size: var(--font-size-xs);
     }
 
     &--clickable {

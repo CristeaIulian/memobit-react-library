@@ -7,7 +7,7 @@ export type BadgeVariant = 'default' | 'success' | 'info' | 'warning' | 'danger'
 export interface BadgeProps {
     children: ReactNode;
     className?: string;
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium';
     variant?: BadgeVariant;
     /** Custom accent color — overrides variant, drives border/bg/hover/active styles */
     customColor?: string;
