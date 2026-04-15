@@ -25,11 +25,6 @@ const EFFECTS_STORAGE_KEY = 'effects';
 export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
     const { theme, setTheme } = useTheme();
 
-    const themeOptions: DropdownOption[] = THEME_CONFIGS.map(config => ({
-        label: config.label,
-        value: config.value,
-    }));
-
     const componentsWithEffects = ['Card', 'Modal'];
 
     const effectOptions: DropdownOption[] = [
@@ -62,12 +57,6 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
             }
         }
     }, [isOpen]);
-
-    const handleThemeChange = (option: DropdownOption | DropdownOption[] | null) => {
-        if (option && !Array.isArray(option)) {
-            setTheme(option.value as Theme);
-        }
-    };
 
     const handleEffectChange = (option: DropdownOption | DropdownOption[] | null) => {
         if (!option || Array.isArray(option)) {
@@ -104,7 +93,7 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
             isOpen={isOpen}
             onClose={onClose}
             title="Theme Settings"
-            size="small"
+            size="medium"
             primaryButton={{
                 text: 'Save',
                 onClick: handleSave,
@@ -119,15 +108,37 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
             <div className="theme-modal">
                 <div className="theme-modal__content">
                     <div className="theme-modal__section">
-                        <label htmlFor="theme-selector">Select Theme</label>
-                        <Dropdown
-                            id="theme-selector"
-                            name="theme"
-                            options={themeOptions}
-                            value={theme}
-                            onChange={handleThemeChange}
-                            placeholder="Choose a theme"
-                        />
+                        <label>Select Theme</label>
+                        <div className="theme-modal__grid">
+                            {THEME_CONFIGS.map(config => (
+                                <button
+                                    key={config.value}
+                                    type="button"
+                                    className={`theme-modal__swatch ${theme === config.value ? 'theme-modal__swatch--active' : ''}`}
+                                    onClick={() => setTheme(config.value as Theme)}
+                                >
+                                    <div
+                                        className="theme-modal__preview"
+                                        data-theme={config.value}
+                                    >
+                                        <div className="theme-modal__preview-header" />
+                                        <div className="theme-modal__preview-body">
+                                            <div className="theme-modal__preview-card">
+                                                <div className="theme-modal__preview-line theme-modal__preview-line--accent" />
+                                                <div className="theme-modal__preview-line" />
+                                                <div className="theme-modal__preview-line theme-modal__preview-line--short" />
+                                            </div>
+                                            <div className="theme-modal__preview-sidebar">
+                                                <div className="theme-modal__preview-dot" />
+                                                <div className="theme-modal__preview-dot" />
+                                                <div className="theme-modal__preview-dot" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span className="theme-modal__swatch-label">{config.label}</span>
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
                     <div className="theme-modal__section">

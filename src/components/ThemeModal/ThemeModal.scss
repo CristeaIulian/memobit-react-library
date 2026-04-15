@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .theme-modal {
     padding: var(--spacing-24);
 
@@ -28,5 +30,120 @@
     &__components {
         display: flex;
         gap: var(--spacing-8);
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-12);
+        max-height: 340px;
+        overflow-y: auto;
+        padding: var(--spacing-4);
+    }
+
+    &__swatch {
+        all: unset;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-8);
+        padding: var(--spacing-8);
+        border-radius: var(--radius);
+        border: var(--spacing-2) solid transparent;
+        transition: border-color var(--transition-fast);
+
+        &:hover {
+            border-color: var(--body-color-muted);
+        }
+
+        &--active {
+            border-color: var(--body-accent-color);
+
+            &:hover {
+                border-color: var(--body-accent-color);
+            }
+        }
+    }
+
+    &__swatch-label {
+        font-size: var(--font-size-xs);
+        color: var(--body-color);
+        text-align: center;
+        line-height: var(--line-height-tight);
+    }
+
+    &__preview {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        background: var(--body-background);
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__preview-header {
+        height: 14%;
+        background-color: var(--header-background-color);
+        border-bottom: var(--spacing-1) solid var(--header-border-bottom-color);
+    }
+
+    &__preview-body {
+        flex: 1;
+        display: flex;
+        padding: var(--spacing-4);
+        gap: var(--spacing-4);
+    }
+
+    &__preview-card {
+        flex: 1;
+        background-color: var(--card-background-color);
+        border-radius: var(--spacing-2);
+        padding: var(--spacing-4);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+
+    &__preview-line {
+        height: 3px;
+        border-radius: var(--spacing-1);
+        background-color: var(--body-color-muted);
+        opacity: 0.4;
+
+        &--accent {
+            background-color: var(--body-accent-color);
+            opacity: 1;
+        }
+
+        &--short {
+            width: 60%;
+        }
+    }
+
+    &__preview-sidebar {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-4);
+        padding-top: var(--spacing-2);
+    }
+
+    &__preview-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: var(--radius-full);
+        background-color: var(--body-accent-color);
+        opacity: 0.7;
+    }
+}
+
+@include mobile {
+    .theme-modal {
+        &__grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 }
