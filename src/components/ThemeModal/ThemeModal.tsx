@@ -1,12 +1,14 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Checkbox } from '../Checkbox';
 import { Dropdown, DropdownOption } from '../Dropdown';
 import { Modal } from '../Modal';
+import { Search } from '../Search';
+import { ToggleSwitch } from '../ToggleSwitch';
 
 import { useTheme } from './useTheme';
 import { Theme } from './ThemeContext';
-import { THEME_CONFIGS } from './themeConfig';
+import { FAVORITE_THEMES, THEME_CONFIGS } from './themeConfig';
 
 import './ThemeModal.scss';
 
@@ -35,11 +37,30 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
         { label: 'Glow', value: 'glow-effect' },
     ];
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
     const [selectedEffect, setSelectedEffect] = useState<string>('');
     const [selectedComponents, setSelectedComponents] = useState<string[]>([]);
 
+    const filteredThemes = useMemo(() => {
+        let themes = THEME_CONFIGS;
+
+        if (showFavoritesOnly) {
+            themes = themes.filter(config => FAVORITE_THEMES.has(config.value));
+        }
+
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase().trim();
+            themes = themes.filter(config => config.label.toLowerCase().includes(query));
+        }
+
+        return themes;
+    }, [searchQuery, showFavoritesOnly]);
+
     useEffect(() => {
         if (isOpen) {
+            setSearchQuery('');
+            setShowFavoritesOnly(false);
             try {
                 const stored = localStorage.getItem(EFFECTS_STORAGE_KEY);
                 if (stored) {
@@ -109,35 +130,56 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
                 <div className="theme-modal__content">
                     <div className="theme-modal__section">
                         <label>Select Theme</label>
+                        <div className="theme-modal__toolbar">
+                            <Search
+                                placeholder="Search themes..."
+                                value={searchQuery}
+                                onChange={setSearchQuery}
+                            />
+                            <ToggleSwitch
+                                checked={showFavoritesOnly}
+                                onChange={setShowFavoritesOnly}
+                                onLabel="Favorites"
+                                offLabel="Favorites"
+                                size="small"
+                            />
+                        </div>
                         <div className="theme-modal__grid">
-                            {THEME_CONFIGS.map(config => (
-                                <button
-                                    key={config.value}
-                                    type="button"
-                                    className={`theme-modal__swatch ${theme === config.value ? 'theme-modal__swatch--active' : ''}`}
-                                    onClick={() => setTheme(config.value as Theme)}
-                                >
-                                    <div
-                                        className="theme-modal__preview"
-                                        data-theme={config.value}
+                            {filteredThemes.length === 0 ? (
+                                <div className="theme-modal__empty">No themes found</div>
+                            ) : (
+                                filteredThemes.map(config => (
+                                    <button
+                                        key={config.value}
+                                        type="button"
+                                        className={`theme-modal__swatch ${theme === config.value ? 'theme-modal__swatch--active' : ''}`}
+                                        onClick={() => setTheme(config.value as Theme)}
                                     >
-                                        <div className="theme-modal__preview-header" />
-                                        <div className="theme-modal__preview-body">
-                                            <div className="theme-modal__preview-card">
-                                                <div className="theme-modal__preview-line theme-modal__preview-line--accent" />
-                                                <div className="theme-modal__preview-line" />
-                                                <div className="theme-modal__preview-line theme-modal__preview-line--short" />
-                                            </div>
-                                            <div className="theme-modal__preview-sidebar">
-                                                <div className="theme-modal__preview-dot" />
-                                                <div className="theme-modal__preview-dot" />
-                                                <div className="theme-modal__preview-dot" />
+                                        <div
+                                            className="theme-modal__preview"
+                                            data-theme={config.value}
+                                        >
+                                            {FAVORITE_THEMES.has(config.value) && (
+                                                <span className="theme-modal__favorite-badge">&#11088;</span>
+                                            )}
+                                            <div className="theme-modal__preview-header" />
+                                            <div className="theme-modal__preview-body">
+                                                <div className="theme-modal__preview-card">
+                                                    <div className="theme-modal__preview-line theme-modal__preview-line--accent" />
+                                                    <div className="theme-modal__preview-line" />
+                                                    <div className="theme-modal__preview-line theme-modal__preview-line--short" />
+                                                </div>
+                                                <div className="theme-modal__preview-sidebar">
+                                                    <div className="theme-modal__preview-dot" />
+                                                    <div className="theme-modal__preview-dot" />
+                                                    <div className="theme-modal__preview-dot" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <span className="theme-modal__swatch-label">{config.label}</span>
-                                </button>
-                            ))}
+                                        <span className="theme-modal__swatch-label">{config.label}</span>
+                                    </button>
+                                ))
+                            )}
                         </div>
                     </div>
 
