@@ -43,7 +43,7 @@ export const Pagination: FC<PaginationProps> = ({
         const container = pagesRef.current;
         if (!container) return;
 
-        const containerWidth = container.offsetWidth;
+        const containerWidth = container.parentElement?.offsetWidth ?? container.offsetWidth;
         const navButtonWidth = isAtLeast('desktop') ? NAV_BUTTON_WIDTH_DESKTOP : NAV_BUTTON_WIDTH_MOBILE;
         // Fixed space: 2 nav buttons + first page + last page + 2 dots + gaps
         const fixedWidth = (navButtonWidth * 2) + (PAGE_BUTTON_WIDTH * 2) + (DOTS_WIDTH * 2) + (GAP * 6);
