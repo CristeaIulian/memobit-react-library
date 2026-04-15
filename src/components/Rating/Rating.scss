@@ -92,4 +92,64 @@
             color: var(--rating-half-rate-empty-color);
         }
     }
+
+    // Selectable half-star input
+    &--half-selectable {
+        .rating-rates {
+            gap: var(--spacing-4);
+        }
+
+        .rate--half-select {
+            position: relative;
+            display: inline-block;
+            font-size: var(--font-size-xxl);
+            line-height: 1;
+
+            .rate-click-left,
+            .rate-click-right {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 50%;
+                cursor: pointer;
+                z-index: 1;
+            }
+
+            .rate-click-left {
+                left: 0;
+            }
+
+            .rate-click-right {
+                right: 0;
+            }
+
+            &:hover {
+                opacity: 0.75;
+            }
+        }
+    }
+}
+
+// Half-star gradient fill: colours left 50% with the variant colour, right 50% empty —
+// avoids clipping the glyph (which makes it look smaller) by using background-clip: text.
+.rate--half-gradient {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    &.rate-variant-warning {
+        background-image: linear-gradient(to right, var(--rating-color-warning) 50%, var(--rating-empty-color) 50%);
+    }
+
+    &.rate-variant-success {
+        background-image: linear-gradient(to right, var(--rating-color-success) 50%, var(--rating-empty-color) 50%);
+    }
+
+    &.rate-variant-danger {
+        background-image: linear-gradient(to right, var(--rating-color-danger) 50%, var(--rating-empty-color) 50%);
+    }
+
+    &.rate-variant-info {
+        background-image: linear-gradient(to right, var(--rating-color-info) 50%, var(--rating-empty-color) 50%);
+    }
 }

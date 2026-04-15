@@ -1,5 +1,5 @@
 import './Rating.scss';
-import { FC, ReactElement, useCallback, useEffect } from 'react';
+import { FC, ReactElement, useCallback } from 'react';
 
 interface RatingProps {
     align?: 'left' | 'right' | 'space-between';
@@ -24,38 +24,60 @@ export const Rating: FC<RatingProps> = ({
 }: RatingProps): ReactElement => {
     const rateEmoji = icon === 'star' ? '★' : '●';
 
-    useEffect(() => {
-        if (selectable && useHalf) {
-            console.warn('Rating: selectable is not only available with useHalf.');
-        }
-    }, []);
-
     const onRateClick = useCallback((value: number) => {
         if (selectable && !useHalf) {
             onSelect?.(value + 1);
         }
-    }, []);
+    }, [selectable, useHalf, onSelect]);
+
+    if (useHalf && selectable) {
+        // Half-star selectable input: 5 stars × 2 halves = 10 steps (stored as 1-10)
+        return (
+            <div className={`rating rating--half rating--half-selectable align-${align} is-selectable`}>
+                <span className="rating-rates">
+                    {Array.from({ length: 5 }, (_, i) => {
+                        const leftValue = i * 2 + 1;
+                        const rightValue = i * 2 + 2;
+                        const isFull = rating >= rightValue;
+                        const isHalf = !isFull && rating >= leftValue;
+
+                        const starClass = isFull
+                            ? `rate--full rate-variant-${variant}`
+                            : isHalf
+                            ? `rate--half-gradient rate-variant-${variant}`
+                            : 'rate--empty';
+
+                        return (
+                            <span key={i} className={`rate rate--half-select ${starClass}`}>
+                                {rateEmoji}
+                                <span className="rate-click-left" onClick={() => onSelect?.(leftValue)} />
+                                <span className="rate-click-right" onClick={() => onSelect?.(rightValue)} />
+                            </span>
+                        );
+                    })}
+                </span>
+            </div>
+        );
+    }
 
     if (useHalf) {
-        // Convert 1-10 rating to 0.5-5 rating scale
+        // Display-only half stars: convert 1-10 to 0.5-5 scale
         const ratingItem = rating / 2;
         const fullRate = Math.floor(ratingItem);
         const hasHalfRate = ratingItem % 1 >= 0.5;
         const emptyRating = 5 - fullRate - (hasHalfRate ? 1 : 0);
 
         return (
-            <div className={`rating rating--half align-${align} ${selectable ? 'is-selectable' : ''}`}>
+            <div className={`rating rating--half align-${align}`}>
                 <span className="rating-rates">
-                    {/* Full rating */}
                     {Array.from({ length: fullRate }, (_, index) => (
                         <span key={`full-${index}`} className={`rate rate--full rate-variant-${variant}`}>
                             {rateEmoji}
                         </span>
                     ))}
 
-                    {/* Half rate */}
                     {hasHalfRate && (
-                        <span className={`rate rate--half`}>
+                        <span className="rate rate--half">
                             <span className="rate-half-container">
                                 <span className={`rate-half-fill rate-variant-${variant}`}>{rateEmoji}</span>
                                 <span className="rate-half-empty">{rateEmoji}</span>
@@ -63,7 +85,6 @@ export const Rating: FC<RatingProps> = ({
                         </span>
                     )}
 
-                    {/* Empty rates */}
                     {Array.from({ length: emptyRating }, (_, index) => (
                         <span key={`empty-${index}`} className="rate rate--empty">
                             {rateEmoji}
@@ -71,7 +92,7 @@ export const Rating: FC<RatingProps> = ({
                     ))}
                 </span>
 
-                <span className="rating-values">({rating}/10)</span>
+                <span className="rating-values">({String(rating / 2)}/5)</span>
             </div>
         );
     }
