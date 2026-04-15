@@ -1,41 +1,18 @@
+@use '../../styles/utilities' as *;
+
 .input-time-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-8);
+    @include input-wrapper;
 
     .input-time-label {
-        font-size: var(--font-size-sm);
-        font-weight: 500;
-        color: var(--form-control-color);
+        @include input-label;
 
         .input-time-required {
-            color: var(--body-danger-color, #dc2626);
-            margin-left: var(--spacing-2);
+            @include input-required;
         }
     }
 
     .input-time {
-        background-color: var(--form-control-background-color);
-        color: var(--form-control-color);
-        border: var(--spacing-1) solid var(--form-control-border-color);
-        border-radius: var(--radius-sm);
-        padding: var(--spacing-12);
-        font-size: var(--font-size-sm);
-        line-height: var(--line-height-normal);
-        width: 100%;
-        box-sizing: border-box;
-
-        &:focus {
-            outline: none;
-            background-color: var(--form-control-focus-background-color);
-            border-color: var(--form-control-focus-border-color);
-            color: var(--form-control-focus-color);
-            box-shadow: 0 0 0 var(--spacing-2) var(--box-shadow);
-        }
-
-        &::placeholder {
-            color: var(--form-control-placeholder-color);
-        }
+        @include input-field;
 
         &::-webkit-calendar-picker-indicator {
             filter: invert(0.5);
@@ -48,17 +25,11 @@
         }
 
         &.input-time-error {
-            border-color: var(--body-danger-color);
-
-            &:focus {
-                border-color: var(--body-danger-color);
-                box-shadow: 0 0 0 var(--spacing-2) var(--box-shadow);
-            }
+            @include input-error;
         }
     }
 
     .input-time-error-message {
-        font-size: var(--font-size-xs);
-        color: var(--body-danger-color);
+        @include input-error-message;
     }
 }

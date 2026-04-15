@@ -76,7 +76,7 @@ $sizes: (
 .input-mask__input {
     width: 100%;
     border: 1px solid var(--form-control-border-color);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
     background: var(--form-control-background-color);
     color: var(--form-control-color);
     outline: none;
