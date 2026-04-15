@@ -170,6 +170,63 @@ export const ProgressBarPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>Label Above</h2>
+
+                <div className="showcase-group">
+                    <h3>Default</h3>
+                    <div>
+                        <ProgressBar state="default" value={23} labelPosition="above" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Success with Custom Label</h3>
+                    <div>
+                        <ProgressBar state="success" value={82} label="Download" labelPosition="above" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Warning — Label Only</h3>
+                    <div>
+                        <ProgressBar state="warning" value={55} label="Processing" showPercentage={false} labelPosition="above" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Danger Striped</h3>
+                    <div>
+                        <ProgressBar state="danger" value={85} striped labelPosition="above" />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Label Below</h2>
+
+                <div className="showcase-group">
+                    <h3>Default</h3>
+                    <div>
+                        <ProgressBar state="default" value={23} labelPosition="below" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Info with Custom Label</h3>
+                    <div>
+                        <ProgressBar state="info" value={68} label="Syncing" labelPosition="below" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Success — Label Only</h3>
+                    <div>
+                        <ProgressBar state="success" value={100} label="Complete" showPercentage={false} labelPosition="below" />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>Real-World Examples</h2>
 
                 <div className="showcase-group">

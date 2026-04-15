@@ -1,12 +1,24 @@
 .progress-bar {
-    height: var(--spacing-16);
-    background-color: var(--progress-bar-background-color);
-    border-radius: var(--spacing-4);
-    overflow: hidden;
-    position: relative;
-    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
 
-    .progress-fill {
+    &__label {
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        color: var(--body-color);
+    }
+
+    &__track {
+        height: var(--spacing-16);
+        background-color: var(--progress-bar-background-color);
+        border-radius: var(--spacing-4);
+        overflow: hidden;
+        position: relative;
+        font-weight: 500;
+    }
+
+    &__track .progress-fill {
         height: 100%;
         background-color: var(--progress-default-bar-fill-color);
         border: var(--spacing-1) solid var(--progress-default-bar-border-color);

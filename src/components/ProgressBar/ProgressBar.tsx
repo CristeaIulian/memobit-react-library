@@ -10,9 +10,10 @@ interface ProgressBarProps {
     showPercentage?: boolean;
     striped?: boolean;
     animated?: boolean;
+    labelPosition?: 'inside' | 'above' | 'below';
 }
 
-export const ProgressBar = ({ label, state = 'default', value, showPercentage = true, striped = false, animated = false }: ProgressBarProps) => {
+export const ProgressBar = ({ label, state = 'default', value, showPercentage = true, striped = false, animated = false, labelPosition = 'inside' }: ProgressBarProps) => {
     const classNames = [
         'progress-fill',
         `progress-bar-${state}`,
@@ -26,9 +27,17 @@ export const ProgressBar = ({ label, state = 'default', value, showPercentage = 
 
     return (
         <div className="progress-bar">
-            <div className={classNames} style={{ width: `${value > 100 ? 100 : value}%` }}>
-                {displayText}
+            {labelPosition === 'above' && displayText && (
+                <div className="progress-bar__label">{displayText}</div>
+            )}
+            <div className="progress-bar__track">
+                <div className={classNames} style={{ width: `${value > 100 ? 100 : value}%` }}>
+                    {labelPosition === 'inside' && displayText}
+                </div>
             </div>
+            {labelPosition === 'below' && displayText && (
+                <div className="progress-bar__label">{displayText}</div>
+            )}
         </div>
     );
 };
