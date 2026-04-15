@@ -130,3 +130,4 @@ export { extractDomainFromUrl, stripQueryString } from './helpers/Urls';
 export { formatBigNumber, formatMoney } from './helpers/Format';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
+export { fuzzyMatch } from './helpers/Search';
