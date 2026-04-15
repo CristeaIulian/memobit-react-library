@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Rating } from '../../../src';
 
 export const RatingPage: React.FC = () => {
+    const [fullRating, setFullRating] = useState(6);
+    const [halfRating, setHalfRating] = useState(7);
+
     return (
         <div className="rating-page">
             <h1>Rating Component</h1>
@@ -73,9 +76,18 @@ export const RatingPage: React.FC = () => {
 
             <section className="page-section">
                 <h2>Selectable Rating</h2>
+
                 <div className="showcase-group">
+                    <h3>Full Stars</h3>
                     <div className="component-group">
-                        <Rating rating={8} maxRate={10} selectable onSelect={value => console.log('Rating clicked', value)} />
+                        <Rating rating={fullRating} maxRate={10} selectable onSelect={setFullRating} />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Half Stars</h3>
+                    <div className="component-group">
+                        <Rating rating={halfRating} useHalf selectable onSelect={setHalfRating} />
                     </div>
                 </div>
             </section>
