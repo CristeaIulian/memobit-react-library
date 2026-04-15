@@ -32,6 +32,11 @@ export const BadgePage: FC = () => {
                     <h3>Badge Sizes</h3>
                     <div className="component-group">
                         <div>
+                            <Badge variant="success" size="xsmall">
+                                Extra Small
+                            </Badge>
+                        </div>
+                        <div>
                             <Badge variant="success" size="small">
                                 Small
                             </Badge>
@@ -41,11 +46,21 @@ export const BadgePage: FC = () => {
                                 Medium
                             </Badge>
                         </div>
-                        <div>
-                            <Badge variant="success" size="large">
-                                Large
-                            </Badge>
-                        </div>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Dismissible Badges</h3>
+                    <div className="component-group">
+                        <Badge size="small" onClear={() => alert('Cleared!')}>
+                            Filter: Active
+                        </Badge>
+                        <Badge variant="info" size="small" onClear={() => alert('Cleared!')}>
+                            Category: Science
+                        </Badge>
+                        <Badge variant="warning" size="medium" onClear={() => alert('Cleared!')}>
+                            State: Reading
+                        </Badge>
                     </div>
                 </div>
             </section>

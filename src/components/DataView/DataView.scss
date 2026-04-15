@@ -67,7 +67,9 @@
     &__sort-icon {
         font-size: var(--font-size-xs);
         flex-shrink: 0;
-        transition: color var(--transition-fast), opacity var(--transition-fast);
+        transition:
+            color var(--transition-fast),
+            opacity var(--transition-fast);
 
         &--unsorted {
             color: var(--body-color-muted);
@@ -242,7 +244,7 @@
     &__card-title {
         font-weight: var(--font-weight-semibold);
         color: var(--body-color-accent);
-        font-size: var(--font-size-base);
+        font-size: var(--font-size-md);
         overflow-wrap: break-word;
         word-break: break-word;
     }
