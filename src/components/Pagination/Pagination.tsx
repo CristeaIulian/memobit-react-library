@@ -9,6 +9,7 @@ import './Pagination.scss';
 interface PaginationProps {
     currentPage: number;
     totalPages: number;
+    totalItems?: number;
     onPageChange: (page: number) => void;
     showPagesNumbers?: boolean;
     pageSizeOptions?: number[];
@@ -27,6 +28,7 @@ const GAP = 8;
 export const Pagination: FC<PaginationProps> = ({
     currentPage,
     totalPages,
+    totalItems,
     onPageChange,
     showPagesNumbers = false,
     pageSizeOptions,
@@ -101,6 +103,11 @@ export const Pagination: FC<PaginationProps> = ({
 
         return rangeWithDots;
     };
+
+    if (totalItems !== undefined && pageSizeOptions?.length) {
+        const minPageSize = Math.min(...pageSizeOptions);
+        if (totalItems <= minPageSize) return null;
+    }
 
     if (totalPages <= 1 && !showPageSize) return null;
 
