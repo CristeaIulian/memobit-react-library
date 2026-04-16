@@ -7,6 +7,7 @@ interface InputTextProps {
     autoFocus?: boolean;
     disabled?: boolean;
     error?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     maxLength?: number;
@@ -28,6 +29,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
             autoFocus,
             disabled,
             error,
+            highlighted,
             id,
             label,
             maxLength,
@@ -44,7 +46,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
         ref
     ) => {
         return (
-            <div className="input-text-wrapper">
+            <div className={`input-text-wrapper${highlighted ? ' input-text-highlighted' : ''}`}>
                 {label && (
                     <label htmlFor={id} className="input-text-label">
                         {label}

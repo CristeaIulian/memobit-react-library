@@ -26,6 +26,7 @@ export interface InputMaskProps {
     label?: string;
     hint?: string;
     error?: string;
+    highlighted?: boolean;
     size?: InputMaskSize;
     variant?: InputMaskVariant;
     disabled?: boolean;
@@ -126,6 +127,7 @@ export const InputMask = forwardRef<InputMaskHandle, InputMaskProps>(
             label,
             hint,
             error,
+            highlighted,
             size = 'md',
             variant = 'default',
             disabled = false,
@@ -173,6 +175,7 @@ export const InputMask = forwardRef<InputMaskHandle, InputMaskProps>(
             'input-mask',
             `input-mask--${size}`,
             `input-mask--${resolvedVariant}`,
+            highlighted ? 'input-mask--highlighted' : '',
             disabled ? 'input-mask--disabled' : '',
             readOnly ? 'input-mask--readonly' : '',
             mono ? 'input-mask--mono' : '',

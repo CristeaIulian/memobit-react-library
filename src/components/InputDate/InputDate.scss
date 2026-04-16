@@ -32,4 +32,10 @@
     .input-date-error-message {
         @include input-error-message;
     }
+
+    &.input-date-highlighted {
+        .input-date {
+            @include input-highlighted;
+        }
+    }
 }

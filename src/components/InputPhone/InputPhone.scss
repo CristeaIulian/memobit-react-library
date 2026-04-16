@@ -46,6 +46,10 @@
         }
     }
 
+    &--highlighted {
+        border-color: var(--form-control-focus-border-color);
+    }
+
     &--disabled {
         opacity: 0.5;
         cursor: not-allowed;

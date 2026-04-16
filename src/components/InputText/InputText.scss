@@ -20,6 +20,12 @@
         }
     }
 
+    &.input-text-highlighted {
+        .input-text {
+            @include input-highlighted;
+        }
+    }
+
     .input-text-error-message {
         @include input-error-message;
     }

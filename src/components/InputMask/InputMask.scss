@@ -158,6 +158,13 @@ $sizes: (
     }
 }
 
+// ── Highlighted ───────────────────────────────────────────────────────────────
+.input-mask--highlighted {
+    .input-mask__input {
+        border-color: var(--form-control-focus-border-color);
+    }
+}
+
 // ── Icon ──────────────────────────────────────────────────────────────────────
 .input-mask__icon {
     position: absolute;

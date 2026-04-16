@@ -32,4 +32,10 @@
     .input-time-error-message {
         @include input-error-message;
     }
+
+    &.input-time-highlighted {
+        .input-time {
+            @include input-highlighted;
+        }
+    }
 }

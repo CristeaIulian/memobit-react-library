@@ -7,6 +7,7 @@ interface InputDateProps {
     autoFocus?: boolean;
     disabled?: boolean;
     error?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     max?: string;
@@ -29,6 +30,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
             autoFocus,
             disabled,
             error,
+            highlighted,
             id,
             label,
             max,
@@ -46,7 +48,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
         ref
     ) => {
         return (
-            <div className="input-date-wrapper">
+            <div className={`input-date-wrapper${highlighted ? ' input-date-highlighted' : ''}`}>
                 {label && (
                     <label htmlFor={id} className="input-date-label">
                         {label}

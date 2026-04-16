@@ -143,6 +143,10 @@
     }
 }
 
+@mixin input-highlighted {
+    border-color: var(--form-control-focus-border-color);
+}
+
 @mixin input-error {
     border-color: var(--body-danger-color);
 

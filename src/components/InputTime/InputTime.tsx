@@ -6,6 +6,7 @@ interface InputTimeProps {
     autoFocus?: boolean;
     disabled?: boolean;
     error?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     max?: string;
@@ -26,6 +27,7 @@ export const InputTime = forwardRef<HTMLInputElement, InputTimeProps>(
             autoFocus,
             disabled,
             error,
+            highlighted,
             id,
             label,
             max,
@@ -42,7 +44,7 @@ export const InputTime = forwardRef<HTMLInputElement, InputTimeProps>(
         ref
     ) => {
         return (
-            <div className="input-time-wrapper">
+            <div className={`input-time-wrapper${highlighted ? ' input-time-highlighted' : ''}`}>
                 {label && (
                     <label htmlFor={id} className="input-time-label">
                         {label}

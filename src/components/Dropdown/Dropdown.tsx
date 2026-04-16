@@ -22,6 +22,7 @@ export interface DropdownProps {
     className?: string;
     disabled?: boolean;
     error?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     multiple?: boolean;
@@ -43,6 +44,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     className = '',
     disabled = false,
     error,
+    highlighted = false,
     id,
     label,
     multiple = false,
@@ -654,7 +656,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     return (
         <div
-            className={`dropdown-container ${error ? 'dropdown-error' : ''} ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${multiple ? `count-display-${selectedCountDisplay}` : ''} ${className}`}
+            className={`dropdown-container ${error ? 'dropdown-error' : ''} ${highlighted ? 'dropdown-highlighted' : ''} ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${multiple ? `count-display-${selectedCountDisplay}` : ''} ${className}`}
             ref={dropdownRef}
         >
             {label && (

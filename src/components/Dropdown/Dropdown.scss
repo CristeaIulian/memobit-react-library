@@ -129,6 +129,12 @@
         }
     }
 
+    &.dropdown-highlighted {
+        .dropdown-input-container input[type='text'] {
+            border-color: var(--form-control-focus-border-color);
+        }
+    }
+
     &.dropdown-error {
         border-color: var(--body-danger-color);
 

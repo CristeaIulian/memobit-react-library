@@ -41,6 +41,7 @@ interface InputPhoneProps {
     disabled?: boolean;
     error?: string;
     format?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
@@ -60,6 +61,7 @@ export const InputPhone = forwardRef<HTMLInputElement, InputPhoneProps>(
             disabled,
             error,
             format = DEFAULT_FORMAT,
+            highlighted,
             id,
             label,
             onBlur,
@@ -106,7 +108,7 @@ export const InputPhone = forwardRef<HTMLInputElement, InputPhoneProps>(
                         {required && <span className="input-phone-required">*</span>}
                     </label>
                 )}
-                <div className={`input-phone-field ${error ? 'input-phone-field--error' : ''} ${disabled ? 'input-phone-field--disabled' : ''}`}>
+                <div className={`input-phone-field ${error ? 'input-phone-field--error' : ''} ${highlighted ? 'input-phone-field--highlighted' : ''} ${disabled ? 'input-phone-field--disabled' : ''}`}>
                     <span className="input-phone-icon" aria-hidden="true">
                         {/* Simple phone handset SVG */}
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

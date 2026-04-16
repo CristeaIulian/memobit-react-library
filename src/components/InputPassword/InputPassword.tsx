@@ -7,6 +7,7 @@ interface InputPasswordProps {
     autoFocus?: boolean;
     disabled?: boolean;
     error?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     maxLength?: number;
@@ -28,6 +29,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
             autoFocus,
             disabled,
             error,
+            highlighted,
             id,
             label,
             maxLength,
@@ -44,7 +46,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
         ref
     ) => {
         return (
-            <div className="input-password-wrapper">
+            <div className={`input-password-wrapper${highlighted ? ' input-password-highlighted' : ''}`}>
                 {label && (
                     <label htmlFor={id} className="input-password-label">
                         {label}

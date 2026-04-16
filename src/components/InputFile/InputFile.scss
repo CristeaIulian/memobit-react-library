@@ -22,4 +22,10 @@
     .input-file-error-message {
         @include input-error-message;
     }
+
+    &.input-file-highlighted {
+        .input-file {
+            @include input-highlighted;
+        }
+    }
 }

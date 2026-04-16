@@ -38,4 +38,10 @@
         font-size: var(--font-size-sm);
         margin-top: calc(var(--spacing-4) * -1);
     }
+
+    &.input-email-highlighted {
+        .input-email {
+            @include input-highlighted;
+        }
+    }
 }

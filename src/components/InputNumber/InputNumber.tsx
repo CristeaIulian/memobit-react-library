@@ -7,6 +7,7 @@ interface InputNumberProps {
     autoFocus?: boolean;
     disabled?: boolean;
     error?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     max?: number;
@@ -21,9 +22,9 @@ interface InputNumberProps {
 }
 
 export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
-    ({ autoComplete = 'on', autoFocus, disabled, error, id, label, onChange, onClick, onKeyDown, required, value, min, max, placeholder, step }, ref) => {
+    ({ autoComplete = 'on', autoFocus, disabled, error, highlighted, id, label, onChange, onClick, onKeyDown, required, value, min, max, placeholder, step }, ref) => {
         return (
-            <div className="input-number-wrapper">
+            <div className={`input-number-wrapper${highlighted ? ' input-number-highlighted' : ''}`}>
                 {label && (
                     <label htmlFor={id} className="input-number-label">
                         {label}

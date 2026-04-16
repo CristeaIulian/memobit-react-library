@@ -17,6 +17,7 @@ interface InputUrlProps {
     autoFocus?: boolean;
     disabled?: boolean;
     error?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     maxLength?: number;
@@ -39,6 +40,7 @@ export const InputUrl = forwardRef<HTMLInputElement, InputUrlProps>(
             autoFocus,
             disabled,
             error,
+            highlighted,
             id,
             label,
             maxLength,
@@ -86,7 +88,7 @@ export const InputUrl = forwardRef<HTMLInputElement, InputUrlProps>(
         const displayedError = error ?? internalError;
 
         return (
-            <div className="input-url-wrapper">
+            <div className={`input-url-wrapper${highlighted ? ' input-url-highlighted' : ''}`}>
                 {label && (
                     <label htmlFor={id} className="input-url-label">
                         {label}

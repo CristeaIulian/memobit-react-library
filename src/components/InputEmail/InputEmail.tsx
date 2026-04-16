@@ -7,6 +7,7 @@ export interface InputEmailProps {
     autoFocus?: boolean;
     disabled?: boolean;
     error?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     maxLength?: number;
@@ -40,6 +41,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
             autoFocus,
             disabled,
             error = 'Please enter a valid email address',
+            highlighted,
             id,
             label,
             maxLength,
@@ -108,7 +110,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
         const showError = showValidation && isTouched && !isValid;
 
         return (
-            <div className="input-email-wrapper">
+            <div className={`input-email-wrapper${highlighted ? ' input-email-highlighted' : ''}`}>
                 {label && (
                     <label htmlFor={id} className="input-email-label">
                         {label}

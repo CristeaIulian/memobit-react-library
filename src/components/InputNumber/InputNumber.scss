@@ -15,6 +15,12 @@
         @include input-field;
     }
 
+    &.input-number-highlighted {
+        .input-number {
+            @include input-highlighted;
+        }
+    }
+
     &.input-number-error {
         @include input-error;
     }

@@ -6,6 +6,7 @@ interface InputFileProps {
     accept?: string;
     disabled?: boolean;
     error?: string;
+    highlighted?: boolean;
     id?: string;
     label?: string;
     onChange?: (value: FileList | null) => void;
@@ -17,9 +18,9 @@ interface InputFileProps {
 }
 
 export const InputFile = forwardRef<HTMLInputElement, InputFileProps>(
-    ({ accept, disabled, error, id, label, onChange, onClick, onKeyDown, placeholder, required, value }, ref) => {
+    ({ accept, disabled, error, highlighted, id, label, onChange, onClick, onKeyDown, placeholder, required, value }, ref) => {
         return (
-            <div className="input-file-wrapper">
+            <div className={`input-file-wrapper${highlighted ? ' input-file-highlighted' : ''}`}>
                 {label && (
                     <label htmlFor={id} className="input-file-label">
                         {label}
