@@ -15,6 +15,7 @@ interface CollapsibleSectionProps {
     toggleAccent?: boolean;
     toggleHighlight?: boolean;
     toggleMiddleIcon?: string;
+    toggleSize?: 'small' | 'medium';
     toggleSpaceBetween?: boolean;
     toggleSwap?: boolean;
     toggleVariant?: 'success' | 'info' | 'warning' | 'danger';
@@ -31,6 +32,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     toggleAccent,
     toggleHighlight,
     toggleMiddleIcon,
+    toggleSize,
     toggleSpaceBetween,
     toggleSwap,
     toggleVariant,
@@ -50,17 +52,33 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
         onToggle?.(newCollapsedState);
     };
 
+    const hasFullRowClick = !!rightDetails;
+
     return (
         <div className={`collapsible-section ${className} ${isCollapsed ? 'collapsible-section__collapsed' : ''}`}>
             {title && (
                 <div
-                    className={`collapsible-section__header ${toggleSpaceBetween ? 'collapsible-section__header--space-between' : ''} ${toggleSwap ? 'collapsible-section__header--swap' : ''} ${toggleHighlight ? 'collapsible-section__header--highlight' : ''} ${toggleAccent ? 'collapsible-section__header--accent' : ''} ${toggleVariant ? `collapsible-section__header--variant-${toggleVariant}` : ''}`}
-                    onClick={handleToggle}
+                    className={`collapsible-section__header ${!hasFullRowClick ? 'collapsible-section__header--inline' : ''} ${toggleSpaceBetween ? 'collapsible-section__header--space-between' : ''} ${toggleSwap ? 'collapsible-section__header--swap' : ''} ${toggleHighlight ? 'collapsible-section__header--highlight' : ''} ${toggleAccent ? 'collapsible-section__header--accent' : ''} ${toggleSize ? `collapsible-section__header--size-${toggleSize}` : ''} ${toggleVariant ? `collapsible-section__header--variant-${toggleVariant}` : ''}`}
+                    onClick={hasFullRowClick ? handleToggle : undefined}
                 >
-                    <div className="collapsible-section__label">{title}</div>
-                    {toggleMiddleIcon && <span>{toggleMiddleIcon}</span>}
-                    <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>{up}</span>
-                    {rightDetails && <span className="collapsible-section__right-details">{rightDetails}</span>}
+                    {hasFullRowClick ? (
+                        <>
+                            <div className="collapsible-section__label">{title}</div>
+                            {toggleMiddleIcon && <span>{toggleMiddleIcon}</span>}
+                            <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
+                                {up}
+                            </span>
+                            <span className="collapsible-section__right-details">{rightDetails}</span>
+                        </>
+                    ) : (
+                        <button type="button" className="collapsible-section__inline-toggle" onClick={handleToggle}>
+                            <span className="collapsible-section__label">{title}</span>
+                            {toggleMiddleIcon && <span>{toggleMiddleIcon}</span>}
+                            <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
+                                {up}
+                            </span>
+                        </button>
+                    )}
                 </div>
             )}
             <div className={`collapsible-section__content ${isCollapsed ? 'collapsible-section__content--collapsed' : ''}`}>{children}</div>
