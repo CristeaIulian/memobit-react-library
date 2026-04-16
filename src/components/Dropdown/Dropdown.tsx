@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 import { Button } from '../Button';
 import { InputText } from '../InputText';
-import { clearIcon, removeIcon, verticalCaret } from './icons';
+import { clearIcon, verticalCaret } from './icons';
 
 import './Dropdown.scss';
 
@@ -495,21 +495,45 @@ export const Dropdown: React.FC<DropdownProps> = ({
         return selectedOptions.some(selected => selected.value === option.value);
     };
 
+    const getMultiSelectDisplayText = (): string => {
+        if (selectedOptions.length === 0) {
+            return '';
+        }
+
+        const firstLabel = selectedOptions[0].label;
+
+        if (selectedOptions.length === 1) {
+            return firstLabel;
+        }
+
+        if (selectedOptions.length === 2) {
+            return `${firstLabel} (+1 other)`;
+        }
+
+        return `${firstLabel} (+${selectedOptions.length - 1} others)`;
+    };
+
     const getDisplayText = (): string => {
         if (searchable) {
             // If actively typing/filtering, show the filter text
             if (filterText) {
                 return filterText;
             }
-            // If not typing, show the selected value for single selection
-            if (!multiple && selectedOptions.length > 0) {
+            // If not typing, show the selected value
+            if (selectedOptions.length > 0) {
+                if (multiple) {
+                    return getMultiSelectDisplayText();
+                }
                 return selectedOptions[0].label;
             }
             return '';
         }
 
-        // For non-searchable single selection, show selected option
-        if (!multiple && selectedOptions.length > 0) {
+        // For non-searchable, show selected option(s)
+        if (selectedOptions.length > 0) {
+            if (multiple) {
+                return getMultiSelectDisplayText();
+            }
             return selectedOptions[0].label;
         }
 
@@ -517,13 +541,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const getPlaceholderText = (): string => {
-        // Don't show placeholder when items are selected
         if (selectedOptions.length > 0) {
-            // In multiple mode with inline display, show count
-            if (multiple && selectedCountDisplay === 'inline') {
-                return `${selectedOptions.length} selected`;
-            }
-            // For all other cases when something is selected, hide placeholder
             return '';
         }
         return placeholder;
@@ -646,22 +664,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
             )}
 
             <div className="dropdown-input-container">
-                {multiple && selectedOptions.length > 0 && (
-                    <div className="dropdown-selected-items">
-                        {selectedOptions.slice(0, 3).map((option, index) => (
-                            <div key={`dd-input-${uid}-${index}`} className="dropdown-selected-item">
-                                <span className="dropdown-selected-item-label">{option.label}</span>
-                                <span className="dropdown-selected-item-clear">
-                                    <Button variant="plain" onClick={() => handleRemoveSelectedOption(option)} disabled={disabled}>
-                                        {removeIcon}
-                                    </Button>
-                                </span>
-                            </div>
-                        ))}
-                        {selectedOptions.length > 3 && <div className="dropdown-more-indicator">+{selectedOptions.length - 3} more</div>}
-                    </div>
-                )}
-
                 <InputText
                     ref={inputRef}
                     id={inputId}
