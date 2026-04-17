@@ -4,13 +4,7 @@ import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { Checkbox } from '../Checkbox';
 import { EmptyState, type EmptyStateProps } from '../EmptyState';
 import { Pagination } from '../Pagination';
-import {
-    calculateTimelineMarkers,
-    TimelineMarkerDot,
-    type TimelineMarkerInfo,
-    type TimelineMarkersItem,
-    TimelineMobileSeparator,
-} from '../TimelineMarkers';
+import { calculateTimelineMarkers, TimelineMarkerDot, type TimelineMarkerInfo, type TimelineMarkersItem, TimelineMobileSeparator } from '../TimelineMarkers';
 
 import './DataView.scss';
 
@@ -133,7 +127,15 @@ function CardView<T>({
 
     if (data.length === 0) {
         if (empty) {
-            return <EmptyState title={empty.title} description={empty.description} icon={empty.icon} primaryAction={empty.primaryAction} secondaryAction={empty.secondaryAction} />;
+            return (
+                <EmptyState
+                    title={empty.title}
+                    description={empty.description}
+                    icon={empty.icon}
+                    primaryAction={empty.primaryAction}
+                    secondaryAction={empty.secondaryAction}
+                />
+            );
         }
         return <EmptyState title="No data available" />;
     }
@@ -154,29 +156,16 @@ function CardView<T>({
                         >
                             {selectable && onToggleSelect && (
                                 <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
-                                    <Checkbox
-                                        checked={isSelected || false}
-                                        onChange={checked => onToggleSelect(rowId, checked)}
-                                    />
+                                    <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
                                 </div>
                             )}
                             {card && (
                                 <div className="data-view__card-header">
                                     <div className="data-view__card-title-row">
-                                        <span className="data-view__card-title">
-                                            {card.title(row)}
-                                        </span>
-                                        {card.subtitle && (
-                                            <span className="data-view__card-subtitle">
-                                                {card.subtitle(row)}
-                                            </span>
-                                        )}
+                                        <span className="data-view__card-title">{card.title(row)}</span>
+                                        {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
                                     </div>
-                                    {card.badges && (
-                                        <div className="data-view__card-badges">
-                                            {card.badges(row)}
-                                        </div>
-                                    )}
+                                    {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
                                 </div>
                             )}
 
@@ -184,13 +173,9 @@ function CardView<T>({
                                 <div className="data-view__card-body">
                                     {cardColumns.map(col => (
                                         <div key={col.key} className="data-view__card-field">
-                                            <span className="data-view__card-label">
-                                                {col.header}
-                                            </span>
+                                            <span className="data-view__card-label">{col.header}</span>
                                             <span className="data-view__card-value">
-                                                {col.accessor
-                                                    ? col.accessor(row)
-                                                    : (row as Record<string, React.ReactNode>)[col.key]}
+                                                {col.accessor ? col.accessor(row) : (row as Record<string, React.ReactNode>)[col.key]}
                                             </span>
                                         </div>
                                     ))}
@@ -198,10 +183,7 @@ function CardView<T>({
                             )}
 
                             {actions && (
-                                <div
-                                    className="data-view__card-actions"
-                                    onClick={e => e.stopPropagation()}
-                                >
+                                <div className="data-view__card-actions" onClick={e => e.stopPropagation()}>
                                     {actions(row)}
                                 </div>
                             )}
@@ -241,12 +223,15 @@ export function DataView<T>({
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(initialPageSize);
     const [columnWidths, setColumnWidths] = useState<Record<string, number>>(() =>
-        columns.reduce((acc, column) => {
-            if (column.width) {
-                acc[column.key] = column.width;
-            }
-            return acc;
-        }, {} as Record<string, number>)
+        columns.reduce(
+            (acc, column) => {
+                if (column.width) {
+                    acc[column.key] = column.width;
+                }
+                return acc;
+            },
+            {} as Record<string, number>
+        )
     );
 
     const resolvedRowKey = (row: T, index: number) => rowKey?.(row, index) ?? index;
@@ -288,7 +273,7 @@ export function DataView<T>({
             date: timeline.dateAccessor(row),
         }));
         return calculateTimelineMarkers(items);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pagedData, timeline]);
 
     const updateSelection = (nextIds: Array<string | number>) => {
@@ -345,9 +330,7 @@ export function DataView<T>({
                             .filter(col => col.filter)
                             .map(col => (
                                 <div key={col.key} className="data-view__filter-bar-item">
-                                    {typeof col.header === 'string' && (
-                                        <span className="data-view__filter-bar-label">{col.header}</span>
-                                    )}
+                                    {typeof col.header === 'string' && <span className="data-view__filter-bar-label">{col.header}</span>}
                                     {col.filter}
                                 </div>
                             ))}
@@ -378,13 +361,18 @@ export function DataView<T>({
                 <Pagination
                     currentPage={safeCurrentPage}
                     totalPages={totalPages}
+                    totalItems={sortedData.length}
                     onPageChange={setCurrentPage}
                     pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
                     pageSize={showPageSize ? pageSize : undefined}
-                    onPageSizeChange={showPageSize ? (nextSize) => {
-                        setPageSize(nextSize);
-                        setCurrentPage(1);
-                    } : undefined}
+                    onPageSizeChange={
+                        showPageSize
+                            ? nextSize => {
+                                  setPageSize(nextSize);
+                                  setCurrentPage(1);
+                              }
+                            : undefined
+                    }
                 />
             </div>
         );
@@ -429,15 +417,7 @@ export function DataView<T>({
                                 >
                                     <span className="data-view__th-content">
                                         <span>{column.header}</span>
-                                        {column.sortable && (
-                                            <SortIcon
-                                                state={
-                                                    sortKey === column.key
-                                                        ? sortDirection
-                                                        : 'unsorted'
-                                                }
-                                            />
-                                        )}
+                                        {column.sortable && <SortIcon state={sortKey === column.key ? sortDirection : 'unsorted'} />}
                                     </span>
                                     <span
                                         className="data-view__resizer"
@@ -446,7 +426,11 @@ export function DataView<T>({
                                     />
                                 </th>
                             ))}
-                            {actions && <th className="data-view__actions-header" style={actionsWidth ? { width: actionsWidth } : undefined}>Actions</th>}
+                            {actions && (
+                                <th className="data-view__actions-header" style={actionsWidth ? { width: actionsWidth } : undefined}>
+                                    Actions
+                                </th>
+                            )}
                         </tr>
 
                         {/* ── Filter row (only when at least one column has a filter) ── */}
@@ -475,7 +459,13 @@ export function DataView<T>({
                                     className="data-view__empty"
                                 >
                                     {empty ? (
-                                        <EmptyState title={empty.title} description={empty.description} icon={empty.icon} primaryAction={empty.primaryAction} secondaryAction={empty.secondaryAction} />
+                                        <EmptyState
+                                            title={empty.title}
+                                            description={empty.description}
+                                            icon={empty.icon}
+                                            primaryAction={empty.primaryAction}
+                                            secondaryAction={empty.secondaryAction}
+                                        />
                                     ) : (
                                         <EmptyState title="No data available" />
                                     )}
@@ -492,11 +482,7 @@ export function DataView<T>({
                                         className={`${isSelected ? 'is-selected' : ''} ${onRowClick ? 'data-view__row--clickable' : ''} ${rowClassName?.(row) || ''}`}
                                         onClick={onRowClick ? () => onRowClick(row) : undefined}
                                     >
-                                        {showTimeline && (
-                                            <td className="data-view__timeline-cell">
-                                                {marker && <TimelineMarkerDot marker={marker} />}
-                                            </td>
-                                        )}
+                                        {showTimeline && <td className="data-view__timeline-cell">{marker && <TimelineMarkerDot marker={marker} />}</td>}
                                         {selectable && (
                                             <td className="data-view__checkbox">
                                                 <Checkbox
@@ -513,17 +499,12 @@ export function DataView<T>({
                                         )}
                                         {tableColumns.map(column => (
                                             <td key={column.key} style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}>
-                                                {column.accessor
-                                                    ? column.accessor(row)
-                                                    : (row as Record<string, React.ReactNode>)[column.key]}
+                                                {column.accessor ? column.accessor(row) : (row as Record<string, React.ReactNode>)[column.key]}
                                             </td>
                                         ))}
                                         {actions && (
                                             <td className="data-view__actions-cell" style={actionsWidth ? { width: actionsWidth } : undefined}>
-                                                <div
-                                                    className="data-view__table-actions"
-                                                    onClick={e => e.stopPropagation()}
-                                                >
+                                                <div className="data-view__table-actions" onClick={e => e.stopPropagation()}>
                                                     {actions(row)}
                                                 </div>
                                             </td>
@@ -539,13 +520,18 @@ export function DataView<T>({
             <Pagination
                 currentPage={safeCurrentPage}
                 totalPages={totalPages}
+                totalItems={sortedData.length}
                 onPageChange={setCurrentPage}
                 pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
                 pageSize={showPageSize ? pageSize : undefined}
-                onPageSizeChange={showPageSize ? (nextSize) => {
-                    setPageSize(nextSize);
-                    setCurrentPage(1);
-                } : undefined}
+                onPageSizeChange={
+                    showPageSize
+                        ? nextSize => {
+                              setPageSize(nextSize);
+                              setCurrentPage(1);
+                          }
+                        : undefined
+                }
             />
         </>
     );
