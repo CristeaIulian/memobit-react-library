@@ -409,10 +409,14 @@ export function DataView<T>({
                                     />
                                 </th>
                             )}
-                            {tableColumns.map(column => (
+                            {tableColumns.map(column => {
+                                const colStyle: React.CSSProperties = {};
+                                if (columnWidths[column.key]) colStyle.width = columnWidths[column.key];
+                                if (column.minWidth) colStyle.minWidth = column.minWidth;
+                                return (
                                 <th
                                     key={column.key}
-                                    style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}
+                                    style={Object.keys(colStyle).length > 0 ? colStyle : undefined}
                                     className={column.sortable ? 'is-sortable' : ''}
                                     onClick={() => toggleSort(column)}
                                 >
@@ -426,7 +430,8 @@ export function DataView<T>({
                                         onClick={event => event.stopPropagation()}
                                     />
                                 </th>
-                            ))}
+                                );
+                            })}
                             {actions && (
                                 <th className="data-view__actions-header" style={actionsWidth ? { width: actionsWidth } : undefined}>
                                     Actions
