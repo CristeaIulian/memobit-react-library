@@ -7,6 +7,7 @@ export { BMIHorizontalBarIndicator } from './components/BMIHorizontalBarIndicato
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
 export { Button } from './components/Button';
 export { Calendar, type CalendarProps, type CalendarMode, type CalendarDateRange } from './components/Calendar';
+export { CalendarHeatmap, type CalendarHeatmapProps, type CalendarHeatmapDataPoint } from './components/CalendarHeatmap';
 export { Card } from './components/Card';
 export { ChatBot } from './components/ChatBot';
 export { Checkbox } from './components/Checkbox';

@@ -12,6 +12,7 @@ import { BMIHorizontalBarIndicatorPage } from './pages/BMIHorizontalBarIndicator
 import { BreadcrumbPage } from './pages/BreadcrumbPage';
 import { ButtonPage } from './pages/ButtonPage';
 import { CalendarPage } from './pages/CalendarPage';
+import { CalendarHeatmapPage } from './pages/CalendarHeatmapPage';
 import { CardPage } from './pages/CardPage';
 import { ChatBotPage } from './pages/ChatBotPage';
 import { CheckboxPage } from './pages/CheckboxPage';
@@ -98,6 +99,7 @@ export const routes: RouteConfig[] = [
     { path: '/breadcrumb', label: 'Breadcrumb', component: BreadcrumbPage },
     { path: '/button', label: 'Button', component: ButtonPage },
     { path: '/calendar', label: 'Calendar', component: CalendarPage },
+    { path: '/calendar-heatmap', label: 'Calendar Heatmap', component: CalendarHeatmapPage },
     { path: '/card', label: 'Card', component: CardPage },
     { path: '/chatbot', label: 'ChatBot', component: ChatBotPage },
     { path: '/checkbox', label: 'Checkbox', component: CheckboxPage },
