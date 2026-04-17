@@ -35,6 +35,7 @@ export interface DataViewCardConfig<T> {
 export interface DataViewTimelineConfig<T> {
     dateAccessor: (row: T) => string;
     idAccessor: (row: T) => string | number;
+    granularity?: 'day' | 'month';
 }
 
 export interface DataViewEmptyConfig {
@@ -122,7 +123,7 @@ function CardView<T>({
             id: timeline.idAccessor(row),
             date: timeline.dateAccessor(row),
         }));
-        return calculateTimelineMarkers(items);
+        return calculateTimelineMarkers(items, timeline.granularity);
     }, [data, timeline]);
 
     if (data.length === 0) {
@@ -272,7 +273,7 @@ export function DataView<T>({
             id: timeline.idAccessor(row),
             date: timeline.dateAccessor(row),
         }));
-        return calculateTimelineMarkers(items);
+        return calculateTimelineMarkers(items, timeline.granularity);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pagedData, timeline]);
 

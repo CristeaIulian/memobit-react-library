@@ -28,16 +28,27 @@ const parseLocalDate = (dateString: string): Date => {
     return new Date(year, month - 1, day);
 };
 
-const formatTimelineDate = (date: Date): string =>
-    date.toLocaleDateString('en-US', { day: '2-digit', month: 'short' });
+const formatTimelineDate = (date: Date, granularity: 'day' | 'month'): string => {
+    if (granularity === 'month') {
+        return date.toLocaleDateString('en-US', { month: 'long' });
+    }
+    return date.toLocaleDateString('en-US', { day: '2-digit', month: 'short' });
+};
 
-const getDateKey = (date: Date): string =>
-    `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+const getDateKey = (date: Date, granularity: 'day' | 'month'): string => {
+    if (granularity === 'month') {
+        return `${date.getFullYear()}-${date.getMonth()}`;
+    }
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+};
 
 const getYearKey = (date: Date): string =>
     date.getFullYear().toString();
 
-export const calculateTimelineMarkers = <T extends TimelineMarkersItem>(items: T[]): Map<number, TimelineMarkerInfo> => {
+export const calculateTimelineMarkers = <T extends TimelineMarkersItem>(
+    items: T[],
+    granularity: 'day' | 'month' = 'day',
+): Map<number, TimelineMarkerInfo> => {
     const markers = new Map<number, TimelineMarkerInfo>();
     let lastYear: string | null = null;
     let lastDate: string | null = null;
@@ -45,7 +56,7 @@ export const calculateTimelineMarkers = <T extends TimelineMarkersItem>(items: T
     items.forEach((item, index) => {
         const date = parseLocalDate(item.date);
         const yearKey = getYearKey(date);
-        const dateKey = getDateKey(date);
+        const dateKey = getDateKey(date, granularity);
 
         const showYear = yearKey !== lastYear;
         const showDate = dateKey !== lastDate;
@@ -54,7 +65,7 @@ export const calculateTimelineMarkers = <T extends TimelineMarkersItem>(items: T
             showYear,
             showDate,
             yearLabel: showYear ? date.getFullYear().toString() : '',
-            dateLabel: showDate ? formatTimelineDate(date) : '',
+            dateLabel: showDate ? formatTimelineDate(date, granularity) : '',
         });
 
         lastYear = yearKey;
