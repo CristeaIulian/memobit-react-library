@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { InfiniteScroll, ScrollInfo } from '../../../src';
+import { InfiniteScroll, ScrollInfo, Tooltip } from '../../../src';
 
 // ─── Fake data generator ──────────────────────────────────────────────────────
 
@@ -125,9 +125,11 @@ export const InfiniteScrollPage: React.FC = () => {
                         ) : (
                             <p>Start scrolling...</p>
                         )}
-                        <div className="infinite-scroll-progress-bar" title={`${scrollInfo?.scrollPercent ?? 0}% scrolled`}>
-                            <div className="infinite-scroll-progress-bar__fill" style={{ height: `${scrollInfo?.scrollPercent ?? 0}%` }} />
-                        </div>
+                        <Tooltip title={`${scrollInfo?.scrollPercent ?? 0}% scrolled`}>
+                            <div className="infinite-scroll-progress-bar">
+                                <div className="infinite-scroll-progress-bar__fill" style={{ height: `${scrollInfo?.scrollPercent ?? 0}%` }} />
+                            </div>
+                        </Tooltip>
                     </div>
                 </div>
             </section>

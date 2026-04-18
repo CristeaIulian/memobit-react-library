@@ -5,6 +5,7 @@ import { htmlToMarkdown } from '../../helpers/HtmlContent';
 import { ADVANCED_BUTTONS, DEFAULT_TABLE_HTML, HEADING_LEVELS, HISTORY_BUTTONS, makeTableRow, TOOLBAR_BUTTONS } from './helpers';
 
 import './RichTextEditor.scss';
+import { Tooltip } from '../Tooltip';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -516,19 +517,19 @@ export const RichTextEditor = ({
                     {/* Undo / Redo */}
                     <div className="rte-toolbar-group">
                         {HISTORY_BUTTONS.map(btn => (
-                            <button
-                                key={btn.command}
-                                type="button"
-                                className="rte-toolbar-btn"
-                                title={btn.title}
-                                onMouseDown={e => {
-                                    e.preventDefault();
-                                    if (btn.command === 'undo') undo();
-                                    else redo();
-                                }}
-                            >
-                                {btn.label}
-                            </button>
+                            <Tooltip title={btn.title} key={btn.command}>
+                                <button
+                                    type="button"
+                                    className="rte-toolbar-btn"
+                                    onMouseDown={e => {
+                                        e.preventDefault();
+                                        if (btn.command === 'undo') undo();
+                                        else redo();
+                                    }}
+                                >
+                                    {btn.label}
+                                </button>
+                            </Tooltip>
                         ))}
                     </div>
 
@@ -537,32 +538,33 @@ export const RichTextEditor = ({
                     {/* Basic formatting */}
                     <div className="rte-toolbar-group">
                         {TOOLBAR_BUTTONS.map(btn => (
-                            <button
-                                key={btn.command}
-                                type="button"
-                                className={`rte-toolbar-btn ${isActive(btn.command) ? 'rte-toolbar-btn--active' : ''}`}
-                                title={btn.title}
-                                onMouseDown={e => {
-                                    e.preventDefault();
-                                    exec(btn.command, btn.value);
-                                }}
-                            >
-                                {btn.label}
-                            </button>
+                            <Tooltip title={btn.title} key={btn.command}>
+                                <button
+                                    type="button"
+                                    className={`rte-toolbar-btn ${isActive(btn.command) ? 'rte-toolbar-btn--active' : ''}`}
+                                    onMouseDown={e => {
+                                        e.preventDefault();
+                                        exec(btn.command, btn.value);
+                                    }}
+                                >
+                                    {btn.label}
+                                </button>
+                            </Tooltip>
                         ))}
 
                         {/* Task list */}
-                        <button
-                            type="button"
-                            className="rte-toolbar-btn"
-                            title="Task List"
-                            onMouseDown={e => {
-                                e.preventDefault();
-                                insertTaskList();
-                            }}
-                        >
-                            ☑ List
-                        </button>
+                        <Tooltip title="Task List">
+                            <button
+                                type="button"
+                                className="rte-toolbar-btn"
+                                onMouseDown={e => {
+                                    e.preventDefault();
+                                    insertTaskList();
+                                }}
+                            >
+                                ☑ List
+                            </button>
+                        </Tooltip>
                     </div>
 
                     <div className="rte-toolbar-divider" />
@@ -570,18 +572,18 @@ export const RichTextEditor = ({
                     {/* Headings */}
                     <div className="rte-toolbar-group">
                         {HEADING_LEVELS.map(level => (
-                            <button
-                                key={level}
-                                type="button"
-                                className={`rte-toolbar-btn rte-toolbar-btn--heading ${isActive(`h${level}`) ? 'rte-toolbar-btn--active' : ''}`}
-                                title={`Heading ${level}`}
-                                onMouseDown={e => {
-                                    e.preventDefault();
-                                    applyHeading(level);
-                                }}
-                            >
-                                H{level}
-                            </button>
+                            <Tooltip title={`Heading ${level}`} key={level}>
+                                <button
+                                    type="button"
+                                    className={`rte-toolbar-btn rte-toolbar-btn--heading ${isActive(`h${level}`) ? 'rte-toolbar-btn--active' : ''}`}
+                                    onMouseDown={e => {
+                                        e.preventDefault();
+                                        applyHeading(level);
+                                    }}
+                                >
+                                    H{level}
+                                </button>
+                            </Tooltip>
                         ))}
                     </div>
 
@@ -589,17 +591,18 @@ export const RichTextEditor = ({
 
                     {/* Link */}
                     <div className="rte-toolbar-group">
-                        <button
-                            type="button"
-                            className="rte-toolbar-btn"
-                            title="Insert Link"
-                            onMouseDown={e => {
-                                e.preventDefault();
-                                openLinkPrompt();
-                            }}
-                        >
-                            🔗 Link
-                        </button>
+                        <Tooltip title="Insert Link">
+                            <button
+                                type="button"
+                                className="rte-toolbar-btn"
+                                onMouseDown={e => {
+                                    e.preventDefault();
+                                    openLinkPrompt();
+                                }}
+                            >
+                                🔗 Link
+                            </button>
+                        </Tooltip>
                     </div>
 
                     {/* Advanced */}
@@ -608,30 +611,31 @@ export const RichTextEditor = ({
                             <div className="rte-toolbar-divider" />
                             <div className="rte-toolbar-group">
                                 {ADVANCED_BUTTONS.map(btn => (
+                                    <Tooltip title={btn.title} key={btn.command + (btn.value ?? '')}>
+                                        <button
+                                            type="button"
+                                            className={`rte-toolbar-btn ${isActive(btn.value ?? btn.command) ? 'rte-toolbar-btn--active' : ''}`}
+                                            onMouseDown={e => {
+                                                e.preventDefault();
+                                                exec(btn.command, btn.value);
+                                            }}
+                                        >
+                                            {btn.label}
+                                        </button>
+                                    </Tooltip>
+                                ))}
+                                <Tooltip title="Insert Table">
                                     <button
-                                        key={btn.command + (btn.value ?? '')}
                                         type="button"
-                                        className={`rte-toolbar-btn ${isActive(btn.value ?? btn.command) ? 'rte-toolbar-btn--active' : ''}`}
-                                        title={btn.title}
+                                        className="rte-toolbar-btn"
                                         onMouseDown={e => {
                                             e.preventDefault();
-                                            exec(btn.command, btn.value);
+                                            insertTable();
                                         }}
                                     >
-                                        {btn.label}
+                                        Table
                                     </button>
-                                ))}
-                                <button
-                                    type="button"
-                                    className="rte-toolbar-btn"
-                                    title="Insert Table"
-                                    onMouseDown={e => {
-                                        e.preventDefault();
-                                        insertTable();
-                                    }}
-                                >
-                                    Table
-                                </button>
+                                </Tooltip>
                             </div>
                         </>
                     )}
@@ -679,38 +683,47 @@ export const RichTextEditor = ({
                         onMouseDown={e => e.preventDefault()}
                     >
                         <div className="rte-table-toolbar-group">
-                            <button type="button" className="rte-table-toolbar-btn" title="Add row above" onClick={addRowAbove}>
-                                ↑ Row
-                            </button>
-                            <button type="button" className="rte-table-toolbar-btn" title="Add row below" onClick={addRowBelow}>
-                                ↓ Row
-                            </button>
-                            <button type="button" className="rte-table-toolbar-btn rte-table-toolbar-btn--danger" title="Remove last row" onClick={removeRow}>
-                                − Row
-                            </button>
+                            <Tooltip title="Add row above">
+                                <button type="button" className="rte-table-toolbar-btn" onClick={addRowAbove}>
+                                    ↑ Row
+                                </button>
+                            </Tooltip>
+                            <Tooltip title="Add row below">
+                                <button type="button" className="rte-table-toolbar-btn" onClick={addRowBelow}>
+                                    ↓ Row
+                                </button>
+                            </Tooltip>
+                            <Tooltip title="Remove last row">
+                                <button type="button" className="rte-table-toolbar-btn rte-table-toolbar-btn--danger" onClick={removeRow}>
+                                    − Row
+                                </button>
+                            </Tooltip>
                         </div>
                         <div className="rte-table-toolbar-divider" />
                         <div className="rte-table-toolbar-group">
-                            <button type="button" className="rte-table-toolbar-btn" title="Add column left" onClick={addColumnLeft}>
-                                ← Col
-                            </button>
-                            <button type="button" className="rte-table-toolbar-btn" title="Add column right" onClick={addColumnRight}>
-                                → Col
-                            </button>
-                            <button
-                                type="button"
-                                className="rte-table-toolbar-btn rte-table-toolbar-btn--danger"
-                                title="Remove last column"
-                                onClick={removeColumn}
-                            >
-                                − Col
-                            </button>
+                            <Tooltip title="Add column left">
+                                <button type="button" className="rte-table-toolbar-btn" onClick={addColumnLeft}>
+                                    ← Col
+                                </button>
+                            </Tooltip>
+                            <Tooltip title="Add column right">
+                                <button type="button" className="rte-table-toolbar-btn" onClick={addColumnRight}>
+                                    → Col
+                                </button>
+                            </Tooltip>
+                            <Tooltip title="Remove last column">
+                                <button type="button" className="rte-table-toolbar-btn rte-table-toolbar-btn--danger" onClick={removeColumn}>
+                                    − Col
+                                </button>
+                            </Tooltip>
                         </div>
                         <div className="rte-table-toolbar-divider" />
                         <div className="rte-table-toolbar-group">
-                            <button type="button" className="rte-table-toolbar-btn rte-table-toolbar-btn--danger" title="Delete table" onClick={deleteTable}>
-                                ✕ Table
-                            </button>
+                            <Tooltip title="Delete table">
+                                <button type="button" className="rte-table-toolbar-btn rte-table-toolbar-btn--danger" onClick={deleteTable}>
+                                    ✕ Table
+                                </button>
+                            </Tooltip>
                         </div>
                     </div>
                 )}

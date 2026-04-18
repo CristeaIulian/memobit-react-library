@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './Flag.scss';
+import { Tooltip } from '../Tooltip';
 
 interface FlagsProps {
     code: string;
@@ -12,9 +13,9 @@ export const Flag: React.FC<FlagsProps> = ({ code, size = 'md', className = '' }
     // Fallback for unsupported country codes
     if (!code) {
         return (
-            <div className={`flags flags--fallback flags--${size} ${className}`} title={`Unsupported country code: ${code}`}>
-                ?
-            </div>
+            <Tooltip title={`Unsupported country code: ${code}`}>
+                <div className={`flags flags--fallback flags--${size} ${className}`}>?</div>
+            </Tooltip>
         );
     }
 
@@ -24,20 +25,21 @@ export const Flag: React.FC<FlagsProps> = ({ code, size = 'md', className = '' }
     return (
         <picture className={`flag flag--${size} ${className}`}>
             <source srcSet={flagUrlWebp} type="image/webp" />
-            <img
-                src={flagUrl}
-                alt={`${code.toUpperCase()} flag`}
-                title={`Country: ${code.toUpperCase()}`}
-                loading="lazy"
-                onError={e => {
-                    // Fallback to PNG if WebP fails
-                    const target = e.target as HTMLImageElement;
+            <Tooltip title={`Country: ${code.toUpperCase()}`}>
+                <img
+                    src={flagUrl}
+                    alt={`${code.toUpperCase()} flag`}
+                    loading="lazy"
+                    onError={e => {
+                        // Fallback to PNG if WebP fails
+                        const target = e.target as HTMLImageElement;
 
-                    if (target.src !== flagUrl) {
-                        target.src = flagUrl;
-                    }
-                }}
-            />
+                        if (target.src !== flagUrl) {
+                            target.src = flagUrl;
+                        }
+                    }}
+                />
+            </Tooltip>
         </picture>
     );
 };

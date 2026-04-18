@@ -15,9 +15,7 @@ export const ScrollToTop: FC<ScrollToTopProps> = ({ scrollContainer, scrollThres
         const target = scrollContainer ?? window;
 
         const handleScroll = () => {
-            const scrollY = scrollContainer
-                ? scrollContainer.scrollTop
-                : window.scrollY;
+            const scrollY = scrollContainer ? scrollContainer.scrollTop : window.scrollY;
             setVisible(scrollY > scrollThreshold);
         };
 

@@ -4,6 +4,7 @@ import { format2Digits } from '../../helpers/Numbers';
 import { Button } from '../Button';
 
 import './SuggestionsList.scss';
+import { Tooltip } from '../Tooltip';
 
 export interface SuggestionsListElement {
     name: string;
@@ -38,7 +39,9 @@ export const SuggestionsList = ({ data, label, title, tooltip }: SuggestionsList
     const suggestionListContent = useMemo(
         () => (
             <fieldset className="fieldset-suggestions-list">
-                <legend title={tooltip}>{title || 'Suggestions'}</legend>
+                <Tooltip title={tooltip}>
+                    <legend>{title || 'Suggestions'}</legend>
+                </Tooltip>
                 {slicedData.map((el, index) => {
                     return (
                         <div className="fieldset-suggestions-list-row" key={`fieldset-suggestions-list-row-${index}`}>
