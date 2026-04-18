@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
 import { InputText } from '../InputText';
+import { EMOJI_KEYWORDS } from './emojiKeywords';
 
 import './EmojiPicker.scss';
 
@@ -129,7 +130,11 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ value, onChange }) => 
         if (!search.trim()) return null;
         const term = search.toLowerCase();
         return CATEGORIES.flatMap(cat =>
-            cat.emojis.filter(emoji => emoji.includes(term) || cat.name.toLowerCase().includes(term))
+            cat.emojis.filter(emoji => {
+                const keywords = EMOJI_KEYWORDS[emoji];
+                return keywords?.some(kw => kw.includes(term)) ||
+                    cat.name.toLowerCase().includes(term);
+            })
         );
     }, [search]);
 
