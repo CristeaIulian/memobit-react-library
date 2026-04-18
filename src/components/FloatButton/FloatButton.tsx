@@ -21,7 +21,7 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
     if (actions.length === 1) {
         return (
             <div className="float-button-container">
-                <Tooltip content={actions[0].label} position="left">
+                <Tooltip title={actions[0].label} position="left">
                     <button className="float-button" onClick={actions[0].onClick} aria-label={actions[0].label}>
                         <span className="float-button__icon">{actions[0].icon}</span>
                     </button>

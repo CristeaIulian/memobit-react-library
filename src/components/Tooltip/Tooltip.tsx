@@ -6,7 +6,7 @@ import './Tooltip.scss';
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 
 interface TooltipProps {
-    content: React.ReactNode;
+    title: React.ReactNode;
     position?: TooltipPosition;
     delay?: number;
     children: React.ReactNode;
@@ -14,7 +14,7 @@ interface TooltipProps {
     className?: string;
 }
 
-export const Tooltip: React.FC<TooltipProps> = ({ content, position = 'top', delay = 200, children, disabled = false, className = '' }) => {
+export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay = 200, children, disabled = false, className = '' }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -123,7 +123,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, position = 'top', del
                         }}
                         role="tooltip"
                     >
-                        {content}
+                        {title}
                         <div className={`tooltip__arrow tooltip__arrow--${position}`} />
                     </div>,
                     document.body
