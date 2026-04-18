@@ -14,11 +14,12 @@ interface InputFileProps {
     onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
     placeholder?: string;
     required?: boolean;
+    success?: string;
     value?: string;
 }
 
 export const InputFile = forwardRef<HTMLInputElement, InputFileProps>(
-    ({ accept, disabled, error, highlighted, id, label, onChange, onClick, onKeyDown, placeholder, required, value }, ref) => {
+    ({ accept, disabled, error, highlighted, id, label, onChange, onClick, onKeyDown, placeholder, required, success, value }, ref) => {
         return (
             <div className={`input-file-wrapper${highlighted ? ' input-file-highlighted' : ''}`}>
                 {label && (
@@ -31,7 +32,7 @@ export const InputFile = forwardRef<HTMLInputElement, InputFileProps>(
                     accept={accept}
                     disabled={disabled}
                     type="file"
-                    className="input-file"
+                    className={`input-file${error ? ' input-file-error' : ''}${success ? ' input-file-success' : ''}`}
                     id={id}
                     placeholder={placeholder}
                     ref={ref}
@@ -41,6 +42,7 @@ export const InputFile = forwardRef<HTMLInputElement, InputFileProps>(
                     onKeyDown={onKeyDown}
                 />
                 {error && <span className="input-file-error-message">{error}</span>}
+                {success && <span className="input-file-success-message">{success}</span>}
             </div>
         );
     }

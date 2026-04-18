@@ -19,6 +19,7 @@ interface InputDateProps {
     onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
     readOnly?: boolean;
     required?: boolean;
+    success?: string;
     type?: 'datetime' | 'date';
     value?: string;
 }
@@ -42,6 +43,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
             onKeyUp,
             readOnly = false,
             required = false,
+            success,
             type = 'date',
             value,
         },
@@ -60,7 +62,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
                     autoFocus={autoFocus}
                     disabled={disabled}
                     type={type === 'date' ? 'date' : 'datetime-local'}
-                    className="input-date"
+                    className={`input-date${error ? ' input-date-error' : ''}${success ? ' input-date-success' : ''}`}
                     id={id}
                     max={max}
                     min={min}
@@ -75,6 +77,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
                     required={required}
                 />
                 {error && <span className="input-date-error-message">{error}</span>}
+                {success && <span className="input-date-success-message">{success}</span>}
             </div>
         );
     }

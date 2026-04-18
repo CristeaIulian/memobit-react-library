@@ -30,6 +30,7 @@ interface InputUrlProps {
     placeholder?: string;
     readOnly?: boolean;
     required?: boolean;
+    success?: string;
     validationErrorMessage?: string;
     value?: string;
 }
@@ -53,6 +54,7 @@ export const InputUrl = forwardRef<HTMLInputElement, InputUrlProps>(
             placeholder = 'https://...',
             readOnly = false,
             required = false,
+            success,
             validationErrorMessage,
             value,
         },
@@ -99,7 +101,7 @@ export const InputUrl = forwardRef<HTMLInputElement, InputUrlProps>(
                     autoFocus={autoFocus}
                     disabled={disabled}
                     type="url"
-                    className={`input-url ${displayedError ? 'input-url-error' : ''}`}
+                    className={`input-url${displayedError ? ' input-url-error' : ''}${success ? ' input-url-success' : ''}`}
                     id={id}
                     maxLength={maxLength}
                     placeholder={placeholder}
@@ -114,6 +116,7 @@ export const InputUrl = forwardRef<HTMLInputElement, InputUrlProps>(
                     required={required}
                 />
                 {displayedError && <span className="input-url-error-message">{displayedError}</span>}
+                {success && <span className="input-url-success-message">{success}</span>}
             </div>
         );
     }

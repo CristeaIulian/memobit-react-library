@@ -5,6 +5,8 @@ import { InputTime } from '../../../src';
 export const InputTimePage: React.FC = () => {
     const [timeValue, setTimeValue] = useState<string>('09:00');
     const [boundedTime, setBoundedTime] = useState<string>('12:30');
+    const [emptyTime, setEmptyTime] = useState<string>('');
+    const [validTime, setValidTime] = useState<string>('14:30');
 
     return (
         <div className="component-page">
@@ -21,6 +23,35 @@ export const InputTimePage: React.FC = () => {
                             label="Start time"
                             value={timeValue}
                             onChange={value => setTimeValue(value ?? '')}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Validation States</h2>
+                <div className="showcase-group">
+                    <h3>Error State</h3>
+                    <div className="component-group">
+                        <InputTime
+                            id="error-time"
+                            label="Appointment time"
+                            required
+                            value={emptyTime}
+                            onChange={value => setEmptyTime(value ?? '')}
+                            error={!emptyTime ? 'Please select a time' : undefined}
+                        />
+                    </div>
+                </div>
+                <div className="showcase-group">
+                    <h3>Success State</h3>
+                    <div className="component-group">
+                        <InputTime
+                            id="success-time"
+                            label="Appointment time"
+                            value={validTime}
+                            onChange={value => setValidTime(value ?? '')}
+                            success="Time slot is available"
                         />
                     </div>
                 </div>

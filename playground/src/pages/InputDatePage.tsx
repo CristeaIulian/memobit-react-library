@@ -6,8 +6,10 @@ export const InputDatePage: React.FC = () => {
     const [dateValue, setDateValue] = useState<string>('2026-02-20');
     const [dateTimeValue, setDateTimeValue] = useState<string>('2026-02-20T09:30');
     const [boundedDate, setBoundedDate] = useState<string>('2026-02-20');
+    const [emptyDate, setEmptyDate] = useState<string>('');
+    const [validDate, setValidDate] = useState<string>('2026-02-25');
 
-    const errorMessage = dateValue ? '' : 'Please select a date';
+    const errorMessage = emptyDate ? '' : 'Please select a date';
 
     return (
         <div className="component-page">
@@ -24,8 +26,6 @@ export const InputDatePage: React.FC = () => {
                             label="Start date"
                             value={dateValue}
                             onChange={value => setDateValue(value ?? '')}
-                            required
-                            error={errorMessage}
                         />
                     </div>
                 </div>
@@ -39,6 +39,35 @@ export const InputDatePage: React.FC = () => {
                             type="datetime"
                             value={dateTimeValue}
                             onChange={value => setDateTimeValue(value ?? '')}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Validation States</h2>
+                <div className="showcase-group">
+                    <h3>Error State</h3>
+                    <div className="component-group">
+                        <InputDate
+                            id="error-date"
+                            label="Start date"
+                            value={emptyDate}
+                            onChange={value => setEmptyDate(value ?? '')}
+                            required
+                            error={errorMessage}
+                        />
+                    </div>
+                </div>
+                <div className="showcase-group">
+                    <h3>Success State</h3>
+                    <div className="component-group">
+                        <InputDate
+                            id="success-date"
+                            label="Start date"
+                            value={validDate}
+                            onChange={value => setValidDate(value ?? '')}
+                            success="Date is available"
                         />
                     </div>
                 </div>

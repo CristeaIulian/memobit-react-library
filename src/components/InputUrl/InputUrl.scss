@@ -18,10 +18,18 @@
         &.input-url-error {
             @include input-error;
         }
+
+        &.input-url-success {
+            @include input-success;
+        }
     }
 
     .input-url-error-message {
         @include input-error-message;
+    }
+
+    .input-url-success-message {
+        @include input-success-message;
     }
 
     &.input-url-highlighted {

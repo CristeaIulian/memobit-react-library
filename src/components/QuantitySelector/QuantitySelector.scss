@@ -1,0 +1,130 @@
+@use '../../styles/utilities' as *;
+
+.quantity-selector-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+
+    .quantity-selector-label {
+        @include input-label;
+
+        .quantity-selector-required {
+            @include input-required;
+        }
+    }
+
+    .quantity-selector {
+        display: inline-flex;
+        align-items: stretch;
+        border: var(--spacing-1) solid var(--form-control-border-color);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        background-color: var(--form-control-background-color);
+        cursor: default;
+
+        &.quantity-selector-readonly {
+            .quantity-selector-input {
+                pointer-events: none;
+            }
+        }
+
+        &.quantity-selector-error {
+            background-color: var(--form-control-error-background-color);
+            border-color: var(--form-control-error-border-color);
+
+            .input-number {
+                color: var(--form-control-error-color);
+            }
+        }
+
+        &.quantity-selector-success {
+            background-color: var(--form-control-success-background-color);
+            border-color: var(--form-control-success-border-color);
+
+            .input-number {
+                color: var(--form-control-success-color);
+            }
+        }
+
+        .quantity-selector-input {
+            display: flex;
+            align-items: stretch;
+            width: calc(var(--digits, 3) * 1ch + var(--spacing-32));
+
+            .input-number-wrapper {
+                flex: 1;
+                display: flex;
+
+                .input-number {
+                    flex: 1;
+                    text-align: center;
+                    border: none;
+                    background: transparent;
+                    padding: var(--spacing-8) var(--spacing-4);
+                    font-size: var(--font-size-sm);
+
+                    &:focus {
+                        outline: none;
+                    }
+
+                    // Hide the default number input arrows
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+
+                    // Firefox
+                    &[type='number'] {
+                        -moz-appearance: textfield;
+                        appearance: textfield;
+                    }
+                }
+            }
+        }
+
+        .quantity-selector-button {
+            flex-shrink: 0;
+            width: var(--spacing-32);
+            min-width: var(--spacing-32);
+            padding: 0;
+            justify-content: center;
+            border: none;
+            border-radius: 0;
+            background-color: var(--button-default-background-color);
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-bold);
+
+            &:not([disabled]) {
+                &:hover {
+                    transform: none;
+                    background-color: var(--button-default-hover-background-color);
+                }
+            }
+
+            &:active {
+                transform: none;
+            }
+
+            &.quantity-selector-button-decrease {
+                border-right: var(--spacing-1) solid var(--form-control-border-color);
+            }
+
+            &.quantity-selector-button-increase {
+                border-left: var(--spacing-1) solid var(--form-control-border-color);
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .quantity-selector-error-message {
+        @include input-error-message;
+    }
+
+    .quantity-selector-success-message {
+        @include input-success-message;
+    }
+}

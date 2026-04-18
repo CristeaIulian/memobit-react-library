@@ -6,6 +6,10 @@ export const InputPhonePage: React.FC = () => {
     const [phoneValue, setPhoneValue] = useState<string>('');
     const [phoneDigits, setPhoneDigits] = useState<string>('');
     const [customPhone, setCustomPhone] = useState<string>('');
+    const [requiredPhone, setRequiredPhone] = useState<string>('');
+    const [requiredDigits, setRequiredDigits] = useState<string>('');
+    const [validPhone, setValidPhone] = useState<string>('+1 (555) 123-4567');
+    const [validDigits, setValidDigits] = useState<string>('15551234567');
 
     return (
         <div className="component-page">
@@ -29,6 +33,41 @@ export const InputPhonePage: React.FC = () => {
                     </div>
                     <p>Formatted: {phoneValue || '(empty)'}</p>
                     <p>Digits: {phoneDigits || '(none)'}</p>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Validation States</h2>
+                <div className="showcase-group">
+                    <h3>Error State</h3>
+                    <div className="component-group">
+                        <InputPhone
+                            id="phone-required"
+                            label="Contact number"
+                            required
+                            value={requiredPhone}
+                            onChange={(formatted, digits) => {
+                                setRequiredPhone(formatted);
+                                setRequiredDigits(digits);
+                            }}
+                            error={!requiredDigits ? 'Phone number is required' : undefined}
+                        />
+                    </div>
+                </div>
+                <div className="showcase-group">
+                    <h3>Success State</h3>
+                    <div className="component-group">
+                        <InputPhone
+                            id="phone-valid"
+                            label="Contact number"
+                            value={validPhone}
+                            onChange={(formatted, digits) => {
+                                setValidPhone(formatted);
+                                setValidDigits(digits);
+                            }}
+                            success="Valid phone number"
+                        />
+                    </div>
                 </div>
             </section>
 

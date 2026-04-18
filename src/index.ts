@@ -60,6 +60,7 @@ export { ProgressBar } from './components/ProgressBar';
 export { QuickAdd } from './components/QuickAdd';
 export { QuickNumberUpdate } from './components/QuickNumberUpdate';
 export { QuickOptionUpdate } from './components/QuickOptionUpdate';
+export { QuantitySelector, type QuantitySelectorProps } from './components/QuantitySelector';
 export { Radio } from './components/Radio';
 export { Rating } from './components/Rating';
 export { ScrollToTop } from './components/ScrollToTop';

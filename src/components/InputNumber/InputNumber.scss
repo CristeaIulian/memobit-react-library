@@ -13,6 +13,14 @@
 
     .input-number {
         @include input-field;
+
+        &.input-number-error {
+            @include input-error;
+        }
+
+        &.input-number-success {
+            @include input-success;
+        }
     }
 
     &.input-number-highlighted {
@@ -21,11 +29,11 @@
         }
     }
 
-    &.input-number-error {
-        @include input-error;
-    }
-
     .input-number-error-message {
         @include input-error-message;
+    }
+
+    .input-number-success-message {
+        @include input-success-message;
     }
 }

@@ -19,6 +19,7 @@ interface TextareaProps {
     placeholder?: string;
     rows?: number;
     required?: boolean;
+    success?: string;
     value?: string;
 }
 
@@ -41,6 +42,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             placeholder,
             required,
             rows,
+            success,
             value,
         },
         ref
@@ -56,7 +58,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 <textarea
                     autoComplete={autoComplete}
                     autoFocus={autoFocus}
-                    className="textarea"
+                    className={`textarea${error ? ' textarea-error' : ''}${success ? ' textarea-success' : ''}`}
                     cols={cols}
                     disabled={disabled}
                     id={id}
@@ -72,6 +74,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                     value={value}
                 />
                 {error && <span className="textarea-error-message">{error}</span>}
+                {success && <span className="textarea-success-message">{success}</span>}
             </div>
         );
     }

@@ -58,6 +58,7 @@ import { ProgressBarPage } from './pages/ProgressBarPage';
 import { QuickAddPage } from './pages/QuickAddPage';
 import { QuickNumberUpdatePage } from './pages/QuickNumberUpdatePage';
 import { QuickOptionUpdatePage } from './pages/QuickOptionUpdatePage';
+import { QuantitySelectorPage } from './pages/QuantitySelectorPage';
 import { RadioPage } from './pages/RadioPage';
 import { RatingPage } from './pages/RatingPage';
 import { ScrollToTopPage } from './pages/ScrollToTopPage';
@@ -147,6 +148,7 @@ export const routes: RouteConfig[] = [
     { path: '/quick-add', label: 'Quick Add', component: QuickAddPage },
     { path: '/quick-number-update', label: 'Quick Number Update', component: QuickNumberUpdatePage },
     { path: '/quick-option-update', label: 'Quick Option Update', component: QuickOptionUpdatePage },
+    { path: '/quantity-selector', label: 'Quantity Selector', component: QuantitySelectorPage },
     { path: '/radio', label: 'Radio', component: RadioPage },
     { path: '/rating', label: 'Rating', component: RatingPage },
     { path: '/scroll-to-top', label: 'Scroll To Top', component: ScrollToTopPage },

@@ -19,6 +19,7 @@ interface InputPasswordProps {
     placeholder?: string;
     readOnly?: boolean;
     required?: boolean;
+    success?: string;
     value?: string;
 }
 
@@ -41,6 +42,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
             placeholder,
             readOnly = false,
             required = false,
+            success,
             value,
         },
         ref
@@ -58,7 +60,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
                     autoFocus={autoFocus}
                     disabled={disabled}
                     type="password"
-                    className="input-password"
+                    className={`input-password${error ? ' input-password-error' : ''}${success ? ' input-password-success' : ''}`}
                     id={id}
                     maxLength={maxLength}
                     placeholder={placeholder}
@@ -73,6 +75,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
                     required={required}
                 />
                 {error && <span className="input-password-error-message">{error}</span>}
+                {success && <span className="input-password-success-message">{success}</span>}
             </div>
         );
     }

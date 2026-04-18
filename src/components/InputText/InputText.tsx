@@ -19,6 +19,7 @@ interface InputTextProps {
     placeholder?: string;
     readOnly?: boolean;
     required?: boolean;
+    success?: string;
     value?: string;
 }
 
@@ -41,6 +42,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
             placeholder,
             readOnly = false,
             required = false,
+            success,
             value,
         },
         ref
@@ -58,7 +60,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
                     autoFocus={autoFocus}
                     disabled={disabled}
                     type="text"
-                    className={`input-text ${error ? 'input-text-error' : ''}`}
+                    className={`input-text ${error ? 'input-text-error' : ''} ${success ? 'input-text-success' : ''}`}
                     id={id}
                     maxLength={maxLength}
                     placeholder={placeholder}
@@ -73,6 +75,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
                     required={required}
                 />
                 {error && <span className="input-text-error-message">{error}</span>}
+                {success && <span className="input-text-success-message">{success}</span>}
             </div>
         );
     }

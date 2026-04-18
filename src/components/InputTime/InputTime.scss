@@ -27,10 +27,18 @@
         &.input-time-error {
             @include input-error;
         }
+
+        &.input-time-success {
+            @include input-success;
+        }
     }
 
     .input-time-error-message {
         @include input-error-message;
+    }
+
+    .input-time-success-message {
+        @include input-success-message;
     }
 
     &.input-time-highlighted {

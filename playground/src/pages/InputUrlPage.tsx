@@ -10,6 +10,7 @@ export const InputUrlPage: React.FC = () => {
     const [submitUrl, setSubmitUrl] = useState<string>('');
     const [submitError, setSubmitError] = useState<string | undefined>(undefined);
     const [isSubmitValid, setIsSubmitValid] = useState<boolean>(true);
+    const [validUrl, setValidUrl] = useState<string>('https://example.com');
 
     const handleSubmit = () => {
         if (!isSubmitValid || !submitUrl) {
@@ -86,8 +87,9 @@ export const InputUrlPage: React.FC = () => {
             </section>
 
             <section className="page-section">
-                <h2>External Error (Server-side)</h2>
+                <h2>Validation States</h2>
                 <div className="showcase-group">
+                    <h3>External Error (Server-side)</h3>
                     <div className="component-group">
                         <InputUrl
                             label="Website"
@@ -95,6 +97,18 @@ export const InputUrlPage: React.FC = () => {
                             value={basicUrl}
                             error="This URL is already in use."
                             onChange={value => setBasicUrl(value)}
+                        />
+                    </div>
+                </div>
+                <div className="showcase-group">
+                    <h3>Success State</h3>
+                    <div className="component-group">
+                        <InputUrl
+                            label="Website"
+                            placeholder="https://example.com"
+                            value={validUrl}
+                            success="URL is valid and available"
+                            onChange={value => setValidUrl(value)}
                         />
                     </div>
                 </div>

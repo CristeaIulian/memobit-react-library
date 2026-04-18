@@ -1,7 +1,7 @@
 @use '../../styles/utilities' as *;
 
 .tooltip-trigger {
-    display: inline-block;
+    display: flex;
     cursor: default;
 }
 

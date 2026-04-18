@@ -51,6 +51,7 @@ interface InputPhoneProps {
     placeholder?: string;
     readOnly?: boolean;
     required?: boolean;
+    success?: string;
     value?: string;
 }
 
@@ -71,6 +72,7 @@ export const InputPhone = forwardRef<HTMLInputElement, InputPhoneProps>(
             placeholder,
             readOnly = false,
             required = false,
+            success,
             value,
         },
         ref
@@ -108,7 +110,7 @@ export const InputPhone = forwardRef<HTMLInputElement, InputPhoneProps>(
                         {required && <span className="input-phone-required">*</span>}
                     </label>
                 )}
-                <div className={`input-phone-field ${error ? 'input-phone-field--error' : ''} ${highlighted ? 'input-phone-field--highlighted' : ''} ${disabled ? 'input-phone-field--disabled' : ''}`}>
+                <div className={`input-phone-field${error ? ' input-phone-field--error' : ''}${success ? ' input-phone-field--success' : ''}${highlighted ? ' input-phone-field--highlighted' : ''}${disabled ? ' input-phone-field--disabled' : ''}`}>
                     <span className="input-phone-icon" aria-hidden="true">
                         {/* Simple phone handset SVG */}
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -135,6 +137,7 @@ export const InputPhone = forwardRef<HTMLInputElement, InputPhoneProps>(
                     />
                 </div>
                 {error && <span className="input-phone-error-message">{error}</span>}
+                {success && <span className="input-phone-success-message">{success}</span>}
             </div>
         );
     }

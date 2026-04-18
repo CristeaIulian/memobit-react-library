@@ -27,10 +27,18 @@
         &.input-date-error {
             @include input-error;
         }
+
+        &.input-date-success {
+            @include input-success;
+        }
     }
 
     .input-date-error-message {
         @include input-error-message;
+    }
+
+    .input-date-success-message {
+        @include input-success-message;
     }
 
     &.input-date-highlighted {

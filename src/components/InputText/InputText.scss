@@ -18,6 +18,10 @@
         &.input-text-error {
             @include input-error;
         }
+
+        &.input-text-success {
+            @include input-success;
+        }
     }
 
     &.input-text-highlighted {
@@ -28,5 +32,9 @@
 
     .input-text-error-message {
         @include input-error-message;
+    }
+
+    .input-text-success-message {
+        @include input-success-message;
     }
 }

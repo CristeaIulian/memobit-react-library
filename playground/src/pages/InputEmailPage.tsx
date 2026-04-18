@@ -9,6 +9,7 @@ export const InputEmailPage: React.FC = () => {
     const [isValidatedEmailValid, setIsValidatedEmailValid] = useState(true);
     const [onChangeEmail, setOnChangeEmail] = useState<string>('');
     const [customErrorEmail, setCustomErrorEmail] = useState<string>('');
+    const [successEmail, setSuccessEmail] = useState<string>('valid@example.com');
 
     return (
         <div className="component-page">
@@ -111,6 +112,22 @@ export const InputEmailPage: React.FC = () => {
                             onChange={() => {}}
                             showValidation={true}
                             validateOn="blur"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Validation States (Manual)</h2>
+                <div className="showcase-group">
+                    <h3>Success State</h3>
+                    <p>Using the success prop for manual validation feedback</p>
+                    <div className="component-group">
+                        <InputEmail
+                            label="Email address"
+                            value={successEmail}
+                            onChange={setSuccessEmail}
+                            success="Email is available and verified"
                         />
                     </div>
                 </div>

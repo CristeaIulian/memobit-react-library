@@ -13,14 +13,22 @@
 
     .input-file {
         @include input-field;
-    }
 
-    &.input-file-error {
-        @include input-error;
+        &.input-file-error {
+            @include input-error;
+        }
+
+        &.input-file-success {
+            @include input-success;
+        }
     }
 
     .input-file-error-message {
         @include input-error-message;
+    }
+
+    .input-file-success-message {
+        @include input-success-message;
     }
 
     &.input-file-highlighted {

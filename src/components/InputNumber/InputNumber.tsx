@@ -18,11 +18,12 @@ interface InputNumberProps {
     placeholder?: string;
     required?: boolean;
     step?: number;
+    success?: string;
     value?: number;
 }
 
 export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
-    ({ autoComplete = 'on', autoFocus, disabled, error, highlighted, id, label, onChange, onClick, onKeyDown, required, value, min, max, placeholder, step }, ref) => {
+    ({ autoComplete = 'on', autoFocus, disabled, error, highlighted, id, label, onChange, onClick, onKeyDown, required, success, value, min, max, placeholder, step }, ref) => {
         return (
             <div className={`input-number-wrapper${highlighted ? ' input-number-highlighted' : ''}`}>
                 {label && (
@@ -35,7 +36,7 @@ export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
                     autoComplete={autoComplete}
                     autoFocus={autoFocus}
                     disabled={disabled}
-                    className="input-number"
+                    className={`input-number${error ? ' input-number-error' : ''}${success ? ' input-number-success' : ''}`}
                     id={id}
                     max={max}
                     min={min}
@@ -54,6 +55,7 @@ export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
                     value={value ?? ''}
                 />
                 {error && <span className="input-number-error-message">{error}</span>}
+                {success && <span className="input-number-success-message">{success}</span>}
             </div>
         );
     }

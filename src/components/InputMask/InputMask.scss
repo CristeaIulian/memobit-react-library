@@ -218,7 +218,7 @@ $sizes: (
 
 .input-mask__error {
     font-size: var(--font-size-xs);
-    color: var(--body-danger-color);
+    color: var(--form-control-error-color);
     margin: 0;
     line-height: var(--line-height-normal);
 }

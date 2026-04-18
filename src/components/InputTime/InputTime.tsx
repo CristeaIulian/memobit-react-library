@@ -18,6 +18,7 @@ interface InputTimeProps {
     onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
     readOnly?: boolean;
     required?: boolean;
+    success?: string;
     value?: string;
 }
 
@@ -39,6 +40,7 @@ export const InputTime = forwardRef<HTMLInputElement, InputTimeProps>(
             onKeyUp,
             readOnly = false,
             required = false,
+            success,
             value,
         },
         ref
@@ -55,7 +57,7 @@ export const InputTime = forwardRef<HTMLInputElement, InputTimeProps>(
                     autoFocus={autoFocus}
                     disabled={disabled}
                     type="time"
-                    className="input-time"
+                    className={`input-time${error ? ' input-time-error' : ''}${success ? ' input-time-success' : ''}`}
                     id={id}
                     max={max}
                     min={min}
@@ -70,6 +72,7 @@ export const InputTime = forwardRef<HTMLInputElement, InputTimeProps>(
                     required={required}
                 />
                 {error && <span className="input-time-error-message">{error}</span>}
+                {success && <span className="input-time-success-message">{success}</span>}
             </div>
         );
     }

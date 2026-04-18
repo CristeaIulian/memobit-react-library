@@ -21,6 +21,7 @@ export interface InputEmailProps {
     readOnly?: boolean;
     required?: boolean;
     showValidation?: boolean;
+    success?: string;
     validateOn?: 'blur' | 'change' | 'both';
     value?: string;
 }
@@ -55,6 +56,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
             readOnly = false,
             required = false,
             showValidation = false,
+            success,
             validateOn = 'blur',
             value,
         },
@@ -122,7 +124,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
                     autoFocus={autoFocus}
                     disabled={disabled}
                     type="email"
-                    className={`input-email ${showError ? 'input-email--error' : ''} ${isValid && isTouched && showValidation ? 'input-email--valid' : ''}`}
+                    className={`input-email${showError ? ' input-email--error' : ''}${success ? ' input-email-success' : isValid && isTouched && showValidation ? ' input-email--valid' : ''}`}
                     id={id}
                     maxLength={maxLength}
                     placeholder={placeholder}
@@ -137,6 +139,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
                     required={required}
                 />
                 {showError && <span className="input-email-error-message">{error}</span>}
+                {success && <span className="input-email-success-message">{success}</span>}
             </div>
         );
     }
