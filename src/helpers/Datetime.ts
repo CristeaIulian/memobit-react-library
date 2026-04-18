@@ -47,24 +47,27 @@ export const formatDate = (date: Date, format: string): string => {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    return format
-        .replace('YYYY', String(year))
-        .replace('MM', month)
-        .replace('DD', day)
-        .replace('HH', hours)
-        .replace('mm', minutes)
-        .replace('ss', seconds);
+    return format.replace('YYYY', String(year)).replace('MM', month).replace('DD', day).replace('HH', hours).replace('mm', minutes).replace('ss', seconds);
+};
+
+export const formatDateLocale = (dateStr: string): string => {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    return new Date(year, month - 1, day).toLocaleDateString('en-US');
+};
+
+export const formatRelativeDuration = (days: number): string => {
+    const years = Math.floor(days / 365);
+    const months = Math.round((days - years * 365) / 30);
+    if (years > 0 && months > 0) return `${years}y ${months}m`;
+    if (years > 0) return `${years}y`;
+    return `${months}m`;
 };
 
 /**
  * Checks if two dates are the same day (ignoring time)
  */
 export const isSameDay = (date1: Date, date2: Date): boolean => {
-    return (
-        date1.getFullYear() === date2.getFullYear() &&
-        date1.getMonth() === date2.getMonth() &&
-        date1.getDate() === date2.getDate()
-    );
+    return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate();
 };
 
 /**

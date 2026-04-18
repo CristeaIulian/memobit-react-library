@@ -18,7 +18,15 @@ export { ContextMenu } from './components/ContextMenu';
 export { CountryWithFlag } from './components/CountryWithFlag';
 export { ColorPicker, type ColorPickerProps } from './components/ColorPicker';
 export { EmojiPicker, type EmojiPickerProps } from './components/EmojiPicker';
-export { DataView, type DataViewColumn, type DataViewProps, type DataViewCardConfig, type DataViewTimelineConfig, type DataViewEmptyConfig, type SortDirection } from './components/DataView';
+export {
+    DataView,
+    type DataViewColumn,
+    type DataViewProps,
+    type DataViewCardConfig,
+    type DataViewTimelineConfig,
+    type DataViewEmptyConfig,
+    type SortDirection,
+} from './components/DataView';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';
 export { DiffViewer } from './components/DiffViewer';
 export { DateRangePicker, type DateRangePickerProps, type DateRangePreset } from './components/DateRangePicker';
@@ -114,6 +122,8 @@ export {
     formatDuration,
     formatSecondsToMediaTime,
     formatDate,
+    formatDateLocale,
+    formatRelativeDuration,
     isSameDay,
     isDateInRange,
     getDaysInMonth,
@@ -134,3 +144,4 @@ export { formatBigNumber, formatMoney } from './helpers/Format';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
 export { fuzzyMatch } from './helpers/Search';
+export { validateVin, type VinValidationResult } from './validators/Vin';
