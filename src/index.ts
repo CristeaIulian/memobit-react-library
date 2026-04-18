@@ -17,6 +17,7 @@ export { CommandPalette, type CommandPaletteProps, type CommandItem } from './co
 export { ContextMenu } from './components/ContextMenu';
 export { CountryWithFlag } from './components/CountryWithFlag';
 export { ColorPicker, type ColorPickerProps } from './components/ColorPicker';
+export { EmojiPicker, type EmojiPickerProps } from './components/EmojiPicker';
 export { DataView, type DataViewColumn, type DataViewProps, type DataViewCardConfig, type DataViewTimelineConfig, type DataViewEmptyConfig, type SortDirection } from './components/DataView';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';
 export { DiffViewer } from './components/DiffViewer';

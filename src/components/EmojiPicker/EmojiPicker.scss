@@ -1,0 +1,90 @@
+.emoji-picker {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    width: 320px;
+    background-color: var(--card-background-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: var(--radius);
+    padding: var(--spacing-12);
+
+    &__search {
+        width: 100%;
+    }
+
+    &__categories {
+        display: flex;
+        gap: var(--spacing-2);
+        overflow-x: auto;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &__cat-btn {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        font-size: var(--font-size-md);
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: background-color var(--transition-fast, 150ms ease);
+
+        &:hover {
+            background-color: var(--button-default-hover-background-color);
+        }
+
+        &.is-active {
+            background-color: var(--button-default-hover-background-color);
+            border-color: var(--body-accent-color);
+        }
+    }
+
+    &__grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        max-height: 200px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+
+    &__emoji {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        font-size: var(--font-size-lg);
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: background-color var(--transition-fast, 150ms ease);
+        line-height: 1;
+
+        &:hover {
+            background-color: var(--button-default-hover-background-color);
+        }
+
+        &.is-selected {
+            background-color: var(--button-default-hover-background-color);
+            border-color: var(--body-accent-color);
+        }
+    }
+
+    &__empty {
+        font-size: var(--font-size-sm);
+        color: var(--body-color-muted);
+        padding: var(--spacing-12) 0;
+        text-align: center;
+        width: 100%;
+    }
+}
