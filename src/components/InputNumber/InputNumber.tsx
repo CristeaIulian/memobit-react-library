@@ -24,6 +24,33 @@ interface InputNumberProps {
 
 export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
     ({ autoComplete = 'on', autoFocus, disabled, error, highlighted, id, label, onChange, onClick, onKeyDown, required, success, value, min, max, placeholder, step }, ref) => {
+        const clampValue = (val: number | undefined): number | undefined => {
+            if (val === undefined) {
+                return undefined;
+            }
+
+            let clampedValue = val;
+
+            if (min !== undefined && clampedValue < min) {
+                clampedValue = min;
+            }
+
+            if (max !== undefined && clampedValue > max) {
+                clampedValue = max;
+            }
+
+            return clampedValue;
+        };
+
+        const handleBlur = () => {
+            if (value !== undefined) {
+                const clampedValue = clampValue(value);
+                if (clampedValue !== value) {
+                    onChange?.(clampedValue);
+                }
+            }
+        };
+
         return (
             <div className={`input-number-wrapper${highlighted ? ' input-number-highlighted' : ''}`}>
                 {label && (
@@ -40,6 +67,7 @@ export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
                     id={id}
                     max={max}
                     min={min}
+                    onBlur={handleBlur}
                     onChange={e => onChange?.(e.target.value ? Number(e.target.value) : undefined)}
                     onClick={onClick}
                     onKeyDown={e => {
