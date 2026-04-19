@@ -104,10 +104,9 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 
                         onKeyDown={handleKeyDown}
                         autoFocus
                         disabled={loading}
+                        error={error}
                     />
                 </div>
-
-                {error && <div className="error-message">{error}</div>}
             </Modal>
         </div>
     );

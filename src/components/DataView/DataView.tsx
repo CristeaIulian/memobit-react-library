@@ -64,6 +64,7 @@ export interface DataViewProps<T> {
     empty?: DataViewEmptyConfig;
     responsive?: boolean;
     className?: string;
+    onPageChange?: (page: number) => void;
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -216,6 +217,7 @@ export function DataView<T>({
     empty,
     responsive = true,
     className,
+    onPageChange,
 }: DataViewProps<T>) {
     const { isMobile } = useBreakpoint();
     const [sortKey, setSortKey] = useState<string | null>(null);
@@ -236,6 +238,11 @@ export function DataView<T>({
     );
 
     const resolvedRowKey = (row: T, index: number) => rowKey?.(row, index) ?? index;
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+        onPageChange?.(page);
+    };
 
     const sortedData = useMemo(() => {
         if (!sortKey) return data;
@@ -290,7 +297,7 @@ export function DataView<T>({
             setSortKey(column.key);
             setSortDirection('asc');
         }
-        setCurrentPage(1);
+        handlePageChange(1);
     };
 
     const handleResizeStart = (event: React.MouseEvent, columnKey: string) => {
@@ -363,14 +370,14 @@ export function DataView<T>({
                     currentPage={safeCurrentPage}
                     totalPages={totalPages}
                     totalItems={sortedData.length}
-                    onPageChange={setCurrentPage}
+                    onPageChange={handlePageChange}
                     pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
                     pageSize={showPageSize ? pageSize : undefined}
                     onPageSizeChange={
                         showPageSize
                             ? nextSize => {
                                   setPageSize(nextSize);
-                                  setCurrentPage(1);
+                                  handlePageChange(1);
                               }
                             : undefined
                     }
@@ -527,14 +534,14 @@ export function DataView<T>({
                 currentPage={safeCurrentPage}
                 totalPages={totalPages}
                 totalItems={sortedData.length}
-                onPageChange={setCurrentPage}
+                onPageChange={handlePageChange}
                 pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
                 pageSize={showPageSize ? pageSize : undefined}
                 onPageSizeChange={
                     showPageSize
                         ? nextSize => {
                               setPageSize(nextSize);
-                              setCurrentPage(1);
+                              handlePageChange(1);
                           }
                         : undefined
                 }
