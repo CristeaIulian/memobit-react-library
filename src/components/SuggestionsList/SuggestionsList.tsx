@@ -7,6 +7,20 @@ import { Search } from '../Search';
 import './SuggestionsList.scss';
 import { Tooltip } from '../Tooltip';
 
+type SortDirection = 'asc' | 'desc';
+
+interface SortIconProps {
+    state: 'unsorted' | 'asc' | 'desc';
+}
+
+function SortIcon({ state }: SortIconProps) {
+    return (
+        <span className={`suggestions-list__sort-icon suggestions-list__sort-icon--${state}`} aria-hidden="true">
+            {state === 'asc' ? '↑' : state === 'desc' ? '↓' : '↕'}
+        </span>
+    );
+}
+
 export interface SuggestionsListElement {
     name: string;
     value: number | string;
@@ -27,6 +41,8 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
     const [isVisible, setIsVisible] = useState(false);
     const [isShowMoreEnabled, setShowMoreEnabled] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [sortKey, setSortKey] = useState<'name' | 'value' | null>(null);
+    const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
 
     const filteredData = useMemo(() => {
         if (!searchValue.trim()) return data;
@@ -35,11 +51,27 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
         );
     }, [data, searchValue]);
 
+    const sortedData = useMemo(() => {
+        if (!sortKey) return filteredData;
+
+        const sorted = [...filteredData].sort((a, b) => {
+            const aValue = sortKey === 'name' ? a.name : a.value;
+            const bValue = sortKey === 'name' ? b.name : b.value;
+
+            if (typeof aValue === 'number' && typeof bValue === 'number') {
+                return aValue - bValue;
+            }
+            return String(aValue).localeCompare(String(bValue));
+        });
+
+        return sortDirection === 'asc' ? sorted : sorted.reverse();
+    }, [filteredData, sortKey, sortDirection]);
+
     const slicedData = useMemo(
-        () => (isShowMoreEnabled ? [...filteredData] : filteredData.slice(0, capLimit)),
-        [filteredData, isShowMoreEnabled]
+        () => (isShowMoreEnabled ? [...sortedData] : sortedData.slice(0, capLimit)),
+        [sortedData, isShowMoreEnabled]
     );
-    const moreThanCapLimit = filteredData.length > capLimit;
+    const moreThanCapLimit = sortedData.length > capLimit;
 
     const toggleList = () => {
         setIsVisible(!isVisible);
@@ -48,6 +80,15 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
     const toggleShowMore = useCallback(() => {
         setShowMoreEnabled(!isShowMoreEnabled);
     }, [isShowMoreEnabled]);
+
+    const toggleSort = (column: 'name' | 'value') => {
+        if (sortKey === column) {
+            setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'));
+        } else {
+            setSortKey(column);
+            setSortDirection('asc');
+        }
+    };
 
     const suggestionListContent = useMemo(
         () => (
@@ -65,6 +106,36 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
                     </div>
                 )}
                 <div className="fieldset-suggestions-list-rows">
+                    <div className="fieldset-suggestions-list-header">
+                        <button
+                            type="button"
+                            className="fieldset-suggestions-list-header-cell fieldset-suggestions-list-header-cell--name"
+                            onClick={() => toggleSort('name')}
+                        >
+                            Name
+                            <SortIcon
+                                state={
+                                    sortKey === 'name'
+                                        ? sortDirection
+                                        : 'unsorted'
+                                }
+                            />
+                        </button>
+                        <button
+                            type="button"
+                            className="fieldset-suggestions-list-header-cell fieldset-suggestions-list-header-cell--value"
+                            onClick={() => toggleSort('value')}
+                        >
+                            Value
+                            <SortIcon
+                                state={
+                                    sortKey === 'value'
+                                        ? sortDirection
+                                        : 'unsorted'
+                                }
+                            />
+                        </button>
+                    </div>
                     {slicedData.map((el, index) => {
                         return (
                             <div className="fieldset-suggestions-list-row" key={`fieldset-suggestions-list-row-${index}`}>
@@ -90,7 +161,7 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
                 )}
             </fieldset>
         ),
-        [enableSearch, isShowMoreEnabled, moreThanCapLimit, searchValue, slicedData, title, toggleShowMore, tooltip]
+        [enableSearch, isShowMoreEnabled, moreThanCapLimit, searchValue, slicedData, sortKey, sortDirection, title, toggleShowMore, toggleSort, tooltip]
     );
 
     return (

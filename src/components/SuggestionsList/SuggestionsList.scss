@@ -29,7 +29,54 @@
         .fieldset-suggestions-list-rows {
             max-height: var(--spacing-400);
             overflow: hidden auto;
-            padding: var(--spacing-4);
+        }
+
+        .fieldset-suggestions-list-header {
+            display: flex;
+            padding: var(--spacing-8) var(--spacing-12);
+            border-bottom: 1px solid var(--card-border-color);
+            background-color: var(--card-background-accent-color);
+            position: sticky;
+            top: 0;
+            gap: var(--spacing-8);
+        }
+
+        .fieldset-suggestions-list-header-cell {
+            flex: 1;
+            border: none;
+            background: none;
+            color: var(--body-color-muted);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            text-align: left;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            transition: color var(--transition-fast);
+
+            &:hover {
+                color: var(--body-title-color);
+            }
+
+            &--value {
+                flex: 0;
+                width: 70px;
+                text-align: right;
+            }
+        }
+
+        .suggestions-list__sort-icon {
+            font-size: var(--font-size-xs);
+            opacity: 0.6;
+            transition: opacity var(--transition-fast);
+
+            &--asc,
+            &--desc {
+                opacity: 1;
+                color: var(--links-color);
+            }
         }
 
         .fieldset-suggestions-list-row {
@@ -37,9 +84,9 @@
             column-gap: var(--spacing-8);
             text-align: left;
             padding: var(--spacing-8) var(--spacing-12);
-            border-radius: var(--radius-sm);
             align-items: center;
             transition: background-color var(--transition-fast);
+            border-bottom: 1px solid var(--card-border-color);
 
             &:hover {
                 background-color: var(--list-alternate-background-color);
