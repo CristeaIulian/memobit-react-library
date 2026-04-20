@@ -92,6 +92,19 @@
                 background-color: var(--list-alternate-background-color);
             }
 
+            &--clickable {
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgba(96, 165, 250, 0.1);
+                }
+
+                &:focus-visible {
+                    outline: 2px solid var(--card-border-accent-color);
+                    outline-offset: -1px;
+                }
+            }
+
             div {
                 &:first-child {
                     flex: 1;

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { SuggestionsList } from '../../../src';
+import { SuggestionsList, type SuggestionsListElement } from '../../../src';
 
 export const SuggestionsListPage: React.FC = () => {
+    const [selectedItem, setSelectedItem] = useState<SuggestionsListElement | null>(null);
+
     return (
         <div className="suggestions-list-page">
             <h1>Suggestions List Component</h1>
@@ -203,6 +205,36 @@ export const SuggestionsListPage: React.FC = () => {
                             ]}
                         />
                     </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>With Row Click Handler</h2>
+                <p>Click on any row to select it and notify the parent component. The selected row information is displayed below.</p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <SuggestionsList
+                            label="Fruit"
+                            title="Select a Fruit"
+                            tooltip="Click any row to select it"
+                            onRowClick={setSelectedItem}
+                            data={[
+                                { name: 'Apple', value: 95, unit: 'kcal' },
+                                { name: 'Banana', value: 105, unit: 'kcal' },
+                                { name: 'Orange', value: 62, unit: 'kcal' },
+                                { name: 'Grapes', value: 67, unit: 'kcal' },
+                                { name: 'Strawberry', value: 33, unit: 'kcal' },
+                                { name: 'Mango', value: 60, unit: 'kcal' },
+                            ]}
+                        />
+                    </div>
+                    {selectedItem && (
+                        <div className="component-group" style={{ marginTop: '20px', padding: '16px', backgroundColor: 'rgba(96, 165, 250, 0.1)', borderRadius: '8px' }}>
+                            <h3>Selected Item:</h3>
+                            <p><strong>Name:</strong> {selectedItem.name}</p>
+                            <p><strong>Value:</strong> {selectedItem.value} {selectedItem.unit}</p>
+                        </div>
+                    )}
                 </div>
             </section>
         </div>

@@ -33,11 +33,12 @@ interface SuggestionsListProps {
     title?: string;
     tooltip?: string;
     enableSearch?: boolean;
+    onRowClick?: (item: SuggestionsListElement) => void;
 }
 
 const capLimit = 10;
 
-export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = false }: SuggestionsListProps) => {
+export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = false, onRowClick }: SuggestionsListProps) => {
     const [isVisible, setIsVisible] = useState(false);
     const [isShowMoreEnabled, setShowMoreEnabled] = useState(false);
     const [searchValue, setSearchValue] = useState('');
@@ -138,7 +139,19 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
                     </div>
                     {slicedData.map((el, index) => {
                         return (
-                            <div className="fieldset-suggestions-list-row" key={`fieldset-suggestions-list-row-${index}`}>
+                            <div
+                                className={`fieldset-suggestions-list-row ${onRowClick ? 'fieldset-suggestions-list-row--clickable' : ''}`}
+                                key={`fieldset-suggestions-list-row-${index}`}
+                                onClick={() => onRowClick?.(el)}
+                                role={onRowClick ? 'button' : undefined}
+                                tabIndex={onRowClick ? 0 : undefined}
+                                onKeyDown={(e) => {
+                                    if (onRowClick && (e.key === 'Enter' || e.key === ' ')) {
+                                        e.preventDefault();
+                                        onRowClick(el);
+                                    }
+                                }}
+                            >
                                 <div>{el.name}</div>
                                 <div>
                                     {typeof el.value === 'number' && format2Digits(el.value)}
@@ -161,7 +174,7 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
                 )}
             </fieldset>
         ),
-        [enableSearch, isShowMoreEnabled, moreThanCapLimit, searchValue, slicedData, sortKey, sortDirection, title, toggleShowMore, toggleSort, tooltip]
+        [enableSearch, isShowMoreEnabled, moreThanCapLimit, onRowClick, searchValue, slicedData, sortKey, sortDirection, title, toggleShowMore, toggleSort, tooltip]
     );
 
     return (
