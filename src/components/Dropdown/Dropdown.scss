@@ -61,7 +61,6 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background-color: var(--dropdown-header-background-color);
                 opacity: 0.9;
                 z-index: -1;
             }
@@ -136,17 +135,41 @@
     }
 
     &.dropdown-error {
-        border-color: var(--body-danger-color);
+        .dropdown-input-container input[type='text'] {
+            background-color: var(--form-control-error-background-color);
+            border-color: var(--form-control-error-border-color);
+            color: var(--form-control-error-color);
 
-        &:focus {
-            border-color: var(--body-danger-color);
-            box-shadow: 0 0 0 var(--spacing-2) var(--box-shadow);
+            &:focus {
+                background-color: var(--form-control-error-background-color);
+                border-color: var(--form-control-error-border-color);
+                box-shadow: 0 0 0 var(--spacing-2) var(--box-shadow);
+            }
         }
     }
 
     .dropdown-error-message {
         font-size: var(--font-size-xs);
-        color: var(--body-danger-color);
+        color: var(--form-control-error-color);
+    }
+
+    &.dropdown-success {
+        .dropdown-input-container input[type='text'] {
+            background-color: var(--form-control-success-background-color);
+            border-color: var(--form-control-success-border-color);
+            color: var(--form-control-success-color);
+
+            &:focus {
+                background-color: var(--form-control-success-background-color);
+                border-color: var(--form-control-success-border-color);
+                box-shadow: 0 0 0 var(--spacing-2) var(--box-shadow);
+            }
+        }
+    }
+
+    .dropdown-success-message {
+        font-size: var(--font-size-xs);
+        color: var(--form-control-success-color);
     }
 
     // Special styling for multiple mode
@@ -166,7 +189,6 @@
             overflow: visible;
         }
     }
-
 }
 
 // Dropdown menu - extracted to root level to support both portal and non-portal rendering

@@ -34,6 +34,7 @@ export interface DropdownProps {
     searchable?: boolean;
     searchValue?: string;
     selectedCountDisplay?: DropdownSelectedCountDisplay;
+    success?: string;
     usePortal?: boolean;
     value?: number | number[] | string | string[] | null;
 }
@@ -56,6 +57,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     searchable = true,
     searchValue,
     selectedCountDisplay = 'inline',
+    success,
     usePortal = true,
     value,
 }) => {
@@ -656,7 +658,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     return (
         <div
-            className={`dropdown-container ${error ? 'dropdown-error' : ''} ${highlighted ? 'dropdown-highlighted' : ''} ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${multiple ? `count-display-${selectedCountDisplay}` : ''} ${className}`}
+            className={`dropdown-container ${error ? 'dropdown-error' : ''} ${success ? 'dropdown-success' : ''} ${highlighted ? 'dropdown-highlighted' : ''} ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${multiple ? `count-display-${selectedCountDisplay}` : ''} ${className}`}
             ref={dropdownRef}
         >
             {label && (
@@ -701,6 +703,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             {renderDropdownMenu()}
 
             {error && <span className="dropdown-error-message">{error}</span>}
+            {success && <span className="dropdown-success-message">{success}</span>}
         </div>
     );
 };

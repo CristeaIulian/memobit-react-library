@@ -119,6 +119,40 @@ export const DropdownPage: React.FC = () => {
                 </div>
 
                 <div className="showcase-group">
+                    <h3>Validation States</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
+                        Dropdowns support error and success validation messages.
+                    </p>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Error State</h4>
+                            <Dropdown
+                                name="error-dropdown"
+                                label="Clinic Selection"
+                                options={formatClinicOptions}
+                                onChange={handleClinicSelect}
+                                placeholder="Select a clinic..."
+                                error="Please select a valid clinic"
+                            />
+                        </div>
+
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Success State</h4>
+                            <Dropdown
+                                name="success-dropdown"
+                                label="Clinic Selection"
+                                options={formatClinicOptions}
+                                value="option-2"
+                                onChange={handleClinicSelect}
+                                placeholder="Select a clinic..."
+                                success="Clinic selected successfully"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
                     <h3>Dropdown with Portal</h3>
                     <div className="component-group" style={{ width: '60%' }}>
                         <Dropdown
