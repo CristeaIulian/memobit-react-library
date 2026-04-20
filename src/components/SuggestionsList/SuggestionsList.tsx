@@ -64,23 +64,25 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
                         />
                     </div>
                 )}
-                {slicedData.map((el, index) => {
-                    return (
-                        <div className="fieldset-suggestions-list-row" key={`fieldset-suggestions-list-row-${index}`}>
-                            <div>{el.name}</div>
-                            <div>
-                                {typeof el.value === 'number' && format2Digits(el.value)}
-                                {typeof el.value === 'string' && el.value}
-                                {el.unit}
+                <div className="fieldset-suggestions-list-rows">
+                    {slicedData.map((el, index) => {
+                        return (
+                            <div className="fieldset-suggestions-list-row" key={`fieldset-suggestions-list-row-${index}`}>
+                                <div>{el.name}</div>
+                                <div>
+                                    {typeof el.value === 'number' && format2Digits(el.value)}
+                                    {typeof el.value === 'string' && el.value}
+                                    {el.unit}
+                                </div>
                             </div>
+                        );
+                    })}
+                    {slicedData.length === 0 && (
+                        <div className="fieldset-suggestions-list-empty">
+                            No results found
                         </div>
-                    );
-                })}
-                {slicedData.length === 0 && (
-                    <div className="fieldset-suggestions-list-empty">
-                        No results found
-                    </div>
-                )}
+                    )}
+                </div>
                 {moreThanCapLimit && (
                     <span className="link" onClick={toggleShowMore}>
                         Show {isShowMoreEnabled ? 'less' : 'more'}
