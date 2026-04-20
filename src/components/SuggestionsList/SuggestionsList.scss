@@ -8,6 +8,8 @@
         flex-direction: column;
         align-items: flex-end;
         border-radius: var(--spacing-4);
+        max-height: 400px;
+        overflow-y: auto;
 
         .fieldset-suggestions-list-row {
             display: flex;

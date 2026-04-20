@@ -106,6 +106,72 @@ export const SuggestionsListPage: React.FC = () => {
                     </div>
                 </div>
             </section>
+
+            <section className="page-section">
+                <h2>Very Large Content (Internal Scrolling)</h2>
+                <p>With 50+ items, the list scrolls within its own section without affecting the page scroll.</p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <SuggestionsList
+                            label="Products"
+                            title="All Available Products"
+                            tooltip="Browse through 50 products with internal scrolling"
+                            data={[
+                                { name: 'Product 1', value: 100, unit: '$' },
+                                { name: 'Product 2', value: 150, unit: '$' },
+                                { name: 'Product 3', value: 200, unit: '$' },
+                                { name: 'Product 4', value: 120, unit: '$' },
+                                { name: 'Product 5', value: 180, unit: '$' },
+                                { name: 'Product 6', value: 90, unit: '$' },
+                                { name: 'Product 7', value: 250, unit: '$' },
+                                { name: 'Product 8', value: 110, unit: '$' },
+                                { name: 'Product 9', value: 160, unit: '$' },
+                                { name: 'Product 10', value: 140, unit: '$' },
+                                { name: 'Product 11', value: 220, unit: '$' },
+                                { name: 'Product 12', value: 170, unit: '$' },
+                                { name: 'Product 13', value: 130, unit: '$' },
+                                { name: 'Product 14', value: 210, unit: '$' },
+                                { name: 'Product 15', value: 95, unit: '$' },
+                                { name: 'Product 16', value: 185, unit: '$' },
+                                { name: 'Product 17', value: 240, unit: '$' },
+                                { name: 'Product 18', value: 105, unit: '$' },
+                                { name: 'Product 19', value: 175, unit: '$' },
+                                { name: 'Product 20', value: 145, unit: '$' },
+                                { name: 'Product 21', value: 225, unit: '$' },
+                                { name: 'Product 22', value: 165, unit: '$' },
+                                { name: 'Product 23', value: 135, unit: '$' },
+                                { name: 'Product 24', value: 205, unit: '$' },
+                                { name: 'Product 25', value: 85, unit: '$' },
+                                { name: 'Product 26', value: 195, unit: '$' },
+                                { name: 'Product 27', value: 255, unit: '$' },
+                                { name: 'Product 28', value: 115, unit: '$' },
+                                { name: 'Product 29', value: 180, unit: '$' },
+                                { name: 'Product 30', value: 155, unit: '$' },
+                                { name: 'Product 31', value: 235, unit: '$' },
+                                { name: 'Product 32', value: 125, unit: '$' },
+                                { name: 'Product 33', value: 190, unit: '$' },
+                                { name: 'Product 34', value: 215, unit: '$' },
+                                { name: 'Product 35', value: 100, unit: '$' },
+                                { name: 'Product 36', value: 170, unit: '$' },
+                                { name: 'Product 37', value: 260, unit: '$' },
+                                { name: 'Product 38', value: 120, unit: '$' },
+                                { name: 'Product 39', value: 185, unit: '$' },
+                                { name: 'Product 40', value: 150, unit: '$' },
+                                { name: 'Product 41', value: 230, unit: '$' },
+                                { name: 'Product 42', value: 160, unit: '$' },
+                                { name: 'Product 43', value: 140, unit: '$' },
+                                { name: 'Product 44', value: 210, unit: '$' },
+                                { name: 'Product 45', value: 95, unit: '$' },
+                                { name: 'Product 46', value: 200, unit: '$' },
+                                { name: 'Product 47', value: 250, unit: '$' },
+                                { name: 'Product 48', value: 110, unit: '$' },
+                                { name: 'Product 49', value: 180, unit: '$' },
+                                { name: 'Product 50', value: 145, unit: '$' },
+                            ]}
+                        />
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };
