@@ -108,6 +108,38 @@ export const SuggestionsListPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>With Search Feature</h2>
+                <p>Enable search to filter suggestions by name. The search narrows down results in real-time.</p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <SuggestionsList
+                            label="Fruit"
+                            title="Fruits with Search"
+                            tooltip="Use the search to filter fruits"
+                            enableSearch={true}
+                            data={[
+                                { name: 'Apple', value: 95, unit: 'kcal' },
+                                { name: 'Banana', value: 105, unit: 'kcal' },
+                                { name: 'Orange', value: 62, unit: 'kcal' },
+                                { name: 'Grapes', value: 67, unit: 'kcal' },
+                                { name: 'Strawberry', value: 33, unit: 'kcal' },
+                                { name: 'Mango', value: 60, unit: 'kcal' },
+                                { name: 'Pineapple', value: 50, unit: 'kcal' },
+                                { name: 'Watermelon', value: 30, unit: 'kcal' },
+                                { name: 'Peach', value: 39, unit: 'kcal' },
+                                { name: 'Cherry', value: 50, unit: 'kcal' },
+                                { name: 'Blueberry', value: 57, unit: 'kcal' },
+                                { name: 'Raspberry', value: 52, unit: 'kcal' },
+                                { name: 'Blackberry', value: 43, unit: 'kcal' },
+                                { name: 'Kiwi', value: 61, unit: 'kcal' },
+                                { name: 'Papaya', value: 43, unit: 'kcal' },
+                            ]}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>Very Large Content (Internal Scrolling)</h2>
                 <p>With 50+ items, the list scrolls within its own section without affecting the page scroll.</p>
                 <div className="showcase-group">
@@ -116,6 +148,7 @@ export const SuggestionsListPage: React.FC = () => {
                             label="Products"
                             title="All Available Products"
                             tooltip="Browse through 50 products with internal scrolling"
+                            enableSearch={true}
                             data={[
                                 { name: 'Product 1', value: 100, unit: '$' },
                                 { name: 'Product 2', value: 150, unit: '$' },
