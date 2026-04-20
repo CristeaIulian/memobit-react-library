@@ -99,6 +99,7 @@ export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
 export { Tree, type TreeNode } from './components/Tree';
+export { WHtRIndicator } from './components/WHtRIndicator';
 
 // Export Auth components
 export { Login as AuthLogin } from './components/Auth/Login';

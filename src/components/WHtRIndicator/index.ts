@@ -1,0 +1,1 @@
+export { WHtRIndicator } from './WHtRIndicator';
