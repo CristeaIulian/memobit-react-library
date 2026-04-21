@@ -69,7 +69,7 @@ export interface DataViewProps<T> {
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const DEFAULT_PAGE_SIZES = [5, 10, 20, 50];
+const DEFAULT_PAGE_SIZES = [15, 30, 50, 100, 250, 500];
 
 // ─── Sort icon ───────────────────────────────────────────────────────────────
 
@@ -421,22 +421,22 @@ export function DataView<T>({
                                 if (columnWidths[column.key]) colStyle.width = columnWidths[column.key];
                                 if (column.minWidth) colStyle.minWidth = column.minWidth;
                                 return (
-                                <th
-                                    key={column.key}
-                                    style={Object.keys(colStyle).length > 0 ? colStyle : undefined}
-                                    className={column.sortable ? 'is-sortable' : ''}
-                                    onClick={() => toggleSort(column)}
-                                >
-                                    <span className="data-view__th-content">
-                                        <span>{column.header}</span>
-                                        {column.sortable && <SortIcon state={sortKey === column.key ? sortDirection : 'unsorted'} />}
-                                    </span>
-                                    <span
-                                        className="data-view__resizer"
-                                        onMouseDown={event => handleResizeStart(event, column.key)}
-                                        onClick={event => event.stopPropagation()}
-                                    />
-                                </th>
+                                    <th
+                                        key={column.key}
+                                        style={Object.keys(colStyle).length > 0 ? colStyle : undefined}
+                                        className={column.sortable ? 'is-sortable' : ''}
+                                        onClick={() => toggleSort(column)}
+                                    >
+                                        <span className="data-view__th-content">
+                                            <span>{column.header}</span>
+                                            {column.sortable && <SortIcon state={sortKey === column.key ? sortDirection : 'unsorted'} />}
+                                        </span>
+                                        <span
+                                            className="data-view__resizer"
+                                            onMouseDown={event => handleResizeStart(event, column.key)}
+                                            onClick={event => event.stopPropagation()}
+                                        />
+                                    </th>
                                 );
                             })}
                             {actions && (
