@@ -16,6 +16,7 @@ import { CalendarHeatmapPage } from './pages/CalendarHeatmapPage';
 import { CardPage } from './pages/CardPage';
 import { ChatBotPage } from './pages/ChatBotPage';
 import { CheckboxPage } from './pages/CheckboxPage';
+import { ChipPage } from './pages/ChipPage';
 import { CollapsibleSectionPage } from './pages/CollapsibleSectionPage';
 import { ColorPickerPage } from './pages/ColorPickerPage';
 import { CommandPalettePage } from './pages/CommandPalettePage';
@@ -105,6 +106,7 @@ export const routes: RouteConfig[] = [
     { path: '/card', label: 'Card', component: CardPage },
     { path: '/chatbot', label: 'ChatBot', component: ChatBotPage },
     { path: '/checkbox', label: 'Checkbox', component: CheckboxPage },
+    { path: '/chip', label: 'Chip', component: ChipPage },
     { path: '/collapsible-section', label: 'Collapsible Section', component: CollapsibleSectionPage },
     { path: '/color-picker', label: 'Color Picker', component: ColorPickerPage },
     { path: '/command-palette', label: 'Command Palette', component: CommandPalettePage },
