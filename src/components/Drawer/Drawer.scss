@@ -101,6 +101,30 @@
         overflow-y: auto;
         padding: var(--spacing-16);
     }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: var(--spacing-16);
+        flex-shrink: 0;
+        padding: var(--spacing-16);
+        border-top: var(--spacing-1) solid var(--drawer-border-color);
+        background: var(--drawer-header-background-color);
+    }
+
+    &__footer-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__footer-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: var(--spacing-12);
+        flex-shrink: 0;
+    }
 }
 
 @keyframes fadeIn {

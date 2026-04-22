@@ -108,6 +108,7 @@ export const DrawerPage: React.FC = () => {
     const [isWideDrawerOpen, setWideDrawerOpen] = useState<boolean>(false);
     const [isNarrowDrawerOpen, setNarrowDrawerOpen] = useState<boolean>(false);
     const [isNoOverlayDrawerOpen, setNoOverlayDrawerOpen] = useState<boolean>(false);
+    const [isFooterDrawerOpen, setFooterDrawerOpen] = useState<boolean>(false);
     const [isBookDetailDrawerOpen, setBookDetailDrawerOpen] = useState<boolean>(false);
     const [bookPage, setBookPage] = useState<number>(177);
     const [notePage, setNotePage] = useState<number | undefined>(undefined);
@@ -273,6 +274,45 @@ export const DrawerPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>Drawer Footer</h2>
+
+                <div className="showcase-group">
+                    <h3>Fixed footer actions</h3>
+                    <div className="component-group">
+                        <Button onClick={() => setFooterDrawerOpen(true)}>Open Drawer with Footer</Button>
+                        <Drawer
+                            isOpen={isFooterDrawerOpen}
+                            onClose={() => setFooterDrawerOpen(false)}
+                            position="right"
+                            title="Edit Settings"
+                            width="420px"
+                            footer={<span style={{ color: 'var(--body-color-muted)' }}>Unsaved changes</span>}
+                            secondaryButton={{
+                                text: 'Cancel',
+                                onClick: () => setFooterDrawerOpen(false),
+                                variant: 'default',
+                            }}
+                            primaryButton={{
+                                text: 'Save changes',
+                                icon: '✓',
+                                onClick: () => setFooterDrawerOpen(false),
+                                variant: 'info',
+                            }}
+                        >
+                            <h3>Preferences</h3>
+                            <p>The footer remains fixed while this content area scrolls.</p>
+                            {Array.from({ length: 10 }, (_, index) => (
+                                <div key={index} style={{ marginBottom: '18px' }}>
+                                    <h4>Setting group {index + 1}</h4>
+                                    <p>Use this space for forms, configuration groups, filters, or other drawer content.</p>
+                                </div>
+                            ))}
+                        </Drawer>
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>Styled Detail Drawer</h2>
 
                 <div className="showcase-group">
@@ -289,6 +329,17 @@ export const DrawerPage: React.FC = () => {
                             borderRadius="20px"
                             shadow="var(--modal-surface-box-shadow, var(--modal-box-shadow))"
                             title="BOOK - B02"
+                            secondaryButton={{
+                                text: 'Cancel',
+                                onClick: () => setBookDetailDrawerOpen(false),
+                                variant: 'default',
+                            }}
+                            primaryButton={{
+                                text: 'Save changes',
+                                icon: '✓',
+                                onClick: () => setBookDetailDrawerOpen(false),
+                                variant: 'info',
+                            }}
                             actions={[
                                 { id: 'edit', label: '✏️ Edit', onClick: () => undefined },
                                 { id: 'delete', label: '🗑️ Delete', onClick: () => undefined },
