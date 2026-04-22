@@ -7,7 +7,6 @@ const bookDrawerStyles: Record<string, React.CSSProperties> = {
         display: 'flex',
         flexDirection: 'column',
         gap: '28px',
-        minHeight: '120vh',
     },
     hero: {
         display: 'flex',

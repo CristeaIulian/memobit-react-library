@@ -75,7 +75,9 @@ export const Modal: FC<ModalProps> = ({
             <div ref={modalRef} className={`modal modal--${size} ${className || ''} ${effectClass}`} onClick={e => e.stopPropagation()}>
                 <div className="modal__header">
                     <h2>{title}</h2>
-                    <Button variant="plain" prefixIcon="✖" onClick={onClose}></Button>
+                    <Button ariaLabel="Close modal" className="modal__close" onClick={onClose} size="medium" title="Close modal" variant="ghost">
+                        &times;
+                    </Button>
                 </div>
                 {children}
                 {hasFooter && (

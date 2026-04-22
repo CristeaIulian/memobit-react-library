@@ -35,6 +35,7 @@ export const ButtonPage: React.FC = () => {
                 <div className="showcase-group">
                     <div className="component-group">
                         <Button variant="plain">Plain</Button>
+                        <Button variant="ghost">Ghost</Button>
                         <Button variant="default">Default</Button>
                         <Button variant="warning">Warning</Button>
                         <Button variant="danger">Danger</Button>

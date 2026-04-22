@@ -142,6 +142,20 @@
             transform: none;
         }
     }
+
+    &.button-ghost {
+        background-color: var(--button-ghost-background-color);
+        border-color: var(--button-ghost-border-color);
+        color: var(--button-ghost-color);
+        padding: var(--spacing-4) var(--spacing-8);
+
+        &:hover {
+            background-color: var(--button-ghost-hover-background-color);
+            border-color: var(--button-ghost-hover-border-color);
+            color: var(--button-ghost-hover-color);
+            transform: none;
+        }
+    }
 }
 
 @keyframes button-spin {

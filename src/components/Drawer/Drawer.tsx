@@ -88,16 +88,16 @@ export const Drawer: React.FC<DrawerProps> = ({
                                     prefixIcon={action.icon}
                                     size={action.size ?? 'small'}
                                     title={action.title ?? action.label}
-                                    variant={action.variant ?? 'plain'}
+                                    variant={action.variant ?? 'ghost'}
                                 >
                                     {action.label}
                                 </Button>
                             ))}
                         </div>
                     )}
-                    <button className="drawer__close" onClick={onClose} aria-label="Close drawer">
+                    <Button ariaLabel="Close drawer" className="drawer__close" onClick={onClose} size="medium" title="Close drawer" variant="ghost">
                         &times;
-                    </button>
+                    </Button>
                 </div>
                 <div className="drawer__content">{children}</div>
             </div>

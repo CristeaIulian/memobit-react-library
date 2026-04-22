@@ -87,7 +87,12 @@
 
     --button-plain-color: #635847;
     --button-plain-hover-color: #20160d;
-
+    --button-ghost-border-color: transparent;
+    --button-ghost-background-color: transparent;
+    --button-ghost-color: var(--button-plain-color);
+    --button-ghost-hover-border-color: transparent;
+    --button-ghost-hover-background-color: #e0d3bb;
+    --button-ghost-hover-color: var(--button-plain-hover-color);
     --dropdown-border-color: rgba(88, 67, 34, 0.24);
     --dropdown-header-background-color: #f4ead2;
     --dropdown-header-border-focus-color: #c66f22;

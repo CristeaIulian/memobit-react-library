@@ -87,7 +87,12 @@
 
     --button-plain-color: #90a1b9;
     --button-plain-hover-color: #f9f3f4;
-
+    --button-ghost-border-color: transparent;
+    --button-ghost-background-color: transparent;
+    --button-ghost-color: var(--button-plain-color);
+    --button-ghost-hover-border-color: transparent;
+    --button-ghost-hover-background-color: var(--card-background-accent-color);
+    --button-ghost-hover-color: var(--button-plain-hover-color);
     --dropdown-border-color: #000;
     --dropdown-header-background-color: #1d293d;
     --dropdown-header-border-focus-color: #1d293d;

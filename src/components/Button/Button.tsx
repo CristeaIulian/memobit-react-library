@@ -2,9 +2,10 @@ import React, { MouseEvent } from 'react';
 
 import './Button.scss';
 
-export type ButtonVariant = 'plain' | 'default' | 'success' | 'info' | 'warning' | 'danger';
+export type ButtonVariant = 'plain' | 'ghost' | 'default' | 'success' | 'info' | 'warning' | 'danger';
 
 export interface ButtonProps {
+    ariaLabel?: string;
     borders?: 'sharp' | 'rounded';
     children?: React.ReactNode;
     className?: string;
@@ -22,6 +23,7 @@ export interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({
+    ariaLabel,
     borders = 'rounded',
     children,
     className,
@@ -39,6 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
     return (
         <button
+            aria-label={ariaLabel}
             className={`button button-${size} button-${variant} ${borders === 'rounded' ? 'button-rounded' : ''} ${fullWidth ? 'is-full-width' : ''} ${className || ''}`}
             disabled={disabled}
             onClick={onClick}
