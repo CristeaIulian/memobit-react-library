@@ -2,6 +2,7 @@ export interface ThemeConfig {
     value: string;
     label: string;
     fontUrl: string;
+    fontUrlEmphasis?: string;
 }
 
 export const THEME_CONFIGS: ThemeConfig[] = [
@@ -94,6 +95,12 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         value: 'twilight-pulse',
         label: 'Twilight Pulse',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+    },
+    {
+        value: 'sandy-parchment',
+        label: 'Sandy Parchment',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap',
+        fontUrlEmphasis: 'https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&display=swap',
     },
 ];
 

@@ -23,6 +23,7 @@ import '../../src/styles/theming/neon-tokyo.scss';
 import '../../src/styles/theming/ocean-breeze.scss';
 import '../../src/styles/theming/ocean-depths.scss';
 import '../../src/styles/theming/sandstone.scss';
+import '../../src/styles/theming/sandy-parchment.scss';
 import '../../src/styles/theming/tailwind-vue-dark.scss';
 import '../../src/styles/theming/twilight-pulse.scss';
 import '../../src/styles/utilities.scss';

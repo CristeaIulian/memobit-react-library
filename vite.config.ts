@@ -33,6 +33,7 @@ export default defineConfig({
                 { src: 'src/styles/theming/ocean-breeze.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/ocean-depths.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/sandstone.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/sandy-parchment.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/tailwind-vue-dark.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/twilight-pulse.scss', dest: 'styles/theming' },
             ],

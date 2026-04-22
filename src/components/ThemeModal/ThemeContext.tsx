@@ -2,7 +2,26 @@ import { createContext, FC, ReactNode, useEffect, useState } from 'react';
 
 import { getThemeConfig } from './themeConfig';
 
-export type Theme = 'light-blue' | 'luna' | 'mintone' | 'dashdarkx' | 'tailwind-vue-dark' | 'azure-night' | 'ocean-depths' | 'twilight-pulse' | 'cyber-forest' | 'ember-night' | 'arctic-blue' | 'ocean-breeze' | 'lavender-mist' | 'mint-meadow' | 'neon-tokyo' | 'crimson-dusk' | 'sandstone' | 'frost-petal';
+export type Theme =
+    | 'arctic-blue'
+    | 'azure-night'
+    | 'crimson-dusk'
+    | 'cyber-forest'
+    | 'dashdarkx'
+    | 'ember-night'
+    | 'frost-petal'
+    | 'lavender-mist'
+    | 'light-blue'
+    | 'luna'
+    | 'mint-meadow'
+    | 'mintone'
+    | 'neon-tokyo'
+    | 'ocean-breeze'
+    | 'ocean-depths'
+    | 'sandstone'
+    | 'sandy-parchment'
+    | 'tailwind-vue-dark'
+    | 'twilight-pulse';
 
 export interface ThemeContextType {
     theme: Theme;
