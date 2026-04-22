@@ -13,9 +13,7 @@
     .dropdown-label {
         display: block;
         margin-bottom: var(--spacing-8);
-        font-size: var(--font-size-sm);
-        font-weight: var(--font-weight-medium);
-        color: var(--body-color);
+        @include themed-form-control-label(var(--body-color));
     }
 
     .dropdown-input-container {

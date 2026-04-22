@@ -2,8 +2,11 @@
 // Deep purple backgrounds with neon magenta accents for a futuristic IoT dashboard
 [data-theme='twilight-pulse'] {
     --font-family: Inter, Roboto, sans-serif;
+    --font-family-emphasis: var(--font-family, sans-serif);
 
     --body-background: #0f0a1a;
+    --body-background-base: var(--body-background);
+    --body-background-wash: var(--body-background-base);
     --body-color: #faf5ff;
     --body-color-accent: #ffffff;
     --body-color-muted: #a78bfa;
@@ -24,13 +27,22 @@
     --card-background-color: #1a1028;
     --card-background-accent-color: #120b1f;
     --card-border-color: #2d1b4e;
+    --card-backdrop-filter: none;
     --card-border-accent-color: #d946ef;
     --card-hover-border-color: #d946ef;
     --card-color: #faf5ff;
     --card-accent-color: #d946ef;
     --card-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    --card-surface-box-shadow: var(--card-box-shadow);
     --card-footer-background-color: #120b1f;
     --card-footer-color: #ddd6fe;
+    --card-title-color: var(--body-title-color);
+    --card-title-font-family: var(--font-family, sans-serif);
+    --card-title-font-size: var(--font-size-md);
+    --card-title-font-style: normal;
+    --card-title-font-weight: var(--font-weight-bold);
+    --card-title-letter-spacing: normal;
+    --card-title-text-transform: none;
 
     --links-color: #d946ef;
     --links-hover-color: #e879f9;
@@ -102,12 +114,21 @@
 
     --modal-background-color: #120b1f;
     --modal-border-color: #2d1b4e;
+    --modal-backdrop-filter: none;
     --modal-header-background-color: #1a1028;
     --modal-header-color: #ffffff;
+    --modal-title-color: var(--modal-header-color);
+    --modal-title-font-family: var(--font-family, sans-serif);
+    --modal-title-font-size: var(--font-size-xl);
+    --modal-title-font-style: normal;
+    --modal-title-font-weight: var(--font-weight-semibold);
+    --modal-title-letter-spacing: normal;
+    --modal-title-text-transform: none;
     --modal-body-color: #faf5ff;
     --modal-footer-background-color: #0f0a1a;
     --modal-color: #faf5ff;
     --modal-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --modal-surface-box-shadow: var(--modal-box-shadow);
     --modal-box-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.7);
 
     --list-alternate-background-color: #120b1f;
@@ -133,6 +154,11 @@
 
     --form-control-background-color: #1a1028;
     --form-control-color: #faf5ff;
+    --form-control-label-color: var(--body-color-muted);
+    --form-control-label-font-size: var(--font-size-sm);
+    --form-control-label-font-weight: var(--font-weight-medium);
+    --form-control-label-letter-spacing: normal;
+    --form-control-label-text-transform: none;
     --form-control-border-color: #2d1b4e;
     --form-control-error-background-color: #f43f5e11;
     --form-control-error-color: #f43f5e;
@@ -209,6 +235,12 @@
     --slider-thumb-border-color: #d946ef;
     --slider-thumb-hover-background-color: #e879f9;
     --slider-thumb-hover-border-color: #e879f9;
+
+    --chip-selected-background-color: var(--card-background-accent-color);
+    --chip-selected-border-color: var(--body-accent-color);
+    --chip-selected-color: var(--body-accent-color);
+    --chip-selected-count-color: var(--body-color-muted);
+
 
     --note-container-effect-background-color: rgba(217, 70, 239, 0.1);
     --note-container-effect-color: #faf5ff;

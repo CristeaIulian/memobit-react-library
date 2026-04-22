@@ -101,6 +101,34 @@
     overflow: hidden;
 }
 
+@mixin themed-card-title($fallback-color: inherit, $fallback-size: var(--font-size-md), $fallback-weight: var(--font-weight-bold)) {
+    color: var(--card-title-color, #{$fallback-color});
+    font-family: var(--card-title-font-family, var(--font-family, sans-serif));
+    font-size: var(--card-title-font-size, #{$fallback-size});
+    font-style: var(--card-title-font-style, normal);
+    font-weight: var(--card-title-font-weight, #{$fallback-weight});
+    letter-spacing: var(--card-title-letter-spacing, normal);
+    text-transform: var(--card-title-text-transform, none);
+}
+
+@mixin themed-modal-title($fallback-color: var(--modal-header-color), $fallback-size: var(--font-size-xl), $fallback-weight: var(--font-weight-semibold)) {
+    color: var(--modal-title-color, #{$fallback-color});
+    font-family: var(--modal-title-font-family, var(--font-family, sans-serif));
+    font-size: var(--modal-title-font-size, #{$fallback-size});
+    font-style: var(--modal-title-font-style, normal);
+    font-weight: var(--modal-title-font-weight, #{$fallback-weight});
+    letter-spacing: var(--modal-title-letter-spacing, normal);
+    text-transform: var(--modal-title-text-transform, none);
+}
+
+@mixin themed-form-control-label($fallback-color: var(--form-control-color), $fallback-size: var(--font-size-sm), $fallback-weight: var(--font-weight-medium)) {
+    color: var(--form-control-label-color, #{$fallback-color});
+    font-size: var(--form-control-label-font-size, #{$fallback-size});
+    font-weight: var(--form-control-label-font-weight, #{$fallback-weight});
+    letter-spacing: var(--form-control-label-letter-spacing, normal);
+    text-transform: var(--form-control-label-text-transform, none);
+}
+
 // ── Form input mixins ────────────────────────────────────────────────────────
 @mixin input-wrapper {
     display: flex;
@@ -109,9 +137,7 @@
 }
 
 @mixin input-label {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--form-control-color);
+    @include themed-form-control-label;
 }
 
 @mixin input-required {

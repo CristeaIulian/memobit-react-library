@@ -1,12 +1,12 @@
+@use '../../styles/utilities' as *;
+
 .textarea-wrapper {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-8);
 
     .textarea-label {
-        font-size: var(--font-size-sm);
-        font-weight: 500;
-        color: var(--form-control-color);
+        @include themed-form-control-label(var(--form-control-color), var(--font-size-sm), 500);
 
         .textarea-required {
             color: var(--body-danger-color, #dc2626);

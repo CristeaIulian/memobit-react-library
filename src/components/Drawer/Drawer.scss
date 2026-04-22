@@ -17,10 +17,12 @@
     top: 0;
     bottom: 0;
     background: var(--card-background-color);
+    backdrop-filter: var(--card-backdrop-filter, none);
     z-index: 1001;
     @include flex-column;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     animation: slideIn 0.3s ease;
+    -webkit-backdrop-filter: var(--card-backdrop-filter, none);
 
     &--left {
         left: 0;
@@ -41,9 +43,7 @@
 
     &__title {
         margin: 0;
-        font-size: var(--font-size-xl);
-        font-weight: var(--font-weight-semibold);
-        color: var(--body-color-accent);
+        @include themed-modal-title(var(--body-color-accent));
     }
 
     &__close {

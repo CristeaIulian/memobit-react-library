@@ -1,7 +1,10 @@
+@use '../../styles/utilities.scss' as *;
+
 .card {
     display: flex;
     flex-direction: column;
-    background-color: var(--card-background-color);
+    background: var(--card-background-color);
+    backdrop-filter: var(--card-backdrop-filter, none);
     border: var(--spacing-1) solid;
     border-color: var(--card-border-color);
     column-gap: var(--spacing-16);
@@ -9,7 +12,8 @@
     border-radius: var(--radius);
     position: relative;
     color: var(--card-color);
-    box-shadow: var(--card-box-shadow);
+    box-shadow: var(--card-surface-box-shadow, var(--card-box-shadow));
+    -webkit-backdrop-filter: var(--card-backdrop-filter, none);
 
     &:hover {
         border-color: var(--card-hover-border-color);
@@ -33,7 +37,7 @@
 
     h3 {
         margin: 0 0 var(--spacing-16) 0;
-        font-size: var(--font-size-md);
+        @include themed-card-title;
         display: flex;
         flex-direction: row;
         column-gap: var(--spacing-16);

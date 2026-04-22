@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .date-range-picker {
     display: flex;
     flex-direction: column;
@@ -5,7 +7,9 @@
     background: var(--card-background-color);
     border: 1px solid var(--delimiter-color);
     border-radius: var(--radius);
+    backdrop-filter: var(--card-backdrop-filter, none);
     padding: var(--spacing-16);
+    -webkit-backdrop-filter: var(--card-backdrop-filter, none);
 
     &__label-row {
         display: flex;
@@ -15,8 +19,7 @@
     }
 
     &__label {
-        font-weight: var(--font-weight-semibold);
-        color: var(--body-color);
+        @include themed-form-control-label(var(--body-color), inherit, var(--font-weight-semibold));
     }
 
     &__presets {
@@ -58,11 +61,13 @@
         background: var(--card-background-color);
         border: var(--spacing-1) solid var(--delimiter-color);
         border-radius: var(--radius);
-        box-shadow: var(--card-box-shadow);
+        backdrop-filter: var(--card-backdrop-filter, none);
+        box-shadow: var(--card-surface-box-shadow, var(--card-box-shadow));
         max-height: calc(100vh - var(--spacing-32));
         max-width: calc(100vw - var(--spacing-32));
         overflow: auto;
         padding: var(--spacing-16);
+        -webkit-backdrop-filter: var(--card-backdrop-filter, none);
     }
 
     &__nav {

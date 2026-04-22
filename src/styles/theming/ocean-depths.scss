@@ -2,8 +2,11 @@
 // Inspired by Lovable's IoT dashboard with deep navy backgrounds and sophisticated color hierarchy
 [data-theme='ocean-depths'] {
     --font-family: Inter, Roboto, sans-serif;
+    --font-family-emphasis: var(--font-family, sans-serif);
 
     --body-background: #0a0e1a;
+    --body-background-base: var(--body-background);
+    --body-background-wash: var(--body-background-base);
     --body-color: #f1f5f9;
     --body-color-accent: #ffffff;
     --body-color-muted: #758ba3;
@@ -24,13 +27,22 @@
     --card-background-color: #151b28;
     --card-background-accent-color: #0f1419;
     --card-border-color: #29283c;
+    --card-backdrop-filter: none;
     --card-border-accent-color: #19cde6;
     --card-hover-border-color: #19cde6;
     --card-color: #f1f5f9;
     --card-accent-color: #19cde6;
     --card-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    --card-surface-box-shadow: var(--card-box-shadow);
     --card-footer-background-color: #0f1419;
     --card-footer-color: #cbd5e1;
+    --card-title-color: var(--body-title-color);
+    --card-title-font-family: var(--font-family, sans-serif);
+    --card-title-font-size: var(--font-size-md);
+    --card-title-font-style: normal;
+    --card-title-font-weight: var(--font-weight-bold);
+    --card-title-letter-spacing: normal;
+    --card-title-text-transform: none;
 
     --links-color: #19cde6;
     --links-hover-color: #75e1f8;
@@ -102,12 +114,21 @@
 
     --modal-background-color: #0f1419;
     --modal-border-color: #29283c;
+    --modal-backdrop-filter: none;
     --modal-header-background-color: #151b28;
     --modal-header-color: #ffffff;
+    --modal-title-color: var(--modal-header-color);
+    --modal-title-font-family: var(--font-family, sans-serif);
+    --modal-title-font-size: var(--font-size-xl);
+    --modal-title-font-style: normal;
+    --modal-title-font-weight: var(--font-weight-semibold);
+    --modal-title-letter-spacing: normal;
+    --modal-title-text-transform: none;
     --modal-body-color: #f1f5f9;
     --modal-footer-background-color: #0a0e1a;
     --modal-color: #f1f5f9;
     --modal-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --modal-surface-box-shadow: var(--modal-box-shadow);
     --modal-box-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.7);
 
     --list-alternate-background-color: #0f1419;
@@ -133,6 +154,11 @@
 
     --form-control-background-color: #151b28;
     --form-control-color: #f1f5f9;
+    --form-control-label-color: var(--body-color-muted);
+    --form-control-label-font-size: var(--font-size-sm);
+    --form-control-label-font-weight: var(--font-weight-medium);
+    --form-control-label-letter-spacing: normal;
+    --form-control-label-text-transform: none;
     --form-control-border-color: #29283c;
     --form-control-error-background-color: #ef444411;
     --form-control-error-color: #ef4444;
@@ -209,6 +235,12 @@
     --slider-thumb-border-color: #19cde6;
     --slider-thumb-hover-background-color: #75e1f8;
     --slider-thumb-hover-border-color: #75e1f8;
+
+    --chip-selected-background-color: var(--card-background-accent-color);
+    --chip-selected-border-color: var(--body-accent-color);
+    --chip-selected-color: var(--body-accent-color);
+    --chip-selected-count-color: var(--body-color-muted);
+
 
     --note-container-effect-background-color: rgba(25, 205, 230, 0.1);
     --note-container-effect-color: #f1f5f9;

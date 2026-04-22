@@ -33,6 +33,7 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 const THEME_STORAGE_KEY = 'app-theme';
 const DEFAULT_THEME: Theme = 'luna';
 const FONT_LINK_ID = 'theme-font-link';
+const FONT_LINK_EMPHASIS_ID = 'theme-font-link-emphasis';
 
 interface ThemeProviderProps {
     children: ReactNode;
@@ -61,6 +62,21 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
             }
 
             linkElement.href = themeConfig.fontUrl;
+
+            let emphasisLinkElement = document.getElementById(FONT_LINK_EMPHASIS_ID) as HTMLLinkElement;
+
+            if (themeConfig.fontUrlEmphasis) {
+                if (!emphasisLinkElement) {
+                    emphasisLinkElement = document.createElement('link');
+                    emphasisLinkElement.id = FONT_LINK_EMPHASIS_ID;
+                    emphasisLinkElement.rel = 'stylesheet';
+                    document.head.appendChild(emphasisLinkElement);
+                }
+
+                emphasisLinkElement.href = themeConfig.fontUrlEmphasis;
+            } else {
+                emphasisLinkElement?.remove();
+            }
         }
     }, [theme]);
 

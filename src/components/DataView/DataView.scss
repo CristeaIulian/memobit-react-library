@@ -11,6 +11,9 @@
         border: var(--spacing-1) solid var(--delimiter-color);
         border-radius: var(--radius);
         background: var(--card-background-color);
+        backdrop-filter: var(--card-backdrop-filter, none);
+        box-shadow: var(--card-surface-box-shadow, var(--card-box-shadow));
+        -webkit-backdrop-filter: var(--card-backdrop-filter, none);
     }
 
     table {
@@ -146,11 +149,7 @@
     }
 
     &__filter-bar-label {
-        font-size: var(--font-size-xs);
-        font-weight: var(--font-weight-semibold);
-        color: var(--body-color-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        @include themed-form-control-label(var(--body-color-muted), var(--font-size-xs), var(--font-weight-semibold));
     }
 
     // ── Misc ────────────────────────────────────────────────────────────
@@ -209,9 +208,12 @@
         border: var(--spacing-1) solid var(--delimiter-color);
         border-radius: var(--radius);
         padding: var(--spacing-16);
+        backdrop-filter: var(--card-backdrop-filter, none);
+        box-shadow: var(--card-surface-box-shadow, var(--card-box-shadow));
         display: flex;
         flex-direction: column;
         gap: var(--spacing-12);
+        -webkit-backdrop-filter: var(--card-backdrop-filter, none);
 
         &--clickable {
             cursor: pointer;
@@ -242,9 +244,7 @@
     }
 
     &__card-title {
-        font-weight: var(--font-weight-semibold);
-        color: var(--body-color-accent);
-        font-size: var(--font-size-md);
+        @include themed-card-title(var(--body-color-accent), var(--font-size-md), var(--font-weight-semibold));
         overflow-wrap: break-word;
         word-break: break-word;
     }

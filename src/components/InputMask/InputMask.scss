@@ -3,6 +3,7 @@
 // Uses arctic-blue CSS custom properties + variables.scss tokens.
 // ─────────────────────────────────────────────────────────────────────────────
 @use 'sass:map';
+@use '../../styles/utilities' as *;
 
 // ── Variant map ───────────────────────────────────────────────────────────────
 $variants: (
@@ -58,9 +59,7 @@ $sizes: (
 
 // ── Label ─────────────────────────────────────────────────────────────────────
 .input-mask__label {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--body-color);
+    @include themed-form-control-label(var(--body-color));
     line-height: var(--line-height-tight);
     cursor: pointer;
 }

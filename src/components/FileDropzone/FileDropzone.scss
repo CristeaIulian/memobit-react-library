@@ -1,10 +1,12 @@
+@use '../../styles/utilities' as *;
+
 .file-dropzone {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-12);
 
     &__label {
-        font-weight: 600;
+        @include themed-form-control-label(inherit, inherit, 600);
     }
 
     &__area {
@@ -13,9 +15,11 @@
         padding: var(--spacing-24);
         text-align: center;
         background: var(--card-background-color);
+        backdrop-filter: var(--card-backdrop-filter, none);
         cursor: pointer;
         transition: border-color 0.2s ease;
         position: relative;
+        -webkit-backdrop-filter: var(--card-backdrop-filter, none);
 
         input {
             display: none;

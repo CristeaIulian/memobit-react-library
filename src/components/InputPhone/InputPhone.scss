@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .input-phone-wrapper {
     display: flex;
     flex-direction: column;
@@ -8,9 +10,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-4);
-    color: var(--form-control-color);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    @include themed-form-control-label;
     line-height: var(--line-height-normal);
 }
 

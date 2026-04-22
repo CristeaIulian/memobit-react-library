@@ -1,3 +1,5 @@
+@use '../../styles/utilities.scss' as *;
+
 .empty-state {
     display: flex;
     flex-direction: column;
@@ -8,6 +10,8 @@
     border: 1px dashed var(--delimiter-color);
     border-radius: var(--radius);
     background: var(--card-background-color);
+    backdrop-filter: var(--card-backdrop-filter, none);
+    -webkit-backdrop-filter: var(--card-backdrop-filter, none);
 
     &__icon {
         font-size: 2rem;
@@ -15,6 +19,7 @@
 
     &__title {
         margin: 0;
+        @include themed-card-title(inherit, inherit, inherit);
     }
 
     &__description {

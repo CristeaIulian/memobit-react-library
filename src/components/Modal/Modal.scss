@@ -15,17 +15,19 @@
 }
 
 .modal {
-    background-color: var(--modal-background-color);
-    border-color: var(--modal-border-color);
+    background: var(--modal-background-color);
+    backdrop-filter: var(--modal-backdrop-filter, none);
+    border: var(--spacing-1) solid var(--modal-border-color);
     border-radius: var(--radius);
     max-width: 800px;
     width: 100%;
     max-height: calc(100vh * 0.9);
     overflow-y: auto;
     position: relative;
-    box-shadow: var(--modal-box-shadow);
+    box-shadow: var(--modal-surface-box-shadow, var(--modal-box-shadow));
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
+    -webkit-backdrop-filter: var(--modal-backdrop-filter, none);
 
     &:hover {
         box-shadow: var(--modal-box-shadow-hover);
@@ -40,7 +42,7 @@
 
         h2 {
             margin: 0;
-            font-size: var(--font-size-xl);
+            @include themed-modal-title;
         }
     }
 
@@ -61,8 +63,8 @@
 
         h2 {
             margin: 0;
-            font-size: var(--font-size-lg);
-            color: var(--modal-header-color);
+            color: var(--modal-title-color, var(--modal-header-color));
+            font-size: var(--modal-title-small-font-size, var(--modal-title-font-size, var(--font-size-lg)));
         }
     }
 

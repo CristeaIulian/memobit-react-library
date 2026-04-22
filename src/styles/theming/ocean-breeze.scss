@@ -2,8 +2,11 @@
 // Clean light backgrounds with vibrant cyan accents - the light companion to Ocean Depths
 [data-theme='ocean-breeze'] {
     --font-family: Inter, Roboto, sans-serif;
+    --font-family-emphasis: var(--font-family, sans-serif);
 
     --body-background: #f0f9ff;
+    --body-background-base: var(--body-background);
+    --body-background-wash: var(--body-background-base);
     --body-color: #0c4a6e;
     --body-color-accent: #082f49;
     --body-color-muted: #64748b;
@@ -24,13 +27,22 @@
     --card-background-color: #ffffff;
     --card-background-accent-color: #f0f9ff;
     --card-border-color: #e0f2fe;
+    --card-backdrop-filter: none;
     --card-border-accent-color: #0891b2;
     --card-hover-border-color: #0891b2;
     --card-color: #0c4a6e;
     --card-accent-color: #0891b2;
     --card-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --card-surface-box-shadow: var(--card-box-shadow);
     --card-footer-background-color: #f0f9ff;
     --card-footer-color: #334155;
+    --card-title-color: var(--body-title-color);
+    --card-title-font-family: var(--font-family, sans-serif);
+    --card-title-font-size: var(--font-size-md);
+    --card-title-font-style: normal;
+    --card-title-font-weight: var(--font-weight-bold);
+    --card-title-letter-spacing: normal;
+    --card-title-text-transform: none;
 
     --links-color: #0891b2;
     --links-hover-color: #0e7490;
@@ -102,12 +114,21 @@
 
     --modal-background-color: #ffffff;
     --modal-border-color: #e0f2fe;
+    --modal-backdrop-filter: none;
     --modal-header-background-color: #f0f9ff;
     --modal-header-color: #0c4a6e;
+    --modal-title-color: var(--modal-header-color);
+    --modal-title-font-family: var(--font-family, sans-serif);
+    --modal-title-font-size: var(--font-size-xl);
+    --modal-title-font-style: normal;
+    --modal-title-font-weight: var(--font-weight-semibold);
+    --modal-title-letter-spacing: normal;
+    --modal-title-text-transform: none;
     --modal-body-color: #0c4a6e;
     --modal-footer-background-color: #f8fafc;
     --modal-color: #0c4a6e;
     --modal-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --modal-surface-box-shadow: var(--modal-box-shadow);
     --modal-box-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.2);
 
     --list-alternate-background-color: #f0f9ff;
@@ -133,6 +154,11 @@
 
     --form-control-background-color: #ffffff;
     --form-control-color: #0c4a6e;
+    --form-control-label-color: var(--body-color-muted);
+    --form-control-label-font-size: var(--font-size-sm);
+    --form-control-label-font-weight: var(--font-weight-medium);
+    --form-control-label-letter-spacing: normal;
+    --form-control-label-text-transform: none;
     --form-control-border-color: #cbd5e1;
     --form-control-error-background-color: #dc262611;
     --form-control-error-color: #dc2626;
@@ -209,6 +235,12 @@
     --slider-thumb-border-color: #0891b2;
     --slider-thumb-hover-background-color: #0e7490;
     --slider-thumb-hover-border-color: #0e7490;
+
+    --chip-selected-background-color: var(--card-background-accent-color);
+    --chip-selected-border-color: var(--body-accent-color);
+    --chip-selected-color: var(--body-accent-color);
+    --chip-selected-count-color: var(--body-color-muted);
+
 
     --note-container-effect-background-color: #ecfeff;
     --note-container-effect-color: #0c4a6e;

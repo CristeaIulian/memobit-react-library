@@ -2,8 +2,11 @@
 // Tailwind Vue theme - Dark theme
 [data-theme='tailwind-vue-dark'] {
     --font-family: 'Noto Sans', sans-serif;
+    --font-family-emphasis: var(--font-family, sans-serif);
 
     --body-background: #1d293d;
+    --body-background-base: var(--body-background);
+    --body-background-wash: var(--body-background-base);
     --body-color: #f9f3f4;
     --body-color-accent: #ffffff;
     --body-color-muted: #90a1b9;
@@ -24,13 +27,22 @@
     --card-background-color: #0f172bb3;
     --card-background-accent-color: #0f172bb3;
     --card-border-color: #4a64a7b3;
+    --card-backdrop-filter: none;
     --card-border-accent-color: #ebe6e7; // active items - generally border-left 2-4px
     --card-hover-border-color: #6b86cbb3;
     --card-color: #f9f3f4;
     --card-accent-color: #ffffff;
     --card-box-shadow: none;
+    --card-surface-box-shadow: var(--card-box-shadow);
     --card-footer-background-color: #0f172bb3;
     --card-footer-color: #f9f3f4;
+    --card-title-color: var(--body-title-color);
+    --card-title-font-family: var(--font-family, sans-serif);
+    --card-title-font-size: var(--font-size-md);
+    --card-title-font-style: normal;
+    --card-title-font-weight: var(--font-weight-bold);
+    --card-title-letter-spacing: normal;
+    --card-title-text-transform: none;
 
     --links-color: #2b7fff;
     --links-hover-color: #56c0e0;
@@ -102,12 +114,21 @@
 
     --modal-background-color: #0f172bee;
     --modal-border-color: #0f172bee;
+    --modal-backdrop-filter: none;
     --modal-header-background-color: #0f172bee;
     --modal-header-color: #f9f3f4;
+    --modal-title-color: var(--modal-header-color);
+    --modal-title-font-family: var(--font-family, sans-serif);
+    --modal-title-font-size: var(--font-size-xl);
+    --modal-title-font-style: normal;
+    --modal-title-font-weight: var(--font-weight-semibold);
+    --modal-title-letter-spacing: normal;
+    --modal-title-text-transform: none;
     --modal-body-color: #f9f3f4;
     --modal-footer-background-color: #0f172bee;
     --modal-color: #f9f3f4;
     --modal-box-shadow: 0 0 3px 1px #111;
+    --modal-surface-box-shadow: var(--modal-box-shadow);
     --modal-box-shadow-hover: 0 0 1px 1px #222;
 
     --list-alternate-background-color: #1d293d;
@@ -133,6 +154,11 @@
 
     --form-control-background-color: #1d293d;
     --form-control-color: #f9f3f4;
+    --form-control-label-color: var(--body-color-muted);
+    --form-control-label-font-size: var(--font-size-sm);
+    --form-control-label-font-weight: var(--font-weight-medium);
+    --form-control-label-letter-spacing: normal;
+    --form-control-label-text-transform: none;
     --form-control-border-color: #364153;
     --form-control-error-background-color: #fb2c3611;
     --form-control-error-color: #fb2c36;
@@ -209,6 +235,12 @@
     --slider-thumb-border-color: #2b7fff;
     --slider-thumb-hover-background-color: #155dfc;
     --slider-thumb-hover-border-color: #155dfc;
+
+    --chip-selected-background-color: var(--card-background-accent-color);
+    --chip-selected-border-color: var(--body-accent-color);
+    --chip-selected-color: var(--body-accent-color);
+    --chip-selected-count-color: var(--body-color-muted);
+
 
     --note-container-effect-background-color: #2b7fff19;
     --note-container-effect-color: #90a1b9;

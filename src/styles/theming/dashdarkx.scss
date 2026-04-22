@@ -2,8 +2,11 @@
 // DashDark X theme - Dark theme
 [data-theme='dashdarkx'] {
     --font-family: 'Mona sans', sans-serif;
+    --font-family-emphasis: var(--font-family, sans-serif);
 
     --body-background: #080f25;
+    --body-background-base: var(--body-background);
+    --body-background-wash: var(--body-background-base);
     --body-color: #aeb9e1;
     --body-color-accent: #ffffff;
     --body-color-muted: #aeb9e1;
@@ -24,13 +27,22 @@
     --card-background-color: #101935;
     --card-background-accent-color: #070f2a;
     --card-border-color: #343b4f;
+    --card-backdrop-filter: none;
     --card-border-accent-color: #f6a821; // active items - generally border-left 2-4px
     --card-hover-border-color: #343b4f; // to update
     --card-color: #949ba2;
     --card-accent-color: #949ba2;
     --card-box-shadow: 0 2px 7px #00000019;
+    --card-surface-box-shadow: var(--card-box-shadow);
     --card-footer-background-color: #101935;
     --card-footer-color: #949ba2;
+    --card-title-color: var(--body-title-color);
+    --card-title-font-family: var(--font-family, sans-serif);
+    --card-title-font-size: var(--font-size-md);
+    --card-title-font-style: normal;
+    --card-title-font-weight: var(--font-weight-bold);
+    --card-title-letter-spacing: normal;
+    --card-title-text-transform: none;
 
     --links-color: #6c72ff;
     --links-hover-color: #cbcdff;
@@ -102,12 +114,21 @@
 
     --modal-background-color: #101935;
     --modal-border-color: #343b4f;
+    --modal-backdrop-filter: none;
     --modal-header-background-color: #212c4d;
     --modal-header-color: #ffffff;
+    --modal-title-color: var(--modal-header-color);
+    --modal-title-font-family: var(--font-family, sans-serif);
+    --modal-title-font-size: var(--font-size-xl);
+    --modal-title-font-style: normal;
+    --modal-title-font-weight: var(--font-weight-semibold);
+    --modal-title-letter-spacing: normal;
+    --modal-title-text-transform: none;
     --modal-body-color: #aeb9e1;
     --modal-footer-background-color: #080f25;
     --modal-color: #ffffff;
     --modal-box-shadow: 0 0 3px 1px #111;
+    --modal-surface-box-shadow: var(--modal-box-shadow);
     --modal-box-shadow-hover: 0 0 1px 1px #222;
 
     --list-alternate-background-color: #212c4d;
@@ -133,6 +154,11 @@
 
     --form-control-background-color: #212c4d;
     --form-control-color: #aeb9e1;
+    --form-control-label-color: var(--body-color-muted);
+    --form-control-label-font-size: var(--font-size-sm);
+    --form-control-label-font-weight: var(--font-weight-medium);
+    --form-control-label-letter-spacing: normal;
+    --form-control-label-text-transform: none;
     --form-control-border-color: #343b4f;
     --form-control-error-background-color: #ff5a6511;
     --form-control-error-color: #ff5a65;
@@ -209,6 +235,12 @@
     --slider-thumb-border-color: #6c72ff;
     --slider-thumb-hover-background-color: #9a91fb;
     --slider-thumb-hover-border-color: #9a91fb;
+
+    --chip-selected-background-color: var(--card-background-accent-color);
+    --chip-selected-border-color: var(--body-accent-color);
+    --chip-selected-color: var(--body-accent-color);
+    --chip-selected-count-color: var(--body-color-muted);
+
 
     --note-container-effect-background-color: #6c72ff19;
     --note-container-effect-color: #aeb9e1;

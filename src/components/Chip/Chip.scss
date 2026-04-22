@@ -28,9 +28,9 @@
     }
 
     &--selected {
-        border-color: var(--body-accent-color);
-        background: var(--card-background-accent-color);
-        color: var(--body-accent-color);
+        border-color: var(--chip-selected-border-color, var(--body-accent-color));
+        background: var(--chip-selected-background-color, var(--card-background-accent-color));
+        color: var(--chip-selected-color, var(--body-accent-color));
     }
 
     &--plain {
@@ -114,8 +114,12 @@
     }
 
     &__count {
-        color: var(--body-color-muted);
+        color: var(--chip-count-color, var(--body-color-muted));
         font-size: var(--font-size-xs);
+    }
+
+    &--selected &__count {
+        color: var(--chip-selected-count-color, var(--chip-count-color, var(--body-color-muted)));
     }
 
     &--xsmall &__swatch {

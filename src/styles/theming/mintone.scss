@@ -2,8 +2,11 @@
 // Mintone theme - Clean light theme
 [data-theme='mintone'] {
     --font-family: 'Work Sans', sans-serif;
+    --font-family-emphasis: var(--font-family, sans-serif);
 
     --body-background: #f6f7fb;
+    --body-background-base: var(--body-background);
+    --body-background-wash: var(--body-background-base);
     --body-color: #060606;
     --body-color-accent: #1f2937;
     --body-color-muted: #bbbfc2;
@@ -24,13 +27,22 @@
     --card-background-color: #fff;
     --card-background-accent-color: #f6f6f6;
     --card-border-color: #fff;
+    --card-backdrop-filter: none;
     --card-border-accent-color: #e2e5e8; // active items - generally border-left 2-4px
     --card-hover-border-color: #fff; // to update
     --card-color: #535763;
     --card-accent-color: #374151;
     --card-box-shadow: 0 2px 5px #00000019;
+    --card-surface-box-shadow: var(--card-box-shadow);
     --card-footer-background-color: #fff;
     --card-footer-color: #535763;
+    --card-title-color: var(--body-title-color);
+    --card-title-font-family: var(--font-family, sans-serif);
+    --card-title-font-size: var(--font-size-md);
+    --card-title-font-style: normal;
+    --card-title-font-weight: var(--font-weight-bold);
+    --card-title-letter-spacing: normal;
+    --card-title-text-transform: none;
 
     --links-color: #4886ff;
     --links-hover-color: #4886ff;
@@ -102,12 +114,21 @@
 
     --modal-background-color: #ffffff;
     --modal-border-color: #00000033;
+    --modal-backdrop-filter: none;
     --modal-header-background-color: #ffffff;
     --modal-header-color: #535763;
+    --modal-title-color: var(--modal-header-color);
+    --modal-title-font-family: var(--font-family, sans-serif);
+    --modal-title-font-size: var(--font-size-xl);
+    --modal-title-font-style: normal;
+    --modal-title-font-weight: var(--font-weight-semibold);
+    --modal-title-letter-spacing: normal;
+    --modal-title-text-transform: none;
     --modal-body-color: #535763;
     --modal-footer-background-color: #ffffff;
     --modal-color: #535763;
     --modal-box-shadow: 0 0 3px 1px #111;
+    --modal-surface-box-shadow: var(--modal-box-shadow);
     --modal-box-shadow-hover: 0 0 1px 1px #222;
 
     --list-alternate-background-color: #4886ff08;
@@ -133,6 +154,11 @@
 
     --form-control-background-color: #fff;
     --form-control-color: #495057;
+    --form-control-label-color: var(--body-color-muted);
+    --form-control-label-font-size: var(--font-size-sm);
+    --form-control-label-font-weight: var(--font-weight-medium);
+    --form-control-label-letter-spacing: normal;
+    --form-control-label-text-transform: none;
     --form-control-border-color: #ced4da;
     --form-control-error-background-color: #ff484c11;
     --form-control-error-color: #ff484c;
@@ -209,6 +235,12 @@
     --slider-thumb-border-color: #4886ff;
     --slider-thumb-hover-background-color: #3671e8;
     --slider-thumb-hover-border-color: #3671e8;
+
+    --chip-selected-background-color: var(--card-background-accent-color);
+    --chip-selected-border-color: var(--body-accent-color);
+    --chip-selected-color: var(--body-accent-color);
+    --chip-selected-count-color: var(--body-color-muted);
+
 
     --note-container-effect-background-color: #4886ff19;
     --note-container-effect-color: #535763;

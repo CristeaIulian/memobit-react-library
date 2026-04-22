@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .rte-wrapper {
     display: flex;
     flex-direction: column;
@@ -6,9 +8,7 @@
 
     // ── Label ────────────────────────────────────────────────────────────────
     .rte-label {
-        font-size: var(--font-size-sm);
-        font-weight: var(--font-weight-medium);
-        color: var(--form-control-color);
+        @include themed-form-control-label;
 
         .rte-required {
             color: var(--body-danger-color, #dc2626);
