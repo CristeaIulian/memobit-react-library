@@ -1,27 +1,28 @@
-import { ChangeEvent, FC, useId } from 'react';
+import { ChangeEvent, FC, ReactNode, useId } from 'react';
 
 import './Radio.scss';
 
-interface RadioProps {
+export interface RadioProps {
     checked?: boolean;
     onChange?: (value: string | number | boolean) => void;
-    label?: string;
+    label?: ReactNode;
     disabled?: boolean;
     name?: string;
     value?: string | number;
     id?: string;
+    className?: string;
 }
 
-export const Radio: FC<RadioProps> = ({ checked = false, onChange, label, disabled = false, name, value, id }: RadioProps) => {
+export const Radio: FC<RadioProps> = ({ checked = false, onChange, label, disabled = false, name, value, id, className = '' }: RadioProps) => {
     const generatedId = useId();
     const inputId = id || generatedId;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange?.(e.target.checked && value ? value : e.target.checked);
+        onChange?.(e.target.checked && value !== undefined ? value : e.target.checked);
     };
 
     return (
-        <div className={`radio-wrapper ${disabled ? 'radio-wrapper--disabled' : ''}`}>
+        <div className={['radio-wrapper', disabled ? 'radio-wrapper--disabled' : '', className].filter(Boolean).join(' ')}>
             <input type="radio" id={inputId} name={name} value={value} className="radio-input" checked={checked} onChange={handleChange} disabled={disabled} />
             <label htmlFor={inputId} className="radio-label">
                 <span className="radio-circle"></span>
