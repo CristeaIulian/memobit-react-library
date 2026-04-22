@@ -14,6 +14,7 @@ export interface ButtonProps {
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
     prefixIcon?: string;
     size?: 'small' | 'medium' | 'large';
+    style?: React.CSSProperties;
     sufixIcon?: string;
     type?: 'button' | 'submit' | 'reset';
     title?: string;
@@ -30,6 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
     onClick,
     prefixIcon,
     variant = 'default',
+    style,
     sufixIcon,
     size = 'medium',
     title,
@@ -40,6 +42,7 @@ export const Button: React.FC<ButtonProps> = ({
             className={`button button-${size} button-${variant} ${borders === 'rounded' ? 'button-rounded' : ''} ${fullWidth ? 'is-full-width' : ''} ${className || ''}`}
             disabled={disabled}
             onClick={onClick}
+            style={style}
             title={title}
             type={type}
         >
