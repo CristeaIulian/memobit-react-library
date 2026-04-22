@@ -1,8 +1,8 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Checkbox } from '../Checkbox';
+import { Drawer } from '../Drawer';
 import { Dropdown, DropdownOption } from '../Dropdown';
-import { Modal } from '../Modal';
 import { Search } from '../Search';
 import { ToggleSwitch } from '../ToggleSwitch';
 
@@ -10,9 +10,9 @@ import { useTheme } from './useTheme';
 import { Theme } from './ThemeContext';
 import { FAVORITE_THEMES, THEME_CONFIGS } from './themeConfig';
 
-import './ThemeModal.scss';
+import './ThemeSettings.scss';
 
-interface ThemeModalProps {
+export interface ThemeSettingsProps {
     isOpen: boolean;
     onClose: () => void;
 }
@@ -24,7 +24,7 @@ interface EffectsConfig {
 
 const EFFECTS_STORAGE_KEY = 'effects';
 
-export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
+export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
     const { theme, setTheme } = useTheme();
 
     const componentsWithEffects = ['Card', 'Modal'];
@@ -110,13 +110,16 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
     };
 
     return (
-        <Modal
+        <Drawer
             isOpen={isOpen}
             onClose={onClose}
             title="Theme Settings"
-            size="medium"
+            position="right"
+            width="520px"
+            maxWidth="calc(100vw - 32px)"
+            className="theme-settings-drawer"
             primaryButton={{
-                text: 'Save',
+                text: 'Save changes',
                 onClick: handleSave,
                 variant: 'success',
             }}
@@ -126,11 +129,11 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
                 variant: 'default',
             }}
         >
-            <div className="theme-modal">
-                <div className="theme-modal__content">
-                    <div className="theme-modal__section">
+            <div className="theme-settings">
+                <div className="theme-settings__content">
+                    <div className="theme-settings__section">
                         <label>Select Theme</label>
-                        <div className="theme-modal__toolbar">
+                        <div className="theme-settings__toolbar">
                             <Search
                                 placeholder="Search themes..."
                                 value={searchQuery}
@@ -144,46 +147,46 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
                                 size="small"
                             />
                         </div>
-                        <div className="theme-modal__grid">
+                        <div className="theme-settings__grid">
                             {filteredThemes.length === 0 ? (
-                                <div className="theme-modal__empty">No themes found</div>
+                                <div className="theme-settings__empty">No themes found</div>
                             ) : (
                                 filteredThemes.map(config => (
                                     <button
                                         key={config.value}
                                         type="button"
-                                        className={`theme-modal__swatch ${theme === config.value ? 'theme-modal__swatch--active' : ''}`}
+                                        className={`theme-settings__swatch ${theme === config.value ? 'theme-settings__swatch--active' : ''}`}
                                         onClick={() => setTheme(config.value as Theme)}
                                     >
                                         <div
-                                            className="theme-modal__preview"
+                                            className="theme-settings__preview"
                                             data-theme={config.value}
                                         >
                                             {FAVORITE_THEMES.has(config.value) && (
-                                                <span className="theme-modal__favorite-badge">&#11088;</span>
+                                                <span className="theme-settings__favorite-badge">&#11088;</span>
                                             )}
-                                            <div className="theme-modal__preview-header" />
-                                            <div className="theme-modal__preview-body">
-                                                <div className="theme-modal__preview-card">
-                                                    <div className="theme-modal__preview-line theme-modal__preview-line--accent" />
-                                                    <div className="theme-modal__preview-line" />
-                                                    <div className="theme-modal__preview-line theme-modal__preview-line--short" />
+                                            <div className="theme-settings__preview-header" />
+                                            <div className="theme-settings__preview-body">
+                                                <div className="theme-settings__preview-card">
+                                                    <div className="theme-settings__preview-line theme-settings__preview-line--accent" />
+                                                    <div className="theme-settings__preview-line" />
+                                                    <div className="theme-settings__preview-line theme-settings__preview-line--short" />
                                                 </div>
-                                                <div className="theme-modal__preview-sidebar">
-                                                    <div className="theme-modal__preview-dot" />
-                                                    <div className="theme-modal__preview-dot" />
-                                                    <div className="theme-modal__preview-dot" />
+                                                <div className="theme-settings__preview-sidebar">
+                                                    <div className="theme-settings__preview-dot" />
+                                                    <div className="theme-settings__preview-dot" />
+                                                    <div className="theme-settings__preview-dot" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <span className="theme-modal__swatch-label">{config.label}</span>
+                                        <span className="theme-settings__swatch-label">{config.label}</span>
                                     </button>
                                 ))
                             )}
                         </div>
                     </div>
 
-                    <div className="theme-modal__section">
+                    <div className="theme-settings__section">
                         <label htmlFor="effect-selector">Component Effect</label>
                         <Dropdown
                             id="effect-selector"
@@ -195,9 +198,9 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
                         />
                     </div>
 
-                    <div className="theme-modal__section">
+                    <div className="theme-settings__section">
                         <label>Apply Effect To:</label>
-                        <div className="theme-modal__components">
+                        <div className="theme-settings__components">
                             {componentsWithEffects.map(component => (
                                 <Checkbox
                                     key={component}
@@ -211,6 +214,6 @@ export const ThemeModal: FC<ThemeModalProps> = ({ isOpen, onClose }) => {
                     </div>
                 </div>
             </div>
-        </Modal>
+        </Drawer>
     );
 };

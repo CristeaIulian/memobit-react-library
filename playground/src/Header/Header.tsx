@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { Button, MenuHamburgerItem, ThemeModal } from '../../../src';
+import { Button, ThemeSettings } from '../../../src';
 
 import './Header.scss';
 
 export const Header = () => {
-    const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+    const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 
     return (
         <div className="appHeader">
@@ -16,12 +16,12 @@ export const Header = () => {
             </header>
 
             <div>
-                <Button prefixIcon="🎨" onClick={() => setIsThemeModalOpen(true)}>
+                <Button prefixIcon="🎨" onClick={() => setIsThemeSettingsOpen(true)}>
                     Change theme
                 </Button>
             </div>
 
-            <ThemeModal isOpen={isThemeModalOpen} onClose={() => setIsThemeModalOpen(false)} />
+            <ThemeSettings isOpen={isThemeSettingsOpen} onClose={() => setIsThemeSettingsOpen(false)} />
         </div>
     );
 };

@@ -98,7 +98,7 @@ export { Slider } from './components/Slider';
 export { SplitPanel } from './components/SplitPanel';
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';
 export { Textarea } from './components/Textarea';
-export { ThemeModal, ThemeContext, ThemeProvider, useTheme } from './components/ThemeModal';
+export { ThemeSettings, type ThemeSettingsProps, ThemeContext, ThemeProvider, useTheme } from './components/ThemeSettings';
 export { TipsOfTheDay } from './components/TipsOfTheDay';
 export { Toast, type ToastAction, type ToastDetails } from './components/Toast';
 export { type ContextToastAction, ToastContainer, ToastProvider, type ToastType, useToast } from './components/ContextToast';

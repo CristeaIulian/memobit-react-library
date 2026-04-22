@@ -73,7 +73,7 @@ import { SliderPage } from './pages/SliderPage';
 import { SplitPanelPage } from './pages/SplitPanelPage';
 import { SuggestionsListPage } from './pages/SuggestionsListPage';
 import { TextareaPage } from './pages/TextareaPage';
-import { ThemeModalPage } from './pages/ThemeModalPage';
+import { ThemeSettingsPage } from './pages/ThemeSettingsPage';
 import { TipsOfTheDayPage } from './pages/TipsOfTheDayPage';
 import { ToastPage } from './pages/ToastPage';
 import { ToggleButtonsPage } from './pages/ToggleButtonsPage';
@@ -165,7 +165,7 @@ export const routes: RouteConfig[] = [
     { path: '/split-panel', label: 'Split Panel', component: SplitPanelPage },
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
     { path: '/textarea', label: 'Textarea', component: TextareaPage },
-    { path: '/theme-modal', label: 'Theme Modal', component: ThemeModalPage },
+    { path: '/theme-settings', label: 'Theme Settings', component: ThemeSettingsPage },
     { path: '/timeline', label: 'Timeline', component: TimelinePage },
     { path: '/tips-of-the-day', label: 'Tips Of The Day', component: TipsOfTheDayPage },
     { path: '/toast', label: 'Toast', component: ToastPage },

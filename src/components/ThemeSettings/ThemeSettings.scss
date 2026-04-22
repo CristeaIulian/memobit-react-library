@@ -1,11 +1,23 @@
 @use '../../styles/utilities' as *;
 
-.theme-modal {
-    padding: var(--spacing-24);
+.theme-settings-drawer {
+    .drawer__content {
+        display: flex;
+        min-height: 0;
+    }
+}
+
+.theme-settings {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    padding: var(--spacing-8);
 
     &__content {
         display: flex;
         flex-direction: column;
+        flex: 1;
+        min-height: 0;
         gap: var(--spacing-16);
 
         label {
@@ -24,7 +36,12 @@
     &__section {
         display: flex;
         flex-direction: column;
+        min-height: 0;
         gap: var(--spacing-8);
+
+        &:first-child {
+            flex: 1;
+        }
     }
 
     &__components {
@@ -49,8 +66,11 @@
     &__grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        align-content: start;
+        align-items: start;
         gap: var(--spacing-12);
-        max-height: 340px;
+        flex: 1;
+        min-height: 0;
         overflow-y: auto;
         padding: var(--spacing-4);
     }
@@ -69,6 +89,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        align-self: start;
         gap: var(--spacing-8);
         padding: var(--spacing-8);
         border-radius: var(--radius);
@@ -174,7 +195,7 @@
 }
 
 @include mobile {
-    .theme-modal {
+    .theme-settings {
         &__grid {
             grid-template-columns: repeat(2, 1fr);
         }
