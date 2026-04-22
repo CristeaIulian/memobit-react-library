@@ -15,6 +15,7 @@
 
 .drawer {
     --drawer-width: 320px;
+    --drawer-max-width: none;
     --drawer-margin: 0;
     --drawer-border-radius: 0;
     --drawer-shadow: none;
@@ -28,6 +29,7 @@
     top: 0;
     bottom: 0;
     width: var(--drawer-width);
+    max-width: var(--drawer-max-width);
     margin: var(--drawer-margin);
     background: var(--drawer-background-color);
     backdrop-filter: var(--drawer-backdrop-filter);
@@ -123,7 +125,7 @@
 @include mobile {
     .drawer {
         width: min(var(--drawer-width), calc(100vw - var(--spacing-32))) !important;
-        max-width: none;
+        max-width: var(--drawer-max-width);
     }
 }
 

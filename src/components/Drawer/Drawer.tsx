@@ -22,7 +22,10 @@ export interface DrawerProps {
     isOpen: boolean;
     onClose: () => void;
     position?: DrawerPosition;
+    /** CSS width for the drawer. Accepts any CSS length or expression. */
     width?: string;
+    /** Optional CSS max-width for responsive drawers. */
+    maxWidth?: string | number;
     margin?: string | number;
     borderRadius?: string | number;
     shadow?: string;
@@ -38,6 +41,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     onClose,
     position = 'left',
     width = '320px',
+    maxWidth = 'none',
     margin = 0,
     borderRadius = 0,
     shadow = 'none',
@@ -67,6 +71,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     const formatCssValue = (value: string | number): string => (typeof value === 'number' ? `${value}px` : value);
     const drawerStyle = {
         '--drawer-width': width,
+        '--drawer-max-width': formatCssValue(maxWidth),
         '--drawer-margin': formatCssValue(margin),
         '--drawer-border-radius': formatCssValue(borderRadius),
         '--drawer-shadow': shadow,

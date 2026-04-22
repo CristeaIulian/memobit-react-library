@@ -205,7 +205,7 @@ export const DrawerPage: React.FC = () => {
             </section>
 
             <section className="page-section">
-                <h2>Custom Width Drawers</h2>
+                <h2>Drawer Width</h2>
 
                 <div className="showcase-group">
                     <h3>Wide Drawer (500px)</h3>
@@ -276,14 +276,15 @@ export const DrawerPage: React.FC = () => {
                 <h2>Styled Detail Drawer</h2>
 
                 <div className="showcase-group">
-                    <h3>Book detail panel</h3>
+                    <h3>Book detail panel with responsive max width</h3>
                     <div className="component-group">
                         <Button onClick={() => setBookDetailDrawerOpen(true)}>Open Book Detail Drawer</Button>
                         <Drawer
                             isOpen={isBookDetailDrawerOpen}
                             onClose={() => setBookDetailDrawerOpen(false)}
                             position="right"
-                            width="min(820px, calc(100vw - 64px))"
+                            width="calc(100vw - 64px)"
+                            maxWidth="820px"
                             margin="20px 32px 20px 0"
                             borderRadius="20px"
                             shadow="var(--modal-surface-box-shadow, var(--modal-box-shadow))"
