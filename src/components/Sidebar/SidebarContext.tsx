@@ -16,8 +16,10 @@ interface SidebarProviderProps {
 
 const SidebarContext = createContext<SidebarContextValue | null>(null);
 
+export const useSidebarContext = (): SidebarContextValue | null => useContext(SidebarContext);
+
 export const useSidebar = (): SidebarContextValue => {
-    const context = useContext(SidebarContext);
+    const context = useSidebarContext();
 
     if (!context) {
         throw new Error('useSidebar must be used within a SidebarProvider');

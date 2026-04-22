@@ -137,9 +137,7 @@ export const SidebarPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Collapsible Sidebar</h3>
                     <div>
-                        <Button onClick={() => setIsSidebarOpen(!isSidebarOpen)} style={{ marginBottom: '16px' }}>
-                            {isSidebarOpen ? 'Hide' : 'Show'} Sidebar
-                        </Button>
+                        <Button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>{isSidebarOpen ? 'Hide' : 'Show'} Sidebar</Button>
                         <div style={{ display: 'flex', height: '400px', border: '1px solid var(--border-color)', borderRadius: '8px' }}>
                             <Sidebar sections={dashboardSections} isOpen={isSidebarOpen} />
                             <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
@@ -157,9 +155,7 @@ export const SidebarPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Mobile Overlay Sidebar</h3>
                     <div>
-                        <Button onClick={() => setMobileSidebarOpen(!isMobileSidebarOpen)} style={{ marginBottom: '16px' }}>
-                            Toggle Mobile Sidebar
-                        </Button>
+                        <Button onClick={() => setMobileSidebarOpen(!isMobileSidebarOpen)}>Toggle Mobile Sidebar</Button>
                         <div
                             style={{
                                 position: 'relative',
@@ -185,6 +181,8 @@ export const SidebarPage: React.FC = () => {
                                 isOpen={isMobileSidebarOpen}
                                 onClose={() => setMobileSidebarOpen(false)}
                                 isMobile={true}
+                                showOverlay={false}
+                                contained
                             />
                             <div style={{ padding: '16px', background: 'var(--body-background)', height: '100%' }}>
                                 <h3>Mobile Layout</h3>

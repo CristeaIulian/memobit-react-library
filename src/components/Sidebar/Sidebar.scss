@@ -7,7 +7,11 @@
     background: var(--card-background-color);
     border-right: var(--spacing-1) solid var(--delimiter-color);
     flex-shrink: 0;
-    transition: transform 0.3s ease;
+    overflow-x: hidden;
+    transition:
+        width 0.3s ease,
+        transform 0.3s ease,
+        border-color 0.3s ease;
 
     &__nav {
         @include flex-column;
@@ -62,6 +66,16 @@
         margin: var(--spacing-8) 0;
     }
 
+    &--closed:not(&--mobile) {
+        width: 0;
+        border-right-width: 0;
+    }
+
+    &--closed:not(&--mobile) &__nav {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
     &--mobile {
         position: fixed;
         top: 0;
@@ -76,11 +90,19 @@
         }
     }
 
+    &--contained {
+        position: absolute;
+    }
+
     &__overlay {
         position: fixed;
         inset: 0;
         background: rgba(0, 0, 0, 0.5);
         z-index: 999;
+
+        &--contained {
+            position: absolute;
+        }
     }
 }
 
@@ -103,9 +125,7 @@
 
 @include not-mobile {
     .sidebar {
-        position: sticky;
-        top: var(--sidebar-top, 0);
-        height: calc(100vh - var(--sidebar-top, 0px));
+        height: 100%;
         overflow-y: auto;
     }
 }

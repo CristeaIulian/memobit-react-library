@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { useSidebar } from './SidebarContext';
+import { useSidebarContext } from './SidebarContext';
 
 import './Sidebar.scss';
 
@@ -17,11 +17,16 @@ export interface SidebarSection {
     showDivider?: boolean;
 }
 
-interface SidebarProps {
+export interface SidebarProps {
     sections: SidebarSection[];
     width?: string;
     className?: string;
     renderItem?: (item: SidebarItem) => ReactNode;
+    isOpen?: boolean;
+    onClose?: () => void;
+    isMobile?: boolean;
+    showOverlay?: boolean;
+    contained?: boolean;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -29,8 +34,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
     width = '280px',
     className = '',
     renderItem,
+    isOpen: isOpenProp,
+    onClose,
+    isMobile: isMobileProp,
+    showOverlay = true,
+    contained = false,
 }) => {
-    const { isMobile, isOpen, close } = useSidebar();
+    const sidebarContext = useSidebarContext();
+    const isMobile = isMobileProp ?? sidebarContext?.isMobile ?? false;
+    const isOpen = isOpenProp ?? (isMobile ? sidebarContext?.isOpen ?? false : true);
+    const close = onClose ?? sidebarContext?.close ?? (() => undefined);
+    const sidebarClassName = [
+        'sidebar',
+        isOpen ? 'sidebar--open' : 'sidebar--closed',
+        isMobile ? 'sidebar--mobile' : '',
+        contained ? 'sidebar--contained' : '',
+        className,
+    ]
+        .filter(Boolean)
+        .join(' ');
+    const overlayClassName = ['sidebar__overlay', contained ? 'sidebar__overlay--contained' : '']
+        .filter(Boolean)
+        .join(' ');
 
     const handleItemClick = (item: SidebarItem) => {
         if (item.onClick) {
@@ -54,9 +79,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
     return (
         <>
-            {isMobile && isOpen && <div className="sidebar__overlay" onClick={close} />}
+            {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
             <aside
-                className={`sidebar ${isOpen ? 'sidebar--open' : ''} ${isMobile ? 'sidebar--mobile' : ''} ${className}`}
+                className={sidebarClassName}
                 style={{ '--sidebar-width': width } as React.CSSProperties}
             >
                 <nav className="sidebar__nav">
