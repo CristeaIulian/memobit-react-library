@@ -1,6 +1,105 @@
 import React, { useState } from 'react';
 
-import { Drawer, Button } from '../../../src';
+import { Drawer, Button, Chip, InputNumber, Rating } from '../../../src';
+
+const bookDrawerStyles: Record<string, React.CSSProperties> = {
+    stack: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '28px',
+        minHeight: '120vh',
+    },
+    hero: {
+        display: 'flex',
+        gap: '22px',
+        alignItems: 'start',
+    },
+    cover: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        width: '100%',
+        maxWidth: '150px',
+        aspectRatio: '3 / 4.3',
+        padding: '18px',
+        borderRadius: '8px',
+        border: '1px solid rgba(255, 252, 240, 0.45)',
+        background: 'linear-gradient(145deg, #294c29 0%, #6c9558 100%)',
+        color: '#fff8e6',
+        boxShadow: '0 20px 32px -24px rgba(31, 24, 17, 0.75)',
+    },
+    coverRightContent: {
+        flex: 1,
+    },
+    title: {
+        margin: 0,
+        color: 'var(--body-color-accent)',
+        fontFamily: 'var(--font-family-emphasis, var(--font-family, serif))',
+        fontSize: '32px',
+        fontStyle: 'italic',
+        fontWeight: 500,
+        lineHeight: 1.1,
+    },
+    meta: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '14px',
+        margin: '18px 0',
+        color: 'var(--body-color-muted)',
+        fontSize: '13px',
+        letterSpacing: '0.18em',
+        textTransform: 'uppercase',
+    },
+    progressTrack: {
+        height: '7px',
+        overflow: 'hidden',
+        borderRadius: '999px',
+        background: 'var(--card-background-accent-color)',
+    },
+    progressValue: {
+        width: '71%',
+        height: '100%',
+        background: 'var(--body-accent-color)',
+    },
+    controlsGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+        gap: '12px',
+    },
+    stateButton: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        minHeight: '46px',
+        padding: '0 14px',
+        border: '1px solid var(--delimiter-color)',
+        borderRadius: '8px',
+        background: 'transparent',
+        color: 'var(--body-color)',
+    },
+    sectionTitle: {
+        margin: '0 0 12px',
+        color: 'var(--body-color-muted)',
+        fontSize: '12px',
+        fontWeight: 600,
+        letterSpacing: '0.22em',
+        textTransform: 'uppercase',
+    },
+    details: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+        gap: '18px 80px',
+    },
+    noteBox: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '18px',
+        padding: '18px',
+        border: '1px solid var(--delimiter-color)',
+        borderRadius: '12px',
+        background: 'rgba(255, 248, 230, 0.24)',
+    },
+};
 
 export const DrawerPage: React.FC = () => {
     const [isLeftDrawerOpen, setLeftDrawerOpen] = useState<boolean>(false);
@@ -10,6 +109,10 @@ export const DrawerPage: React.FC = () => {
     const [isWideDrawerOpen, setWideDrawerOpen] = useState<boolean>(false);
     const [isNarrowDrawerOpen, setNarrowDrawerOpen] = useState<boolean>(false);
     const [isNoOverlayDrawerOpen, setNoOverlayDrawerOpen] = useState<boolean>(false);
+    const [isBookDetailDrawerOpen, setBookDetailDrawerOpen] = useState<boolean>(false);
+    const [bookPage, setBookPage] = useState<number>(177);
+    const [notePage, setNotePage] = useState<number | undefined>(undefined);
+    const bookProgress = Math.round((bookPage / 248) * 100);
 
     return (
         <div className="drawer-page">
@@ -155,10 +258,187 @@ export const DrawerPage: React.FC = () => {
                     <h3>Drawer without Overlay</h3>
                     <div className="component-group">
                         <Button onClick={() => setNoOverlayDrawerOpen(true)}>Open Drawer without Overlay</Button>
-                        <Drawer isOpen={isNoOverlayDrawerOpen} onClose={() => setNoOverlayDrawerOpen(false)} position="right" showOverlay={false} title="No Overlay">
+                        <Drawer
+                            isOpen={isNoOverlayDrawerOpen}
+                            onClose={() => setNoOverlayDrawerOpen(false)}
+                            position="right"
+                            showOverlay={false}
+                            title="No Overlay"
+                        >
                             <p>This drawer doesn't have a backdrop overlay.</p>
                             <p>You can still interact with the page content behind it.</p>
                             <p>Use the close button or press ESC to close.</p>
+                        </Drawer>
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Styled Detail Drawer</h2>
+
+                <div className="showcase-group">
+                    <h3>Book detail panel</h3>
+                    <div className="component-group">
+                        <Button onClick={() => setBookDetailDrawerOpen(true)}>Open Book Detail Drawer</Button>
+                        <Drawer
+                            isOpen={isBookDetailDrawerOpen}
+                            onClose={() => setBookDetailDrawerOpen(false)}
+                            position="right"
+                            width="min(820px, calc(100vw - 64px))"
+                            margin="20px 32px 20px 0"
+                            borderRadius="20px"
+                            shadow="var(--modal-surface-box-shadow, var(--modal-box-shadow))"
+                            title="BOOK - B02"
+                            actions={[
+                                { id: 'edit', label: '✏️ Edit', onClick: () => undefined },
+                                { id: 'delete', label: '🗑️ Delete', onClick: () => undefined },
+                            ]}
+                        >
+                            <div style={bookDrawerStyles.stack}>
+                                <section style={{ ...bookDrawerStyles.hero, gridTemplateColumns: 'repeat(auto-fit, minmax(min(270px, 100%), 1fr))' }}>
+                                    <div style={bookDrawerStyles.cover}>
+                                        <div>
+                                            <div style={{ width: '22px', height: '1px', marginBottom: '14px', background: 'rgba(255, 248, 230, 0.65)' }} />
+                                            <strong
+                                                style={{
+                                                    fontFamily: 'var(--font-family-emphasis, var(--font-family, serif))',
+                                                    fontSize: '20px',
+                                                    fontStyle: 'italic',
+                                                    lineHeight: 1.15,
+                                                }}
+                                            >
+                                                A Cartography of Small Weathers
+                                            </strong>
+                                        </div>
+                                        <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                                            Benedikt Harlan
+                                            <br />
+                                            MMX - 2019
+                                        </div>
+                                    </div>
+
+                                    <div style={bookDrawerStyles.coverRightContent}>
+                                        <h3 style={bookDrawerStyles.title}>A Cartography of Small Weathers</h3>
+                                        <p style={{ margin: '12px 0 0', fontSize: '18px' }}>by Benedikt Harlan</p>
+                                        <div style={bookDrawerStyles.meta}>
+                                            <span>2019</span>
+                                            <span>248 pp</span>
+                                            <span>English</span>
+                                            <span>Owned</span>
+                                        </div>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+                                            <span
+                                                style={{
+                                                    padding: '5px 12px',
+                                                    border: '1px solid #7ea36a',
+                                                    borderRadius: '999px',
+                                                    color: '#3f7d4a',
+                                                    fontSize: '12px',
+                                                    letterSpacing: '0.16em',
+                                                    textTransform: 'uppercase',
+                                                }}
+                                            >
+                                                Finished
+                                            </span>
+                                            <Rating rating={10} maxRate={10} useHalf />
+                                            <span>page {bookPage}</span>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <h4 style={bookDrawerStyles.sectionTitle}>Progress</h4>
+                                    <div style={bookDrawerStyles.progressTrack}>
+                                        <div style={{ ...bookDrawerStyles.progressValue, width: `${bookProgress}%` }} />
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px', color: 'var(--body-color-muted)' }}>
+                                        <span>{bookPage} / 248 pages</span>
+                                        <span>{bookProgress}%</span>
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <h4 style={bookDrawerStyles.sectionTitle}>Set page</h4>
+                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 88px', gap: '14px', alignItems: 'center' }}>
+                                        <input
+                                            aria-label="Set page"
+                                            max="248"
+                                            min="0"
+                                            type="range"
+                                            value={bookPage}
+                                            onChange={event => setBookPage(Number(event.target.value))}
+                                        />
+                                        <InputNumber max={248} min={0} value={bookPage} onChange={value => setBookPage(value ?? 0)} />
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <h4 style={bookDrawerStyles.sectionTitle}>Reading state</h4>
+                                    <div style={bookDrawerStyles.controlsGrid}>
+                                        {['Reading', 'Finished', 'Want to read', 'Paused', 'Abandoned', 'Re-reading'].map((state, index) => (
+                                            <button
+                                                key={state}
+                                                type="button"
+                                                style={{
+                                                    ...bookDrawerStyles.stateButton,
+                                                    borderColor: state === 'Finished' ? 'var(--body-accent-color)' : 'var(--delimiter-color)',
+                                                    background: state === 'Finished' ? 'var(--card-background-accent-color)' : 'transparent',
+                                                }}
+                                            >
+                                                <span
+                                                    style={{
+                                                        width: '10px',
+                                                        height: '10px',
+                                                        borderRadius: '999px',
+                                                        background: ['#c56f23', '#3f8b52', '#a7773e', '#94866b', '#d08378', '#9d5e24'][index],
+                                                    }}
+                                                />
+                                                {state}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <h4 style={bookDrawerStyles.sectionTitle}>Details</h4>
+                                    <div style={bookDrawerStyles.details}>
+                                        {[
+                                            ['Published', '2019'],
+                                            ['Language', 'English'],
+                                            ['Pages', '248'],
+                                            ['Ownership', 'Owned'],
+                                            ['Completed', '2024-11-04'],
+                                            ['Bookmark', `page ${bookPage}`],
+                                        ].map(([label, value]) => (
+                                            <div key={label}>
+                                                <div style={bookDrawerStyles.sectionTitle}>{label}</div>
+                                                <div style={{ fontSize: '18px' }}>{value}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <h4 style={bookDrawerStyles.sectionTitle}>Categories</h4>
+                                    <Chip selected>Poetry</Chip>
+                                </section>
+
+                                <section>
+                                    <h4 style={bookDrawerStyles.sectionTitle}>Notes and highlights (0)</h4>
+                                    <div style={bookDrawerStyles.noteBox}>
+                                        <em style={{ color: 'var(--body-color-muted)' }}>Pull a quote or a thought...</em>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '14px', alignItems: 'center' }}>
+                                            <div style={{ width: '88px' }}>
+                                                <InputNumber placeholder="page" value={notePage} onChange={setNotePage} />
+                                            </div>
+                                            <Button prefixIcon="+" variant="warning" onClick={() => undefined}>
+                                                Add note
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <p style={{ color: 'var(--body-color-muted)' }}>No notes yet - capture a line that stayed with you.</p>
+                                </section>
+                            </div>
                         </Drawer>
                     </div>
                 </div>

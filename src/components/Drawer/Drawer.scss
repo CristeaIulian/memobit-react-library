@@ -6,44 +6,75 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--backdrop-color);
     z-index: 1000;
-    backdrop-filter: blur(2px);
+    backdrop-filter: var(--drawer-overlay-backdrop-filter, blur(8px) saturate(0.9));
     animation: fadeIn 0.3s ease;
+    -webkit-backdrop-filter: var(--drawer-overlay-backdrop-filter, blur(8px) saturate(0.9));
 }
 
 .drawer {
+    --drawer-width: 320px;
+    --drawer-margin: 0;
+    --drawer-border-radius: 0;
+    --drawer-shadow: none;
+    --drawer-slide-offset: -100%;
+    --drawer-background-color: var(--modal-background-color, var(--card-background-color));
+    --drawer-border-color: var(--modal-border-color, var(--card-border-color, var(--delimiter-color)));
+    --drawer-backdrop-filter: var(--modal-backdrop-filter, var(--card-backdrop-filter, none));
+    --drawer-header-background-color: var(--card-background-accent-color);
+
     position: fixed;
     top: 0;
     bottom: 0;
-    background: var(--card-background-color);
-    backdrop-filter: var(--card-backdrop-filter, none);
+    width: var(--drawer-width);
+    margin: var(--drawer-margin);
+    background: var(--drawer-background-color);
+    backdrop-filter: var(--drawer-backdrop-filter);
+    border: var(--spacing-1) solid var(--drawer-border-color);
+    border-radius: var(--drawer-border-radius);
     z-index: 1001;
     @include flex-column;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    animation: slideIn 0.3s ease;
-    -webkit-backdrop-filter: var(--card-backdrop-filter, none);
+    min-height: 0;
+    overflow: hidden;
+    box-shadow: var(--drawer-shadow);
+    animation: drawerSlideIn 0.3s ease;
+    -webkit-backdrop-filter: var(--drawer-backdrop-filter);
 
     &--left {
         left: 0;
-        border-right: 1px solid var(--delimiter-color);
+        --drawer-slide-offset: -100%;
     }
 
     &--right {
         right: 0;
-        border-left: 1px solid var(--delimiter-color);
+        --drawer-slide-offset: 100%;
     }
 
     &__header {
         @include flex-between;
+        flex-shrink: 0;
+        gap: var(--spacing-12);
         padding: var(--spacing-16);
-        border-bottom: 1px solid var(--delimiter-color);
-        background: var(--card-background-accent-color);
+        border-bottom: var(--spacing-1) solid var(--drawer-border-color);
+        background: var(--drawer-header-background-color);
     }
 
     &__title {
+        flex: 1;
+        min-width: 0;
         margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         @include themed-modal-title(var(--body-color-accent));
+    }
+
+    &__header-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+        flex-shrink: 0;
     }
 
     &__close {
@@ -73,6 +104,7 @@
 
     &__content {
         flex: 1;
+        min-height: 0;
         overflow-y: auto;
         padding: var(--spacing-16);
     }
@@ -87,28 +119,20 @@
     }
 }
 
-@keyframes slideIn {
+@keyframes drawerSlideIn {
     from {
-        transform: translateX(var(--slide-offset, -100%));
+        transform: translateX(var(--drawer-slide-offset));
     }
     to {
         transform: translateX(0);
     }
 }
 
-.drawer--left {
-    --slide-offset: -100%;
-}
-
-.drawer--right {
-    --slide-offset: 100%;
-}
-
 // Responsive
 @include mobile {
     .drawer {
-        width: 85% !important;
-        max-width: 400px;
+        width: min(var(--drawer-width), calc(100vw - var(--spacing-32))) !important;
+        max-width: none;
     }
 }
 

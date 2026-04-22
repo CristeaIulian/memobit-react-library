@@ -31,7 +31,7 @@ export {
 export { DatePicker, type DatePickerProps } from './components/DatePicker';
 export { DiffViewer } from './components/DiffViewer';
 export { DateRangePicker, type DateRangePickerProps, type DateRangePreset } from './components/DateRangePicker';
-export { Drawer, type DrawerPosition } from './components/Drawer';
+export { Drawer, type DrawerHeaderAction, type DrawerPosition, type DrawerProps } from './components/Drawer';
 export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
 export { EmptyState, type EmptyStateProps } from './components/EmptyState';
 export { FileDropzone, type FileDropzoneProps } from './components/FileDropzone';
