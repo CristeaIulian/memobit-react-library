@@ -11,6 +11,7 @@ export { CalendarHeatmap, type CalendarHeatmapProps, type CalendarHeatmapDataPoi
 export { Card } from './components/Card';
 export { ChatBot } from './components/ChatBot';
 export { Checkbox } from './components/Checkbox';
+export { Chip, type ChipProps, type ChipSize, type ChipVariant } from './components/Chip';
 export { CollapsibleSection } from './components/CollapsibleSection';
 export { ConfirmDialog } from './components/ConfirmDialog';
 export { CommandPalette, type CommandPaletteProps, type CommandItem } from './components/CommandPalette';
@@ -70,12 +71,27 @@ export { QuickAdd } from './components/QuickAdd';
 export { QuickNumberUpdate } from './components/QuickNumberUpdate';
 export { QuickOptionUpdate } from './components/QuickOptionUpdate';
 export { QuantitySelector, type QuantitySelectorProps } from './components/QuantitySelector';
-export { Radio } from './components/Radio';
+export { Radio, type RadioProps } from './components/Radio';
 export { Rating } from './components/Rating';
 export { ScrollToTop } from './components/ScrollToTop';
 export { Search, type SearchProps } from './components/Search';
 export { Separator, type SeparatorProps, type SeparatorOrientation, type SeparatorStyle, type SeparatorAlign } from './components/Separator';
-export { Sidebar, type SidebarItem, type SidebarSection, SidebarProvider, useSidebar } from './components/Sidebar';
+export {
+    Sidebar,
+    type SidebarAction,
+    type SidebarClearFiltersEvent,
+    type SidebarFilter,
+    type SidebarFilterChangeEvent,
+    type SidebarFilterOption,
+    type SidebarFilterType,
+    type SidebarFilterValue,
+    type SidebarHeader,
+    type SidebarItem,
+    type SidebarProps,
+    type SidebarSection,
+    SidebarProvider,
+    useSidebar,
+} from './components/Sidebar';
 export { SignalStrength } from './components/SignalStrength';
 export { Skeleton, type SkeletonProps, type SkeletonVariant, type SkeletonAnimation } from './components/Skeleton';
 export { Slider } from './components/Slider';
