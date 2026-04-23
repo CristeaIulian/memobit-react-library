@@ -1,3 +1,5 @@
+@use '../../styles/utilities' as *;
+
 .search {
     position: relative;
     width: 100%;
@@ -8,16 +10,10 @@
     --search-line-height: calc(var(--font-size-sm) * var(--line-height-normal));
 
     &__icon {
-        position: absolute;
+        @include form-control-affix(var(--search-line-height));
         left: var(--spacing-12);
         bottom: var(--search-line-offset);
-        height: var(--search-line-height);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--form-control-placeholder-color);
         pointer-events: none;
-        z-index: 2;
 
         svg {
             width: 18px;
@@ -26,19 +22,13 @@
     }
 
     &__clear {
-        position: absolute;
+        @include form-control-affix(var(--search-line-height));
         right: var(--spacing-8);
         bottom: var(--search-line-offset);
-        height: var(--search-line-height);
-        display: flex;
-        align-items: center;
-        justify-content: center;
         background: none;
         border: none;
         padding: var(--spacing-4);
         cursor: pointer;
-        color: var(--form-control-placeholder-color);
-        z-index: 2;
         border-radius: var(--radius-sm);
         transition: color 0.15s ease;
 

@@ -207,6 +207,61 @@
     color: var(--form-control-success-color);
 }
 
+@mixin form-control-component($name, $full-width: false) {
+    .#{$name}-wrapper {
+        @include input-wrapper;
+
+        @if $full-width {
+            width: 100%;
+        }
+
+        .#{$name}-label {
+            @include input-label;
+
+            .#{$name}-required {
+                @include input-required;
+            }
+        }
+
+        .#{$name} {
+            @include input-field;
+            @content;
+
+            &.#{$name}-error {
+                @include input-error;
+            }
+
+            &.#{$name}-success {
+                @include input-success;
+            }
+        }
+
+        &.#{$name}-highlighted {
+            .#{$name} {
+                @include input-highlighted;
+            }
+        }
+
+        .#{$name}-error-message {
+            @include input-error-message;
+        }
+
+        .#{$name}-success-message {
+            @include input-success-message;
+        }
+    }
+}
+
+@mixin form-control-affix($height) {
+    position: absolute;
+    height: $height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--form-control-placeholder-color);
+    z-index: 2;
+}
+
 // Responsive breakpoints
 @mixin mobile {
     @media (max-width: 768px) {

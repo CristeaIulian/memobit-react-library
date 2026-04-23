@@ -1,49 +1,13 @@
 @use '../../styles/utilities' as *;
 
-.input-date-wrapper {
-    @include input-wrapper;
+@include form-control-component('input-date') {
+    &::-webkit-calendar-picker-indicator {
+        filter: invert(0.5);
+        cursor: pointer;
+        opacity: 0.7;
 
-    .input-date-label {
-        @include input-label;
-
-        .input-date-required {
-            @include input-required;
-        }
-    }
-
-    .input-date {
-        @include input-field;
-
-        &::-webkit-calendar-picker-indicator {
-            filter: invert(0.5);
-            cursor: pointer;
-            opacity: 0.7;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-
-        &.input-date-error {
-            @include input-error;
-        }
-
-        &.input-date-success {
-            @include input-success;
-        }
-    }
-
-    .input-date-error-message {
-        @include input-error-message;
-    }
-
-    .input-date-success-message {
-        @include input-success-message;
-    }
-
-    &.input-date-highlighted {
-        .input-date {
-            @include input-highlighted;
+        &:hover {
+            opacity: 1;
         }
     }
 }

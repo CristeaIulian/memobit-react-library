@@ -1,22 +1,19 @@
 @use '../../styles/utilities' as *;
 
 .input-phone-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-8);
+    @include input-wrapper;
 }
 
 .input-phone-label {
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-4);
-    @include themed-form-control-label;
+    @include input-label;
     line-height: var(--line-height-normal);
 }
 
 .input-phone-required {
-    color: var(--form-control-error-color);
-    font-size: var(--font-size-sm);
+    @include input-required;
 }
 
 .input-phone-field {
@@ -114,13 +111,11 @@
 }
 
 .input-phone-error-message {
-    color: var(--form-control-error-color);
-    font-size: var(--font-size-xs);
+    @include input-error-message;
     line-height: var(--line-height-normal);
 }
 
 .input-phone-success-message {
-    color: var(--form-control-success-color);
-    font-size: var(--font-size-xs);
+    @include input-success-message;
     line-height: var(--line-height-normal);
 }

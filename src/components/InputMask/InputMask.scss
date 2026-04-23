@@ -51,15 +51,13 @@ $sizes: (
 
 // ── Root ──────────────────────────────────────────────────────────────────────
 .input-mask {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-8);
+    @include input-wrapper;
     width: 100%;
 }
 
 // ── Label ─────────────────────────────────────────────────────────────────────
 .input-mask__label {
-    @include themed-form-control-label(var(--body-color));
+    @include input-label;
     line-height: var(--line-height-tight);
     cursor: pointer;
 }
@@ -73,12 +71,7 @@ $sizes: (
 
 // ── Input ─────────────────────────────────────────────────────────────────────
 .input-mask__input {
-    width: 100%;
-    border: 1px solid var(--form-control-border-color);
-    border-radius: var(--radius-sm);
-    background: var(--form-control-background-color);
-    color: var(--form-control-color);
-    outline: none;
+    @include input-field;
     transition:
         border-color var(--transition-fast),
         box-shadow var(--transition-fast),
@@ -216,8 +209,7 @@ $sizes: (
 }
 
 .input-mask__error {
-    font-size: var(--font-size-xs);
-    color: var(--form-control-error-color);
+    @include input-error-message;
     margin: 0;
     line-height: var(--line-height-normal);
 }

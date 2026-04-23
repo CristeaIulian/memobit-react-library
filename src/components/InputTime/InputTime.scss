@@ -1,49 +1,13 @@
 @use '../../styles/utilities' as *;
 
-.input-time-wrapper {
-    @include input-wrapper;
+@include form-control-component('input-time') {
+    &::-webkit-calendar-picker-indicator {
+        filter: invert(0.5);
+        cursor: pointer;
+        opacity: 0.7;
 
-    .input-time-label {
-        @include input-label;
-
-        .input-time-required {
-            @include input-required;
-        }
-    }
-
-    .input-time {
-        @include input-field;
-
-        &::-webkit-calendar-picker-indicator {
-            filter: invert(0.5);
-            cursor: pointer;
-            opacity: 0.7;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-
-        &.input-time-error {
-            @include input-error;
-        }
-
-        &.input-time-success {
-            @include input-success;
-        }
-    }
-
-    .input-time-error-message {
-        @include input-error-message;
-    }
-
-    .input-time-success-message {
-        @include input-success-message;
-    }
-
-    &.input-time-highlighted {
-        .input-time {
-            @include input-highlighted;
+        &:hover {
+            opacity: 1;
         }
     }
 }

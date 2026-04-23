@@ -1,41 +1,23 @@
 @use '../../styles/utilities' as *;
 
-.input-email-wrapper {
-    @include input-wrapper;
-    width: 100%;
-
-    .input-email-label {
-        @include input-label;
-
-        .input-email-required {
-            @include input-required;
-        }
+@include form-control-component('input-email', $full-width: true) {
+    &--error {
+        @include input-error;
     }
 
-    .input-email {
-        @include input-field;
+    &--valid {
+        border-color: var(--progress-success-bar-fill-color);
 
-        &--error {
-            @include input-error;
-        }
-
-        &--valid {
+        &:focus {
             border-color: var(--progress-success-bar-fill-color);
-
-            &:focus {
-                border-color: var(--progress-success-bar-fill-color);
-                box-shadow: 0 0 0 var(--spacing-2) var(--progress-success-bar-fill-color) 33;
-            }
+            box-shadow: 0 0 0 var(--spacing-2) var(--progress-success-bar-fill-color) 33;
         }
+    }
+}
 
-        &.input-email-error {
-            @include input-error;
-        }
-
+.input-email-wrapper {
+    .input-email {
         &.input-email-success {
-            @include input-success;
-
-            // Ensure success state overrides everything
             background-color: var(--form-control-success-background-color) !important;
             border-color: var(--form-control-success-border-color) !important;
             color: var(--form-control-success-color) !important;
@@ -49,17 +31,6 @@
     }
 
     .input-email-error-message {
-        @include input-error-message;
         margin-top: calc(var(--spacing-4) * -1);
-    }
-
-    .input-email-success-message {
-        @include input-success-message;
-    }
-
-    &.input-email-highlighted {
-        .input-email {
-            @include input-highlighted;
-        }
     }
 }
