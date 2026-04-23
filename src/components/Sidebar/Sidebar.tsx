@@ -6,6 +6,7 @@ import { Dropdown, DropdownOption } from '../Dropdown';
 import { InputNumber } from '../InputNumber';
 import { InputText } from '../InputText';
 import { Rating } from '../Rating';
+import { Search } from '../Search';
 import { Separator } from '../Separator';
 import { useSidebarContext } from './SidebarContext';
 
@@ -57,7 +58,7 @@ export interface SidebarFilterOption extends DropdownOption {
     count?: number | string;
 }
 
-export type SidebarFilterType = 'radio' | 'chips' | 'dropdown' | 'text' | 'number' | 'rating' | 'range';
+export type SidebarFilterType = 'radio' | 'chips' | 'dropdown' | 'text' | 'number' | 'rating' | 'range' | 'search';
 export type SidebarFilterValue = string | number | string[] | number[] | null;
 
 export interface SidebarFilter {
@@ -143,7 +144,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
     const sidebarContext = useSidebarContext();
     const isMobile = isMobileProp ?? sidebarContext?.isMobile ?? false;
-    const isOpen = isOpenProp ?? (isMobile ? sidebarContext?.isOpen ?? false : true);
+    const isOpen = isOpenProp ?? (isMobile ? (sidebarContext?.isOpen ?? false) : true);
     const close = onClose ?? sidebarContext?.close ?? (() => undefined);
     const sidebarClassName = [
         'sidebar',
@@ -154,9 +155,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     ]
         .filter(Boolean)
         .join(' ');
-    const overlayClassName = ['sidebar__overlay', contained ? 'sidebar__overlay--contained' : '']
-        .filter(Boolean)
-        .join(' ');
+    const overlayClassName = ['sidebar__overlay', contained ? 'sidebar__overlay--contained' : ''].filter(Boolean).join(' ');
     const formatCssValue = (value: string | number): string => (typeof value === 'number' ? `${value}px` : value);
     const sidebarStyle = {
         '--sidebar-width': width,
@@ -199,11 +198,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     };
 
     const defaultRenderItem = (item: SidebarItem) => (
-        <button
-            key={item.id}
-            className={`sidebar__link ${item.isActive ? 'sidebar__link--active' : ''}`}
-            onClick={() => handleItemClick(item)}
-        >
+        <button key={item.id} className={`sidebar__link ${item.isActive ? 'sidebar__link--active' : ''}`} onClick={() => handleItemClick(item)}>
             {item.icon && <span className="sidebar__link-icon">{item.icon}</span>}
             {item.emoji && <span className="sidebar__link-emoji">{item.emoji}</span>}
             {item.bulletColor && <span className="sidebar__link-bullet" style={{ backgroundColor: item.bulletColor }} />}
@@ -217,11 +212,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     );
 
     const normalizedFilterGroups: SidebarFilterGroup[] =
-        filters.length === 0
-            ? []
-            : 'filters' in filters[0]
-            ? (filters as SidebarFilterGroup[])
-            : [{ filters: filters as SidebarFilter[] }];
+        filters.length === 0 ? [] : 'filters' in filters[0] ? (filters as SidebarFilterGroup[]) : [{ filters: filters as SidebarFilter[] }];
 
     const renderFilterItem = (filter: SidebarFilter) => (
         <div className="sidebar__filter" key={filter.id}>
@@ -252,6 +243,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         value={typeof filter.value === 'string' ? filter.value : ''}
                     />
                 </div>
+            );
+        }
+
+        if (filter.type === 'search') {
+            return (
+                <Search
+                    className="sidebar__filter-search"
+                    onChange={value =>
+                        emitFilterChange({
+                            filterId: filter.id,
+                            type: filter.type,
+                            value,
+                        })
+                    }
+                    placeholder={filter.placeholder}
+                    value={typeof filter.value === 'string' ? filter.value : ''}
+                />
             );
         }
 
@@ -339,7 +347,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             type: filter.type,
                             value: Array.isArray(selectedOption)
                                 ? getFilterArrayValue(selectedOption.map(option => option.value))
-                                : selectedOption?.value ?? null,
+                                : (selectedOption?.value ?? null),
                             option: Array.isArray(selectedOption) ? null : (selectedOption as SidebarFilterOption | null),
                             options: selectedOptions as SidebarFilterOption[],
                         });
@@ -365,9 +373,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                 color={option.color}
                                 count={option.count}
                                 onClick={() => {
-                                    const nextValue = isSelected
-                                        ? selectedValues.filter(value => value !== option.value)
-                                        : [...selectedValues, option.value];
+                                    const nextValue = isSelected ? selectedValues.filter(value => value !== option.value) : [...selectedValues, option.value];
                                     emitFilterChange({
                                         filterId: filter.id,
                                         type: filter.type,
@@ -391,10 +397,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 {options.map(option => {
                     const isSelected = filter.value === option.value;
                     return (
-                        <div
-                            key={option.value}
-                            className={`sidebar__filter-radio ${isSelected ? 'sidebar__filter-radio--selected' : ''}`}
-                        >
+                        <div key={option.value} className={`sidebar__filter-radio ${isSelected ? 'sidebar__filter-radio--selected' : ''}`}>
                             <label className="sidebar__filter-radio-label">
                                 <input
                                     checked={isSelected}
@@ -426,10 +429,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return (
         <>
             {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
-            <aside
-                className={sidebarClassName}
-                style={sidebarStyle}
-            >
+            <aside className={sidebarClassName} style={sidebarStyle}>
                 {header && (
                     <>
                         <div className={`sidebar__header ${header.onClick ? 'sidebar__header--clickable' : ''}`} onClick={header.onClick}>
@@ -491,16 +491,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             <div className="sidebar__filters-header">
                                 <span className="sidebar__filters-heading">
                                     {filtersHeading}
-                                    {filtersCount !== undefined && (
-                                        <span className="sidebar__filters-count">{filtersCount}</span>
-                                    )}
+                                    {filtersCount !== undefined && <span className="sidebar__filters-count">{filtersCount}</span>}
                                 </span>
                                 {onClearFilters && (
-                                    <button
-                                        className="sidebar__filters-clear"
-                                        type="button"
-                                        onClick={() => onClearFilters({ source: 'sidebar' })}
-                                    >
+                                    <button className="sidebar__filters-clear" type="button" onClick={() => onClearFilters({ source: 'sidebar' })}>
                                         {clearFiltersLabel}
                                     </button>
                                 )}
