@@ -236,6 +236,8 @@ export const DataViewPage: React.FC = () => {
                             rowKey={row => row.id}
                             desktopView={desktopView}
                             cardMaxWidth={320}
+                            initialSortKey="score"
+                            initialSortDirection="desc"
                             card={{
                                 title: row => row.name,
                                 subtitle: row => `${row.role} / Score ${row.score}`,

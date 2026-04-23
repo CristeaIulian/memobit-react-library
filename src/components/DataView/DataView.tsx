@@ -65,6 +65,17 @@ export interface DataViewProps<T> {
     onRowClick?: (row: T) => void;
     rowClassName?: (row: T) => string;
     empty?: DataViewEmptyConfig;
+    /** Initial sorted column key for uncontrolled sorting. */
+    initialSortKey?: string | null;
+    /** Initial sort direction for uncontrolled sorting. */
+    initialSortDirection?: SortDirection;
+    /** Controlled sorted column key. */
+    sortKey?: string | null;
+    /** Controlled sort direction. */
+    sortDirection?: SortDirection;
+    onSortChange?: (sort: { key: string | null; direction: SortDirection }) => void;
+    /** Show the built-in sort controls above cards. */
+    showCardSortControls?: boolean;
     /** Desktop layout. Mobile still renders cards when responsive is true. */
     desktopView?: DataViewDisplayMode;
     /** Maximum width for each card. Number values are treated as px. */
@@ -233,6 +244,12 @@ export function DataView<T>({
     onRowClick,
     rowClassName,
     empty,
+    initialSortKey = null,
+    initialSortDirection = 'asc',
+    sortKey: controlledSortKey,
+    sortDirection: controlledSortDirection,
+    onSortChange,
+    showCardSortControls = true,
     desktopView = 'table',
     cardMaxWidth,
     responsive = true,
@@ -240,8 +257,8 @@ export function DataView<T>({
     onPageChange,
 }: DataViewProps<T>) {
     const { isMobile } = useBreakpoint();
-    const [sortKey, setSortKey] = useState<string | null>(null);
-    const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+    const [uncontrolledSortKey, setUncontrolledSortKey] = useState<string | null>(initialSortKey);
+    const [uncontrolledSortDirection, setUncontrolledSortDirection] = useState<SortDirection>(initialSortDirection);
     const [selectedIds, setSelectedIds] = useState<Array<string | number>>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(initialPageSize);
@@ -262,6 +279,20 @@ export function DataView<T>({
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
         onPageChange?.(page);
+    };
+
+    const sortKey = controlledSortKey !== undefined ? controlledSortKey : uncontrolledSortKey;
+    const sortDirection = controlledSortDirection ?? uncontrolledSortDirection;
+
+    const updateSort = (nextSortKey: string | null, nextSortDirection: SortDirection) => {
+        if (controlledSortKey === undefined) {
+            setUncontrolledSortKey(nextSortKey);
+        }
+        if (controlledSortDirection === undefined) {
+            setUncontrolledSortDirection(nextSortDirection);
+        }
+        onSortChange?.({ key: nextSortKey, direction: nextSortDirection });
+        handlePageChange(1);
     };
 
     const sortedData = useMemo(() => {
@@ -312,12 +343,10 @@ export function DataView<T>({
     const toggleSort = (column: DataViewColumn<T>) => {
         if (!column.sortable) return;
         if (sortKey === column.key) {
-            setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'));
+            updateSort(column.key, sortDirection === 'asc' ? 'desc' : 'asc');
         } else {
-            setSortKey(column.key);
-            setSortDirection('asc');
+            updateSort(column.key, 'asc');
         }
-        handlePageChange(1);
     };
 
     const handleResizeStart = (event: React.MouseEvent, columnKey: string) => {
@@ -359,7 +388,7 @@ export function DataView<T>({
     if (showCards) {
         return (
             <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`}>
-                {hasSortControls && (
+                {showCardSortControls && hasSortControls && (
                     <div className="data-view__card-sort-bar">
                         <div className="data-view__card-sort-field">
                             <Dropdown
@@ -372,15 +401,12 @@ export function DataView<T>({
                                 usePortal={false}
                                 onChange={option => {
                                     if (!option || Array.isArray(option)) {
-                                        setSortKey(null);
-                                        handlePageChange(1);
+                                        updateSort(null, sortDirection);
                                         return;
                                     }
 
                                     const nextSortKey = String(option.value);
-                                    setSortKey(nextSortKey);
-                                    setSortDirection(prev => (sortKey === nextSortKey ? prev : 'asc'));
-                                    handlePageChange(1);
+                                    updateSort(nextSortKey, sortKey === nextSortKey ? sortDirection : 'asc');
                                 }}
                             />
                         </div>
@@ -390,8 +416,7 @@ export function DataView<T>({
                             disabled={!activeSortColumn}
                             onClick={() => {
                                 if (!activeSortColumn) return;
-                                setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'));
-                                handlePageChange(1);
+                                updateSort(activeSortColumn.key, sortDirection === 'asc' ? 'desc' : 'asc');
                             }}
                             title={sortDirection === 'asc' ? 'Sort descending' : 'Sort ascending'}
                             variant="ghost"
