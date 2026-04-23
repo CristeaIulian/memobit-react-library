@@ -37,6 +37,7 @@ import { FlagPage } from './pages/FlagPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
 import { FormPage } from './pages/FormPage';
 import { HighlightPage } from './pages/HighlightPage';
+import { IconsPage } from './pages/IconsPage';
 import { InputDatePage } from './pages/InputDatePage';
 import { InputFilePage } from './pages/InputFilePage';
 import { InputEmailPage } from './pages/InputEmailPage';
@@ -129,6 +130,7 @@ export const routes: RouteConfig[] = [
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
     { path: '/forms', label: 'Forms', component: FormPage },
     { path: '/highlight', label: 'Highlight', component: HighlightPage },
+    { path: '/icons', label: 'Icons', component: IconsPage },
     { path: '/input-date', label: 'Input Date', component: InputDatePage },
     { path: '/input-file', label: 'Input File', component: InputFilePage },
     { path: '/input-email', label: 'Input Email', component: InputEmailPage },
