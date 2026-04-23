@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from 'react';
 
 import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
+import { Dropdown, type DropdownOption } from '../Dropdown';
 import { EmptyState, type EmptyStateProps } from '../EmptyState';
 import { Pagination } from '../Pagination';
 import { calculateTimelineMarkers, TimelineMarkerDot, type TimelineMarkerInfo, type TimelineMarkersItem, TimelineMobileSeparator } from '../TimelineMarkers';
@@ -70,6 +72,8 @@ export interface DataViewProps<T> {
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const DEFAULT_PAGE_SIZES = [15, 30, 50, 100, 250, 500];
+
+const getColumnLabel = <T,>(column: DataViewColumn<T>) => (typeof column.header === 'string' ? column.header : column.key);
 
 // ─── Sort icon ───────────────────────────────────────────────────────────────
 
@@ -324,6 +328,13 @@ export function DataView<T>({
     };
 
     const hasFilters = columns.some(col => col.filter);
+    const sortableColumns = columns.filter(col => col.sortable);
+    const sortOptions: DropdownOption[] = sortableColumns.map(column => ({
+        label: getColumnLabel(column),
+        value: column.key,
+    }));
+    const hasSortControls = sortableColumns.length > 0;
+    const activeSortColumn = sortKey ? sortableColumns.find(column => column.key === sortKey) : undefined;
 
     // ── Card mode (mobile) ───────────────────────────────────────────────────
 
@@ -332,6 +343,48 @@ export function DataView<T>({
     if (showCards) {
         return (
             <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`}>
+                {hasSortControls && (
+                    <div className="data-view__card-sort-bar">
+                        <div className="data-view__card-sort-field">
+                            <Dropdown
+                                name="data-view-card-sort"
+                                label="Sort by"
+                                options={sortOptions}
+                                value={sortKey}
+                                placeholder="Sort by..."
+                                searchable={false}
+                                usePortal={false}
+                                onChange={option => {
+                                    if (!option || Array.isArray(option)) {
+                                        setSortKey(null);
+                                        handlePageChange(1);
+                                        return;
+                                    }
+
+                                    const nextSortKey = String(option.value);
+                                    setSortKey(nextSortKey);
+                                    setSortDirection(prev => (sortKey === nextSortKey ? prev : 'asc'));
+                                    handlePageChange(1);
+                                }}
+                            />
+                        </div>
+                        <Button
+                            ariaLabel={`Sort ${sortDirection === 'asc' ? 'descending' : 'ascending'}`}
+                            className="data-view__card-sort-direction"
+                            disabled={!activeSortColumn}
+                            onClick={() => {
+                                if (!activeSortColumn) return;
+                                setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'));
+                                handlePageChange(1);
+                            }}
+                            title={sortDirection === 'asc' ? 'Sort descending' : 'Sort ascending'}
+                            variant="ghost"
+                        >
+                            {sortDirection === 'asc' ? '↑' : '↓'}
+                        </Button>
+                    </div>
+                )}
+
                 {hasFilters && (
                     <div className="data-view__filter-bar">
                         {columns

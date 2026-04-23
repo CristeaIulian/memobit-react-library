@@ -196,6 +196,28 @@
         gap: var(--spacing-16);
     }
 
+    &__card-sort-bar {
+        display: flex;
+        align-items: flex-end;
+        gap: var(--spacing-8);
+        padding: var(--spacing-12);
+        background: var(--card-background-accent-color);
+        border: var(--spacing-1) solid var(--delimiter-color);
+        border-radius: var(--radius);
+    }
+
+    &__card-sort-field {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__card-sort-direction {
+        flex-shrink: 0;
+        min-width: var(--spacing-40);
+        min-height: var(--spacing-40);
+        justify-content: center;
+    }
+
     &__cards {
         display: flex;
         flex-direction: column;
