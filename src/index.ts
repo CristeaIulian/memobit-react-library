@@ -26,6 +26,7 @@ export {
     type DataViewCardConfig,
     type DataViewTimelineConfig,
     type DataViewEmptyConfig,
+    type DataViewDisplayMode,
     type SortDirection,
 } from './components/DataView';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';

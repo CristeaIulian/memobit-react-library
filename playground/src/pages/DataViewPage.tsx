@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-import { Badge, Button, DataView, type DataViewColumn } from '../../../src';
+import { Badge, Button, DataView, ToggleButtons, type DataViewColumn, type DataViewDisplayMode } from '../../../src';
 
 // ── Basic example ───────────────────────────────────────────────────────────
 
@@ -53,6 +53,7 @@ const statusVariantMap: Record<string, 'success' | 'danger' | 'warning'> = {
 
 export const DataViewPage: React.FC = () => {
     const [selectedCount, setSelectedCount] = useState(0);
+    const [desktopView, setDesktopView] = useState<DataViewDisplayMode>('table');
 
     // ── Filters + Sorting example ───────────────────────────────────────
     const [nameFilter, setNameFilter] = useState('');
@@ -210,6 +211,41 @@ export const DataViewPage: React.FC = () => {
                         />
                     </div>
                     <p>Selected rows: {selectedCount}</p>
+                </div>
+            </section>
+
+            {/* Desktop view mode */}
+            <section className="page-section">
+                <h2>Desktop View Toggle</h2>
+                <p>
+                    Desktop can be forced to table or cards with <code>desktopView</code>. Mobile still renders cards when responsive mode is enabled.
+                </p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <ToggleButtons
+                            state={desktopView}
+                            onToggleChange={mode => setDesktopView(mode as DataViewDisplayMode)}
+                            states={[
+                                { key: 'table', label: 'Table', icon: 'T' },
+                                { key: 'cards', label: 'Cards', icon: 'C' },
+                            ]}
+                        />
+                        <DataView<UserRow>
+                            columns={basicColumns}
+                            data={users}
+                            rowKey={row => row.id}
+                            desktopView={desktopView}
+                            cardMaxWidth={320}
+                            card={{
+                                title: row => row.name,
+                                subtitle: row => `${row.role} / Score ${row.score}`,
+                                badges: row => (
+                                    <Badge variant={row.status === 'Active' ? 'success' : row.status === 'On Hold' ? 'warning' : 'danger'}>{row.status}</Badge>
+                                ),
+                            }}
+                            showPageSize={false}
+                        />
+                    </div>
                 </div>
             </section>
 

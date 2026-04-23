@@ -13,6 +13,7 @@ import './DataView.scss';
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type SortDirection = 'asc' | 'desc';
+export type DataViewDisplayMode = 'table' | 'cards';
 
 export interface DataViewColumn<T> {
     key: string;
@@ -64,6 +65,10 @@ export interface DataViewProps<T> {
     onRowClick?: (row: T) => void;
     rowClassName?: (row: T) => string;
     empty?: DataViewEmptyConfig;
+    /** Desktop layout. Mobile still renders cards when responsive is true. */
+    desktopView?: DataViewDisplayMode;
+    /** Maximum width for each card. Number values are treated as px. */
+    cardMaxWidth?: number | string;
     responsive?: boolean;
     className?: string;
     onPageChange?: (page: number) => void;
@@ -74,6 +79,8 @@ export interface DataViewProps<T> {
 const DEFAULT_PAGE_SIZES = [15, 30, 50, 100, 250, 500];
 
 const getColumnLabel = <T,>(column: DataViewColumn<T>) => (typeof column.header === 'string' ? column.header : column.key);
+
+const getCardMaxWidthValue = (cardMaxWidth: number | string) => (typeof cardMaxWidth === 'number' ? `${cardMaxWidth}px` : cardMaxWidth);
 
 // ─── Sort icon ───────────────────────────────────────────────────────────────
 
@@ -104,6 +111,7 @@ interface CardViewProps<T> {
     selectable?: boolean;
     selectedIds?: Array<string | number>;
     onToggleSelect?: (rowId: string | number, checked: boolean) => void;
+    cardMaxWidth?: number | string;
 }
 
 function CardView<T>({
@@ -119,8 +127,14 @@ function CardView<T>({
     selectable,
     selectedIds = [],
     onToggleSelect,
+    cardMaxWidth,
 }: CardViewProps<T>) {
     const cardColumns = columns.filter(col => !col.hideInCard);
+    const cardsClassName = `data-view__cards${cardMaxWidth !== undefined ? ' data-view__cards--grid' : ''}`;
+    const cardsStyle =
+        cardMaxWidth !== undefined
+            ? ({ '--data-view-card-max-width': getCardMaxWidthValue(cardMaxWidth) } as React.CSSProperties)
+            : undefined;
 
     const timelineMarkers = useMemo(() => {
         if (!timeline) return new Map<number, TimelineMarkerInfo>();
@@ -147,7 +161,7 @@ function CardView<T>({
     }
 
     return (
-        <div className="data-view__cards">
+        <div className={cardsClassName} style={cardsStyle}>
             {data.map((row, index) => {
                 const marker = timelineMarkers.get(index);
                 const rowId = rowKey(row, index);
@@ -219,6 +233,8 @@ export function DataView<T>({
     onRowClick,
     rowClassName,
     empty,
+    desktopView = 'table',
+    cardMaxWidth,
     responsive = true,
     className,
     onPageChange,
@@ -336,9 +352,9 @@ export function DataView<T>({
     const hasSortControls = sortableColumns.length > 0;
     const activeSortColumn = sortKey ? sortableColumns.find(column => column.key === sortKey) : undefined;
 
-    // ── Card mode (mobile) ───────────────────────────────────────────────────
+    // ── Card mode ────────────────────────────────────────────────────────────
 
-    const showCards = responsive && isMobile;
+    const showCards = (responsive && isMobile) || (!isMobile && desktopView === 'cards');
 
     if (showCards) {
         return (
@@ -410,6 +426,7 @@ export function DataView<T>({
                     empty={empty}
                     selectable={selectable}
                     selectedIds={selectedIds}
+                    cardMaxWidth={cardMaxWidth}
                     onToggleSelect={(rowId, checked) => {
                         if (checked) {
                             updateSelection([...selectedIds, rowId]);
