@@ -250,6 +250,26 @@
         font-weight: var(--font-weight-semibold);
     }
 
+    &__filters-heading {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    &__filters-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: var(--spacing-20);
+        height: var(--spacing-20);
+        padding: 0 var(--spacing-6);
+        border-radius: 999px;
+        background: var(--body-accent-color);
+        color: var(--button-primary-color);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+    }
+
     &__filters-clear {
         padding: 0;
         border: 0;
@@ -260,17 +280,45 @@
         font-weight: var(--font-weight-semibold);
     }
 
+    &__filter-group {
+        @include flex-column;
+        gap: var(--spacing-12);
+    }
+
+    &__filter-group-label {
+        color: var(--body-accent-color);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
     &__filter {
         @include flex-column;
         gap: var(--spacing-8);
     }
 
     &__filter-title {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-6);
         color: var(--body-color-muted);
         font-size: var(--font-size-xs);
         font-weight: var(--font-weight-semibold);
         letter-spacing: 0;
         text-transform: uppercase;
+
+        &--active {
+            color: var(--body-accent-color);
+        }
+    }
+
+    &__filter-active-dot {
+        width: var(--spacing-6);
+        height: var(--spacing-6);
+        border-radius: 999px;
+        background: var(--body-accent-color);
+        flex-shrink: 0;
     }
 
     &__filter-list,
@@ -350,6 +398,34 @@
         color: var(--body-color-muted);
         font-size: var(--font-size-xs);
         text-align: right;
+    }
+
+    &__filter-text {
+        .input-text-wrapper {
+            width: 100%;
+        }
+    }
+
+    &__filter-number {
+        .input-number-wrapper {
+            width: 100%;
+        }
+    }
+
+    &__filter-range {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+
+        .input-number-wrapper {
+            flex: 1;
+            min-width: 0;
+        }
+    }
+
+    &__filter-range-sep {
+        color: var(--body-color-muted);
+        flex-shrink: 0;
     }
 
     &__filter-dropdown {
