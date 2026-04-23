@@ -241,7 +241,16 @@
         display: flex;
         flex-direction: column;
         gap: var(--spacing-12);
+        transition:
+            border-color var(--transition-fast),
+            box-shadow var(--transition-fast),
+            transform var(--transition-fast);
         -webkit-backdrop-filter: var(--card-backdrop-filter, none);
+
+        &:hover {
+            box-shadow: var(--card-hover-box-shadow, 0 var(--spacing-8) var(--spacing-24) rgba(0, 0, 0, 0.18));
+            transform: translateY(-2px);
+        }
 
         &--clickable {
             cursor: pointer;
