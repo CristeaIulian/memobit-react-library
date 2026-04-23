@@ -158,7 +158,7 @@ export { highlightText } from './helpers/Highlight';
 export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { slugify, shortenText, truncateText } from './helpers/Strings';
 export { extractDomainFromUrl, stripQueryString, stripTrackingParams } from './helpers/Urls';
-export { formatBigNumber, formatMoney } from './helpers/Format';
+export { formatBigNumber, formatBytes, formatMoney } from './helpers/Format';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
 export { fuzzyMatch } from './helpers/Search';
