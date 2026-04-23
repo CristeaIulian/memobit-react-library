@@ -35,6 +35,7 @@ import { EmojiPickerPage } from './pages/EmojiPickerPage';
 import { FileDropzonePage } from './pages/FileDropzonePage';
 import { FlagPage } from './pages/FlagPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
+import { FormPage } from './pages/FormPage';
 import { HighlightPage } from './pages/HighlightPage';
 import { InputDatePage } from './pages/InputDatePage';
 import { InputFilePage } from './pages/InputFilePage';
@@ -126,6 +127,7 @@ export const routes: RouteConfig[] = [
     { path: '/file-dropzone', label: 'File Dropzone', component: FileDropzonePage },
     { path: '/flag', label: 'Flag', component: FlagPage },
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
+    { path: '/forms', label: 'Forms', component: FormPage },
     { path: '/highlight', label: 'Highlight', component: HighlightPage },
     { path: '/input-date', label: 'Input Date', component: InputDatePage },
     { path: '/input-file', label: 'Input File', component: InputFilePage },
