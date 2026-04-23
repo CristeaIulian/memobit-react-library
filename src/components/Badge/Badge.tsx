@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
 import './Badge.scss';
 
@@ -12,7 +12,7 @@ export interface BadgeProps {
     /** Custom accent color — overrides variant, drives border/bg/hover/active styles */
     customColor?: string;
     isActive?: boolean;
-    onClick?: () => void;
+    onClick?: (event: MouseEvent<HTMLSpanElement> | KeyboardEvent<HTMLSpanElement>) => void;
     onClear?: () => void;
 }
 
@@ -29,13 +29,26 @@ export const Badge: FC<BadgeProps> = ({ variant = 'default', children, className
             onClick={onClick}
             role={onClick ? 'button' : undefined}
             tabIndex={onClick ? 0 : undefined}
-            onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } } : undefined}
+            onKeyDown={
+                onClick
+                    ? e => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              onClick(e);
+                          }
+                      }
+                    : undefined
+            }
         >
             {children}
             {onClear && (
                 <button
                     className="badge__clear"
-                    onClick={(e) => { e.stopPropagation(); onClear(); }}
+                    onClick={e => {
+                        e.stopPropagation();
+                        onClear();
+                    }}
+                    type="button"
                     title="Remove"
                 >
                     ×
