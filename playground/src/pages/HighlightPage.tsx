@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { highlightText } from '../../../src';
+import { highlightText, InputText } from '../../../src';
 
 import '../../../src/styles/highlight.scss';
 
@@ -18,18 +18,14 @@ export const HighlightPage: React.FC = () => {
     return (
         <div className="highlight-page">
             <h1>highlightText Helper</h1>
-            <p>A utility function that highlights matching search terms within text by wrapping matches in <code>&lt;mark&gt;</code> tags.</p>
+            <p>
+                A utility function that highlights matching search terms within text by wrapping matches in <code>&lt;mark&gt;</code> tags.
+            </p>
 
             <section className="page-section">
                 <h2>Interactive Example</h2>
                 <div className="component-group">
-                    <input
-                        type="text"
-                        placeholder="Type to search (e.g. 'chicken', 'with', 'cake')..."
-                        value={searchTerm}
-                        onChange={e => setSearchTerm(e.target.value)}
-                        style={{ width: '100%', padding: '8px', marginBottom: '16px' }}
-                    />
+                    <InputText placeholder="Type to search (e.g. 'chicken', 'with', 'cake')..." value={searchTerm} onChange={value => setSearchTerm(value)} />
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         {sampleTexts.map((text, index) => (
                             <li key={index} style={{ padding: '8px 0', fontSize: '16px' }}>

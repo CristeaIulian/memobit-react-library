@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Modal, Button } from '../../../src';
+import { Modal, Button, InputText, InputEmail } from '../../../src';
 
 export const ModalPage: React.FC = () => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -246,34 +246,24 @@ export const ModalPage: React.FC = () => {
                         >
                             <div style={{ padding: '16px' }}>
                                 <div style={{ marginBottom: '16px' }}>
-                                    <label
-                                        htmlFor="name"
-                                        style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}
-                                    >
+                                    <label htmlFor="name" style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}>
                                         Name:
                                     </label>
-                                    <input
+                                    <InputText
                                         id="name"
-                                        type="text"
                                         value={formData.name}
-                                        onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                        style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+                                        onChange={value => setFormData({ ...formData, name: value })}
                                         placeholder="Enter your name"
                                     />
                                 </div>
                                 <div>
-                                    <label
-                                        htmlFor="email"
-                                        style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}
-                                    >
+                                    <label htmlFor="email" style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}>
                                         Email:
                                     </label>
-                                    <input
+                                    <InputEmail
                                         id="email"
-                                        type="email"
                                         value={formData.email}
-                                        onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                        style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+                                        onChange={value => setFormData({ ...formData, email: value })}
                                         placeholder="Enter your email"
                                     />
                                 </div>
@@ -310,9 +300,7 @@ export const ModalPage: React.FC = () => {
                         >
                             <div style={{ padding: '16px' }}>
                                 <p>This modal has custom overlay click behavior.</p>
-                                <p style={{ marginTop: '8px' }}>
-                                    Try clicking outside the modal - it will show an alert instead of closing.
-                                </p>
+                                <p style={{ marginTop: '8px' }}>Try clicking outside the modal - it will show an alert instead of closing.</p>
                             </div>
                         </Modal>
                         <Button onClick={() => setCustomOverlayOpen(true)}>Show Custom Overlay Modal</Button>
@@ -358,9 +346,15 @@ export const ModalPage: React.FC = () => {
                                 <p>You have unsaved changes in your document.</p>
                                 <p style={{ marginTop: '8px' }}>This modal demonstrates a tertiary button for edge cases where three actions are needed:</p>
                                 <ul style={{ marginTop: '12px', paddingLeft: '20px' }}>
-                                    <li><strong>Save & Close</strong> - Commits and exits</li>
-                                    <li><strong>Save as Draft</strong> - Saves without publishing</li>
-                                    <li><strong>Discard</strong> - Abandons all changes</li>
+                                    <li>
+                                        <strong>Save & Close</strong> - Commits and exits
+                                    </li>
+                                    <li>
+                                        <strong>Save as Draft</strong> - Saves without publishing
+                                    </li>
+                                    <li>
+                                        <strong>Discard</strong> - Abandons all changes
+                                    </li>
                                 </ul>
                             </div>
                         </Modal>

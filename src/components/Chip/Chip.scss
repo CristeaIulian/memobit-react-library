@@ -18,8 +18,9 @@
         color 0.2s ease;
 
     &:hover:not(:disabled) {
-        background: var(--card-background-accent-color);
-        color: var(--body-color-accent);
+        border-color: var(--chip-hover-border-color, var(--chip-color));
+        background: var(--chip-hover-background-color, var(--card-background-accent-color));
+        color: var(--chip-hover-color, var(--body-color-accent));
     }
 
     &:disabled {
@@ -28,6 +29,12 @@
     }
 
     &--selected {
+        border-color: var(--chip-selected-border-color, var(--body-accent-color));
+        background: var(--chip-selected-background-color, var(--card-background-accent-color));
+        color: var(--chip-selected-color, var(--body-accent-color));
+    }
+
+    &--selected:hover:not(:disabled) {
         border-color: var(--chip-selected-border-color, var(--body-accent-color));
         background: var(--chip-selected-background-color, var(--card-background-accent-color));
         color: var(--chip-selected-color, var(--body-accent-color));
@@ -64,6 +71,12 @@
     &--warning,
     &--danger {
         &.chip--selected {
+            border-color: var(--chip-color);
+            background: color-mix(in srgb, var(--chip-color) 18%, transparent);
+            color: var(--chip-color);
+        }
+
+        &.chip--selected:hover:not(:disabled) {
             border-color: var(--chip-color);
             background: color-mix(in srgb, var(--chip-color) 18%, transparent);
             color: var(--chip-color);

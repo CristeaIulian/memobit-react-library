@@ -243,6 +243,9 @@
 
     --chip-selected-background-color: var(--card-background-accent-color);
     --chip-selected-border-color: var(--body-accent-color);
+    --chip-hover-border-color: var(--body-accent-color);
+    --chip-hover-background-color: var(--card-background-accent-color);
+    --chip-hover-color: var(--body-color-accent);
     --chip-selected-color: var(--body-accent-color);
     --chip-selected-count-color: var(--body-color-muted);
 

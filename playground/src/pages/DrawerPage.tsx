@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Drawer, Button, Chip, InputNumber, Rating } from '../../../src';
+import { Drawer, Button, Chip, InputNumber, Rating, InputText, InputEmail, Textarea } from '../../../src';
 
 const bookDrawerStyles: Record<string, React.CSSProperties> = {
     stack: {
@@ -219,15 +219,15 @@ export const DrawerPage: React.FC = () => {
                                 <h4>Example Form</h4>
                                 <div style={{ marginBottom: '16px' }}>
                                     <label style={{ display: 'block', marginBottom: '8px' }}>Name:</label>
-                                    <input type="text" style={{ width: '100%', padding: '8px' }} />
+                                    <InputText />
                                 </div>
                                 <div style={{ marginBottom: '16px' }}>
                                     <label style={{ display: 'block', marginBottom: '8px' }}>Email:</label>
-                                    <input type="email" style={{ width: '100%', padding: '8px' }} />
+                                    <InputEmail />
                                 </div>
                                 <div style={{ marginBottom: '16px' }}>
                                     <label style={{ display: 'block', marginBottom: '8px' }}>Message:</label>
-                                    <textarea style={{ width: '100%', padding: '8px', minHeight: '100px' }} />
+                                    <Textarea />
                                 </div>
                             </div>
                         </Drawer>
