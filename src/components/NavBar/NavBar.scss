@@ -98,6 +98,11 @@
             cursor: not-allowed;
         }
 
+        &--expand {
+            color: var(--body-accent-color);
+            font-style: italic;
+        }
+
         &-icon {
             font-size: var(--font-size-lg);
             line-height: 1;

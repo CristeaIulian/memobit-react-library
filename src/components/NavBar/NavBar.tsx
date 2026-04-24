@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import './NavBar.scss';
 
@@ -18,6 +18,7 @@ interface NavBarProps {
     position?: 'fixed' | 'sticky' | 'static';
     className?: string;
     renderItem?: (item: NavBarItem) => ReactNode;
+    collapsible?: boolean;
 }
 
 export const NavBar: React.FC<NavBarProps> = ({
@@ -27,13 +28,19 @@ export const NavBar: React.FC<NavBarProps> = ({
     position = 'static',
     className = '',
     renderItem,
+    collapsible = false,
 }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
     const handleItemClick = (item: NavBarItem) => {
         if (item.disabled) {
             return;
         }
         if (item.onClick) {
             item.onClick();
+        }
+        if (collapsible) {
+            setIsExpanded(false);
         }
     };
 
@@ -49,12 +56,30 @@ export const NavBar: React.FC<NavBarProps> = ({
         </button>
     );
 
+    const visibleItems = collapsible && !isExpanded
+        ? items.filter((item, index) => index === 0 || item.isActive)
+        : items;
+
+    const hiddenCount = collapsible && !isExpanded
+        ? items.filter((item, index) => index > 0 && !item.isActive).length
+        : 0;
+
     return (
         <nav className={`navbar navbar--${position} ${className}`}>
             {logo && <div className="navbar__logo">{logo}</div>}
 
             <div className="navbar__items">
-                {items.map(item => (renderItem ? renderItem(item) : defaultRenderItem(item)))}
+                {visibleItems.map(item => (renderItem ? renderItem(item) : defaultRenderItem(item)))}
+                {collapsible && !isExpanded && hiddenCount > 0 && (
+                    <button className="navbar__item navbar__item--expand" onClick={() => setIsExpanded(true)}>
+                        <span className="navbar__item-label">+{hiddenCount} more</span>
+                    </button>
+                )}
+                {collapsible && isExpanded && (
+                    <button className="navbar__item navbar__item--expand" onClick={() => setIsExpanded(false)}>
+                        <span className="navbar__item-label">− Less</span>
+                    </button>
+                )}
             </div>
 
             {actions && <div className="navbar__actions">{actions}</div>}
