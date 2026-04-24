@@ -4,7 +4,8 @@
       "Bash(npx tsc:*)",
       "Bash(npm run:*)",
       "Bash(dir:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(xargs grep *)"
     ]
   }
 }

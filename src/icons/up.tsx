@@ -1,34 +1,11 @@
 export const up = (
     <svg
-        fill="#ffffff"
-        height="16px"
-        width="16px"
-        version="1.1"
-        id="Capa_1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 640 640"
-        xmlSpace="preserve"
+        viewBox="0 0 24 24"
+        fill="#000000"
+        width="200px"
+        height="200px"
     >
-        <g>
-            <g>
-                <polygon points="0,332.668 245.004,82.631 490,332.668 413.507,407.369 245.004,235.402 76.493,407.369" />
-            </g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-        </g>
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z" />
     </svg>
 );
