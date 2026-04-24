@@ -113,6 +113,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
                 {children}
             </span>
             {isVisible &&
+                title &&
                 createPortal(
                     <div
                         ref={tooltipRef}
