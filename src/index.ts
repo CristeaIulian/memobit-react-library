@@ -154,6 +154,7 @@ export {
     addMonths,
     isBefore,
     isAfter,
+    formatRelativeTime,
 } from './helpers/Datetime';
 export { FiltersStorage } from './helpers/FiltersStorage';
 export { highlightText } from './helpers/Highlight';

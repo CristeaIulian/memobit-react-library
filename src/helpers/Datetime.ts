@@ -180,3 +180,26 @@ export const isAfter = (date: Date, compareDate: Date): boolean => {
     const d2 = new Date(compareDate.getFullYear(), compareDate.getMonth(), compareDate.getDate());
     return d1.getTime() > d2.getTime();
 };
+
+export const formatRelativeTime = (dateValue?: string): string | null => {
+    if (!dateValue) {
+        return null;
+    }
+
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) {
+        return null;
+    }
+
+    const diffMs = date.getTime() - Date.now();
+    const diffMinutes = Math.round(diffMs / 60000);
+
+    if (Math.abs(diffMinutes) < 1) return 'just now';
+    if (Math.abs(diffMinutes) < 60) return `${Math.abs(diffMinutes)}m ago`;
+
+    const diffHours = Math.round(diffMinutes / 60);
+    if (Math.abs(diffHours) < 24) return `${Math.abs(diffHours)}h ago`;
+
+    const diffDays = Math.round(diffHours / 24);
+    return `${Math.abs(diffDays)}d ago`;
+};
