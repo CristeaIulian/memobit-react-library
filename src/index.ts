@@ -54,6 +54,7 @@ export { List } from './components/List';
 export { Loading } from './components/Loading';
 export { MacronutrientsPieChart } from './components/MacronutrientsPieChart';
 export { MenuHamburger, type MenuHamburgerItem } from './components/MenuHamburger';
+export { NotificationPanel, type NotificationPanelItem } from './components/NotificationPanel';
 export { Confetti, type ConfettiHandle } from './components/Confetti';
 export { InfiniteScroll, type ScrollInfo } from './components/InfiniteScroll';
 export {
