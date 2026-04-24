@@ -1,6 +1,6 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 import { InputText } from '../InputText/InputText';
-import { search } from '../../icons/search';
+import { Icon } from '../Icon';
 import './Search.scss';
 
 const clearIcon = (
@@ -60,7 +60,7 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
 
         return (
             <div className={`search ${className}`}>
-                <div className="search__icon">{search}</div>
+                <div className="search__icon"><Icon name="search" /></div>
                 <InputText
                     autoComplete={autoComplete}
                     autoFocus={autoFocus}

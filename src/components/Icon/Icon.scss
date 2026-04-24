@@ -1,0 +1,43 @@
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        display: block;
+    }
+
+    // Sizes — sets font-size so SVG width/height="1em" scales accordingly
+    &--sm   { font-size: var(--font-size-sm); }
+    &--md   { font-size: var(--font-size-md); }
+    &--lg   { font-size: var(--font-size-lg); }
+    &--xl   { font-size: var(--font-size-xl); }
+    &--xxl  { font-size: var(--font-size-xxl); }
+    &--xxxl { font-size: var(--font-size-xxxl); }
+
+    // Variants — sets color which SVG fill="currentColor" inherits
+    &--muted   { color: var(--body-color-muted); }
+    &--accent  { color: var(--body-accent-color); }
+    &--info    { color: var(--button-info-background-color); }
+    &--success { color: var(--button-success-background-color); }
+    &--warning { color: var(--button-warning-background-color); }
+    &--danger  { color: var(--body-danger-color); }
+
+    // Permanent animations
+    &--spin svg  { animation: icon-spin 1s linear infinite; }
+    &--pulse     { animation: icon-pulse 2s ease-in-out infinite; }
+
+    // Hover-only animations
+    &--spin-hover:hover svg { animation: icon-spin 1s linear infinite; }
+    &--pulse-hover:hover    { animation: icon-pulse 2s ease-in-out infinite; }
+}
+
+@keyframes icon-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes icon-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+}

@@ -37,6 +37,7 @@ export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from
 export { EmptyState, type EmptyStateProps } from './components/EmptyState';
 export { FileDropzone, type FileDropzoneProps } from './components/FileDropzone';
 export { Flag } from './components/Flag';
+export { Icon, type IconName, type IconSize, type IconVariant } from './components/Icon';
 export { FloatButton } from './components/FloatButton';
 export { InputDate } from './components/InputDate';
 export { InputEmail, validateEmail, type InputEmailProps } from './components/InputEmail';

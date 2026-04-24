@@ -33,9 +33,8 @@
                 font-size: var(--font-size-xs);
             }
 
-            .collapsible-section__icon svg {
-                width: 12px;
-                height: 12px;
+            .collapsible-section__icon .icon {
+                font-size: var(--font-size-xs);
             }
         }
     }
@@ -67,11 +66,6 @@
         align-items: center;
         justify-content: center;
         transition: transform 0.2s ease-in-out;
-
-        svg {
-            width: 16px;
-            height: 16px;
-        }
 
         &--collapsed {
             transform: scaleY(-1);
@@ -105,45 +99,15 @@
         border-radius: var(--radius);
     }
 
-    &__header--accent {
-        color: var(--body-accent-color);
+    &__header--accent { color: var(--body-accent-color); }
 
-        svg {
-            fill: var(--body-accent-color);
-        }
-    }
+    &__header--variant-success { color: var(--rating-color-success); }
 
-    &__header--variant-success {
-        color: var(--rating-color-success);
+    &__header--variant-warning { color: var(--rating-color-warning); }
 
-        svg {
-            fill: var(--rating-color-success);
-        }
-    }
+    &__header--variant-info { color: var(--rating-color-info); }
 
-    &__header--variant-warning {
-        color: var(--rating-color-warning);
-
-        svg {
-            fill: var(--rating-color-warning);
-        }
-    }
-
-    &__header--variant-info {
-        color: var(--rating-color-info);
-
-        svg {
-            fill: var(--rating-color-info);
-        }
-    }
-
-    &__header--variant-danger {
-        color: var(--rating-color-danger);
-
-        svg {
-            fill: var(--rating-color-danger);
-        }
-    }
+    &__header--variant-danger { color: var(--rating-color-danger); }
 
     &__content {
         height: fit-content;

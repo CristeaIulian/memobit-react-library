@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useComponentEffect } from '../../hooks/useComponentEffect';
-import { up } from '../../icons/up';
+import { Icon } from '../Icon';
 
 import './Card.scss';
 
@@ -49,7 +49,7 @@ export const Card: React.FC<CardProps> = ({
                     {title}
                     {isCollapsible && (
                         <span className="collapsible-button" onClick={() => seIsCardCollapsed(!isCardCollapsed)}>
-                            <span className={`opener-button ${isCardCollapsed ? 'opener-button-extended' : ''}`}>{up}</span>
+                            <span className={`opener-button ${isCardCollapsed ? 'opener-button-extended' : ''}`}><Icon name="up" size="lg" /></span>
                         </span>
                     )}
                 </h3>
