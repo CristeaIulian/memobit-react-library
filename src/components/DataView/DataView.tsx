@@ -20,6 +20,13 @@ export interface DataViewColumn<T> {
     header: React.ReactNode;
     /** Optional filter input rendered below the column header (table) or in the filter bar (card) */
     filter?: React.ReactNode;
+    /**
+     * Label shown above the filter in the card-mode filter bar.
+     * - `undefined` (default): uses `header` if it is a string
+     * - `null`: suppresses the label (use when the filter component has its own label, e.g. Dropdown)
+     * - string: uses this specific string as the label
+     */
+    filterLabel?: string | null;
     accessor?: (row: T) => React.ReactNode;
     sortAccessor?: (row: T) => string | number;
     sortable?: boolean;
@@ -85,6 +92,12 @@ export interface DataViewProps<T> {
     responsive?: boolean;
     className?: string;
     onPageChange?: (page: number) => void;
+    /**
+     * Custom card renderer. When provided, each item in card mode is rendered by this function
+     * instead of the default card layout. The node is placed directly in the cards container —
+     * use your own card component for styling (no DataView card wrapper is added).
+     */
+    renderCard?: (row: T) => React.ReactNode;
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -126,6 +139,7 @@ interface CardViewProps<T> {
     onToggleSelect?: (rowId: string | number, checked: boolean) => void;
     cardMaxWidth?: number | string;
     isMobile?: boolean;
+    renderCard?: (row: T) => React.ReactNode;
 }
 
 function CardView<T>({
@@ -143,6 +157,7 @@ function CardView<T>({
     onToggleSelect,
     cardMaxWidth,
     isMobile = false,
+    renderCard,
 }: CardViewProps<T>) {
     const cardColumns = columns.filter(col => !col.hideInCard && !(isMobile && col.hideInMobile));
     const cardsClassName = `data-view__cards${cardMaxWidth !== undefined ? ' data-view__cards--grid' : ''}`;
@@ -180,6 +195,16 @@ function CardView<T>({
             {data.map((row, index) => {
                 const marker = timelineMarkers.get(index);
                 const rowId = rowKey(row, index);
+
+                if (renderCard) {
+                    return (
+                        <React.Fragment key={rowId}>
+                            {marker && <TimelineMobileSeparator marker={marker} />}
+                            {renderCard(row)}
+                        </React.Fragment>
+                    );
+                }
+
                 const isSelected = selectable && selectedIds.includes(rowId);
 
                 return (
@@ -259,6 +284,7 @@ export function DataView<T>({
     responsive = true,
     className,
     onPageChange,
+    renderCard,
 }: DataViewProps<T>) {
     const { isMobile } = useBreakpoint();
     const [uncontrolledSortKey, setUncontrolledSortKey] = useState<string | null>(initialSortKey);
@@ -434,12 +460,22 @@ export function DataView<T>({
                     <div className="data-view__filter-bar">
                         {columns
                             .filter(col => col.filter)
-                            .map(col => (
-                                <div key={col.key} className="data-view__filter-bar-item">
-                                    {typeof col.header === 'string' && <span className="data-view__filter-bar-label">{col.header}</span>}
-                                    {col.filter}
-                                </div>
-                            ))}
+                            .map(col => {
+                                const filterBarLabel =
+                                    col.filterLabel === null
+                                        ? null
+                                        : col.filterLabel !== undefined
+                                          ? col.filterLabel
+                                          : typeof col.header === 'string'
+                                            ? col.header
+                                            : null;
+                                return (
+                                    <div key={col.key} className="data-view__filter-bar-item">
+                                        {filterBarLabel !== null && <span className="data-view__filter-bar-label">{filterBarLabel}</span>}
+                                        {col.filter}
+                                    </div>
+                                );
+                            })}
                     </div>
                 )}
 
@@ -457,6 +493,7 @@ export function DataView<T>({
                     selectedIds={selectedIds}
                     cardMaxWidth={cardMaxWidth}
                     isMobile={isMobile}
+                    renderCard={renderCard}
                     onToggleSelect={(rowId, checked) => {
                         if (checked) {
                             updateSelection([...selectedIds, rowId]);
