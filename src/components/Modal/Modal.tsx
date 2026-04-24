@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { useComponentEffect } from '../../hooks/useComponentEffect';
-import { Button, ButtonVariant } from '../Button';
+import { Button, ButtonProps, ButtonVariant } from '../Button';
 
 import './Modal.scss';
 
@@ -16,13 +16,17 @@ export interface ModalButtonConfig {
 }
 
 interface ModalProps {
+    buttons?: ButtonProps[];
     children?: ReactNode;
     className?: string;
     isOpen: boolean;
     onClose?: () => void;
     onOverlayClick?: (event: MouseEvent) => void;
+    /** @deprecated Use `buttons` instead. */
     primaryButton?: ModalButtonConfig;
+    /** @deprecated Use `buttons` instead. */
     secondaryButton?: ModalButtonConfig;
+    /** @deprecated Use `buttons` instead. */
     tertiaryButton?: ModalButtonConfig;
     size?: 'small' | 'medium' | 'large' | 'auto';
     title?: string;
@@ -30,6 +34,7 @@ interface ModalProps {
 }
 
 export const Modal: FC<ModalProps> = ({
+    buttons,
     children,
     className,
     isOpen,
@@ -68,7 +73,7 @@ export const Modal: FC<ModalProps> = ({
         return null;
     }
 
-    const hasFooter = primaryButton || secondaryButton || tertiaryButton;
+    const hasFooter = buttons?.length || primaryButton || secondaryButton || tertiaryButton;
 
     const modalContent = (
         <div ref={overlayRef} className="modal-overlay" onClick={onOverlayClick}>
@@ -82,6 +87,9 @@ export const Modal: FC<ModalProps> = ({
                 {children}
                 {hasFooter && (
                     <div className="modal__footer">
+                        {buttons?.map(({ children: label, ...btnProps }, i) => (
+                            <Button key={i} {...btnProps}>{label}</Button>
+                        ))}
                         {tertiaryButton && (
                             <Button
                                 variant={tertiaryButton.variant || 'default'}

@@ -38,20 +38,10 @@ export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ isOpen = false, 
             size="small"
             onClose={onClose}
             onOverlayClick={onClose}
-            primaryButton={{
-                text: isSaving ? 'Saving...' : 'Save',
-                onClick: handleSave,
-                icon: '💾',
-                variant: 'success',
-                disabled: isSaving,
-            }}
-            secondaryButton={{
-                text: 'Cancel',
-                onClick: onClose,
-                icon: '❎',
-                variant: 'default',
-                disabled: isSaving,
-            }}
+            buttons={[
+                { children: 'Cancel', variant: 'default', disabled: isSaving, onClick: onClose },
+                { children: isSaving ? 'Saving...' : 'Save', variant: 'success', disabled: isSaving, onClick: handleSave },
+            ]}
         >
             <div className="quick-number-update">
                 <div className="quick-number-update-content">

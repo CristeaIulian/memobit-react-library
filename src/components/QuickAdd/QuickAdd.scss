@@ -1,10 +1,6 @@
 .quick-add {
     .quick-add-input {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        padding: var(--spacing-16);
-        margin: var(--spacing-16) 0;
+        padding: var(--spacing-16) var(--spacing-24);
     }
 
     .error-message {

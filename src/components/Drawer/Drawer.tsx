@@ -18,14 +18,6 @@ export interface DrawerHeaderAction {
     onClick?: ButtonProps['onClick'];
 }
 
-export interface DrawerFooterButton {
-    text: string;
-    onClick?: ButtonProps['onClick'];
-    icon?: string;
-    variant?: ButtonProps['variant'];
-    disabled?: boolean;
-}
-
 export interface DrawerProps {
     isOpen: boolean;
     onClose: () => void;
@@ -42,10 +34,8 @@ export interface DrawerProps {
     className?: string;
     showOverlay?: boolean;
     actions?: DrawerHeaderAction[];
+    buttons?: ButtonProps[];
     footer?: React.ReactNode;
-    primaryButton?: DrawerFooterButton;
-    secondaryButton?: DrawerFooterButton;
-    tertiaryButton?: DrawerFooterButton;
 }
 
 export const Drawer: React.FC<DrawerProps> = ({
@@ -62,10 +52,8 @@ export const Drawer: React.FC<DrawerProps> = ({
     className = '',
     showOverlay = true,
     actions = [],
+    buttons,
     footer,
-    primaryButton,
-    secondaryButton,
-    tertiaryButton,
 }) => {
     useBodyScrollLock(isOpen);
 
@@ -92,7 +80,7 @@ export const Drawer: React.FC<DrawerProps> = ({
         '--drawer-border-radius': formatCssValue(borderRadius),
         '--drawer-shadow': shadow,
     } as React.CSSProperties;
-    const hasFooter = footer || primaryButton || secondaryButton || tertiaryButton;
+    const hasFooter = footer || buttons?.length;
 
     return (
         <>
@@ -125,38 +113,11 @@ export const Drawer: React.FC<DrawerProps> = ({
                 {hasFooter && (
                     <div className="drawer__footer">
                         {footer && <div className="drawer__footer-content">{footer}</div>}
-                        {(tertiaryButton || secondaryButton || primaryButton) && (
+                        {buttons && buttons.length > 0 && (
                             <div className="drawer__footer-actions">
-                                {tertiaryButton && (
-                                    <Button
-                                        disabled={tertiaryButton.disabled}
-                                        onClick={tertiaryButton.onClick}
-                                        prefixIcon={tertiaryButton.icon}
-                                        variant={tertiaryButton.variant ?? 'default'}
-                                    >
-                                        {tertiaryButton.text}
-                                    </Button>
-                                )}
-                                {secondaryButton && (
-                                    <Button
-                                        disabled={secondaryButton.disabled}
-                                        onClick={secondaryButton.onClick}
-                                        prefixIcon={secondaryButton.icon}
-                                        variant={secondaryButton.variant ?? 'default'}
-                                    >
-                                        {secondaryButton.text}
-                                    </Button>
-                                )}
-                                {primaryButton && (
-                                    <Button
-                                        disabled={primaryButton.disabled}
-                                        onClick={primaryButton.onClick}
-                                        prefixIcon={primaryButton.icon}
-                                        variant={primaryButton.variant ?? 'success'}
-                                    >
-                                        {primaryButton.text}
-                                    </Button>
-                                )}
+                                {buttons.map(({ children: label, ...btnProps }, i) => (
+                                    <Button key={i} {...btnProps}>{label}</Button>
+                                ))}
                             </div>
                         )}
                     </div>

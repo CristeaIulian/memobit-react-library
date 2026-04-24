@@ -61,9 +61,7 @@ export const CheckboxPage: React.FC = () => {
                     <h3>Single Checkbox</h3>
                     <div className="component-group">
                         <Checkbox checked={isChecked} onChange={setChecked} label="Accept terms and conditions" />
-                        <p style={{ marginTop: '8px', fontSize: '14px', color: 'var(--body-color-muted)' }}>
-                            Status: {isChecked ? 'Checked' : 'Unchecked'}
-                        </p>
+                        <p style={{ marginTop: '8px', fontSize: '14px', color: 'var(--body-color-muted)' }}>Status: {isChecked ? 'Checked' : 'Unchecked'}</p>
                     </div>
                 </div>
 
@@ -75,17 +73,9 @@ export const CheckboxPage: React.FC = () => {
                             onChange={value => updatePreference('notifications', value)}
                             label="Email notifications"
                         />
-                        <Checkbox
-                            checked={preferences.newsletter}
-                            onChange={value => updatePreference('newsletter', value)}
-                            label="Weekly newsletter"
-                        />
+                        <Checkbox checked={preferences.newsletter} onChange={value => updatePreference('newsletter', value)} label="Weekly newsletter" />
                         <Checkbox checked={preferences.updates} onChange={value => updatePreference('updates', value)} label="Product updates" />
-                        <Checkbox
-                            checked={preferences.marketing}
-                            onChange={value => updatePreference('marketing', value)}
-                            label="Marketing communications"
-                        />
+                        <Checkbox checked={preferences.marketing} onChange={value => updatePreference('marketing', value)} label="Marketing communications" />
                     </div>
                 </div>
 
@@ -94,11 +84,7 @@ export const CheckboxPage: React.FC = () => {
                     <div className="component-group" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                         <Checkbox checked={features.darkMode} onChange={value => setFeatures({ ...features, darkMode: value })} label="Dark Mode" />
                         <Checkbox checked={features.autoSave} onChange={value => setFeatures({ ...features, autoSave: value })} label="Auto Save" />
-                        <Checkbox
-                            checked={features.analytics}
-                            onChange={value => setFeatures({ ...features, analytics: value })}
-                            label="Analytics"
-                        />
+                        <Checkbox checked={features.analytics} onChange={value => setFeatures({ ...features, analytics: value })} label="Analytics" />
                     </div>
                 </div>
 
@@ -140,18 +126,9 @@ export const CheckboxPage: React.FC = () => {
                         <h4 style={{ marginTop: 0, marginBottom: '12px' }}>Complete Registration</h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <Checkbox checked={termsAccepted} onChange={setTermsAccepted} label="I accept the terms and conditions" />
-                            <Checkbox
-                                checked={subscribeNewsletter}
-                                onChange={setSubscribeNewsletter}
-                                label="Subscribe to newsletter (optional)"
-                            />
+                            <Checkbox checked={subscribeNewsletter} onChange={setSubscribeNewsletter} label="Subscribe to newsletter (optional)" />
                         </div>
-                        <Button
-                            variant="success"
-                            disabled={!termsAccepted}
-                            style={{ marginTop: '16px' }}
-                            onClick={() => alert('Registration submitted!')}
-                        >
+                        <Button variant="success" disabled={!termsAccepted} style={{ marginTop: '16px' }} onClick={() => alert('Registration submitted!')}>
                             Register
                         </Button>
                         <p style={{ marginTop: '12px', fontSize: '12px', color: 'var(--body-color-muted)' }}>
@@ -191,27 +168,21 @@ export const CheckboxPage: React.FC = () => {
                                 )}
                             </div>
                             <div style={{ marginLeft: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                <Checkbox
-                                    checked={selectedItems.includes('item1')}
-                                    onChange={() => toggleItem('item1')}
-                                    label="Export Documents"
-                                />
-                                <Checkbox
-                                    checked={selectedItems.includes('item2')}
-                                    onChange={() => toggleItem('item2')}
-                                    label="Export Images"
-                                />
+                                <Checkbox checked={selectedItems.includes('item1')} onChange={() => toggleItem('item1')} label="Export Documents" />
+                                <Checkbox checked={selectedItems.includes('item2')} onChange={() => toggleItem('item2')} label="Export Images" />
                                 <Checkbox checked={selectedItems.includes('item3')} onChange={() => toggleItem('item3')} label="Export Videos" />
                             </div>
                         </div>
-                        <Button
-                            variant="info"
-                            disabled={selectedItems.length === 0}
-                            style={{ marginTop: '16px' }}
-                            onClick={() => alert(`Exporting: ${selectedItems.join(', ')}`)}
-                        >
-                            Export Selected ({selectedItems.length})
-                        </Button>
+                        <div>
+                            <Button
+                                variant="info"
+                                disabled={selectedItems.length === 0}
+                                style={{ marginTop: '16px' }}
+                                onClick={() => alert(`Exporting: ${selectedItems.join(', ')}`)}
+                            >
+                                Export Selected ({selectedItems.length})
+                            </Button>
+                        </div>
                     </div>
                 </div>
 

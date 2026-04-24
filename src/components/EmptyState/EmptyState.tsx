@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Button, type ButtonVariant } from '../Button';
+import { Button, ButtonProps, type ButtonVariant } from '../Button';
 
 import './EmptyState.scss';
 
+/** @deprecated Use `buttons` on EmptyStateProps instead. */
 interface EmptyStateAction {
     label: string;
     onClick: () => void;
@@ -14,20 +15,28 @@ export interface EmptyStateProps {
     icon?: React.ReactNode;
     title: string;
     description?: string;
+    buttons?: ButtonProps[];
+    /** @deprecated Use `buttons` instead. */
     primaryAction?: EmptyStateAction;
+    /** @deprecated Use `buttons` instead. */
     secondaryAction?: EmptyStateAction;
     children?: React.ReactNode;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = ({ icon, title, description, primaryAction, secondaryAction, children }) => {
+export const EmptyState: React.FC<EmptyStateProps> = ({ icon, title, description, buttons, primaryAction, secondaryAction, children }) => {
+    const hasActions = buttons?.length || primaryAction || secondaryAction;
+
     return (
         <div className="empty-state">
             {icon && <div className="empty-state__icon">{icon}</div>}
             <h3 className="empty-state__title">{title}</h3>
             {description && <p className="empty-state__description">{description}</p>}
             {children}
-            {(primaryAction || secondaryAction) && (
+            {hasActions && (
                 <div className="empty-state__actions">
+                    {buttons?.map(({ children: label, ...btnProps }, i) => (
+                        <Button key={i} {...btnProps}>{label}</Button>
+                    ))}
                     {primaryAction && (
                         <Button variant={primaryAction.variant || 'info'} onClick={primaryAction.onClick}>
                             {primaryAction.label}

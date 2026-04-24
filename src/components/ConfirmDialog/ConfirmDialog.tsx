@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonVariant } from '../Button';
+import { ButtonProps, ButtonVariant } from '../Button';
 import { Modal } from '../Modal';
 
 import './ConfirmDialog.scss';
@@ -8,50 +8,66 @@ import './ConfirmDialog.scss';
 interface ConfirmDialogProps {
     isOpen: boolean;
     message: string;
-
-    onSecondaryButtonClick: () => void;
-    onPrimaryButtonClick: () => void;
-    primaryButtonLabel?: string;
-    primaryButtonPrefixIcon?: string;
-    primaryButtonVariant?: ButtonVariant;
-    secondaryButtonLabel?: string;
-    secondaryButtonPrefixIcon?: string;
-    secondaryButtonVariant?: ButtonVariant;
     title: string;
+
+    confirmButton?: ButtonProps;
+    cancelButton?: ButtonProps;
+
+    /** @deprecated Use `confirmButton` instead. */
+    onPrimaryButtonClick?: () => void;
+    /** @deprecated Use `confirmButton` instead. */
+    primaryButtonLabel?: string;
+    /** @deprecated Use `confirmButton` instead. */
+    primaryButtonPrefixIcon?: string;
+    /** @deprecated Use `confirmButton` instead. */
+    primaryButtonVariant?: ButtonVariant;
+    /** @deprecated Use `cancelButton` instead. */
+    onSecondaryButtonClick?: () => void;
+    /** @deprecated Use `cancelButton` instead. */
+    secondaryButtonLabel?: string;
+    /** @deprecated Use `cancelButton` instead. */
+    secondaryButtonPrefixIcon?: string;
+    /** @deprecated Use `cancelButton` instead. */
+    secondaryButtonVariant?: ButtonVariant;
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     isOpen = false,
     message,
-    onSecondaryButtonClick,
+    title,
+    confirmButton,
+    cancelButton,
     onPrimaryButtonClick,
     primaryButtonLabel = 'Confirm',
     primaryButtonPrefixIcon = '✓',
     primaryButtonVariant = 'danger',
+    onSecondaryButtonClick,
     secondaryButtonLabel = 'Cancel',
     secondaryButtonPrefixIcon = '✖',
     secondaryButtonVariant = 'default',
-    title,
 }: ConfirmDialogProps) => {
+    const resolvedConfirm: ButtonProps | undefined = confirmButton ?? (onPrimaryButtonClick ? {
+        children: primaryButtonLabel,
+        prefixIcon: primaryButtonPrefixIcon,
+        variant: primaryButtonVariant,
+        onClick: onPrimaryButtonClick,
+    } : undefined);
+
+    const resolvedCancel: ButtonProps | undefined = cancelButton ?? (onSecondaryButtonClick ? {
+        children: secondaryButtonLabel,
+        prefixIcon: secondaryButtonPrefixIcon,
+        variant: secondaryButtonVariant,
+        onClick: onSecondaryButtonClick,
+    } : undefined);
+
     return (
         <Modal
             isOpen={isOpen}
             title={title}
-            onClose={onSecondaryButtonClick}
+            onClose={cancelButton?.onClick ? () => (cancelButton.onClick as () => void)() : onSecondaryButtonClick}
             size="small"
             className="confirm-dialog"
-            primaryButton={{
-                text: primaryButtonLabel,
-                onClick: onPrimaryButtonClick,
-                icon: primaryButtonPrefixIcon,
-                variant: primaryButtonVariant,
-            }}
-            secondaryButton={{
-                text: secondaryButtonLabel,
-                onClick: onSecondaryButtonClick,
-                icon: secondaryButtonPrefixIcon,
-                variant: secondaryButtonVariant,
-            }}
+            buttons={[resolvedCancel, resolvedConfirm].filter((b): b is ButtonProps => b !== undefined)}
         >
             <div className="confirm-dialog__body">
                 <p>{message}</p>

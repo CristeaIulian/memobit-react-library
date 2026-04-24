@@ -61,7 +61,6 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 
         }
     };
 
-    // Close overlay when clicking outside
     const handleOverlayClick = (e: React.MouseEvent) => {
         if (e.target === e.currentTarget) {
             handleClose();
@@ -70,7 +69,6 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 
 
     return (
         <div className="quick-add">
-            {/* Trigger Button */}
             <Button variant={buttonVariant} prefixIcon={icon} onClick={handleOpen}>
                 {buttonText}
             </Button>
@@ -81,20 +79,10 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 
                 size="small"
                 onClose={handleClose}
                 onOverlayClick={handleOverlayClick}
-                primaryButton={{
-                    text: loading ? 'Saving...' : 'Save',
-                    onClick: handleSave,
-                    icon: '💾',
-                    variant: 'success',
-                    disabled: loading || !value.trim(),
-                }}
-                secondaryButton={{
-                    text: 'Cancel',
-                    onClick: handleClose,
-                    icon: '❎',
-                    variant: 'default',
-                    disabled: loading,
-                }}
+                buttons={[
+                    { children: 'Cancel', variant: 'default', disabled: loading, onClick: handleClose },
+                    { children: loading ? 'Saving...' : 'Save', variant: 'success', disabled: loading || !value.trim(), onClick: handleSave },
+                ]}
             >
                 <div className="quick-add-input">
                     <InputText
