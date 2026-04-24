@@ -27,6 +27,8 @@ export interface DataViewColumn<T> {
     minWidth?: number;
     hideInCard?: boolean;
     hideInTable?: boolean;
+    /** Hide this column only on mobile breakpoint (not when cards are used on desktop). */
+    hideInMobile?: boolean;
 }
 
 export interface DataViewCardConfig<T> {
@@ -123,6 +125,7 @@ interface CardViewProps<T> {
     selectedIds?: Array<string | number>;
     onToggleSelect?: (rowId: string | number, checked: boolean) => void;
     cardMaxWidth?: number | string;
+    isMobile?: boolean;
 }
 
 function CardView<T>({
@@ -139,8 +142,9 @@ function CardView<T>({
     selectedIds = [],
     onToggleSelect,
     cardMaxWidth,
+    isMobile = false,
 }: CardViewProps<T>) {
-    const cardColumns = columns.filter(col => !col.hideInCard);
+    const cardColumns = columns.filter(col => !col.hideInCard && !(isMobile && col.hideInMobile));
     const cardsClassName = `data-view__cards${cardMaxWidth !== undefined ? ' data-view__cards--grid' : ''}`;
     const cardsStyle =
         cardMaxWidth !== undefined
@@ -452,6 +456,7 @@ export function DataView<T>({
                     selectable={selectable}
                     selectedIds={selectedIds}
                     cardMaxWidth={cardMaxWidth}
+                    isMobile={isMobile}
                     onToggleSelect={(rowId, checked) => {
                         if (checked) {
                             updateSelection([...selectedIds, rowId]);
