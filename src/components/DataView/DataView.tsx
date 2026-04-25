@@ -20,13 +20,6 @@ export interface DataViewColumn<T> {
     header: React.ReactNode;
     /** Optional filter input rendered below the column header (table) or in the filter bar (card) */
     filter?: React.ReactNode;
-    /**
-     * Label shown above the filter in the card-mode filter bar.
-     * - `undefined` (default): uses `header` if it is a string
-     * - `null`: suppresses the label (use when the filter component has its own label, e.g. Dropdown)
-     * - string: uses this specific string as the label
-     */
-    filterLabel?: string | null;
     accessor?: (row: T) => React.ReactNode;
     sortAccessor?: (row: T) => string | number;
     sortable?: boolean;
@@ -460,22 +453,11 @@ export function DataView<T>({
                     <div className="data-view__filter-bar">
                         {columns
                             .filter(col => col.filter)
-                            .map(col => {
-                                const filterBarLabel =
-                                    col.filterLabel === null
-                                        ? null
-                                        : col.filterLabel !== undefined
-                                          ? col.filterLabel
-                                          : typeof col.header === 'string'
-                                            ? col.header
-                                            : null;
-                                return (
-                                    <div key={col.key} className="data-view__filter-bar-item">
-                                        {filterBarLabel !== null && <span className="data-view__filter-bar-label">{filterBarLabel}</span>}
-                                        {col.filter}
-                                    </div>
-                                );
-                            })}
+                            .map(col => (
+                                <div key={col.key} className="data-view__filter-bar-item">
+                                    {col.filter}
+                                </div>
+                            ))}
                     </div>
                 )}
 
