@@ -58,6 +58,8 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
     const [rangeStart, setRangeStart] = useState<Date | null>(null);
     const [isCalendarOpen, setIsCalendarOpen] = useState(alwaysOpen);
     const [overlayStyle, setOverlayStyle] = useState<React.CSSProperties>({ position: 'fixed', visibility: 'hidden' });
+    const [startInput, setStartInput] = useState(value?.start ?? '');
+    const [endInput, setEndInput] = useState(value?.end ?? '');
     const containerRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -88,12 +90,38 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
         setRangeStart(date);
     };
 
+    const isValidDate = (val: string) => /^\d{4}-\d{2}-\d{2}$/.test(val) && toDate(val) !== undefined;
+
+    const handleStartBlur = () => {
+        if (isValidDate(startInput)) {
+            updateRange({ ...range, start: startInput });
+        } else {
+            setStartInput(range.start ?? '');
+        }
+    };
+
+    const handleEndBlur = () => {
+        if (isValidDate(endInput)) {
+            updateRange({ ...range, end: endInput });
+        } else {
+            setEndInput(range.end ?? '');
+        }
+    };
+
     const handlePreset = (days: number) => {
         const end = new Date();
         const start = new Date();
         start.setDate(start.getDate() - days);
         updateRange({ start: toKey(start), end: toKey(end) });
     };
+
+    useEffect(() => {
+        setStartInput(range.start ?? '');
+    }, [range.start]);
+
+    useEffect(() => {
+        setEndInput(range.end ?? '');
+    }, [range.end]);
 
     const secondMonth = useMemo(() => addMonths(baseMonth, 1), [baseMonth]);
     const isCalendarVisible = alwaysOpen || isCalendarOpen;
@@ -266,9 +294,21 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                 </>
             )}
             <div className="date-range-picker__inputs">
-                <InputText readOnly value={range.start ?? ''} placeholder="Start date" />
+                <InputText
+                    value={startInput}
+                    placeholder="YYYY-MM-DD"
+                    maxLength={10}
+                    onChange={setStartInput}
+                    onBlur={handleStartBlur}
+                />
                 <span className="date-range-picker__separator">to</span>
-                <InputText readOnly value={range.end ?? ''} placeholder="End date" />
+                <InputText
+                    value={endInput}
+                    placeholder="YYYY-MM-DD"
+                    maxLength={10}
+                    onChange={setEndInput}
+                    onBlur={handleEndBlur}
+                />
                 {!alwaysOpen && (
                     <Button
                         className="date-range-picker__toggle"
