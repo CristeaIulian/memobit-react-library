@@ -57,7 +57,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
     const [baseMonth, setBaseMonth] = useState(() => new Date());
     const [rangeStart, setRangeStart] = useState<Date | null>(null);
     const [isCalendarOpen, setIsCalendarOpen] = useState(alwaysOpen);
-    const [overlayStyle, setOverlayStyle] = useState<React.CSSProperties>({});
+    const [overlayStyle, setOverlayStyle] = useState<React.CSSProperties>({ position: 'fixed', visibility: 'hidden' });
     const containerRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -138,10 +138,11 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
 
     useEffect(() => {
         if (!isOverlayMode) {
+            setOverlayStyle({ position: 'fixed', visibility: 'hidden' });
             return;
         }
 
-        const animationFrame = requestAnimationFrame(updateOverlayPosition);
+        const animationFrame = requestAnimationFrame(() => requestAnimationFrame(updateOverlayPosition));
         window.addEventListener('resize', updateOverlayPosition);
         window.addEventListener('scroll', updateOverlayPosition, true);
 
@@ -150,7 +151,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
             window.removeEventListener('resize', updateOverlayPosition);
             window.removeEventListener('scroll', updateOverlayPosition, true);
         };
-    }, [baseMonth, isOverlayMode, updateOverlayPosition]);
+    }, [isOverlayMode, updateOverlayPosition]);
 
     useEffect(() => {
         if (!isOverlayMode) {
