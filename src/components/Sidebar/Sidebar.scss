@@ -435,6 +435,45 @@
     &__filter-dropdown {
         width: 100%;
     }
+
+    &__options {
+        @include flex-column;
+        gap: var(--spacing-16);
+        padding: var(--spacing-16);
+    }
+
+    &__options-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-12);
+        color: var(--body-color);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    &__options-heading {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    &__option-group {
+        @include flex-column;
+        gap: var(--spacing-12);
+    }
+
+    &__option-group-label {
+        color: var(--body-accent-color);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    &__option {
+        @include flex-column;
+        gap: var(--spacing-8);
+    }
 }
 
 .sidebar::-webkit-scrollbar {

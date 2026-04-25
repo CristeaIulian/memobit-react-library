@@ -1,8 +1,10 @@
 import React, { ReactNode } from 'react';
 
 import { Button, ButtonProps } from '../Button';
+import { Checkbox } from '../Checkbox';
 import { Chip } from '../Chip';
 import { Dropdown, DropdownOption } from '../Dropdown';
+import { InputDate } from '../InputDate';
 import { InputNumber } from '../InputNumber';
 import { InputText } from '../InputText';
 import { Rating } from '../Rating';
@@ -58,7 +60,7 @@ export interface SidebarFilterOption extends DropdownOption {
     count?: number | string;
 }
 
-export type SidebarFilterType = 'radio' | 'chips' | 'dropdown' | 'text' | 'number' | 'rating' | 'range' | 'search';
+export type SidebarFilterType = 'radio' | 'chips' | 'dropdown' | 'text' | 'number' | 'rating' | 'range' | 'search' | 'date';
 export type SidebarFilterValue = string | number | string[] | number[] | null;
 
 export interface SidebarFilter {
@@ -76,6 +78,8 @@ export interface SidebarFilter {
     maxRate?: number;
     ratingIcon?: 'star' | 'bullet';
     ratingVariant?: 'success' | 'info' | 'warning' | 'danger';
+    minDate?: string;
+    maxDate?: string;
     isActive?: boolean;
 }
 
@@ -95,6 +99,24 @@ export interface SidebarFilterChangeEvent {
 
 export interface SidebarClearFiltersEvent {
     source: 'sidebar';
+}
+
+export interface SidebarOption {
+    id: string;
+    label: string;
+    type: 'checkbox';
+    value?: boolean;
+}
+
+export interface SidebarOptionGroup {
+    id?: string;
+    label?: string;
+    options: SidebarOption[];
+}
+
+export interface SidebarOptionChangeEvent {
+    optionId: string;
+    value: boolean;
 }
 
 export interface SidebarProps {
@@ -118,6 +140,9 @@ export interface SidebarProps {
     clearFiltersLabel?: string;
     onFilterChange?: (event: SidebarFilterChangeEvent) => void;
     onClearFilters?: (event: SidebarClearFiltersEvent) => void;
+    options?: SidebarOption[] | SidebarOptionGroup[];
+    optionsHeading?: string;
+    onOptionChange?: (event: SidebarOptionChangeEvent) => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -141,6 +166,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
     clearFiltersLabel = 'Clear filters',
     onFilterChange,
     onClearFilters,
+    options = [],
+    optionsHeading = 'Options',
+    onOptionChange,
 }) => {
     const sidebarContext = useSidebarContext();
     const isMobile = isMobileProp ?? sidebarContext?.isMobile ?? false;
@@ -214,6 +242,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
     const normalizedFilterGroups: SidebarFilterGroup[] =
         filters.length === 0 ? [] : 'filters' in filters[0] ? (filters as SidebarFilterGroup[]) : [{ filters: filters as SidebarFilter[] }];
 
+    const normalizedOptionGroups: SidebarOptionGroup[] =
+        options.length === 0 ? [] : 'options' in options[0] ? (options as SidebarOptionGroup[]) : [{ options: options as SidebarOption[] }];
+
     const renderFilterItem = (filter: SidebarFilter) => (
         <div className="sidebar__filter" key={filter.id}>
             <span className={`sidebar__filter-title${filter.isActive ? ' sidebar__filter-title--active' : ''}`}>
@@ -227,6 +258,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
     const renderFilter = (filter: SidebarFilter) => {
         const selectedValues = getArrayValue(filter.value);
         const options = filter.options ?? [];
+
+        if (filter.type === 'date') {
+            return (
+                <InputDate
+                    min={filter.minDate}
+                    max={filter.maxDate}
+                    value={typeof filter.value === 'string' ? filter.value : ''}
+                    onChange={value =>
+                        emitFilterChange({
+                            filterId: filter.id,
+                            type: filter.type,
+                            value: value ?? null,
+                        })
+                    }
+                />
+            );
+        }
 
         if (filter.type === 'text') {
             return (
@@ -504,6 +552,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             <div className="sidebar__filter-group" key={group.id ?? group.label ?? groupIndex}>
                                 {group.label && <span className="sidebar__filter-group-label">{group.label}</span>}
                                 {group.filters.map(renderFilterItem)}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {normalizedFilterGroups.length > 0 && normalizedOptionGroups.length > 0 && <Separator spacing={0} />}
+
+                {normalizedOptionGroups.length > 0 && (
+                    <div className="sidebar__options">
+                        {optionsHeading && (
+                            <div className="sidebar__options-header">
+                                <span className="sidebar__options-heading">{optionsHeading}</span>
+                            </div>
+                        )}
+                        {normalizedOptionGroups.map((group, groupIndex) => (
+                            <div className="sidebar__option-group" key={group.id ?? group.label ?? groupIndex}>
+                                {group.label && <span className="sidebar__option-group-label">{group.label}</span>}
+                                {group.options.map(option => (
+                                    <div className="sidebar__option" key={option.id}>
+                                        <Checkbox label={option.label} checked={option.value ?? false} onChange={() => onOptionChange?.({ optionId: option.id, value: !(option.value ?? false) })} />
+                                    </div>
+                                ))}
                             </div>
                         ))}
                     </div>
