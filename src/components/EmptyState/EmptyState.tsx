@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button, ButtonProps, type ButtonVariant } from '../Button';
+import { Icon, type IconName } from '../Icon';
 
 import './EmptyState.scss';
 
@@ -12,7 +13,7 @@ interface EmptyStateAction {
 }
 
 export interface EmptyStateProps {
-    icon?: React.ReactNode;
+    icon?: React.ReactNode | IconName;
     title: string;
     description?: string;
     buttons?: ButtonProps[];
@@ -25,10 +26,11 @@ export interface EmptyStateProps {
 
 export const EmptyState: React.FC<EmptyStateProps> = ({ icon, title, description, buttons, primaryAction, secondaryAction, children }) => {
     const hasActions = buttons?.length || primaryAction || secondaryAction;
+    const iconContent = typeof icon === 'string' ? <Icon name={icon as IconName} size="xxxl" /> : icon;
 
     return (
         <div className="empty-state">
-            {icon && <div className="empty-state__icon">{icon}</div>}
+            {iconContent && <div className="empty-state__icon">{iconContent}</div>}
             <h3 className="empty-state__title">{title}</h3>
             {description && <p className="empty-state__description">{description}</p>}
             {children}

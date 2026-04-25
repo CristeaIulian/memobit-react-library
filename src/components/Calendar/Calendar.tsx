@@ -301,21 +301,22 @@ export const Calendar: React.FC<CalendarProps> = ({
 
     const getDayClassName = (date: Date): string => {
         const classes = ['calendar__day'];
+        const currentMonth = isCurrentMonthDate(date);
 
-        if (!isCurrentMonthDate(date)) {
+        if (!currentMonth) {
             classes.push('calendar__day--other-month');
-        }
+        } else {
+            if (isDateSelected(date)) {
+                classes.push('calendar__day--selected');
+            }
 
-        if (isDateSelected(date)) {
-            classes.push('calendar__day--selected');
-        }
+            if (isDateInSelectedRange(date)) {
+                classes.push('calendar__day--in-range');
+            }
 
-        if (isDateInSelectedRange(date)) {
-            classes.push('calendar__day--in-range');
-        }
-
-        if (isDateInHoverRange(date)) {
-            classes.push('calendar__day--hover-range');
+            if (isDateInHoverRange(date)) {
+                classes.push('calendar__day--hover-range');
+            }
         }
 
         if (isToday(date)) {

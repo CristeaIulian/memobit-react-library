@@ -5,7 +5,8 @@
       "Bash(npm run:*)",
       "Bash(dir:*)",
       "Bash(findstr:*)",
-      "Bash(xargs grep *)"
+      "Bash(xargs grep *)",
+      "WebSearch"
     ]
   }
 }
