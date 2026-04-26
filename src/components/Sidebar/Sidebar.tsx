@@ -511,27 +511,29 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     </div>
                 )}
 
-                <nav className="sidebar__nav">
-                    {sections.map((section, sectionIndex) => (
-                        <section className="sidebar__section" key={section.id ?? section.title ?? sectionIndex}>
-                            {(section.title || section.heading || section.icon || section.description) && (
-                                <div className="sidebar__section-header">
-                                    {(section.icon || section.title || section.heading) && (
-                                        <div className="sidebar__section-title-row">
-                                            {section.icon && <span className="sidebar__section-icon">{section.icon}</span>}
-                                            {(section.title || section.heading) && (
-                                                <span className="sidebar__section-title">{section.title ?? section.heading}</span>
-                                            )}
-                                        </div>
-                                    )}
-                                    {section.description && <p className="sidebar__section-description">{section.description}</p>}
-                                </div>
-                            )}
-                            {section.items.map(item => (renderItem ? renderItem(item) : defaultRenderItem(item)))}
-                            {section.showDivider && sectionIndex < sections.length - 1 && <div className="sidebar__divider" />}
-                        </section>
-                    ))}
-                </nav>
+                {sections.length > 0 && (
+                    <nav className="sidebar__nav">
+                        {sections.map((section, sectionIndex) => (
+                            <section className="sidebar__section" key={section.id ?? section.title ?? sectionIndex}>
+                                {(section.title || section.heading || section.icon || section.description) && (
+                                    <div className="sidebar__section-header">
+                                        {(section.icon || section.title || section.heading) && (
+                                            <div className="sidebar__section-title-row">
+                                                {section.icon && <span className="sidebar__section-icon">{section.icon}</span>}
+                                                {(section.title || section.heading) && (
+                                                    <span className="sidebar__section-title">{section.title ?? section.heading}</span>
+                                                )}
+                                            </div>
+                                        )}
+                                        {section.description && <p className="sidebar__section-description">{section.description}</p>}
+                                    </div>
+                                )}
+                                {section.items.map(item => (renderItem ? renderItem(item) : defaultRenderItem(item)))}
+                                {section.showDivider && sectionIndex < sections.length - 1 && <div className="sidebar__divider" />}
+                            </section>
+                        ))}
+                    </nav>
+                )}
 
                 {normalizedFilterGroups.length > 0 && (
                     <div className="sidebar__filters">
