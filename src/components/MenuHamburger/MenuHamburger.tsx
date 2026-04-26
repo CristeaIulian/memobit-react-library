@@ -20,9 +20,10 @@ interface MenuHamburgerProps {
     items: MenuHamburgerItem[];
     label?: string;
     showLabel?: boolean;
+    disableResponsive?: boolean;
 }
 
-export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, label, showLabel = true }: MenuHamburgerProps): ReactElement => {
+export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, label, showLabel = true, disableResponsive = false }: MenuHamburgerProps): ReactElement => {
     const { isAtLeast } = useBreakpoint();
     const [menuTarget, setMenuTarget] = useState<EventTarget | null>(null);
 
@@ -39,7 +40,7 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, 
         closeMenu();
     };
 
-    const isAtLeastTablet = isAtLeast('tablet');
+    const isAtLeastTablet = disableResponsive ? true : isAtLeast('tablet');
 
     return (
         <div className="MenuHamburger">
