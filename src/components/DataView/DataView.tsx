@@ -58,6 +58,7 @@ export interface DataViewGroup<T> {
     key: DataViewGroupKey;
     label: React.ReactNode;
     items: T[];
+    totalCount: number;
 }
 
 export interface DataViewGroupConfig<T> {
@@ -105,7 +106,7 @@ export interface DataViewProps<T> {
     responsive?: boolean;
     className?: string;
     onPageChange?: (page: number) => void;
-    /** Group rows by a key. When set, pagination is disabled and rows render in group sections. */
+    /** Group rows by a key. Rows render in group sections within the paginated slice. */
     group?: DataViewGroupConfig<T>;
 }
 
@@ -262,7 +263,7 @@ function CardView<T>({
                         <section key={group.key ?? '__null__'} className="data-view__group">
                             <header className="data-view__group-header">
                                 <span className="data-view__group-label">{group.label}</span>
-                                {showGroupCount && <span className="data-view__group-count">{group.items.length}</span>}
+                                {showGroupCount && <span className="data-view__group-count">{group.totalCount}</span>}
                             </header>
                             <div className={cardsClassName} style={cardsStyle}>
                                 {group.items.map((row, i) => renderRow(row, startIndex + i))}
@@ -376,13 +377,22 @@ export function DataView<T>({
         return sortDirection === 'asc' ? sorted : sorted.reverse();
     }, [columns, data, sortDirection, sortKey]);
 
-    const isGrouped = !!group;
     const totalPages = Math.max(1, Math.ceil(sortedData.length / pageSize));
     const safeCurrentPage = Math.min(currentPage, totalPages);
-    const pagedData = isGrouped ? sortedData : sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
+    const pagedData = sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
+
+    const groupTotals = useMemo<Map<DataViewGroupKey, number> | null>(() => {
+        if (!group) return null;
+        const totals = new Map<DataViewGroupKey, number>();
+        sortedData.forEach(row => {
+            const key = group.groupBy(row);
+            totals.set(key, (totals.get(key) ?? 0) + 1);
+        });
+        return totals;
+    }, [group, sortedData]);
 
     const computedGroups = useMemo<DataViewGroup<T>[] | null>(() => {
-        if (!group) return null;
+        if (!group || !groupTotals) return null;
         const map = new Map<DataViewGroupKey, T[]>();
         const order: DataViewGroupKey[] = [];
         pagedData.forEach(row => {
@@ -399,6 +409,7 @@ export function DataView<T>({
             key,
             label: group.groupLabel(key),
             items: map.get(key) as T[],
+            totalCount: groupTotals.get(key) ?? 0,
         }));
         if (group.sortGroups) {
             entries.sort(group.sortGroups);
@@ -410,7 +421,7 @@ export function DataView<T>({
             });
         }
         return entries;
-    }, [group, pagedData]);
+    }, [group, groupTotals, pagedData]);
 
     // Timeline markers for table mode — must be called before any conditional return
     const tableTimelineMarkers = useMemo(() => {
@@ -551,24 +562,22 @@ export function DataView<T>({
                     }}
                 />
 
-                {!isGrouped && (
-                    <Pagination
-                        currentPage={safeCurrentPage}
-                        totalPages={totalPages}
-                        totalItems={sortedData.length}
-                        onPageChange={handlePageChange}
-                        pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
-                        pageSize={showPageSize ? pageSize : undefined}
-                        onPageSizeChange={
-                            showPageSize
-                                ? nextSize => {
-                                      setPageSize(nextSize);
-                                      handlePageChange(1);
-                                  }
-                                : undefined
-                        }
-                    />
-                )}
+                <Pagination
+                    currentPage={safeCurrentPage}
+                    totalPages={totalPages}
+                    totalItems={sortedData.length}
+                    onPageChange={handlePageChange}
+                    pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
+                    pageSize={showPageSize ? pageSize : undefined}
+                    onPageSizeChange={
+                        showPageSize
+                            ? nextSize => {
+                                  setPageSize(nextSize);
+                                  handlePageChange(1);
+                              }
+                            : undefined
+                    }
+                />
             </div>
         );
     }
@@ -730,7 +739,7 @@ export function DataView<T>({
                                             <tr className="data-view__group-row">
                                                 <td colSpan={totalCols} className="data-view__group-cell">
                                                     <span className="data-view__group-label">{grp.label}</span>
-                                                    {showGroupCount && <span className="data-view__group-count">{grp.items.length}</span>}
+                                                    {showGroupCount && <span className="data-view__group-count">{grp.totalCount}</span>}
                                                 </td>
                                             </tr>
                                             {grp.items.map((row, i) => renderTableRow(row, startIndex + i))}
@@ -745,24 +754,22 @@ export function DataView<T>({
                 </table>
             </div>
 
-            {!isGrouped && (
-                <Pagination
-                    currentPage={safeCurrentPage}
-                    totalPages={totalPages}
-                    totalItems={sortedData.length}
-                    onPageChange={handlePageChange}
-                    pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
-                    pageSize={showPageSize ? pageSize : undefined}
-                    onPageSizeChange={
-                        showPageSize
-                            ? nextSize => {
-                                  setPageSize(nextSize);
-                                  handlePageChange(1);
-                              }
-                            : undefined
-                    }
-                />
-            )}
+            <Pagination
+                currentPage={safeCurrentPage}
+                totalPages={totalPages}
+                totalItems={sortedData.length}
+                onPageChange={handlePageChange}
+                pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
+                pageSize={showPageSize ? pageSize : undefined}
+                onPageSizeChange={
+                    showPageSize
+                        ? nextSize => {
+                              setPageSize(nextSize);
+                              handlePageChange(1);
+                          }
+                        : undefined
+                }
+            />
         </>
     );
 

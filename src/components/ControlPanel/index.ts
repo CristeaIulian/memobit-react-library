@@ -13,6 +13,7 @@ export {
     type ControlPanelOptionGroup,
     type ControlPanelOptionItem,
     type ControlPanelOptionChangeEvent,
+    type ControlPanelViewMode,
     type ControlPanelViewToggleConfig,
     type ControlPanelGroupByConfig,
     type ControlPanelVisibleColumnsConfig,
