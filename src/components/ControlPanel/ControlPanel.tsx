@@ -95,10 +95,12 @@ export interface ControlPanelOptionChangeEvent {
     value: boolean | string | number | Array<string | number>;
 }
 
+export type ControlPanelViewMode = 'table' | 'cards' | 'gallery';
+
 export interface ControlPanelViewToggleConfig {
     value: string;
     showGallery?: boolean;
-    onChange: (value: 'table' | 'cards' | 'gallery') => void;
+    onChange: (value: ControlPanelViewMode) => void;
 }
 
 export interface ControlPanelGroupByConfig {
