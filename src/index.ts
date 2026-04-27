@@ -68,7 +68,7 @@ export {
     type MiniStatsCardLabelPosition,
     type MiniStatsCardTrendVariant,
 } from './components/MiniStatsCard';
-export { Modal, type ModalButtonConfig } from './components/Modal';
+export { Modal } from './components/Modal';
 export { NavBar, type NavBarItem } from './components/NavBar';
 export { Pagination } from './components/Pagination';
 export { Popover, usePopover } from './components/Popover';
