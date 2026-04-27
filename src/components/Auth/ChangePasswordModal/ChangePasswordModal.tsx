@@ -93,17 +93,17 @@ export function ChangePasswordModal({ isOpen, onClose }: ChangePasswordModalProp
             onClose={onClose}
             title="Change Password"
             size="medium"
-            primaryButton={{
+            primary={{
                 text: isLoading ? 'Changing...' : 'Change Password',
                 onClick: handleChangePassword,
-                icon: '🔒',
+                icon: 'lock',
                 variant: 'success',
                 disabled: isLoading,
             }}
-            secondaryButton={{
+            secondary={{
                 text: 'Cancel',
                 onClick: onClose,
-                icon: '❌',
+                icon: 'clear',
                 variant: 'default',
                 disabled: isLoading,
             }}

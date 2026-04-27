@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-import { AlertDialog, Button, type ButtonVariant } from '../../../src';
+import { AlertDialog, type IconName } from '../../../src';
+import { type ButtonVariant, Button } from '../../../src/components/Button';
 
 interface DialogConfig {
     title: string;
     message: string;
     variant: ButtonVariant;
     label: string;
-    icon: string;
+    icon: IconName;
 }
 
 export const AlertDialogPage: React.FC = () => {
@@ -17,7 +18,7 @@ export const AlertDialogPage: React.FC = () => {
         message: 'This action cannot be undone.',
         variant: 'danger',
         label: 'Delete',
-        icon: '!',
+        icon: 'delete',
     });
 
     const openDialog = (config: DialogConfig) => {
@@ -43,7 +44,7 @@ export const AlertDialogPage: React.FC = () => {
                                     message: 'This action cannot be undone.',
                                     variant: 'danger',
                                     label: 'Delete',
-                                    icon: '!',
+                                    icon: 'delete',
                                 })
                             }
                         >
@@ -57,7 +58,7 @@ export const AlertDialogPage: React.FC = () => {
                                     message: 'An existing file will be replaced.',
                                     variant: 'warning',
                                     label: 'Overwrite',
-                                    icon: '!',
+                                    icon: 'save',
                                 })
                             }
                         >
@@ -71,7 +72,7 @@ export const AlertDialogPage: React.FC = () => {
                                     message: 'Your updates will be applied immediately.',
                                     variant: 'info',
                                     label: 'Save',
-                                    icon: 'i',
+                                    icon: 'checkmark',
                                 })
                             }
                         >
@@ -85,10 +86,12 @@ export const AlertDialogPage: React.FC = () => {
                 isOpen={isOpen}
                 title={dialogConfig.title}
                 message={dialogConfig.message}
-                primaryButtonLabel={dialogConfig.label}
-                primaryButtonVariant={dialogConfig.variant}
-                primaryButtonPrefixIcon={dialogConfig.icon}
-                onPrimaryButtonClick={() => setIsOpen(false)}
+                primary={{
+                    text: dialogConfig.label,
+                    variant: dialogConfig.variant,
+                    icon: dialogConfig.icon,
+                    onClick: () => setIsOpen(false),
+                }}
             />
         </div>
     );

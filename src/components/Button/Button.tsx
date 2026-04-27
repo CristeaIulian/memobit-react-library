@@ -28,6 +28,10 @@ export interface ButtonProps {
     variant?: ButtonVariant;
 }
 
+export interface ExternalButtonConfig extends ButtonProps {
+    text: string;
+}
+
 export const Button: React.FC<ButtonProps> = ({
     ariaLabel,
     borders = 'rounded',

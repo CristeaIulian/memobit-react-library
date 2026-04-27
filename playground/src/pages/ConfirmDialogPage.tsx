@@ -20,9 +20,9 @@ export const ConfirmDialogPage: React.FC = () => {
                         <ConfirmDialog
                             message="this is the message"
                             isOpen={isConfirmDialogOpen}
-                            onPrimaryButtonClick={() => setConfirmDialogOpen(false)}
-                            onSecondaryButtonClick={() => setConfirmDialogOpen(false)}
                             title="this is the title"
+                            confirm={{ text: 'Confirm', onClick: () => setConfirmDialogOpen(false) }}
+                            cancel={{ text: 'Cancel', onClick: () => setConfirmDialogOpen(false) }}
                         />
                         <Button onClick={() => setConfirmDialogOpen(true)}>Show Confirm Dialog</Button>
                     </div>
@@ -34,15 +34,9 @@ export const ConfirmDialogPage: React.FC = () => {
                         <ConfirmDialog
                             message="this is the message"
                             isOpen={isConfirmDialogOpen2}
-                            primaryButtonLabel="Ok"
-                            primaryButtonPrefixIcon="👌"
-                            primaryButtonVariant="warning"
-                            secondaryButtonLabel="Abort"
-                            secondaryButtonPrefixIcon="🚫"
-                            secondaryButtonVariant="info"
-                            onPrimaryButtonClick={() => setConfirmDialogOpen2(false)}
-                            onSecondaryButtonClick={() => setConfirmDialogOpen2(false)}
                             title="this is the title"
+                            confirm={{ text: 'Ok', icon: 'checkmark', variant: 'warning', onClick: () => setConfirmDialogOpen2(false) }}
+                            cancel={{ text: 'Abort', icon: 'clear', variant: 'info', onClick: () => setConfirmDialogOpen2(false) }}
                         />
                         <Button onClick={() => setConfirmDialogOpen2(true)}>Show Confirm Dialog</Button>
                     </div>

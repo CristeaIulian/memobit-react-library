@@ -48,19 +48,19 @@ export const ModalPage: React.FC = () => {
                             isOpen={isModalOpen2}
                             onClose={() => setModalOpen2(false)}
                             title="Save Changes"
-                            primaryButton={{
+                            primary={{
                                 text: 'Save',
                                 onClick: () => {
                                     console.log('Changes saved');
                                     setModalOpen2(false);
                                 },
-                                icon: '✓',
+                                icon: 'checkmark',
                                 variant: 'success',
                             }}
-                            secondaryButton={{
+                            secondary={{
                                 text: 'Cancel',
                                 onClick: () => setModalOpen2(false),
-                                icon: '❎',
+                                icon: 'clear',
                                 variant: 'default',
                             }}
                         >
@@ -79,16 +79,16 @@ export const ModalPage: React.FC = () => {
                             isOpen={isConfirmOpen}
                             onClose={() => setConfirmOpen(false)}
                             title="Delete Item"
-                            primaryButton={{
+                            primary={{
                                 text: 'Delete',
                                 onClick: () => {
                                     console.log('Item deleted');
                                     setConfirmOpen(false);
                                 },
-                                icon: '🗑️',
+                                icon: 'delete',
                                 variant: 'danger',
                             }}
-                            secondaryButton={{
+                            secondary={{
                                 text: 'Cancel',
                                 onClick: () => setConfirmOpen(false),
                                 variant: 'default',
@@ -111,10 +111,10 @@ export const ModalPage: React.FC = () => {
                             isOpen={isInfoOpen}
                             onClose={() => setInfoOpen(false)}
                             title="Important Information"
-                            primaryButton={{
+                            primary={{
                                 text: 'Got it',
                                 onClick: () => setInfoOpen(false),
-                                icon: '✓',
+                                icon: 'checkmark',
                                 variant: 'info',
                             }}
                         >
@@ -145,7 +145,7 @@ export const ModalPage: React.FC = () => {
                             onClose={() => setSmallOpen(false)}
                             title="Small Modal"
                             size="small"
-                            primaryButton={{
+                            primary={{
                                 text: 'OK',
                                 onClick: () => setSmallOpen(false),
                                 variant: 'info',
@@ -167,7 +167,7 @@ export const ModalPage: React.FC = () => {
                             onClose={() => setMediumOpen(false)}
                             title="Medium Modal"
                             size="medium"
-                            primaryButton={{
+                            primary={{
                                 text: 'Close',
                                 onClick: () => setMediumOpen(false),
                                 variant: 'default',
@@ -192,7 +192,7 @@ export const ModalPage: React.FC = () => {
                             onClose={() => setLargeOpen(false)}
                             title="Large Modal"
                             size="large"
-                            primaryButton={{
+                            primary={{
                                 text: 'Close',
                                 onClick: () => setLargeOpen(false),
                                 variant: 'default',
@@ -228,14 +228,14 @@ export const ModalPage: React.FC = () => {
                             onClose={() => setFormOpen(false)}
                             title="User Registration"
                             size="medium"
-                            primaryButton={{
+                            primary={{
                                 text: 'Submit',
                                 onClick: handleFormSubmit,
-                                icon: '✓',
+                                icon: 'checkmark',
                                 variant: 'success',
                                 disabled: !formData.name || !formData.email,
                             }}
-                            secondaryButton={{
+                            secondary={{
                                 text: 'Cancel',
                                 onClick: () => {
                                     setFormData({ name: '', email: '' });
@@ -287,12 +287,12 @@ export const ModalPage: React.FC = () => {
                                 console.log('Overlay clicked - showing alert instead of closing');
                                 alert('Overlay clicked! Use the X button or Cancel to close.');
                             }}
-                            primaryButton={{
+                            primary={{
                                 text: 'OK',
                                 onClick: () => setCustomOverlayOpen(false),
                                 variant: 'success',
                             }}
-                            secondaryButton={{
+                            secondary={{
                                 text: 'Cancel',
                                 onClick: () => setCustomOverlayOpen(false),
                                 variant: 'default',
@@ -314,31 +314,30 @@ export const ModalPage: React.FC = () => {
                             isOpen={isTertiaryButtonOpen}
                             onClose={() => setTertiaryButtonOpen(false)}
                             title="Document Changes"
-                            primaryButton={{
+                            primary={{
                                 text: 'Save & Close',
                                 onClick: () => {
                                     console.log('Document saved and closed');
                                     setTertiaryButtonOpen(false);
                                 },
-                                icon: '✓',
                                 variant: 'success',
                             }}
-                            secondaryButton={{
+                            secondary={{
                                 text: 'Save as Draft',
                                 onClick: () => {
                                     console.log('Document saved as draft');
                                     setTertiaryButtonOpen(false);
                                 },
-                                icon: '💾',
+                                icon: 'save',
                                 variant: 'info',
                             }}
-                            tertiaryButton={{
+                            tertiary={{
                                 text: 'Discard',
                                 onClick: () => {
                                     console.log('Changes discarded');
                                     setTertiaryButtonOpen(false);
                                 },
-                                icon: '🗑️',
+                                icon: 'delete',
                                 variant: 'danger',
                             }}
                         >

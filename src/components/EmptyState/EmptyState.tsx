@@ -1,31 +1,21 @@
 import React from 'react';
 
-import { Button, ButtonProps, type ButtonVariant } from '../Button';
+import { Button, type ExternalButtonConfig } from '../Button';
 import { Icon, type IconName } from '../Icon';
 
 import './EmptyState.scss';
-
-/** @deprecated Use `buttons` on EmptyStateProps instead. */
-interface EmptyStateAction {
-    label: string;
-    onClick: () => void;
-    variant?: ButtonVariant;
-}
 
 export interface EmptyStateProps {
     icon?: React.ReactNode | IconName;
     title: string;
     description?: string;
-    buttons?: ButtonProps[];
-    /** @deprecated Use `buttons` instead. */
-    primaryAction?: EmptyStateAction;
-    /** @deprecated Use `buttons` instead. */
-    secondaryAction?: EmptyStateAction;
+    primary?: ExternalButtonConfig;
+    secondary?: ExternalButtonConfig;
     children?: React.ReactNode;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = ({ icon, title, description, buttons, primaryAction, secondaryAction, children }) => {
-    const hasActions = buttons?.length || primaryAction || secondaryAction;
+export const EmptyState: React.FC<EmptyStateProps> = ({ icon, title, description, primary, secondary, children }) => {
+    const hasActions = primary || secondary;
     const iconContent = typeof icon === 'string' ? <Icon name={icon as IconName} size="xxxl" /> : icon;
 
     return (
@@ -36,17 +26,14 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ icon, title, description
             {children}
             {hasActions && (
                 <div className="empty-state__actions">
-                    {buttons?.map(({ children: label, ...btnProps }, i) => (
-                        <Button key={i} {...btnProps}>{label}</Button>
-                    ))}
-                    {primaryAction && (
-                        <Button variant={primaryAction.variant || 'info'} onClick={primaryAction.onClick}>
-                            {primaryAction.label}
+                    {primary && (
+                        <Button variant={primary.variant || 'info'} icon={primary.icon} onClick={primary.onClick}>
+                            {primary.text}
                         </Button>
                     )}
-                    {secondaryAction && (
-                        <Button variant={secondaryAction.variant || 'default'} onClick={secondaryAction.onClick}>
-                            {secondaryAction.label}
+                    {secondary && (
+                        <Button variant={secondary.variant || 'default'} icon={secondary.icon} onClick={secondary.onClick}>
+                            {secondary.text}
                         </Button>
                     )}
                 </div>

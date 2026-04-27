@@ -287,14 +287,14 @@ export const DrawerPage: React.FC = () => {
                             title="Edit Settings"
                             width="420px"
                             footer={<span style={{ color: 'var(--body-color-muted)' }}>Unsaved changes</span>}
-                            secondaryButton={{
+                            secondary={{
                                 text: 'Cancel',
                                 onClick: () => setFooterDrawerOpen(false),
                                 variant: 'default',
                             }}
-                            primaryButton={{
+                            primary={{
                                 text: 'Save changes',
-                                icon: '✓',
+                                icon: 'checkmark',
                                 onClick: () => setFooterDrawerOpen(false),
                                 variant: 'info',
                             }}
@@ -329,14 +329,14 @@ export const DrawerPage: React.FC = () => {
                             borderRadius="20px"
                             shadow="var(--modal-surface-box-shadow, var(--modal-box-shadow))"
                             title="BOOK - B02"
-                            secondaryButton={{
+                            secondary={{
                                 text: 'Cancel',
                                 onClick: () => setBookDetailDrawerOpen(false),
                                 variant: 'default',
                             }}
-                            primaryButton={{
+                            primary={{
                                 text: 'Save changes',
-                                icon: '✓',
+                                icon: 'checkmark',
                                 onClick: () => setBookDetailDrawerOpen(false),
                                 variant: 'info',
                             }}

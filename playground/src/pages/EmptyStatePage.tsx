@@ -17,8 +17,8 @@ export const EmptyStatePage: React.FC = () => {
                             icon="?"
                             title="No items found"
                             description="Try adjusting filters or create a new entry."
-                            primaryAction={{ label: 'Create item', onClick: () => alert('Create clicked') }}
-                            secondaryAction={{ label: 'Reset filters', onClick: () => alert('Reset clicked') }}
+                            primary={{ text: 'Create item', onClick: () => alert('Create clicked') }}
+                            secondary={{ text: 'Reset filters', onClick: () => alert('Reset clicked') }}
                         />
                     </div>
                 </div>

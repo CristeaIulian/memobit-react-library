@@ -1,5 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 
+import { Button } from '../Button';
+
 import './NavBar.scss';
 
 export interface NavBarItem {
@@ -21,15 +23,7 @@ interface NavBarProps {
     collapsible?: boolean;
 }
 
-export const NavBar: React.FC<NavBarProps> = ({
-    items,
-    logo,
-    actions,
-    position = 'static',
-    className = '',
-    renderItem,
-    collapsible = false,
-}) => {
+export const NavBar: React.FC<NavBarProps> = ({ items, logo, actions, position = 'static', className = '', renderItem, collapsible = false }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const handleItemClick = (item: NavBarItem) => {
@@ -56,13 +50,9 @@ export const NavBar: React.FC<NavBarProps> = ({
         </button>
     );
 
-    const visibleItems = collapsible && !isExpanded
-        ? items.filter((item, index) => index === 0 || item.isActive)
-        : items;
+    const visibleItems = collapsible && !isExpanded ? items.filter((item, index) => index === 0 || item.isActive) : items;
 
-    const hiddenCount = collapsible && !isExpanded
-        ? items.filter((item, index) => index > 0 && !item.isActive).length
-        : 0;
+    const hiddenCount = collapsible && !isExpanded ? items.filter((item, index) => index > 0 && !item.isActive).length : 0;
 
     return (
         <nav className={`navbar navbar--${position} ${className}`}>
@@ -71,14 +61,14 @@ export const NavBar: React.FC<NavBarProps> = ({
             <div className="navbar__items">
                 {visibleItems.map(item => (renderItem ? renderItem(item) : defaultRenderItem(item)))}
                 {collapsible && !isExpanded && hiddenCount > 0 && (
-                    <button className="navbar__item navbar__item--expand" onClick={() => setIsExpanded(true)}>
+                    <Button className="navbar__item navbar__item--expand" onClick={() => setIsExpanded(true)}>
                         <span className="navbar__item-label">+{hiddenCount} more</span>
-                    </button>
+                    </Button>
                 )}
                 {collapsible && isExpanded && (
-                    <button className="navbar__item navbar__item--expand" onClick={() => setIsExpanded(false)}>
+                    <Button className="navbar__item navbar__item--expand" onClick={() => setIsExpanded(false)}>
                         <span className="navbar__item-label">− Less</span>
-                    </button>
+                    </Button>
                 )}
             </div>
 

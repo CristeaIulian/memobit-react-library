@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
-import { Button, ButtonProps } from '../Button';
+import { Button, type ButtonProps, type ExternalButtonConfig } from '../Button';
 
 import './Drawer.scss';
 
@@ -34,7 +34,8 @@ export interface DrawerProps {
     className?: string;
     showOverlay?: boolean;
     actions?: DrawerHeaderAction[];
-    buttons?: ButtonProps[];
+    primary?: ExternalButtonConfig;
+    secondary?: ExternalButtonConfig;
     footer?: React.ReactNode;
 }
 
@@ -52,7 +53,8 @@ export const Drawer: React.FC<DrawerProps> = ({
     className = '',
     showOverlay = true,
     actions = [],
-    buttons,
+    primary,
+    secondary,
     footer,
 }) => {
     useBodyScrollLock(isOpen);
@@ -80,7 +82,7 @@ export const Drawer: React.FC<DrawerProps> = ({
         '--drawer-border-radius': formatCssValue(borderRadius),
         '--drawer-shadow': shadow,
     } as React.CSSProperties;
-    const hasFooter = footer || buttons?.length;
+    const hasFooter = footer || primary || secondary;
 
     return (
         <>
@@ -113,11 +115,18 @@ export const Drawer: React.FC<DrawerProps> = ({
                 {hasFooter && (
                     <div className="drawer__footer">
                         {footer && <div className="drawer__footer-content">{footer}</div>}
-                        {buttons && buttons.length > 0 && (
+                        {(primary || secondary) && (
                             <div className="drawer__footer-actions">
-                                {buttons.map(({ children: label, ...btnProps }, i) => (
-                                    <Button key={i} {...btnProps}>{label}</Button>
-                                ))}
+                                {secondary && (
+                                    <Button variant={secondary.variant || 'default'} icon={secondary.icon} disabled={secondary.disabled} onClick={secondary.onClick}>
+                                        {secondary.text}
+                                    </Button>
+                                )}
+                                {primary && (
+                                    <Button variant={primary.variant || 'info'} icon={primary.icon} disabled={primary.disabled} onClick={primary.onClick}>
+                                        {primary.text}
+                                    </Button>
+                                )}
                             </div>
                         )}
                     </div>

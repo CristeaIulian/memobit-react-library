@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonVariant } from '../Button';
+import { type ExternalButtonConfig } from '../Button';
 import { Modal } from '../Modal';
 
 import './AlertDialog.scss';
@@ -8,34 +8,24 @@ import './AlertDialog.scss';
 interface AlertDialogProps {
     isOpen: boolean;
     message: string;
-    onPrimaryButtonClick: () => void;
-    primaryButtonLabel?: string;
-    primaryButtonPrefixIcon?: string;
-    primaryButtonVariant?: ButtonVariant;
+    primary?: ExternalButtonConfig;
     title: string;
 }
 
-export const AlertDialog: React.FC<AlertDialogProps> = ({
-    isOpen = false,
-    message,
-    onPrimaryButtonClick,
-    primaryButtonLabel = 'OK',
-    primaryButtonPrefixIcon = '✓',
-    primaryButtonVariant = 'danger',
-    title,
-}) => {
+export const AlertDialog: React.FC<AlertDialogProps> = ({ isOpen = false, message, primary, title }) => {
     return (
         <Modal
             isOpen={isOpen}
             title={title}
-            onClose={onPrimaryButtonClick}
+            onClose={primary?.onClick ? () => (primary.onClick as () => void)() : undefined}
             size="small"
             className="alert-dialog"
-            primaryButton={{
-                text: primaryButtonLabel,
-                onClick: onPrimaryButtonClick,
-                icon: primaryButtonPrefixIcon,
-                variant: primaryButtonVariant,
+            primary={{
+                variant: primary?.variant || 'danger',
+                icon: primary?.icon || 'checkmark',
+                onClick: primary?.onClick,
+                disabled: primary?.disabled,
+                text: primary?.text || 'OK',
             }}
         >
             <div className="alert-dialog__body">

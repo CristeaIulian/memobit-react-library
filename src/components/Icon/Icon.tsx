@@ -15,6 +15,7 @@ import { edit } from '../../icons/edit';
 import { empty } from '../../icons/empty';
 import { evening } from '../../icons/evening';
 import { grid } from '../../icons/grid';
+import { lock } from '../../icons/lock';
 import { logout } from '../../icons/logout';
 import { lunch } from '../../icons/lunch';
 import { minus } from '../../icons/minus';
@@ -56,6 +57,7 @@ const iconMap = {
     empty,
     evening,
     grid,
+    lock,
     logout,
     lunch,
     minus,
