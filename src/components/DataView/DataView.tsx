@@ -51,6 +51,25 @@ export interface DataViewEmptyConfig {
     secondaryAction?: EmptyStateProps['secondaryAction'];
 }
 
+export type DataViewGroupKey = string | number | null;
+
+export interface DataViewGroup<T> {
+    key: DataViewGroupKey;
+    label: React.ReactNode;
+    items: T[];
+}
+
+export interface DataViewGroupConfig<T> {
+    /** Extract group key from row. Return null for ungrouped/uncategorized items. */
+    groupBy: (row: T) => DataViewGroupKey;
+    /** Display label for a group header. */
+    groupLabel: (groupKey: DataViewGroupKey) => React.ReactNode;
+    /** Optional comparator to order groups; default keeps first-encountered order with null last. */
+    sortGroups?: (a: DataViewGroup<T>, b: DataViewGroup<T>) => number;
+    /** Show item count badge next to group label. Default: true. */
+    showCount?: boolean;
+}
+
 export interface DataViewProps<T> {
     columns: DataViewColumn<T>[];
     data: T[];
@@ -91,6 +110,8 @@ export interface DataViewProps<T> {
      * use your own card component for styling (no DataView card wrapper is added).
      */
     renderCard?: (row: T) => React.ReactNode;
+    /** Group rows by a key. When set, pagination is disabled and rows render in group sections. */
+    group?: DataViewGroupConfig<T>;
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -133,6 +154,8 @@ interface CardViewProps<T> {
     cardMaxWidth?: number | string;
     isMobile?: boolean;
     renderCard?: (row: T) => React.ReactNode;
+    groups?: DataViewGroup<T>[];
+    showGroupCount?: boolean;
 }
 
 function CardView<T>({
@@ -151,6 +174,8 @@ function CardView<T>({
     cardMaxWidth,
     isMobile = false,
     renderCard,
+    groups,
+    showGroupCount = true,
 }: CardViewProps<T>) {
     const cardColumns = columns.filter(col => !col.hideInCard && !(isMobile && col.hideInMobile));
     const cardsClassName = `data-view__cards${cardMaxWidth !== undefined ? ' data-view__cards--grid' : ''}`;
@@ -183,67 +208,92 @@ function CardView<T>({
         return <EmptyState title="No data available" />;
     }
 
+    const renderRow = (row: T, index: number) => {
+        const marker = timelineMarkers.get(index);
+        const rowId = rowKey(row, index);
+
+        if (renderCard) {
+            return (
+                <React.Fragment key={rowId}>
+                    {marker && <TimelineMobileSeparator marker={marker} />}
+                    {renderCard(row)}
+                </React.Fragment>
+            );
+        }
+
+        const isSelected = selectable && selectedIds.includes(rowId);
+
+        return (
+            <React.Fragment key={rowId}>
+                {marker && <TimelineMobileSeparator marker={marker} />}
+                <div
+                    className={`data-view__card ${onRowClick ? 'data-view__card--clickable' : ''} ${isSelected ? 'data-view__card--selected' : ''} ${rowClassName?.(row) || ''}`}
+                    onClick={onRowClick ? () => onRowClick(row) : undefined}
+                >
+                    {selectable && onToggleSelect && (
+                        <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
+                            <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
+                        </div>
+                    )}
+                    {card && (
+                        <div className="data-view__card-header">
+                            <div className="data-view__card-title-row">
+                                <span className="data-view__card-title">{card.title(row)}</span>
+                                {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
+                            </div>
+                            {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
+                        </div>
+                    )}
+
+                    {cardColumns.length > 0 && (
+                        <div className="data-view__card-body">
+                            {cardColumns.map(col => (
+                                <div key={col.key} className="data-view__card-field">
+                                    <span className="data-view__card-label">{col.header}</span>
+                                    <span className="data-view__card-value">
+                                        {col.accessor ? col.accessor(row) : (row as Record<string, React.ReactNode>)[col.key]}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {actions && (
+                        <div className="data-view__card-actions" onClick={e => e.stopPropagation()}>
+                            {actions(row)}
+                        </div>
+                    )}
+                </div>
+            </React.Fragment>
+        );
+    };
+
+    if (groups) {
+        let runningIndex = 0;
+        return (
+            <div className="data-view__groups">
+                {groups.map(group => {
+                    const startIndex = runningIndex;
+                    runningIndex += group.items.length;
+                    return (
+                        <section key={group.key ?? '__null__'} className="data-view__group">
+                            <header className="data-view__group-header">
+                                <span className="data-view__group-label">{group.label}</span>
+                                {showGroupCount && <span className="data-view__group-count">{group.items.length}</span>}
+                            </header>
+                            <div className={cardsClassName} style={cardsStyle}>
+                                {group.items.map((row, i) => renderRow(row, startIndex + i))}
+                            </div>
+                        </section>
+                    );
+                })}
+            </div>
+        );
+    }
+
     return (
         <div className={cardsClassName} style={cardsStyle}>
-            {data.map((row, index) => {
-                const marker = timelineMarkers.get(index);
-                const rowId = rowKey(row, index);
-
-                if (renderCard) {
-                    return (
-                        <React.Fragment key={rowId}>
-                            {marker && <TimelineMobileSeparator marker={marker} />}
-                            {renderCard(row)}
-                        </React.Fragment>
-                    );
-                }
-
-                const isSelected = selectable && selectedIds.includes(rowId);
-
-                return (
-                    <React.Fragment key={rowId}>
-                        {marker && <TimelineMobileSeparator marker={marker} />}
-                        <div
-                            className={`data-view__card ${onRowClick ? 'data-view__card--clickable' : ''} ${isSelected ? 'data-view__card--selected' : ''} ${rowClassName?.(row) || ''}`}
-                            onClick={onRowClick ? () => onRowClick(row) : undefined}
-                        >
-                            {selectable && onToggleSelect && (
-                                <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
-                                    <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
-                                </div>
-                            )}
-                            {card && (
-                                <div className="data-view__card-header">
-                                    <div className="data-view__card-title-row">
-                                        <span className="data-view__card-title">{card.title(row)}</span>
-                                        {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
-                                    </div>
-                                    {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
-                                </div>
-                            )}
-
-                            {cardColumns.length > 0 && (
-                                <div className="data-view__card-body">
-                                    {cardColumns.map(col => (
-                                        <div key={col.key} className="data-view__card-field">
-                                            <span className="data-view__card-label">{col.header}</span>
-                                            <span className="data-view__card-value">
-                                                {col.accessor ? col.accessor(row) : (row as Record<string, React.ReactNode>)[col.key]}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-
-                            {actions && (
-                                <div className="data-view__card-actions" onClick={e => e.stopPropagation()}>
-                                    {actions(row)}
-                                </div>
-                            )}
-                        </div>
-                    </React.Fragment>
-                );
-            })}
+            {data.map((row, index) => renderRow(row, index))}
         </div>
     );
 }
@@ -278,6 +328,7 @@ export function DataView<T>({
     className,
     onPageChange,
     renderCard,
+    group,
 }: DataViewProps<T>) {
     const { isMobile } = useBreakpoint();
     const [uncontrolledSortKey, setUncontrolledSortKey] = useState<string | null>(initialSortKey);
@@ -343,9 +394,41 @@ export function DataView<T>({
         return sortDirection === 'asc' ? sorted : sorted.reverse();
     }, [columns, data, sortDirection, sortKey]);
 
+    const isGrouped = !!group;
     const totalPages = Math.max(1, Math.ceil(sortedData.length / pageSize));
     const safeCurrentPage = Math.min(currentPage, totalPages);
-    const pagedData = sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
+    const pagedData = isGrouped ? sortedData : sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
+
+    const computedGroups = useMemo<DataViewGroup<T>[] | null>(() => {
+        if (!group) return null;
+        const map = new Map<DataViewGroupKey, T[]>();
+        const order: DataViewGroupKey[] = [];
+        pagedData.forEach(row => {
+            const key = group.groupBy(row);
+            const existing = map.get(key);
+            if (existing) {
+                existing.push(row);
+            } else {
+                map.set(key, [row]);
+                order.push(key);
+            }
+        });
+        const entries: DataViewGroup<T>[] = order.map(key => ({
+            key,
+            label: group.groupLabel(key),
+            items: map.get(key) as T[],
+        }));
+        if (group.sortGroups) {
+            entries.sort(group.sortGroups);
+        } else {
+            entries.sort((a, b) => {
+                if (a.key === null) return 1;
+                if (b.key === null) return -1;
+                return 0;
+            });
+        }
+        return entries;
+    }, [group, pagedData]);
 
     // Timeline markers for table mode — must be called before any conditional return
     const tableTimelineMarkers = useMemo(() => {
@@ -476,6 +559,8 @@ export function DataView<T>({
                     cardMaxWidth={cardMaxWidth}
                     isMobile={isMobile}
                     renderCard={renderCard}
+                    groups={computedGroups ?? undefined}
+                    showGroupCount={group?.showCount !== false}
                     onToggleSelect={(rowId, checked) => {
                         if (checked) {
                             updateSelection([...selectedIds, rowId]);
@@ -485,22 +570,24 @@ export function DataView<T>({
                     }}
                 />
 
-                <Pagination
-                    currentPage={safeCurrentPage}
-                    totalPages={totalPages}
-                    totalItems={sortedData.length}
-                    onPageChange={handlePageChange}
-                    pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
-                    pageSize={showPageSize ? pageSize : undefined}
-                    onPageSizeChange={
-                        showPageSize
-                            ? nextSize => {
-                                  setPageSize(nextSize);
-                                  handlePageChange(1);
-                              }
-                            : undefined
-                    }
-                />
+                {!isGrouped && (
+                    <Pagination
+                        currentPage={safeCurrentPage}
+                        totalPages={totalPages}
+                        totalItems={sortedData.length}
+                        onPageChange={handlePageChange}
+                        pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
+                        pageSize={showPageSize ? pageSize : undefined}
+                        onPageSizeChange={
+                            showPageSize
+                                ? nextSize => {
+                                      setPageSize(nextSize);
+                                      handlePageChange(1);
+                                  }
+                                : undefined
+                        }
+                    />
+                )}
             </div>
         );
     }
@@ -584,27 +671,34 @@ export function DataView<T>({
                         )}
                     </thead>
                     <tbody>
-                        {pagedData.length === 0 ? (
-                            <tr>
-                                <td
-                                    colSpan={tableColumns.length + (showTimeline ? 1 : 0) + (selectable ? 1 : 0) + (actions ? 1 : 0)}
-                                    className="data-view__empty"
-                                >
-                                    {empty ? (
-                                        <EmptyState
-                                            title={empty.title}
-                                            description={empty.description}
-                                            icon={empty.icon}
-                                            primaryAction={empty.primaryAction}
-                                            secondaryAction={empty.secondaryAction}
-                                        />
-                                    ) : (
-                                        <EmptyState title="No data available" />
-                                    )}
-                                </td>
-                            </tr>
-                        ) : (
-                            pagedData.map((row, index) => {
+                        {(() => {
+                            if (pagedData.length === 0) {
+                                return (
+                                    <tr>
+                                        <td
+                                            colSpan={tableColumns.length + (showTimeline ? 1 : 0) + (selectable ? 1 : 0) + (actions ? 1 : 0)}
+                                            className="data-view__empty"
+                                        >
+                                            {empty ? (
+                                                <EmptyState
+                                                    title={empty.title}
+                                                    description={empty.description}
+                                                    icon={empty.icon}
+                                                    primaryAction={empty.primaryAction}
+                                                    secondaryAction={empty.secondaryAction}
+                                                />
+                                            ) : (
+                                                <EmptyState title="No data available" />
+                                            )}
+                                        </td>
+                                    </tr>
+                                );
+                            }
+
+                            const totalCols = tableColumns.length + (showTimeline ? 1 : 0) + (selectable ? 1 : 0) + (actions ? 1 : 0);
+                            const showGroupCount = group?.showCount !== false;
+
+                            const renderTableRow = (row: T, index: number) => {
                                 const rowId = resolvedRowKey(row, index);
                                 const isSelected = selectedIds.includes(rowId);
                                 const marker = tableTimelineMarkers.get(index);
@@ -643,28 +737,51 @@ export function DataView<T>({
                                         )}
                                     </tr>
                                 );
-                            })
-                        )}
+                            };
+
+                            if (computedGroups) {
+                                let runningIndex = 0;
+                                return computedGroups.map(grp => {
+                                    const startIndex = runningIndex;
+                                    runningIndex += grp.items.length;
+                                    return (
+                                        <React.Fragment key={grp.key ?? '__null__'}>
+                                            <tr className="data-view__group-row">
+                                                <td colSpan={totalCols} className="data-view__group-cell">
+                                                    <span className="data-view__group-label">{grp.label}</span>
+                                                    {showGroupCount && <span className="data-view__group-count">{grp.items.length}</span>}
+                                                </td>
+                                            </tr>
+                                            {grp.items.map((row, i) => renderTableRow(row, startIndex + i))}
+                                        </React.Fragment>
+                                    );
+                                });
+                            }
+
+                            return pagedData.map((row, index) => renderTableRow(row, index));
+                        })()}
                     </tbody>
                 </table>
             </div>
 
-            <Pagination
-                currentPage={safeCurrentPage}
-                totalPages={totalPages}
-                totalItems={sortedData.length}
-                onPageChange={handlePageChange}
-                pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
-                pageSize={showPageSize ? pageSize : undefined}
-                onPageSizeChange={
-                    showPageSize
-                        ? nextSize => {
-                              setPageSize(nextSize);
-                              handlePageChange(1);
-                          }
-                        : undefined
-                }
-            />
+            {!isGrouped && (
+                <Pagination
+                    currentPage={safeCurrentPage}
+                    totalPages={totalPages}
+                    totalItems={sortedData.length}
+                    onPageChange={handlePageChange}
+                    pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
+                    pageSize={showPageSize ? pageSize : undefined}
+                    onPageSizeChange={
+                        showPageSize
+                            ? nextSize => {
+                                  setPageSize(nextSize);
+                                  handlePageChange(1);
+                              }
+                            : undefined
+                    }
+                />
+            )}
         </>
     );
 

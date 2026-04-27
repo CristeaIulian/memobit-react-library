@@ -331,3 +331,64 @@
 .timeline-markers .data-view__wrapper {
     overflow: visible;
 }
+
+// ── Grouping ────────────────────────────────────────────────────────────
+
+.data-view {
+    &__groups {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-24);
+    }
+
+    &__group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-12);
+    }
+
+    &__group-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-12);
+        padding: 0 var(--spacing-8);
+    }
+
+    &__group-label {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        color: var(--body-accent-color);
+    }
+
+    &__group-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 24px;
+        height: 24px;
+        padding: 0 var(--spacing-8);
+        border-radius: 12px;
+        background-color: var(--card-background-accent-color);
+        color: var(--body-color);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    &__group-row {
+        background: var(--card-background-accent-color);
+
+        &:hover {
+            background: var(--card-background-accent-color);
+        }
+    }
+
+    &__group-cell {
+        padding: var(--spacing-12) var(--spacing-16);
+        font-weight: var(--font-weight-semibold);
+
+        .data-view__group-label {
+            font-size: var(--font-size-md);
+            margin-right: var(--spacing-12);
+        }
+    }
+}
