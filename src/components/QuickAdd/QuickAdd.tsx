@@ -79,10 +79,8 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 
                 size="small"
                 onClose={handleClose}
                 onOverlayClick={handleOverlayClick}
-                buttons={[
-                    { children: 'Cancel', variant: 'default', disabled: loading, onClick: handleClose },
-                    { children: loading ? 'Saving...' : 'Save', variant: 'success', disabled: loading || !value.trim(), onClick: handleSave },
-                ]}
+                secondary={{ text: 'Cancel', variant: 'default', disabled: loading, onClick: handleClose }}
+                primary={{ text: loading ? 'Saving...' : 'Save', variant: 'success', disabled: loading || !value.trim(), onClick: handleSave }}
             >
                 <div className="quick-add-input">
                     <InputText

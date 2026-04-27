@@ -1,1 +1,1 @@
-export { Modal, type ModalButtonConfig } from './Modal';
+export { Modal } from './Modal';

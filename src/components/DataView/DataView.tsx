@@ -4,7 +4,8 @@ import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
 import { Dropdown, type DropdownOption } from '../Dropdown';
-import { EmptyState, type EmptyStateProps } from '../EmptyState';
+import { EmptyState } from '../EmptyState';
+import { type ExternalButtonConfig } from '../Button';
 import { Pagination } from '../Pagination';
 import { calculateTimelineMarkers, TimelineMarkerDot, type TimelineMarkerInfo, type TimelineMarkersItem, TimelineMobileSeparator } from '../TimelineMarkers';
 
@@ -47,8 +48,8 @@ export interface DataViewEmptyConfig {
     title: string;
     description?: string;
     icon?: React.ReactNode;
-    primaryAction?: EmptyStateProps['primaryAction'];
-    secondaryAction?: EmptyStateProps['secondaryAction'];
+    primary?: ExternalButtonConfig;
+    secondary?: ExternalButtonConfig;
 }
 
 export type DataViewGroupKey = string | number | null;
@@ -200,8 +201,8 @@ function CardView<T>({
                     title={empty.title}
                     description={empty.description}
                     icon={empty.icon}
-                    primaryAction={empty.primaryAction}
-                    secondaryAction={empty.secondaryAction}
+                    primary={empty.primary}
+                    secondary={empty.secondary}
                 />
             );
         }
@@ -684,8 +685,8 @@ export function DataView<T>({
                                                     title={empty.title}
                                                     description={empty.description}
                                                     icon={empty.icon}
-                                                    primaryAction={empty.primaryAction}
-                                                    secondaryAction={empty.secondaryAction}
+                                                    primary={empty.primary}
+                                                    secondary={empty.secondary}
                                                 />
                                             ) : (
                                                 <EmptyState title="No data available" />

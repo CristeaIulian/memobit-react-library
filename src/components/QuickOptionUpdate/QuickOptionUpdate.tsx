@@ -58,10 +58,8 @@ export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ isOpen = f
                 size="small"
                 onClose={onClose}
                 onOverlayClick={onClose}
-                buttons={[
-                    { children: 'Cancel', variant: 'default', disabled: loading, onClick: onClose },
-                    { children: loading ? 'Saving...' : 'Save', variant: 'success', disabled: loading || !workingValue, onClick: handleSave },
-                ]}
+                secondary={{ text: 'Cancel', variant: 'default', disabled: loading, onClick: onClose }}
+                primary={{ text: loading ? 'Saving...' : 'Save', variant: 'success', disabled: loading || !workingValue, onClick: handleSave }}
             >
                 <div className="quick-set-list">
                     {list &&

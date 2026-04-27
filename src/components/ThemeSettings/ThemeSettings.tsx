@@ -118,10 +118,8 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
             width="520px"
             maxWidth="calc(100vw - 32px)"
             className="theme-settings-drawer"
-            buttons={[
-                { children: 'Cancel', variant: 'default', onClick: onClose },
-                { children: 'Save changes', variant: 'success', onClick: handleSave },
-            ]}
+            secondary={{ text: 'Cancel', variant: 'default', onClick: onClose }}
+            primary={{ text: 'Save changes', variant: 'success', onClick: handleSave }}
         >
             <div className="theme-settings">
                 <div className="theme-settings__content">
