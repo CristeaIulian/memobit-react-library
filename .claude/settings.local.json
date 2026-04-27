@@ -6,7 +6,13 @@
       "Bash(dir:*)",
       "Bash(findstr:*)",
       "Bash(xargs grep *)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(npm pack *)",
+      "Bash(cmd /c install-library.bat)",
+      "Bash(npm install *)",
+      "Bash(sed -n '461,480p' \"D:/Projects/Web Apps/Online/movies/dev/frontend/src/pages/MoviesPage/MoviesPage.tsx\")",
+      "Bash(sed -n '622,660p' \"D:/Projects/Web Apps/Online/books/dev/frontend/src/pages/BooksPage/BooksPage.tsx\")",
+      "Bash(sed -n '469,490p' \"D:/Projects/Web Apps/Online/recipes/dev/frontend/src/pages/RecipesPage/RecipesPage.tsx\")"
     ]
   }
 }

@@ -47,6 +47,7 @@ export interface ControlPanelFilter {
     type: ControlPanelFilterType;
     options?: ControlPanelFilterOption[];
     value?: ControlPanelFilterValue;
+    count?: number | string;
     placeholder?: string;
     multiple?: boolean;
     searchable?: boolean;
@@ -96,7 +97,7 @@ export interface ControlPanelOptionChangeEvent {
 
 export interface ControlPanelViewToggleConfig {
     value: string;
-    onChange: (value: 'grid' | 'table') => void;
+    onChange: (value: 'table' | 'cards') => void;
 }
 
 export interface ControlPanelGroupByConfig {
@@ -142,7 +143,7 @@ interface ViewToggleOptionItem {
 }
 
 const VIEW_TOGGLE_OPTIONS: ViewToggleOptionItem[] = [
-    { value: 'grid', label: 'Grid', icon: 'grid' },
+    { value: 'cards', label: 'Grid', icon: 'grid' },
     { value: 'table', label: 'Table', icon: 'table' },
 ];
 
@@ -232,6 +233,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         if (filter.type === 'checkbox') {
             return (
                 <Chip
+                    count={filter.count}
                     selected={filter.value === true}
                     onClick={() => emitFilterChange({ filterId: filter.id, type: filter.type, value: filter.value !== true })}
                 >
@@ -476,7 +478,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                             icon={opt.icon}
                                             size="small"
                                             variant={viewToggle.value === opt.value ? 'info' : 'default'}
-                                            onClick={() => viewToggle.onChange(opt.value as 'grid' | 'table')}
+                                            onClick={() => viewToggle.onChange(opt.value as 'table' | 'cards')}
                                         >
                                             {opt.label}
                                         </Button>
