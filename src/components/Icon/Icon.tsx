@@ -14,6 +14,7 @@ import { down } from '../../icons/down';
 import { edit } from '../../icons/edit';
 import { empty } from '../../icons/empty';
 import { evening } from '../../icons/evening';
+import { grid } from '../../icons/grid';
 import { logout } from '../../icons/logout';
 import { lunch } from '../../icons/lunch';
 import { minus } from '../../icons/minus';
@@ -33,6 +34,7 @@ import { signalFull } from '../../icons/signal-full';
 import { signalLow } from '../../icons/signal-low';
 import { signalMedium } from '../../icons/signal-medium';
 import { stop } from '../../icons/stop';
+import { table } from '../../icons/table';
 import { themePicker } from '../../icons/theme-picker';
 import { up } from '../../icons/up';
 
@@ -53,6 +55,7 @@ const iconMap = {
     edit,
     empty,
     evening,
+    grid,
     logout,
     lunch,
     minus,
@@ -72,6 +75,7 @@ const iconMap = {
     'signal-low': signalLow,
     'signal-medium': signalMedium,
     stop,
+    table,
     'theme-picker': themePicker,
     up,
 } as const;
