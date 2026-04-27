@@ -97,7 +97,8 @@ export interface ControlPanelOptionChangeEvent {
 
 export interface ControlPanelViewToggleConfig {
     value: string;
-    onChange: (value: 'table' | 'cards') => void;
+    showGallery?: boolean;
+    onChange: (value: 'table' | 'cards' | 'gallery') => void;
 }
 
 export interface ControlPanelGroupByConfig {
@@ -139,13 +140,15 @@ export interface ControlPanelProps {
 interface ViewToggleOptionItem {
     value: string;
     label: string;
-    icon: IconName;
+    icon: IconName | React.ReactElement;
 }
 
 const VIEW_TOGGLE_OPTIONS: ViewToggleOptionItem[] = [
     { value: 'cards', label: 'Grid', icon: 'grid' },
     { value: 'table', label: 'Table', icon: 'table' },
 ];
+
+const GALLERY_OPTION: ViewToggleOptionItem = { value: 'gallery', label: 'Gallery', icon: <span>🖼️</span> };
 
 export const ControlPanel: React.FC<ControlPanelProps> = ({
     width = '280px',
@@ -472,13 +475,13 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         {viewToggle && (
                             <div className="sidebar__option sidebar__option--view-toggle">
                                 <div className="sidebar__option-view-toggle">
-                                    {VIEW_TOGGLE_OPTIONS.map(opt => (
+                                    {[...VIEW_TOGGLE_OPTIONS, ...(viewToggle.showGallery ? [GALLERY_OPTION] : [])].map(opt => (
                                         <Button
                                             key={opt.value}
-                                            icon={opt.icon}
+                                            icon={opt.icon as IconName | React.ReactElement}
                                             size="small"
                                             variant={viewToggle.value === opt.value ? 'info' : 'default'}
-                                            onClick={() => viewToggle.onChange(opt.value as 'table' | 'cards')}
+                                            onClick={() => viewToggle.onChange(opt.value as 'table' | 'cards' | 'gallery')}
                                         >
                                             {opt.label}
                                         </Button>
