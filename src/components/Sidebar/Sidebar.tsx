@@ -1,15 +1,5 @@
 import React, { ReactNode } from 'react';
 
-import { Button, ButtonProps } from '../Button';
-import { Checkbox } from '../Checkbox';
-import { Chip } from '../Chip';
-import { Dropdown, DropdownOption } from '../Dropdown';
-import { InputDate } from '../InputDate';
-import { InputNumber } from '../InputNumber';
-import { InputText } from '../InputText';
-import { Rating } from '../Rating';
-import { Search } from '../Search';
-import { Separator } from '../Separator';
 import { useSidebarContext } from './SidebarContext';
 
 import './Sidebar.scss';
@@ -36,89 +26,6 @@ export interface SidebarSection {
     showDivider?: boolean;
 }
 
-export interface SidebarHeader {
-    icon?: ReactNode;
-    siteName?: string;
-    heading?: string;
-    onClick?: () => void;
-}
-
-export interface SidebarAction {
-    id: string;
-    label: string;
-    onClick?: ButtonProps['onClick'];
-    icon?: string;
-    suffixIcon?: string;
-    variant?: ButtonProps['variant'];
-    size?: ButtonProps['size'];
-    fullWidth?: boolean;
-    disabled?: boolean;
-}
-
-export interface SidebarFilterOption extends DropdownOption {
-    color?: string;
-    count?: number | string;
-}
-
-export type SidebarFilterType = 'radio' | 'chips' | 'dropdown' | 'text' | 'number' | 'rating' | 'range' | 'search' | 'date';
-export type SidebarFilterValue = string | number | string[] | number[] | null;
-
-export interface SidebarFilter {
-    id: string;
-    label: string;
-    type: SidebarFilterType;
-    options?: SidebarFilterOption[];
-    value?: SidebarFilterValue;
-    placeholder?: string;
-    multiple?: boolean;
-    searchable?: boolean;
-    min?: number;
-    max?: number;
-    step?: number;
-    maxRate?: number;
-    ratingIcon?: 'star' | 'bullet';
-    ratingVariant?: 'success' | 'info' | 'warning' | 'danger';
-    minDate?: string;
-    maxDate?: string;
-    isActive?: boolean;
-}
-
-export interface SidebarFilterGroup {
-    id?: string;
-    label?: string;
-    filters: SidebarFilter[];
-}
-
-export interface SidebarFilterChangeEvent {
-    filterId: string;
-    type: SidebarFilterType;
-    value: SidebarFilterValue;
-    option?: SidebarFilterOption | null;
-    options?: SidebarFilterOption[];
-}
-
-export interface SidebarClearFiltersEvent {
-    source: 'sidebar';
-}
-
-export interface SidebarOption {
-    id: string;
-    label: string;
-    type: 'checkbox';
-    value?: boolean;
-}
-
-export interface SidebarOptionGroup {
-    id?: string;
-    label?: string;
-    options: SidebarOption[];
-}
-
-export interface SidebarOptionChangeEvent {
-    optionId: string;
-    value: boolean;
-}
-
 export interface SidebarProps {
     sections: SidebarSection[];
     width?: string;
@@ -132,17 +39,6 @@ export interface SidebarProps {
     borderRadius?: string | number;
     margin?: string | number;
     shadow?: string;
-    header?: SidebarHeader;
-    actions?: SidebarAction[];
-    filters?: SidebarFilter[] | SidebarFilterGroup[];
-    filtersHeading?: string;
-    filtersCount?: number;
-    clearFiltersLabel?: string;
-    onFilterChange?: (event: SidebarFilterChangeEvent) => void;
-    onClearFilters?: (event: SidebarClearFiltersEvent) => void;
-    options?: SidebarOption[] | SidebarOptionGroup[];
-    optionsHeading?: string;
-    onOptionChange?: (event: SidebarOptionChangeEvent) => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -158,22 +54,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
     borderRadius = 0,
     margin = 0,
     shadow = 'none',
-    header,
-    actions = [],
-    filters = [],
-    filtersHeading = 'Filters',
-    filtersCount,
-    clearFiltersLabel = 'Clear filters',
-    onFilterChange,
-    onClearFilters,
-    options = [],
-    optionsHeading = 'Options',
-    onOptionChange,
 }) => {
     const sidebarContext = useSidebarContext();
     const isMobile = isMobileProp ?? sidebarContext?.isMobile ?? false;
     const isOpen = isOpenProp ?? (isMobile ? (sidebarContext?.isOpen ?? false) : true);
     const close = onClose ?? sidebarContext?.close ?? (() => undefined);
+
     const sidebarClassName = [
         'sidebar',
         isOpen ? 'sidebar--open' : 'sidebar--closed',
@@ -192,37 +78,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         '--sidebar-shadow': shadow,
     } as React.CSSProperties;
 
-    const emitFilterChange = (event: SidebarFilterChangeEvent) => {
-        onFilterChange?.(event);
-    };
-
-    const getArrayValue = (value?: SidebarFilterValue): Array<string | number> => {
-        if (Array.isArray(value)) {
-            return value;
-        }
-
-        if (value === null || value === undefined) {
-            return [];
-        }
-
-        return [value];
-    };
-
-    const getFilterArrayValue = (value: Array<string | number>): string[] | number[] => {
-        if (value.every(item => typeof item === 'number')) {
-            return value as number[];
-        }
-
-        return value.map(String);
-    };
-
     const handleItemClick = (item: SidebarItem) => {
-        if (item.onClick) {
-            item.onClick();
-        }
-        if (isMobile) {
-            close();
-        }
+        item.onClick?.();
+        if (isMobile) close();
     };
 
     const defaultRenderItem = (item: SidebarItem) => (
@@ -239,278 +97,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </button>
     );
 
-    const normalizedFilterGroups: SidebarFilterGroup[] =
-        filters.length === 0 ? [] : 'filters' in filters[0] ? (filters as SidebarFilterGroup[]) : [{ filters: filters as SidebarFilter[] }];
-
-    const normalizedOptionGroups: SidebarOptionGroup[] =
-        options.length === 0 ? [] : 'options' in options[0] ? (options as SidebarOptionGroup[]) : [{ options: options as SidebarOption[] }];
-
-    const renderFilterItem = (filter: SidebarFilter) => (
-        <div className="sidebar__filter" key={filter.id}>
-            <span className={`sidebar__filter-title${filter.isActive ? ' sidebar__filter-title--active' : ''}`}>
-                {filter.isActive && <span className="sidebar__filter-active-dot" />}
-                {filter.label}
-            </span>
-            {renderFilter(filter)}
-        </div>
-    );
-
-    const renderFilter = (filter: SidebarFilter) => {
-        const selectedValues = getArrayValue(filter.value);
-        const options = filter.options ?? [];
-
-        if (filter.type === 'date') {
-            return (
-                <InputDate
-                    min={filter.minDate}
-                    max={filter.maxDate}
-                    value={typeof filter.value === 'string' ? filter.value : ''}
-                    onChange={value =>
-                        emitFilterChange({
-                            filterId: filter.id,
-                            type: filter.type,
-                            value: value ?? null,
-                        })
-                    }
-                />
-            );
-        }
-
-        if (filter.type === 'text') {
-            return (
-                <div className="sidebar__filter-text">
-                    <InputText
-                        onChange={value =>
-                            emitFilterChange({
-                                filterId: filter.id,
-                                type: filter.type,
-                                value,
-                            })
-                        }
-                        placeholder={filter.placeholder}
-                        value={typeof filter.value === 'string' ? filter.value : ''}
-                    />
-                </div>
-            );
-        }
-
-        if (filter.type === 'search') {
-            return (
-                <Search
-                    className="sidebar__filter-search"
-                    onChange={value =>
-                        emitFilterChange({
-                            filterId: filter.id,
-                            type: filter.type,
-                            value,
-                        })
-                    }
-                    placeholder={filter.placeholder}
-                    value={typeof filter.value === 'string' ? filter.value : ''}
-                />
-            );
-        }
-
-        if (filter.type === 'number') {
-            return (
-                <div className="sidebar__filter-number">
-                    <InputNumber
-                        min={filter.min}
-                        max={filter.max}
-                        step={filter.step}
-                        placeholder={filter.placeholder}
-                        value={typeof filter.value === 'number' ? filter.value : undefined}
-                        onChange={value =>
-                            emitFilterChange({
-                                filterId: filter.id,
-                                type: filter.type,
-                                value: value ?? null,
-                            })
-                        }
-                    />
-                </div>
-            );
-        }
-
-        if (filter.type === 'rating') {
-            return (
-                <Rating
-                    selectable
-                    icon={filter.ratingIcon ?? 'star'}
-                    maxRate={filter.maxRate ?? 10}
-                    rating={typeof filter.value === 'number' ? filter.value : 0}
-                    variant={filter.ratingVariant ?? 'warning'}
-                    onSelect={value =>
-                        emitFilterChange({
-                            filterId: filter.id,
-                            type: filter.type,
-                            value,
-                        })
-                    }
-                />
-            );
-        }
-
-        if (filter.type === 'range') {
-            const rangeArr = Array.isArray(filter.value) ? (filter.value as number[]) : [];
-            const minVal: number | undefined = rangeArr[0];
-            const maxVal: number | undefined = rangeArr[1];
-            const emitRange = (newMin: number | undefined, newMax: number | undefined) => {
-                const value = [newMin, newMax] as number[];
-                emitFilterChange({ filterId: filter.id, type: filter.type, value });
-            };
-            return (
-                <div className="sidebar__filter-range">
-                    <InputNumber
-                        min={filter.min}
-                        max={filter.max}
-                        step={filter.step}
-                        placeholder="Min"
-                        value={minVal}
-                        onChange={value => emitRange(value, maxVal)}
-                    />
-                    <span className="sidebar__filter-range-sep">—</span>
-                    <InputNumber
-                        min={filter.min}
-                        max={filter.max}
-                        step={filter.step}
-                        placeholder="Max"
-                        value={maxVal}
-                        onChange={value => emitRange(minVal, value)}
-                    />
-                </div>
-            );
-        }
-
-        if (filter.type === 'dropdown') {
-            return (
-                <Dropdown
-                    className="sidebar__filter-dropdown"
-                    multiple={filter.multiple}
-                    name={filter.id}
-                    onChange={selectedOption => {
-                        const selectedOptions = Array.isArray(selectedOption) ? selectedOption : selectedOption ? [selectedOption] : [];
-                        emitFilterChange({
-                            filterId: filter.id,
-                            type: filter.type,
-                            value: Array.isArray(selectedOption)
-                                ? getFilterArrayValue(selectedOption.map(option => option.value))
-                                : (selectedOption?.value ?? null),
-                            option: Array.isArray(selectedOption) ? null : (selectedOption as SidebarFilterOption | null),
-                            options: selectedOptions as SidebarFilterOption[],
-                        });
-                    }}
-                    options={options}
-                    placeholder={filter.placeholder}
-                    searchable={filter.searchable ?? false}
-                    selectedCountDisplay="inline"
-                    usePortal={false}
-                    value={filter.value}
-                />
-            );
-        }
-
-        if (filter.type === 'chips') {
-            return (
-                <div className="sidebar__filter-chips" role="group" aria-label={filter.label}>
-                    {options.map(option => {
-                        const isSelected = selectedValues.includes(option.value);
-                        return (
-                            <Chip
-                                key={option.value}
-                                color={option.color}
-                                count={option.count}
-                                onClick={() => {
-                                    const nextValue = isSelected ? selectedValues.filter(value => value !== option.value) : [...selectedValues, option.value];
-                                    emitFilterChange({
-                                        filterId: filter.id,
-                                        type: filter.type,
-                                        value: getFilterArrayValue(nextValue),
-                                        option,
-                                        options: options.filter(filterOption => nextValue.includes(filterOption.value)),
-                                    });
-                                }}
-                                selected={isSelected}
-                            >
-                                {option.label}
-                            </Chip>
-                        );
-                    })}
-                </div>
-            );
-        }
-
-        return (
-            <div className="sidebar__filter-list" role="radiogroup" aria-label={filter.label}>
-                {options.map(option => {
-                    const isSelected = filter.value === option.value;
-                    return (
-                        <div key={option.value} className={`sidebar__filter-radio ${isSelected ? 'sidebar__filter-radio--selected' : ''}`}>
-                            <label className="sidebar__filter-radio-label">
-                                <input
-                                    checked={isSelected}
-                                    className="sidebar__filter-radio-input"
-                                    name={filter.id}
-                                    onChange={() =>
-                                        emitFilterChange({
-                                            filterId: filter.id,
-                                            type: filter.type,
-                                            value: option.value,
-                                            option,
-                                            options: [option],
-                                        })
-                                    }
-                                    type="radio"
-                                    value={option.value}
-                                />
-                                {option.color && <span className="sidebar__filter-swatch" style={{ backgroundColor: option.color }} />}
-                                <span className="sidebar__filter-label">{option.label}</span>
-                                {option.count !== undefined && <span className="sidebar__filter-count">{option.count}</span>}
-                            </label>
-                        </div>
-                    );
-                })}
-            </div>
-        );
-    };
-
     return (
         <>
             {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
             <aside className={sidebarClassName} style={sidebarStyle}>
-                {header && (
-                    <>
-                        <div className={`sidebar__header ${header.onClick ? 'sidebar__header--clickable' : ''}`} onClick={header.onClick}>
-                            {header.icon && <span className="sidebar__header-icon">{header.icon}</span>}
-                            <div className="sidebar__header-copy">
-                                {header.siteName && <span className="sidebar__site-name">{header.siteName}</span>}
-                                {header.heading && <span className="sidebar__heading">{header.heading}</span>}
-                            </div>
-                        </div>
-                        <Separator className="sidebar__header-separator" spacing={0} />
-                    </>
-                )}
-
-                {actions.length > 0 && (
-                    <div className="sidebar__actions">
-                        {actions.map(action => (
-                            <Button
-                                key={action.id}
-                                className="sidebar__action"
-                                disabled={action.disabled}
-                                fullWidth={action.fullWidth ?? true}
-                                onClick={action.onClick}
-                                prefixIcon={action.icon}
-                                size={action.size ?? 'medium'}
-                                sufixIcon={action.suffixIcon}
-                                variant={action.variant ?? 'default'}
-                            >
-                                {action.label}
-                            </Button>
-                        ))}
-                    </div>
-                )}
-
                 {sections.length > 0 && (
                     <nav className="sidebar__nav">
                         {sections.map((section, sectionIndex) => (
@@ -533,52 +123,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             </section>
                         ))}
                     </nav>
-                )}
-
-                {normalizedFilterGroups.length > 0 && (
-                    <div className="sidebar__filters">
-                        {(filtersHeading || onClearFilters) && (
-                            <div className="sidebar__filters-header">
-                                <span className="sidebar__filters-heading">
-                                    {filtersHeading}
-                                    {filtersCount !== undefined && <span className="sidebar__filters-count">{filtersCount}</span>}
-                                </span>
-                                {onClearFilters && (
-                                    <button className="sidebar__filters-clear" type="button" onClick={() => onClearFilters({ source: 'sidebar' })}>
-                                        {clearFiltersLabel}
-                                    </button>
-                                )}
-                            </div>
-                        )}
-                        {normalizedFilterGroups.map((group, groupIndex) => (
-                            <div className="sidebar__filter-group" key={group.id ?? group.label ?? groupIndex}>
-                                {group.label && <span className="sidebar__filter-group-label">{group.label}</span>}
-                                {group.filters.map(renderFilterItem)}
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {normalizedFilterGroups.length > 0 && normalizedOptionGroups.length > 0 && <Separator spacing={0} />}
-
-                {normalizedOptionGroups.length > 0 && (
-                    <div className="sidebar__options">
-                        {optionsHeading && (
-                            <div className="sidebar__options-header">
-                                <span className="sidebar__options-heading">{optionsHeading}</span>
-                            </div>
-                        )}
-                        {normalizedOptionGroups.map((group, groupIndex) => (
-                            <div className="sidebar__option-group" key={group.id ?? group.label ?? groupIndex}>
-                                {group.label && <span className="sidebar__option-group-label">{group.label}</span>}
-                                {group.options.map(option => (
-                                    <div className="sidebar__option" key={option.id}>
-                                        <Checkbox label={option.label} checked={option.value ?? false} onChange={() => onOptionChange?.({ optionId: option.id, value: !(option.value ?? false) })} />
-                                    </div>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
                 )}
             </aside>
         </>

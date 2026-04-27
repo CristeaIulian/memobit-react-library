@@ -474,6 +474,16 @@
         @include flex-column;
         gap: var(--spacing-8);
     }
+
+    &__option--checkbox {
+        align-items: flex-start;
+    }
+
+    &__option-view-toggle {
+        display: flex;
+        gap: var(--spacing-8);
+        flex-wrap: wrap;
+    }
 }
 
 .sidebar::-webkit-scrollbar {

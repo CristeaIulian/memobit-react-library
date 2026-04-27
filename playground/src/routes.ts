@@ -71,6 +71,7 @@ import { ScrollToTopPage } from './pages/ScrollToTopPage';
 import { SearchPage } from './pages/SearchPage';
 import { SeparatorPage } from './pages/SeparatorPage';
 import { SignalStrengthPage } from './pages/SignalStrengthPage';
+import { ControlPanelPage } from './pages/ControlPanelPage';
 import { SidebarPage } from './pages/SidebarPage';
 import { SkeletonPage } from './pages/SkeletonPage';
 import { SliderPage } from './pages/SliderPage';
@@ -167,6 +168,7 @@ export const routes: RouteConfig[] = [
     { path: '/search', label: 'Search', component: SearchPage },
     { path: '/separator', label: 'Separator', component: SeparatorPage },
     { path: '/signal-strength', label: 'Signal Strength', component: SignalStrengthPage },
+    { path: '/control-panel', label: 'Control Panel', component: ControlPanelPage },
     { path: '/sidebar', label: 'Sidebar', component: SidebarPage },
     { path: '/skeleton', label: 'Skeleton', component: SkeletonPage },
     { path: '/slider', label: 'Slider', component: SliderPage },

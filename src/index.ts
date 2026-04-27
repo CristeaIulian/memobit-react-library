@@ -27,6 +27,9 @@ export {
     type DataViewTimelineConfig,
     type DataViewEmptyConfig,
     type DataViewDisplayMode,
+    type DataViewGroupConfig,
+    type DataViewGroup,
+    type DataViewGroupKey,
     type SortDirection,
 } from './components/DataView';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';
@@ -81,23 +84,31 @@ export { Search, type SearchProps } from './components/Search';
 export { Separator, type SeparatorProps, type SeparatorOrientation, type SeparatorStyle, type SeparatorAlign } from './components/Separator';
 export {
     Sidebar,
-    type SidebarAction,
-    type SidebarClearFiltersEvent,
-    type SidebarFilter,
-    type SidebarFilterChangeEvent,
-    type SidebarFilterGroup,
-    type SidebarFilterOption,
-    type SidebarFilterType,
-    type SidebarFilterValue,
-    type SidebarHeader,
     type SidebarItem,
-    type SidebarOption,
-    type SidebarOptionChangeEvent,
     type SidebarProps,
     type SidebarSection,
     SidebarProvider,
     useSidebar,
 } from './components/Sidebar';
+export {
+    ControlPanel,
+    type ControlPanelProps,
+    type ControlPanelHeader,
+    type ControlPanelAction,
+    type ControlPanelFilter,
+    type ControlPanelFilterOption,
+    type ControlPanelFilterType,
+    type ControlPanelFilterValue,
+    type ControlPanelFilterChangeEvent,
+    type ControlPanelClearFiltersEvent,
+    type ControlPanelOption,
+    type ControlPanelOptionGroup,
+    type ControlPanelOptionItem,
+    type ControlPanelOptionChangeEvent,
+    type ControlPanelViewToggleConfig,
+    type ControlPanelGroupByConfig,
+    type ControlPanelVisibleColumnsConfig,
+} from './components/ControlPanel';
 export { SignalStrength } from './components/SignalStrength';
 export { Skeleton, type SkeletonProps, type SkeletonVariant, type SkeletonAnimation } from './components/Skeleton';
 export { Slider } from './components/Slider';
