@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { archive } from '../../icons/archive';
 import { batteryEmpty } from '../../icons/battery-empty';
 import { batteryFull } from '../../icons/battery-full';
 import { batteryHalf } from '../../icons/battery-half';
@@ -37,11 +38,13 @@ import { signalMedium } from '../../icons/signal-medium';
 import { stop } from '../../icons/stop';
 import { table } from '../../icons/table';
 import { themePicker } from '../../icons/theme-picker';
+import { unarchive } from '../../icons/unarchive';
 import { up } from '../../icons/up';
 
 import './Icon.scss';
 
 const iconMap = {
+    archive,
     'battery-empty': batteryEmpty,
     'battery-full': batteryFull,
     'battery-half': batteryHalf,
@@ -79,6 +82,7 @@ const iconMap = {
     stop,
     table,
     'theme-picker': themePicker,
+    unarchive,
     up,
 } as const;
 

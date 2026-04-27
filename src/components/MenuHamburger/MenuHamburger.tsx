@@ -2,20 +2,25 @@ import { type FC, type ReactElement, type MouseEvent, useState } from 'react';
 
 import { Button } from '../Button';
 import { ContextMenu } from '../ContextMenu';
+import { Icon, type IconName } from '../Icon';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 
 import './MenuHamburger.scss';
 
 export interface MenuHamburgerItem {
     label: string;
-    icon: string;
+    icon?: IconName;
+    /** @deprecated Use `icon` (IconName) instead */
+    deprecatedIcon?: string;
     onClick: () => void;
     isActive: boolean;
     separator?: boolean;
 }
 
 interface MenuHamburgerProps {
-    icon?: string;
+    icon?: IconName;
+    /** @deprecated Use `icon` (IconName) instead */
+    deprecatedIcon?: string;
     isCompact?: boolean;
     items: MenuHamburgerItem[];
     label?: string;
@@ -23,7 +28,15 @@ interface MenuHamburgerProps {
     disableResponsive?: boolean;
 }
 
-export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, label, showLabel = true, disableResponsive = false }: MenuHamburgerProps): ReactElement => {
+export const MenuHamburger: FC<MenuHamburgerProps> = ({
+    icon,
+    deprecatedIcon,
+    isCompact,
+    items,
+    label,
+    showLabel = true,
+    disableResponsive = false,
+}: MenuHamburgerProps): ReactElement => {
     const { isAtLeast } = useBreakpoint();
     const [menuTarget, setMenuTarget] = useState<EventTarget | null>(null);
 
@@ -47,7 +60,8 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, 
             <Button
                 variant={isCompact || !isAtLeastTablet ? 'plain' : 'default'}
                 onClick={handleButtonClick}
-                prefixIcon={icon ? icon : isCompact || !isAtLeastTablet ? '⋮' : `☰`}
+                icon={icon}
+                prefixIcon={!icon ? (deprecatedIcon ?? (isCompact || !isAtLeastTablet ? '⋮' : '☰')) : undefined}
                 aria-label="Menu"
                 className={icon ? '' : 'MenuHamburger__opnener-three-dots'}
             >
@@ -65,7 +79,9 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({ icon, isCompact, items, 
                                     className={`MenuHamburger_item ${item.isActive ? 'MenuHamburger_item--active' : ''}`}
                                     onClick={() => handleItemClick(item)}
                                 >
-                                    <span className="MenuHamburger_item__icon">{item.icon}</span>
+                                    <span className="MenuHamburger_item__icon">
+                                        {item.icon ? <Icon name={item.icon} /> : item.deprecatedIcon}
+                                    </span>
                                     <span className="MenuHamburger_item__label">{item.label}</span>
                                 </Button>
                             </div>
