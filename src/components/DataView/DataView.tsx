@@ -105,12 +105,6 @@ export interface DataViewProps<T> {
     responsive?: boolean;
     className?: string;
     onPageChange?: (page: number) => void;
-    /**
-     * Custom card renderer. When provided, each item in card mode is rendered by this function
-     * instead of the default card layout. The node is placed directly in the cards container —
-     * use your own card component for styling (no DataView card wrapper is added).
-     */
-    renderCard?: (row: T) => React.ReactNode;
     /** Group rows by a key. When set, pagination is disabled and rows render in group sections. */
     group?: DataViewGroupConfig<T>;
 }
@@ -154,7 +148,6 @@ interface CardViewProps<T> {
     onToggleSelect?: (rowId: string | number, checked: boolean) => void;
     cardMaxWidth?: number | string;
     isMobile?: boolean;
-    renderCard?: (row: T) => React.ReactNode;
     groups?: DataViewGroup<T>[];
     showGroupCount?: boolean;
 }
@@ -174,7 +167,6 @@ function CardView<T>({
     onToggleSelect,
     cardMaxWidth,
     isMobile = false,
-    renderCard,
     groups,
     showGroupCount = true,
 }: CardViewProps<T>) {
@@ -212,16 +204,6 @@ function CardView<T>({
     const renderRow = (row: T, index: number) => {
         const marker = timelineMarkers.get(index);
         const rowId = rowKey(row, index);
-
-        if (renderCard) {
-            return (
-                <React.Fragment key={rowId}>
-                    {marker && <TimelineMobileSeparator marker={marker} />}
-                    {renderCard(row)}
-                </React.Fragment>
-            );
-        }
-
         const isSelected = selectable && selectedIds.includes(rowId);
 
         return (
@@ -328,7 +310,6 @@ export function DataView<T>({
     responsive = true,
     className,
     onPageChange,
-    renderCard,
     group,
 }: DataViewProps<T>) {
     const { isMobile } = useBreakpoint();
@@ -559,7 +540,6 @@ export function DataView<T>({
                     selectedIds={selectedIds}
                     cardMaxWidth={cardMaxWidth}
                     isMobile={isMobile}
-                    renderCard={renderCard}
                     groups={computedGroups ?? undefined}
                     showGroupCount={group?.showCount !== false}
                     onToggleSelect={(rowId, checked) => {
