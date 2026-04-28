@@ -10,4 +10,40 @@
             opacity: 1;
         }
     }
+
+    &--clearable {
+        padding-right: var(--spacing-32);
+    }
+}
+
+.input-date-field {
+    position: relative;
+    width: 100%;
+}
+
+.input-date-clear {
+    position: absolute;
+    right: var(--spacing-24);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: var(--spacing-4);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    color: var(--form-control-placeholder-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-fast);
+    z-index: 2;
+
+    &:hover {
+        color: var(--form-control-color);
+    }
+
+    &:focus {
+        outline: none;
+        color: var(--form-control-focus-border-color);
+    }
 }

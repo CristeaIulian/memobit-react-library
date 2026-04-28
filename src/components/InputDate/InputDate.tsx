@@ -1,10 +1,12 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 
+import { Icon } from '../Icon';
 import './InputDate.scss';
 
 interface InputDateProps {
     autoComplete?: 'on' | 'off';
     autoFocus?: boolean;
+    clearable?: boolean;
     disabled?: boolean;
     error?: string;
     highlighted?: boolean;
@@ -29,6 +31,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
         {
             autoComplete = 'on',
             autoFocus,
+            clearable,
             disabled,
             error,
             highlighted,
@@ -49,6 +52,8 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
         },
         ref
     ) => {
+        const showClear = clearable && value && !disabled && !readOnly;
+
         return (
             <div className={`input-date-wrapper${highlighted ? ' input-date-highlighted' : ''}`}>
                 {label && (
@@ -57,25 +62,32 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
                         {required && <span className="input-date-required">*</span>}
                     </label>
                 )}
-                <input
-                    autoComplete={autoComplete}
-                    autoFocus={autoFocus}
-                    disabled={disabled}
-                    type={type === 'date' ? 'date' : 'datetime-local'}
-                    className={`input-date${error ? ' input-date-error' : ''}${success ? ' input-date-success' : ''}`}
-                    id={id}
-                    max={max}
-                    min={min}
-                    ref={ref}
-                    value={value ?? ''}
-                    onBlur={onBlur}
-                    onChange={e => onChange?.(e.target.value || undefined)}
-                    onClick={onClick}
-                    onKeyDown={onKeyDown}
-                    onKeyUp={onKeyUp}
-                    readOnly={readOnly}
-                    required={required}
-                />
+                <div className="input-date-field">
+                    <input
+                        autoComplete={autoComplete}
+                        autoFocus={autoFocus}
+                        disabled={disabled}
+                        type={type === 'date' ? 'date' : 'datetime-local'}
+                        className={`input-date${error ? ' input-date-error' : ''}${success ? ' input-date-success' : ''}${showClear ? ' input-date--clearable' : ''}`}
+                        id={id}
+                        max={max}
+                        min={min}
+                        ref={ref}
+                        value={value ?? ''}
+                        onBlur={onBlur}
+                        onChange={e => onChange?.(e.target.value || undefined)}
+                        onClick={onClick}
+                        onKeyDown={onKeyDown}
+                        onKeyUp={onKeyUp}
+                        readOnly={readOnly}
+                        required={required}
+                    />
+                    {showClear && (
+                        <button type="button" className="input-date-clear" onClick={() => onChange?.(undefined)} aria-label="Clear date">
+                            <Icon name="clear" size="sm" />
+                        </button>
+                    )}
+                </div>
                 {error && <span className="input-date-error-message">{error}</span>}
                 {success && <span className="input-date-success-message">{success}</span>}
             </div>
