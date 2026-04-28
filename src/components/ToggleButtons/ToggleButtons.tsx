@@ -2,21 +2,54 @@ import { FC } from 'react';
 
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { Button } from '../Button';
+import { Tooltip } from '../Tooltip';
 
 import './ToggleButtons.scss';
+
+interface ToggleState {
+    label: string;
+    key: string;
+    icon: string;
+    description?: string;
+}
 
 interface ToggleProps {
     onToggleChange: (mode: string) => void;
     state: string;
-    states: {
-        label: string;
-        key: string;
-        icon: string;
-    }[];
+    layout?: 'buttons' | 'cards';
+    states: ToggleState[];
 }
 
-export const ToggleButtons: FC<ToggleProps> = ({ state, onToggleChange, states }: ToggleProps) => {
+export const ToggleButtons: FC<ToggleProps> = ({ state, onToggleChange, states, layout = 'buttons' }: ToggleProps) => {
     const { isAtLeast } = useBreakpoint();
+
+    if (layout === 'cards') {
+        return (
+            <div className="toggle-buttons toggle-buttons--cards">
+                {states.map(s => {
+                    const card = (
+                        <button
+                            key={s.key}
+                            type="button"
+                            className={`toggle-buttons__card${state === s.key ? ' toggle-buttons__card--active' : ''}`}
+                            onClick={() => onToggleChange(s.key)}
+                        >
+                            <span className="toggle-buttons__card-icon">{s.icon}</span>
+                            <span className="toggle-buttons__card-label">{s.label}</span>
+                        </button>
+                    );
+
+                    return s.description ? (
+                        <Tooltip key={s.key} title={s.description}>
+                            {card}
+                        </Tooltip>
+                    ) : (
+                        card
+                    );
+                })}
+            </div>
+        );
+    }
 
     return (
         <div className="toggle-buttons">

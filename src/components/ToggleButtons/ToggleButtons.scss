@@ -21,4 +21,46 @@
             border-radius: var(--radius-sm);
         }
     }
+
+    &--cards {
+        column-gap: var(--spacing-6);
+        height: auto;
+    }
+
+    &__card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-4);
+        padding: var(--spacing-12) var(--spacing-4);
+        border: 1px solid var(--form-control-border-color);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        background: var(--form-control-background);
+        color: var(--body-sub-title-color);
+        transition: var(--transition-fast);
+
+        &:hover {
+            border-color: var(--button-warning-border-color);
+            background: var(--button-warning-hover-background-color);
+            color: var(--body-color);
+        }
+
+        &--active {
+            border-color: var(--button-warning-border-color);
+            background: var(--button-warning-background-color);
+            color: var(--button-warning-color);
+        }
+    }
+
+    &__card-icon {
+        font-size: var(--font-size-xl);
+        line-height: 1;
+    }
+
+    &__card-label {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+    }
 }
