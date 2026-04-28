@@ -1,21 +1,27 @@
 import React from 'react';
 
+import { admin } from '../../icons/admin';
 import { archive } from '../../icons/archive';
 import { batteryEmpty } from '../../icons/battery-empty';
 import { batteryFull } from '../../icons/battery-full';
 import { batteryHalf } from '../../icons/battery-half';
+import { book } from '../../icons/book';
 import { breakfast } from '../../icons/breakfast';
 import { chart } from '../../icons/chart';
 import { checkmark } from '../../icons/checkmark';
 import { clear } from '../../icons/clear';
+import { clipboard } from '../../icons/clipboard';
 import { connected } from '../../icons/connected';
 import { delete_ } from '../../icons/delete';
 import { dinner } from '../../icons/dinner';
+import { document } from '../../icons/document';
 import { down } from '../../icons/down';
 import { edit } from '../../icons/edit';
 import { empty } from '../../icons/empty';
 import { evening } from '../../icons/evening';
 import { grid } from '../../icons/grid';
+import { history } from '../../icons/history';
+import { home } from '../../icons/home';
 import { lock } from '../../icons/lock';
 import { logout } from '../../icons/logout';
 import { lunch } from '../../icons/lunch';
@@ -44,22 +50,28 @@ import { up } from '../../icons/up';
 import './Icon.scss';
 
 const iconMap = {
+    admin,
     archive,
     'battery-empty': batteryEmpty,
     'battery-full': batteryFull,
     'battery-half': batteryHalf,
+    book,
     breakfast,
     chart,
     checkmark,
     clear,
+    clipboard,
     connected,
     delete: delete_,
     dinner,
+    document,
     down,
     edit,
     empty,
     evening,
     grid,
+    history,
+    home,
     lock,
     logout,
     lunch,
