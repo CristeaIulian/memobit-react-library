@@ -1,3 +1,5 @@
+export { ControlPanelProvider, useControlPanel, useControlPanelContext } from './ControlPanelContext';
+
 export {
     ControlPanel,
     type ControlPanelProps,

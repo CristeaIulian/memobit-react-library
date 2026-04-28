@@ -10,7 +10,7 @@ import { InputText } from '../InputText';
 import { Rating } from '../Rating';
 import { Search } from '../Search';
 import { Separator } from '../Separator';
-import { useSidebarContext } from '../Sidebar/SidebarContext';
+import { useControlPanelContext } from './ControlPanelContext';
 
 import '../Sidebar/Sidebar.scss';
 
@@ -175,10 +175,10 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     groupBy,
     visibleColumns,
 }) => {
-    const sidebarContext = useSidebarContext();
-    const isMobile = isMobileProp ?? sidebarContext?.isMobile ?? false;
-    const isOpen = isOpenProp ?? (isMobile ? (sidebarContext?.isOpen ?? false) : true);
-    const close = onClose ?? sidebarContext?.close ?? (() => undefined);
+    const controlPanelContext = useControlPanelContext();
+    const isMobile = isMobileProp ?? controlPanelContext?.isMobile ?? false;
+    const isOpen = isOpenProp ?? (isMobile ? (controlPanelContext?.isOpen ?? false) : true);
+    const close = onClose ?? controlPanelContext?.close ?? (() => undefined);
 
     const panelClassName = [
         'sidebar',

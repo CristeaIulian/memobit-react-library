@@ -90,6 +90,7 @@ export {
     SidebarProvider,
     useSidebar,
 } from './components/Sidebar';
+export { ControlPanelProvider, useControlPanel, useControlPanelContext } from './components/ControlPanel';
 export {
     ControlPanel,
     type ControlPanelProps,
