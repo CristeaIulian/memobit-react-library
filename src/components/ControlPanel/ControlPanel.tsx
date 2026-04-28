@@ -313,13 +313,30 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             const rangeArr = Array.isArray(filter.value) ? (filter.value as number[]) : [];
             const minVal: number | undefined = rangeArr[0];
             const maxVal: number | undefined = rangeArr[1];
+            const isInvalid = minVal !== undefined && maxVal !== undefined && minVal > maxVal;
             const emitRange = (newMin: number | undefined, newMax: number | undefined) =>
                 emitFilterChange({ filterId: filter.id, type: filter.type, value: [newMin, newMax] as number[] });
             return (
                 <div className="sidebar__filter-range">
-                    <InputNumber min={filter.min} max={filter.max} step={filter.step} placeholder="Min" value={minVal} onChange={v => emitRange(v, maxVal)} />
+                    <InputNumber
+                        min={filter.min}
+                        max={filter.max}
+                        step={filter.step}
+                        placeholder="Min"
+                        value={minVal}
+                        error={isInvalid ? 'Min exceeds max' : undefined}
+                        onChange={v => emitRange(v, maxVal)}
+                    />
                     <span className="sidebar__filter-range-sep">—</span>
-                    <InputNumber min={filter.min} max={filter.max} step={filter.step} placeholder="Max" value={maxVal} onChange={v => emitRange(minVal, v)} />
+                    <InputNumber
+                        min={filter.min}
+                        max={filter.max}
+                        step={filter.step}
+                        placeholder="Max"
+                        value={maxVal}
+                        error={isInvalid ? 'Max is below min' : undefined}
+                        onChange={v => emitRange(minVal, v)}
+                    />
                 </div>
             );
         }

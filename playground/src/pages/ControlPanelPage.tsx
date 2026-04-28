@@ -19,6 +19,7 @@ export const ControlPanelPage: React.FC = () => {
         scope: 'all',
         status: ['in-progress', 'review'],
         owner: 'team',
+        price: [undefined, undefined] as unknown as number[],
     });
 
     const [libraryFilterValues, setLibraryFilterValues] = useState<Record<string, ControlPanelFilterValue>>({
@@ -56,6 +57,16 @@ export const ControlPanelPage: React.FC = () => {
                 { label: 'Review', value: 'review', color: '#a855f7', count: 6 },
                 { label: 'Done', value: 'done', color: '#22c55e', count: 13 },
             ],
+        },
+        {
+            id: 'price',
+            label: 'Price',
+            type: 'range',
+            value: filterValues.price,
+            min: 0,
+            max: 10000,
+            step: 10,
+            isActive: Array.isArray(filterValues.price) && (filterValues.price as number[]).some(v => v !== undefined),
         },
         {
             id: 'owner',
@@ -149,7 +160,7 @@ export const ControlPanelPage: React.FC = () => {
     };
 
     const clearFilters = (_event: ControlPanelClearFiltersEvent) => {
-        setFilterValues({ scope: 'all', status: [], owner: null });
+        setFilterValues({ scope: 'all', status: [], owner: null, price: [] });
     };
 
     const handleLibraryFilterChange = (event: ControlPanelFilterChangeEvent) => {
@@ -220,6 +231,7 @@ export const ControlPanelPage: React.FC = () => {
                             <p>Scope: <strong>{String(filterValues.scope ?? 'none')}</strong></p>
                             <p>Status: <strong>{Array.isArray(filterValues.status) ? (filterValues.status as string[]).join(', ') || 'none' : String(filterValues.status ?? 'none')}</strong></p>
                             <p>Owner: <strong>{String(filterValues.owner ?? 'none')}</strong></p>
+                            <p>Price: <strong>{Array.isArray(filterValues.price) ? (filterValues.price as number[]).map(v => v ?? '—').join(' – ') : 'none'}</strong></p>
                         </div>
                     </div>
                 </div>
