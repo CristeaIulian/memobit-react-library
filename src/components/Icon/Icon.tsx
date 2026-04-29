@@ -7,6 +7,7 @@ import { batteryFull } from '../../icons/battery-full';
 import { batteryHalf } from '../../icons/battery-half';
 import { book } from '../../icons/book';
 import { breakfast } from '../../icons/breakfast';
+import { carbs } from '../../icons/carbs';
 import { chart } from '../../icons/chart';
 import { checkmark } from '../../icons/checkmark';
 import { clear } from '../../icons/clear';
@@ -19,9 +20,11 @@ import { down } from '../../icons/down';
 import { edit } from '../../icons/edit';
 import { empty } from '../../icons/empty';
 import { evening } from '../../icons/evening';
+import { fibers } from '../../icons/fibers';
 import { grid } from '../../icons/grid';
 import { history } from '../../icons/history';
 import { home } from '../../icons/home';
+import { lipids } from '../../icons/lipids';
 import { lock } from '../../icons/lock';
 import { logout } from '../../icons/logout';
 import { lunch } from '../../icons/lunch';
@@ -35,6 +38,8 @@ import { on } from '../../icons/on';
 import { pause } from '../../icons/pause';
 import { play } from '../../icons/play';
 import { plus } from '../../icons/plus';
+import { proteins } from '../../icons/proteins';
+import { salt } from '../../icons/salt';
 import { save } from '../../icons/save';
 import { search } from '../../icons/search';
 import { settings } from '../../icons/settings';
@@ -42,6 +47,7 @@ import { signalFull } from '../../icons/signal-full';
 import { signalLow } from '../../icons/signal-low';
 import { signalMedium } from '../../icons/signal-medium';
 import { stop } from '../../icons/stop';
+import { sugar } from '../../icons/sugar';
 import { table } from '../../icons/table';
 import { themePicker } from '../../icons/theme-picker';
 import { unarchive } from '../../icons/unarchive';
@@ -57,6 +63,7 @@ const iconMap = {
     'battery-half': batteryHalf,
     book,
     breakfast,
+    carbs,
     chart,
     checkmark,
     clear,
@@ -69,9 +76,11 @@ const iconMap = {
     edit,
     empty,
     evening,
+    fibers,
     grid,
     history,
     home,
+    lipids,
     lock,
     logout,
     lunch,
@@ -85,6 +94,8 @@ const iconMap = {
     pause,
     play,
     plus,
+    proteins,
+    salt,
     save,
     search,
     settings,
@@ -92,6 +103,7 @@ const iconMap = {
     'signal-low': signalLow,
     'signal-medium': signalMedium,
     stop,
+    sugar,
     table,
     'theme-picker': themePicker,
     unarchive,
