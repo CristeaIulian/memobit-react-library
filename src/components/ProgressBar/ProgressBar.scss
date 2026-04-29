@@ -3,6 +3,32 @@
     flex-direction: column;
     gap: var(--spacing-4);
 
+    &.progress-bar-inline {
+        flex-direction: row;
+        align-items: center;
+
+        .progress-bar__track {
+            flex: 1;
+        }
+
+        .progress-bar__label {
+            min-width: 10%;
+            text-align: left;
+
+            &.progress-bar__label-left {
+                text-align: left;
+            }
+
+            &.progress-bar__label-center {
+                text-align: center;
+            }
+
+            &.progress-bar__label-right {
+                text-align: right;
+            }
+        }
+    }
+
     &__label {
         font-size: var(--font-size-sm);
         font-weight: 500;
@@ -19,10 +45,10 @@
     }
 
     &__track .progress-fill {
-        height: 100%;
+        height: calc(100% - var(--spacing-2));
         background-color: var(--progress-default-bar-fill-color);
         border: var(--spacing-1) solid var(--progress-default-bar-border-color);
-        color: var(--progress--bar-color);
+        color: var(--progress-bar-color);
         border-radius: var(--spacing-4);
         text-shadow: var(--spacing-1) var(--spacing-1) #000;
         font-size: var(--spacing-12);
@@ -67,6 +93,17 @@
 
         &.progress-bar-animated {
             animation: progress-bar-stripes 1s linear infinite;
+        }
+    }
+
+    &.progress-bar-thin {
+        .progress-bar__track {
+            height: var(--spacing-6);
+            border-radius: var(--spacing-24);
+
+            .progress-fill {
+                border-radius: var(--spacing-24);
+            }
         }
     }
 }

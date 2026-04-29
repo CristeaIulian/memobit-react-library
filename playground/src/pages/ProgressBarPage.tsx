@@ -227,6 +227,127 @@ export const ProgressBarPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>Label Before</h2>
+
+                <div className="showcase-group">
+                    <h3>Default</h3>
+                    <div>
+                        <ProgressBar state="default" value={23} labelPosition="before" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Info with Custom Label</h3>
+                    <div>
+                        <ProgressBar state="info" value={68} label="Syncing" labelPosition="before" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Success — Label Only</h3>
+                    <div>
+                        <ProgressBar state="success" value={100} label="Complete" showPercentage={false} labelPosition="before" />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Label After</h2>
+
+                <div className="showcase-group">
+                    <h3>Default</h3>
+                    <div>
+                        <ProgressBar state="default" value={23} labelPosition="after" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Info with Custom Label</h3>
+                    <div>
+                        <ProgressBar state="info" value={68} label="Syncing" labelPosition="after" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Success — Label Only</h3>
+                    <div>
+                        <ProgressBar state="success" value={100} label="Complete" showPercentage={false} labelPosition="after" />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Label Align</h2>
+
+                <div className="showcase-group">
+                    <h3>After - align left</h3>
+                    <div>
+                        <ProgressBar state="default" value={23} labelPosition="after" labelAlign="left" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>After - align center</h3>
+                    <div>
+                        <ProgressBar state="success" value={60} labelPosition="after" labelAlign="center" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>After - align right</h3>
+                    <div>
+                        <ProgressBar state="danger" value={44} labelPosition="after" labelAlign="right" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Before - align left</h3>
+                    <div>
+                        <ProgressBar state="default" value={44} labelPosition="before" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Before - align center</h3>
+                    <div>
+                        <ProgressBar state="success" value={84} labelPosition="before" labelAlign="center" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Before - align right</h3>
+                    <div>
+                        <ProgressBar state="danger" value={35} labelPosition="before" labelAlign="right" />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Thin Bar</h2>
+
+                <div className="showcase-group">
+                    <h3>Default</h3>
+                    <div>
+                        <ProgressBar state="default" value={23} labelPosition="after" thin />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Info with Custom Label</h3>
+                    <div>
+                        <ProgressBar state="info" value={68} label="Syncing" labelPosition="after" thin />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Success — Label Only</h3>
+                    <div>
+                        <ProgressBar state="success" value={100} label="Complete" showPercentage={false} labelPosition="after" thin />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>Real-World Examples</h2>
 
                 <div className="showcase-group">
