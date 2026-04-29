@@ -17,7 +17,7 @@ interface ProgressBarProps {
 export const ProgressBar = ({
     label,
     state = 'default',
-    value,
+    value = 0,
     showPercentage = true,
     striped = false,
     animated = false,
