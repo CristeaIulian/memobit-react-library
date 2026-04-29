@@ -47,9 +47,7 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
 
     const filteredData = useMemo(() => {
         if (!searchValue.trim()) return data;
-        return data.filter(item =>
-            item.name.toLowerCase().includes(searchValue.toLowerCase())
-        );
+        return data.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()));
     }, [data, searchValue]);
 
     const sortedData = useMemo(() => {
@@ -68,10 +66,7 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
         return sortDirection === 'asc' ? sorted : sorted.reverse();
     }, [filteredData, sortKey, sortDirection]);
 
-    const slicedData = useMemo(
-        () => (isShowMoreEnabled ? [...sortedData] : sortedData.slice(0, capLimit)),
-        [sortedData, isShowMoreEnabled]
-    );
+    const slicedData = useMemo(() => (isShowMoreEnabled ? [...sortedData] : sortedData.slice(0, capLimit)), [sortedData, isShowMoreEnabled]);
     const moreThanCapLimit = sortedData.length > capLimit;
 
     const toggleList = () => {
@@ -93,59 +88,43 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
 
     const suggestionListContent = useMemo(
         () => (
-            <fieldset className="fieldset-suggestions-list">
+            <div className="list-suggestions-list">
                 <Tooltip title={tooltip}>
                     <legend>{title || 'Suggestions'}</legend>
                 </Tooltip>
                 {enableSearch && (
-                    <div className="fieldset-suggestions-list-search">
-                        <Search
-                            value={searchValue}
-                            onChange={setSearchValue}
-                            placeholder="Search suggestions..."
-                        />
+                    <div className="list-suggestions-list-search">
+                        <Search value={searchValue} onChange={setSearchValue} placeholder="Search suggestions..." />
                     </div>
                 )}
-                <div className="fieldset-suggestions-list-rows">
-                    <div className="fieldset-suggestions-list-header">
+                <div className="list-suggestions-list-rows">
+                    <div className="list-suggestions-list-header">
                         <button
                             type="button"
-                            className="fieldset-suggestions-list-header-cell fieldset-suggestions-list-header-cell--name"
+                            className="list-suggestions-list-header-cell list-suggestions-list-header-cell--name"
                             onClick={() => toggleSort('name')}
                         >
                             Name
-                            <SortIcon
-                                state={
-                                    sortKey === 'name'
-                                        ? sortDirection
-                                        : 'unsorted'
-                                }
-                            />
+                            <SortIcon state={sortKey === 'name' ? sortDirection : 'unsorted'} />
                         </button>
                         <button
                             type="button"
-                            className="fieldset-suggestions-list-header-cell fieldset-suggestions-list-header-cell--value"
+                            className="list-suggestions-list-header-cell list-suggestions-list-header-cell--value"
                             onClick={() => toggleSort('value')}
                         >
                             Value
-                            <SortIcon
-                                state={
-                                    sortKey === 'value'
-                                        ? sortDirection
-                                        : 'unsorted'
-                                }
-                            />
+                            <SortIcon state={sortKey === 'value' ? sortDirection : 'unsorted'} />
                         </button>
                     </div>
                     {slicedData.map((el, index) => {
                         return (
                             <div
-                                className={`fieldset-suggestions-list-row ${onRowClick ? 'fieldset-suggestions-list-row--clickable' : ''}`}
-                                key={`fieldset-suggestions-list-row-${index}`}
+                                className={`list-suggestions-list-row ${onRowClick ? 'list-suggestions-list-row--clickable' : ''}`}
+                                key={`list-suggestions-list-row-${index}`}
                                 onClick={() => onRowClick?.(el)}
                                 role={onRowClick ? 'button' : undefined}
                                 tabIndex={onRowClick ? 0 : undefined}
-                                onKeyDown={(e) => {
+                                onKeyDown={e => {
                                     if (onRowClick && (e.key === 'Enter' || e.key === ' ')) {
                                         e.preventDefault();
                                         onRowClick(el);
@@ -161,20 +140,29 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
                             </div>
                         );
                     })}
-                    {slicedData.length === 0 && (
-                        <div className="fieldset-suggestions-list-empty">
-                            No results found
-                        </div>
-                    )}
+                    {slicedData.length === 0 && <div className="list-suggestions-list-empty">No results found</div>}
                 </div>
                 {moreThanCapLimit && (
                     <span className="link" onClick={toggleShowMore}>
                         Show {isShowMoreEnabled ? 'less' : 'more'}
                     </span>
                 )}
-            </fieldset>
+            </div>
         ),
-        [enableSearch, isShowMoreEnabled, moreThanCapLimit, onRowClick, searchValue, slicedData, sortKey, sortDirection, title, toggleShowMore, toggleSort, tooltip]
+        [
+            enableSearch,
+            isShowMoreEnabled,
+            moreThanCapLimit,
+            onRowClick,
+            searchValue,
+            slicedData,
+            sortKey,
+            sortDirection,
+            title,
+            toggleShowMore,
+            toggleSort,
+            tooltip,
+        ]
     );
 
     return (
