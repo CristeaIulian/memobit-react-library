@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 
 import { Button } from '../Button';
+import { Icon, type IconName } from '../Icon';
 
 import './NavBar.scss';
 
@@ -9,7 +10,9 @@ export interface NavBarItem {
     label: string;
     isActive?: boolean;
     onClick?: () => void;
-    icon?: string;
+    icon?: IconName;
+    /** @deprecated Use `icon` (IconName) instead */
+    deprecatedIcon?: string;
     disabled?: boolean;
 }
 
@@ -45,7 +48,7 @@ export const NavBar: React.FC<NavBarProps> = ({ items, logo, actions, position =
             onClick={() => handleItemClick(item)}
             disabled={item.disabled}
         >
-            {item.icon && <span className="navbar__item-icon">{item.icon}</span>}
+            {(item.icon || item.deprecatedIcon) && <span className="navbar__item-icon">{item.icon ? <Icon name={item.icon} /> : item.deprecatedIcon}</span>}
             <span className="navbar__item-label">{item.label}</span>
         </button>
     );
