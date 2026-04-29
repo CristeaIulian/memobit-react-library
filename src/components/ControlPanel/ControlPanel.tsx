@@ -12,7 +12,7 @@ import { Search } from '../Search';
 import { Separator } from '../Separator';
 import { useControlPanelContext } from './ControlPanelContext';
 
-import '../Sidebar/Sidebar.scss';
+import './ControlPanel.scss';
 
 export interface ControlPanelHeader {
     icon?: ReactNode;
@@ -181,22 +181,22 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     const close = onClose ?? controlPanelContext?.close ?? (() => undefined);
 
     const panelClassName = [
-        'sidebar',
-        isOpen ? 'sidebar--open' : 'sidebar--closed',
-        isMobile ? 'sidebar--mobile' : '',
-        contained ? 'sidebar--contained' : '',
+        'control-panel',
+        isOpen ? 'control-panel--open' : 'control-panel--closed',
+        isMobile ? 'control-panel--mobile' : '',
+        contained ? 'control-panel--contained' : '',
         className,
     ]
         .filter(Boolean)
         .join(' ');
 
-    const overlayClassName = ['sidebar__overlay', contained ? 'sidebar__overlay--contained' : ''].filter(Boolean).join(' ');
+    const overlayClassName = ['control-panel__overlay', contained ? 'control-panel__overlay--contained' : ''].filter(Boolean).join(' ');
     const formatCssValue = (value: string | number): string => (typeof value === 'number' ? `${value}px` : value);
     const panelStyle = {
-        '--sidebar-width': width,
-        '--sidebar-border-radius': formatCssValue(borderRadius),
-        '--sidebar-margin': formatCssValue(margin),
-        '--sidebar-shadow': shadow,
+        '--control-panel-width': width,
+        '--control-panel-border-radius': formatCssValue(borderRadius),
+        '--control-panel-margin': formatCssValue(margin),
+        '--control-panel-shadow': shadow,
     } as React.CSSProperties;
 
     const emitFilterChange = (event: ControlPanelFilterChangeEvent) => onFilterChange?.(event);
@@ -220,10 +220,10 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
               : (options as ControlPanelOptionGroup[]);
 
     const renderFilterItem = (filter: ControlPanelFilter) => (
-        <div className="sidebar__filter" key={filter.id}>
+        <div className="control-panel__filter" key={filter.id}>
             {filter.type !== 'checkbox' && (
-                <span className={`sidebar__filter-title${filter.isActive ? ' sidebar__filter-title--active' : ''}`}>
-                    {filter.isActive && <span className="sidebar__filter-active-dot" />}
+                <span className={`control-panel__filter-title${filter.isActive ? ' control-panel__filter-title--active' : ''}`}>
+                    {filter.isActive && <span className="control-panel__filter-active-dot" />}
                     {filter.label}
                 </span>
             )}
@@ -260,7 +260,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
 
         if (filter.type === 'text') {
             return (
-                <div className="sidebar__filter-text">
+                <div className="control-panel__filter-text">
                     <InputText
                         onChange={value => emitFilterChange({ filterId: filter.id, type: filter.type, value })}
                         placeholder={filter.placeholder}
@@ -273,7 +273,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         if (filter.type === 'search') {
             return (
                 <Search
-                    className="sidebar__filter-search"
+                    className="control-panel__filter-search"
                     onChange={value => emitFilterChange({ filterId: filter.id, type: filter.type, value })}
                     placeholder={filter.placeholder}
                     value={typeof filter.value === 'string' ? filter.value : ''}
@@ -283,7 +283,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
 
         if (filter.type === 'number') {
             return (
-                <div className="sidebar__filter-number">
+                <div className="control-panel__filter-number">
                     <InputNumber
                         min={filter.min}
                         max={filter.max}
@@ -317,7 +317,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             const emitRange = (newMin: number | undefined, newMax: number | undefined) =>
                 emitFilterChange({ filterId: filter.id, type: filter.type, value: [newMin, newMax] as number[] });
             return (
-                <div className="sidebar__filter-range">
+                <div className="control-panel__filter-range">
                     <InputNumber
                         min={filter.min}
                         max={filter.max}
@@ -327,7 +327,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         error={isInvalid ? 'Min exceeds max' : undefined}
                         onChange={v => emitRange(v, maxVal)}
                     />
-                    <span className="sidebar__filter-range-sep">—</span>
+                    <span className="control-panel__filter-range-sep">—</span>
                     <InputNumber
                         min={filter.min}
                         max={filter.max}
@@ -344,7 +344,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         if (filter.type === 'dropdown') {
             return (
                 <Dropdown
-                    className="sidebar__filter-dropdown"
+                    className="control-panel__filter-dropdown"
                     multiple={filter.multiple}
                     name={filter.id}
                     onChange={selectedOption => {
@@ -371,7 +371,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
 
         if (filter.type === 'chips') {
             return (
-                <div className="sidebar__filter-chips" role="group" aria-label={filter.label}>
+                <div className="control-panel__filter-chips" role="group" aria-label={filter.label}>
                     {filterOptions.map(option => {
                         const isSelected = selectedValues.includes(option.value);
                         return (
@@ -402,23 +402,23 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         }
 
         return (
-            <div className="sidebar__filter-list" role="radiogroup" aria-label={filter.label}>
+            <div className="control-panel__filter-list" role="radiogroup" aria-label={filter.label}>
                 {filterOptions.map(option => {
                     const isSelected = filter.value === option.value;
                     return (
-                        <div key={option.value} className={`sidebar__filter-radio ${isSelected ? 'sidebar__filter-radio--selected' : ''}`}>
-                            <label className="sidebar__filter-radio-label">
+                        <div key={option.value} className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''}`}>
+                            <label className="control-panel__filter-radio-label">
                                 <input
                                     checked={isSelected}
-                                    className="sidebar__filter-radio-input"
+                                    className="control-panel__filter-radio-input"
                                     name={filter.id}
                                     onChange={() => emitFilterChange({ filterId: filter.id, type: filter.type, value: option.value, option, options: [option] })}
                                     type="radio"
                                     value={option.value}
                                 />
-                                {option.color && <span className="sidebar__filter-swatch" style={{ backgroundColor: option.color }} />}
-                                <span className="sidebar__filter-label">{option.label}</span>
-                                {option.count !== undefined && <span className="sidebar__filter-count">{option.count}</span>}
+                                {option.color && <span className="control-panel__filter-swatch" style={{ backgroundColor: option.color }} />}
+                                <span className="control-panel__filter-label">{option.label}</span>
+                                {option.count !== undefined && <span className="control-panel__filter-count">{option.count}</span>}
                             </label>
                         </div>
                     );
@@ -435,23 +435,23 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             <aside className={panelClassName} style={panelStyle}>
                 {header && (
                     <>
-                        <div className={`sidebar__header ${header.onClick ? 'sidebar__header--clickable' : ''}`} onClick={header.onClick}>
-                            {header.icon && <span className="sidebar__header-icon">{header.icon}</span>}
-                            <div className="sidebar__header-copy">
-                                {header.siteName && <span className="sidebar__site-name">{header.siteName}</span>}
-                                {header.heading && <span className="sidebar__heading">{header.heading}</span>}
+                        <div className={`control-panel__header ${header.onClick ? 'control-panel__header--clickable' : ''}`} onClick={header.onClick}>
+                            {header.icon && <span className="control-panel__header-icon">{header.icon}</span>}
+                            <div className="control-panel__header-copy">
+                                {header.siteName && <span className="control-panel__site-name">{header.siteName}</span>}
+                                {header.heading && <span className="control-panel__heading">{header.heading}</span>}
                             </div>
                         </div>
-                        <Separator className="sidebar__header-separator" spacing={0} />
+                        <Separator className="control-panel__header-separator" spacing={0} />
                     </>
                 )}
 
                 {actions.length > 0 && (
-                    <div className="sidebar__actions">
+                    <div className="control-panel__actions">
                         {actions.map(action => (
                             <Button
                                 key={action.id}
-                                className="sidebar__action"
+                                className="control-panel__action"
                                 disabled={action.disabled}
                                 fullWidth={action.fullWidth ?? true}
                                 onClick={action.onClick}
@@ -467,14 +467,14 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                 )}
 
                 {filters.length > 0 && (
-                    <div className="sidebar__filters">
-                        <div className="sidebar__filters-header">
-                            <span className="sidebar__filters-heading">
+                    <div className="control-panel__filters">
+                        <div className="control-panel__filters-header">
+                            <span className="control-panel__filters-heading">
                                 Filters
-                                {filtersCount !== undefined && <span className="sidebar__filters-count">{filtersCount}</span>}
+                                {filtersCount !== undefined && <span className="control-panel__filters-count">{filtersCount}</span>}
                             </span>
                             {onClearFilters && (
-                                <button className="sidebar__filters-clear" type="button" onClick={() => onClearFilters({ source: 'control-panel' })}>
+                                <button className="control-panel__filters-clear" type="button" onClick={() => onClearFilters({ source: 'control-panel' })}>
                                     Clear filters
                                 </button>
                             )}
@@ -486,14 +486,14 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                 {filters.length > 0 && hasOptions && <Separator spacing={0} />}
 
                 {hasOptions && (
-                    <div className="sidebar__options">
-                        <div className="sidebar__options-header">
-                            <span className="sidebar__options-heading">Options</span>
+                    <div className="control-panel__options">
+                        <div className="control-panel__options-header">
+                            <span className="control-panel__options-heading">Options</span>
                         </div>
 
                         {viewToggle && (
-                            <div className="sidebar__option sidebar__option--view-toggle">
-                                <div className="sidebar__option-view-toggle">
+                            <div className="control-panel__option control-panel__option--view-toggle">
+                                <div className="control-panel__option-view-toggle">
                                     {[...VIEW_TOGGLE_OPTIONS, ...(viewToggle.showGallery ? [GALLERY_OPTION] : [])].map(opt => (
                                         <Button
                                             key={opt.value}
@@ -512,9 +512,9 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         {groupBy && groupBy.options.length > 0 && (
                             <>
                                 {viewToggle && <Separator spacing={0} />}
-                                <div className="sidebar__option sidebar__option--group-by">
-                                    <span className="sidebar__filter-title">Group by</span>
-                                    <div className="sidebar__filter-chips" role="group" aria-label="Group by">
+                                <div className="control-panel__option control-panel__option--group-by">
+                                    <span className="control-panel__filter-title">Group by</span>
+                                    <div className="control-panel__filter-chips" role="group" aria-label="Group by">
                                         {groupBy.options.map(opt => {
                                             const isSelected = groupBy.value === opt.value;
                                             return (
@@ -535,9 +535,9 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         {visibleColumns && (
                             <>
                                 {(viewToggle || (groupBy && groupBy.options.length > 0)) && <Separator spacing={0} />}
-                                <div className="sidebar__option sidebar__option--chips">
-                                    <span className="sidebar__filter-title">Visible columns</span>
-                                    <div className="sidebar__filter-chips" role="group" aria-label="Visible columns">
+                                <div className="control-panel__option control-panel__option--chips">
+                                    <span className="control-panel__filter-title">Visible columns</span>
+                                    <div className="control-panel__filter-chips" role="group" aria-label="Visible columns">
                                         {visibleColumns.options.map(opt => {
                                             const isSelected = visibleColumns.value.includes(opt.value);
                                             return (
@@ -563,15 +563,15 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         {normalizedOptionGroups.length > 0 && (viewToggle || groupBy || visibleColumns) && <Separator spacing={0} />}
 
                         {normalizedOptionGroups.map((group, groupIndex) => (
-                            <div className="sidebar__option-group" key={group.id ?? group.label ?? groupIndex}>
-                                {group.label && <span className="sidebar__option-group-label">{group.label}</span>}
+                            <div className="control-panel__option-group" key={group.id ?? group.label ?? groupIndex}>
+                                {group.label && <span className="control-panel__option-group-label">{group.label}</span>}
                                 {group.options.map((option, optionIndex) => {
                                     const previous = optionIndex > 0 ? group.options[optionIndex - 1] : undefined;
                                     const showSeparator = !!previous && previous.type !== option.type;
                                     return (
                                         <React.Fragment key={option.id}>
                                             {showSeparator && <Separator spacing={0} />}
-                                            <div className={`sidebar__option sidebar__option--${option.type}`}>
+                                            <div className={`control-panel__option control-panel__option--${option.type}`}>
                                                 {option.type === 'checkbox' && (
                                                     <Chip
                                                         selected={option.value ?? false}
@@ -582,25 +582,25 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                                 )}
                                                 {option.type === 'radio' && (
                                                     <>
-                                                        {option.label && <span className="sidebar__filter-title">{option.label}</span>}
-                                                        <div className="sidebar__filter-list" role="radiogroup" aria-label={option.label}>
+                                                        {option.label && <span className="control-panel__filter-title">{option.label}</span>}
+                                                        <div className="control-panel__filter-list" role="radiogroup" aria-label={option.label}>
                                                             {option.options.map(radioOption => {
                                                                 const isSelected = option.value === radioOption.value;
                                                                 return (
                                                                     <div
                                                                         key={radioOption.value}
-                                                                        className={`sidebar__filter-radio ${isSelected ? 'sidebar__filter-radio--selected' : ''}`}
+                                                                        className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''}`}
                                                                     >
-                                                                        <label className="sidebar__filter-radio-label">
+                                                                        <label className="control-panel__filter-radio-label">
                                                                             <input
                                                                                 checked={isSelected}
-                                                                                className="sidebar__filter-radio-input"
+                                                                                className="control-panel__filter-radio-input"
                                                                                 name={`control-panel-option-${option.id}`}
                                                                                 onChange={() => onOptionChange?.({ optionId: option.id, value: radioOption.value })}
                                                                                 type="radio"
                                                                                 value={radioOption.value}
                                                                             />
-                                                                            <span className="sidebar__filter-label">{radioOption.label}</span>
+                                                                            <span className="control-panel__filter-label">{radioOption.label}</span>
                                                                         </label>
                                                                     </div>
                                                                 );
@@ -610,8 +610,8 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                                 )}
                                                 {option.type === 'chips' && (
                                                     <>
-                                                        {option.label && <span className="sidebar__filter-title">{option.label}</span>}
-                                                        <div className="sidebar__filter-chips" role="group" aria-label={option.label}>
+                                                        {option.label && <span className="control-panel__filter-title">{option.label}</span>}
+                                                        <div className="control-panel__filter-chips" role="group" aria-label={option.label}>
                                                             {option.options.map(chipOption => {
                                                                 const isSelected = option.value.includes(chipOption.value);
                                                                 return (
