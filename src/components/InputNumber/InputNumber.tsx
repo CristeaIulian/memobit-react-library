@@ -7,6 +7,7 @@ interface InputNumberProps {
     autoFocus?: boolean;
     disabled?: boolean;
     error?: string;
+    hideNativeControls?: boolean;
     highlighted?: boolean;
     id?: string;
     label?: string;
@@ -23,7 +24,29 @@ interface InputNumberProps {
 }
 
 export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
-    ({ autoComplete = 'on', autoFocus, disabled, error, highlighted, id, label, onChange, onClick, onKeyDown, required, success, value, min, max, placeholder, step }, ref) => {
+    (
+        {
+            autoComplete = 'on',
+            autoFocus,
+            disabled,
+            error,
+            hideNativeControls,
+            highlighted,
+            id,
+            label,
+            onChange,
+            onClick,
+            onKeyDown,
+            required,
+            success,
+            value,
+            min,
+            max,
+            placeholder,
+            step,
+        },
+        ref
+    ) => {
         const clampValue = (val: number | undefined): number | undefined => {
             if (val === undefined) {
                 return undefined;
@@ -51,6 +74,10 @@ export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
             }
         };
 
+        const inputClassName = `input-number${error ? ' input-number-error' : ''}${success ? ' input-number-success' : ''}${
+            hideNativeControls ? ' input-number-hide-native-controls' : ''
+        }`;
+
         return (
             <div className={`input-number-wrapper${highlighted ? ' input-number-highlighted' : ''}`}>
                 {label && (
@@ -63,7 +90,7 @@ export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
                     autoComplete={autoComplete}
                     autoFocus={autoFocus}
                     disabled={disabled}
-                    className={`input-number${error ? ' input-number-error' : ''}${success ? ' input-number-success' : ''}`}
+                    className={inputClassName}
                     id={id}
                     max={max}
                     min={min}

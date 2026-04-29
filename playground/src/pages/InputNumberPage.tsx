@@ -17,10 +17,11 @@ export const InputNumberPage: React.FC = () => {
             <p>A numeric input component with increment/decrement controls.</p>
 
             <section className="page-section">
-                <h2>Basic Number Input</h2>
+                <h2>Basic Number Input (with arrows, without arrows)</h2>
                 <div className="showcase-group">
                     <div className="component-group">
                         <InputNumber value={numberField} onChange={value => setNumberField(value || 0)} />
+                        <InputNumber hideNativeControls value={numberField} onChange={value => setNumberField(value || 0)} />
                     </div>
                 </div>
             </section>
@@ -30,24 +31,13 @@ export const InputNumberPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Error State</h3>
                     <div className="component-group">
-                        <InputNumber
-                            label="Age"
-                            required
-                            value={emptyNumber}
-                            onChange={setEmptyNumber}
-                            error={!emptyNumber ? 'Age is required' : undefined}
-                        />
+                        <InputNumber label="Age" required value={emptyNumber} onChange={setEmptyNumber} error={!emptyNumber ? 'Age is required' : undefined} />
                     </div>
                 </div>
                 <div className="showcase-group">
                     <h3>Success State</h3>
                     <div className="component-group">
-                        <InputNumber
-                            label="Age"
-                            value={validNumber}
-                            onChange={setValidNumber}
-                            success="Valid age entered"
-                        />
+                        <InputNumber label="Age" value={validNumber} onChange={value => setValidNumber(value ?? 0)} success="Valid age entered" />
                     </div>
                 </div>
             </section>
@@ -58,13 +48,7 @@ export const InputNumberPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Minimum Value (min: 0)</h3>
                     <div className="component-group">
-                        <InputNumber
-                            label="Quantity"
-                            value={minValue}
-                            onChange={value => setMinValue(value || 0)}
-                            min={0}
-                            placeholder="Cannot be negative"
-                        />
+                        <InputNumber label="Quantity" value={minValue} onChange={value => setMinValue(value || 0)} min={0} placeholder="Cannot be negative" />
                         <p>Try entering a negative number and clicking away</p>
                     </div>
                 </div>
