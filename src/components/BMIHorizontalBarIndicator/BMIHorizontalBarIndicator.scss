@@ -90,6 +90,7 @@
     color: var(--body-color);
     text-align: center;
     line-height: 1.2;
+    text-transform: uppercase;
 }
 
 @include mobile {
@@ -133,6 +134,13 @@
 
         .labels-row {
             margin-top: var(--spacing-2);
+
+            .label-segment {
+                .label-text {
+                    font-weight: var(--font-weight-normal);
+                    text-transform: none;
+                }
+            }
         }
     }
 }
