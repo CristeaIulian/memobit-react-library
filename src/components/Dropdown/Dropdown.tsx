@@ -383,8 +383,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
         setIsOpen(true);
 
-        // Clear filter text in single-select mode to show all options
-        if (!multiple && searchable) {
+        // Clear filter text in single-select mode to show all options (only when a value is already selected)
+        if (!multiple && searchable && selectedOptions.length > 0) {
             setFilterText('');
         }
 
@@ -401,8 +401,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
         if (!isOpen) {
             setFocusedIndex(-1);
 
-            // Clear filter text in single-select mode to show all options
-            if (!multiple && searchable) {
+            // Clear filter text in single-select mode to show all options (only when a value is already selected)
+            if (!multiple && searchable && selectedOptions.length > 0) {
                 setFilterText('');
             }
 
