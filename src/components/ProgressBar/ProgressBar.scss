@@ -14,6 +14,7 @@
         .progress-bar__label {
             min-width: 10%;
             text-align: left;
+            font-size: var(--font-size-xs);
 
             &.progress-bar__label-left {
                 text-align: left;
@@ -33,6 +34,22 @@
         font-size: var(--font-size-sm);
         font-weight: 500;
         color: var(--body-color);
+
+        &.progress-bar__label--success {
+            color: var(--progress-success-bar-fill-color);
+        }
+
+        &.progress-bar__label--warning {
+            color: var(--progress-warning-bar-fill-color);
+        }
+
+        &.progress-bar__label--danger {
+            color: var(--progress-danger-bar-fill-color);
+        }
+
+        &.progress-bar__label--info {
+            color: var(--progress-info-bar-fill-color);
+        }
     }
 
     &__track {

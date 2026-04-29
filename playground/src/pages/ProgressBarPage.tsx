@@ -219,6 +219,13 @@ export const ProgressBarPage: React.FC = () => {
                 </div>
 
                 <div className="showcase-group">
+                    <h3>Info with Custom Label After Value</h3>
+                    <div>
+                        <ProgressBar state="info" value={68} label="Syncing" labelPosition="below" labelAfterValue />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
                     <h3>Success — Label Only</h3>
                     <div>
                         <ProgressBar state="success" value={100} label="Complete" showPercentage={false} labelPosition="below" />
