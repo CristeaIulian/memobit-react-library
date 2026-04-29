@@ -19,6 +19,16 @@ export const BMIHorizontalBarIndicatorPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>Default BMI Indicator (Suitable for Mobile & minimalist layouts)</h2>
+                <div className="showcase-group">
+                    <h3>With Indicator and Labels</h3>
+                    <div className="component-group">
+                        <BMIHorizontalBarIndicator height={180} weight={80} showIndicator showLabels isSimplified />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>Waist-to-Height Ratio (WHtR)</h2>
                 <p>A body composition indicator. Values below 0.5 are considered healthy.</p>
                 <div className="showcase-group">

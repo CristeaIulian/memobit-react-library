@@ -57,13 +57,13 @@
     transition: all 0.3s ease;
 
     &:first-child {
-        border-top-left-radius: var(--spacing-24);
-        border-bottom-left-radius: var(--spacing-24);
+        border-top-left-radius: var(--spacing-8);
+        border-bottom-left-radius: var(--spacing-8);
     }
 
     &:last-child {
-        border-top-right-radius: var(--spacing-24);
-        border-bottom-right-radius: var(--spacing-24);
+        border-top-right-radius: var(--spacing-8);
+        border-bottom-right-radius: var(--spacing-8);
     }
 }
 

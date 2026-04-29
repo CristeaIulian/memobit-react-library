@@ -2,6 +2,7 @@ export interface BMIRange {
     min: number;
     max: number;
     label: string;
+    shortLabel: string;
     color: string;
     percentage: number;
 }
@@ -47,21 +48,21 @@ export const PEDIATRIC_THRESHOLDS: Record<'male' | 'female', Record<number, [num
 };
 
 export const ADULT_RANGES: BMIRange[] = [
-    { min: 0, max: 18.5, label: 'UNDERWEIGHT', color: '#00BFFF', percentage: 16.7 },
-    { min: 18.5, max: 24.9, label: 'NORMAL', color: '#7ED321', percentage: 16.7 },
-    { min: 25, max: 29.9, label: 'OVERWEIGHT', color: '#FFD700', percentage: 16.7 },
-    { min: 30, max: 34.9, label: 'OBESE', color: '#FF8C00', percentage: 16.7 },
-    { min: 35, max: 39.9, label: 'SEVERELY OBESE', color: '#FF4444', percentage: 16.7 },
-    { min: 40, max: 50, label: 'MORBIDLY OBESE', color: '#8B0000', percentage: 16.6 },
+    { min: 0, max: 18.5, label: 'UNDERWEIGHT', shortLabel: 'UNDERWEIGHT', color: '#00BFFF', percentage: 16.7 },
+    { min: 18.5, max: 24.9, label: 'NORMAL', shortLabel: 'NORMAL', color: '#7ED321', percentage: 16.7 },
+    { min: 25, max: 29.9, label: 'OVERWEIGHT', shortLabel: 'OVERWEIGHT', color: '#FFD700', percentage: 16.7 },
+    { min: 30, max: 34.9, label: 'OBESE', shortLabel: 'OBESE', color: '#FF8C00', percentage: 16.7 },
+    { min: 35, max: 39.9, label: 'SEVERELY OBESE', shortLabel: 'SEVERE', color: '#FF4444', percentage: 16.7 },
+    { min: 40, max: 50, label: 'MORBIDLY OBESE', shortLabel: 'MORBID', color: '#8B0000', percentage: 16.6 },
 ];
 
 export const getPediatricRanges = (p5: number, p85: number, p95: number): BMIRange[] => {
     const p95Max = p95 + 8;
     return [
-        { min: p5 - 5, max: p5, label: 'UNDERWEIGHT', color: '#00BFFF', percentage: 20 },
-        { min: p5, max: p85, label: 'HEALTHY', color: '#7ED321', percentage: 40 },
-        { min: p85, max: p95, label: 'OVERWEIGHT', color: '#FFD700', percentage: 20 },
-        { min: p95, max: p95Max, label: 'OBESE', color: '#FF4444', percentage: 20 },
+        { min: p5 - 5, max: p5, label: 'UNDERWEIGHT', shortLabel: 'UNDERWEIGHT', color: '#00BFFF', percentage: 20 },
+        { min: p5, max: p85, label: 'HEALTHY', shortLabel: 'HEALTHY', color: '#7ED321', percentage: 40 },
+        { min: p85, max: p95, label: 'OVERWEIGHT', shortLabel: 'OVERWEIGHT', color: '#FFD700', percentage: 20 },
+        { min: p95, max: p95Max, label: 'OBESE', shortLabel: 'OBESE', color: '#FF4444', percentage: 20 },
     ];
 };
 
