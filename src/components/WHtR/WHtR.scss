@@ -90,6 +90,7 @@
     color: var(--body-color);
     text-align: center;
     line-height: 1.2;
+    text-transform: uppercase;
 }
 
 @include mobile {
@@ -109,5 +110,37 @@
     .whtr-indicator-value {
         font-size: var(--font-size-xs);
         padding: var(--spacing-4) var(--spacing-8);
+    }
+}
+
+.whtr-container {
+    &--is-simplified {
+        .whtr-indicator-section {
+            margin-bottom: var(--spacing-1);
+            height: var(--spacing-12);
+
+            .whtr-indicator-value {
+                display: none;
+            }
+        }
+        .whtr-horizontal-bar {
+            height: var(--spacing-8);
+            border-width: var(--spacing-1);
+
+            .whtr-range-text {
+                display: none;
+            }
+        }
+
+        .whtr-labels-row {
+            margin-top: var(--spacing-2);
+
+            .whtr-label-segment {
+                .whtr-label-text {
+                    font-weight: var(--font-weight-normal);
+                    text-transform: none;
+                }
+            }
+        }
     }
 }

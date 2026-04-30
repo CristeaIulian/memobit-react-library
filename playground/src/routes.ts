@@ -8,7 +8,7 @@ import { AlertDialogPage } from './pages/AlertDialogPage';
 import { AuthLoginPage } from './pages/AuthLoginPage';
 import { AvatarInitialsPage } from './pages/AvatarInitialsPage';
 import { BadgePage } from './pages/BadgePage';
-import { BMIHorizontalBarIndicatorPage } from './pages/BMIHorizontalBarIndicatorPage';
+import { BMIPage } from './pages/BMIPage';
 import { BreadcrumbPage } from './pages/BreadcrumbPage';
 import { ButtonPage } from './pages/ButtonPage';
 import { CalendarPage } from './pages/CalendarPage';
@@ -103,7 +103,7 @@ export const routes: RouteConfig[] = [
     { path: '/auth-login', label: 'Auth Login', component: AuthLoginPage },
     { path: '/avatar-initials', label: 'Avatar Initials', component: AvatarInitialsPage },
     { path: '/badge', label: 'Badge', component: BadgePage },
-    { path: '/bmi-horizontal-bar-indicator', label: 'BMI Horizontal Bar Indicator', component: BMIHorizontalBarIndicatorPage },
+    { path: '/bmi', label: 'BMI', component: BMIPage },
     { path: '/breadcrumb', label: 'Breadcrumb', component: BreadcrumbPage },
     { path: '/button', label: 'Button', component: ButtonPage },
     { path: '/calendar', label: 'Calendar', component: CalendarPage },

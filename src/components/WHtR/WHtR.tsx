@@ -1,27 +1,29 @@
 import React from 'react';
 
-import './WHtRIndicator.scss';
+import './WHtR.scss';
 
 interface WHtRRange {
     max: number;
     label: string;
+    shortLabel?: string;
     color: string;
     percentage: number;
 }
 
-interface WHtRIndicatorProps {
+interface WHtRProps {
     belly: number;
     height: number;
+    isSimplified?: boolean;
     showLabels?: boolean;
     showIndicator?: boolean;
 }
 
 const RANGES: WHtRRange[] = [
-    { max: 0.4,  label: 'UNDERWEIGHT', color: '#00BFFF', percentage: 20 },
-    { max: 0.5,  label: 'HEALTHY',     color: '#7ED321', percentage: 25 },
-    { max: 0.6,  label: 'AT RISK',     color: '#FFD700', percentage: 25 },
-    { max: 0.7,  label: 'HIGH RISK',   color: '#FF8C00', percentage: 15 },
-    { max: 1.0,  label: 'VERY HIGH',   color: '#FF4444', percentage: 15 },
+    { max: 0.4, label: 'Underweight', color: '#00BFFF', percentage: 20 },
+    { max: 0.5, label: 'Healthy', color: '#7ED321', percentage: 25 },
+    { max: 0.6, label: 'At risk', color: '#FFD700', percentage: 25 },
+    { max: 0.7, label: 'High Risk', shortLabel: 'Hi. Risk', color: '#FF8C00', percentage: 15 },
+    { max: 1.0, label: 'Very High', shortLabel: 'Critical', color: '#FF4444', percentage: 15 },
 ];
 
 const getCategory = (whtr: number): { label: string; color: string } => {
@@ -45,7 +47,7 @@ const getIndicatorPosition = (whtr: number): number => {
     return 100;
 };
 
-export const WHtRIndicator: React.FC<WHtRIndicatorProps> = ({ belly, height, showLabels = true, showIndicator = true }) => {
+export const WHtR: React.FC<WHtRProps> = ({ belly, height, isSimplified = false, showLabels = true, showIndicator = true }) => {
     const whtr = Math.round((belly / height) * 100) / 100;
     const category = getCategory(whtr);
     const indicatorPosition = getIndicatorPosition(whtr);
@@ -53,7 +55,7 @@ export const WHtRIndicator: React.FC<WHtRIndicatorProps> = ({ belly, height, sho
     const rangeLabels = ['<0.4', '0.4-0.5', '0.5-0.6', '0.6-0.7', '>0.7'];
 
     return (
-        <div className="whtr-container">
+        <div className={`whtr-container ${isSimplified ? 'whtr-container--is-simplified' : ''}`}>
             {showIndicator && (
                 <div className="whtr-indicator-section">
                     <div className="whtr-indicator-pointer" style={{ left: `${indicatorPosition}%` }}>
@@ -67,11 +69,7 @@ export const WHtRIndicator: React.FC<WHtRIndicatorProps> = ({ belly, height, sho
 
             <div className="whtr-horizontal-bar">
                 {RANGES.map((range, index) => (
-                    <div
-                        key={index}
-                        className="whtr-bar-segment"
-                        style={{ backgroundColor: range.color, width: `${range.percentage}%` }}
-                    >
+                    <div key={index} className="whtr-bar-segment" style={{ backgroundColor: range.color, width: `${range.percentage}%` }}>
                         <div className="whtr-range-text">{rangeLabels[index]}</div>
                     </div>
                 ))}
@@ -81,7 +79,7 @@ export const WHtRIndicator: React.FC<WHtRIndicatorProps> = ({ belly, height, sho
                 <div className="whtr-labels-row">
                     {RANGES.map((range, index) => (
                         <div key={index} className="whtr-label-segment" style={{ width: `${range.percentage}%` }}>
-                            <div className="whtr-label-text">{range.label}</div>
+                            <div className="whtr-label-text">{isSimplified ? range.shortLabel || range.label : range.label}</div>
                         </div>
                     ))}
                 </div>

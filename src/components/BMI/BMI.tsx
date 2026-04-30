@@ -1,9 +1,10 @@
 import React from 'react';
 
-import './BMIHorizontalBarIndicator.scss';
 import { ADULT_RANGES, PEDIATRIC_THRESHOLDS, calculateBMI, getIndicatorColor, getIndicatorPosition, getPediatricRanges, getRangeLabel } from './bmiUtils';
 
-interface BMIBarProps {
+import './BMI.scss';
+
+interface BMIProps {
     weight: number;
     height: number;
     age?: number;
@@ -13,15 +14,7 @@ interface BMIBarProps {
     showIndicator?: boolean;
 }
 
-export const BMIHorizontalBarIndicator: React.FC<BMIBarProps> = ({
-    weight,
-    height,
-    age,
-    sex,
-    isSimplified = false,
-    showLabels = true,
-    showIndicator = true,
-}) => {
+export const BMI: React.FC<BMIProps> = ({ weight, height, age, sex, isSimplified = false, showLabels = true, showIndicator = true }) => {
     const bmi = calculateBMI(weight, height);
 
     const isPediatric = age !== undefined && sex !== undefined && age >= 2 && age <= 17;
@@ -55,7 +48,7 @@ export const BMIHorizontalBarIndicator: React.FC<BMIBarProps> = ({
                 <div className="labels-row">
                     {ranges.map((range, index) => (
                         <div key={index} className="label-segment" style={{ width: `${range.percentage}%` }}>
-                            <div className="label-text">{isSimplified ? range.shortLabel : range.label}</div>
+                            <div className="label-text">{isSimplified ? range.shortLabel || range.label : range.label}</div>
                         </div>
                     ))}
                 </div>

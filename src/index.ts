@@ -3,7 +3,7 @@ export { Accordion, type AccordionProps, type AccordionItemData } from './compon
 export { AlertDialog } from './components/AlertDialog';
 export { AvatarInitials } from './components/AvatarInitials';
 export { Badge, type BadgeVariant, type BadgeProps } from './components/Badge';
-export { BMIHorizontalBarIndicator } from './components/BMIHorizontalBarIndicator';
+export { BMI } from './components/BMI';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
 export { Button } from './components/Button';
 export { Calendar, type CalendarProps, type CalendarMode, type CalendarDateRange } from './components/Calendar';
@@ -82,14 +82,7 @@ export { Rating } from './components/Rating';
 export { ScrollToTop } from './components/ScrollToTop';
 export { Search, type SearchProps } from './components/Search';
 export { Separator, type SeparatorProps, type SeparatorOrientation, type SeparatorStyle, type SeparatorAlign } from './components/Separator';
-export {
-    Sidebar,
-    type SidebarItem,
-    type SidebarProps,
-    type SidebarSection,
-    SidebarProvider,
-    useSidebar,
-} from './components/Sidebar';
+export { Sidebar, type SidebarItem, type SidebarProps, type SidebarSection, SidebarProvider, useSidebar } from './components/Sidebar';
 export { ControlPanelProvider, useControlPanel, useControlPanelContext } from './components/ControlPanel';
 export {
     ControlPanel,
@@ -134,7 +127,7 @@ export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
 export { Tree, type TreeNode } from './components/Tree';
-export { WHtRIndicator } from './components/WHtRIndicator';
+export { WHtR } from './components/WHtR';
 
 // Export Auth components
 export { Login as AuthLogin } from './components/Auth/Login';

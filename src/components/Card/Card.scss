@@ -82,3 +82,9 @@
         }
     }
 }
+
+@include mobile {
+    .card {
+        padding: var(--spacing-8);
+    }
+}

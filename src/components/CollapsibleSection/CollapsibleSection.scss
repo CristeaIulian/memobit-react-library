@@ -1,3 +1,5 @@
+@use '../../styles/utilities.scss' as *;
+
 .collapsible-section {
     display: flex;
     flex-direction: column;
@@ -99,15 +101,25 @@
         border-radius: var(--radius);
     }
 
-    &__header--accent { color: var(--body-accent-color); }
+    &__header--accent {
+        color: var(--body-accent-color);
+    }
 
-    &__header--variant-success { color: var(--rating-color-success); }
+    &__header--variant-success {
+        color: var(--rating-color-success);
+    }
 
-    &__header--variant-warning { color: var(--rating-color-warning); }
+    &__header--variant-warning {
+        color: var(--rating-color-warning);
+    }
 
-    &__header--variant-info { color: var(--rating-color-info); }
+    &__header--variant-info {
+        color: var(--rating-color-info);
+    }
 
-    &__header--variant-danger { color: var(--rating-color-danger); }
+    &__header--variant-danger {
+        color: var(--rating-color-danger);
+    }
 
     &__content {
         height: fit-content;
@@ -124,5 +136,11 @@
             height: 0;
             opacity: 0;
         }
+    }
+}
+
+@include mobile {
+    .collapsible-section {
+        gap: var(--spacing-8);
     }
 }
