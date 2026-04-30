@@ -76,7 +76,16 @@ export const DataViewPage: React.FC = () => {
             sortable: true,
             filter: (
                 <input
-                    style={{ width: '100%', padding: '4px 8px', boxSizing: 'border-box', borderRadius: 4, border: '1px solid var(--delimiter-color)', background: 'var(--card-background-color)', color: 'var(--body-color)', fontSize: 13 }}
+                    style={{
+                        width: '100%',
+                        padding: '4px 8px',
+                        boxSizing: 'border-box',
+                        borderRadius: 4,
+                        border: '1px solid var(--delimiter-color)',
+                        background: 'var(--card-background-color)',
+                        color: 'var(--body-color)',
+                        fontSize: 13,
+                    }}
                     placeholder="Search name…"
                     value={nameFilter}
                     onChange={e => setNameFilter(e.target.value)}
@@ -89,7 +98,16 @@ export const DataViewPage: React.FC = () => {
             sortable: true,
             filter: (
                 <input
-                    style={{ width: '100%', padding: '4px 8px', boxSizing: 'border-box', borderRadius: 4, border: '1px solid var(--delimiter-color)', background: 'var(--card-background-color)', color: 'var(--body-color)', fontSize: 13 }}
+                    style={{
+                        width: '100%',
+                        padding: '4px 8px',
+                        boxSizing: 'border-box',
+                        borderRadius: 4,
+                        border: '1px solid var(--delimiter-color)',
+                        background: 'var(--card-background-color)',
+                        color: 'var(--body-color)',
+                        fontSize: 13,
+                    }}
                     placeholder="Search role…"
                     value={roleFilter}
                     onChange={e => setRoleFilter(e.target.value)}
@@ -107,7 +125,16 @@ export const DataViewPage: React.FC = () => {
             sortable: true,
             filter: (
                 <input
-                    style={{ width: '100%', padding: '4px 8px', boxSizing: 'border-box', borderRadius: 4, border: '1px solid var(--delimiter-color)', background: 'var(--card-background-color)', color: 'var(--body-color)', fontSize: 13 }}
+                    style={{
+                        width: '100%',
+                        padding: '4px 8px',
+                        boxSizing: 'border-box',
+                        borderRadius: 4,
+                        border: '1px solid var(--delimiter-color)',
+                        background: 'var(--card-background-color)',
+                        color: 'var(--body-color)',
+                        fontSize: 13,
+                    }}
                     placeholder="Search status…"
                     value={statusFilter}
                     onChange={e => setStatusFilter(e.target.value)}
@@ -170,8 +197,8 @@ export const DataViewPage: React.FC = () => {
             <section className="page-section">
                 <h2>Filters &amp; Sorting</h2>
                 <p>
-                    Each column optionally accepts a <code>filter</code> node rendered in a dedicated filter row below the headers.
-                    Sorting is built in — click any sortable column header to toggle asc/desc. Both are optional per-column.
+                    Each column optionally accepts a <code>filter</code> node rendered in a dedicated filter row below the headers. Sorting is built in — click
+                    any sortable column header to toggle asc/desc. Both are optional per-column.
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
@@ -183,9 +210,7 @@ export const DataViewPage: React.FC = () => {
                                 title: row => row.name,
                                 subtitle: row => `${row.role} · ${row.status}`,
                                 badges: row => (
-                                    <Badge variant={row.status === 'Active' ? 'success' : row.status === 'On Hold' ? 'warning' : 'danger'}>
-                                        {row.status}
-                                    </Badge>
+                                    <Badge variant={row.status === 'Active' ? 'success' : row.status === 'On Hold' ? 'warning' : 'danger'}>{row.status}</Badge>
                                 ),
                             }}
                             empty={{
@@ -325,8 +350,8 @@ export const DataViewPage: React.FC = () => {
                             empty={{
                                 title: 'No team members found',
                                 description: 'Add someone to get started.',
-                                primaryAction: {
-                                    label: 'Add Member',
+                                primary: {
+                                    text: 'Add Member',
                                     onClick: () => alert('Add member'),
                                     variant: 'info',
                                 },

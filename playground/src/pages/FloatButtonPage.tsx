@@ -23,7 +23,7 @@ export const FloatButtonPage: React.FC = () => {
                                 actions={[
                                     {
                                         label: 'Add Item',
-                                        icon: '+',
+                                        icon: 'plus',
                                         onClick: () => alert('One Item :: Action triggered'),
                                     },
                                 ]}
@@ -41,12 +41,12 @@ export const FloatButtonPage: React.FC = () => {
                                 actions={[
                                     {
                                         label: 'Add Item',
-                                        icon: '+',
+                                        icon: 'plus',
                                         onClick: () => alert('Multiple Items :: First item triggered'),
                                     },
                                     {
                                         label: 'Import Data',
-                                        icon: '📥',
+                                        icon: 'import',
                                         onClick: () => alert('Multiple Items :: Second item triggered'),
                                     },
                                 ]}

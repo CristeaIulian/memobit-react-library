@@ -1,12 +1,13 @@
 import { FC, useState } from 'react';
 
 import { Tooltip } from '../Tooltip';
+import { Icon, IconName } from '../Icon';
 
 import './FloatButton.scss';
 
 export interface FloatButtonAction {
     label: string;
-    icon: string;
+    icon: IconName;
     onClick: () => void;
 }
 
@@ -23,7 +24,9 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
             <div className="float-button-container">
                 <Tooltip title={actions[0].label} position="left">
                     <button className="float-button" onClick={actions[0].onClick} aria-label={actions[0].label}>
-                        <span className="float-button__icon">{actions[0].icon}</span>
+                        <span className="float-button__icon">
+                            <Icon name={actions[0].icon} size="xxl" />
+                        </span>
                     </button>
                 </Tooltip>
             </div>
@@ -48,7 +51,9 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
                     <div className="float-button-menu">
                         {actions.map((action, index) => (
                             <button key={`float-button-${index}`} className="float-button-menu__item" onClick={() => handleActionClick(action)}>
-                                <span className="float-button-menu__icon">{action.icon}</span>
+                                <span className="float-button-menu__icon">
+                                    <Icon name={action.icon} />
+                                </span>
                                 <span className="float-button-menu__label">{action.label}</span>
                             </button>
                         ))}
@@ -57,7 +62,9 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
             )}
 
             <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu} aria-label="Actions menu">
-                <span className="float-button__icon">{isMenuOpen ? '✖' : '+'}</span>
+                <span className="float-button__icon">
+                    <Icon name={isMenuOpen ? 'clear' : 'plus'} size="xxl" />
+                </span>
             </button>
         </div>
     );

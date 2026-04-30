@@ -16,7 +16,7 @@ interface QuickAddProps {
     value?: string;
 }
 
-export const QuickAdd: React.FC<QuickAddProps> = ({ isOpen = false, onClose, placeholder, title, onSave, titleIcon = 'plus', value = '' }) => {
+export const QuickAdd: React.FC<QuickAddProps> = ({ isOpen = false, onClose, placeholder, title, onSave, titleIcon, value = '' }) => {
     const [currentValue, setCurrentValue] = useState<string | undefined>(value);
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
