@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { useComponentEffect } from '../../hooks/useComponentEffect';
 import { Button, type ExternalButtonConfig } from '../Button';
+import { Icon, IconName } from '../Icon';
 
 import './Modal.scss';
 
@@ -15,9 +16,10 @@ interface ModalProps {
     onOverlayClick?: (event: MouseEvent) => void;
     primary?: ExternalButtonConfig;
     secondary?: ExternalButtonConfig;
-    tertiary?: ExternalButtonConfig;
     size?: 'small' | 'medium' | 'large' | 'auto';
+    tertiary?: ExternalButtonConfig;
     title?: string;
+    titleIcon?: IconName;
     usePortal?: boolean;
 }
 
@@ -29,9 +31,10 @@ export const Modal: FC<ModalProps> = ({
     onOverlayClick,
     primary,
     secondary,
-    tertiary,
     size = 'auto',
+    tertiary,
     title,
+    titleIcon,
     usePortal = false,
 }: ModalProps): ReactElement | null => {
     const effectClass = useComponentEffect('Modal');
@@ -66,7 +69,9 @@ export const Modal: FC<ModalProps> = ({
         <div ref={overlayRef} className="modal-overlay" onClick={onOverlayClick}>
             <div ref={modalRef} className={`modal modal--${size} ${className || ''} ${effectClass}`} onClick={e => e.stopPropagation()}>
                 <div className="modal__header">
-                    <h2>{title}</h2>
+                    <h2>
+                        {titleIcon ? <Icon name={titleIcon} /> : null} {title}
+                    </h2>
                     <Button ariaLabel="Close modal" className="modal__close" onClick={onClose} size="medium" title="Close modal" variant="ghost">
                         &times;
                     </Button>

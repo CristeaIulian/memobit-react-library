@@ -1,97 +1,59 @@
 import React, { useState } from 'react';
 
-import { Button } from '../Button';
 import { InputText } from '../InputText';
 import { Modal } from '../Modal';
+import { IconName } from '../Icon';
 
 import './QuickAdd.scss';
-import { ButtonVariant } from '../Button/Button';
 
 interface QuickAddProps {
-    buttonText: string;
-    buttonVariant?: ButtonVariant;
+    isOpen?: boolean;
     placeholder: string;
     title: string;
-    onSave: (value: string) => Promise<void> | void;
-    icon?: string;
+    onClose: () => void;
+    onSave: (value: string | undefined) => Promise<void> | void;
+    titleIcon?: IconName;
+    value?: string;
 }
 
-export const QuickAdd: React.FC<QuickAddProps> = ({ buttonText, buttonVariant = 'default', placeholder, title, onSave, icon = '+' }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [value, setValue] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-
-    const handleOpen = () => {
-        setIsOpen(true);
-        setError('');
-    };
-
-    const handleClose = () => {
-        setIsOpen(false);
-        setValue('');
-        setError('');
-    };
+export const QuickAdd: React.FC<QuickAddProps> = ({ isOpen = false, onClose, placeholder, title, onSave, titleIcon = 'plus', value = '' }) => {
+    const [currentValue, setCurrentValue] = useState<string | undefined>(value);
+    const [isSaving, setIsSaving] = useState<boolean>(false);
 
     const handleSave = async () => {
-        if (!value.trim()) {
-            setError('Please enter a value');
-            return;
-        }
+        setIsSaving(true);
+        await onSave(currentValue);
+        setIsSaving(false);
+        onClose();
+    };
 
-        setLoading(true);
-        setError('');
-
-        try {
-            await onSave(value.trim());
-            handleClose();
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to save');
-        } finally {
-            setLoading(false);
-        }
+    const handleChange = (newValue: string | undefined): void => {
+        setCurrentValue(newValue);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' && !loading) {
+        if (e.key === 'Enter') {
             handleSave();
         }
         if (e.key === 'Escape') {
-            handleClose();
-        }
-    };
-
-    const handleOverlayClick = (e: React.MouseEvent) => {
-        if (e.target === e.currentTarget) {
-            handleClose();
+            onClose();
         }
     };
 
     return (
         <div className="quick-add">
-            <Button variant={buttonVariant} prefixIcon={icon} onClick={handleOpen}>
-                {buttonText}
-            </Button>
-
             <Modal
                 isOpen={isOpen}
                 title={title}
+                titleIcon={titleIcon}
                 size="small"
-                onClose={handleClose}
-                onOverlayClick={handleOverlayClick}
-                secondary={{ text: 'Cancel', variant: 'default', disabled: loading, onClick: handleClose }}
-                primary={{ text: loading ? 'Saving...' : 'Save', variant: 'success', disabled: loading || !value.trim(), onClick: handleSave }}
+                onClose={onClose}
+                onOverlayClick={onClose}
+                secondary={{ text: 'Cancel', variant: 'default', disabled: isSaving, onClick: onClose }}
+                primary={{ text: isSaving ? 'Saving...' : 'Save', variant: 'success', disabled: isSaving, onClick: handleSave }}
             >
                 <div className="quick-add-input">
-                    <InputText
-                        placeholder={placeholder}
-                        value={value}
-                        onChange={value => setValue(value)}
-                        onKeyDown={handleKeyDown}
-                        autoFocus
-                        disabled={loading}
-                        error={error}
-                    />
+                    <InputText placeholder={placeholder} value={currentValue} onChange={handleChange} onKeyDown={handleKeyDown} autoFocus />
                 </div>
             </Modal>
         </div>

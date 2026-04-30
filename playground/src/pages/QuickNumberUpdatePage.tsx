@@ -37,7 +37,7 @@ export const QuickNumberUpdatePage: React.FC = () => {
             <QuickNumberUpdate
                 isOpen={isOpen}
                 title="Weight"
-                icon="kg"
+                icon="plus"
                 value={weight}
                 min={30}
                 max={200}

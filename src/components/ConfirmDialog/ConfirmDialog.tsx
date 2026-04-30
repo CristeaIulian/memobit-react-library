@@ -9,8 +9,8 @@ interface ConfirmDialogProps {
     isOpen: boolean;
     message: string;
     title: string;
-    confirm?: ExternalButtonConfig;
-    cancel?: ExternalButtonConfig;
+    confirm?: Partial<ExternalButtonConfig>;
+    cancel?: Partial<ExternalButtonConfig>;
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ isOpen = false, message, title, confirm, cancel }: ConfirmDialogProps) => {

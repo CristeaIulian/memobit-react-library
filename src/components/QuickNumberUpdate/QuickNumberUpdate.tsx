@@ -2,11 +2,12 @@ import { FC, useState } from 'react';
 
 import { Modal } from '../Modal';
 import { InputNumber } from '../InputNumber';
+import { IconName } from '../Icon';
 
 import './QuickNumberUpdate.scss';
 
 interface QuickNumberUpdateProps {
-    icon?: string;
+    icon?: IconName;
     isOpen?: boolean;
     max?: number;
     min?: number;
@@ -34,7 +35,8 @@ export const QuickNumberUpdate: FC<QuickNumberUpdateProps> = ({ isOpen = false, 
     return (
         <Modal
             isOpen={isOpen}
-            title={`${icon} ${title}`}
+            titleIcon={icon}
+            title={title}
             size="small"
             onClose={onClose}
             onOverlayClick={onClose}

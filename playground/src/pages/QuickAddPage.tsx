@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 
-import { QuickAdd } from '../../../src';
+import { Button, QuickAdd } from '../../../src';
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const QuickAddPage: React.FC = () => {
     const [items, setItems] = useState<string[]>([]);
+    const [showQuickAdd, setShowQuickAdd] = useState<boolean>(false);
 
-    const handleSave = async (value: string) => {
+    const handleSave = async (value: string | undefined) => {
         await wait(400);
-        setItems(prev => [...prev, value]);
+        setItems(prev => [...prev, value || '']);
     };
 
     return (
@@ -22,14 +23,17 @@ export const QuickAddPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Create a new tag</h3>
                     <div className="component-group">
-                        <QuickAdd
-                            buttonText="Add Tag"
-                            buttonVariant="info"
-                            placeholder="Tag name"
-                            title="New tag"
-                            icon="+"
-                            onSave={handleSave}
-                        />
+                        <Button onClick={() => setShowQuickAdd(!showQuickAdd)}>{showQuickAdd ? 'Hide' : 'Show'} Quick Add</Button>
+                        {showQuickAdd && (
+                            <QuickAdd
+                                placeholder="Tag name"
+                                title="New tag"
+                                titleIcon="plus"
+                                isOpen={showQuickAdd}
+                                onSave={handleSave}
+                                onClose={() => setShowQuickAdd(false)}
+                            />
+                        )}
                     </div>
                     <p>Saved: {items.length > 0 ? items.join(', ') : 'No tags yet'}</p>
                 </div>
