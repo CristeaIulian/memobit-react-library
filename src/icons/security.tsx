@@ -1,11 +1,5 @@
-export const admin = (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        width="1em"
-        height="1em"
-    >
+export const security = (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
         <path d="M12 2 4 5.5v6.1c0 5.05 3.41 9.77 8 11.1 4.59-1.33 8-6.05 8-11.1V5.5L12 2zm0 2.2 6 2.62v4.78c0 4.01-2.5 7.76-6 8.99-3.5-1.23-6-4.98-6-8.99V6.82l6-2.62z" />
         <path d="M12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-4 5.2c.52-2.04 2.08-3.2 4-3.2s3.48 1.16 4 3.2c-1.1 1.1-2.49 1.94-4 2.48-1.51-.54-2.9-1.38-4-2.48z" />
     </svg>
