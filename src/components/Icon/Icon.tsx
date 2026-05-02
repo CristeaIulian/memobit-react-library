@@ -43,6 +43,7 @@ import { door } from '../../icons/door';
 import { down } from '../../icons/down';
 import { download } from '../../icons/download';
 import { dryingMachine } from '../../icons/drying-machine';
+import { earth } from '../../icons/earth';
 import { edit } from '../../icons/edit';
 import { empty } from '../../icons/empty';
 import { evening } from '../../icons/evening';
@@ -90,6 +91,7 @@ import { notes } from '../../icons/notes';
 import { off } from '../../icons/off';
 import { on } from '../../icons/on';
 import { optimization } from '../../icons/optimization';
+import { outdoor } from '../../icons/outdoor';
 import { pause } from '../../icons/pause';
 import { pin } from '../../icons/pin';
 import { play } from '../../icons/play';
@@ -215,6 +217,7 @@ const iconMap = {
     door,
     down,
     download,
+    earth,
     edit,
     empty,
     evening,
@@ -256,6 +259,7 @@ const iconMap = {
     off,
     on,
     optimization,
+    outdoor,
     pause,
     pin,
     play,
