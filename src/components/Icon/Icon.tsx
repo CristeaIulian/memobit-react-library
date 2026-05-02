@@ -33,6 +33,7 @@ import { evening } from '../../icons/evening';
 import { export_ } from '../../icons/export';
 import { fibers } from '../../icons/fibers';
 import { file } from '../../icons/file';
+import { food } from '../../icons/food';
 import { grid } from '../../icons/grid';
 import { hearth } from '../../icons/hearth';
 import { history } from '../../icons/history';
@@ -79,6 +80,7 @@ import { user } from '../../icons/user';
 import { users } from '../../icons/users';
 import { view } from '../../icons/view';
 import { wait } from '../../icons/wait';
+import { workout } from '../../icons/workout';
 
 import './Icon.scss';
 
@@ -124,6 +126,7 @@ const iconMap = {
     export: export_,
     fibers,
     file,
+    food,
     grid,
     hearth,
     history,
@@ -162,6 +165,7 @@ const iconMap = {
     users,
     view,
     wait,
+    workout,
 } as const;
 
 export type IconName = keyof typeof iconMap;
