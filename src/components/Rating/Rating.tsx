@@ -1,15 +1,16 @@
 import './Rating.scss';
 import { FC, ReactElement, useCallback } from 'react';
+import { RatingIcon, RatingIconType, RatingVariant } from './RatingIcon';
 
 interface RatingProps {
     align?: 'left' | 'right' | 'space-between';
-    icon?: 'star' | 'bullet';
+    icon?: RatingIconType;
     maxRate?: number;
     onSelect?: (value: number) => void;
     rating: number;
     selectable?: boolean;
     useHalf?: boolean;
-    variant?: 'success' | 'info' | 'warning' | 'danger';
+    variant?: RatingVariant;
 }
 
 export const Rating: FC<RatingProps> = ({
@@ -22,16 +23,18 @@ export const Rating: FC<RatingProps> = ({
     useHalf = false,
     variant = 'warning',
 }: RatingProps): ReactElement => {
-    const rateEmoji = icon === 'star' ? '★' : '●';
+    const onRateClick = useCallback(
+        (value: number) => {
+            if (selectable && !useHalf) {
+                onSelect?.(value + 1);
+            }
+        },
+        [selectable, useHalf, onSelect]
+    );
 
-    const onRateClick = useCallback((value: number) => {
-        if (selectable && !useHalf) {
-            onSelect?.(value + 1);
-        }
-    }, [selectable, useHalf, onSelect]);
-
+    // ─── Half-star selectable input ───────────────────────────────────────────
+    // 5 icons × 2 halves = 10 steps (stored as 1–10)
     if (useHalf && selectable) {
-        // Half-star selectable input: 5 stars × 2 halves = 10 steps (stored as 1-10)
         return (
             <div className={`rating rating--half rating--half-selectable align-${align} is-selectable`}>
                 <span className="rating-rates">
@@ -41,15 +44,11 @@ export const Rating: FC<RatingProps> = ({
                         const isFull = rating >= rightValue;
                         const isHalf = !isFull && rating >= leftValue;
 
-                        const starClass = isFull
-                            ? `rate--full rate-variant-${variant}`
-                            : isHalf
-                            ? `rate--half-gradient rate-variant-${variant}`
-                            : 'rate--empty';
+                        const filled = isFull ? 'full' : isHalf ? 'half' : 'empty';
 
                         return (
-                            <span key={i} className={`rate rate--half-select ${starClass}`}>
-                                {rateEmoji}
+                            <span key={i} className="rate rate--half-select">
+                                <RatingIcon type={icon} filled={filled} variant={variant} size={24} />
                                 <span className="rate-click-left" onClick={() => onSelect?.(leftValue)} />
                                 <span className="rate-click-right" onClick={() => onSelect?.(rightValue)} />
                             </span>
@@ -60,34 +59,32 @@ export const Rating: FC<RatingProps> = ({
         );
     }
 
+    // ─── Half-star display only ───────────────────────────────────────────────
+    // Converts 1–10 rating to a 0.5–5 scale
     if (useHalf) {
-        // Display-only half stars: convert 1-10 to 0.5-5 scale
         const ratingItem = rating / 2;
         const fullRate = Math.floor(ratingItem);
         const hasHalfRate = ratingItem % 1 >= 0.5;
-        const emptyRating = 5 - fullRate - (hasHalfRate ? 1 : 0);
+        const emptyRate = 5 - fullRate - (hasHalfRate ? 1 : 0);
 
         return (
             <div className={`rating rating--half align-${align}`}>
                 <span className="rating-rates">
                     {Array.from({ length: fullRate }, (_, index) => (
-                        <span key={`full-${index}`} className={`rate rate--full rate-variant-${variant}`}>
-                            {rateEmoji}
+                        <span key={`full-${index}`} className="rate">
+                            <RatingIcon type={icon} filled="full" variant={variant} />
                         </span>
                     ))}
 
                     {hasHalfRate && (
-                        <span className="rate rate--half">
-                            <span className="rate-half-container">
-                                <span className={`rate-half-fill rate-variant-${variant}`}>{rateEmoji}</span>
-                                <span className="rate-half-empty">{rateEmoji}</span>
-                            </span>
+                        <span className="rate">
+                            <RatingIcon type={icon} filled="half" variant={variant} />
                         </span>
                     )}
 
-                    {Array.from({ length: emptyRating }, (_, index) => (
-                        <span key={`empty-${index}`} className="rate rate--empty">
-                            {rateEmoji}
+                    {Array.from({ length: emptyRate }, (_, index) => (
+                        <span key={`empty-${index}`} className="rate">
+                            <RatingIcon type={icon} filled="empty" variant={variant} />
                         </span>
                     ))}
                 </span>
@@ -97,17 +94,13 @@ export const Rating: FC<RatingProps> = ({
         );
     }
 
-    // Original 1-10 representation
+    // ─── Full 1–maxRate representation ────────────────────────────────────────
     return (
         <div className={`rating rating--full align-${align} ${selectable ? 'is-selectable' : ''}`}>
             <span className="rating-rates">
                 {Array.from({ length: maxRate }, (_, index) => (
-                    <span
-                        key={index}
-                        className={`rate ${index < rating ? 'rate--filled' : 'rate--empty'} rate-variant-${variant}`}
-                        onClick={() => onRateClick(index)}
-                    >
-                        {rateEmoji}
+                    <span key={index} className="rate" onClick={() => onRateClick(index)}>
+                        <RatingIcon type={icon} filled={index < rating ? 'full' : 'empty'} variant={variant} />
                     </span>
                 ))}
             </span>
