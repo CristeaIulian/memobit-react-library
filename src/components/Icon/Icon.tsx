@@ -59,6 +59,7 @@ import { play } from '../../icons/play';
 import { plus } from '../../icons/plus';
 import { proteins } from '../../icons/proteins';
 import { reload } from '../../icons/reload';
+import { repeat } from '../../icons/repeat';
 import { rightArrow } from '../../icons/right-arrow';
 import { salt } from '../../icons/salt';
 import { save } from '../../icons/save';
@@ -150,6 +151,7 @@ const iconMap = {
     plus,
     proteins,
     reload,
+    repeat,
     salt,
     save,
     search,
