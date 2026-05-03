@@ -1,6 +1,7 @@
 import { CSSProperties, ReactNode, useCallback, useEffect, useRef } from 'react';
 
 import './InfiniteScroll.scss';
+import { Loading } from '../Loading';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -113,7 +114,9 @@ export const InfiniteScroll = ({
             {isLoading && (
                 <div className="infinite-scroll__loader" role="status" aria-label="Loading more">
                     <div className="infinite-scroll__spinner" />
-                    <span className="infinite-scroll__loader-text">Loading...</span>
+                    <span className="infinite-scroll__loader-text">
+                        <Loading />
+                    </span>
                 </div>
             )}
 
