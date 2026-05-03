@@ -53,6 +53,7 @@ import { food } from '../../icons/food';
 import { fridge } from '../../icons/fridge';
 import { gasDetector } from '../../icons/gas-detector';
 import { gateway } from '../../icons/gateway';
+import { glycemicIndex } from '../../icons/glycemic-index';
 import { grid } from '../../icons/grid';
 import { hd } from '../../icons/hd';
 import { heart } from '../../icons/heart';
@@ -169,6 +170,7 @@ const iconMap = {
     'deselect-all': deselectAll,
     'drying-machine': dryingMachine,
     'gas-detector': gasDetector,
+    'glycemic-index': glycemicIndex,
     'ir-emitter': irEmitter,
     'left-arrow': leftArrow,
     'light-bulb': lightBulb,

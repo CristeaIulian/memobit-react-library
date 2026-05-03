@@ -68,6 +68,7 @@ const iconAliases: Record<string, string[]> = {
     fridge: ['refrigerator', 'appliance', 'kitchen', 'cold', 'storage'],
     'gas-detector': ['sensor', 'safety', 'alarm', 'gas', 'leak'],
     gateway: ['router', 'hub', 'bridge', 'network', 'connection'],
+    'glycemic-index': ['gi', 'glucose', 'blood sugar', 'sugar spike', 'diabetes', 'insulin', 'blood glucose', 'carbohydrate'],
     grid: ['layout', 'tiles', 'view', 'display', 'matrix'],
     hd: ['quality', 'video', 'resolution', 'high-definition'],
     heart: ['love', 'like', 'favorite', 'health', 'cardio'],
