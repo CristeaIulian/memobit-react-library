@@ -9,8 +9,10 @@ import { batteryEmpty } from '../../icons/battery-empty';
 import { batteryFull } from '../../icons/battery-full';
 import { batteryHalf } from '../../icons/battery-half';
 import { birthdayCake } from '../../icons/birthday-cake';
+import { bones } from '../../icons/bones';
 import { book } from '../../icons/book';
 import { bottomArrow } from '../../icons/bottom-arrow';
+import { brain } from '../../icons/brain';
 import { breakfast } from '../../icons/breakfast';
 import { buttonDevice } from '../../icons/button-device';
 import { calendar } from '../../icons/calendar';
@@ -29,9 +31,11 @@ import { cooling } from '../../icons/cooling';
 import { correlation } from '../../icons/correlation';
 import { dashboard } from '../../icons/dashboard';
 import { delete_ } from '../../icons/delete';
+import { dental } from '../../icons/dental';
 import { deselectAll } from '../../icons/deselect-all';
 import { detach } from '../../icons/detach';
 import { devices } from '../../icons/devices';
+import { digestive } from '../../icons/digestive';
 import { dinner } from '../../icons/dinner';
 import { dishwasher } from '../../icons/dishwasher';
 import { doctor } from '../../icons/doctor';
@@ -42,8 +46,10 @@ import { down } from '../../icons/down';
 import { download } from '../../icons/download';
 import { dryingMachine } from '../../icons/drying-machine';
 import { earth } from '../../icons/earth';
+import { ears } from '../../icons/ears';
 import { edit } from '../../icons/edit';
 import { empty } from '../../icons/empty';
+import { endocrine } from '../../icons/endocrine';
 import { evening } from '../../icons/evening';
 import { export_ } from '../../icons/export';
 import { favorite } from '../../icons/favorite';
@@ -65,17 +71,21 @@ import { humidity } from '../../icons/humidity';
 import { import_ } from '../../icons/import';
 import { information } from '../../icons/information';
 import { irEmitter } from '../../icons/ir-emitter';
+import { laboratory } from '../../icons/laboratory';
 import { leftArrow } from '../../icons/left-arrow';
 import { lightBulb } from '../../icons/light-bulb';
 import { lightSwitch } from '../../icons/light-switch';
 import { lipids } from '../../icons/lipids';
 import { list } from '../../icons/list';
+import { liver } from '../../icons/liver';
 import { lock } from '../../icons/lock';
 import { logout } from '../../icons/logout';
 import { lunch } from '../../icons/lunch';
+import { lungs } from '../../icons/lungs';
 import { manage } from '../../icons/manage';
 import { mapping } from '../../icons/mapping';
 import { memory } from '../../icons/memory';
+import { mental } from '../../icons/mental';
 import { minus } from '../../icons/minus';
 import { monitor } from '../../icons/monitor';
 import { morning } from '../../icons/morning';
@@ -83,9 +93,11 @@ import { motion } from '../../icons/motion';
 import { movie } from '../../icons/movie';
 import { mute } from '../../icons/mute';
 import { nas } from '../../icons/nas';
+import { nervous } from '../../icons/nervous';
 import { network } from '../../icons/network';
 import { next } from '../../icons/next';
 import { noon } from '../../icons/noon';
+import { nose } from '../../icons/nose';
 import { notFound } from '../../icons/not-found';
 import { notice } from '../../icons/notice';
 import { notes } from '../../icons/notes';
@@ -94,21 +106,26 @@ import { offline } from '../../icons/offline';
 import { on } from '../../icons/on';
 import { online } from '../../icons/online';
 import { optimization } from '../../icons/optimization';
+import { other } from '../../icons/other';
 import { outdoor } from '../../icons/outdoor';
 import { pause } from '../../icons/pause';
+import { pdf } from '../../icons/pdf';
 import { pin } from '../../icons/pin';
 import { play } from '../../icons/play';
 import { plug } from '../../icons/plug';
 import { plus } from '../../icons/plus';
 import { power } from '../../icons/power';
 import { predictions } from '../../icons/predictions';
+import { prescription } from '../../icons/prescription';
 import { previous } from '../../icons/previous';
 import { printer } from '../../icons/printer';
 import { proteins } from '../../icons/proteins';
 import { purifier } from '../../icons/purifier';
+import { referral } from '../../icons/referral';
 import { reload } from '../../icons/reload';
 import { repeat } from '../../icons/repeat';
 import { report } from '../../icons/report';
+import { reproductive } from '../../icons/reproductive';
 import { rightArrow } from '../../icons/right-arrow';
 import { rooms } from '../../icons/rooms';
 import { router } from '../../icons/router';
@@ -123,6 +140,7 @@ import { status } from '../../icons/status';
 import { signalFull } from '../../icons/signal-full';
 import { signalLow } from '../../icons/signal-low';
 import { signalMedium } from '../../icons/signal-medium';
+import { skin } from '../../icons/skin';
 import { smartphone } from '../../icons/smartphone';
 import { smokeDetector } from '../../icons/smoke-detector';
 import { sources } from '../../icons/sources';
@@ -194,7 +212,9 @@ const iconMap = {
     anomaly,
     appliances,
     archive,
+    bones,
     book,
+    brain,
     breakfast,
     calendar,
     calibrate,
@@ -212,8 +232,10 @@ const iconMap = {
     correlation,
     dashboard,
     delete: delete_,
+    dental,
     detach,
     devices,
+    digestive,
     dinner,
     dishwasher,
     doctor,
@@ -223,8 +245,10 @@ const iconMap = {
     down,
     download,
     earth,
+    ears,
     edit,
     empty,
+    endocrine,
     evening,
     export: export_,
     favorite,
@@ -243,14 +267,18 @@ const iconMap = {
     humidity,
     import: import_,
     information,
+    laboratory,
     lipids,
     list,
+    liver,
     lock,
     logout,
     lunch,
+    lungs,
     manage,
     mapping,
     memory,
+    mental,
     minus,
     monitor,
     morning,
@@ -258,9 +286,11 @@ const iconMap = {
     movie,
     mute,
     nas,
+    nervous,
     network,
     next,
     noon,
+    nose,
     notice,
     notes,
     off,
@@ -268,21 +298,26 @@ const iconMap = {
     on,
     online,
     optimization,
+    other,
     outdoor,
     pause,
+    pdf,
     pin,
     play,
     plug,
     plus,
     power,
     predictions,
+    prescription,
     previous,
     printer,
     proteins,
     purifier,
+    referral,
     reload,
     repeat,
     report,
+    reproductive,
     rooms,
     router,
     salt,
@@ -292,6 +327,7 @@ const iconMap = {
     security,
     sequence,
     settings,
+    skin,
     smartphone,
     sources,
     speaker,
