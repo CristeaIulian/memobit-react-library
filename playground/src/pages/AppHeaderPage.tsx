@@ -6,7 +6,10 @@ export const AppHeaderPage: FC = () => {
     return (
         <div className="app-header-page">
             <h1>AppHeader Component</h1>
-            <p>A reusable header component displaying an icon, app name, and headline. Can be used in control panels, toolbars, head bars, and other UI elements.</p>
+            <p>
+                A reusable header component displaying an icon, app name, and headline. Can be used in control panels, toolbars, head bars, and other UI
+                elements.
+            </p>
 
             <section className="page-section">
                 <h2>AppHeader Examples</h2>
@@ -50,7 +53,7 @@ export const AppHeaderPage: FC = () => {
                     <h3>Different Icons</h3>
                     <div className="component-group">
                         <AppHeader icon={<Icon name="movie" />} appName="Movies" headline="Collection" />
-                        <AppHeader icon={<Icon name="shopping-cart" />} appName="Shopping" headline="Cart" />
+                        <AppHeader icon={<Icon name="list" />} appName="Shopping" headline="Cart" />
                         <AppHeader icon={<Icon name="heart" />} appName="Favorites" headline="Saved Items" />
                         <AppHeader icon="📚" appName="Library" headline="Resources" />
                     </div>
