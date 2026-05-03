@@ -223,7 +223,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
               : (options as ControlPanelOptionGroup[]);
 
     const renderFilterItem = (filter: ControlPanelFilter) => (
-        <div className="control-panel__filter" key={filter.id}>
+        <div className={`control-panel__filter${filter.type === 'checkbox' ? ' control-panel__filter--checkbox' : ''}`} key={filter.id}>
             {filter.type !== 'checkbox' && (
                 <span className={`control-panel__filter-title${filter.isActive ? ' control-panel__filter-title--active' : ''}`}>
                     {filter.isActive && <span className="control-panel__filter-active-dot" />}
