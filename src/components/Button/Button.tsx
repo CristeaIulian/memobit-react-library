@@ -21,7 +21,6 @@ export interface ButtonProps {
     prefixIcon?: string;
     size?: 'small' | 'medium' | 'large';
     style?: React.CSSProperties;
-    /** @deprecated Use `icon` instead. */
     sufixIcon?: string;
     type?: 'button' | 'submit' | 'reset';
     title?: string;
@@ -43,12 +42,12 @@ export const Button: React.FC<ButtonProps> = ({
     loading = false,
     onClick,
     prefixIcon,
-    variant = 'default',
+    size = 'medium',
     style,
     sufixIcon,
-    size = 'medium',
     title,
     type = 'button',
+    variant = 'default',
 }: ButtonProps) => {
     return (
         <button

@@ -44,6 +44,52 @@ export const ButtonPage: React.FC = () => {
                     </div>
                 </div>
             </section>
+
+            <section className="page-section">
+                <h2>Loading State</h2>
+                <div className="showcase-group">
+                    <h3>Loading Buttons</h3>
+                    <div className="component-group">
+                        <Button loading>Loading...</Button>
+                        <Button loading variant="success">
+                            Processing
+                        </Button>
+                        <Button loading variant="info">
+                            Saving
+                        </Button>
+                        <Button loading variant="warning">
+                            Please Wait
+                        </Button>
+                        <Button loading variant="danger">
+                            Deleting
+                        </Button>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Loading Button Sizes</h3>
+                    <div className="component-group">
+                        <Button loading size="small">
+                            Small
+                        </Button>
+                        <Button loading size="medium">
+                            Medium
+                        </Button>
+                        <Button loading size="large">
+                            Large
+                        </Button>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Loading Without Text</h3>
+                    <div className="component-group">
+                        <Button loading />
+                        <Button loading variant="success" />
+                        <Button loading variant="info" />
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };
