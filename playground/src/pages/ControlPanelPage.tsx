@@ -20,6 +20,7 @@ export const ControlPanelPage: React.FC = () => {
         status: ['in-progress', 'review'],
         owner: 'team',
         price: [undefined, undefined] as unknown as number[],
+        'due-date-range': ['', ''],
     });
 
     const [libraryFilterValues, setLibraryFilterValues] = useState<Record<string, ControlPanelFilterValue>>({
@@ -67,6 +68,13 @@ export const ControlPanelPage: React.FC = () => {
             max: 10000,
             step: 10,
             isActive: Array.isArray(filterValues.price) && (filterValues.price as number[]).some(v => v !== undefined),
+        },
+        {
+            id: 'due-date-range',
+            label: 'Due date',
+            type: 'date-range',
+            value: filterValues['due-date-range'],
+            isActive: Array.isArray(filterValues['due-date-range']) && (filterValues['due-date-range'] as string[]).some(v => !!v),
         },
         {
             id: 'owner',
@@ -160,7 +168,7 @@ export const ControlPanelPage: React.FC = () => {
     };
 
     const clearFilters = (_event: ControlPanelClearFiltersEvent) => {
-        setFilterValues({ scope: 'all', status: [], owner: null, price: [] });
+        setFilterValues({ scope: 'all', status: [], owner: null, price: [], 'due-date-range': ['', ''] });
     };
 
     const handleLibraryFilterChange = (event: ControlPanelFilterChangeEvent) => {
@@ -232,6 +240,7 @@ export const ControlPanelPage: React.FC = () => {
                             <p>Status: <strong>{Array.isArray(filterValues.status) ? (filterValues.status as string[]).join(', ') || 'none' : String(filterValues.status ?? 'none')}</strong></p>
                             <p>Owner: <strong>{String(filterValues.owner ?? 'none')}</strong></p>
                             <p>Price: <strong>{Array.isArray(filterValues.price) ? (filterValues.price as number[]).map(v => v ?? '—').join(' – ') : 'none'}</strong></p>
+                            <p>Due date: <strong>{Array.isArray(filterValues['due-date-range']) ? (filterValues['due-date-range'] as string[]).map(v => v || '—').join(' → ') : 'none'}</strong></p>
                         </div>
                     </div>
                 </div>

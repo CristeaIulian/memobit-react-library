@@ -258,6 +258,17 @@
         }
     }
 
+    &__filter-date-range {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-8);
+
+        .datepicker {
+            width: 100%;
+            max-width: none;
+        }
+    }
+
     &__filter-range-sep {
         color: var(--body-color-muted);
         flex-shrink: 0;

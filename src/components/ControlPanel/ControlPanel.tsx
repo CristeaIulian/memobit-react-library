@@ -5,6 +5,7 @@ import { Button, ButtonProps } from '../Button';
 import { Chip } from '../Chip';
 import { IconName } from '../Icon';
 import { Dropdown, DropdownOption } from '../Dropdown';
+import { DatePicker } from '../DatePicker';
 import { InputDate } from '../InputDate';
 import { InputNumber } from '../InputNumber';
 import { InputText } from '../InputText';
@@ -41,7 +42,7 @@ export interface ControlPanelFilterOption extends DropdownOption {
     count?: number | string;
 }
 
-export type ControlPanelFilterType = 'radio' | 'chips' | 'dropdown' | 'text' | 'number' | 'rating' | 'range' | 'search' | 'date' | 'checkbox';
+export type ControlPanelFilterType = 'radio' | 'chips' | 'dropdown' | 'text' | 'number' | 'rating' | 'range' | 'date-range' | 'search' | 'date' | 'checkbox';
 export type ControlPanelFilterValue = string | number | boolean | string[] | number[] | null;
 
 export interface ControlPanelFilter {
@@ -339,6 +340,43 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         value={maxVal}
                         error={isInvalid ? 'Max is below min' : undefined}
                         onChange={v => emitRange(minVal, v)}
+                    />
+                </div>
+            );
+        }
+
+        if (filter.type === 'date-range') {
+            const dateArr = Array.isArray(filter.value) ? (filter.value as string[]) : [];
+            const fromStr: string | undefined = dateArr[0] || undefined;
+            const toStr: string | undefined = dateArr[1] || undefined;
+
+            const parseLocalDate = (s: string | undefined): Date | undefined => {
+                if (!s) return undefined;
+                const [y, m, d] = s.split('-').map(Number);
+                return new Date(y, m - 1, d);
+            };
+
+            const formatToDateStr = (val: Date): string => {
+                const y = val.getFullYear();
+                const m = String(val.getMonth() + 1).padStart(2, '0');
+                const d = String(val.getDate()).padStart(2, '0');
+                return `${y}-${m}-${d}`;
+            };
+
+            const emitRange = (newFrom: string | undefined, newTo: string | undefined) =>
+                emitFilterChange({ filterId: filter.id, type: filter.type, value: [newFrom ?? '', newTo ?? ''] });
+
+            return (
+                <div className="control-panel__filter-date-range">
+                    <DatePicker
+                        placeholder="From"
+                        value={parseLocalDate(fromStr)}
+                        onChange={val => emitRange(val instanceof Date ? formatToDateStr(val) : undefined, toStr)}
+                    />
+                    <DatePicker
+                        placeholder="To"
+                        value={parseLocalDate(toStr)}
+                        onChange={val => emitRange(fromStr, val instanceof Date ? formatToDateStr(val) : undefined)}
                     />
                 </div>
             );
