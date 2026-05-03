@@ -4,6 +4,7 @@ export {
     ControlPanel,
     type ControlPanelProps,
     type ControlPanelHeader,
+    type ControlPanelNavItem,
     type ControlPanelAction,
     type ControlPanelFilter,
     type ControlPanelFilterOption,

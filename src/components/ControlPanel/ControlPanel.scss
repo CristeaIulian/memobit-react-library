@@ -21,6 +21,45 @@
         transform 0.3s ease,
         border-color 0.3s ease;
 
+    &__nav {
+        @include flex-column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-8);
+        border-top: var(--spacing-1) solid var(--delimiter-color);
+    }
+
+    &__nav-item {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-height: var(--spacing-40);
+        padding: var(--spacing-10) var(--spacing-12);
+        border: var(--spacing-1) solid transparent;
+        border-radius: var(--radius);
+        background: transparent;
+        color: var(--body-color);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        text-align: left;
+        cursor: pointer;
+        transition:
+            background var(--transition-fast),
+            border-color var(--transition-fast),
+            color var(--transition-fast);
+
+        &:hover {
+            background: var(--card-background-accent-color);
+            color: var(--body-color-accent);
+        }
+
+        &--active {
+            border-color: var(--body-accent-color);
+            background: var(--card-background-accent-color);
+            color: var(--body-accent-color);
+            font-weight: var(--font-weight-semibold);
+        }
+    }
+
     &__actions {
         @include flex-column;
         gap: var(--spacing-8);

@@ -119,6 +119,13 @@ export interface ControlPanelVisibleColumnsConfig {
     onChange: (next: string[]) => void;
 }
 
+export interface ControlPanelNavItem {
+    id: string;
+    label: string;
+    isActive: boolean;
+    onClick: () => void;
+}
+
 export interface ControlPanelProps {
     width?: string;
     className?: string;
@@ -131,6 +138,7 @@ export interface ControlPanelProps {
     margin?: string | number;
     shadow?: string;
     header?: ControlPanelHeader;
+    navigation?: ControlPanelNavItem[];
     actions?: ControlPanelAction[];
     filters?: ControlPanelFilter[];
     filtersCount?: number;
@@ -168,6 +176,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     margin = 0,
     shadow = 'none',
     header,
+    navigation = [],
     actions = [],
     filters = [],
     filtersCount,
@@ -475,6 +484,21 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         headline={header.headline ?? header.heading}
                         onClick={header.onClick}
                     />
+                )}
+
+                {navigation.length > 0 && (
+                    <nav className="control-panel__nav">
+                        {navigation.map(item => (
+                            <button
+                                key={item.id}
+                                className={`control-panel__nav-item${item.isActive ? ' control-panel__nav-item--active' : ''}`}
+                                onClick={item.onClick}
+                                type="button"
+                            >
+                                {item.label}
+                            </button>
+                        ))}
+                    </nav>
                 )}
 
                 {actions.length > 0 && (
