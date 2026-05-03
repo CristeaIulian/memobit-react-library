@@ -8,10 +8,11 @@ import {
     ControlPanelFilterValue,
     ControlPanelClearFiltersEvent,
     ControlPanelOptionChangeEvent,
+    ControlPanelViewMode,
 } from '../../../src';
 
 export const ControlPanelPage: React.FC = () => {
-    const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
+    const [viewMode, setViewMode] = useState<ControlPanelViewMode>('cards');
     const [groupBy, setGroupBy] = useState<string | null>(null);
     const [visibleColumns, setVisibleColumns] = useState(['name', 'status', 'owner', 'priority']);
 

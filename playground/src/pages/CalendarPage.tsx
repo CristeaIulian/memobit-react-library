@@ -26,6 +26,24 @@ export const CalendarPage: React.FC = () => {
         return day === 0 || day === 6;
     };
 
+    const handleSingleDateChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        if (value instanceof Date || value === undefined) {
+            setSingleDate(value);
+        }
+    };
+
+    const handleRangeDateChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        if ((value && 'start' in value) || value === undefined) {
+            setRangeDate(value as CalendarDateRange | undefined);
+        }
+    };
+
+    const handleMultipleDatesChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        if (Array.isArray(value) || value === undefined) {
+            setMultipleDates(value);
+        }
+    };
+
     return (
         <div className="component-page">
             <h1>Calendar</h1>
@@ -39,7 +57,7 @@ export const CalendarPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Default Calendar</h3>
                     <div className="component-group">
-                        <Calendar value={singleDate} onChange={setSingleDate} />
+                        <Calendar value={singleDate} onChange={handleSingleDateChange} />
                     </div>
                     <p>
                         Selected:{' '}
@@ -52,7 +70,7 @@ export const CalendarPage: React.FC = () => {
                     <div className="component-group">
                         <Calendar
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             firstDayOfWeek={1}
                         />
                     </div>
@@ -63,7 +81,7 @@ export const CalendarPage: React.FC = () => {
                     <div className="component-group">
                         <Calendar
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             showToday={false}
                         />
                     </div>
@@ -78,7 +96,7 @@ export const CalendarPage: React.FC = () => {
                         <Calendar
                             mode="range"
                             value={rangeDate}
-                            onChange={setRangeDate}
+                            onChange={handleRangeDateChange}
                         />
                     </div>
                     <p>
@@ -98,7 +116,7 @@ export const CalendarPage: React.FC = () => {
                         <Calendar
                             mode="multiple"
                             value={multipleDates}
-                            onChange={setMultipleDates}
+                            onChange={handleMultipleDatesChange}
                         />
                     </div>
                     <p>
@@ -121,7 +139,7 @@ export const CalendarPage: React.FC = () => {
                     <div className="component-group">
                         <Calendar
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             minDate={minDate}
                             maxDate={maxDate}
                         />
@@ -136,7 +154,7 @@ export const CalendarPage: React.FC = () => {
                     <div className="component-group">
                         <Calendar
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             disabledDates={disabledDates}
                         />
                     </div>
@@ -148,7 +166,7 @@ export const CalendarPage: React.FC = () => {
                     <div className="component-group">
                         <Calendar
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             disabledDates={isWeekendDisabled}
                         />
                     </div>
@@ -168,11 +186,11 @@ export const CalendarPage: React.FC = () => {
                     >
                         <Calendar
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                         />
                         <Calendar
                             value={singleDate}
-                            onChange={setSingleDate}
+                            onChange={handleSingleDateChange}
                             firstDayOfWeek={1}
                         />
                     </div>

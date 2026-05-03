@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import React, { createElement, isValidElement, useMemo, useState } from 'react';
 
 import { Search } from '../../../src';
