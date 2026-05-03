@@ -26,6 +26,7 @@ import { clear } from '../../icons/clear';
 import { clipboard } from '../../icons/clipboard';
 import { cloud } from '../../icons/cloud';
 import { connected } from '../../icons/connected';
+import { connection } from '../../icons/connection';
 import { context } from '../../icons/context';
 import { cooling } from '../../icons/cooling';
 import { correlation } from '../../icons/correlation';
@@ -89,7 +90,9 @@ import { noon } from '../../icons/noon';
 import { notFound } from '../../icons/not-found';
 import { notes } from '../../icons/notes';
 import { off } from '../../icons/off';
+import { offline } from '../../icons/offline';
 import { on } from '../../icons/on';
+import { online } from '../../icons/online';
 import { optimization } from '../../icons/optimization';
 import { outdoor } from '../../icons/outdoor';
 import { pause } from '../../icons/pause';
@@ -138,6 +141,7 @@ import { transactions } from '../../icons/transactions';
 import { trend } from '../../icons/trend';
 import { tv } from '../../icons/tv';
 import { unarchive } from '../../icons/unarchive';
+import { unassociated } from '../../icons/unassociated';
 import { unmute } from '../../icons/unmute';
 import { up } from '../../icons/up';
 import { upload } from '../../icons/upload';
@@ -202,6 +206,7 @@ const iconMap = {
     clipboard,
     cloud,
     connected,
+    connection,
     context,
     cooling,
     correlation,
@@ -257,7 +262,9 @@ const iconMap = {
     noon,
     notes,
     off,
+    offline,
     on,
+    online,
     optimization,
     outdoor,
     pause,
@@ -300,6 +307,7 @@ const iconMap = {
     trend,
     tv,
     unarchive,
+    unassociated,
     unmute,
     up,
     upload,
