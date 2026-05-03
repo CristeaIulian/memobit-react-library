@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { access } from '../../icons/access';
 import { alarm } from '../../icons/alarm';
 import { analysis } from '../../icons/analysis';
 import { anomaly } from '../../icons/anomaly';
 import { appliances } from '../../icons/appliances';
 import { archive } from '../../icons/archive';
-import { attention } from '../../icons/attention';
 import { batteryEmpty } from '../../icons/battery-empty';
 import { batteryFull } from '../../icons/battery-full';
 import { batteryHalf } from '../../icons/battery-half';
@@ -14,7 +12,7 @@ import { birthdayCake } from '../../icons/birthday-cake';
 import { book } from '../../icons/book';
 import { bottomArrow } from '../../icons/bottom-arrow';
 import { breakfast } from '../../icons/breakfast';
-import { button } from '../../icons/button';
+import { buttonDevice } from '../../icons/button-device';
 import { calendar } from '../../icons/calendar';
 import { calibrate } from '../../icons/calibrate';
 import { camera } from '../../icons/camera';
@@ -26,7 +24,6 @@ import { clear } from '../../icons/clear';
 import { clipboard } from '../../icons/clipboard';
 import { cloud } from '../../icons/cloud';
 import { connected } from '../../icons/connected';
-import { connection } from '../../icons/connection';
 import { context } from '../../icons/context';
 import { cooling } from '../../icons/cooling';
 import { correlation } from '../../icons/correlation';
@@ -58,7 +55,7 @@ import { gasDetector } from '../../icons/gas-detector';
 import { gateway } from '../../icons/gateway';
 import { grid } from '../../icons/grid';
 import { hd } from '../../icons/hd';
-import { hearth } from '../../icons/hearth';
+import { heart } from '../../icons/heart';
 import { heating } from '../../icons/heating';
 import { history } from '../../icons/history';
 import { home } from '../../icons/home';
@@ -88,6 +85,7 @@ import { network } from '../../icons/network';
 import { next } from '../../icons/next';
 import { noon } from '../../icons/noon';
 import { notFound } from '../../icons/not-found';
+import { notice } from '../../icons/notice';
 import { notes } from '../../icons/notes';
 import { off } from '../../icons/off';
 import { offline } from '../../icons/offline';
@@ -119,6 +117,7 @@ import { search } from '../../icons/search';
 import { security } from '../../icons/security';
 import { sequence } from '../../icons/sequence';
 import { settings } from '../../icons/settings';
+import { status } from '../../icons/status';
 import { signalFull } from '../../icons/signal-full';
 import { signalLow } from '../../icons/signal-low';
 import { signalMedium } from '../../icons/signal-medium';
@@ -165,7 +164,8 @@ const iconMap = {
     'battery-full': batteryFull,
     'battery-half': batteryHalf,
     'birthday-cake': birthdayCake,
-    'bottom-arow': bottomArrow,
+    'bottom-arrow': bottomArrow,
+    'button-device': buttonDevice,
     'deselect-all': deselectAll,
     'drying-machine': dryingMachine,
     'gas-detector': gasDetector,
@@ -179,22 +179,20 @@ const iconMap = {
     'signal-low': signalLow,
     'signal-medium': signalMedium,
     'smoke-detector': smokeDetector,
+    'stop-sign': stopSign,
     'theme-picker': themePicker,
     'top-arrow': topArrow,
     'vertical-dots': verticalDots,
     'washing-machine': washingMachine,
     'water-leak': waterLeak,
     'website-crawl': websiteCrawl,
-    access,
     alarm,
     analysis,
     anomaly,
     appliances,
     archive,
-    attention,
     book,
     breakfast,
-    button,
     calendar,
     calibrate,
     camera,
@@ -206,7 +204,6 @@ const iconMap = {
     clipboard,
     cloud,
     connected,
-    connection,
     context,
     cooling,
     correlation,
@@ -235,7 +232,7 @@ const iconMap = {
     gateway,
     grid,
     hd,
-    hearth,
+    heart,
     heating,
     history,
     home,
@@ -260,6 +257,7 @@ const iconMap = {
     network,
     next,
     noon,
+    notice,
     notes,
     off,
     offline,
