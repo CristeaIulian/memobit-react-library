@@ -147,7 +147,7 @@ export const ControlPanelPage: React.FC = () => {
         {
             id: 'new-record',
             label: 'New record',
-            icon: '+',
+            icon: 'plus',
             variant: 'info',
             onClick: () => undefined,
         },
@@ -157,7 +157,7 @@ export const ControlPanelPage: React.FC = () => {
         {
             id: 'add-book',
             label: 'Add a book',
-            icon: '+',
+            icon: 'plus',
             variant: 'info',
             onClick: () => undefined,
         },
@@ -233,14 +233,41 @@ export const ControlPanelPage: React.FC = () => {
                         />
                         <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
                             <h3>Workspace Content</h3>
-                            <p>View mode: <strong>{viewMode}</strong></p>
-                            <p>Group by: <strong>{groupBy ?? 'none'}</strong></p>
-                            <p>Visible columns: <strong>{visibleColumns.join(', ')}</strong></p>
-                            <p>Scope: <strong>{String(filterValues.scope ?? 'none')}</strong></p>
-                            <p>Status: <strong>{Array.isArray(filterValues.status) ? (filterValues.status as string[]).join(', ') || 'none' : String(filterValues.status ?? 'none')}</strong></p>
-                            <p>Owner: <strong>{String(filterValues.owner ?? 'none')}</strong></p>
-                            <p>Price: <strong>{Array.isArray(filterValues.price) ? (filterValues.price as number[]).map(v => v ?? '—').join(' – ') : 'none'}</strong></p>
-                            <p>Due date: <strong>{Array.isArray(filterValues['due-date-range']) ? (filterValues['due-date-range'] as string[]).map(v => v || '—').join(' → ') : 'none'}</strong></p>
+                            <p>
+                                View mode: <strong>{viewMode}</strong>
+                            </p>
+                            <p>
+                                Group by: <strong>{groupBy ?? 'none'}</strong>
+                            </p>
+                            <p>
+                                Visible columns: <strong>{visibleColumns.join(', ')}</strong>
+                            </p>
+                            <p>
+                                Scope: <strong>{String(filterValues.scope ?? 'none')}</strong>
+                            </p>
+                            <p>
+                                Status:{' '}
+                                <strong>
+                                    {Array.isArray(filterValues.status)
+                                        ? (filterValues.status as string[]).join(', ') || 'none'
+                                        : String(filterValues.status ?? 'none')}
+                                </strong>
+                            </p>
+                            <p>
+                                Owner: <strong>{String(filterValues.owner ?? 'none')}</strong>
+                            </p>
+                            <p>
+                                Price:{' '}
+                                <strong>{Array.isArray(filterValues.price) ? (filterValues.price as number[]).map(v => v ?? '—').join(' – ') : 'none'}</strong>
+                            </p>
+                            <p>
+                                Due date:{' '}
+                                <strong>
+                                    {Array.isArray(filterValues['due-date-range'])
+                                        ? (filterValues['due-date-range'] as string[]).map(v => v || '—').join(' → ')
+                                        : 'none'}
+                                </strong>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -261,9 +288,21 @@ export const ControlPanelPage: React.FC = () => {
                         />
                         <div style={{ flex: 1, padding: '32px', background: 'var(--body-background)' }}>
                             <h3>Reading Shelf</h3>
-                            <p>Ownership: <strong>{String(libraryFilterValues.ownership ?? 'none')}</strong></p>
-                            <p>Categories: <strong>{Array.isArray(libraryFilterValues.categories) ? (libraryFilterValues.categories as string[]).join(', ') : 'none'}</strong></p>
-                            <p>Languages: <strong>{Array.isArray(libraryFilterValues.languages) ? (libraryFilterValues.languages as string[]).join(', ') : 'none'}</strong></p>
+                            <p>
+                                Ownership: <strong>{String(libraryFilterValues.ownership ?? 'none')}</strong>
+                            </p>
+                            <p>
+                                Categories:{' '}
+                                <strong>
+                                    {Array.isArray(libraryFilterValues.categories) ? (libraryFilterValues.categories as string[]).join(', ') : 'none'}
+                                </strong>
+                            </p>
+                            <p>
+                                Languages:{' '}
+                                <strong>
+                                    {Array.isArray(libraryFilterValues.languages) ? (libraryFilterValues.languages as string[]).join(', ') : 'none'}
+                                </strong>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -311,8 +350,12 @@ export const ControlPanelPage: React.FC = () => {
                         />
                         <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
                             <h3>Settings Preview</h3>
-                            <p>Priority: <strong>{String(optionValues.priority ?? 'none')}</strong></p>
-                            <p>Tags: <strong>{Array.isArray(optionValues.tags) ? (optionValues.tags as string[]).join(', ') || 'none' : 'none'}</strong></p>
+                            <p>
+                                Priority: <strong>{String(optionValues.priority ?? 'none')}</strong>
+                            </p>
+                            <p>
+                                Tags: <strong>{Array.isArray(optionValues.tags) ? (optionValues.tags as string[]).join(', ') || 'none' : 'none'}</strong>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -324,13 +367,11 @@ export const ControlPanelPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Just the View Toggle</h3>
                     <div style={{ display: 'flex', height: '200px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
-                        <ControlPanel
-                            viewToggle={{ value: viewMode, onChange: setViewMode }}
-                            isOpen={true}
-                            width="240px"
-                        />
+                        <ControlPanel viewToggle={{ value: viewMode, onChange: setViewMode }} isOpen={true} width="240px" />
                         <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
-                            <p>View mode: <strong>{viewMode}</strong></p>
+                            <p>
+                                View mode: <strong>{viewMode}</strong>
+                            </p>
                         </div>
                     </div>
                 </div>

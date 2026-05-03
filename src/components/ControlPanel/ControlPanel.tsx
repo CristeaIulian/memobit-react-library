@@ -29,7 +29,7 @@ export interface ControlPanelAction {
     id: string;
     label: string;
     onClick?: ButtonProps['onClick'];
-    icon?: string;
+    icon?: IconName;
     suffixIcon?: string;
     variant?: ButtonProps['variant'];
     size?: ButtonProps['size'];
@@ -154,7 +154,7 @@ const VIEW_TOGGLE_OPTIONS: ViewToggleOptionItem[] = [
     { value: 'table', label: 'Table', icon: 'table' },
 ];
 
-const GALLERY_OPTION: ViewToggleOptionItem = { value: 'gallery', label: 'Gallery', icon: <span>🖼️</span> };
+const GALLERY_OPTION: ViewToggleOptionItem = { value: 'gallery', label: 'Gallery', icon: 'gallery' };
 
 export const ControlPanel: React.FC<ControlPanelProps> = ({
     width = '280px',
@@ -217,11 +217,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     };
 
     const normalizedOptionGroups: ControlPanelOptionGroup[] =
-        options.length === 0
-            ? []
-            : 'type' in options[0]
-              ? [{ options: options as ControlPanelOption[] }]
-              : (options as ControlPanelOptionGroup[]);
+        options.length === 0 ? [] : 'type' in options[0] ? [{ options: options as ControlPanelOption[] }] : (options as ControlPanelOptionGroup[]);
 
     const renderFilterItem = (filter: ControlPanelFilter) => (
         <div className={`control-panel__filter${filter.type === 'checkbox' ? ' control-panel__filter--checkbox' : ''}`} key={filter.id}>
@@ -393,9 +389,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         emitFilterChange({
                             filterId: filter.id,
                             type: filter.type,
-                            value: Array.isArray(selectedOption)
-                                ? getFilterArrayValue(selectedOption.map(o => o.value))
-                                : (selectedOption?.value ?? null),
+                            value: Array.isArray(selectedOption) ? getFilterArrayValue(selectedOption.map(o => o.value)) : (selectedOption?.value ?? null),
                             option: Array.isArray(selectedOption) ? null : (selectedOption as ControlPanelFilterOption | null),
                             options: selectedOptions as ControlPanelFilterOption[],
                         });
@@ -422,9 +416,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                 count={option.count}
                                 selected={isSelected}
                                 onClick={() => {
-                                    const nextValue = isSelected
-                                        ? selectedValues.filter(v => v !== option.value)
-                                        : [...selectedValues, option.value];
+                                    const nextValue = isSelected ? selectedValues.filter(v => v !== option.value) : [...selectedValues, option.value];
                                     emitFilterChange({
                                         filterId: filter.id,
                                         type: filter.type,
@@ -453,7 +445,9 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                     checked={isSelected}
                                     className="control-panel__filter-radio-input"
                                     name={filter.id}
-                                    onChange={() => emitFilterChange({ filterId: filter.id, type: filter.type, value: option.value, option, options: [option] })}
+                                    onChange={() =>
+                                        emitFilterChange({ filterId: filter.id, type: filter.type, value: option.value, option, options: [option] })
+                                    }
                                     type="radio"
                                     value={option.value}
                                 />
@@ -534,7 +528,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                     {[...VIEW_TOGGLE_OPTIONS, ...(viewToggle.showGallery ? [GALLERY_OPTION] : [])].map(opt => (
                                         <Button
                                             key={opt.value}
-                                            icon={opt.icon as IconName | React.ReactElement}
+                                            icon={opt.icon}
                                             size="small"
                                             variant={viewToggle.value === opt.value ? 'info' : 'default'}
                                             onClick={() => viewToggle.onChange(opt.value as 'table' | 'cards' | 'gallery')}
@@ -555,11 +549,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                         {groupBy.options.map(opt => {
                                             const isSelected = groupBy.value === opt.value;
                                             return (
-                                                <Chip
-                                                    key={opt.value}
-                                                    selected={isSelected}
-                                                    onClick={() => groupBy.onChange(isSelected ? null : opt.value)}
-                                                >
+                                                <Chip key={opt.value} selected={isSelected} onClick={() => groupBy.onChange(isSelected ? null : opt.value)}>
                                                     {opt.label}
                                                 </Chip>
                                             );
@@ -633,7 +623,9 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                                                                 checked={isSelected}
                                                                                 className="control-panel__filter-radio-input"
                                                                                 name={`control-panel-option-${option.id}`}
-                                                                                onChange={() => onOptionChange?.({ optionId: option.id, value: radioOption.value })}
+                                                                                onChange={() =>
+                                                                                    onOptionChange?.({ optionId: option.id, value: radioOption.value })
+                                                                                }
                                                                                 type="radio"
                                                                                 value={radioOption.value}
                                                                             />

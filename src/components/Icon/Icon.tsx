@@ -51,6 +51,7 @@ import { fibers } from '../../icons/fibers';
 import { file } from '../../icons/file';
 import { food } from '../../icons/food';
 import { fridge } from '../../icons/fridge';
+import { gallery } from '../../icons/gallery';
 import { gasDetector } from '../../icons/gas-detector';
 import { gateway } from '../../icons/gateway';
 import { glycemicIndex } from '../../icons/glycemic-index';
@@ -231,6 +232,7 @@ const iconMap = {
     file,
     food,
     fridge,
+    gallery,
     gateway,
     grid,
     hd,

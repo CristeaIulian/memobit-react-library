@@ -66,6 +66,7 @@ const iconAliases: Record<string, string[]> = {
     file: ['document', 'paper', 'page', 'text'],
     food: ['meal', 'eat', 'nutrition', 'diet'],
     fridge: ['refrigerator', 'appliance', 'kitchen', 'cold', 'storage'],
+    gallery: ['photo', 'media', 'album', 'lightbox', 'grid', 'image', 'slideshow', 'collection', 'portfolio', 'thumbnails', 'snapshots', 'snapshots'],
     'gas-detector': ['sensor', 'safety', 'alarm', 'gas', 'leak'],
     gateway: ['router', 'hub', 'bridge', 'network', 'connection'],
     'glycemic-index': ['gi', 'glucose', 'blood sugar', 'sugar spike', 'diabetes', 'insulin', 'blood glucose', 'carbohydrate'],
@@ -231,17 +232,16 @@ export const IconsPage: React.FC = () => {
     const [query, setQuery] = useState('');
 
     const normalizedQuery = query.trim().toLowerCase();
-    const filteredIcons = useMemo(
-        () => iconEntries.filter(icon => !normalizedQuery || icon.keywords.includes(normalizedQuery)),
-        [normalizedQuery]
-    );
+    const filteredIcons = useMemo(() => iconEntries.filter(icon => !normalizedQuery || icon.keywords.includes(normalizedQuery)), [normalizedQuery]);
 
     return (
         <div className="icons-page">
             <header className="icons-page__header">
                 <div>
                     <h1>Icons</h1>
-                    <p>Browse every icon available under <code>src/icons</code>. New icon files appear here automatically.</p>
+                    <p>
+                        Browse every icon available under <code>src/icons</code>. New icon files appear here automatically.
+                    </p>
                 </div>
 
                 <div className="icons-page__search">
