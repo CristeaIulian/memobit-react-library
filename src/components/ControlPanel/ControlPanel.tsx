@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 
+import { AppHeader } from '../AppHeader';
 import { Button, ButtonProps } from '../Button';
 import { Chip } from '../Chip';
 import { IconName } from '../Icon';
@@ -16,8 +17,10 @@ import './ControlPanel.scss';
 
 export interface ControlPanelHeader {
     icon?: ReactNode;
+    appName?: string;
     siteName?: string;
     heading?: string;
+    headline?: string;
     onClick?: () => void;
 }
 
@@ -434,16 +437,12 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
             <aside className={panelClassName} style={panelStyle}>
                 {header && (
-                    <>
-                        <div className={`control-panel__header ${header.onClick ? 'control-panel__header--clickable' : ''}`} onClick={header.onClick}>
-                            {header.icon && <span className="control-panel__header-icon">{header.icon}</span>}
-                            <div className="control-panel__header-copy">
-                                {header.siteName && <span className="control-panel__site-name">{header.siteName}</span>}
-                                {header.heading && <span className="control-panel__heading">{header.heading}</span>}
-                            </div>
-                        </div>
-                        <Separator className="control-panel__header-separator" spacing={0} />
-                    </>
+                    <AppHeader
+                        icon={header.icon}
+                        appName={header.appName ?? header.siteName}
+                        headline={header.headline ?? header.heading}
+                        onClick={header.onClick}
+                    />
                 )}
 
                 {actions.length > 0 && (

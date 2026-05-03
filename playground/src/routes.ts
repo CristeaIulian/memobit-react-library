@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 import { UseBreakpointPage } from './pages/UseBreakpointPage';
 import { AccordionPage } from './pages/AccordionPage';
 import { AlertDialogPage } from './pages/AlertDialogPage';
+import { AppHeaderPage } from './pages/AppHeaderPage';
 import { AuthLoginPage } from './pages/AuthLoginPage';
 import { AvatarInitialsPage } from './pages/AvatarInitialsPage';
 import { BadgePage } from './pages/BadgePage';
@@ -100,6 +101,7 @@ export const routes: RouteConfig[] = [
     { path: '/use-breakpoint', label: 'useBreakpoint Hook', component: UseBreakpointPage },
     { path: '/accordion', label: 'Accordion', component: AccordionPage },
     { path: '/alert-dialog', label: 'Alert Dialog', component: AlertDialogPage },
+    { path: '/app-header', label: 'App Header', component: AppHeaderPage },
     { path: '/auth-login', label: 'Auth Login', component: AuthLoginPage },
     { path: '/avatar-initials', label: 'Avatar Initials', component: AvatarInitialsPage },
     { path: '/badge', label: 'Badge', component: BadgePage },

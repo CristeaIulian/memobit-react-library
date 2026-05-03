@@ -1,6 +1,7 @@
 // Export components
 export { Accordion, type AccordionProps, type AccordionItemData } from './components/Accordion';
 export { AlertDialog } from './components/AlertDialog';
+export { AppHeader, type AppHeaderProps } from './components/AppHeader';
 export { AvatarInitials } from './components/AvatarInitials';
 export { Badge, type BadgeVariant, type BadgeProps } from './components/Badge';
 export { BMI } from './components/BMI';

@@ -21,57 +21,6 @@
         transform 0.3s ease,
         border-color 0.3s ease;
 
-    &__header {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-12);
-        padding: var(--spacing-16);
-
-        &--clickable {
-            cursor: pointer;
-        }
-    }
-
-    &__header-separator {
-        width: auto;
-        margin-right: var(--spacing-16);
-        margin-left: var(--spacing-16);
-    }
-
-    &__header-icon {
-        @include flex-center;
-        width: var(--spacing-40);
-        height: var(--spacing-40);
-        flex-shrink: 0;
-        border-radius: var(--radius);
-        background: var(--card-background-accent-color);
-        color: var(--body-accent-color);
-        font-size: var(--font-size-lg);
-    }
-
-    &__header-copy {
-        @include flex-column;
-        min-width: 0;
-    }
-
-    &__site-name {
-        color: var(--body-color);
-        font-size: var(--font-size-md);
-        font-weight: var(--font-weight-semibold);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__heading {
-        color: var(--body-color-muted);
-        font-size: var(--font-size-sm);
-        text-transform: uppercase;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
     &__actions {
         @include flex-column;
         gap: var(--spacing-8);
