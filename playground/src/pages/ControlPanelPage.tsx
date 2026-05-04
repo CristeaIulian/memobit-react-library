@@ -7,6 +7,7 @@ import {
     ControlPanelFilterChangeEvent,
     ControlPanelFilterValue,
     ControlPanelClearFiltersEvent,
+    ControlPanelNavItem,
     ControlPanelOptionChangeEvent,
     ControlPanelViewMode,
 } from '../../../src';
@@ -15,6 +16,7 @@ export const ControlPanelPage: React.FC = () => {
     const [viewMode, setViewMode] = useState<ControlPanelViewMode>('cards');
     const [groupBy, setGroupBy] = useState<string | null>(null);
     const [visibleColumns, setVisibleColumns] = useState(['name', 'status', 'owner', 'priority']);
+    const [activeNavItem, setActiveNavItem] = useState<string>('overview');
 
     const [filterValues, setFilterValues] = useState<Record<string, ControlPanelFilterValue>>({
         scope: 'all',
@@ -161,6 +163,37 @@ export const ControlPanelPage: React.FC = () => {
             icon: 'plus',
             variant: 'info',
             onClick: () => undefined,
+        },
+    ];
+
+    const navigation: ControlPanelNavItem[] = [
+        {
+            id: 'overview',
+            label: 'Overview',
+            icon: 'dashboard',
+            isActive: activeNavItem === 'overview',
+            onClick: () => setActiveNavItem('overview'),
+        },
+        {
+            id: 'analytics',
+            label: 'Analytics',
+            icon: 'chart',
+            isActive: activeNavItem === 'analytics',
+            onClick: () => setActiveNavItem('analytics'),
+        },
+        {
+            id: 'settings',
+            label: 'Settings',
+            icon: 'settings',
+            isActive: activeNavItem === 'settings',
+            onClick: () => setActiveNavItem('settings'),
+        },
+        {
+            id: 'help',
+            label: 'Help',
+            icon: 'information',
+            isActive: activeNavItem === 'help',
+            onClick: () => setActiveNavItem('help'),
         },
     ];
 
@@ -372,6 +405,26 @@ export const ControlPanelPage: React.FC = () => {
                         <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
                             <p>
                                 View mode: <strong>{viewMode}</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Navigation with Icons</h2>
+
+                <div className="showcase-group">
+                    <h3>Navigation Items with Icons</h3>
+                    <div style={{ display: 'flex', minHeight: '320px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                        <ControlPanel header={{ icon: '⚡', siteName: 'Dashboard' }} navigation={navigation} isOpen={true} width="280px" />
+                        <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
+                            <h3>Current Section</h3>
+                            <p>
+                                Active: <strong>{navigation.find(item => item.isActive)?.label}</strong>
+                            </p>
+                            <p style={{ marginTop: '16px', color: 'var(--text-secondary)' }}>
+                                Navigation items now support an optional <code>icon</code> prop that accepts any IconName to display an icon before the label.
                             </p>
                         </div>
                     </div>

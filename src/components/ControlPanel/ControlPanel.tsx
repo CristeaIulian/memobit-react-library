@@ -516,7 +516,11 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                 onClick={item.onClick}
                                 type="button"
                             >
-                                {item.icon && <Icon name={item.icon} />}
+                                {item.icon && (
+                                    <>
+                                        <Icon name={item.icon} /> &nbsp;
+                                    </>
+                                )}
                                 {item.label}
                             </button>
                         ))}
