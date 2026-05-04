@@ -8,16 +8,19 @@ import { archive } from '../../icons/archive';
 import { batteryEmpty } from '../../icons/battery-empty';
 import { batteryFull } from '../../icons/battery-full';
 import { batteryHalf } from '../../icons/battery-half';
+import { bell } from '../../icons/bell';
 import { birthdayCake } from '../../icons/birthday-cake';
 import { bones } from '../../icons/bones';
 import { book } from '../../icons/book';
 import { bottomArrow } from '../../icons/bottom-arrow';
 import { brain } from '../../icons/brain';
 import { breakfast } from '../../icons/breakfast';
+import { bus } from '../../icons/bus';
 import { buttonDevice } from '../../icons/button-device';
 import { calendar } from '../../icons/calendar';
 import { calibrate } from '../../icons/calibrate';
 import { camera } from '../../icons/camera';
+import { car } from '../../icons/car';
 import { carbs } from '../../icons/carbs';
 import { categories } from '../../icons/categories';
 import { chart } from '../../icons/chart';
@@ -45,8 +48,8 @@ import { door } from '../../icons/door';
 import { down } from '../../icons/down';
 import { download } from '../../icons/download';
 import { dryingMachine } from '../../icons/drying-machine';
-import { earth } from '../../icons/earth';
 import { ears } from '../../icons/ears';
+import { earth } from '../../icons/earth';
 import { edit } from '../../icons/edit';
 import { empty } from '../../icons/empty';
 import { endocrine } from '../../icons/endocrine';
@@ -68,6 +71,7 @@ import { heating } from '../../icons/heating';
 import { history } from '../../icons/history';
 import { home } from '../../icons/home';
 import { humidity } from '../../icons/humidity';
+import { identity } from '../../icons/identity';
 import { import_ } from '../../icons/import';
 import { information } from '../../icons/information';
 import { irEmitter } from '../../icons/ir-emitter';
@@ -99,8 +103,8 @@ import { next } from '../../icons/next';
 import { noon } from '../../icons/noon';
 import { nose } from '../../icons/nose';
 import { notFound } from '../../icons/not-found';
-import { notice } from '../../icons/notice';
 import { notes } from '../../icons/notes';
+import { notice } from '../../icons/notice';
 import { off } from '../../icons/off';
 import { offline } from '../../icons/offline';
 import { on } from '../../icons/on';
@@ -108,9 +112,11 @@ import { online } from '../../icons/online';
 import { optimization } from '../../icons/optimization';
 import { other } from '../../icons/other';
 import { outdoor } from '../../icons/outdoor';
+import { ownership } from '../../icons/ownership';
 import { pause } from '../../icons/pause';
 import { pdf } from '../../icons/pdf';
 import { pin } from '../../icons/pin';
+import { plane } from '../../icons/plane';
 import { play } from '../../icons/play';
 import { plug } from '../../icons/plug';
 import { plus } from '../../icons/plus';
@@ -136,7 +142,6 @@ import { search } from '../../icons/search';
 import { security } from '../../icons/security';
 import { sequence } from '../../icons/sequence';
 import { settings } from '../../icons/settings';
-import { status } from '../../icons/status';
 import { signalFull } from '../../icons/signal-full';
 import { signalLow } from '../../icons/signal-low';
 import { signalMedium } from '../../icons/signal-medium';
@@ -145,6 +150,7 @@ import { smartphone } from '../../icons/smartphone';
 import { smokeDetector } from '../../icons/smoke-detector';
 import { sources } from '../../icons/sources';
 import { speaker } from '../../icons/speaker';
+import { status } from '../../icons/status';
 import { stop } from '../../icons/stop';
 import { stopSign } from '../../icons/stop-sign';
 import { streaming } from '../../icons/streaming';
@@ -152,10 +158,12 @@ import { sugar } from '../../icons/sugar';
 import { synchronize } from '../../icons/synchronize';
 import { table } from '../../icons/table';
 import { target } from '../../icons/target';
+import { technical } from '../../icons/technical';
 import { themePicker } from '../../icons/theme-picker';
 import { thermometer } from '../../icons/thermometer';
 import { time } from '../../icons/time';
 import { topArrow } from '../../icons/top-arrow';
+import { train } from '../../icons/train';
 import { transactions } from '../../icons/transactions';
 import { trend } from '../../icons/trend';
 import { tv } from '../../icons/tv';
@@ -212,13 +220,16 @@ const iconMap = {
     anomaly,
     appliances,
     archive,
+    bell,
     bones,
     book,
     brain,
     breakfast,
+    bus,
     calendar,
     calibrate,
     camera,
+    car,
     carbs,
     categories,
     chart,
@@ -244,8 +255,8 @@ const iconMap = {
     door,
     down,
     download,
-    earth,
     ears,
+    earth,
     edit,
     empty,
     endocrine,
@@ -265,6 +276,7 @@ const iconMap = {
     history,
     home,
     humidity,
+    identity,
     import: import_,
     information,
     laboratory,
@@ -291,8 +303,8 @@ const iconMap = {
     next,
     noon,
     nose,
-    notice,
     notes,
+    notice,
     off,
     offline,
     on,
@@ -300,9 +312,11 @@ const iconMap = {
     optimization,
     other,
     outdoor,
+    ownership,
     pause,
     pdf,
     pin,
+    plane,
     play,
     plug,
     plus,
@@ -339,8 +353,10 @@ const iconMap = {
     synchronize,
     table,
     target,
+    technical,
     thermometer,
     time,
+    train,
     transactions,
     trend,
     tv,
