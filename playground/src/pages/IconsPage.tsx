@@ -199,6 +199,7 @@ const iconAliases: Record<string, string[]> = {
         'electronics',
         'diagnostics',
         'schematic',
+        'service',
     ],
     thermometer: ['temperature', 'heat', 'cold', 'weather'],
     time: ['clock', 'hour', 'minute', 'schedule'],
