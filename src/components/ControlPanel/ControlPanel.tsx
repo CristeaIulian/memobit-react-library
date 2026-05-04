@@ -119,12 +119,18 @@ export interface ControlPanelVisibleColumnsConfig {
     onChange: (next: string[]) => void;
 }
 
+export interface ControlPanelNavItemBadge {
+    count: number;
+    variant: 'danger' | 'warning';
+}
+
 export interface ControlPanelNavItem {
     id: string;
     label: string;
     isActive: boolean;
     onClick: () => void;
     icon?: IconName;
+    badges?: ControlPanelNavItemBadge[];
 }
 
 export interface ControlPanelProps {
@@ -522,6 +528,15 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                     </>
                                 )}
                                 {item.label}
+                                {item.badges && item.badges.length > 0 && (
+                                    <span className="control-panel__nav-badges">
+                                        {item.badges.map((badge, i) => (
+                                            <span key={i} className={`control-panel__nav-badge control-panel__nav-badge--${badge.variant}`}>
+                                                {badge.count}
+                                            </span>
+                                        ))}
+                                    </span>
+                                )}
                             </button>
                         ))}
                     </nav>
