@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import { AppHeader } from '../AppHeader';
 import { Button, ButtonProps } from '../Button';
 import { Chip } from '../Chip';
-import { IconName } from '../Icon';
+import { Icon, IconName } from '../Icon';
 import { Dropdown, DropdownOption } from '../Dropdown';
 import { DatePicker } from '../DatePicker';
 import { InputDate } from '../InputDate';
@@ -124,6 +124,7 @@ export interface ControlPanelNavItem {
     label: string;
     isActive: boolean;
     onClick: () => void;
+    icon?: IconName;
 }
 
 export interface ControlPanelProps {
@@ -515,6 +516,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                 onClick={item.onClick}
                                 type="button"
                             >
+                                {item.icon && <Icon name={item.icon} />}
                                 {item.label}
                             </button>
                         ))}
