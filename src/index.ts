@@ -90,6 +90,7 @@ export {
     type ControlPanelProps,
     type ControlPanelHeader,
     type ControlPanelNavItem,
+    type ControlPanelNavItemBadge,
     type ControlPanelAction,
     type ControlPanelFilter,
     type ControlPanelFilterOption,
