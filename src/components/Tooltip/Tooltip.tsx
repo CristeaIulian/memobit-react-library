@@ -18,8 +18,9 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     const [isVisible, setIsVisible] = useState(false);
     const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const triggerRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLSpanElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
+    const isTouchInteractionRef = useRef(false);
 
     const calculatePosition = () => {
         if (!triggerRef.current || !tooltipRef.current) return;
@@ -65,7 +66,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     };
 
     const handleMouseEnter = () => {
-        if (disabled) return;
+        if (disabled || isTouchInteractionRef.current) return;
 
         timeoutRef.current = setTimeout(() => {
             setIsVisible(true);
@@ -73,10 +74,24 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     };
 
     const handleMouseLeave = () => {
+        if (isTouchInteractionRef.current) return;
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
         setIsVisible(false);
+    };
+
+    const handlePointerDown = (event: React.PointerEvent<HTMLSpanElement>) => {
+        if (event.pointerType !== 'touch' && event.pointerType !== 'pen') return;
+        if (disabled) return;
+
+        isTouchInteractionRef.current = true;
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+        event.stopPropagation();
+        setIsVisible(prev => !prev);
     };
 
     useEffect(() => {
@@ -89,6 +104,22 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
         return () => {
             window.removeEventListener('scroll', calculatePosition, true);
             window.removeEventListener('resize', calculatePosition);
+        };
+    }, [isVisible]);
+
+    useEffect(() => {
+        if (!isVisible) return;
+
+        const handleOutsidePointerDown = (event: PointerEvent) => {
+            if (triggerRef.current?.contains(event.target as Node)) return;
+            if (tooltipRef.current?.contains(event.target as Node)) return;
+            setIsVisible(false);
+        };
+
+        document.addEventListener('pointerdown', handleOutsidePointerDown);
+        return () => {
+            document.removeEventListener('pointerdown', handleOutsidePointerDown);
+            isTouchInteractionRef.current = false;
         };
     }, [isVisible]);
 
@@ -109,6 +140,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
                 onMouseLeave={handleMouseLeave}
                 onFocus={handleMouseEnter}
                 onBlur={handleMouseLeave}
+                onPointerDown={handlePointerDown}
             >
                 {children}
             </span>
