@@ -486,21 +486,6 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     />
                 )}
 
-                {navigation.length > 0 && (
-                    <nav className="control-panel__nav">
-                        {navigation.map(item => (
-                            <button
-                                key={item.id}
-                                className={`control-panel__nav-item${item.isActive ? ' control-panel__nav-item--active' : ''}`}
-                                onClick={item.onClick}
-                                type="button"
-                            >
-                                {item.label}
-                            </button>
-                        ))}
-                    </nav>
-                )}
-
                 {actions.length > 0 && (
                     <div className="control-panel__actions">
                         {actions.map(action => (
@@ -519,6 +504,21 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                             </Button>
                         ))}
                     </div>
+                )}
+
+                {navigation.length > 0 && (
+                    <nav className="control-panel__nav">
+                        {navigation.map(item => (
+                            <button
+                                key={item.id}
+                                className={`control-panel__nav-item${item.isActive ? ' control-panel__nav-item--active' : ''}`}
+                                onClick={item.onClick}
+                                type="button"
+                            >
+                                {item.label}
+                            </button>
+                        ))}
+                    </nav>
                 )}
 
                 {filters.length > 0 && (
