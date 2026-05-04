@@ -58,6 +58,7 @@ import { export_ } from '../../icons/export';
 import { favorite } from '../../icons/favorite';
 import { fibers } from '../../icons/fibers';
 import { file } from '../../icons/file';
+import { filters } from '../../icons/filters';
 import { food } from '../../icons/food';
 import { fridge } from '../../icons/fridge';
 import { gallery } from '../../icons/gallery';
@@ -86,10 +87,12 @@ import { lock } from '../../icons/lock';
 import { logout } from '../../icons/logout';
 import { lunch } from '../../icons/lunch';
 import { lungs } from '../../icons/lungs';
+import { mail } from '../../icons/mail';
 import { manage } from '../../icons/manage';
 import { mapping } from '../../icons/mapping';
 import { memory } from '../../icons/memory';
 import { mental } from '../../icons/mental';
+import { menuHamburger } from '../../icons/menu-hamburger';
 import { minus } from '../../icons/minus';
 import { monitor } from '../../icons/monitor';
 import { morning } from '../../icons/morning';
@@ -202,6 +205,7 @@ const iconMap = {
     'left-arrow': leftArrow,
     'light-bulb': lightBulb,
     'light-switch': lightSwitch,
+    'menu-hamburger': menuHamburger,
     'not-found': notFound,
     'right-arrow': rightArrow,
     'signal-full': signalFull,
@@ -265,6 +269,7 @@ const iconMap = {
     favorite,
     fibers,
     file,
+    filters,
     food,
     fridge,
     gallery,
@@ -287,6 +292,7 @@ const iconMap = {
     logout,
     lunch,
     lungs,
+    mail,
     manage,
     mapping,
     memory,
