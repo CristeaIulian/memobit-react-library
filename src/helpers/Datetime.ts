@@ -35,24 +35,42 @@ export const formatSecondsToMediaTime = (seconds: number | undefined): string =>
     return `${hours}:${formattedMinutes}:${formattedSeconds}`;
 };
 
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 /**
  * Formats a date according to the specified format string
- * Supported tokens: YYYY, MM, DD, HH, mm, ss
+ * Supported tokens: YYYY, MMM, MM, DD, HH, mm, ss
  */
 export const formatDate = (date: Date, format: string): string => {
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const monthIndex = date.getMonth();
+    const month = String(monthIndex + 1).padStart(2, '0');
+    const monthName = MONTH_NAMES[monthIndex];
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    return format.replace('YYYY', String(year)).replace('MM', month).replace('DD', day).replace('HH', hours).replace('mm', minutes).replace('ss', seconds);
+    return format
+        .replace('YYYY', String(year))
+        .replace('MMM', monthName)
+        .replace('MM', month)
+        .replace('DD', day)
+        .replace('HH', hours)
+        .replace('mm', minutes)
+        .replace('ss', seconds);
 };
 
 export const formatDateLocale = (dateStr: string): string => {
     const [year, month, day] = dateStr.split('-').map(Number);
     return new Date(year, month - 1, day).toLocaleDateString('en-US');
+};
+
+export const APP_DATE_FORMAT = 'DD MMM YYYY';
+
+export const formatAppDate = (dateStr: string): string => {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    return formatDate(new Date(year, month - 1, day), APP_DATE_FORMAT);
 };
 
 export const formatRelativeDuration = (days: number): string => {
