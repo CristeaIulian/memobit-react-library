@@ -521,7 +521,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     </nav>
                 )}
 
-                {filters.length > 0 && (
+                {(filters.length > 0 || (filtersCount !== undefined && filtersCount > 0)) && (
                     <div className="control-panel__filters">
                         <div className="control-panel__filters-header">
                             <span className="control-panel__filters-heading">
@@ -538,7 +538,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     </div>
                 )}
 
-                {filters.length > 0 && hasOptions && <Separator spacing={0} />}
+                {(filters.length > 0 || (filtersCount !== undefined && filtersCount > 0)) && hasOptions && <Separator spacing={0} />}
 
                 {hasOptions && (
                     <div className="control-panel__options">
