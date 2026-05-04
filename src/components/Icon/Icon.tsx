@@ -33,6 +33,7 @@ import { context } from '../../icons/context';
 import { cooling } from '../../icons/cooling';
 import { correlation } from '../../icons/correlation';
 import { dashboard } from '../../icons/dashboard';
+import { defect } from '../../icons/defect';
 import { delete_ } from '../../icons/delete';
 import { dental } from '../../icons/dental';
 import { deselectAll } from '../../icons/deselect-all';
@@ -153,6 +154,7 @@ import { smartphone } from '../../icons/smartphone';
 import { smokeDetector } from '../../icons/smoke-detector';
 import { sources } from '../../icons/sources';
 import { speaker } from '../../icons/speaker';
+import { speedometer } from '../../icons/speedometer';
 import { status } from '../../icons/status';
 import { stop } from '../../icons/stop';
 import { stopSign } from '../../icons/stop-sign';
@@ -165,6 +167,7 @@ import { technical } from '../../icons/technical';
 import { themePicker } from '../../icons/theme-picker';
 import { thermometer } from '../../icons/thermometer';
 import { time } from '../../icons/time';
+import { toolbox } from '../../icons/toolbox';
 import { topArrow } from '../../icons/top-arrow';
 import { train } from '../../icons/train';
 import { transactions } from '../../icons/transactions';
@@ -246,6 +249,7 @@ const iconMap = {
     cooling,
     correlation,
     dashboard,
+    defect,
     delete: delete_,
     dental,
     detach,
@@ -351,6 +355,7 @@ const iconMap = {
     smartphone,
     sources,
     speaker,
+    speedometer,
     status,
     stop,
     stopSign,
@@ -362,6 +367,7 @@ const iconMap = {
     technical,
     thermometer,
     time,
+    toolbox,
     train,
     transactions,
     trend,
