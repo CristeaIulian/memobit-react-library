@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Separator } from '../Separator';
 
@@ -14,11 +15,18 @@ export interface AppHeaderProps {
 }
 
 export const AppHeader: React.FC<AppHeaderProps> = ({ icon, appName, headline, onClick, className = '', showSeparator = true }) => {
-    const headerClassName = ['app-header', onClick ? 'app-header--clickable' : '', className].filter(Boolean).join(' ');
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/');
+        onClick?.();
+    };
+
+    const headerClassName = ['app-header', 'app-header--clickable', className].filter(Boolean).join(' ');
 
     return (
         <>
-            <div className={headerClassName} onClick={onClick}>
+            <div className={headerClassName} onClick={handleClick}>
                 {icon && <span className="app-header__icon">{icon}</span>}
                 <div className="app-header__copy">
                     {appName && <span className="app-header__app-name">{appName}</span>}
