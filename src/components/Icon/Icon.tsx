@@ -65,6 +65,7 @@ import { fridge } from '../../icons/fridge';
 import { gallery } from '../../icons/gallery';
 import { gasDetector } from '../../icons/gas-detector';
 import { gateway } from '../../icons/gateway';
+import { github } from '../../icons/github';
 import { glycemicIndex } from '../../icons/glycemic-index';
 import { grid } from '../../icons/grid';
 import { hd } from '../../icons/hd';
@@ -80,6 +81,7 @@ import { irEmitter } from '../../icons/ir-emitter';
 import { laboratory } from '../../icons/laboratory';
 import { leftArrow } from '../../icons/left-arrow';
 import { lightBulb } from '../../icons/light-bulb';
+import { linkedin } from '../../icons/linkedin';
 import { lightSwitch } from '../../icons/light-switch';
 import { lipids } from '../../icons/lipids';
 import { list } from '../../icons/list';
@@ -278,6 +280,7 @@ const iconMap = {
     fridge,
     gallery,
     gateway,
+    github,
     grid,
     hd,
     heart,
@@ -289,6 +292,7 @@ const iconMap = {
     import: import_,
     information,
     laboratory,
+    linkedin,
     lipids,
     list,
     liver,

@@ -25,6 +25,8 @@ const iconAliases: Record<string, string[]> = {
     'deselect-all': ['uncheck', 'clear', 'none', 'unselect'],
     'drying-machine': ['dryer', 'appliance', 'laundry', 'clothes'],
     'gas-detector': ['sensor', 'safety', 'alarm', 'gas', 'leak'],
+    github: ['git', 'code', 'repository', 'repo', 'octocat', 'version-control', 'source'],
+    linkedin: ['social', 'professional', 'network', 'job', 'career', 'profile', 'connect'],
     'glycemic-index': ['gi', 'glucose', 'blood sugar', 'sugar spike', 'diabetes', 'insulin', 'blood glucose', 'carbohydrate'],
     'ir-emitter': ['infrared', 'remote', 'control', 'signal', 'wireless'],
     'left-arrow': ['arrow', 'back', 'previous', 'west', 'direction'],
