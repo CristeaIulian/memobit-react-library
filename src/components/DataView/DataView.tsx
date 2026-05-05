@@ -71,6 +71,8 @@ export interface DataViewGroupConfig<T> {
     sortGroups?: (a: DataViewGroup<T>, b: DataViewGroup<T>) => number;
     /** Show item count badge next to group label. Default: true. */
     showCount?: boolean;
+    /** Allow users to collapse/expand individual groups by clicking the header. */
+    collapsible?: boolean;
 }
 
 export interface DataViewProps<T> {
@@ -159,6 +161,9 @@ interface CardViewProps<T> {
     isMobile?: boolean;
     groups?: DataViewGroup<T>[];
     showGroupCount?: boolean;
+    collapsible?: boolean;
+    collapsedGroups?: Set<DataViewGroupKey>;
+    onToggleGroup?: (key: DataViewGroupKey) => void;
 }
 
 function CardView<T>({
@@ -178,6 +183,9 @@ function CardView<T>({
     isMobile = false,
     groups,
     showGroupCount = true,
+    collapsible = false,
+    collapsedGroups,
+    onToggleGroup,
 }: CardViewProps<T>) {
     const cardColumns = columns.filter(col => !col.hideInCard && !(isMobile && col.hideInMobile));
     const cardsClassName = `data-view__cards${cardMaxWidth !== undefined ? ' data-view__cards--grid' : ''}`;
@@ -256,15 +264,22 @@ function CardView<T>({
                 {groups.map(group => {
                     const startIndex = runningIndex;
                     runningIndex += group.items.length;
+                    const isCollapsed = collapsible && collapsedGroups?.has(group.key);
                     return (
                         <section key={group.key ?? '__null__'} className="data-view__group">
-                            <header className="data-view__group-header">
+                            <header
+                                className={`data-view__group-header${collapsible ? ' data-view__group-header--collapsible' : ''}`}
+                                onClick={collapsible ? () => onToggleGroup?.(group.key) : undefined}
+                            >
                                 <span className="data-view__group-label">{group.label}</span>
                                 {showGroupCount && <span className="data-view__group-count">{group.totalCount}</span>}
+                                {collapsible && <Icon className="data-view__group-chevron" name={isCollapsed ? 'down' : 'up'} size="sm" />}
                             </header>
-                            <div className={cardsClassName} style={cardsStyle}>
-                                {group.items.map((row, i) => renderRow(row, startIndex + i))}
-                            </div>
+                            {!isCollapsed && (
+                                <div className={cardsClassName} style={cardsStyle}>
+                                    {group.items.map((row, i) => renderRow(row, startIndex + i))}
+                                </div>
+                            )}
                         </section>
                     );
                 })}
@@ -327,6 +342,19 @@ export function DataView<T>({
             {} as Record<string, number>
         )
     );
+    const [collapsedGroups, setCollapsedGroups] = useState<Set<DataViewGroupKey>>(new Set());
+
+    const toggleGroup = (key: DataViewGroupKey) => {
+        setCollapsedGroups(prev => {
+            const next = new Set(prev);
+            if (next.has(key)) {
+                next.delete(key);
+            } else {
+                next.add(key);
+            }
+            return next;
+        });
+    };
 
     const resolvedRowKey = (row: T, index: number) => rowKey?.(row, index) ?? index;
 
@@ -550,6 +578,9 @@ export function DataView<T>({
                     isMobile={isMobile}
                     groups={computedGroups ?? undefined}
                     showGroupCount={group?.showCount !== false}
+                    collapsible={group?.collapsible}
+                    collapsedGroups={collapsedGroups}
+                    onToggleGroup={toggleGroup}
                     onToggleSelect={(rowId, checked) => {
                         if (checked) {
                             updateSelection([...selectedIds, rowId]);
@@ -731,15 +762,20 @@ export function DataView<T>({
                                 return computedGroups.map(grp => {
                                     const startIndex = runningIndex;
                                     runningIndex += grp.items.length;
+                                    const isCollapsed = group?.collapsible && collapsedGroups.has(grp.key);
                                     return (
                                         <React.Fragment key={grp.key ?? '__null__'}>
-                                            <tr className="data-view__group-row">
+                                            <tr
+                                                className={`data-view__group-row${group?.collapsible ? ' data-view__group-row--collapsible' : ''}`}
+                                                onClick={group?.collapsible ? () => toggleGroup(grp.key) : undefined}
+                                            >
                                                 <td colSpan={totalCols} className="data-view__group-cell">
                                                     <span className="data-view__group-label">{grp.label}</span>
                                                     {showGroupCount && <span className="data-view__group-count">{grp.totalCount}</span>}
+                                                    {group?.collapsible && <Icon className="data-view__group-chevron" name={isCollapsed ? 'down' : 'up'} size="sm" />}
                                                 </td>
                                             </tr>
-                                            {grp.items.map((row, i) => renderTableRow(row, startIndex + i))}
+                                            {!isCollapsed && grp.items.map((row, i) => renderTableRow(row, startIndex + i))}
                                         </React.Fragment>
                                     );
                                 });
