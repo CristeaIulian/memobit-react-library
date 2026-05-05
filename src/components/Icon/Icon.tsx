@@ -213,6 +213,7 @@ import { washingMachine } from '../../icons/washing-machine';
 import { waterLeak } from '../../icons/water-leak';
 import { websiteCrawl } from '../../icons/website-crawl';
 import { workout } from '../../icons/workout';
+import { youtube } from '../../icons/youtube';
 
 import './Icon.scss';
 
@@ -431,6 +432,7 @@ const iconMap = {
     wait,
     warning,
     workout,
+    youtube,
 } as const;
 
 export type IconName = keyof typeof iconMap;

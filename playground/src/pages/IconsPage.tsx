@@ -27,6 +27,7 @@ const iconAliases: Record<string, string[]> = {
     'gas-detector': ['sensor', 'safety', 'alarm', 'gas', 'leak'],
     github: ['git', 'code', 'repository', 'repo', 'octocat', 'version-control', 'source'],
     linkedin: ['social', 'professional', 'network', 'job', 'career', 'profile', 'connect'],
+    youtube: ['video', 'streaming', 'channel', 'play', 'social', 'media', 'creator', 'watch'],
     'glycemic-index': ['gi', 'glucose', 'blood sugar', 'sugar spike', 'diabetes', 'insulin', 'blood glucose', 'carbohydrate'],
     'ir-emitter': ['infrared', 'remote', 'control', 'signal', 'wireless'],
     'left-arrow': ['arrow', 'back', 'previous', 'west', 'direction'],
