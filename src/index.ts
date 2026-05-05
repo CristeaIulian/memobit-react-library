@@ -156,6 +156,7 @@ export {
     formatSecondsToMediaTime,
     formatDate,
     formatDateLocale,
+    getTodayDateString,
     APP_DATE_FORMAT,
     formatAppDate,
     formatRelativeDuration,

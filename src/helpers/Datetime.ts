@@ -66,6 +66,13 @@ export const formatDateLocale = (dateStr: string): string => {
     return new Date(year, month - 1, day).toLocaleDateString('en-US');
 };
 
+export const getTodayDateString = (): string => {
+    const today = new Date();
+    const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000);
+
+    return localDate.toISOString().slice(0, 10);
+};
+
 export const APP_DATE_FORMAT = 'DD MMM YYYY';
 
 export const formatAppDate = (dateStr: string): string => {
