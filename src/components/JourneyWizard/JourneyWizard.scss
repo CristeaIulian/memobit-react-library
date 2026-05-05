@@ -1,0 +1,98 @@
+.journey-wizard {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+
+    &--modal {
+        padding: var(--spacing-4) var(--spacing-24) var(--spacing-24);
+    }
+
+    &--drawer {
+        padding: var(--spacing-4) 0 var(--spacing-8);
+    }
+
+    &__progress {
+        display: flex;
+        gap: var(--spacing-8);
+        justify-content: center;
+        align-items: center;
+        padding-top: var(--spacing-12);
+    }
+
+    &__dot {
+        height: 8px;
+        width: 8px;
+        border-radius: var(--radius-full);
+        background-color: var(--border-color);
+        transition:
+            width var(--transition-moderate),
+            background-color var(--transition-moderate);
+
+        &--done {
+            background-color: var(--body-accent-color);
+            opacity: 0.5;
+        }
+
+        &--active {
+            background-color: var(--body-accent-color);
+            width: 24px;
+        }
+    }
+
+    &__step {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-20);
+    }
+
+    &__step-header {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-6);
+    }
+
+    &__step-title {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-bold);
+        color: var(--body-title-color);
+        margin: 0;
+        line-height: var(--line-height-tight);
+    }
+
+    &__step-subtitle {
+        font-size: var(--font-size-sm);
+        color: var(--body-color-muted);
+        margin: 0;
+        line-height: var(--line-height-normal);
+    }
+
+    &__step-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-16);
+    }
+
+    &__nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: var(--spacing-16);
+        border-top: 1px solid var(--border-color);
+        margin-top: var(--spacing-8);
+    }
+
+    &__nav-side {
+        min-width: 90px;
+        display: flex;
+
+        &--right {
+            justify-content: flex-end;
+        }
+    }
+
+    &__nav-counter {
+        font-size: var(--font-size-sm);
+        color: var(--body-color-muted);
+        font-weight: var(--font-weight-medium);
+    }
+}

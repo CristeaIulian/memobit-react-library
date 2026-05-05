@@ -14,9 +14,10 @@ interface QuickAddProps {
     onSave: (value: string | undefined) => Promise<void> | void;
     titleIcon?: IconName;
     value?: string;
+    usePortal?: boolean;
 }
 
-export const QuickAdd: React.FC<QuickAddProps> = ({ isOpen = false, onClose, placeholder, title, onSave, titleIcon, value = '' }) => {
+export const QuickAdd: React.FC<QuickAddProps> = ({ isOpen = false, onClose, placeholder, title, onSave, titleIcon, value = '', usePortal = false }) => {
     const [currentValue, setCurrentValue] = useState<string | undefined>(value);
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
@@ -51,6 +52,7 @@ export const QuickAdd: React.FC<QuickAddProps> = ({ isOpen = false, onClose, pla
                 onOverlayClick={onClose}
                 secondary={{ text: 'Cancel', variant: 'default', disabled: isSaving, onClick: onClose }}
                 primary={{ text: isSaving ? 'Saving...' : 'Save', variant: 'success', disabled: isSaving, onClick: handleSave }}
+                usePortal={usePortal}
             >
                 <div className="quick-add-input">
                     <InputText placeholder={placeholder} value={currentValue} onChange={handleChange} onKeyDown={handleKeyDown} autoFocus />

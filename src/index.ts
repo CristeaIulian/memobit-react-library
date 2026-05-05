@@ -126,6 +126,7 @@ export {
     type TimelineMarkerInfo,
     type TimelineMarkersItem,
 } from './components/TimelineMarkers';
+export { JourneyWizard, type JourneyStep, type JourneyWizardPresentation, type JourneyWizardProps } from './components/JourneyWizard';
 export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';

@@ -2,8 +2,10 @@ import React from 'react';
 
 import { alarm } from '../../icons/alarm';
 import { analysis } from '../../icons/analysis';
+import { badge } from '../../icons/badge';
 import { anomaly } from '../../icons/anomaly';
 import { appliances } from '../../icons/appliances';
+import { afternoon } from '../../icons/afternoon';
 import { archive } from '../../icons/archive';
 import { batteryEmpty } from '../../icons/battery-empty';
 import { batteryFull } from '../../icons/battery-full';
@@ -89,6 +91,7 @@ import { laboratory } from '../../icons/laboratory';
 import { language } from '../../icons/language';
 import { leftArrow } from '../../icons/left-arrow';
 import { lightBulb } from '../../icons/light-bulb';
+import { lightning } from '../../icons/lightning';
 import { linkedin } from '../../icons/linkedin';
 import { lightSwitch } from '../../icons/light-switch';
 import { lipids } from '../../icons/lipids';
@@ -100,6 +103,7 @@ import { lunch } from '../../icons/lunch';
 import { lungs } from '../../icons/lungs';
 import { mail } from '../../icons/mail';
 import { manage } from '../../icons/manage';
+import { map } from '../../icons/map';
 import { mapping } from '../../icons/mapping';
 import { memory } from '../../icons/memory';
 import { mental } from '../../icons/mental';
@@ -117,6 +121,7 @@ import { network } from '../../icons/network';
 import { next } from '../../icons/next';
 import { noon } from '../../icons/noon';
 import { nose } from '../../icons/nose';
+import { night } from '../../icons/night';
 import { notFound } from '../../icons/not-found';
 import { notes } from '../../icons/notes';
 import { notice } from '../../icons/notice';
@@ -153,6 +158,8 @@ import { rooms } from '../../icons/rooms';
 import { router } from '../../icons/router';
 import { salt } from '../../icons/salt';
 import { save } from '../../icons/save';
+import { scales } from '../../icons/scales';
+import { shoppingCart } from '../../icons/shopping-cart';
 import { sd } from '../../icons/sd';
 import { search } from '../../icons/search';
 import { security } from '../../icons/security';
@@ -183,6 +190,7 @@ import { time } from '../../icons/time';
 import { toolbox } from '../../icons/toolbox';
 import { topArrow } from '../../icons/top-arrow';
 import { train } from '../../icons/train';
+import { trip } from '../../icons/trip';
 import { transactions } from '../../icons/transactions';
 import { trend } from '../../icons/trend';
 import { tv } from '../../icons/tv';
@@ -224,6 +232,7 @@ const iconMap = {
     'menu-hamburger': menuHamburger,
     'not-found': notFound,
     'right-arrow': rightArrow,
+    'shopping-cart': shoppingCart,
     'signal-full': signalFull,
     'signal-low': signalLow,
     'signal-medium': signalMedium,
@@ -235,8 +244,10 @@ const iconMap = {
     'washing-machine': washingMachine,
     'water-leak': waterLeak,
     'website-crawl': websiteCrawl,
+    afternoon,
     alarm,
     analysis,
+    badge,
     anomaly,
     appliances,
     archive,
@@ -311,6 +322,7 @@ const iconMap = {
     information,
     laboratory,
     language,
+    lightning,
     linkedin,
     lipids,
     list,
@@ -321,6 +333,7 @@ const iconMap = {
     lungs,
     mail,
     manage,
+    map,
     mapping,
     memory,
     mental,
@@ -335,6 +348,7 @@ const iconMap = {
     nervous,
     network,
     next,
+    night,
     noon,
     nose,
     notes,
@@ -371,6 +385,7 @@ const iconMap = {
     router,
     salt,
     save,
+    scales,
     sd,
     search,
     security,
@@ -395,6 +410,7 @@ const iconMap = {
     time,
     toolbox,
     train,
+    trip,
     transactions,
     trend,
     tv,

@@ -89,6 +89,7 @@ import { TimelinePage } from './pages/TimelinePage';
 import { TreePage } from './pages/TreePage';
 import { DiffViewerPage } from './pages/DiffViewerPage';
 import { InputMaskPage } from './pages/InputMaskPage';
+import { JourneyWizardPage } from './pages/JourneyWizardPage';
 
 export interface RouteConfig {
     path: string;
@@ -148,6 +149,7 @@ export const routes: RouteConfig[] = [
     { path: '/input-time', label: 'Input Time', component: InputTimePage },
     { path: '/input-url', label: 'Input Url', component: InputUrlPage },
     { path: '/infinite-scroll', label: 'Infinite Scroll', component: InfiniteScrollPage },
+    { path: '/journey-wizard', label: 'Journey Wizard', component: JourneyWizardPage },
     { path: '/rich-text-editor', label: 'Rich Text Editor', component: RichTextEditorPage },
     { path: '/list', label: 'List', component: ListPage },
     { path: '/loading', label: 'Loading', component: LoadingPage },
