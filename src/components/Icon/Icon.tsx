@@ -36,6 +36,7 @@ import { cloud } from '../../icons/cloud';
 import { comment } from '../../icons/comment';
 import { connected } from '../../icons/connected';
 import { context } from '../../icons/context';
+import { cook } from '../../icons/cook';
 import { cooling } from '../../icons/cooling';
 import { correlation } from '../../icons/correlation';
 import { dashboard } from '../../icons/dashboard';
@@ -87,6 +88,7 @@ import { image } from '../../icons/image';
 import { identity } from '../../icons/identity';
 import { import_ } from '../../icons/import';
 import { information } from '../../icons/information';
+import { ingredients } from '../../icons/ingredients';
 import { irEmitter } from '../../icons/ir-emitter';
 import { laboratory } from '../../icons/laboratory';
 import { language } from '../../icons/language';
@@ -141,6 +143,7 @@ import { plane } from '../../icons/plane';
 import { play } from '../../icons/play';
 import { plug } from '../../icons/plug';
 import { plus } from '../../icons/plus';
+import { portions } from '../../icons/portions';
 import { power } from '../../icons/power';
 import { predictions } from '../../icons/predictions';
 import { prescription } from '../../icons/prescription';
@@ -277,6 +280,7 @@ const iconMap = {
     comment,
     connected,
     context,
+    cook,
     cooling,
     correlation,
     dashboard,
@@ -324,6 +328,7 @@ const iconMap = {
     image,
     import: import_,
     information,
+    ingredients,
     laboratory,
     language,
     lightning,
@@ -372,6 +377,7 @@ const iconMap = {
     play,
     plug,
     plus,
+    portions,
     power,
     predictions,
     prescription,
