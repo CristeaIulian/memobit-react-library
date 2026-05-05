@@ -11,6 +11,7 @@ interface RatingProps {
     onSelect?: (value: number) => void;
     rating: number;
     selectable?: boolean;
+    showValue?: boolean;
     useHalf?: boolean;
     variant?: RatingVariant;
 }
@@ -24,6 +25,7 @@ export const Rating: FC<RatingProps> = ({
     onSelect,
     rating,
     selectable = false,
+    showValue = true,
     useHalf = false,
     variant = 'warning',
 }: RatingProps): ReactElement => {
@@ -93,7 +95,7 @@ export const Rating: FC<RatingProps> = ({
                     ))}
                 </span>
 
-                <span className="rating-values">({String(rating / 2)}/5)</span>
+                {showValue && <span className="rating-values">({String(rating / 2)}/5)</span>}
             </div>
         );
     }
@@ -108,9 +110,7 @@ export const Rating: FC<RatingProps> = ({
                     </span>
                 ))}
             </span>
-            <span className="rating-values">
-                ({rating}/{maxRate})
-            </span>
+            {showValue && <span className="rating-values">({rating}/{maxRate})</span>}
         </div>
     );
 };

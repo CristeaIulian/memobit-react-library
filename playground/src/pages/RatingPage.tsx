@@ -29,6 +29,9 @@ export const RatingPage: React.FC = () => {
                     <div className="component-group">
                         <Rating rating={7} maxRate={10} useHalf />
                     </div>
+                    <div className="component-group">
+                        <Rating rating={7} maxRate={10} useHalf showValue={false} />
+                    </div>
                 </div>
             </section>
 
