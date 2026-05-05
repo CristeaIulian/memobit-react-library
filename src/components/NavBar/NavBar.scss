@@ -11,6 +11,10 @@
     box-sizing: border-box;
     z-index: 100;
 
+    &--no-padding {
+        padding: 0;
+    }
+
     &--fixed {
         position: fixed;
         top: 0;

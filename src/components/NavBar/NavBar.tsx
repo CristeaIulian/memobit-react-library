@@ -24,9 +24,19 @@ interface NavBarProps {
     className?: string;
     renderItem?: (item: NavBarItem) => ReactNode;
     collapsible?: boolean;
+    noPadding?: boolean;
 }
 
-export const NavBar: React.FC<NavBarProps> = ({ items, logo, actions, position = 'static', className = '', renderItem, collapsible = false }) => {
+export const NavBar: React.FC<NavBarProps> = ({
+    items,
+    logo,
+    actions,
+    position = 'static',
+    className = '',
+    renderItem,
+    collapsible = false,
+    noPadding = false,
+}) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const handleItemClick = (item: NavBarItem) => {
@@ -58,7 +68,7 @@ export const NavBar: React.FC<NavBarProps> = ({ items, logo, actions, position =
     const hiddenCount = collapsible && !isExpanded ? items.filter((item, index) => index > 0 && !item.isActive).length : 0;
 
     return (
-        <nav className={`navbar navbar--${position} ${className}`}>
+        <nav className={`navbar navbar--${position} ${className} ${noPadding ? 'navbar--no-padding' : ''}`}>
             {logo && <div className="navbar__logo">{logo}</div>}
 
             <div className="navbar__items">

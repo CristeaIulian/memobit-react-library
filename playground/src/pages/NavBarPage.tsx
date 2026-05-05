@@ -94,6 +94,23 @@ export const NavBarPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>Basic Example with no padding</h2>
+
+                <div className="showcase-group">
+                    <h3>Simple NavBar</h3>
+                    <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
+                        <NavBar items={basicItems} noPadding />
+                        <div style={{ padding: '32px', background: 'var(--body-background)' }}>
+                            <h3>Page Content</h3>
+                            <p>
+                                Active Item: <strong>{activeItem}</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>With Logo and Actions</h2>
 
                 <div className="showcase-group">
