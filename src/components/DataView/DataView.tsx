@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react';
 
 import { useBreakpoint } from '../../hooks/useBreakpoint';
-import { Button } from '../Button';
+import { Button, type ExternalButtonConfig } from '../Button';
 import { Checkbox } from '../Checkbox';
 import { Dropdown, type DropdownOption } from '../Dropdown';
 import { EmptyState } from '../EmptyState';
-import { type ExternalButtonConfig } from '../Button';
+import { Icon, type IconName } from '../Icon';
 import { Pagination } from '../Pagination';
 import { calculateTimelineMarkers, TimelineMarkerDot, type TimelineMarkerInfo, type TimelineMarkersItem, TimelineMobileSeparator } from '../TimelineMarkers';
 
@@ -19,6 +19,7 @@ export type DataViewDisplayMode = 'table' | 'cards';
 export interface DataViewColumn<T> {
     key: string;
     header: React.ReactNode;
+    icon?: IconName;
     /** Optional filter input rendered below the column header (table) or in the filter bar (card) */
     filter?: React.ReactNode;
     accessor?: (row: T) => React.ReactNode;
@@ -118,6 +119,13 @@ const getColumnLabel = <T,>(column: DataViewColumn<T>) => (typeof column.header 
 
 const getCardMaxWidthValue = (cardMaxWidth: number | string) => (typeof cardMaxWidth === 'number' ? `${cardMaxWidth}px` : cardMaxWidth);
 
+const renderColumnLabel = <T,>(column: DataViewColumn<T>) => (
+    <span className="data-view__column-label">
+        {column.icon && <Icon className="data-view__column-icon" name={column.icon} size="sm" variant="muted" />}
+        <span>{column.header}</span>
+    </span>
+);
+
 // ─── Sort icon ───────────────────────────────────────────────────────────────
 
 interface SortIconProps {
@@ -173,10 +181,7 @@ function CardView<T>({
 }: CardViewProps<T>) {
     const cardColumns = columns.filter(col => !col.hideInCard && !(isMobile && col.hideInMobile));
     const cardsClassName = `data-view__cards${cardMaxWidth !== undefined ? ' data-view__cards--grid' : ''}`;
-    const cardsStyle =
-        cardMaxWidth !== undefined
-            ? ({ '--data-view-card-max-width': getCardMaxWidthValue(cardMaxWidth) } as React.CSSProperties)
-            : undefined;
+    const cardsStyle = cardMaxWidth !== undefined ? ({ '--data-view-card-max-width': getCardMaxWidthValue(cardMaxWidth) } as React.CSSProperties) : undefined;
 
     const timelineMarkers = useMemo(() => {
         if (!timeline) return new Map<number, TimelineMarkerInfo>();
@@ -189,15 +194,7 @@ function CardView<T>({
 
     if (data.length === 0) {
         if (empty) {
-            return (
-                <EmptyState
-                    title={empty.title}
-                    description={empty.description}
-                    icon={empty.icon}
-                    primary={empty.primary}
-                    secondary={empty.secondary}
-                />
-            );
+            return <EmptyState title={empty.title} description={empty.description} icon={empty.icon} primary={empty.primary} secondary={empty.secondary} />;
         }
         return <EmptyState title="No data available" />;
     }
@@ -233,7 +230,7 @@ function CardView<T>({
                         <div className="data-view__card-body">
                             {cardColumns.map(col => (
                                 <div key={col.key} className="data-view__card-field">
-                                    <span className="data-view__card-label">{col.header}</span>
+                                    <span className="data-view__card-label">{renderColumnLabel(col)}</span>
                                     <span className="data-view__card-value">
                                         {col.accessor ? col.accessor(row) : (row as Record<string, React.ReactNode>)[col.key]}
                                     </span>
@@ -624,7 +621,7 @@ export function DataView<T>({
                                         onClick={() => toggleSort(column)}
                                     >
                                         <span className="data-view__th-content">
-                                            <span>{column.header}</span>
+                                            {renderColumnLabel(column)}
                                             {column.sortable && <SortIcon state={sortKey === column.key ? sortDirection : 'unsorted'} />}
                                         </span>
                                         <span

@@ -65,6 +65,17 @@
         justify-content: space-between;
     }
 
+    &__column-label {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-6);
+        min-width: 0;
+    }
+
+    &__column-icon {
+        flex-shrink: 0;
+    }
+
     // ── Sort icon ───────────────────────────────────────────────────────
 
     &__sort-icon {

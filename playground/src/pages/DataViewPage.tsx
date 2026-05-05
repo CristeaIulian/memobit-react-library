@@ -152,10 +152,10 @@ export const DataViewPage: React.FC = () => {
     // ── Basic columns ───────────────────────────────────────────────────
 
     const basicColumns: DataViewColumn<UserRow>[] = [
-        { key: 'name', header: 'Name', sortable: true },
-        { key: 'role', header: 'Role', sortable: true },
-        { key: 'score', header: 'Score', sortable: true },
-        { key: 'status', header: 'Status' },
+        { key: 'name', header: 'Name', icon: 'user', sortable: true },
+        { key: 'role', header: 'Role', icon: 'briefcase', sortable: true },
+        { key: 'score', header: 'Score', icon: 'speedometer', sortable: true },
+        { key: 'status', header: 'Status', icon: 'status' },
     ];
 
     // ── Card config columns ─────────────────────────────────────────────
@@ -169,20 +169,22 @@ export const DataViewPage: React.FC = () => {
     // ── Medical columns ─────────────────────────────────────────────────
 
     const medicalColumns: DataViewColumn<TestResult>[] = [
-        { key: 'testName', header: 'Test', sortable: true, hideInCard: true },
+        { key: 'testName', header: 'Test', icon: 'laboratory', sortable: true, hideInCard: true },
         {
             key: 'value',
             header: 'Value',
+            icon: 'report',
             accessor: row => `${row.value} ${row.unit}`,
         },
         {
             key: 'status',
             header: 'Status',
+            icon: 'status',
             accessor: row => <Badge variant={statusVariantMap[row.status]}>{row.status}</Badge>,
             hideInCard: true,
         },
-        { key: 'date', header: 'Date', sortable: true },
-        { key: 'clinic', header: 'Clinic', hideInCard: true },
+        { key: 'date', header: 'Date', icon: 'calendar', sortable: true },
+        { key: 'clinic', header: 'Clinic', icon: 'building', hideInCard: true },
     ];
 
     return (
