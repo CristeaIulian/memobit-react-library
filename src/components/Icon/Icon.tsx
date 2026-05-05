@@ -11,6 +11,7 @@ import { batteryEmpty } from '../../icons/battery-empty';
 import { batteryFull } from '../../icons/battery-full';
 import { batteryHalf } from '../../icons/battery-half';
 import { bell } from '../../icons/bell';
+import { benefit } from '../../icons/benefit';
 import { birthdayCake } from '../../icons/birthday-cake';
 import { bones } from '../../icons/bones';
 import { book } from '../../icons/book';
@@ -258,6 +259,7 @@ const iconMap = {
     appliances,
     archive,
     bell,
+    benefit,
     bones,
     book,
     brain,

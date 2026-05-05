@@ -55,6 +55,7 @@ const iconAliases: Record<string, string[]> = {
     appliances: ['devices', 'home', 'electronics', 'kitchen'],
     archive: ['storage', 'folder', 'box', 'save', 'backup'],
     bell: ['notification', 'alert', 'reminder', 'alarm', 'ring', 'chime', ' push-notification'],
+    benefit: ['perk', 'reward', 'bonus', 'gift', 'advantage', 'value', 'included', 'offer'],
     bones: ['skeleton', 'orthopedic', 'bone', 'fracture', 'skeletal', 'osteo'],
     book: ['reading', 'library', 'education', 'documentation', 'manual', 'guide'],
     brain: ['neurology', 'mind', 'cerebral', 'cognition', 'head', 'thinking'],

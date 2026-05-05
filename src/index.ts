@@ -178,6 +178,7 @@ export { slugify, shortenText, truncateText } from './helpers/Strings';
 export { extractDomainFromUrl, stripQueryString, stripTrackingParams } from './helpers/Urls';
 export { formatBigNumber, formatBytes, formatMoney } from './helpers/Format';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
+export { getResultsCount } from './helpers/Pagination';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
 export { fuzzyMatch } from './helpers/Search';
 export { validateVin, type VinValidationResult } from './validators/Vin';
