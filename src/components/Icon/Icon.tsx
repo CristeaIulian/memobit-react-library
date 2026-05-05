@@ -15,6 +15,7 @@ import { book } from '../../icons/book';
 import { bottomArrow } from '../../icons/bottom-arrow';
 import { brain } from '../../icons/brain';
 import { breakfast } from '../../icons/breakfast';
+import { briefcase } from '../../icons/briefcase';
 import { building } from '../../icons/building';
 import { bus } from '../../icons/bus';
 import { buttonDevice } from '../../icons/button-device';
@@ -24,11 +25,13 @@ import { camera } from '../../icons/camera';
 import { car } from '../../icons/car';
 import { carbs } from '../../icons/carbs';
 import { categories } from '../../icons/categories';
+import { certificate } from '../../icons/certificate';
 import { chart } from '../../icons/chart';
 import { checkmark } from '../../icons/checkmark';
 import { clear } from '../../icons/clear';
 import { clipboard } from '../../icons/clipboard';
 import { cloud } from '../../icons/cloud';
+import { comment } from '../../icons/comment';
 import { connected } from '../../icons/connected';
 import { context } from '../../icons/context';
 import { cooling } from '../../icons/cooling';
@@ -66,8 +69,10 @@ import { fridge } from '../../icons/fridge';
 import { gallery } from '../../icons/gallery';
 import { gasDetector } from '../../icons/gas-detector';
 import { gateway } from '../../icons/gateway';
+import { globe } from '../../icons/globe';
 import { github } from '../../icons/github';
 import { glycemicIndex } from '../../icons/glycemic-index';
+import { graduation } from '../../icons/graduation';
 import { grid } from '../../icons/grid';
 import { hd } from '../../icons/hd';
 import { heart } from '../../icons/heart';
@@ -75,11 +80,13 @@ import { heating } from '../../icons/heating';
 import { history } from '../../icons/history';
 import { home } from '../../icons/home';
 import { humidity } from '../../icons/humidity';
+import { image } from '../../icons/image';
 import { identity } from '../../icons/identity';
 import { import_ } from '../../icons/import';
 import { information } from '../../icons/information';
 import { irEmitter } from '../../icons/ir-emitter';
 import { laboratory } from '../../icons/laboratory';
+import { language } from '../../icons/language';
 import { leftArrow } from '../../icons/left-arrow';
 import { lightBulb } from '../../icons/light-bulb';
 import { linkedin } from '../../icons/linkedin';
@@ -97,6 +104,7 @@ import { mapping } from '../../icons/mapping';
 import { memory } from '../../icons/memory';
 import { mental } from '../../icons/mental';
 import { menuHamburger } from '../../icons/menu-hamburger';
+import { microphone } from '../../icons/microphone';
 import { minus } from '../../icons/minus';
 import { monitor } from '../../icons/monitor';
 import { morning } from '../../icons/morning';
@@ -137,6 +145,7 @@ import { purifier } from '../../icons/purifier';
 import { referral } from '../../icons/referral';
 import { reload } from '../../icons/reload';
 import { repeat } from '../../icons/repeat';
+import { rocket } from '../../icons/rocket';
 import { report } from '../../icons/report';
 import { reproductive } from '../../icons/reproductive';
 import { rightArrow } from '../../icons/right-arrow';
@@ -157,6 +166,7 @@ import { smartphone } from '../../icons/smartphone';
 import { smokeDetector } from '../../icons/smoke-detector';
 import { sources } from '../../icons/sources';
 import { speaker } from '../../icons/speaker';
+import { sparkle } from '../../icons/sparkle';
 import { speedometer } from '../../icons/speedometer';
 import { status } from '../../icons/status';
 import { stop } from '../../icons/stop';
@@ -235,6 +245,7 @@ const iconMap = {
     book,
     brain,
     breakfast,
+    briefcase,
     building,
     bus,
     calendar,
@@ -243,11 +254,13 @@ const iconMap = {
     car,
     carbs,
     categories,
+    certificate,
     chart,
     checkmark,
     clear,
     clipboard,
     cloud,
+    comment,
     connected,
     context,
     cooling,
@@ -283,6 +296,8 @@ const iconMap = {
     gallery,
     gateway,
     github,
+    globe,
+    graduation,
     grid,
     hd,
     heart,
@@ -291,9 +306,11 @@ const iconMap = {
     home,
     humidity,
     identity,
+    image,
     import: import_,
     information,
     laboratory,
+    language,
     linkedin,
     lipids,
     list,
@@ -307,6 +324,7 @@ const iconMap = {
     mapping,
     memory,
     mental,
+    microphone,
     minus,
     monitor,
     morning,
@@ -348,6 +366,7 @@ const iconMap = {
     repeat,
     report,
     reproductive,
+    rocket,
     rooms,
     router,
     salt,
@@ -361,6 +380,7 @@ const iconMap = {
     smartphone,
     sources,
     speaker,
+    sparkle,
     speedometer,
     status,
     stop,
