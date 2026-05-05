@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import { Radio } from '../Radio';
 import { Modal } from '../Modal';
+import { IconName } from '../Icon';
 
 import './QuickOptionUpdate.scss';
 
 interface QuickOptionUpdateProps {
-    icon?: string;
+    icon?: IconName;
     isOpen: boolean;
     list: { key: string; label: string }[];
     onClose: () => void;
@@ -54,7 +55,8 @@ export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ isOpen = f
         <div className="quick-set">
             <Modal
                 isOpen={isOpen}
-                title={`${icon} ${title}`}
+                titleIcon={icon}
+                title={title}
                 size="small"
                 onClose={onClose}
                 onOverlayClick={onClose}

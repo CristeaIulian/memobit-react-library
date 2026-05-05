@@ -60,6 +60,7 @@ import { earth } from '../../icons/earth';
 import { edit } from '../../icons/edit';
 import { empty } from '../../icons/empty';
 import { endocrine } from '../../icons/endocrine';
+import { enlarge } from '../../icons/enlarge';
 import { evening } from '../../icons/evening';
 import { export_ } from '../../icons/export';
 import { favorite } from '../../icons/favorite';
@@ -165,6 +166,7 @@ import { search } from '../../icons/search';
 import { security } from '../../icons/security';
 import { sequence } from '../../icons/sequence';
 import { settings } from '../../icons/settings';
+import { shrink } from '../../icons/shrink';
 import { signalFull } from '../../icons/signal-full';
 import { signalLow } from '../../icons/signal-low';
 import { signalMedium } from '../../icons/signal-medium';
@@ -296,6 +298,7 @@ const iconMap = {
     edit,
     empty,
     endocrine,
+    enlarge,
     evening,
     export: export_,
     favorite,
@@ -391,6 +394,7 @@ const iconMap = {
     security,
     sequence,
     settings,
+    shrink,
     skin,
     smartphone,
     sources,
