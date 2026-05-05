@@ -15,6 +15,7 @@ import { book } from '../../icons/book';
 import { bottomArrow } from '../../icons/bottom-arrow';
 import { brain } from '../../icons/brain';
 import { breakfast } from '../../icons/breakfast';
+import { building } from '../../icons/building';
 import { bus } from '../../icons/bus';
 import { buttonDevice } from '../../icons/button-device';
 import { calendar } from '../../icons/calendar';
@@ -234,6 +235,7 @@ const iconMap = {
     book,
     brain,
     breakfast,
+    building,
     bus,
     calendar,
     calibrate,

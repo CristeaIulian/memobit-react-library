@@ -11,9 +11,10 @@ interface ConfirmDialogProps {
     title: string;
     confirm?: Partial<ExternalButtonConfig>;
     cancel?: Partial<ExternalButtonConfig>;
+    usePortal?: boolean;
 }
 
-const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ isOpen = false, message, title, confirm, cancel }: ConfirmDialogProps) => {
+const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ isOpen = false, message, title, confirm, cancel, usePortal = false }: ConfirmDialogProps) => {
     const cancelButtonProps = {
         variant: cancel?.variant || 'default',
         icon: cancel?.icon || 'clear',
@@ -29,6 +30,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ isOpen = false, message, 
             onClose={cancel?.onClick ? () => (cancel.onClick as () => void)() : undefined}
             size="small"
             className="confirm-dialog"
+            usePortal={usePortal}
             primary={{
                 variant: confirm?.variant || 'danger',
                 icon: confirm?.icon || 'checkmark',

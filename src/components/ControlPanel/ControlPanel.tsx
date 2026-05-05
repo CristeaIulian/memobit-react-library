@@ -130,6 +130,7 @@ export interface ControlPanelNavItem {
     isActive: boolean;
     onClick: () => void;
     icon?: IconName;
+    color?: string;
     badges?: ControlPanelNavItemBadge[];
 }
 
@@ -526,6 +527,12 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                     <>
                                         <Icon name={item.icon} /> &nbsp;
                                     </>
+                                )}
+                                {item.color && (
+                                    <span
+                                        className="control-panel__nav-dot"
+                                        style={{ backgroundColor: item.color }}
+                                    />
                                 )}
                                 {item.label}
                                 {item.badges && item.badges.length > 0 && (
