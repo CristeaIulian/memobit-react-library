@@ -348,6 +348,12 @@
         }
     }
 
+    &__filter-date-presets {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-8);
+    }
+
     &__filter-range-sep {
         color: var(--body-color-muted);
         flex-shrink: 0;

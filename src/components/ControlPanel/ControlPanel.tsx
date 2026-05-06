@@ -42,6 +42,11 @@ export interface ControlPanelFilterOption extends DropdownOption {
     count?: number | string;
 }
 
+export interface ControlPanelDateRangePreset {
+    label: string;
+    days: number;
+}
+
 export type ControlPanelFilterType = 'radio' | 'chips' | 'dropdown' | 'text' | 'number' | 'rating' | 'range' | 'date-range' | 'search' | 'date' | 'checkbox';
 export type ControlPanelFilterValue = string | number | boolean | string[] | number[] | null;
 
@@ -63,6 +68,7 @@ export interface ControlPanelFilter {
     ratingVariant?: 'success' | 'info' | 'warning' | 'danger';
     minDate?: string;
     maxDate?: string;
+    presets?: ControlPanelDateRangePreset[];
     isActive?: boolean;
 }
 
@@ -171,6 +177,13 @@ const VIEW_TOGGLE_OPTIONS: ViewToggleOptionItem[] = [
 ];
 
 const GALLERY_OPTION: ViewToggleOptionItem = { value: 'gallery', label: 'Gallery', icon: 'gallery' };
+const DROPDOWN_RADIO_FILTER_LIMIT = 3;
+const DEFAULT_DATE_RANGE_PRESETS: ControlPanelDateRangePreset[] = [
+    { label: '7d', days: 7 },
+    { label: '14d', days: 14 },
+    { label: '30d', days: 30 },
+    { label: '90d', days: 90 },
+];
 
 export const ControlPanel: React.FC<ControlPanelProps> = ({
     width = '280px',
@@ -362,6 +375,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             const dateArr = Array.isArray(filter.value) ? (filter.value as string[]) : [];
             const fromStr: string | undefined = dateArr[0] || undefined;
             const toStr: string | undefined = dateArr[1] || undefined;
+            const presets = filter.presets ?? DEFAULT_DATE_RANGE_PRESETS;
 
             const parseLocalDate = (s: string | undefined): Date | undefined => {
                 if (!s) return undefined;
@@ -379,23 +393,81 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             const emitRange = (newFrom: string | undefined, newTo: string | undefined) =>
                 emitFilterChange({ filterId: filter.id, type: filter.type, value: [newFrom ?? '', newTo ?? ''] });
 
+            const handlePreset = (days: number) => {
+                const end = filter.maxDate ? parseLocalDate(filter.maxDate) : new Date();
+                if (!end) return;
+
+                const start = new Date(end);
+                start.setDate(start.getDate() - days);
+                emitRange(formatToDateStr(start), formatToDateStr(end));
+            };
+
             return (
                 <div className="control-panel__filter-date-range">
+                    {presets.length > 0 && (
+                        <div className="control-panel__filter-date-presets">
+                            {presets.map(preset => (
+                                <Button key={preset.days} size="small" variant="default" onClick={() => handlePreset(preset.days)}>
+                                    {preset.label}
+                                </Button>
+                            ))}
+                        </div>
+                    )}
                     <DatePicker
-                        placeholder="From"
-                        value={parseLocalDate(fromStr)}
-                        onChange={val => emitRange(val instanceof Date ? formatToDateStr(val) : undefined, toStr)}
-                    />
-                    <DatePicker
-                        placeholder="To"
-                        value={parseLocalDate(toStr)}
-                        onChange={val => emitRange(fromStr, val instanceof Date ? formatToDateStr(val) : undefined)}
+                        mode="range"
+                        minDate={parseLocalDate(filter.minDate)}
+                        maxDate={parseLocalDate(filter.maxDate)}
+                        placeholder={filter.placeholder ?? 'Select range'}
+                        value={fromStr && toStr ? { start: parseLocalDate(fromStr)!, end: parseLocalDate(toStr)! } : undefined}
+                        onChange={val => {
+                            if (val && typeof val === 'object' && !Array.isArray(val) && 'start' in val) {
+                                emitRange(formatToDateStr(val.start), formatToDateStr(val.end));
+                                return;
+                            }
+
+                            emitRange(undefined, undefined);
+                        }}
                     />
                 </div>
             );
         }
 
         if (filter.type === 'dropdown') {
+            if (!filter.multiple && filterOptions.length > 0 && filterOptions.length <= DROPDOWN_RADIO_FILTER_LIMIT) {
+                return (
+                    <div className="control-panel__filter-list" role="radiogroup" aria-label={filter.label}>
+                        {filterOptions.map(option => {
+                            const isSelected = filter.value === option.value;
+                            return (
+                                <div key={option.value} className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''}`}>
+                                    <label className="control-panel__filter-radio-label">
+                                        <input
+                                            checked={isSelected}
+                                            className="control-panel__filter-radio-input"
+                                            name={filter.id}
+                                            onChange={() =>
+                                                emitFilterChange({
+                                                    filterId: filter.id,
+                                                    type: filter.type,
+                                                    value: option.value,
+                                                    option,
+                                                    options: [option],
+                                                })
+                                            }
+                                            type="radio"
+                                            value={option.value}
+                                        />
+                                        {option.color && <span className="control-panel__filter-swatch" style={{ backgroundColor: option.color }} />}
+                                        <span className="control-panel__filter-label">{option.label}</span>
+                                        {option.count !== undefined && <span className="control-panel__filter-count">{option.count}</span>}
+                                    </label>
+                                </div>
+                            );
+                        })}
+                    </div>
+                );
+            }
+
             return (
                 <Dropdown
                     className="control-panel__filter-dropdown"
@@ -528,12 +600,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                         <Icon name={item.icon} /> &nbsp;
                                     </>
                                 )}
-                                {item.color && (
-                                    <span
-                                        className="control-panel__nav-dot"
-                                        style={{ backgroundColor: item.color }}
-                                    />
-                                )}
+                                {item.color && <span className="control-panel__nav-dot" style={{ backgroundColor: item.color }} />}
                                 {item.label}
                                 {item.badges && item.badges.length > 0 && (
                                     <span className="control-panel__nav-badges">

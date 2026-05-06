@@ -38,13 +38,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [isPM, setIsPM] = useState(false);
+    const [rangeStart, setRangeStart] = useState<Date | null>(null);
 
     const inputRef = useRef<HTMLDivElement>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (withTime && value instanceof Date) {
-            setHours(timeFormat === '12h' ? (value.getHours() % 12 || 12) : value.getHours());
+            setHours(timeFormat === '12h' ? value.getHours() % 12 || 12 : value.getHours());
             setMinutes(value.getMinutes());
             setSeconds(value.getSeconds());
             setIsPM(value.getHours() >= 12);
@@ -63,6 +64,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 !inputRef.current.contains(event.target as Node) &&
                 !dropdownRef.current.contains(event.target as Node)
             ) {
+                setRangeStart(null);
                 setIsOpenInternal(false);
             }
         };
@@ -77,9 +79,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         if (mode === 'single' && value instanceof Date) {
             const formattedDate = formatDate(value, dateFormat);
             if (withTime) {
-                const timeStr = withSeconds
-                    ? formatDate(value, 'HH:mm:ss')
-                    : formatDate(value, 'HH:mm');
+                const timeStr = withSeconds ? formatDate(value, 'HH:mm:ss') : formatDate(value, 'HH:mm');
                 return `${formattedDate} ${timeStr}`;
             }
             return formattedDate;
@@ -128,6 +128,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
     const handleClear = (e: React.MouseEvent) => {
         e.stopPropagation();
+        setRangeStart(null);
         onChange?.(undefined);
     };
 
@@ -155,22 +156,19 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         <div className="datepicker">
             <div
                 ref={inputRef}
-                className={`datepicker__input ${disabled ? 'datepicker__input--disabled' : ''} ${
-                    isOpen ? 'datepicker__input--open' : ''
-                }`}
-                onClick={() => !disabled && !alwaysOpen && setIsOpenInternal(!isOpen)}
+                className={`datepicker__input ${disabled ? 'datepicker__input--disabled' : ''} ${isOpen ? 'datepicker__input--open' : ''}`}
+                onClick={() => {
+                    if (disabled || alwaysOpen) return;
+                    if (isOpen) {
+                        setRangeStart(null);
+                    }
+                    setIsOpenInternal(!isOpen);
+                }}
             >
-                <span className={`datepicker__value ${!displayValue ? 'datepicker__value--placeholder' : ''}`}>
-                    {displayValue || placeholder}
-                </span>
+                <span className={`datepicker__value ${!displayValue ? 'datepicker__value--placeholder' : ''}`}>{displayValue || placeholder}</span>
                 <div className="datepicker__actions">
                     {clearable && displayValue && (
-                        <button
-                            type="button"
-                            className="datepicker__clear"
-                            onClick={handleClear}
-                            aria-label="Clear"
-                        >
+                        <button type="button" className="datepicker__clear" onClick={handleClear} aria-label="Clear">
                             ×
                         </button>
                     )}
@@ -186,6 +184,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                             mode={mode}
                             value={value}
                             onChange={handleCalendarChange}
+                            rangeStart={mode === 'range' ? rangeStart : calendarProps.rangeStart}
+                            onRangeStartChange={mode === 'range' ? setRangeStart : calendarProps.onRangeStartChange}
                         />
 
                         {withTime && mode === 'single' && value instanceof Date && (
@@ -259,6 +259,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                                 mode={mode}
                                 value={value}
                                 onChange={handleCalendarChange}
+                                rangeStart={mode === 'range' ? rangeStart : calendarProps.rangeStart}
+                                onRangeStartChange={mode === 'range' ? setRangeStart : calendarProps.onRangeStartChange}
                             />
 
                             {withTime && mode === 'single' && value instanceof Date && (

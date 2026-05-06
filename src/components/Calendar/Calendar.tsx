@@ -1,13 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import {
-    getMonthMatrix,
-    isSameDay,
-    isToday,
-    isWeekend,
-    addMonths,
-    isBefore,
-    isAfter,
-} from '../../helpers/Datetime';
+import { getMonthMatrix, isSameDay, isToday, isWeekend, addMonths, isBefore, isAfter } from '../../helpers/Datetime';
 import './Calendar.scss';
 
 export type CalendarMode = 'single' | 'range' | 'multiple';
@@ -38,20 +30,7 @@ export interface CalendarProps {
 
 const YEARS_PER_PAGE = 12;
 
-const MONTH_NAMES = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-];
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 const DAY_NAMES_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DAY_NAMES_SHORT_MONDAY_FIRST = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -97,11 +76,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     const rangeStartValue = rangeStart ?? internalRangeStart;
 
     const monthMatrix = useMemo(() => {
-        return getMonthMatrix(
-            displayMonth.getFullYear(),
-            displayMonth.getMonth(),
-            firstDayOfWeek
-        );
+        return getMonthMatrix(displayMonth.getFullYear(), displayMonth.getMonth(), firstDayOfWeek);
     }, [displayMonth, firstDayOfWeek]);
 
     const dayNames = firstDayOfWeek === 1 ? DAY_NAMES_SHORT_MONDAY_FIRST : DAY_NAMES_SHORT;
@@ -128,11 +103,11 @@ export const Calendar: React.FC<CalendarProps> = ({
         }
 
         if (mode === 'range') {
-            if (value && 'start' in value) {
-                return isSameDay(date, value.start) || isSameDay(date, value.end);
-            }
             if (rangeStartValue) {
                 return isSameDay(date, rangeStartValue);
+            }
+            if (value && 'start' in value) {
+                return isSameDay(date, value.start) || isSameDay(date, value.end);
             }
         }
 
@@ -153,7 +128,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     };
 
     const isDateInHoverRange = (date: Date): boolean => {
-        if (mode === 'range' && rangeStartValue && !value) {
+        if (mode === 'range' && rangeStartValue) {
             const dateTime = date.getTime();
             const startTime = rangeStartValue.getTime();
             return dateTime > startTime;
@@ -338,23 +313,13 @@ export const Calendar: React.FC<CalendarProps> = ({
         if (view === 'years') {
             return (
                 <div className="calendar__header">
-                    <button
-                        type="button"
-                        className="calendar__nav-button"
-                        onClick={handlePreviousYears}
-                        aria-label="Previous years"
-                    >
+                    <button type="button" className="calendar__nav-button" onClick={handlePreviousYears} aria-label="Previous years">
                         ‹
                     </button>
                     <div className="calendar__month-year">
                         {yearsRangeStart} - {yearsRangeStart + YEARS_PER_PAGE - 1}
                     </div>
-                    <button
-                        type="button"
-                        className="calendar__nav-button"
-                        onClick={handleNextYears}
-                        aria-label="Next years"
-                    >
+                    <button type="button" className="calendar__nav-button" onClick={handleNextYears} aria-label="Next years">
                         ›
                     </button>
                 </div>
@@ -364,27 +329,13 @@ export const Calendar: React.FC<CalendarProps> = ({
         if (view === 'months') {
             return (
                 <div className="calendar__header">
-                    <button
-                        type="button"
-                        className="calendar__nav-button"
-                        onClick={handlePreviousYear}
-                        aria-label="Previous year"
-                    >
+                    <button type="button" className="calendar__nav-button" onClick={handlePreviousYear} aria-label="Previous year">
                         ‹
                     </button>
-                    <button
-                        type="button"
-                        className="calendar__header-button"
-                        onClick={handleYearHeaderClick}
-                    >
+                    <button type="button" className="calendar__header-button" onClick={handleYearHeaderClick}>
                         {displayMonth.getFullYear()}
                     </button>
-                    <button
-                        type="button"
-                        className="calendar__nav-button"
-                        onClick={handleNextYear}
-                        aria-label="Next year"
-                    >
+                    <button type="button" className="calendar__nav-button" onClick={handleNextYear} aria-label="Next year">
                         ›
                     </button>
                 </div>
@@ -393,44 +344,24 @@ export const Calendar: React.FC<CalendarProps> = ({
 
         return (
             <div className="calendar__header">
-                <button
-                    type="button"
-                    className="calendar__nav-button"
-                    onClick={handlePreviousMonth}
-                    aria-label="Previous month"
-                >
+                <button type="button" className="calendar__nav-button" onClick={handlePreviousMonth} aria-label="Previous month">
                     ‹
                 </button>
                 <div className="calendar__month-year">
                     {yearOnly ? (
-                        <span className="calendar__header-label">
-                            {MONTH_NAMES[displayMonth.getMonth()]}
-                        </span>
+                        <span className="calendar__header-label">{MONTH_NAMES[displayMonth.getMonth()]}</span>
                     ) : (
                         <>
-                            <button
-                                type="button"
-                                className="calendar__header-button"
-                                onClick={handleMonthHeaderClick}
-                            >
+                            <button type="button" className="calendar__header-button" onClick={handleMonthHeaderClick}>
                                 {MONTH_NAMES[displayMonth.getMonth()]}
                             </button>
-                            <button
-                                type="button"
-                                className="calendar__header-button"
-                                onClick={handleYearHeaderClick}
-                            >
+                            <button type="button" className="calendar__header-button" onClick={handleYearHeaderClick}>
                                 {displayMonth.getFullYear()}
                             </button>
                         </>
                     )}
                 </div>
-                <button
-                    type="button"
-                    className="calendar__nav-button"
-                    onClick={handleNextMonth}
-                    aria-label="Next month"
-                >
+                <button type="button" className="calendar__nav-button" onClick={handleNextMonth} aria-label="Next month">
                     ›
                 </button>
             </div>
@@ -492,11 +423,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                 <>
                     {showToday && !yearOnly && (
                         <div className="calendar__today-section">
-                            <button
-                                type="button"
-                                className="calendar__today-button"
-                                onClick={handleTodayClick}
-                            >
+                            <button type="button" className="calendar__today-button" onClick={handleTodayClick}>
                                 Today
                             </button>
                         </div>
