@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { NavBar, NavBarItem, Button } from '../../../src';
+import { NavBar, NavBarItem, Button, Icon } from '../../../src';
 
 export const NavBarPage: React.FC = () => {
     const [activeItem, setActiveItem] = useState<string>('home');
@@ -36,35 +36,35 @@ export const NavBarPage: React.FC = () => {
         {
             id: 'home',
             label: 'Home',
-            deprecatedIcon: '🏠',
+            icon: 'home',
             isActive: activeItem === 'home',
             onClick: () => setActiveItem('home'),
         },
         {
             id: 'explore',
             label: 'Explore',
-            deprecatedIcon: '🔍',
+            icon: 'search',
             isActive: activeItem === 'explore',
             onClick: () => setActiveItem('explore'),
         },
         {
             id: 'notifications',
             label: 'Notifications',
-            deprecatedIcon: '🔔',
+            icon: 'bell',
             isActive: activeItem === 'notifications',
             onClick: () => setActiveItem('notifications'),
         },
         {
             id: 'messages',
             label: 'Messages',
-            deprecatedIcon: '💬',
+            icon: 'mail',
             isActive: activeItem === 'messages',
             onClick: () => setActiveItem('messages'),
         },
         {
             id: 'settings',
             label: 'Settings',
-            deprecatedIcon: '⚙️',
+            icon: 'settings',
             isActive: activeItem === 'settings',
             disabled: true,
             onClick: () => setActiveItem('settings'),
@@ -120,7 +120,7 @@ export const NavBarPage: React.FC = () => {
                             items={basicItems}
                             logo={
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    <span style={{ fontSize: '24px' }}>🚀</span>
+                                    <Icon name="rocket" size="xxl" />
                                     <span style={{ fontWeight: 'bold' }}>MyApp</span>
                                 </div>
                             }
@@ -147,7 +147,7 @@ export const NavBarPage: React.FC = () => {
                     <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
                         <NavBar
                             items={itemsWithIcons}
-                            logo={<span style={{ fontSize: '24px' }}>📱</span>}
+                            logo={<Icon name="smartphone" size="xxl" />}
                             actions={
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                     <span style={{ fontSize: '20px', cursor: 'pointer' }}>👤</span>
@@ -196,7 +196,7 @@ export const NavBarPage: React.FC = () => {
                     <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
                         <NavBar
                             items={itemsWithIcons}
-                            logo={<span style={{ fontSize: '24px' }}>🎨</span>}
+                            logo={<Icon name="theme-picker" size="xxl" />}
                             renderItem={item => (
                                 <a
                                     key={item.id}
@@ -244,19 +244,19 @@ export const NavBarPage: React.FC = () => {
                                 {
                                     id: 'profile',
                                     label: 'Profile',
-                                    deprecatedIcon: '👤',
+                                    icon: 'user',
                                     isActive: activeItem === 'profile',
                                     onClick: () => setActiveItem('profile'),
                                 },
                                 {
                                     id: 'analytics',
                                     label: 'Analytics',
-                                    deprecatedIcon: '📊',
+                                    icon: 'chart',
                                     isActive: activeItem === 'analytics',
                                     onClick: () => setActiveItem('analytics'),
                                 },
                             ]}
-                            logo={<span style={{ fontSize: '24px' }}>📱</span>}
+                            logo={<Icon name="smartphone" size="xxl" />}
                         />
                         <div style={{ padding: '32px', background: 'var(--body-background)' }}>
                             <h3>Responsive Content</h3>

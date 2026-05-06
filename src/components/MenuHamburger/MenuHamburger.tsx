@@ -10,8 +10,6 @@ import './MenuHamburger.scss';
 export interface MenuHamburgerItem {
     label: string;
     icon?: IconName;
-    /** @deprecated Use `icon` (IconName) instead */
-    deprecatedIcon?: string;
     onClick: () => void;
     isActive: boolean;
     separator?: boolean;
@@ -19,8 +17,6 @@ export interface MenuHamburgerItem {
 
 interface MenuHamburgerProps {
     icon?: IconName;
-    /** @deprecated Use `icon` (IconName) instead */
-    deprecatedIcon?: string;
     isCompact?: boolean;
     items: MenuHamburgerItem[];
     label?: string;
@@ -30,7 +26,6 @@ interface MenuHamburgerProps {
 
 export const MenuHamburger: FC<MenuHamburgerProps> = ({
     icon,
-    deprecatedIcon,
     isCompact,
     items,
     label,
@@ -61,7 +56,6 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({
                 variant={isCompact || !isAtLeastTablet ? 'plain' : 'default'}
                 onClick={handleButtonClick}
                 icon={icon}
-                prefixIcon={!icon ? (deprecatedIcon ?? (isCompact || !isAtLeastTablet ? '⋮' : '☰')) : undefined}
                 aria-label="Menu"
                 className={icon ? '' : 'MenuHamburger__opnener-three-dots'}
             >
@@ -79,9 +73,7 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({
                                     className={`MenuHamburger_item ${item.isActive ? 'MenuHamburger_item--active' : ''}`}
                                     onClick={() => handleItemClick(item)}
                                 >
-                                    <span className="MenuHamburger_item__icon">
-                                        {item.icon ? <Icon name={item.icon} /> : item.deprecatedIcon}
-                                    </span>
+                                    <span className="MenuHamburger_item__icon">{item.icon ? <Icon name={item.icon} /> : null}</span>
                                     <span className="MenuHamburger_item__label">{item.label}</span>
                                 </Button>
                             </div>

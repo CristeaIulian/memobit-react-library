@@ -6,25 +6,25 @@ export const MenuHamburgerPage: React.FC = () => {
     const hamburgerMenuItems: MenuHamburgerItem[] = [
         {
             label: 'Notes',
-            icon: '📚',
+            icon: 'notes',
             onClick: () => {},
             isActive: false,
         },
         {
             label: 'Stats',
-            icon: '📊',
+            icon: 'chart',
             onClick: () => {},
             isActive: false,
         },
         {
             label: 'Theme',
-            icon: '🎨',
+            icon: 'theme-picker',
             onClick: () => {},
             isActive: false,
         },
         {
             label: 'Logout',
-            icon: '🚪',
+            icon: 'logout',
             onClick: () => {},
             isActive: false,
         },
@@ -33,33 +33,33 @@ export const MenuHamburgerPage: React.FC = () => {
     const hamburgerMenuItemsWithSeparators: MenuHamburgerItem[] = [
         {
             label: 'Profile',
-            icon: '👤',
+            icon: 'user',
             onClick: () => {},
             isActive: true,
         },
         {
             label: 'Settings',
-            icon: '⚙️',
+            icon: 'settings',
             onClick: () => {},
             isActive: false,
         },
         {
             label: 'Theme',
-            icon: '🎨',
+            icon: 'theme-picker',
             onClick: () => {},
             isActive: false,
             separator: true,
         },
         {
             label: 'Help',
-            icon: '❓',
+            icon: 'help',
             onClick: () => {},
             isActive: false,
             separator: true,
         },
         {
             label: 'Logout',
-            icon: '🚪',
+            icon: 'logout',
             onClick: () => {},
             isActive: false,
         },
@@ -90,7 +90,7 @@ export const MenuHamburgerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>MenuHamburger Custom</h3>
                     <div className="component-group">
-                        <MenuHamburger items={hamburgerMenuItems} icon="🍓" label="Fruits" />
+                        <MenuHamburger items={hamburgerMenuItems} icon="fruits" label="Fruits" />
                     </div>
                 </div>
 

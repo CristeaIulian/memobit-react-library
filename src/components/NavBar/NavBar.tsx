@@ -11,8 +11,6 @@ export interface NavBarItem {
     isActive?: boolean;
     onClick?: () => void;
     icon?: IconName;
-    /** @deprecated Use `icon` (IconName) instead */
-    deprecatedIcon?: string;
     disabled?: boolean;
 }
 
@@ -58,7 +56,7 @@ export const NavBar: React.FC<NavBarProps> = ({
             onClick={() => handleItemClick(item)}
             disabled={item.disabled}
         >
-            {(item.icon || item.deprecatedIcon) && <span className="navbar__item-icon">{item.icon ? <Icon name={item.icon} /> : item.deprecatedIcon}</span>}
+            {item.icon && <span className="navbar__item-icon">{item.icon ? <Icon name={item.icon} /> : null}</span>}
             <span className="navbar__item-label">{item.label}</span>
         </button>
     );

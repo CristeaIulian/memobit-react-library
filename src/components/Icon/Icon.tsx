@@ -71,6 +71,7 @@ import { file } from '../../icons/file';
 import { filters } from '../../icons/filters';
 import { food } from '../../icons/food';
 import { fridge } from '../../icons/fridge';
+import { fruits } from '../../icons/fruits';
 import { gallery } from '../../icons/gallery';
 import { gasDetector } from '../../icons/gas-detector';
 import { gateway } from '../../icons/gateway';
@@ -82,6 +83,7 @@ import { grid } from '../../icons/grid';
 import { hd } from '../../icons/hd';
 import { heart } from '../../icons/heart';
 import { heating } from '../../icons/heating';
+import { help } from '../../icons/help';
 import { history } from '../../icons/history';
 import { home } from '../../icons/home';
 import { humidity } from '../../icons/humidity';
@@ -208,6 +210,7 @@ import { upload } from '../../icons/upload';
 import { user } from '../../icons/user';
 import { users } from '../../icons/users';
 import { vacuum } from '../../icons/vacuum';
+import { vegetables } from '../../icons/vegetables';
 import { verticalDots } from '../../icons/vertical-dots';
 import { video } from '../../icons/video';
 import { view } from '../../icons/view';
@@ -314,6 +317,7 @@ const iconMap = {
     filters,
     food,
     fridge,
+    fruits,
     gallery,
     gateway,
     github,
@@ -323,6 +327,7 @@ const iconMap = {
     hd,
     heart,
     heating,
+    help,
     history,
     home,
     humidity,
@@ -435,6 +440,7 @@ const iconMap = {
     user,
     users,
     vacuum,
+    vegetables,
     video,
     view,
     wait,
