@@ -84,6 +84,7 @@
     &__preview {
         display: grid;
         place-items: center;
+        width: 100%;
         min-height: 92px;
         padding: var(--spacing-16);
         border-radius: calc(var(--radius) - 2px);
@@ -92,7 +93,27 @@
             linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent),
             var(--body-background);
         color: var(--body-color-accent);
+        cursor: pointer;
         overflow: hidden;
+        transition:
+            border-color 0.18s ease,
+            color 0.18s ease,
+            transform 0.18s ease;
+
+        &:hover,
+        &:focus-visible {
+            border-color: var(--body-accent-color);
+            color: var(--body-accent-color);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--body-accent-color);
+            outline-offset: 2px;
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
 
         svg {
             width: 42px;
@@ -111,9 +132,28 @@
     }
 
     &__path {
+        padding: 0;
+        border: 0;
+        background: transparent;
         color: var(--body-color);
+        cursor: pointer;
         font-size: 0.875rem;
+        font-family: inherit;
+        text-align: left;
         word-break: break-word;
+
+        &:hover,
+        &:focus-visible {
+            color: var(--body-accent-color);
+            text-decoration: underline;
+            text-underline-offset: 0.16em;
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--body-accent-color);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
     }
 
     &__empty {

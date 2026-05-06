@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
-import React, { createElement, isValidElement, useMemo, useState } from 'react';
+import React, { createElement, isValidElement, useCallback, useMemo, useState } from 'react';
 
-import { Search } from '../../../src';
+import { Search, Toast, type ToastDetails } from '../../../src';
 
 import './IconsPage.scss';
 
@@ -318,14 +318,62 @@ const renderIcon = (value: unknown) => {
     return null;
 };
 
+const copyToClipboard = async (content: string) => {
+    if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(content);
+        return;
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = content;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    const copied = document.execCommand('copy');
+    document.body.removeChild(textarea);
+
+    if (!copied) {
+        throw new Error('Clipboard copy failed');
+    }
+};
+
 export const IconsPage: React.FC = () => {
     const [query, setQuery] = useState('');
+    const [toast, setToast] = useState<ToastDetails | null>(null);
 
     const normalizedQuery = query.trim().toLowerCase();
     const filteredIcons = useMemo(() => iconEntries.filter(icon => !normalizedQuery || icon.keywords.includes(normalizedQuery)), [normalizedQuery]);
+    const showCopyResult = useCallback(async (content: string, successMessage: string) => {
+        try {
+            await copyToClipboard(content);
+            setToast({ message: successMessage, type: 'success' });
+        } catch {
+            setToast({ message: 'Could not copy to clipboard', type: 'danger' });
+        }
+    }, []);
+
+    const handleIconCopy = useCallback(
+        (icon: IconEntry, event: React.MouseEvent<HTMLButtonElement>) => {
+            const svgMarkup = event.currentTarget.querySelector('svg')?.outerHTML;
+            void showCopyResult(svgMarkup ?? icon.filePath, `${icon.filePath} icon copied to clipboard`);
+        },
+        [showCopyResult]
+    );
+
+    const handleTagCopy = useCallback(
+        (icon: IconEntry) => {
+            void showCopyResult(icon.filePath, `${icon.filePath} copied to clipboard`);
+        },
+        [showCopyResult]
+    );
 
     return (
         <div className="icons-page">
+            {toast && <Toast message={toast.message} type={toast.type} timeout={2000} onClose={() => setToast(null)} />}
+
             <header className="icons-page__header">
                 <div>
                     <h1>Icons</h1>
@@ -351,9 +399,25 @@ export const IconsPage: React.FC = () => {
                     <div className="icons-page__grid">
                         {filteredIcons.map(icon => (
                             <article key={icon.id} className="icons-page__tile">
-                                <div className="icons-page__preview">{renderIcon(icon.value)}</div>
+                                <button
+                                    type="button"
+                                    className="icons-page__preview"
+                                    onClick={event => handleIconCopy(icon, event)}
+                                    aria-label={`Copy ${icon.name} icon SVG`}
+                                    title="Copy icon SVG"
+                                >
+                                    {renderIcon(icon.value)}
+                                </button>
                                 <strong className="icons-page__name">{icon.name}</strong>
-                                <span className="icons-page__path">{icon.filePath}</span>
+                                <button
+                                    type="button"
+                                    className="icons-page__path"
+                                    onClick={() => handleTagCopy(icon)}
+                                    aria-label={`Copy ${icon.filePath}`}
+                                    title="Copy icon tag"
+                                >
+                                    {icon.filePath}
+                                </button>
                             </article>
                         ))}
                     </div>
