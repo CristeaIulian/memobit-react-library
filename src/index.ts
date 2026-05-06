@@ -6,7 +6,7 @@ export { AvatarInitials } from './components/AvatarInitials';
 export { Badge, type BadgeVariant, type BadgeProps } from './components/Badge';
 export { BMI } from './components/BMI';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
-export { Button } from './components/Button';
+export { Button, type ButtonVariant } from './components/Button';
 export { Calendar, type CalendarProps, type CalendarMode, type CalendarDateRange } from './components/Calendar';
 export { CalendarHeatmap, type CalendarHeatmapProps, type CalendarHeatmapDataPoint } from './components/CalendarHeatmap';
 export { Card } from './components/Card';
