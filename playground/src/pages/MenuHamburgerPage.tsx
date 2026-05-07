@@ -65,6 +65,15 @@ export const MenuHamburgerPage: React.FC = () => {
         },
     ];
 
+    const singleMenuItem: MenuHamburgerItem[] = [
+        {
+            label: 'Theme',
+            icon: 'theme-picker',
+            onClick: () => {},
+            isActive: false,
+        },
+    ];
+
     return (
         <div className="menu-hamburger-page">
             <h1>Menu Hamburger Component</h1>
@@ -105,6 +114,13 @@ export const MenuHamburgerPage: React.FC = () => {
                     <h3>MenuHamburger with Separators (Compact)</h3>
                     <div className="component-group">
                         <MenuHamburger items={hamburgerMenuItemsWithSeparators} isCompact showLabel={false} />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>MenuHamburger with One Item</h3>
+                    <div className="component-group">
+                        <MenuHamburger items={singleMenuItem} />
                     </div>
                 </div>
             </section>

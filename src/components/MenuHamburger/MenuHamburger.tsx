@@ -25,7 +25,7 @@ interface MenuHamburgerProps {
 }
 
 export const MenuHamburger: FC<MenuHamburgerProps> = ({
-    icon,
+    icon = 'menu-hamburger',
     isCompact,
     items,
     label,
@@ -43,12 +43,34 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({
         setMenuTarget(null);
     };
 
+    const isAtLeastTablet = disableResponsive ? true : isAtLeast('tablet');
+
+    if (items.length === 1) {
+        const item = items[0];
+        const hasSingleItemLabel = isAtLeastTablet && showLabel;
+
+        return (
+            <div className="MenuHamburger">
+                <Button
+                    variant={isCompact || !isAtLeastTablet ? 'plain' : 'default'}
+                    onClick={item.onClick}
+                    icon={item.icon}
+                    className={`MenuHamburger_single-item ${hasSingleItemLabel ? '' : 'MenuHamburger_single-item--icon-only'} ${
+                        item.isActive ? 'MenuHamburger_item--active' : ''
+                    }`}
+                >
+                    {hasSingleItemLabel ? item.label : ''}
+                </Button>
+            </div>
+        );
+    }
+
     const handleItemClick = (item: MenuHamburgerItem) => {
         item.onClick();
         closeMenu();
     };
 
-    const isAtLeastTablet = disableResponsive ? true : isAtLeast('tablet');
+    const hasOpenerLabel = isAtLeastTablet && showLabel && Boolean(label);
 
     return (
         <div className="MenuHamburger">
@@ -56,10 +78,9 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({
                 variant={isCompact || !isAtLeastTablet ? 'plain' : 'default'}
                 onClick={handleButtonClick}
                 icon={icon}
-                aria-label="Menu"
-                className={icon ? '' : 'MenuHamburger__opnener-three-dots'}
+                className={hasOpenerLabel ? '' : 'MenuHamburger_opener--icon-only'}
             >
-                {isAtLeastTablet && showLabel ? (label ? label : 'Menu') : ''}
+                {hasOpenerLabel ? label : ''}
             </Button>
 
             {menuTarget && (

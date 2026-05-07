@@ -1,5 +1,16 @@
 .MenuHamburger {
+    --MenuHamburger-icon-button-size: calc(var(--spacing-12) + var(--spacing-12) + 1.3125rem + var(--spacing-1) + var(--spacing-1));
+
     position: relative;
+
+    &_opener--icon-only,
+    &_single-item--icon-only {
+        box-sizing: border-box;
+        width: var(--MenuHamburger-icon-button-size);
+        height: var(--MenuHamburger-icon-button-size);
+        justify-content: center;
+        padding: 0 !important;
+    }
 
     &_dropdown {
         display: flex;
