@@ -32,7 +32,6 @@ export interface ExternalButtonConfig extends ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({
-    ariaLabel,
     borders = 'rounded',
     children,
     className,
@@ -51,7 +50,6 @@ export const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
     return (
         <button
-            aria-label={ariaLabel}
             className={`button button-${size} button-${variant} ${borders === 'rounded' ? 'button-rounded' : ''} ${fullWidth ? 'is-full-width' : ''} ${className || ''}`}
             disabled={disabled}
             onClick={onClick}
@@ -66,7 +64,7 @@ export const Button: React.FC<ButtonProps> = ({
                 </>
             ) : (
                 <>
-                    {icon !== undefined && (typeof icon === 'string' ? <Icon name={icon} /> : icon)}
+                    {icon !== undefined && (typeof icon === 'string' ? <Icon size="lg" name={icon} /> : icon)}
                     {prefixIcon && <span>{prefixIcon}</span>}
                     {children && <span>{children}</span>}
                     {sufixIcon && <span>{sufixIcon}</span>}
