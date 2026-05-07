@@ -17,21 +17,21 @@ export const AppHeaderPage: FC = () => {
                 <div className="showcase-group">
                     <h3>Basic AppHeader</h3>
                     <div className="component-group">
-                        <AppHeader icon={<Icon name="book" />} appName="Books" headline="My Library" />
+                        <AppHeader icon={<Icon name="book" />} appName="Books" heading="My Library" />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>AppHeader with Click Handler</h3>
                     <div className="component-group">
-                        <AppHeader icon={<Icon name="settings" />} appName="Settings" headline="User Preferences" onClick={() => alert('Header clicked!')} />
+                        <AppHeader icon={<Icon name="settings" />} appName="Settings" heading="User Preferences" onClick={() => alert('Header clicked!')} />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>AppHeader without Icon</h3>
                     <div className="component-group">
-                        <AppHeader appName="Dashboard" headline="Overview" />
+                        <AppHeader appName="Dashboard" heading="Overview" />
                     </div>
                 </div>
 
@@ -45,26 +45,26 @@ export const AppHeaderPage: FC = () => {
                 <div className="showcase-group">
                     <h3>AppHeader without Separator</h3>
                     <div className="component-group">
-                        <AppHeader icon={<Icon name="calendar" />} appName="Calendar" headline="Events" showSeparator={false} />
+                        <AppHeader icon={<Icon name="calendar" />} appName="Calendar" heading="Events" showSeparator={false} />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Different Icons</h3>
                     <div className="component-group">
-                        <AppHeader icon={<Icon name="movie" />} appName="Movies" headline="Collection" />
-                        <AppHeader icon={<Icon name="list" />} appName="Shopping" headline="Cart" />
-                        <AppHeader icon={<Icon name="heart" />} appName="Favorites" headline="Saved Items" />
-                        <AppHeader icon="📚" appName="Library" headline="Resources" />
+                        <AppHeader icon={<Icon name="movie" />} appName="Movies" heading="Collection" />
+                        <AppHeader icon={<Icon name="list" />} appName="Shopping" heading="Cart" />
+                        <AppHeader icon={<Icon name="heart" />} appName="Favorites" heading="Saved Items" />
+                        <AppHeader icon="📚" appName="Library" heading="Resources" />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>With Emoji Icons</h3>
                     <div className="component-group">
-                        <AppHeader icon="🎵" appName="Music" headline="Playlists" />
-                        <AppHeader icon="🎮" appName="Games" headline="Collection" />
-                        <AppHeader icon="✈️" appName="Travel" headline="Destinations" />
+                        <AppHeader icon="🎵" appName="Music" heading="Playlists" />
+                        <AppHeader icon="🎮" appName="Games" heading="Collection" />
+                        <AppHeader icon="✈️" appName="Travel" heading="Destinations" />
                     </div>
                 </div>
             </section>

@@ -7,13 +7,13 @@ import './AppHeader.scss';
 export interface AppHeaderProps {
     icon?: ReactNode;
     appName?: string;
-    headline?: string;
+    heading?: string;
     onClick?: () => void;
     className?: string;
     showSeparator?: boolean;
 }
 
-export const AppHeader: React.FC<AppHeaderProps> = ({ icon, appName, headline, onClick, className = '', showSeparator = true }) => {
+export const AppHeader: React.FC<AppHeaderProps> = ({ icon, appName, heading, onClick, className = '', showSeparator = true }) => {
     const headerClassName = ['app-header', onClick ? 'app-header--clickable' : '', className].filter(Boolean).join(' ');
 
     return (
@@ -22,7 +22,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ icon, appName, headline, o
                 {icon && <span className="app-header__icon">{icon}</span>}
                 <div className="app-header__copy">
                     {appName && <span className="app-header__app-name">{appName}</span>}
-                    {headline && <span className="app-header__headline">{headline}</span>}
+                    {heading && <span className="app-header__headline">{heading}</span>}
                 </div>
             </div>
             {showSeparator && <Separator className="app-header__separator" spacing={0} />}
