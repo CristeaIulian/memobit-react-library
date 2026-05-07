@@ -1,0 +1,92 @@
+@use '../../styles/utilities.scss' as *;
+
+.memobit-toolbar {
+    background-color: var(--header-background-color);
+    border-bottom: var(--spacing-1) solid var(--header-border-bottom-color);
+    border-radius: var(--spacing-16);
+    display: flex;
+    align-items: flex-end;
+    gap: var(--spacing-16);
+    padding: var(--spacing-16);
+
+    &__control-panel-toggle,
+    &__actions,
+    &__sort,
+    &__custom {
+        flex: 0 0 auto;
+    }
+
+    &__content {
+        display: flex;
+        align-items: flex-end;
+        flex: 1 1 auto;
+        gap: var(--spacing-16);
+        min-width: 0;
+    }
+
+    &__search {
+        flex: 1 1 280px;
+        min-width: 180px;
+    }
+
+    &__search-input,
+    &__search-input .input-text {
+        width: 100%;
+    }
+
+    &__sort {
+        min-width: 220px;
+    }
+
+    &__custom {
+        display: flex;
+        align-items: flex-end;
+        gap: var(--spacing-16);
+        min-width: 0;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: flex-end;
+        margin-left: auto;
+    }
+
+    @include mobile {
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-8);
+        padding: var(--spacing-8);
+
+        &__control-panel-toggle {
+            order: 1;
+        }
+
+        &__actions {
+            order: 2;
+            margin-left: auto;
+        }
+
+        &__content {
+            order: 3;
+            flex: 1 1 100%;
+            flex-direction: column;
+            align-items: stretch;
+            gap: var(--spacing-8);
+            width: 100%;
+        }
+
+        &__search,
+        &__sort,
+        &__custom {
+            flex: 1 1 auto;
+            min-width: 0;
+            width: 100%;
+        }
+
+        &__custom {
+            align-items: stretch;
+            flex-direction: column;
+            gap: var(--spacing-8);
+        }
+    }
+}

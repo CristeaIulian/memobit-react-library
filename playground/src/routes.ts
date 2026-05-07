@@ -82,6 +82,7 @@ import { TextareaPage } from './pages/TextareaPage';
 import { ThemeSettingsPage } from './pages/ThemeSettingsPage';
 import { TipsOfTheDayPage } from './pages/TipsOfTheDayPage';
 import { ToastPage } from './pages/ToastPage';
+import { ToolbarPage } from './pages/ToolbarPage';
 import { ToggleButtonsPage } from './pages/ToggleButtonsPage';
 import { ToggleSwitchPage } from './pages/ToggleSwitchPage';
 import { TooltipPage } from './pages/TooltipPage';
@@ -183,6 +184,7 @@ export const routes: RouteConfig[] = [
     { path: '/timeline', label: 'Timeline', component: TimelinePage },
     { path: '/tips-of-the-day', label: 'Tips Of The Day', component: TipsOfTheDayPage },
     { path: '/toast', label: 'Toast', component: ToastPage },
+    { path: '/toolbar', label: 'Toolbar', component: ToolbarPage },
     { path: '/toggle-buttons', label: 'Toggle Buttons', component: ToggleButtonsPage },
     { path: '/toggle-switch', label: 'Toggle Switch', component: ToggleSwitchPage },
     { path: '/tooltip', label: 'Tooltip', component: TooltipPage },
