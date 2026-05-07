@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-import { Badge, Button, DataView, ToggleButtons, type DataViewColumn, type DataViewDisplayMode } from '../../../src';
+import { Badge, Button, DataView, Search, ToggleButtons, type DataViewColumn, type DataViewDisplayMode } from '../../../src';
 
 // ── Basic example ───────────────────────────────────────────────────────────
 
@@ -74,45 +74,13 @@ export const DataViewPage: React.FC = () => {
             key: 'name',
             header: 'Name',
             sortable: true,
-            filter: (
-                <input
-                    style={{
-                        width: '100%',
-                        padding: '4px 8px',
-                        boxSizing: 'border-box',
-                        borderRadius: 4,
-                        border: '1px solid var(--delimiter-color)',
-                        background: 'var(--card-background-color)',
-                        color: 'var(--body-color)',
-                        fontSize: 13,
-                    }}
-                    placeholder="Search name…"
-                    value={nameFilter}
-                    onChange={e => setNameFilter(e.target.value)}
-                />
-            ),
+            filter: <Search placeholder="Search name…" value={nameFilter} onChange={setNameFilter} />,
         },
         {
             key: 'role',
             header: 'Role',
             sortable: true,
-            filter: (
-                <input
-                    style={{
-                        width: '100%',
-                        padding: '4px 8px',
-                        boxSizing: 'border-box',
-                        borderRadius: 4,
-                        border: '1px solid var(--delimiter-color)',
-                        background: 'var(--card-background-color)',
-                        color: 'var(--body-color)',
-                        fontSize: 13,
-                    }}
-                    placeholder="Search role…"
-                    value={roleFilter}
-                    onChange={e => setRoleFilter(e.target.value)}
-                />
-            ),
+            filter: <Search placeholder="Search role…" value={roleFilter} onChange={setRoleFilter} />,
         },
         {
             key: 'score',
@@ -123,23 +91,7 @@ export const DataViewPage: React.FC = () => {
             key: 'status',
             header: 'Status',
             sortable: true,
-            filter: (
-                <input
-                    style={{
-                        width: '100%',
-                        padding: '4px 8px',
-                        boxSizing: 'border-box',
-                        borderRadius: 4,
-                        border: '1px solid var(--delimiter-color)',
-                        background: 'var(--card-background-color)',
-                        color: 'var(--body-color)',
-                        fontSize: 13,
-                    }}
-                    placeholder="Search status…"
-                    value={statusFilter}
-                    onChange={e => setStatusFilter(e.target.value)}
-                />
-            ),
+            filter: <Search placeholder="Search status…" value={statusFilter} onChange={setStatusFilter} />,
         },
         {
             key: 'joinedAt',
