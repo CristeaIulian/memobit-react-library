@@ -1,14 +1,5 @@
 export const policeMan = (
-    <svg
-        viewBox="0 0 60.601004 60.601004"
-        xmlns:cc="http://creativecommons.org/ns#"
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
-        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:svg="http://www.w3.org/2000/svg"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="#000000"
-    >
+    <svg viewBox="0 0 60.601004 60.601004" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
