@@ -49,7 +49,9 @@ export const Card: React.FC<CardProps> = ({
                     {title}
                     {isCollapsible && (
                         <span className="collapsible-button" onClick={() => seIsCardCollapsed(!isCardCollapsed)}>
-                            <span className={`opener-button ${isCardCollapsed ? 'opener-button-extended' : ''}`}><Icon name="up" size="lg" /></span>
+                            <span className={`opener-button ${isCardCollapsed ? 'opener-button-extended' : ''}`}>
+                                <Icon name="caret-up" size="lg" />
+                            </span>
                         </span>
                     )}
                 </h3>

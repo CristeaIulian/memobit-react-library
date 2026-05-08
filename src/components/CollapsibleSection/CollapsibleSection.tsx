@@ -66,7 +66,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                             <div className="collapsible-section__label">{title}</div>
                             {toggleMiddleIcon && <span>{toggleMiddleIcon}</span>}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
-                                <Icon name="up" />
+                                <Icon name="caret-up" />
                             </span>
                             <span className="collapsible-section__right-details">{rightDetails}</span>
                         </>
@@ -75,7 +75,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                             <span className="collapsible-section__label">{title}</span>
                             {toggleMiddleIcon && <span>{toggleMiddleIcon}</span>}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
-                                <Icon name="up" />
+                                <Icon name="caret-up" />
                             </span>
                         </button>
                     )}
