@@ -1,0 +1,3 @@
+export const ant = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M17 8c0-1.3-.84-2.4-2-2.82V4a1 1 0 0 0-2 0v.08A3 3 0 0 0 9 7v.78l-3-2.25-.6.8 3 2.25A3 3 0 0 0 9 10v1H8a3 3 0 0 0-3 3v1h2v-1a1 1 0 0 1 1-1h1v2l-3 3v2h2l2.5-2.5 2.5 2.5h2v-2l-3-3v-2h1a1 1 0 0 1 1 1v1h2v-1a3 3 0 0 0-3-3h-1v-1a3 3 0 0 0-.4-1.47l3 2.25.6-.8-3-2.25A3 3 0 0 0 17 8zm-5-1a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </svg>;

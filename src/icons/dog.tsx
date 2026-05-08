@@ -1,0 +1,3 @@
+export const dog = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M4 10H3V8h1V6.5C4 5.12 5.12 4 6.5 4H9c.34 0 .67.07.96.18L12 3l2.04 1.18c.29-.11.62-.18.96-.18h2.5C18.88 4 20 5.12 20 6.5V8h1v2h-1v1a3 3 0 0 1-3 3v5h-2v-5h-6v5H7v-5a3 3 0 0 1-3-3v-1zm3-4h2v3H6V6.5C6 6.22 6.22 6 6.5 6L7 6v0zm10 0h.5c.28 0 .5.22.5.5V9h-2V6h1zm-7 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 3c-1 0-2-.5-2-1h4c0 .5-1 1-2 1z" />
+    </svg>;

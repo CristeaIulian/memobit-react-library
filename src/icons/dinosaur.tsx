@@ -1,0 +1,3 @@
+export const dinosaur = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M20 5h-2V3h-2v2h-2a5 5 0 0 0-5 5v1H7l-4 3 2 1-1 2h3v3h2v-3h2v3h2v-5a3 3 0 0 0 3-3V9h1a2 2 0 0 0 2-2V5zm-2 4a1 1 0 0 1-1 1h-1V9a3 3 0 0 1 3-3v1a1 1 0 0 1-1 2zm-5-1a3 3 0 0 1 2.83 2H11a3 3 0 0 1 2-1.72V8zm1 5v-1h-2v3a1 1 0 0 1-2 0v-3H8v-1h1V9.54A5 5 0 0 0 9 10a3 3 0 0 0 0 6v-3h1v3h2v-3h2v-3z" />
+    </svg>;

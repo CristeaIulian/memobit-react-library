@@ -1,0 +1,3 @@
+export const incognito = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M17.06 13c.6 0 1.17.1 1.7.27L20 11H4l2.45 4.46A4 4 0 0 0 6 17a4 4 0 0 0 4 4 4 4 0 0 0 3.97-3.62A4 4 0 0 0 17.06 13zM10 19a2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2 2 2 0 0 1-2 2zm7.06-4a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2zM12 4.5 9.5 9h5L12 4.5z" />
+    </svg>;

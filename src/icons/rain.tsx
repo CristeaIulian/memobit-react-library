@@ -1,0 +1,3 @@
+export const rain = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M12 2a5.5 5.5 0 0 0-5.5 5.5H6a4 4 0 0 0 0 8h.5l-1.5 4h2l1.5-4h7l1.5 4h2l-1.5-4H18a4 4 0 0 0 0-8h-.5A5.5 5.5 0 0 0 12 2zm0 2a3.5 3.5 0 0 1 3.44 2.85A3.99 3.99 0 0 1 18 10.5h-12a3.5 3.5 0 0 1 6.44-1.65A3.48 3.48 0 0 1 12 9a1 1 0 0 0 0 2 1 1 0 0 0 0-2 3.5 3.5 0 0 1 0-5z" />
+    </svg>;

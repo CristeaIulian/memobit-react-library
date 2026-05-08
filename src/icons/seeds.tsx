@@ -1,0 +1,3 @@
+export const seeds = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M12 2C9.5 2 7 4.5 7 7c0 2 1.17 3.74 2.88 4.61A5.01 5.01 0 0 0 7 16v1h10v-1a5.01 5.01 0 0 0-2.88-4.52A5.02 5.02 0 0 0 17 7c0-2.5-2.5-5-5-5zm0 2c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 8a3 3 0 0 1 3 3H9a3 3 0 0 1 3-3zm-1 7h2v3h-2v-3z" />
+    </svg>;

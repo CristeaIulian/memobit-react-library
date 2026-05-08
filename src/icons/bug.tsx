@@ -1,0 +1,3 @@
+export const bug = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M20 8h-2.81a5.99 5.99 0 0 0-1.08-1.19l1.71-1.71-1.42-1.42-2.12 2.12a5.95 5.95 0 0 0-4.56 0L7.6 3.76 6.18 5.18l1.71 1.71A5.99 5.99 0 0 0 6.81 8H4v2h2.09A6.05 6.05 0 0 0 6 11v1H4v2h2v1a6.05 6.05 0 0 0 .09 1H4v2h2.81A6 6 0 0 0 18 15v-1h2v-2h-2v-1c0-.34-.03-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z" />
+    </svg>;

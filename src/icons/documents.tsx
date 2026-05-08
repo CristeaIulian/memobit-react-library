@@ -1,5 +1,5 @@
 export const documents = (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-        <path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
+        <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm-1 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9l-5-4zm4 15H8V7h6v3h5v10z" />
     </svg>
 );

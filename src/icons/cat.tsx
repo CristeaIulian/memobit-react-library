@@ -1,0 +1,3 @@
+export const cat = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M12 4C9 4 5 6 5 10v4a5 5 0 0 0 5 5h4a5 5 0 0 0 5-5v-4c0-4-4-6-7-6zm3-2 1 3h-2l-1-2c.67-.33 1.33-.67 2-1zm-6 0c.67.33 1.33.67 2 1L10 5H8l1-3zM12 6c2 0 5 1.5 5 4v4a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3v-4c0-2.5 3-4 5-4zm-2 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 3c-1 0-2-.5-2-1h4c0 .5-1 1-2 1zM9 19h2v2H9v-2zm4 0h2v2h-2v-2z" />
+    </svg>;

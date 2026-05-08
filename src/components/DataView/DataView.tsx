@@ -273,7 +273,7 @@ function CardView<T>({
                             >
                                 <span className="data-view__group-label">{group.label}</span>
                                 {showGroupCount && <span className="data-view__group-count">{group.totalCount}</span>}
-                                {collapsible && <Icon className="data-view__group-chevron" name={isCollapsed ? 'down' : 'up'} size="sm" />}
+                                {collapsible && <Icon className="data-view__group-chevron" name={isCollapsed ? 'caret-down' : 'caret-up'} size="sm" />}
                             </header>
                             {!isCollapsed && (
                                 <div className={cardsClassName} style={cardsStyle}>
@@ -772,7 +772,9 @@ export function DataView<T>({
                                                 <td colSpan={totalCols} className="data-view__group-cell">
                                                     <span className="data-view__group-label">{grp.label}</span>
                                                     {showGroupCount && <span className="data-view__group-count">{grp.totalCount}</span>}
-                                                    {group?.collapsible && <Icon className="data-view__group-chevron" name={isCollapsed ? 'down' : 'up'} size="sm" />}
+                                                    {group?.collapsible && (
+                                                        <Icon className="data-view__group-chevron" name={isCollapsed ? 'caret-down' : 'caret-up'} size="sm" />
+                                                    )}
                                                 </td>
                                             </tr>
                                             {!isCollapsed && grp.items.map((row, i) => renderTableRow(row, startIndex + i))}

@@ -1,0 +1,3 @@
+export const penguin = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M12 2C9.24 2 7 4.24 7 7v1H5v2h2.05A5.98 5.98 0 0 0 6 13v4a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-4a5.98 5.98 0 0 0-1.05-3H19V8h-2V7c0-2.76-2.24-5-5-5zm0 2c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm-3 5h6a4 4 0 0 1 4 4v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-4a4 4 0 0 1 4-4zm-1 2v3h2v-3H8zm6 0v3h2v-3h-2zm-4 4a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-4z" />
+    </svg>;

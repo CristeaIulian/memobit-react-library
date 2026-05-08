@@ -1,0 +1,3 @@
+export const christmasTree = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        <path d="M12 2 8 8H5l4 5H6l5 6H9v3h6v-3h-2l5-6h-3l4-5h-3l-4-6zm-1 8.5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1zm3 1a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1zm-4 2.5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1zm2 1a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1zm2-1a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1z" />
+    </svg>;
