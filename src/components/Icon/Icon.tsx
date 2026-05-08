@@ -404,6 +404,11 @@ import { workout } from '../../icons/workout';
 import { wrench } from '../../icons/wrench';
 import { yoga } from '../../icons/yoga';
 import { youtube } from '../../icons/youtube';
+import { active } from '../../icons/active';
+import { group } from '../../icons/group';
+import { inactive } from '../../icons/inactive';
+import { threshold } from '../../icons/threshold';
+import { ungroup } from '../../icons/ungroup';
 
 import './Icon.scss';
 
@@ -813,6 +818,11 @@ const iconMap = {
     wrench,
     yoga,
     youtube,
+    active,
+    group,
+    inactive,
+    threshold,
+    ungroup,
 } as const;
 
 export type IconName = keyof typeof iconMap;

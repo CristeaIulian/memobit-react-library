@@ -446,6 +446,11 @@ const iconAliases: Record<string, string[]> = {
     telescope: ['science', 'space', 'astronomy', 'stars', 'zoom'],
     turkey: ['animal', 'bird', 'thanksgiving', 'meat', 'farm'],
     turtle: ['animal', 'reptile', 'slow', 'shell', 'sea'],
+    active: ['status', 'online', 'enabled', 'running', 'live', 'on'],
+    group: ['combine', 'folder', 'collection', 'cluster', 'batch', 'organize'],
+    inactive: ['status', 'offline', 'disabled', 'paused', 'off', 'idle'],
+    threshold: ['limit', 'boundary', 'trigger', 'level', 'maximum', 'minimum', 'range'],
+    ungroup: ['separate', 'split', 'detach', 'break-apart', 'release', 'expand'],
 };
 
 const iconModules = import.meta.glob('../../../src/icons/**/*.tsx', { eager: true }) as Record<string, IconModule>;
