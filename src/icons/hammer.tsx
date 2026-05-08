@@ -1,3 +1,11 @@
-export const hammer = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-        <path d="m9.5 8.5-5 5 1.5 1.5 1-1 5 5 1.5-1.5-5-5 3-3-1-1.5-.5.5H9.5zM20 5l-3-3-7 7 3 3 7-7zm-3-1 1 1-5.5 5.5-1-1L17 4z" />
-    </svg>;
+export const hammer = (
+    <svg fill="#000000" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <title>hammer</title>{' '}
+            <path d="M28.394 7.296l-4.254-0.64 1.241-1.64-5.146-3.928-1.308 1.728c-2.13-1.258-4.321-1.802-5.939-1.636l0 0.001c-0.231 0.022-0.45 0.078-0.656 0.129-0.646 0.162-1.148 0.459-1.465 0.877l5.412 4.129-1.207 1.595 1.017 0.776c-5.472 6.732-11.742 12.501-15.269 20.272l3.1 2.346c6.645-5.773 10.208-12.942 15.337-20.201l0.962 0.734 1.241-1.64 1.773 3.919 2.659 2.011c3.267-1.373 4.722-3.803 5.163-6.824l-2.659-2.012z"></path>{' '}
+        </g>
+    </svg>
+);

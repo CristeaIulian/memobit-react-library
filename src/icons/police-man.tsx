@@ -1,9 +1,29 @@
-export const policeMan = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-        <circle cx="12" cy="5" r="3" />
-        <path d="M8 3h8l1 2H7L8 3z" />
-        <path d="M7 9a5 5 0 0 0-2 4v2h14v-2a5 5 0 0 0-2-4H7z" />
-        <path d="M10 15v7h2v-4h0v4h2v-7" />
-        <rect x="9" y="11" width="6" height="1.5" rx="0.5" fill="white" opacity="0.4" />
-    </svg>;
-
-// ─── Objects & Misc ─────────────────────────────────────────────────────────
+export const policeMan = (
+    <svg
+        viewBox="0 0 60.601004 60.601004"
+        xmlns:cc="http://creativecommons.org/ns#"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:svg="http://www.w3.org/2000/svg"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="#000000"
+    >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path
+                d="m 25.618626,18.467378 0,0.38875 c 0,2.57875 2.09,4.66875 4.66875,4.66875 2.578751,0 4.668751,-2.09 4.668751,-4.66875 l 0,-2.72375 -9.753751,0 -1.95875,2.335 2.375,0"
+                style={{ fill: '#000000', fillOpacity: 1, fillRule: 'nonzero', stroke: 'none' }}
+            ></path>
+            <path
+                d="m 23.184876,10.518627 2.0175,4.3275 9.753751,0 0.92625,-2.5425 -12.697501,-1.785"
+                style={{ fill: '#000000', fillOpacity: 1, fillRule: 'nonzero', stroke: 'none' }}
+            ></path>
+            <path
+                d="m 27.599876,43.048629 0,2.12125 10.220001,0 0.075,-2.12125 -10.295001,0 z m -0.85,-1.5925 c 0,-0.4875 -0.39375,-0.88375 -0.8825,-0.88375 l -3.0075,0 c -0.39,0 -0.70625,0.3175 -0.70625,0.7075 0,0.10375 0.02125,0.20125 0.0625,0.29 l 2.845,6.32375 c 0.13875,0.30625 0.44625,0.52125 0.80625,0.52125 0.48875,0 0.8825,-0.39625 0.8825,-0.885 l 0,-6.07375 z m 15.678751,-9.595001 -1.44375,16.493751 -3.275,0 -0.0625,1.767501 -14.722501,0 -0.06125,-1.767501 -3.277501,0 -1.44125,-16.493751 c -0.24,-2.7375 1.47875,-5.355 4.223751,-6.12625 1.57375,-0.43875 3.2,-0.75 4.87,-0.92125 l 3.04625,5.21625 3.05125,-5.22 c 1.662501,0.17 3.281251,0.47875 4.850001,0.91125 2.7425,0.77125 4.4825,3.4025 4.2425,6.14"
+                style={{ fill: '#000000', fillOpacity: 1, fillRule: 'nonzero', stroke: 'none' }}
+            ></path>
+        </g>
+    </svg>
+);

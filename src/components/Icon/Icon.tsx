@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { active } from '../../icons/active';
 import { afternoon } from '../../icons/afternoon';
 import { ajax } from '../../icons/ajax';
 import { alarm } from '../../icons/alarm';
@@ -16,6 +17,7 @@ import { arrowRight } from '../../icons/arrow-right';
 import { arrowUp } from '../../icons/arrow-up';
 import { avocado } from '../../icons/avocado';
 import { badge } from '../../icons/badge';
+import { ball } from '../../icons/ball';
 import { balloon } from '../../icons/balloon';
 import { banana } from '../../icons/banana';
 import { bank } from '../../icons/bank';
@@ -46,6 +48,7 @@ import { brokenHeart } from '../../icons/broken-heart';
 import { broom } from '../../icons/broom';
 import { bug } from '../../icons/bug';
 import { building } from '../../icons/building';
+import { bullet } from '../../icons/bullet';
 import { bunny } from '../../icons/bunny';
 import { bus } from '../../icons/bus';
 import { butterfly } from '../../icons/butterfly';
@@ -109,6 +112,7 @@ import { documents } from '../../icons/documents';
 import { dog } from '../../icons/dog';
 import { dolphin } from '../../icons/dolphin';
 import { door } from '../../icons/door';
+import { dot } from '../../icons/dot';
 import { download } from '../../icons/download';
 import { dragon } from '../../icons/dragon';
 import { dryingMachine } from '../../icons/drying-machine';
@@ -185,6 +189,7 @@ import { glycemicIndex } from '../../icons/glycemic-index';
 import { goat } from '../../icons/goat';
 import { graduation } from '../../icons/graduation';
 import { grid } from '../../icons/grid';
+import { group } from '../../icons/group';
 import { gun } from '../../icons/gun';
 import { hammer } from '../../icons/hammer';
 import { handshake } from '../../icons/handshake';
@@ -202,6 +207,7 @@ import { iceCream } from '../../icons/ice-cream';
 import { identity } from '../../icons/identity';
 import { image } from '../../icons/image';
 import { import_ } from '../../icons/import';
+import { inactive } from '../../icons/inactive';
 import { incognito } from '../../icons/incognito';
 import { information } from '../../icons/information';
 import { ingredients } from '../../icons/ingredients';
@@ -267,7 +273,7 @@ import { other } from '../../icons/other';
 import { outdoor } from '../../icons/outdoor';
 import { ownership } from '../../icons/ownership';
 import { pause } from '../../icons/pause';
-import { pdf } from '../../icons/pdf';
+import { pawn } from '../../icons/pawn';
 import { pear } from '../../icons/pear';
 import { penguin } from '../../icons/penguin';
 import { pepper } from '../../icons/pepper';
@@ -366,6 +372,7 @@ import { teeth } from '../../icons/teeth';
 import { telescope } from '../../icons/telescope';
 import { themePicker } from '../../icons/theme-picker';
 import { thermometer } from '../../icons/thermometer';
+import { threshold } from '../../icons/threshold';
 import { time } from '../../icons/time';
 import { toggleOff } from '../../icons/toggle-off';
 import { toggleOn } from '../../icons/toggle-on';
@@ -381,6 +388,7 @@ import { turtle } from '../../icons/turtle';
 import { tv } from '../../icons/tv';
 import { unarchive } from '../../icons/unarchive';
 import { unassociated } from '../../icons/unassociated';
+import { ungroup } from '../../icons/ungroup';
 import { unmute } from '../../icons/unmute';
 import { upload } from '../../icons/upload';
 import { upnp } from '../../icons/upnp';
@@ -404,11 +412,6 @@ import { workout } from '../../icons/workout';
 import { wrench } from '../../icons/wrench';
 import { yoga } from '../../icons/yoga';
 import { youtube } from '../../icons/youtube';
-import { active } from '../../icons/active';
-import { group } from '../../icons/group';
-import { inactive } from '../../icons/inactive';
-import { threshold } from '../../icons/threshold';
-import { ungroup } from '../../icons/ungroup';
 
 import './Icon.scss';
 
@@ -495,6 +498,7 @@ const iconMap = {
     'washing-machine': washingMachine,
     'water-leak': waterLeak,
     'website-crawl': websiteCrawl,
+    active,
     afternoon,
     ajax,
     alarm,
@@ -507,6 +511,7 @@ const iconMap = {
     archive,
     avocado,
     badge,
+    ball,
     balloon,
     banana,
     bank: bank,
@@ -531,6 +536,7 @@ const iconMap = {
     broom,
     bug,
     building,
+    bullet,
     bunny,
     bus,
     butterfly,
@@ -584,6 +590,7 @@ const iconMap = {
     dog,
     dolphin,
     door,
+    dot,
     download,
     dragon,
     duck,
@@ -620,6 +627,7 @@ const iconMap = {
     goat,
     graduation,
     grid,
+    group,
     gun,
     hammer,
     handshake,
@@ -636,6 +644,7 @@ const iconMap = {
     identity,
     image,
     import: import_,
+    inactive,
     incognito,
     information,
     ingredients,
@@ -695,7 +704,7 @@ const iconMap = {
     outdoor,
     ownership,
     pause,
-    pdf,
+    pawn,
     pear,
     penguin,
     pepper,
@@ -787,6 +796,7 @@ const iconMap = {
     teeth,
     telescope,
     thermometer,
+    threshold,
     time,
     toolbox,
     train,
@@ -799,6 +809,7 @@ const iconMap = {
     tv,
     unarchive,
     unassociated,
+    ungroup,
     unmute,
     upload,
     upnp,
@@ -818,11 +829,6 @@ const iconMap = {
     wrench,
     yoga,
     youtube,
-    active,
-    group,
-    inactive,
-    threshold,
-    ungroup,
 } as const;
 
 export type IconName = keyof typeof iconMap;

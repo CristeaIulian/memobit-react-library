@@ -254,7 +254,7 @@ const iconAliases: Record<string, string[]> = {
     repeat: ['loop', 'cycle', 'again', 'replay'],
     report: ['document', 'analytics', 'summary', 'data'],
     reproductive: ['fertility', 'obstetric', 'gynecology', 'medical', 'pregnancy'],
-    returnIcon: ['back', 'undo', 'arrow', 'revert'],
+    return: ['back', 'undo', 'arrow', 'revert'],
     robot: ['ai', 'bot', 'automation', 'tech'],
     rocket: ['launch', 'space', 'flight', 'project', 'start', 'mission', 'breakthrough'],
     rooms: ['locations', 'spaces', 'areas', 'places'],
@@ -373,7 +373,6 @@ const iconAliases: Record<string, string[]> = {
     'filetype-mp3': ['filetype', 'mp3'],
     'filetype-mp4': ['filetype', 'mp4'],
     'filetype-mpg': ['filetype', 'mpg'],
-    'filetype-pdf': ['filetype', 'pdf'],
     'filetype-php': ['filetype', 'php'],
     'filetype-png': ['filetype', 'png'],
     'filetype-ppt': ['filetype', 'ppt'],
@@ -451,6 +450,10 @@ const iconAliases: Record<string, string[]> = {
     inactive: ['status', 'offline', 'disabled', 'paused', 'off', 'idle'],
     threshold: ['limit', 'boundary', 'trigger', 'level', 'maximum', 'minimum', 'range'],
     ungroup: ['separate', 'split', 'detach', 'break-apart', 'release', 'expand'],
+    pawn: ['chess', 'game', 'piece', 'strategy', 'player', 'token'],
+    ball: ['sphere', 'sport', 'circle', 'round', 'play', 'game'],
+    bullet: ['dot', 'list', 'marker', 'point', 'item', 'circle'],
+    dot: ['point', 'list', 'circle', 'item', 'marker'],
 };
 
 const iconModules = import.meta.glob('../../../src/icons/**/*.tsx', { eager: true }) as Record<string, IconModule>;

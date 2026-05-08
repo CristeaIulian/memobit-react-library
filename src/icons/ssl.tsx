@@ -1,6 +1,26 @@
 export const ssl = (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-        <path d="M18 8h-1V6A5 5 0 0 0 7 6v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zm-6 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm3.1-9H8.9V6a3.1 3.1 0 0 1 6.2 0v2zM18.5 1.5 14 3.5v3c0 2.5 1.9 4.8 4.5 5.5 2.6-.7 4.5-3 4.5-5.5v-3z" />
-        <path d="m17.3 6.8 1.1 1.1 2.1-2.1-.7-.7-1.4 1.4-.4-.4z" fill="white" />
+    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <title>certificate-ssl</title>{' '}
+            <g id="Layer_2" data-name="Layer 2">
+                {' '}
+                <g id="invisible_box" data-name="invisible box">
+                    {' '}
+                    <rect width="48" height="48" fill="none"></rect> <rect width="48" height="48" fill="none"></rect>{' '}
+                </g>{' '}
+                <g id="icons_Q2" data-name="icons Q2">
+                    {' '}
+                    <g>
+                        {' '}
+                        <path d="M20,39H6V9H40a2,2,0,0,0,0-4H4A2,2,0,0,0,2,7V41a2,2,0,0,0,2,2H20a2,2,0,0,0,0-4Z"></path>{' '}
+                        <path d="M46,24A13,13,0,0,0,33,11a12.8,12.8,0,0,0-8.3,3H12a2,2,0,0,0,0,4h9.5a11.1,11.1,0,0,0-1.3,4H12a2,2,0,0,0,0,4h8.2a11.1,11.1,0,0,0,1.3,4H12a2,2,0,0,0,0,4H24.7l1.3.9v9.7A2.3,2.3,0,0,0,28,47a1.8,1.8,0,0,0,1.3-.6L33,43l3.7,3.4A1.8,1.8,0,0,0,38,47a2.3,2.3,0,0,0,2-2.4V35A13.2,13.2,0,0,0,46,24ZM36,32.5v7.8l-3-2.8-3,2.8V32.5A9.1,9.1,0,0,1,24,24a9,9,0,0,1,18,0A9.1,9.1,0,0,1,36,32.5Z"></path>{' '}
+                        <circle cx="33" cy="24" r="5"></circle>{' '}
+                    </g>{' '}
+                </g>{' '}
+            </g>{' '}
+        </g>
     </svg>
 );

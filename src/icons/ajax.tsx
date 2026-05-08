@@ -9,7 +9,7 @@ export const ajax = (
         viewBox="0 0 122.88 120.93"
         xmlSpace="preserve"
     >
-        <style type="text/css">{`.st0{fill-rule:evenodd;clip-rule:evenodd;}`}</style>
+        <style type="text/css">{`.st0{fillRule:evenodd;clipRule:evenodd;}`}</style>
         <g>
             <path
                 className="st0"

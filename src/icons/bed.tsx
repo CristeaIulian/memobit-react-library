@@ -1,3 +1,16 @@
-export const bed = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-        <path d="M7 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm13-1H12V9H2V6H0v12h2v-2h20v2h2v-7a3 3 0 0 0-3-3h-1zm1 4H2v-4h19a1 1 0 0 1 1 1v3z" />
-    </svg>;
+export const bed = (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <path
+                d="M3 5V19M3 16H21M21 19V13.2C21 12.0799 21 11.5198 20.782 11.092C20.5903 10.7157 20.2843 10.4097 19.908 10.218C19.4802 10 18.9201 10 17.8 10H11V15.7273M7 12H7.01M8 12C8 12.5523 7.55228 13 7 13C6.44772 13 6 12.5523 6 12C6 11.4477 6.44772 11 7 11C7.55228 11 8 11.4477 8 12Z"
+                stroke="#000000"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            ></path>{' '}
+        </g>
+    </svg>
+);

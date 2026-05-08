@@ -1,3 +1,21 @@
-export const teeth = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-        <path d="M19 3H5C3.9 3 3 3.9 3 5v3c0 1.1.9 2 2 2h1.5v3c0 1.7 1.3 3 3 3h.5v4h1v-4h2v4h1v-4h.5c1.7 0 3-1.3 3-3v-3H19c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 8V8H9V5h2.5v6H11zm3.5 0h-.5V5H16v3h-2v3h.5z" />
-    </svg>;
+export const teeth = (
+    <svg
+        fill="#000000"
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 31.653 31.653"
+        xmlSpace="preserve"
+    >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <g>
+                {' '}
+                <path d="M27.936,5.153c-0.644-2.089-2.629-3.698-4.123-4.654c-1.021-0.651-2.324-0.666-3.357-0.039l-2.667,1.616 c-1.207,0.731-2.718,0.731-3.924,0L11.198,0.46C10.163-0.167,8.86-0.152,7.841,0.499C6.345,1.455,4.359,3.064,3.716,5.153 C2.64,8.647,1.028,12.947,5.059,17.786c0,0-2.149,9.139,2.956,13.438c0,0,3.73,1.68,3.226-1.612 c-0.327-2.139-0.303-10.059,4.585-10.445c4.889,0.387,4.913,8.308,4.584,10.445c-0.503,3.292,3.226,1.612,3.226,1.612 c5.106-4.3,2.957-13.438,2.957-13.438C30.625,12.948,29.012,8.647,27.936,5.153z"></path>{' '}
+            </g>{' '}
+        </g>
+    </svg>
+);

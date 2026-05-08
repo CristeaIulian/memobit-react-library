@@ -9,7 +9,7 @@ export const api = (
         viewBox="0 0 115.28 122.88"
         xmlSpace="preserve"
     >
-        <style type="text/css">{`.st0{fill-rule:evenodd;clip-rule:evenodd;}`}</style>
+        <style type="text/css">{`.st0{fillRule:evenodd;clipRule:evenodd;}`}</style>
         <g>
             <path
                 className="st0"

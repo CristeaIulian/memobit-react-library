@@ -1,3 +1,12 @@
-export const wan = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-        <path d="M17 8C8 10 5.9 16.17 3.82 21H5.71c.24-.69.5-1.36.79-2H17a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zm0 7H7.07c.98-2.52 2.87-4.65 9.93-6v6zm2-11a2 2 0 1 0-4 0H5a2 2 0 0 0-2 2v1h2V6h14v1h2V6a2 2 0 0 0-2-2v1z" />
-    </svg>;
+export const wan = (
+    <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path
+                fillRule="evenodd"
+                d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zM7 11.09v11.974l9-5.315 9 5.315V11.09l-2.606 1.13v6.353L16 14.786l-6.333 3.787V12.22L7 11.09zm.303-.489l2.364.978L16 7.883l6.394 3.696 2.364-.978L16 5.5l-8.697 5.101zm1.879 11.821L16.03 26.5l6.849-4.078-2.03-1.13-4.819 2.825-4.878-2.825-1.97 1.13z"
+            ></path>
+        </g>
+    </svg>
+);
