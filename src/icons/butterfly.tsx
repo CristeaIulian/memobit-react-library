@@ -1,3 +1,21 @@
-export const butterfly = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-        <path d="M11 8.07C9.39 5.4 6.5 4 3 4c0 4 2.56 7.28 6.2 8.45L11 13.5V22h2v-8.5l1.8-1.05C18.44 11.28 21 8 21 4c-3.5 0-6.39 1.4-8 4.07A5.99 5.99 0 0 0 12 7c-.35 0-.69.03-1 .07zM5.25 6.26C7.07 6.7 8.57 7.78 9.5 9.4A8.01 8.01 0 0 1 5.25 6.26zm13.5 0a8.01 8.01 0 0 1-4.25 3.14A5.98 5.98 0 0 1 18.75 6.26z" />
-    </svg>;
+export const butterfly = (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        {/* Left upper wing */}
+        <path d="M12 12C10 10 6 8 3 9c-1 3 1 7 5 8l4-5z" />
+        {/* Left lower wing */}
+        <path d="M12 12l-3 5c2 2 6 2 7 0l-4-5z" />
+        {/* Right upper wing */}
+        <path d="M12 12c2-2 6-4 9-3 1 3-1 7-5 8l-4-5z" />
+        {/* Right lower wing */}
+        <path d="M12 12l3 5c-2 2-6 2-7 0l4-5z" />
+        {/* Body */}
+        <ellipse cx="12" cy="12" rx="1" ry="5" />
+        {/* Antennae */}
+        <path d="M11.5 7.5c-1-2-2-3-3-3M12.5 7.5c1-2 2-3 3-3" stroke="currentColor" strokeWidth="1" strokeLinecap="round" fill="none" />
+        <circle cx="8.5" cy="4.5" r="0.7" />
+        <circle cx="15.5" cy="4.5" r="0.7" />
+        {/* Wing detail */}
+        <circle cx="8" cy="11" r="1.2" fill="white" opacity="0.2" />
+        <circle cx="16" cy="11" r="1.2" fill="white" opacity="0.2" />
+    </svg>
+);

@@ -1,3 +1,19 @@
-export const raspberry = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-        <path d="M12 2c-.5 0-1 .08-1.5.22A3 3 0 0 0 7 2a3 3 0 0 0-3 3c0 .18.02.36.05.53A3 3 0 0 0 3 8a3 3 0 0 0 1.5 2.6A5 5 0 0 0 7 15.9V18h10v-2.1a5 5 0 0 0 2.5-5.3A3 3 0 0 0 21 8a3 3 0 0 0-1.05-2.28C19.98 5.5 20 5.26 20 5a3 3 0 0 0-3-3 3 3 0 0 0-3.5.22A4.97 4.97 0 0 0 12 2zm0 2a3 3 0 0 1 3 3v1h-6V7a3 3 0 0 1 3-3zm0 6h2v2h-2v-2zm-3 0h2v2H9v-2zm6 0h2v2h-2v-2zm-4 4h2v2h-2v-2zM9 20h6v2H9v-2z" />
-    </svg>;
+export const raspberry = (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+        {/* Leaf cap */}
+        <path d="M12 4c-1 0-2.5.5-3 1.5.5-.2 1.5-.3 2-.1C11.5 4.6 13 4 14 4.5 13.5 4.8 12 5 12 5s.5-1 2-1.5A4 4 0 0 0 12 4z" />
+        <path d="M9 5.5C8 6 7 7 7 8M15 5.5C16 6 17 7 17 8" stroke="currentColor" strokeWidth="1" strokeLinecap="round" fill="none" />
+        {/* Drupelets — berry cluster */}
+        <circle cx="10" cy="9" r="2" />
+        <circle cx="14" cy="9" r="2" />
+        <circle cx="8.5" cy="13" r="2" />
+        <circle cx="12" cy="13" r="2" />
+        <circle cx="15.5" cy="13" r="2" />
+        <circle cx="10" cy="17" r="2" />
+        <circle cx="14" cy="17" r="2" />
+        {/* Highlight dots */}
+        <circle cx="9.3" cy="8.3" r="0.6" fill="white" opacity="0.4" />
+        <circle cx="13.3" cy="8.3" r="0.6" fill="white" opacity="0.4" />
+        <circle cx="11.3" cy="12.3" r="0.6" fill="white" opacity="0.4" />
+    </svg>
+);
