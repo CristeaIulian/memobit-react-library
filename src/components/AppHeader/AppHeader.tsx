@@ -3,9 +3,12 @@ import React, { ReactNode } from 'react';
 import { Separator } from '../Separator';
 
 import './AppHeader.scss';
+import { Icon, IconName } from '../Icon';
 
 export interface AppHeaderProps {
-    icon?: ReactNode;
+    icon?: IconName;
+    emoji?: string;
+    svg?: ReactNode;
     appName?: string;
     heading?: string;
     onClick?: () => void;
@@ -13,13 +16,19 @@ export interface AppHeaderProps {
     showSeparator?: boolean;
 }
 
-export const AppHeader: React.FC<AppHeaderProps> = ({ icon, appName, heading, onClick, className = '', showSeparator = true }) => {
+export const AppHeader: React.FC<AppHeaderProps> = ({ emoji, icon, svg, appName, heading, onClick, className = '', showSeparator = true }) => {
     const headerClassName = ['app-header', onClick ? 'app-header--clickable' : '', className].filter(Boolean).join(' ');
 
     return (
         <>
             <div className={headerClassName} onClick={onClick}>
-                {icon && <span className="app-header__icon">{icon}</span>}
+                {emoji && <span className="app-header__icon">{emoji}</span>}
+                {svg && <span className="app-header__icon">{svg}</span>}
+                {icon && (
+                    <span className="app-header__icon">
+                        <Icon name={icon} />
+                    </span>
+                )}
                 <div className="app-header__copy">
                     {appName && <span className="app-header__app-name">{appName}</span>}
                     {heading && <span className="app-header__headline">{heading}</span>}

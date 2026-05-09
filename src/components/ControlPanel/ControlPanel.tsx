@@ -17,7 +17,9 @@ import { useControlPanelContext } from './ControlPanelContext';
 import './ControlPanel.scss';
 
 export interface ControlPanelHeader {
-    icon?: ReactNode;
+    icon?: IconName;
+    emoji?: string;
+    svg?: ReactNode;
     appName?: string;
     siteName?: string;
     heading?: string;
@@ -556,7 +558,16 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         <>
             {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
             <aside className={panelClassName} style={panelStyle}>
-                {header && <AppHeader icon={header.icon} appName={header.appName ?? header.siteName} heading={header.heading} onClick={header.onClick} />}
+                {header && (
+                    <AppHeader
+                        icon={header.icon}
+                        emoji={header.emoji}
+                        svg={header.svg}
+                        appName={header.appName ?? header.siteName}
+                        heading={header.heading}
+                        onClick={header.onClick}
+                    />
+                )}
 
                 {actions.length > 0 && (
                     <div className="control-panel__actions">
