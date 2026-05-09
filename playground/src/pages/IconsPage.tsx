@@ -464,6 +464,8 @@ const iconAliases: Record<string, string[]> = {
     ruler: ['measure', 'measurement', 'size', 'length', 'dimensions', 'scale', 'tools', 'design', 'precision'],
     trophy: ['winner', 'achievement', 'award', 'prize', 'victory', 'success', 'competition', 'cup'],
     strength: ['power', 'muscle', 'fitness', 'strong', 'intensity', 'durability', 'security', 'force'],
+    minimum: ['basic', 'floor', 'lowest', 'limit', 'threshold', 'base', 'under'],
+    layers: ['all', 'stack', 'overlay', 'depth', 'sheets', 'overlap', 'levels'],
 };
 
 const iconModules = import.meta.glob('../../../src/icons/**/*.tsx', { eager: true }) as Record<string, IconModule>;

@@ -424,6 +424,8 @@ import { ruler } from '../../icons/ruler';
 import './Icon.scss';
 import { trophy } from '../../icons/trophy';
 import { strength } from '../../icons/strength';
+import { minimum } from '../../icons/minimum';
+import { layers } from '../../icons/layers';
 
 const iconMap = {
     scan,
@@ -849,6 +851,8 @@ const iconMap = {
     ruler,
     trophy,
     strength,
+    minimum,
+    layers,
 } as const;
 
 export type IconName = keyof typeof iconMap;
