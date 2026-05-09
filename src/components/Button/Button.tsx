@@ -17,8 +17,6 @@ export interface ButtonProps {
     icon?: IconName | React.ReactElement;
     loading?: boolean;
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-    /** @deprecated Use `icon` instead. */
-    prefixIcon?: string;
     emojiIcon?: string;
     size?: 'small' | 'medium' | 'large';
     style?: React.CSSProperties;
@@ -41,7 +39,6 @@ export const Button: React.FC<ButtonProps> = ({
     icon,
     loading = false,
     onClick,
-    prefixIcon,
     emojiIcon,
     size = 'medium',
     style,
@@ -67,7 +64,6 @@ export const Button: React.FC<ButtonProps> = ({
             ) : (
                 <>
                     {icon !== undefined && (typeof icon === 'string' ? <Icon size="lg" name={icon} /> : icon)}
-                    {prefixIcon && <span>{prefixIcon}</span>}
                     {emojiIcon && <span>{emojiIcon}</span>}
                     {children && <span>{children}</span>}
                     {sufixIcon && <span>{sufixIcon}</span>}
