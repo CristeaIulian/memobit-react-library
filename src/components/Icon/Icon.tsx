@@ -417,11 +417,13 @@ import { calendarWeek } from '../../icons/calendar-week';
 import { calendarMonth } from '../../icons/calendar-month';
 import { calendarYear } from '../../icons/calendar-year';
 import { scan } from '../../icons/scan';
+import { coffee } from '../../icons/coffee';
 
 import './Icon.scss';
 
 const iconMap = {
     scan,
+    coffee,
     'calendar-day': calendarDay,
     'calendar-week': calendarWeek,
     'calendar-month': calendarMonth,

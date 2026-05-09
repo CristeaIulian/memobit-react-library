@@ -459,6 +459,7 @@ const iconAliases: Record<string, string[]> = {
     calendarMonth: ['monthly', 'grid', 'agenda', 'billing-cycle', 'view'],
     calendarYear: ['yearly', 'annual', 'long-term', 'roadmap', 'full-year'],
     scan: ['barcode', 'qr-code', 'optical', 'reader', 'identity', 'search', 'analyze', 'document'],
+    coffee: ['drink', 'caffeine', 'mug', 'cup', 'break', 'cafe', 'morning', 'energy'],
 };
 
 const iconModules = import.meta.glob('../../../src/icons/**/*.tsx', { eager: true }) as Record<string, IconModule>;
