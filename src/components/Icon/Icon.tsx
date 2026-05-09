@@ -420,12 +420,15 @@ import { calendarYear } from '../../icons/calendar-year';
 import { scan } from '../../icons/scan';
 import { coffee } from '../../icons/coffee';
 import { ruler } from '../../icons/ruler';
-
-import './Icon.scss';
 import { trophy } from '../../icons/trophy';
 import { strength } from '../../icons/strength';
 import { minimum } from '../../icons/minimum';
 import { layers } from '../../icons/layers';
+import { gaugeMedium } from '../../icons/gauge-medium';
+import { gaugeLow } from '../../icons/gauge-low';
+import { gaugeHigh } from '../../icons/gauge-high';
+
+import './Icon.scss';
 
 const iconMap = {
     scan,
@@ -853,6 +856,9 @@ const iconMap = {
     strength,
     minimum,
     layers,
+    'gauge-low': gaugeLow,
+    'gauge-medium': gaugeMedium,
+    'gauge-high': gaugeHigh,
 } as const;
 
 export type IconName = keyof typeof iconMap;

@@ -466,6 +466,9 @@ const iconAliases: Record<string, string[]> = {
     strength: ['power', 'muscle', 'fitness', 'strong', 'intensity', 'durability', 'security', 'force'],
     minimum: ['basic', 'floor', 'lowest', 'limit', 'threshold', 'base', 'under'],
     layers: ['all', 'stack', 'overlay', 'depth', 'sheets', 'overlap', 'levels'],
+    'gauge-low': ['meter', 'speed', 'slow', 'minimum', 'pressure', 'level-1', 'startup'],
+    'gauge-medium': ['meter', 'speed', 'average', 'normal', 'balanced', 'level-2', 'steady'],
+    'gauge-high': ['meter', 'speed', 'fast', 'maximum', 'peak', 'limit', 'level-3', 'warning'],
 };
 
 const iconModules = import.meta.glob('../../../src/icons/**/*.tsx', { eager: true }) as Record<string, IconModule>;
