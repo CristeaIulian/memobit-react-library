@@ -319,7 +319,8 @@ const iconAliases: Record<string, string[]> = {
     train: ['railway', 'subway', 'metro', 'rail', 'locomotive', 'tram', 'underground', 'transit', 'commute'],
     transactions: ['payments', 'money', 'finance', 'history'],
     tree: ['nature', 'forest', 'wood', 'outdoor'],
-    trend: ['chart', 'analytics', 'growth', 'pattern'],
+    'trend-down': ['chart', 'analytics', 'decrease', 'pattern'],
+    'trend-up': ['chart', 'analytics', 'growth', 'pattern'],
     trip: ['journey', 'travel', 'suitcase', 'luggage', 'vacation', 'holiday', 'voyage', 'getaway'],
     tv: ['television', 'screen', 'video', 'display'],
     unarchive: ['restore', 'retrieve', 'unbox', 'extract'],
@@ -339,7 +340,7 @@ const iconAliases: Record<string, string[]> = {
     web: ['internet', 'browser', 'world', 'global', 'url'],
     wifi: ['wireless', 'signal', 'connection', 'hotspot'],
     wind: ['weather', 'air', 'breeze', 'storm'],
-    workout: ['exercise', 'fitness', 'gym', 'training', 'sport'],
+    workout: ['exercise', 'fitness', 'gym', 'training', 'sport', 'strength', 'power'],
     wrench: ['tool', 'fix', 'settings', 'repair', 'config'],
     yoga: ['health', 'zen', 'stretch', 'meditation', 'pose'],
     youtube: ['video', 'streaming', 'channel', 'play', 'social', 'media', 'creator', 'watch'],
@@ -460,6 +461,9 @@ const iconAliases: Record<string, string[]> = {
     calendarYear: ['yearly', 'annual', 'long-term', 'roadmap', 'full-year'],
     scan: ['barcode', 'qr-code', 'optical', 'reader', 'identity', 'search', 'analyze', 'document'],
     coffee: ['drink', 'caffeine', 'mug', 'cup', 'break', 'cafe', 'morning', 'energy'],
+    ruler: ['measure', 'measurement', 'size', 'length', 'dimensions', 'scale', 'tools', 'design', 'precision'],
+    trophy: ['winner', 'achievement', 'award', 'prize', 'victory', 'success', 'competition', 'cup'],
+    strength: ['power', 'muscle', 'fitness', 'strong', 'intensity', 'durability', 'security', 'force'],
 };
 
 const iconModules = import.meta.glob('../../../src/icons/**/*.tsx', { eager: true }) as Record<string, IconModule>;

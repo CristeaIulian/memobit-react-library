@@ -381,7 +381,8 @@ import { train } from '../../icons/train';
 import { transactions } from '../../icons/transactions';
 import { transportBox } from '../../icons/transport-box';
 import { tree } from '../../icons/tree';
-import { trend } from '../../icons/trend';
+import { trendDown } from '../../icons/trend-down';
+import { trendUp } from '../../icons/trend-up';
 import { trip } from '../../icons/trip';
 import { turkey } from '../../icons/turkey';
 import { turtle } from '../../icons/turtle';
@@ -418,8 +419,11 @@ import { calendarMonth } from '../../icons/calendar-month';
 import { calendarYear } from '../../icons/calendar-year';
 import { scan } from '../../icons/scan';
 import { coffee } from '../../icons/coffee';
+import { ruler } from '../../icons/ruler';
 
 import './Icon.scss';
+import { trophy } from '../../icons/trophy';
+import { strength } from '../../icons/strength';
 
 const iconMap = {
     scan,
@@ -814,7 +818,8 @@ const iconMap = {
     train,
     transactions,
     tree,
-    trend,
+    'trend-down': trendDown,
+    'trend-up': trendUp,
     trip,
     turkey,
     turtle,
@@ -841,6 +846,9 @@ const iconMap = {
     wrench,
     yoga,
     youtube,
+    ruler,
+    trophy,
+    strength,
 } as const;
 
 export type IconName = keyof typeof iconMap;
