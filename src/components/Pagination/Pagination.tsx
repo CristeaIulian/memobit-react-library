@@ -48,7 +48,7 @@ export const Pagination: FC<PaginationProps> = ({
         const containerWidth = container.parentElement?.offsetWidth ?? container.offsetWidth;
         const navButtonWidth = isAtLeast('desktop') ? NAV_BUTTON_WIDTH_DESKTOP : NAV_BUTTON_WIDTH_MOBILE;
         // Fixed space: 2 nav buttons + first page + last page + 2 dots + gaps
-        const fixedWidth = (navButtonWidth * 2) + (PAGE_BUTTON_WIDTH * 2) + (DOTS_WIDTH * 2) + (GAP * 6);
+        const fixedWidth = navButtonWidth * 2 + PAGE_BUTTON_WIDTH * 2 + DOTS_WIDTH * 2 + GAP * 6;
         const availableWidth = containerWidth - fixedWidth;
         const maxMiddleButtons = Math.floor(availableWidth / (PAGE_BUTTON_WIDTH + GAP));
         const newDelta = Math.max(0, Math.floor(maxMiddleButtons / 2));
@@ -115,7 +115,7 @@ export const Pagination: FC<PaginationProps> = ({
         <div className={`pagination pagination--${horizontalAlign}`}>
             {totalPages > 1 && (
                 <div className="pagination__pages" ref={pagesRef}>
-                    <Button variant="default" borders="sharp" disabled={currentPage === 1} prefixIcon="«" onClick={() => onPageChange(currentPage - 1)}>
+                    <Button variant="default" borders="sharp" disabled={currentPage === 1} icon="previous" onClick={() => onPageChange(currentPage - 1)}>
                         {isAtLeast('desktop') ? 'Previous' : ''}
                     </Button>
 

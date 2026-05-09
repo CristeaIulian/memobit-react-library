@@ -21,8 +21,8 @@ export const ToggleButtonsPage: React.FC = () => {
                             state={toggleState2}
                             onToggleChange={setToggleState2}
                             states={[
-                                { key: 'option1', label: 'List View', icon: '☰' },
-                                { key: 'option2', label: 'Grid View', icon: '▦' },
+                                { key: 'option1', label: 'List View', icon: 'menu-hamburger' },
+                                { key: 'option2', label: 'Grid View', icon: 'grid' },
                             ]}
                         />
                     </div>
@@ -35,10 +35,10 @@ export const ToggleButtonsPage: React.FC = () => {
                             state={toggleState4}
                             onToggleChange={setToggleState4}
                             states={[
-                                { key: 'view1', label: 'Day', icon: '☀' },
-                                { key: 'view2', label: 'Week', icon: '📅' },
-                                { key: 'view3', label: 'Month', icon: '📆' },
-                                { key: 'view4', label: 'Year', icon: '🗓' },
+                                { key: 'view1', label: 'Day', icon: 'calendar-day' },
+                                { key: 'view2', label: 'Week', icon: 'calendar-week' },
+                                { key: 'view3', label: 'Month', icon: 'calendar-month' },
+                                { key: 'view4', label: 'Year', icon: 'calendar-year' },
                             ]}
                         />
                     </div>

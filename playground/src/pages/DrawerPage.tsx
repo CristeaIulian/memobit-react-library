@@ -482,7 +482,7 @@ export const DrawerPage: React.FC = () => {
                                             <div style={{ width: '88px' }}>
                                                 <InputNumber placeholder="page" value={notePage} onChange={setNotePage} />
                                             </div>
-                                            <Button prefixIcon="+" variant="warning" onClick={() => undefined}>
+                                            <Button icon="plus" variant="warning" onClick={() => undefined}>
                                                 Add note
                                             </Button>
                                         </div>

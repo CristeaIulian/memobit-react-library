@@ -97,7 +97,7 @@ export const ChatBot: FC<ChatBotProp> = ({}: ChatBotProp): ReactElement => {
                     onChange={handleInputOnChange}
                     disabled={isLoading}
                 />
-                <Button variant="plain" prefixIcon="🌎" onClick={() => window.open(currentChatBot.platformUrl, '_blank')}></Button>
+                <Button variant="plain" icon="earth" onClick={() => window.open(currentChatBot.platformUrl, '_blank')}></Button>
             </div>
             {outputContent && (
                 <div className="output-container">

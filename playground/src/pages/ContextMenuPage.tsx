@@ -48,10 +48,10 @@ export const ContextMenuPage: React.FC = () => {
                         {contextMenuTarget && (
                             <ContextMenu target={contextMenuTarget} onClose={closeMenu}>
                                 <>
-                                    <Button onClick={onActionsEdit} prefixIcon="✏️">
+                                    <Button onClick={onActionsEdit} icon="edit">
                                         Edit
                                     </Button>
-                                    <Button onClick={onActionsDelete} prefixIcon="🗑️">
+                                    <Button onClick={onActionsDelete} icon="delete">
                                         Delete
                                     </Button>
                                 </>
@@ -67,10 +67,10 @@ export const ContextMenuPage: React.FC = () => {
                         {contextMenuTarget2 && (
                             <ContextMenu target={contextMenuTarget2} onClose={closeMenu2}>
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                    <Button onClick={onActionsEdit} prefixIcon="✏️">
+                                    <Button onClick={onActionsEdit} icon="edit">
                                         This is the first item and a bit long
                                     </Button>
-                                    <Button onClick={onActionsDelete} prefixIcon="🗑️">
+                                    <Button onClick={onActionsDelete} icon="delete">
                                         This is the second item and a bit long
                                     </Button>
                                 </div>

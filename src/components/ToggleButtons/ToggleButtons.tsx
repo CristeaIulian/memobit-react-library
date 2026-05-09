@@ -5,11 +5,12 @@ import { Button } from '../Button';
 import { Tooltip } from '../Tooltip';
 
 import './ToggleButtons.scss';
+import { IconName } from '../Icon';
 
 interface ToggleState {
     label: string;
     key: string;
-    icon: string;
+    icon: IconName;
     description?: string;
 }
 
@@ -54,12 +55,7 @@ export const ToggleButtons: FC<ToggleProps> = ({ state, onToggleChange, states, 
     return (
         <div className="toggle-buttons">
             {states.map((s, index) => (
-                <Button
-                    key={`btn-toggle2-${index}-${s}`}
-                    variant={state === s.key ? 'warning' : 'default'}
-                    prefixIcon={s.icon}
-                    onClick={() => onToggleChange(s.key)}
-                >
+                <Button key={`btn-toggle2-${index}-${s}`} variant={state === s.key ? 'warning' : 'default'} icon={s.icon} onClick={() => onToggleChange(s.key)}>
                     {isAtLeast('tablet') ? s.label : ''}
                 </Button>
             ))}

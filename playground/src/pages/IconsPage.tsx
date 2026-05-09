@@ -454,6 +454,11 @@ const iconAliases: Record<string, string[]> = {
     ball: ['sphere', 'sport', 'circle', 'round', 'play', 'game'],
     bullet: ['dot', 'list', 'marker', 'point', 'item', 'circle'],
     dot: ['point', 'list', 'circle', 'item', 'marker'],
+    calendarDay: ['today', 'date', 'schedule', 'event', 'daily', '24h'],
+    calendarWeek: ['weekly', 'planning', 'work-week', 'timeline', 'seven-days'],
+    calendarMonth: ['monthly', 'grid', 'agenda', 'billing-cycle', 'view'],
+    calendarYear: ['yearly', 'annual', 'long-term', 'roadmap', 'full-year'],
+    scan: ['barcode', 'qr-code', 'optical', 'reader', 'identity', 'search', 'analyze', 'document'],
 };
 
 const iconModules = import.meta.glob('../../../src/icons/**/*.tsx', { eager: true }) as Record<string, IconModule>;

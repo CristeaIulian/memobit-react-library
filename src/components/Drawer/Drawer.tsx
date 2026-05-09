@@ -4,13 +4,15 @@ import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { Button, type ButtonProps, type ExternalButtonConfig } from '../Button';
 
 import './Drawer.scss';
+import { IconName } from '../Icon';
 
 export type DrawerPosition = 'left' | 'right';
 
 export interface DrawerHeaderAction {
     id: string;
     label?: string;
-    icon?: string;
+    icon?: IconName;
+    emojiIcon?: string;
     title?: string;
     variant?: ButtonProps['variant'];
     size?: ButtonProps['size'];
@@ -97,7 +99,8 @@ export const Drawer: React.FC<DrawerProps> = ({
                                     key={action.id}
                                     disabled={action.disabled}
                                     onClick={action.onClick}
-                                    prefixIcon={action.icon}
+                                    icon={action.icon}
+                                    emojiIcon={action.emojiIcon}
                                     size={action.size ?? 'small'}
                                     title={action.title ?? action.label}
                                     variant={action.variant ?? 'ghost'}
@@ -118,7 +121,12 @@ export const Drawer: React.FC<DrawerProps> = ({
                         {(primary || secondary) && (
                             <div className="drawer__footer-actions">
                                 {secondary && (
-                                    <Button variant={secondary.variant || 'default'} icon={secondary.icon} disabled={secondary.disabled} onClick={secondary.onClick}>
+                                    <Button
+                                        variant={secondary.variant || 'default'}
+                                        icon={secondary.icon}
+                                        disabled={secondary.disabled}
+                                        onClick={secondary.onClick}
+                                    >
                                         {secondary.text}
                                     </Button>
                                 )}

@@ -412,10 +412,20 @@ import { workout } from '../../icons/workout';
 import { wrench } from '../../icons/wrench';
 import { yoga } from '../../icons/yoga';
 import { youtube } from '../../icons/youtube';
+import { calendarDay } from '../../icons/calendar-day';
+import { calendarWeek } from '../../icons/calendar-week';
+import { calendarMonth } from '../../icons/calendar-month';
+import { calendarYear } from '../../icons/calendar-year';
+import { scan } from '../../icons/scan';
 
 import './Icon.scss';
 
 const iconMap = {
+    scan,
+    'calendar-day': calendarDay,
+    'calendar-week': calendarWeek,
+    'calendar-month': calendarMonth,
+    'calendar-year': calendarYear,
     'arrow-down': arrowDown,
     'arrow-left': arrowLeft,
     'arrow-right': arrowRight,

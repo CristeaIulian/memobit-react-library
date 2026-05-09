@@ -16,7 +16,7 @@ export const Header = () => {
             </header>
 
             <div>
-                <Button prefixIcon="🎨" onClick={() => setIsThemeSettingsOpen(true)}>
+                <Button icon="theme-picker" onClick={() => setIsThemeSettingsOpen(true)}>
                     Change theme
                 </Button>
             </div>
