@@ -2,6 +2,7 @@ import React, { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Button } from '../Button';
+import { Icon, type IconName } from '../Icon';
 import { InputText } from '../InputText';
 import { clearIcon, verticalCaret } from './icons';
 
@@ -10,7 +11,9 @@ import './Dropdown.scss';
 export interface DropdownOption {
     className?: string;
     details?: React.ReactNode;
+    icon?: IconName;
     label: string;
+    suffixIcon?: IconName;
     value: string | number;
 }
 
@@ -622,7 +625,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     </div>
                                 )}
                                 <div className="dropdown-option-content">
-                                    {option.label}
+                                    <span className="dropdown-option-label">
+                                        {option.icon && <Icon name={option.icon} />}
+                                        <span>{option.label}</span>
+                                        {option.suffixIcon && <Icon name={option.suffixIcon} />}
+                                    </span>
                                     {option.details && <span className="dropdown-option-details">{option.details}</span>}
                                 </div>
                             </li>
@@ -656,6 +663,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
         return menuContent;
     };
 
+    const selectedSingleOption = !multiple && selectedOptions.length === 1 ? selectedOptions[0] : null;
+    const showSelectedPrefixIcon = Boolean(selectedSingleOption?.icon && !filterText);
+    const showSelectedSuffixIcon = Boolean(selectedSingleOption?.suffixIcon);
+
     return (
         <div
             className={`dropdown-container ${error ? 'dropdown-error' : ''} ${success ? 'dropdown-success' : ''} ${highlighted ? 'dropdown-highlighted' : ''} ${multiple ? 'multiple' : ''} ${disabled ? 'disabled' : ''} ${multiple ? `count-display-${selectedCountDisplay}` : ''} ${className}`}
@@ -667,7 +678,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 </label>
             )}
 
-            <div className="dropdown-input-container">
+            <div
+                className={`dropdown-input-container ${showSelectedPrefixIcon ? 'dropdown-input-container--has-prefix-icon' : ''} ${showSelectedSuffixIcon ? 'dropdown-input-container--has-suffix-icon' : ''}`}
+            >
+                {showSelectedPrefixIcon && selectedSingleOption?.icon && (
+                    <span className="dropdown-selected-icon dropdown-selected-icon--prefix">
+                        <Icon name={selectedSingleOption.icon} />
+                    </span>
+                )}
+
                 <InputText
                     ref={inputRef}
                     id={inputId}
@@ -682,6 +701,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 />
 
                 <div className="dropdown-actions-buttons">
+                    {showSelectedSuffixIcon && selectedSingleOption?.suffixIcon && (
+                        <span className="dropdown-selected-icon dropdown-selected-icon--suffix">
+                            <Icon name={selectedSingleOption.suffixIcon} />
+                        </span>
+                    )}
+
                     {((!multiple && selectedOptions.length > 0) || (multiple && selectedOptions.length > 0)) && (
                         <span className="dropdown-action-button dropdown-clear-button">
                             <Button variant="plain" onClick={handleClear} disabled={disabled}>
