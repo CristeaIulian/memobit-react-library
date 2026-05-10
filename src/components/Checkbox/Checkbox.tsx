@@ -1,17 +1,20 @@
 import { FC, useEffect, useId, useRef } from 'react';
 
+import { Icon, type IconName } from '../Icon';
+
 import './Checkbox.scss';
 
 interface CheckboxProps {
     checked?: boolean;
     onChange?: (checked: boolean) => void;
     label?: string;
+    icon?: IconName;
     disabled?: boolean;
     id?: string;
     indeterminate?: boolean;
 }
 
-export const Checkbox: FC<CheckboxProps> = ({ checked = false, onChange, label, disabled = false, id, indeterminate = false }: CheckboxProps) => {
+export const Checkbox: FC<CheckboxProps> = ({ checked = false, onChange, label, icon, disabled = false, id, indeterminate = false }: CheckboxProps) => {
     const generatedId = useId();
     const inputId = id || generatedId;
     const inputRef = useRef<HTMLInputElement>(null);
@@ -35,7 +38,12 @@ export const Checkbox: FC<CheckboxProps> = ({ checked = false, onChange, label, 
             />
             <label htmlFor={inputId} className="checkbox-label">
                 <span className="checkbox-box"></span>
-                {label && <span className="checkbox-text">{label}</span>}
+                {(icon || label) && (
+                    <span className="checkbox-text">
+                        {icon && <Icon name={icon} />}
+                        {label && <span className="checkbox-text-label">{label}</span>}
+                    </span>
+                )}
             </label>
         </div>
     );

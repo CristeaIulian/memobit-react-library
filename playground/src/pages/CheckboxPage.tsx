@@ -89,6 +89,36 @@ export const CheckboxPage: React.FC = () => {
                 </div>
 
                 <div className="showcase-group">
+                    <h3>With Icons</h3>
+                    <div className="component-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <Checkbox
+                            checked={features.darkMode}
+                            onChange={value => setFeatures({ ...features, darkMode: value })}
+                            icon="moon"
+                            label="Dark mode"
+                        />
+                        <Checkbox
+                            checked={features.autoSave}
+                            onChange={value => setFeatures({ ...features, autoSave: value })}
+                            icon="save"
+                            label="Auto-save"
+                        />
+                        <Checkbox
+                            checked={features.analytics}
+                            onChange={value => setFeatures({ ...features, analytics: value })}
+                            icon="chart"
+                            label="Send analytics"
+                        />
+                        <Checkbox
+                            checked={features.betaFeatures}
+                            onChange={value => setFeatures({ ...features, betaFeatures: value })}
+                            icon="laboratory"
+                            label="Beta features"
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
                     <h3>Checkbox Without Label</h3>
                     <div className="component-group" style={{ display: 'flex', gap: '12px' }}>
                         <Checkbox checked={isChecked} onChange={setChecked} />

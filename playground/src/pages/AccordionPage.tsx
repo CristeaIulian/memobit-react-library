@@ -34,7 +34,8 @@ export const AccordionPage: React.FC = () => {
     const productFeatures: AccordionItemData[] = [
         {
             id: 'feature-1',
-            title: '🚀 Performance',
+            title: 'Performance',
+            icon: 'rocket',
             content: (
                 <div>
                     <p>
@@ -50,7 +51,8 @@ export const AccordionPage: React.FC = () => {
         },
         {
             id: 'feature-2',
-            title: '🔒 Security',
+            title: 'Security',
+            icon: 'lock',
             content: (
                 <div>
                     <p>Security is our top priority. We implement industry-standard security measures to protect your data.</p>
@@ -65,7 +67,8 @@ export const AccordionPage: React.FC = () => {
         },
         {
             id: 'feature-3',
-            title: '🎨 Customization',
+            title: 'Customization',
+            icon: 'theme-picker',
             content: (
                 <div>
                     <p>Fully customizable to match your brand and requirements.</p>

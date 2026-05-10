@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { Button, type ButtonProps, type ExternalButtonConfig } from '../Button';
+import { Icon, IconName } from '../Icon';
 
 import './Drawer.scss';
-import { IconName } from '../Icon';
 
 export type DrawerPosition = 'left' | 'right';
 
@@ -33,6 +33,7 @@ export interface DrawerProps {
     shadow?: string;
     children: React.ReactNode;
     title?: string;
+    icon?: IconName;
     className?: string;
     showOverlay?: boolean;
     actions?: DrawerHeaderAction[];
@@ -52,6 +53,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     shadow = 'none',
     children,
     title,
+    icon,
     className = '',
     showOverlay = true,
     actions = [],
@@ -91,7 +93,12 @@ export const Drawer: React.FC<DrawerProps> = ({
             {showOverlay && <div className="drawer-overlay" onClick={onClose} />}
             <div className={`drawer drawer--${position} ${className}`} style={drawerStyle}>
                 <div className="drawer__header">
-                    {title && <h2 className="drawer__title">{title}</h2>}
+                    {(title || icon) && (
+                        <h2 className="drawer__title">
+                            {icon && <Icon name={icon} />}
+                            {title && <span className="drawer__title-text">{title}</span>}
+                        </h2>
+                    )}
                     {actions.length > 0 && (
                         <div className="drawer__header-actions">
                             {actions.map(action => (

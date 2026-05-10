@@ -41,6 +41,7 @@ export const ControlPanelPage: React.FC = () => {
         {
             id: 'scope',
             label: 'Scope',
+            icon: 'filters',
             type: 'radio',
             value: filterValues.scope,
             options: [
@@ -52,6 +53,7 @@ export const ControlPanelPage: React.FC = () => {
         {
             id: 'status',
             label: 'Status',
+            icon: 'status',
             type: 'chips',
             value: filterValues.status,
             isActive: Array.isArray(filterValues.status) && (filterValues.status as string[]).length > 0,
@@ -75,6 +77,7 @@ export const ControlPanelPage: React.FC = () => {
         {
             id: 'due-date-range',
             label: 'Due date',
+            icon: 'calendar',
             type: 'date-range',
             value: filterValues['due-date-range'],
             isActive: Array.isArray(filterValues['due-date-range']) && (filterValues['due-date-range'] as string[]).some(v => !!v),
@@ -82,6 +85,7 @@ export const ControlPanelPage: React.FC = () => {
         {
             id: 'owner',
             label: 'Owner',
+            icon: 'user',
             type: 'dropdown',
             value: filterValues.owner,
             isActive: !!filterValues.owner && filterValues.owner !== 'team',

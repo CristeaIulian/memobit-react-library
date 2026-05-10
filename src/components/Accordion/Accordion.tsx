@@ -1,10 +1,14 @@
 import React, { useState, ReactNode } from 'react';
+
+import { Icon, type IconName } from '../Icon';
+
 import './Accordion.scss';
 
 export interface AccordionItemData {
     id: string;
     title: string | ReactNode;
     content: string | ReactNode;
+    icon?: IconName;
     disabled?: boolean;
 }
 
@@ -52,6 +56,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                         key={item.id}
                         id={item.id}
                         title={item.title}
+                        icon={item.icon}
                         content={item.content}
                         isExpanded={isExpanded}
                         disabled={item.disabled}
@@ -66,6 +71,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 interface AccordionItemProps {
     id: string;
     title: string | ReactNode;
+    icon?: IconName;
     content: string | ReactNode;
     isExpanded: boolean;
     disabled?: boolean;
@@ -75,6 +81,7 @@ interface AccordionItemProps {
 const AccordionItem: React.FC<AccordionItemProps> = ({
     id,
     title,
+    icon,
     content,
     isExpanded,
     disabled = false,
@@ -99,7 +106,10 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
                 disabled={disabled}
                 aria-expanded={isExpanded}
             >
-                <span className="accordion-item__title">{title}</span>
+                <span className="accordion-item__title">
+                    {icon && <Icon name={icon} />}
+                    <span className="accordion-item__title-text">{title}</span>
+                </span>
                 <span className="accordion-item__icon">
                     <svg
                         width="16"

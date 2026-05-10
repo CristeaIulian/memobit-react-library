@@ -109,6 +109,7 @@ export const DrawerPage: React.FC = () => {
     const [isNarrowDrawerOpen, setNarrowDrawerOpen] = useState<boolean>(false);
     const [isNoOverlayDrawerOpen, setNoOverlayDrawerOpen] = useState<boolean>(false);
     const [isFooterDrawerOpen, setFooterDrawerOpen] = useState<boolean>(false);
+    const [isIconDrawerOpen, setIconDrawerOpen] = useState<boolean>(false);
     const [isBookDetailDrawerOpen, setBookDetailDrawerOpen] = useState<boolean>(false);
     const [bookPage, setBookPage] = useState<number>(177);
     const [notePage, setNotePage] = useState<number | undefined>(undefined);
@@ -183,6 +184,22 @@ export const DrawerPage: React.FC = () => {
                                     </li>
                                 </ul>
                             </nav>
+                        </Drawer>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Drawer with Icon and Title</h3>
+                    <div className="component-group">
+                        <Button onClick={() => setIconDrawerOpen(true)}>Open Drawer with Icon</Button>
+                        <Drawer
+                            isOpen={isIconDrawerOpen}
+                            onClose={() => setIconDrawerOpen(false)}
+                            position="left"
+                            title="Filters"
+                            icon="filters"
+                        >
+                            <p>Drawer with an icon next to the title — no need to add emojis to the label.</p>
                         </Drawer>
                     </div>
                 </div>

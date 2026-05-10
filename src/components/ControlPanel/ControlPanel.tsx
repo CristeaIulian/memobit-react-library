@@ -54,6 +54,7 @@ export type ControlPanelFilterValue = string | number | boolean | string[] | num
 export interface ControlPanelFilter {
     id: string;
     label: string;
+    icon?: IconName;
     type: ControlPanelFilterType;
     options?: ControlPanelFilterOption[];
     value?: ControlPanelFilterValue;
@@ -255,6 +256,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             {filter.type !== 'checkbox' && (
                 <span className={`control-panel__filter-title${filter.isActive ? ' control-panel__filter-title--active' : ''}`}>
                     {filter.isActive && <span className="control-panel__filter-active-dot" />}
+                    {filter.icon && <Icon name={filter.icon} />}
                     {filter.label}
                 </span>
             )}

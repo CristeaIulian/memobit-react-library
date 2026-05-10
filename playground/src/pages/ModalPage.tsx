@@ -7,6 +7,7 @@ export const ModalPage: React.FC = () => {
     const [isModalOpen2, setModalOpen2] = useState<boolean>(false);
     const [isConfirmOpen, setConfirmOpen] = useState<boolean>(false);
     const [isInfoOpen, setInfoOpen] = useState<boolean>(false);
+    const [isTitleIconOpen, setTitleIconOpen] = useState<boolean>(false);
     const [isFormOpen, setFormOpen] = useState<boolean>(false);
     const [isSmallOpen, setSmallOpen] = useState<boolean>(false);
     const [isMediumOpen, setMediumOpen] = useState<boolean>(false);
@@ -69,6 +70,28 @@ export const ModalPage: React.FC = () => {
                             </div>
                         </Modal>
                         <Button onClick={() => setModalOpen2(true)}>Show Modal with Buttons</Button>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Modal with Title Icon</h3>
+                    <div className="component-group">
+                        <Modal
+                            isOpen={isTitleIconOpen}
+                            onClose={() => setTitleIconOpen(false)}
+                            title="Account Settings"
+                            titleIcon="settings"
+                            primary={{
+                                text: 'Done',
+                                onClick: () => setTitleIconOpen(false),
+                                variant: 'info',
+                            }}
+                        >
+                            <div style={{ padding: '16px' }}>
+                                <p>Modals support an icon next to the title via the titleIcon prop — no need to embed emojis in the label.</p>
+                            </div>
+                        </Modal>
+                        <Button onClick={() => setTitleIconOpen(true)}>Show Modal with Title Icon</Button>
                     </div>
                 </div>
 
