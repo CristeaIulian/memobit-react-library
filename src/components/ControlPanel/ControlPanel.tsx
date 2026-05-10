@@ -461,6 +461,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                             value={option.value}
                                         />
                                         {option.color && <span className="control-panel__filter-swatch" style={{ backgroundColor: option.color }} />}
+                                        {option.icon && <Icon name={option.icon} />}
                                         <span className="control-panel__filter-label">{option.label}</span>
                                         {option.count !== undefined && <span className="control-panel__filter-count">{option.count}</span>}
                                     </label>
