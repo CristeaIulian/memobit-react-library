@@ -1,4 +1,4 @@
-export const filetypeCsv = (
+﻿export const filetypeCsv = (
     <svg
         version="1.1"
         id="Layer_1"
@@ -7,8 +7,7 @@ export const filetypeCsv = (
         x="0px"
         y="0px"
         viewBox="0 0 115.28 122.88"
-        xmlSpace="preserve"
-    >
+        xmlSpace="preserve" fill="currentColor" width="1em" height="1em">
         <style type="text/css">{`.st0{fillRule:evenodd;clipRule:evenodd;}`}</style>
         <g>
             <path

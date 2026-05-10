@@ -1,4 +1,4 @@
-export const ajax = (
+﻿export const ajax = (
     <svg
         version="1.1"
         id="Layer_1"
@@ -7,8 +7,7 @@ export const ajax = (
         x="0px"
         y="0px"
         viewBox="0 0 122.88 120.93"
-        xmlSpace="preserve"
-    >
+        xmlSpace="preserve" fill="currentColor" width="1em" height="1em">
         <style type="text/css">{`.st0{fillRule:evenodd;clipRule:evenodd;}`}</style>
         <g>
             <path

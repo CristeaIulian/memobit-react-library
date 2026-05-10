@@ -1,4 +1,4 @@
-export const police = (
+﻿export const police = (
     <svg
         version="1.1"
         id="_x32_"
@@ -6,8 +6,7 @@ export const police = (
         xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox="0 0 512 512"
         xmlSpace="preserve"
-        fill="#000000"
-    >
+        fill="currentColor" width="1em" height="1em">
         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
         <g id="SVGRepo_iconCarrier">

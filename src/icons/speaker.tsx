@@ -1,4 +1,4 @@
-export const speaker = (
+﻿export const speaker = (
     <svg
         version="1.0"
         id="Layer_1"
@@ -7,8 +7,7 @@ export const speaker = (
         viewBox="0 0 64 64"
         enableBackground="new 0 0 64 64"
         xmlSpace="preserve"
-        fill="#000000"
-    >
+        fill="currentColor" width="1em" height="1em">
         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
         <g id="SVGRepo_iconCarrier">

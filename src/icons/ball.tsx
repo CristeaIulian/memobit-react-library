@@ -1,13 +1,12 @@
-export const ball = (
+﻿export const ball = (
     <svg
-        fill="#000000"
+        fill="currentColor"
         viewBox="0 0 122.88 122.88"
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
-        xmlSpace="preserve"
-    >
+        xmlSpace="preserve" width="1em" height="1em">
         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
