@@ -132,7 +132,7 @@
                     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
                 }
 
-                .dropdown-arrow-icon {
+                svg {
                     width: var(--spacing-16);
                     height: var(--spacing-16);
                     transition: transform 200ms ease-in-out;
@@ -144,7 +144,7 @@
                 }
 
                 &.open {
-                    .dropdown-arrow-icon {
+                    svg {
                         transform: rotate(180deg);
                     }
                 }

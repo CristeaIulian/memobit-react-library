@@ -3,6 +3,7 @@ import React, { type ReactNode } from 'react';
 import { Button } from '../Button';
 import { Dropdown, type DropdownOption } from '../Dropdown';
 import { MenuHamburger, type MenuHamburgerItem } from '../MenuHamburger';
+import { NotificationPanel, type NotificationPanelItem } from '../NotificationPanel';
 import { Search, type SearchProps } from '../Search';
 import { useControlPanelContext } from '../ControlPanel';
 
@@ -49,11 +50,19 @@ export interface ToolbarSortConfigWithOptions extends ToolbarSortConfigBase {
 
 export type ToolbarSortConfig = ToolbarSortConfigWithFields | ToolbarSortConfigWithOptions;
 
+export interface ToolbarNotificationsConfig {
+    items: NotificationPanelItem[];
+    buttonLabel?: string;
+    panelTitle?: string;
+    emptyMessage?: string;
+}
+
 export interface ToolbarProps {
     children?: ReactNode;
     className?: string;
     controlPanelToggle?: boolean | ToolbarControlPanelToggleConfig;
     menuItems: MenuHamburgerItem[];
+    notifications?: ToolbarNotificationsConfig;
     search?: ToolbarSearchConfig;
     sort?: ToolbarSortConfig;
 }
@@ -87,7 +96,7 @@ const getSortDropdownValue = (sort: ToolbarSortConfig): string | number | null |
     return sort.value;
 };
 
-export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', controlPanelToggle, menuItems, search, sort }) => {
+export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', controlPanelToggle, menuItems, notifications, search, sort }) => {
     const controlPanel = useControlPanelContext();
     const shouldShowControlPanelToggle = Boolean(controlPanelToggle && controlPanel?.isMobile);
     const rootClassName = ['memobit-toolbar', className].filter(Boolean).join(' ');
@@ -154,6 +163,14 @@ export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', cont
             )}
 
             <div className="memobit-toolbar__actions">
+                {notifications && (
+                    <NotificationPanel
+                        items={notifications.items}
+                        buttonLabel={notifications.buttonLabel}
+                        panelTitle={notifications.panelTitle}
+                        emptyMessage={notifications.emptyMessage}
+                    />
+                )}
                 <MenuHamburger items={menuItems} disableResponsive showLabel={false} />
             </div>
         </div>

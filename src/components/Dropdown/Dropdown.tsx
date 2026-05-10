@@ -4,7 +4,8 @@ import { createPortal } from 'react-dom';
 import { Button } from '../Button';
 import { Icon, type IconName } from '../Icon';
 import { InputText } from '../InputText';
-import { clearIcon, verticalCaret } from './icons';
+import { caretDown } from '../../icons/caret-down';
+import { clear } from '../../icons/clear';
 
 import './Dropdown.scss';
 
@@ -710,14 +711,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     {((!multiple && selectedOptions.length > 0) || (multiple && selectedOptions.length > 0)) && (
                         <span className="dropdown-action-button dropdown-clear-button">
                             <Button variant="plain" onClick={handleClear} disabled={disabled}>
-                                {clearIcon}
+                                {clear}
                             </Button>
                         </span>
                     )}
 
                     <span className={`dropdown-action-button dropdown-toggle-button ${isOpen ? 'open' : ''}`}>
                         <Button variant="plain" onClick={toggleDropdown} disabled={disabled}>
-                            {verticalCaret}
+                            {caretDown}
                         </Button>
                     </span>
                 </div>
