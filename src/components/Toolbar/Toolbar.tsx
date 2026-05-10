@@ -16,17 +16,38 @@ export interface ToolbarSearchConfig extends Omit<SearchProps, 'className'> {
     className?: string;
 }
 
-export interface ToolbarSortConfig {
+export interface ToolbarSortField {
+    label: string;
+    value: string;
+}
+
+export interface ToolbarSortValue {
+    direction: 'asc' | 'desc';
+    field: string;
+}
+
+interface ToolbarSortConfigBase {
     className?: string;
     highlighted?: boolean;
     label?: string;
     name?: string;
-    onChange: (value: string, option: DropdownOption | null) => void;
-    options: DropdownOption[];
     placeholder?: string;
     searchable?: boolean;
+}
+
+export interface ToolbarSortConfigWithFields extends ToolbarSortConfigBase {
+    fields: ToolbarSortField[];
+    onChange: (value: ToolbarSortValue) => void;
+    value?: ToolbarSortValue;
+}
+
+export interface ToolbarSortConfigWithOptions extends ToolbarSortConfigBase {
+    onChange: (value: string, option: DropdownOption | null) => void;
+    options: DropdownOption[];
     value?: number | string | null;
 }
+
+export type ToolbarSortConfig = ToolbarSortConfigWithFields | ToolbarSortConfigWithOptions;
 
 export interface ToolbarProps {
     children?: ReactNode;
@@ -37,12 +58,33 @@ export interface ToolbarProps {
     sort?: ToolbarSortConfig;
 }
 
+const SORT_DIRECTION_SEPARATOR = '::';
+
 const getControlPanelToggleLabel = (controlPanelToggle: boolean | ToolbarControlPanelToggleConfig): string => {
     if (typeof controlPanelToggle === 'object' && controlPanelToggle.label) {
         return controlPanelToggle.label;
     }
 
     return 'Filters';
+};
+
+const getSortDropdownOptions = (sort: ToolbarSortConfig): DropdownOption[] => {
+    if ('fields' in sort) {
+        return sort.fields.flatMap(field => [
+            { value: `${field.value}${SORT_DIRECTION_SEPARATOR}asc`, label: field.label, suffixIcon: 'arrow-up' as const },
+            { value: `${field.value}${SORT_DIRECTION_SEPARATOR}desc`, label: field.label, suffixIcon: 'arrow-down' as const },
+        ]);
+    }
+
+    return sort.options;
+};
+
+const getSortDropdownValue = (sort: ToolbarSortConfig): string | number | null | undefined => {
+    if ('fields' in sort) {
+        return sort.value ? `${sort.value.field}${SORT_DIRECTION_SEPARATOR}${sort.value.direction}` : null;
+    }
+
+    return sort.value;
 };
 
 export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', controlPanelToggle, menuItems, search, sort }) => {
@@ -57,7 +99,18 @@ export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', cont
         }
 
         if (!option || Array.isArray(option)) {
-            sort.onChange('', null);
+            if (!('fields' in sort)) {
+                sort.onChange('', null);
+            }
+            return;
+        }
+
+        if ('fields' in sort) {
+            const stringValue = String(option.value);
+            const separatorIndex = stringValue.lastIndexOf(SORT_DIRECTION_SEPARATOR);
+            const field = stringValue.substring(0, separatorIndex);
+            const direction = stringValue.substring(separatorIndex + SORT_DIRECTION_SEPARATOR.length) as 'asc' | 'desc';
+            sort.onChange({ field, direction });
             return;
         }
 
@@ -89,11 +142,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', cont
                                 label={sort.label}
                                 name={sort.name ?? 'toolbar-sort'}
                                 onChange={handleSortChange}
-                                options={sort.options}
+                                options={getSortDropdownOptions(sort)}
                                 placeholder={sort.placeholder}
                                 searchable={sort.searchable ?? false}
                                 usePortal={false}
-                                value={sort.value}
+                                value={getSortDropdownValue(sort)}
                             />
                         </div>
                     )}

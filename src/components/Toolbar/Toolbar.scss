@@ -11,8 +11,7 @@
 
     &__control-panel-toggle,
     &__actions,
-    &__sort,
-    &__custom {
+    &__sort {
         flex: 0 0 auto;
     }
 
@@ -41,6 +40,7 @@
     &__custom {
         display: flex;
         align-items: flex-end;
+        flex: 1 1 auto;
         gap: var(--spacing-16);
         min-width: 0;
     }

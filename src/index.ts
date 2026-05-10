@@ -126,7 +126,17 @@ export {
     type TimelineMarkerInfo,
     type TimelineMarkersItem,
 } from './components/TimelineMarkers';
-export { Toolbar, type ToolbarControlPanelToggleConfig, type ToolbarProps, type ToolbarSearchConfig, type ToolbarSortConfig } from './components/Toolbar';
+export {
+    Toolbar,
+    type ToolbarControlPanelToggleConfig,
+    type ToolbarProps,
+    type ToolbarSearchConfig,
+    type ToolbarSortConfig,
+    type ToolbarSortConfigWithFields,
+    type ToolbarSortConfigWithOptions,
+    type ToolbarSortField,
+    type ToolbarSortValue,
+} from './components/Toolbar';
 export { JourneyWizard, type JourneyStep, type JourneyWizardPresentation, type JourneyWizardProps } from './components/JourneyWizard';
 export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
