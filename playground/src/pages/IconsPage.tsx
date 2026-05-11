@@ -297,7 +297,7 @@ const iconCategoryDefinitions: IconCategory[] = [
     {
         id: 'transport',
         label: 'Transport & Travel',
-        icons: ['bus', 'car', 'compass', 'map', 'mapping', 'pin', 'plane', 'ship', 'speedometer', 'taxi', 'train', 'transport-box', 'trip'],
+        icons: ['bus', 'car', 'compass', 'location', 'map', 'mapping', 'pin', 'plane', 'ship', 'speedometer', 'taxi', 'train', 'transport-box', 'trip'],
     },
     {
         id: 'filetypes',
@@ -424,7 +424,21 @@ const iconCategoryDefinitions: IconCategory[] = [
     {
         id: 'symbols',
         label: 'Symbols & Awards',
-        icons: ['badge', 'benefit', 'certificate', 'crystal-globe', 'death', 'favorite', 'ownership', 'puzzle', 'rocket', 'sparkle', 'star', 'target', 'theme-picker'],
+        icons: [
+            'badge',
+            'benefit',
+            'certificate',
+            'crystal-globe',
+            'death',
+            'favorite',
+            'ownership',
+            'puzzle',
+            'rocket',
+            'sparkle',
+            'star',
+            'target',
+            'theme-picker',
+        ],
     },
     {
         id: 'brands',
@@ -668,7 +682,8 @@ const iconAliases: Record<string, string[]> = {
     penguin: ['animal', 'cold', 'bird', 'arctic', 'linux'],
     pharmacy: ['medicine', 'drugs', 'health', 'clinic'],
     phone: ['call', 'mobile', 'contact', 'communication'],
-    pin: ['location', 'marker', 'flag', 'save', 'bookmark'],
+    pin: ['marker', 'thumbtack', 'fastener', 'needle', 'save', 'bookmark', 'flag'],
+    location: ['map', 'coordinates', 'address', 'gps', 'destination', 'place', 'flag'],
     plane: ['flight', 'aircraft', 'airplane', 'travel', 'aviation', 'airline', 'fly', 'airport'],
     play: ['start', 'run', 'begin', 'video', 'media'],
     plug: ['power', 'socket', 'outlet', 'electricity', 'connect'],

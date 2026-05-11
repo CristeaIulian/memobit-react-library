@@ -251,6 +251,7 @@ import { linkedin } from '../../icons/linkedin';
 import { lipids } from '../../icons/lipids';
 import { list } from '../../icons/list';
 import { liver } from '../../icons/liver';
+import { location } from '../../icons/location';
 import { lock } from '../../icons/lock';
 import { logout } from '../../icons/logout';
 import { lollipop } from '../../icons/lollipop';
@@ -710,6 +711,7 @@ const iconMap = {
     lipids,
     list,
     liver,
+    location,
     lock,
     logout,
     lollipop,
