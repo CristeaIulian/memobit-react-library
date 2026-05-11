@@ -35,6 +35,17 @@
     --font-size-xxl: 2rem; // ~32px
     --font-size-xxxl: 3rem; // ~48px
 
+    // Display/title font. Themes only need to set this when they want a second
+    // font for component titles (Card, Modal, Drawer, EmptyState, DataView).
+    // Otherwise it inherits the theme's body --font-family automatically.
+    --font-family-display: var(--font-family, sans-serif);
+
+    --font-family-mono: ui-monospace, SFMono-Regular, 'JetBrains Mono', Menlo, Consolas, monospace;
+
+    // Font used by form inputs (inherits body by default). Override to
+    // var(--font-family-mono) if you want a terminal/data feel on inputs.
+    --form-control-font-family: var(--font-family, sans-serif);
+
     --font-weight-light: 300;
     --font-weight-normal: 400;
     --font-weight-medium: 500;

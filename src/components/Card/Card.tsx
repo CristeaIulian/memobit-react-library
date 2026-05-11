@@ -48,8 +48,10 @@ export const Card: React.FC<CardProps> = ({
         >
             {(title || isCollapsible) && (
                 <h3 className={`${isCardCollapsed ? 'card-content-hidden' : ''}`}>
-                    {icon && <Icon name={icon} />}
-                    {title}
+                    <span className="card-title-content">
+                        {icon && <Icon name={icon} />}
+                        {title}
+                    </span>
                     {isCollapsible && (
                         <span className="collapsible-button" onClick={() => seIsCardCollapsed(!isCardCollapsed)}>
                             <span className={`opener-button ${isCardCollapsed ? 'opener-button-extended' : ''}`}>

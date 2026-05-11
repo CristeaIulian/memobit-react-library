@@ -33,31 +33,15 @@
     &__section-header {
         @include flex-column;
         gap: var(--spacing-4);
-        padding: 0 var(--spacing-8) var(--spacing-4);
     }
 
-    &__section-title-row {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-8);
-    }
-
-    &__section-icon {
-        color: var(--body-color-muted);
-        font-size: var(--font-size-sm);
-        line-height: 1;
-    }
-
-    &__section-title {
-        color: var(--body-color-muted);
-        font-size: var(--font-size-xs);
-        font-weight: var(--font-weight-semibold);
-        letter-spacing: 0;
-        text-transform: uppercase;
+    &__section-app-header {
+        padding: var(--spacing-8);
     }
 
     &__section-description {
         margin: 0;
+        padding: 0 var(--spacing-8);
         color: var(--body-color-muted);
         font-size: var(--font-size-xs);
         line-height: 1.4;

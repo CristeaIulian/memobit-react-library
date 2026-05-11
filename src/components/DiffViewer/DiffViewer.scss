@@ -4,7 +4,7 @@
     border: var(--spacing-1) solid var(--form-control-border-color);
     border-radius: var(--radius-sm);
     background-color: var(--form-control-background-color);
-    font-family: monospace;
+    font-family: var(--font-family-mono);
     font-size: var(--font-size-sm);
     line-height: var(--line-height-normal);
     overflow: hidden;

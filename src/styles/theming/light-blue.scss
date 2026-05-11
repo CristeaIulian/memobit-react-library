@@ -2,7 +2,6 @@
 // Light Blue theme - Dark theme with blue tones
 [data-theme='light-blue'] {
     --font-family: 'Open Sans', sans-serif;
-    --font-family-emphasis: var(--font-family, sans-serif);
 
     --body-background: radial-gradient(farthest-side at 10% 0px, rgb(51, 56, 103) 20%, rgb(23, 25, 59)) 0% 0% / cover no-repeat fixed;
     --body-background-base: var(--body-background);

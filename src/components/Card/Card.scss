@@ -44,6 +44,13 @@
         align-items: center;
         justify-content: space-between;
 
+        .card-title-content {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-8);
+            min-width: 0;
+        }
+
         &.card-content-hidden {
             margin: 0;
         }

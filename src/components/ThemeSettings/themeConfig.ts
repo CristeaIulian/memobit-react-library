@@ -2,7 +2,8 @@ export interface ThemeConfig {
     value: string;
     label: string;
     fontUrl: string;
-    fontUrlEmphasis?: string;
+    fontUrlDisplay?: string;
+    fontUrlMono?: string;
 }
 
 export const THEME_CONFIGS: ThemeConfig[] = [
@@ -100,7 +101,19 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         value: 'sandy-parchment',
         label: 'Sandy Parchment',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap',
-        fontUrlEmphasis: 'https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&display=swap',
+    },
+    {
+        value: 'midnight-amber',
+        label: 'Midnight Amber',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap',
+    },
+    {
+        value: 'cobalt-pulse',
+        label: 'Cobalt Pulse',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap',
+        fontUrlMono: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap',
     },
 ];
 

@@ -2,7 +2,7 @@
 // Aged cream surfaces, burnished amber actions, soft ink text, and fine parchment borders
 [data-theme='sandy-parchment'] {
     --font-family: 'Figtree', 'Avenir Next', sans-serif;
-    --font-family-emphasis: 'Newsreader', Georgia, serif;
+    --font-family-display: 'Newsreader', Georgia, serif;
 
     --body-background: var(--body-background-wash, var(--body-background-base));
     --body-background-base: #f4ecdc;
@@ -37,7 +37,7 @@
     --card-footer-background-color: rgba(255, 241, 207, 0.42);
     --card-footer-color: #635847;
     --card-title-color: var(--body-title-color);
-    --card-title-font-family: var(--font-family-emphasis, Georgia, serif);
+    --card-title-font-family: var(--font-family-display, Georgia, serif);
     --card-title-font-size: var(--font-size-xl);
     --card-title-font-style: italic;
     --card-title-font-weight: 500;

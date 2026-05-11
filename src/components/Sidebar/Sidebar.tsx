@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 
+import { AppHeader } from '../AppHeader';
 import { Icon, type IconName } from '../Icon';
 import { useSidebarContext } from './SidebarContext';
 
@@ -109,12 +110,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                 {(section.title || section.heading || section.icon || section.description) && (
                                     <div className="sidebar__section-header">
                                         {(section.icon || section.title || section.heading) && (
-                                            <div className="sidebar__section-title-row">
-                                                {section.icon && <span className="sidebar__section-icon"><Icon name={section.icon} /></span>}
-                                                {(section.title || section.heading) && (
-                                                    <span className="sidebar__section-title">{section.title ?? section.heading}</span>
-                                                )}
-                                            </div>
+                                            <AppHeader
+                                                className="sidebar__section-app-header"
+                                                icon={section.icon}
+                                                appName={section.title}
+                                                heading={section.heading}
+                                                showSeparator={false}
+                                            />
                                         )}
                                         {section.description && <p className="sidebar__section-description">{section.description}</p>}
                                     </div>

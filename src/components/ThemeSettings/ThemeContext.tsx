@@ -5,6 +5,7 @@ import { getThemeConfig } from './themeConfig';
 export type Theme =
     | 'arctic-blue'
     | 'azure-night'
+    | 'cobalt-pulse'
     | 'crimson-dusk'
     | 'cyber-forest'
     | 'dashdarkx'
@@ -13,6 +14,7 @@ export type Theme =
     | 'lavender-mist'
     | 'light-blue'
     | 'luna'
+    | 'midnight-amber'
     | 'mint-meadow'
     | 'mintone'
     | 'neon-tokyo'
@@ -33,7 +35,8 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 const THEME_STORAGE_KEY = 'app-theme';
 const DEFAULT_THEME: Theme = 'luna';
 const FONT_LINK_ID = 'theme-font-link';
-const FONT_LINK_EMPHASIS_ID = 'theme-font-link-emphasis';
+const FONT_LINK_DISPLAY_ID = 'theme-font-link-display';
+const FONT_LINK_MONO_ID = 'theme-font-link-mono';
 
 interface ThemeProviderProps {
     children: ReactNode;
@@ -63,19 +66,34 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
 
             linkElement.href = themeConfig.fontUrl;
 
-            let emphasisLinkElement = document.getElementById(FONT_LINK_EMPHASIS_ID) as HTMLLinkElement;
+            let displayLinkElement = document.getElementById(FONT_LINK_DISPLAY_ID) as HTMLLinkElement;
 
-            if (themeConfig.fontUrlEmphasis) {
-                if (!emphasisLinkElement) {
-                    emphasisLinkElement = document.createElement('link');
-                    emphasisLinkElement.id = FONT_LINK_EMPHASIS_ID;
-                    emphasisLinkElement.rel = 'stylesheet';
-                    document.head.appendChild(emphasisLinkElement);
+            if (themeConfig.fontUrlDisplay) {
+                if (!displayLinkElement) {
+                    displayLinkElement = document.createElement('link');
+                    displayLinkElement.id = FONT_LINK_DISPLAY_ID;
+                    displayLinkElement.rel = 'stylesheet';
+                    document.head.appendChild(displayLinkElement);
                 }
 
-                emphasisLinkElement.href = themeConfig.fontUrlEmphasis;
+                displayLinkElement.href = themeConfig.fontUrlDisplay;
             } else {
-                emphasisLinkElement?.remove();
+                displayLinkElement?.remove();
+            }
+
+            let monoLinkElement = document.getElementById(FONT_LINK_MONO_ID) as HTMLLinkElement;
+
+            if (themeConfig.fontUrlMono) {
+                if (!monoLinkElement) {
+                    monoLinkElement = document.createElement('link');
+                    monoLinkElement.id = FONT_LINK_MONO_ID;
+                    monoLinkElement.rel = 'stylesheet';
+                    document.head.appendChild(monoLinkElement);
+                }
+
+                monoLinkElement.href = themeConfig.fontUrlMono;
+            } else {
+                monoLinkElement?.remove();
             }
         }
     }, [theme]);

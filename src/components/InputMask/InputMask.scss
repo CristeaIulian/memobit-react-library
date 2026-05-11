@@ -96,7 +96,7 @@ $sizes: (
 
 // ── Mono ──────────────────────────────────────────────────────────────────────
 .input-mask--mono .input-mask__input {
-    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+    font-family: var(--font-family-mono);
     letter-spacing: 0.08em;
 }
 
@@ -182,7 +182,7 @@ $sizes: (
     color: var(--body-color-muted);
     pointer-events: none;
     white-space: nowrap;
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: var(--font-family-mono);
     letter-spacing: 0.04em;
     transition: color var(--transition-fast);
 
