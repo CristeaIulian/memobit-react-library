@@ -4,7 +4,7 @@
         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
             {' '}
-            <g fill="#373737" strokeWidth=".82858px" color="#000000">
+            <g fill="currentColor" strokeWidth=".82858px">
                 {' '}
                 <path
                     d="M8.04 10.471 2.938 7.953l2.085-1.03-.932-.46-3.017 1.49L8.04 11.39l6.965-3.437-3.017-1.49-.93.46 2.084 1.03z"

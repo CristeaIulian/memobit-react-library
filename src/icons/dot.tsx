@@ -3,7 +3,7 @@ export const dot = (
         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
-            <path fill="#000000" d="M8 3a5 5 0 100 10A5 5 0 008 3z"></path>
+            <path fill="currentColor" d="M8 3a5 5 0 100 10A5 5 0 008 3z"></path>
         </g>
     </svg>
 );
