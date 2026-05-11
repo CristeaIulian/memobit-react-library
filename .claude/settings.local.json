@@ -19,7 +19,10 @@
       "Bash(ls \"D:/Projects/Web Apps/.claude/skills/create-icon/\")",
       "Bash(ls \"D:/Projects/Web Apps/Online/\")",
       "Bash(echo \"EXIT=$?\")",
-      "Bash(ls \"D:/Projects/Web Apps/Local Tools/\")"
+      "Bash(ls \"D:/Projects/Web Apps/Local Tools/\")",
+      "Bash(grep -vE \"header:\\\\s*\\\\`\")",
+      "Bash(grep -vE \"header:\\\\s*['\\\\\"\\\\`]\")",
+      "Bash(grep -vE \"header:\\\\s*$\")"
     ]
   }
 }

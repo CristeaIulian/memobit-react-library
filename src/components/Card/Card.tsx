@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useComponentEffect } from '../../hooks/useComponentEffect';
-import { Icon } from '../Icon';
+import { Icon, type IconName } from '../Icon';
 
 import './Card.scss';
 
@@ -9,6 +9,7 @@ interface CardProps {
     children?: React.ReactNode;
     className?: string;
     footerContent?: React.ReactNode;
+    icon?: IconName;
     isCollapsed?: boolean;
     isCollapsible?: boolean;
     isFooterCollapsible?: boolean;
@@ -22,6 +23,7 @@ export const Card: React.FC<CardProps> = ({
     children,
     className,
     footerContent,
+    icon,
     isCollapsed,
     isCollapsible,
     isFooterCollapsible = true,
@@ -46,6 +48,7 @@ export const Card: React.FC<CardProps> = ({
         >
             {(title || isCollapsible) && (
                 <h3 className={`${isCardCollapsed ? 'card-content-hidden' : ''}`}>
+                    {icon && <Icon name={icon} />}
                     {title}
                     {isCollapsible && (
                         <span className="collapsible-button" onClick={() => seIsCardCollapsed(!isCardCollapsed)}>

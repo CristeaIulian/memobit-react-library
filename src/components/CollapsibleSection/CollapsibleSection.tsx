@@ -8,6 +8,7 @@ interface CollapsibleSectionProps {
     children: ReactNode;
     className?: string;
     defaultCollapsed?: boolean;
+    icon?: IconName;
     isCollapsed?: boolean;
     onToggle?: (isCollapsed: boolean) => void;
     rightDetails?: string;
@@ -25,6 +26,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     children,
     className = '',
     defaultCollapsed = false,
+    icon,
     isCollapsed: controlledIsCollapsed,
     onToggle,
     rightDetails,
@@ -63,7 +65,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                 >
                     {hasFullRowClick ? (
                         <>
-                            <div className="collapsible-section__label">{title}</div>
+                            <div className="collapsible-section__label">{icon && <Icon name={icon} />} {title}</div>
                             {toggleMiddleIcon && <span><Icon name={toggleMiddleIcon} /></span>}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
                                 <Icon name="caret-up" />
@@ -72,7 +74,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                         </>
                     ) : (
                         <button type="button" className="collapsible-section__inline-toggle" onClick={handleToggle}>
-                            <span className="collapsible-section__label">{title}</span>
+                            <span className="collapsible-section__label">{icon && <Icon name={icon} />} {title}</span>
                             {toggleMiddleIcon && <span><Icon name={toggleMiddleIcon} /></span>}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
                                 <Icon name="caret-up" />

@@ -35,6 +35,7 @@ export interface DataViewColumn<T> {
 }
 
 export interface DataViewCardConfig<T> {
+    icon?: (row: T) => IconName | undefined;
     title: (row: T) => React.ReactNode;
     subtitle?: (row: T) => React.ReactNode;
     badges?: (row: T) => React.ReactNode;
@@ -231,15 +232,19 @@ function CardView<T>({
                             <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
                         </div>
                     )}
-                    {card && (
-                        <div className="data-view__card-header">
-                            <div className="data-view__card-title-row">
-                                <span className="data-view__card-title">{card.title(row)}</span>
-                                {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
+                    {card && (() => {
+                        const cardIcon = card.icon?.(row);
+                        return (
+                            <div className="data-view__card-header">
+                                <div className="data-view__card-title-row">
+                                    {cardIcon && <Icon className="data-view__card-icon" name={cardIcon} />}
+                                    <span className="data-view__card-title">{card.title(row)}</span>
+                                    {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
+                                </div>
+                                {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
                             </div>
-                            {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
-                        </div>
-                    )}
+                        );
+                    })()}
 
                     {cardColumns.length > 0 && (
                         <div className="data-view__card-body">
