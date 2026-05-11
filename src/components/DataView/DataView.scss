@@ -40,6 +40,16 @@
         border-bottom: var(--spacing-1) solid var(--delimiter-color);
     }
 
+    &__cell-with-icon {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    &__cell-icon {
+        flex-shrink: 0;
+    }
+
     th {
         background: var(--card-background-accent-color);
         color: var(--body-color);
@@ -302,6 +312,17 @@
         flex-direction: column;
         gap: var(--spacing-4);
         min-width: 0;
+    }
+
+    &__card-title-line {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+        min-width: 0;
+    }
+
+    &__card-icon {
+        flex-shrink: 0;
     }
 
     &__card-title {

@@ -141,11 +141,12 @@ const renderColumnLabel = <T,>(column: DataViewColumn<T>) => (
 const renderCellContent = <T,>(column: DataViewColumn<T>, row: T) => {
     const cellIcon = column.cellIcon?.(row);
     const value = column.accessor ? column.accessor(row) : (row as Record<string, React.ReactNode>)[column.key];
+    if (!cellIcon) return value;
     return (
-        <>
-            {cellIcon && <Icon className="data-view__cell-icon" name={cellIcon} />}
-            {value}
-        </>
+        <span className="data-view__cell-with-icon">
+            <Icon className="data-view__cell-icon" name={cellIcon} />
+            <span>{value}</span>
+        </span>
     );
 };
 
@@ -250,8 +251,10 @@ function CardView<T>({
                         return (
                             <div className="data-view__card-header">
                                 <div className="data-view__card-title-row">
-                                    {cardIcon && <Icon className="data-view__card-icon" name={cardIcon} />}
-                                    <span className="data-view__card-title">{card.title(row)}</span>
+                                    <div className="data-view__card-title-line">
+                                        {cardIcon && <Icon className="data-view__card-icon" name={cardIcon} />}
+                                        <span className="data-view__card-title">{card.title(row)}</span>
+                                    </div>
                                     {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
                                 </div>
                                 {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
