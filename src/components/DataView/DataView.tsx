@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
+import { getResultsCount } from '../../helpers/Pagination';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { Button, type ExternalButtonConfig } from '../Button';
 import { Checkbox } from '../Checkbox';
@@ -111,6 +112,12 @@ export interface DataViewProps<T> {
     onPageChange?: (page: number) => void;
     /** Group rows by a key. Rows render in group sections within the paginated slice. */
     group?: DataViewGroupConfig<T>;
+    /** Display the "Showing X-Y of Z" results-count label above the data. Default: true. */
+    showResultsCount?: boolean;
+    /** Unfiltered total used to render the "filtered (… total)" form when smaller than this value. Defaults to `data.length`. */
+    totalCount?: number;
+    /** Noun appended to the results-count label, e.g. "books". */
+    itemNoun?: string;
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -324,6 +331,9 @@ export function DataView<T>({
     className,
     onPageChange,
     group,
+    showResultsCount = true,
+    totalCount,
+    itemNoun,
 }: DataViewProps<T>) {
     const { isMobile } = useBreakpoint();
     const [uncontrolledSortKey, setUncontrolledSortKey] = useState<string | null>(initialSortKey);
@@ -405,6 +415,15 @@ export function DataView<T>({
     const totalPages = Math.max(1, Math.ceil(sortedData.length / pageSize));
     const safeCurrentPage = Math.min(currentPage, totalPages);
     const pagedData = sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
+
+    const resultsCountLabel = showResultsCount
+        ? getResultsCount(pageSize, sortedData.length, totalCount ?? sortedData.length, safeCurrentPage, itemNoun)
+        : null;
+    const resultsCountNode = resultsCountLabel ? (
+        <div className="data-view__results-row">
+            <div className="data-view__results-count">{resultsCountLabel}</div>
+        </div>
+    ) : null;
 
     const groupTotals = useMemo<Map<DataViewGroupKey, number> | null>(() => {
         if (!group) return null;
@@ -512,6 +531,7 @@ export function DataView<T>({
     if (showCards) {
         return (
             <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`}>
+                {resultsCountNode}
                 {showCardSortControls && hasSortControls && (
                     <div className="data-view__card-sort-bar">
                         <div className="data-view__card-sort-field">
@@ -619,6 +639,7 @@ export function DataView<T>({
 
     const tableContent = (
         <>
+            {resultsCountNode}
             <div className="data-view__wrapper">
                 <table>
                     <thead>

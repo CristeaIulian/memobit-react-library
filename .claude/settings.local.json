@@ -16,7 +16,10 @@
       "Bash(npx eslint *)",
       "Bash(npm list *)",
       "Bash(awk '/^const iconMap/,/^};/' src/components/Icon/Icon.tsx)",
-      "Bash(ls \"D:/Projects/Web Apps/.claude/skills/create-icon/\")"
+      "Bash(ls \"D:/Projects/Web Apps/.claude/skills/create-icon/\")",
+      "Bash(ls \"D:/Projects/Web Apps/Online/\")",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(ls \"D:/Projects/Web Apps/Local Tools/\")"
     ]
   }
 }

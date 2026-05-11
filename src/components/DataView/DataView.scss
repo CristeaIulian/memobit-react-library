@@ -6,6 +6,18 @@
     gap: var(--spacing-16);
     width: 100%;
 
+    &__results-row {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    &__results-count {
+        color: var(--body-sub-title-color);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+    }
+
     &__wrapper {
         overflow-x: auto;
         border: var(--spacing-1) solid var(--delimiter-color);
