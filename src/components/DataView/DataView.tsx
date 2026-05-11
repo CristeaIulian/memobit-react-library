@@ -21,6 +21,8 @@ export interface DataViewColumn<T> {
     key: string;
     header: React.ReactNode;
     icon?: IconName;
+    /** Optional per-row icon rendered before the cell value. */
+    cellIcon?: (row: T) => IconName | undefined;
     /** Optional filter input rendered below the column header (table) or in the filter bar (card) */
     filter?: React.ReactNode;
     accessor?: (row: T) => React.ReactNode;
@@ -135,6 +137,17 @@ const renderColumnLabel = <T,>(column: DataViewColumn<T>) => (
         <span>{column.header}</span>
     </span>
 );
+
+const renderCellContent = <T,>(column: DataViewColumn<T>, row: T) => {
+    const cellIcon = column.cellIcon?.(row);
+    const value = column.accessor ? column.accessor(row) : (row as Record<string, React.ReactNode>)[column.key];
+    return (
+        <>
+            {cellIcon && <Icon className="data-view__cell-icon" name={cellIcon} />}
+            {value}
+        </>
+    );
+};
 
 // ─── Sort icon ───────────────────────────────────────────────────────────────
 
@@ -252,7 +265,7 @@ function CardView<T>({
                                 <div key={col.key} className="data-view__card-field">
                                     <span className="data-view__card-label">{renderColumnLabel(col)}</span>
                                     <span className="data-view__card-value">
-                                        {col.accessor ? col.accessor(row) : (row as Record<string, React.ReactNode>)[col.key]}
+                                        {renderCellContent(col, row)}
                                     </span>
                                 </div>
                             ))}
@@ -769,7 +782,7 @@ export function DataView<T>({
                                         )}
                                         {tableColumns.map(column => (
                                             <td key={column.key} style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}>
-                                                {column.accessor ? column.accessor(row) : (row as Record<string, React.ReactNode>)[column.key]}
+                                                {renderCellContent(column, row)}
                                             </td>
                                         ))}
                                         {actions && (
