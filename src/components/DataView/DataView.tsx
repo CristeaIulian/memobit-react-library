@@ -144,7 +144,7 @@ interface SortIconProps {
 function SortIcon({ state }: SortIconProps) {
     return (
         <span className={`data-view__sort-icon data-view__sort-icon--${state}`} aria-hidden="true">
-            {state === 'asc' ? '↑' : state === 'desc' ? '↓' : '↕'}
+            <Icon name={state === 'asc' ? 'arrow-up' : state === 'desc' ? 'arrow-down' : 'arrow-bidirectional-vertical'} />
         </span>
     );
 }

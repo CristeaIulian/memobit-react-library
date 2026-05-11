@@ -122,7 +122,7 @@ export const CollapsibleSectionPage: React.FC = () => {
                             toggleHighlight
                             toggleVariant="warning"
                             toggleSpaceBetween
-                            toggleMiddleIcon="✔"
+                            toggleMiddleIcon="checkmark"
                         >
                             <p>Inner content</p>
                         </CollapsibleSection>

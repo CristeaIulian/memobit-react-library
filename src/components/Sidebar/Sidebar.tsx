@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 
+import { Icon, type IconName } from '../Icon';
 import { useSidebarContext } from './SidebarContext';
 
 import './Sidebar.scss';
@@ -9,7 +10,7 @@ export interface SidebarItem {
     label: string;
     isActive?: boolean;
     onClick?: () => void;
-    icon?: ReactNode;
+    icon?: IconName;
     emoji?: string;
     bulletColor?: string;
     count?: number | string;
@@ -20,7 +21,7 @@ export interface SidebarSection {
     id?: string;
     title?: string;
     heading?: string;
-    icon?: ReactNode;
+    icon?: IconName;
     description?: string;
     items: SidebarItem[];
     showDivider?: boolean;
@@ -85,7 +86,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
     const defaultRenderItem = (item: SidebarItem) => (
         <button key={item.id} className={`sidebar__link ${item.isActive ? 'sidebar__link--active' : ''}`} onClick={() => handleItemClick(item)}>
-            {item.icon && <span className="sidebar__link-icon">{item.icon}</span>}
+            {item.icon && <span className="sidebar__link-icon"><Icon name={item.icon} /></span>}
             {item.emoji && <span className="sidebar__link-emoji">{item.emoji}</span>}
             {item.bulletColor && <span className="sidebar__link-bullet" style={{ backgroundColor: item.bulletColor }} />}
             <span className="sidebar__link-label">{item.label}</span>
@@ -109,7 +110,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     <div className="sidebar__section-header">
                                         {(section.icon || section.title || section.heading) && (
                                             <div className="sidebar__section-title-row">
-                                                {section.icon && <span className="sidebar__section-icon">{section.icon}</span>}
+                                                {section.icon && <span className="sidebar__section-icon"><Icon name={section.icon} /></span>}
                                                 {(section.title || section.heading) && (
                                                     <span className="sidebar__section-title">{section.title ?? section.heading}</span>
                                                 )}

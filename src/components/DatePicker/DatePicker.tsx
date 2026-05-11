@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Calendar, CalendarProps, CalendarDateRange } from '../Calendar';
+import { Icon } from '../Icon';
 import { formatDate } from '../../helpers/Datetime';
 import './DatePicker.scss';
 
@@ -172,7 +173,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                             ×
                         </button>
                     )}
-                    <span className="datepicker__icon">📅</span>
+                    <span className="datepicker__icon"><Icon name="calendar" /></span>
                 </div>
             </div>
 

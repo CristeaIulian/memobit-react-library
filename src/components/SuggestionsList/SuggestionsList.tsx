@@ -6,6 +6,7 @@ import { Search } from '../Search';
 
 import './SuggestionsList.scss';
 import { Tooltip } from '../Tooltip';
+import { Icon } from '../Icon';
 
 type SortDirection = 'asc' | 'desc';
 
@@ -16,7 +17,7 @@ interface SortIconProps {
 function SortIcon({ state }: SortIconProps) {
     return (
         <span className={`suggestions-list__sort-icon suggestions-list__sort-icon--${state}`} aria-hidden="true">
-            {state === 'asc' ? '↑' : state === 'desc' ? '↓' : '↕'}
+            <Icon name={state === 'asc' ? 'arrow-up' : state === 'desc' ? 'arrow-down' : 'arrow-bidirectional-vertical'} />
         </span>
     );
 }

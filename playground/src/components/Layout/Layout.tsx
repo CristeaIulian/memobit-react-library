@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Header } from '../../Header';
-import { Sidebar, SidebarSection, useBreakpoint } from '../../../../src';
+import { Icon, Sidebar, SidebarSection, useBreakpoint } from '../../../../src';
 import { sortedRoutes } from '../../routes';
 
 import './Layout.scss';
@@ -57,7 +57,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <main className="layout__content">
                     {isMobile && !isSidebarOpen && (
                         <button className="layout__hamburger" onClick={toggleSidebar} aria-label="Toggle navigation">
-                            ☰
+                            <Icon name="menu-hamburger" />
                         </button>
                     )}
 

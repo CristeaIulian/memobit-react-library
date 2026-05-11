@@ -358,8 +358,8 @@ export const DrawerPage: React.FC = () => {
                                 variant: 'info',
                             }}
                             actions={[
-                                { id: 'edit', label: '✏️ Edit', onClick: () => undefined },
-                                { id: 'delete', label: '🗑️ Delete', onClick: () => undefined },
+                                { id: 'edit', label: 'Edit', icon: 'edit', onClick: () => undefined },
+                                { id: 'delete', label: 'Delete', icon: 'delete', onClick: () => undefined },
                             ]}
                         >
                             <div style={bookDrawerStyles.stack}>

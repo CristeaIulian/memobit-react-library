@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { InfiniteScroll, ScrollInfo, Tooltip } from '../../../src';
+import { Icon, InfiniteScroll, ScrollInfo, Tooltip } from '../../../src';
 
 // ─── Fake data generator ──────────────────────────────────────────────────────
 
@@ -79,7 +79,7 @@ export const InfiniteScrollPage: React.FC = () => {
                             isLoading={isLoading}
                             onLoadMore={loadMore}
                             onScrollChange={setScrollInfo}
-                            endMessage={<span>✅ All {TOTAL_ITEMS} items loaded.</span>}
+                            endMessage={<span><Icon name="checkmark" /> All {TOTAL_ITEMS} items loaded.</span>}
                         >
                             {items.map(item => (
                                 <div key={item.id} className="infinite-scroll-demo-item">
@@ -114,11 +114,11 @@ export const InfiniteScrollPage: React.FC = () => {
                                     </tr>
                                     <tr>
                                         <td>isAtTop</td>
-                                        <td>{scrollInfo.isAtTop ? '✅' : '—'}</td>
+                                        <td>{scrollInfo.isAtTop ? <Icon name="checkmark" /> : '—'}</td>
                                     </tr>
                                     <tr>
                                         <td>isAtBottom</td>
-                                        <td>{scrollInfo.isAtBottom ? '✅' : '—'}</td>
+                                        <td>{scrollInfo.isAtBottom ? <Icon name="checkmark" /> : '—'}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -144,7 +144,7 @@ export const InfiniteScrollPage: React.FC = () => {
                     hasMore={cardsHasMore}
                     isLoading={cardsLoading}
                     onLoadMore={loadMoreCards}
-                    endMessage={<span>✅ All {TOTAL_ITEMS} cards loaded.</span>}
+                    endMessage={<span><Icon name="checkmark" /> All {TOTAL_ITEMS} cards loaded.</span>}
                 >
                     <div className="infinite-scroll-card-grid">
                         {cards.map(card => (

@@ -236,7 +236,7 @@ export const ControlPanelPage: React.FC = () => {
                     <h3>Workspace — Filters, View Toggle, Group By, Visible Columns</h3>
                     <div style={{ display: 'flex', minHeight: '680px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
                         <ControlPanel
-                            header={{ icon: 'M', siteName: 'Memobit', heading: 'Product workspace' }}
+                            header={{ emoji: 'M', siteName: 'Memobit', heading: 'Product workspace' }}
                             actions={workspaceActions}
                             filters={workspaceFilters}
                             filtersCount={activeFilterCount}
@@ -314,7 +314,7 @@ export const ControlPanelPage: React.FC = () => {
                     <h3>Library — Filters Only (no Options)</h3>
                     <div style={{ display: 'flex', minHeight: '980px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
                         <ControlPanel
-                            header={{ icon: 'A', siteName: 'Armoire', heading: 'A reading life' }}
+                            header={{ emoji: 'A', siteName: 'Armoire', heading: 'A reading life' }}
                             actions={libraryActions}
                             filters={libraryFilters}
                             onFilterChange={handleLibraryFilterChange}
@@ -353,7 +353,7 @@ export const ControlPanelPage: React.FC = () => {
                     <h3>Custom Options — Checkbox, Radio, Chips</h3>
                     <div style={{ display: 'flex', minHeight: '400px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
                         <ControlPanel
-                            header={{ icon: '⚙', siteName: 'Settings' }}
+                            header={{ icon: 'settings', siteName: 'Settings' }}
                             options={[
                                 {
                                     id: 'priority',
@@ -421,7 +421,7 @@ export const ControlPanelPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Navigation Items with Icons</h3>
                     <div style={{ display: 'flex', minHeight: '320px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
-                        <ControlPanel header={{ icon: '⚡', siteName: 'Dashboard' }} navigation={navigation} isOpen={true} width="280px" />
+                        <ControlPanel header={{ icon: 'lightning', siteName: 'Dashboard' }} navigation={navigation} isOpen={true} width="280px" />
                         <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
                             <h3>Current Section</h3>
                             <p>

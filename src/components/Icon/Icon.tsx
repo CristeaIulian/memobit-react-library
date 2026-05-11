@@ -443,6 +443,37 @@ import { workout } from '../../icons/workout';
 import { wrench } from '../../icons/wrench';
 import { yoga } from '../../icons/yoga';
 import { youtube } from '../../icons/youtube';
+import { olives } from '../../icons/olives';
+import { soup } from '../../icons/soup';
+import { polenta } from '../../icons/polenta';
+import { arrowBidirectionalHorizontal } from '../../icons/arrow-bidirectional-horizontal';
+import { arrowBidirectionalVertical } from '../../icons/arrow-bidirectional-vertical';
+import { burst } from '../../icons/burst';
+import { confetti } from '../../icons/confetti';
+import { angular } from '../../icons/angular';
+import { atom } from '../../icons/atom';
+import { brightness } from '../../icons/brightness';
+import { calculator } from '../../icons/calculator';
+import { cigarette } from '../../icons/cigarette';
+import { cube } from '../../icons/cube';
+import { equalizer } from '../../icons/equalizer';
+import { expense } from '../../icons/expense';
+import { fan } from '../../icons/fan';
+import { fog } from '../../icons/fog';
+import { inkCartridge } from '../../icons/ink-cartridge';
+import { jupiter } from '../../icons/jupiter';
+import { lockOpen } from '../../icons/lock-open';
+import { mars } from '../../icons/mars';
+import { mercury } from '../../icons/mercury';
+import { money } from '../../icons/money';
+import { neptune } from '../../icons/neptune';
+import { pluto } from '../../icons/pluto';
+import { shield } from '../../icons/shield';
+import { square } from '../../icons/square';
+import { stethoscope } from '../../icons/stethoscope';
+import { storm } from '../../icons/storm';
+import { uranus } from '../../icons/uranus';
+import { venus } from '../../icons/venus';
 
 import './Icon.scss';
 
@@ -891,6 +922,37 @@ const iconMap = {
     wrench,
     yoga,
     youtube,
+    olives,
+    soup,
+    polenta,
+    'arrow-bidirectional-horizontal': arrowBidirectionalHorizontal,
+    'arrow-bidirectional-vertical': arrowBidirectionalVertical,
+    'ink-cartridge': inkCartridge,
+    'lock-open': lockOpen,
+    burst,
+    confetti,
+    angular,
+    atom,
+    brightness,
+    calculator,
+    cigarette,
+    cube,
+    equalizer,
+    expense,
+    fan,
+    fog,
+    jupiter,
+    mars,
+    mercury,
+    money,
+    neptune,
+    pluto,
+    shield,
+    square,
+    stethoscope,
+    storm,
+    uranus,
+    venus,
 } as const;
 
 export type IconName = keyof typeof iconMap;

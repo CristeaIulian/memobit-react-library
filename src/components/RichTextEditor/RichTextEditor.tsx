@@ -6,6 +6,7 @@ import { ADVANCED_BUTTONS, DEFAULT_TABLE_HTML, HEADING_LEVELS, HISTORY_BUTTONS, 
 
 import './RichTextEditor.scss';
 import { Tooltip } from '../Tooltip';
+import { Icon } from '../Icon';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -562,7 +563,7 @@ export const RichTextEditor = ({
                                     insertTaskList();
                                 }}
                             >
-                                ☑ List
+                                <Icon name="checkmark" /> List
                             </button>
                         </Tooltip>
                     </div>
@@ -600,7 +601,7 @@ export const RichTextEditor = ({
                                     openLinkPrompt();
                                 }}
                             >
-                                🔗 Link
+                                <Icon name="link" /> Link
                             </button>
                         </Tooltip>
                     </div>

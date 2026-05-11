@@ -1,6 +1,6 @@
 import React, { type ReactNode, useState } from 'react';
 
-import { Icon } from '../Icon';
+import { Icon, type IconName } from '../Icon';
 
 import './CollapsibleSection.scss';
 
@@ -14,7 +14,7 @@ interface CollapsibleSectionProps {
     title?: ReactNode;
     toggleAccent?: boolean;
     toggleHighlight?: boolean;
-    toggleMiddleIcon?: string;
+    toggleMiddleIcon?: IconName;
     toggleSize?: 'small' | 'medium';
     toggleSpaceBetween?: boolean;
     toggleSwap?: boolean;
@@ -64,7 +64,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                     {hasFullRowClick ? (
                         <>
                             <div className="collapsible-section__label">{title}</div>
-                            {toggleMiddleIcon && <span>{toggleMiddleIcon}</span>}
+                            {toggleMiddleIcon && <span><Icon name={toggleMiddleIcon} /></span>}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
                                 <Icon name="caret-up" />
                             </span>
@@ -73,7 +73,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                     ) : (
                         <button type="button" className="collapsible-section__inline-toggle" onClick={handleToggle}>
                             <span className="collapsible-section__label">{title}</span>
-                            {toggleMiddleIcon && <span>{toggleMiddleIcon}</span>}
+                            {toggleMiddleIcon && <span><Icon name={toggleMiddleIcon} /></span>}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
                                 <Icon name="caret-up" />
                             </span>

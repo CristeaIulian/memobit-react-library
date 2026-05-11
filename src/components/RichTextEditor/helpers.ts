@@ -21,9 +21,7 @@ export const HISTORY_BUTTONS: ToolbarButton[] = [
 
 export const HEADING_LEVELS = [1, 2, 3, 4, 5, 6];
 
-export const ADVANCED_BUTTONS: ToolbarButton[] = [
-    { command: 'formatBlock', value: 'pre', label: 'Code Block', title: 'Code Block', isAdvanced: true },
-];
+export const ADVANCED_BUTTONS: ToolbarButton[] = [{ command: 'formatBlock', value: 'pre', label: 'Code Block', title: 'Code Block', isAdvanced: true }];
 
 /**
  * Builds a new `<tr>` with `colCount` editable cells. Used when inserting

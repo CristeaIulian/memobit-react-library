@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import { Card } from '../Card';
+import { Icon } from '../Icon';
 
 import './TipsOfTheDay.scss';
 
@@ -15,7 +16,7 @@ export const TipsOfTheDay: FC<TipsOfTheDayProps> = ({ list }: TipsOfTheDayProps)
 
     return (
         <Card className="tips-of-the-day">
-            <h3>✨ Tip Of The Day ✨</h3> <h4>{list[tipIndex]}</h4>
+            <h3><Icon name="sparkle" /> Tip Of The Day <Icon name="sparkle" /></h3> <h4>{list[tipIndex]}</h4>
         </Card>
     );
 };

@@ -150,7 +150,7 @@ export const NavBarPage: React.FC = () => {
                             logo={<Icon name="smartphone" size="xxl" />}
                             actions={
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                    <span style={{ fontSize: '20px', cursor: 'pointer' }}>👤</span>
+                                    <span style={{ fontSize: '20px', cursor: 'pointer' }}><Icon name="user" /></span>
                                 </div>
                             }
                         />

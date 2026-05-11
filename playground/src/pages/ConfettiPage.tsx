@@ -44,9 +44,9 @@ export const ConfettiPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <div className="component-group">
-                        <Button onClick={() => confettiFullRef.current?.trigger()}>🎉 Classic Confetti</Button>
-                        <Button onClick={() => burstFullRef.current?.trigger()}>💥 Burst</Button>
-                        <Button onClick={() => fireworksFullRef.current?.trigger()}>🎆 Fireworks</Button>
+                        <Button icon="confetti" onClick={() => confettiFullRef.current?.trigger()}>Classic Confetti</Button>
+                        <Button icon="burst" onClick={() => burstFullRef.current?.trigger()}>Burst</Button>
+                        <Button icon="fireworks" onClick={() => fireworksFullRef.current?.trigger()}>Fireworks</Button>
                     </div>
                 </div>
             </section>
@@ -75,7 +75,7 @@ export const ConfettiPage: React.FC = () => {
                             }}
                         >
                             <Confetti ref={confettiContRef} variant="confetti" scope="container" duration={3000} />
-                            <Button onClick={() => confettiContRef.current?.trigger()}>🎉 Confetti here</Button>
+                            <Button icon="confetti" onClick={() => confettiContRef.current?.trigger()}>Confetti here</Button>
                         </div>
 
                         <div
@@ -92,7 +92,7 @@ export const ConfettiPage: React.FC = () => {
                             }}
                         >
                             <Confetti ref={burstContRef} variant="burst" scope="container" duration={2500} />
-                            <Button onClick={() => burstContRef.current?.trigger()}>💥 Burst here</Button>
+                            <Button icon="burst" onClick={() => burstContRef.current?.trigger()}>Burst here</Button>
                         </div>
 
                         <div
@@ -109,7 +109,7 @@ export const ConfettiPage: React.FC = () => {
                             }}
                         >
                             <Confetti ref={fireworksContRef} variant="fireworks" scope="container" duration={4000} />
-                            <Button onClick={() => fireworksContRef.current?.trigger()}>🎆 Fireworks here</Button>
+                            <Button icon="fireworks" onClick={() => fireworksContRef.current?.trigger()}>Fireworks here</Button>
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@ export const ConfettiPage: React.FC = () => {
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
-                        <Button onClick={() => customColorsRef.current?.trigger()}>🌈 Neon Fireworks</Button>
+                        <Button icon="rainbow" onClick={() => customColorsRef.current?.trigger()}>Neon Fireworks</Button>
                     </div>
                     <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
                         {['#ff0080', '#ff8c00', '#ffe600', '#00ff99', '#00cfff', '#cc00ff'].map(c => (
@@ -141,8 +141,8 @@ export const ConfettiPage: React.FC = () => {
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
-                        <Button onClick={() => shortDurationRef.current?.trigger()}>⚡ Short (1.2s burst)</Button>
-                        <Button onClick={() => longDurationRef.current?.trigger()}>⏳ Long (6s confetti)</Button>
+                        <Button icon="lightning" onClick={() => shortDurationRef.current?.trigger()}>Short (1.2s burst)</Button>
+                        <Button icon="wait" onClick={() => longDurationRef.current?.trigger()}>Long (6s confetti)</Button>
                     </div>
                 </div>
             </section>
@@ -155,7 +155,7 @@ export const ConfettiPage: React.FC = () => {
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
-                        <Button onClick={() => heavyRef.current?.trigger()}>🌨️ Heavy Confetti (400 particles)</Button>
+                        <Button icon="snow" onClick={() => heavyRef.current?.trigger()}>Heavy Confetti (400 particles)</Button>
                     </div>
                 </div>
             </section>
