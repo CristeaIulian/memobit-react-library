@@ -15,7 +15,8 @@
       "Bash(sed -n '469,490p' \"D:/Projects/Web Apps/Online/recipes/dev/frontend/src/pages/RecipesPage/RecipesPage.tsx\")",
       "Bash(npx eslint *)",
       "Bash(npm list *)",
-      "Bash(awk '/^const iconMap/,/^};/' src/components/Icon/Icon.tsx)"
+      "Bash(awk '/^const iconMap/,/^};/' src/components/Icon/Icon.tsx)",
+      "Bash(ls \"D:/Projects/Web Apps/.claude/skills/create-icon/\")"
     ]
   }
 }

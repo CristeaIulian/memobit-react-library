@@ -13,7 +13,210 @@ interface IconEntry {
     keywords: string;
     name: string;
     value: unknown;
+    categoryId: string;
 }
+
+interface IconCategory {
+    id: string;
+    label: string;
+    icons: string[];
+}
+
+const OTHER_CATEGORY_ID = 'other';
+
+const iconCategoryDefinitions: IconCategory[] = [
+    {
+        id: 'navigation',
+        label: 'Navigation & UI',
+        icons: [
+            'arrow-down', 'arrow-left', 'arrow-right', 'arrow-up', 'caret-down', 'caret-left', 'caret-right', 'caret-up',
+            'checkmark', 'clear', 'context', 'deselect-all', 'edit', 'enlarge', 'filters', 'grid', 'group', 'layers',
+            'list', 'menu-hamburger', 'minus', 'next', 'plus', 'previous', 'return', 'search', 'shrink', 'table',
+            'toggle-off', 'toggle-on', 'ungroup', 'vertical-dots', 'view', 'categories',
+        ],
+    },
+    {
+        id: 'status',
+        label: 'Status & Indicators',
+        icons: [
+            'active', 'alarm', 'anomaly', 'bullet', 'connected', 'defect', 'dot', 'empty', 'gauge-high', 'gauge-low',
+            'gauge-medium', 'inactive', 'minimum', 'notice', 'offline', 'online', 'signal-full', 'signal-low',
+            'signal-medium', 'status', 'threshold', 'unassociated', 'wait', 'warning', 'not-found',
+        ],
+    },
+    {
+        id: 'time',
+        label: 'Time & Calendar',
+        icons: [
+            'calendar', 'calendar-day', 'calendar-month', 'calendar-week', 'calendar-year', 'evening', 'history',
+            'morning', 'night', 'noon', 'time',
+        ],
+    },
+    {
+        id: 'animals',
+        label: 'Animals',
+        icons: [
+            'ant', 'bat', 'bear', 'bee', 'bunny', 'butterfly', 'cat', 'caterpillar', 'chicken', 'cow', 'dinosaur',
+            'dog', 'dolphin', 'dragon', 'duck', 'elephant', 'fish', 'goat', 'monkey', 'mouse', 'penguin', 'pig',
+            'snake', 'turkey', 'turtle',
+        ],
+    },
+    {
+        id: 'food',
+        label: 'Food & Drink',
+        icons: [
+            'avocado', 'banana', 'beans', 'beer', 'birthday-cake', 'blueberries', 'bread', 'breakfast', 'cake',
+            'candy', 'carrot', 'cheese', 'cherries', 'chocolate', 'coffee', 'cook', 'corn', 'cucumber', 'dinner',
+            'egg', 'eggplant', 'food', 'french-fries', 'fruits', 'ice-cream', 'ingredients', 'knife', 'lemon',
+            'lollipop', 'lunch', 'meat', 'melon', 'milk', 'mushroom', 'pear', 'pepper', 'pizza', 'popcorn', 'potato',
+            'rice', 'salad', 'salt', 'strawberry', 'sugar', 'vegetables',
+        ],
+    },
+    {
+        id: 'nutrition',
+        label: 'Nutrition',
+        icons: ['carbs', 'fibers', 'glycemic-index', 'lipids', 'portions', 'proteins'],
+    },
+    {
+        id: 'health',
+        label: 'Health & Medical',
+        icons: [
+            'blood', 'bones', 'brain', 'dental', 'digestive', 'doctor', 'ears', 'endocrine', 'heart', 'hospital',
+            'laboratory', 'liver', 'lungs', 'mental', 'nervous', 'nose', 'pharmacy', 'pill', 'prescription',
+            'referral', 'reproductive', 'skin', 'skull', 'surgery', 'teeth', 'thermometer',
+        ],
+    },
+    {
+        id: 'weather',
+        label: 'Weather & Nature',
+        icons: [
+            'cloud', 'earth', 'fire', 'humidity', 'leaf', 'lightning', 'moon', 'outdoor', 'rain', 'rainbow', 'saturn',
+            'seeds', 'snow', 'sun', 'tree', 'wind',
+        ],
+    },
+    {
+        id: 'devices',
+        label: 'Devices & IoT',
+        icons: [
+            'appliances', 'button-device', 'camera', 'cpu', 'devices', 'dishwasher', 'drying-machine', 'fridge',
+            'gas-detector', 'gateway', 'headphones', 'ir-emitter', 'joystick', 'light-bulb', 'light-switch',
+            'microphone', 'monitor', 'motion', 'nas', 'phone', 'plug', 'printer', 'purifier', 'raspberry', 'robot',
+            'router', 'satellite', 'smartphone', 'smoke-detector', 'smb', 'speaker', 'tv', 'upnp', 'vacuum',
+            'washing-machine', 'water-leak',
+        ],
+    },
+    {
+        id: 'transport',
+        label: 'Transport & Travel',
+        icons: ['bus', 'car', 'compass', 'map', 'mapping', 'pin', 'plane', 'ship', 'speedometer', 'taxi', 'train', 'transport-box', 'trip'],
+    },
+    {
+        id: 'filetypes',
+        label: 'File Types',
+        icons: [
+            'filetype-avi', 'filetype-bat', 'filetype-c', 'filetype-css', 'filetype-csv', 'filetype-doc',
+            'filetype-docx', 'filetype-gif', 'filetype-html', 'filetype-ico', 'filetype-ini', 'filetype-javascript',
+            'filetype-jpeg', 'filetype-jpg', 'filetype-json', 'filetype-less', 'filetype-mp3', 'filetype-mp4',
+            'filetype-mpg', 'filetype-pdf', 'filetype-php', 'filetype-png', 'filetype-ppt', 'filetype-psd',
+            'filetype-rar', 'filetype-sass', 'filetype-sql', 'filetype-tiff', 'filetype-txt', 'filetype-typescript',
+            'filetype-wav', 'filetype-xls', 'filetype-xlsx', 'filetype-xml', 'filetype-zip',
+        ],
+    },
+    {
+        id: 'files',
+        label: 'Files & Storage',
+        icons: ['archive', 'clipboard', 'document', 'documents', 'file', 'folder', 'folder-open', 'memory', 'save', 'unarchive'],
+    },
+    {
+        id: 'communication',
+        label: 'Communication',
+        icons: ['announcement', 'bell', 'comment', 'language', 'mail'],
+    },
+    {
+        id: 'people',
+        label: 'People',
+        icons: ['girl', 'police', 'police-man', 'santa', 'user', 'users'],
+    },
+    {
+        id: 'sports',
+        label: 'Sports & Activity',
+        icons: ['ball', 'fishing-rod', 'hiking', 'pawn', 'running', 'scales', 'strength', 'trophy', 'workout', 'yoga'],
+    },
+    {
+        id: 'holidays',
+        label: 'Holidays & Celebrations',
+        icons: ['balloon', 'bow', 'broken-heart', 'christmas-tree', 'fireworks', 'gift-box', 'handshake', 'pumpkin', 'snowman'],
+    },
+    {
+        id: 'tools',
+        label: 'Tools',
+        icons: ['broom', 'calibrate', 'hammer', 'magnet', 'microscope', 'ruler', 'scissors', 'telescope', 'toolbox', 'wrench'],
+    },
+    {
+        id: 'security',
+        label: 'Security',
+        icons: ['firewall', 'gun', 'identity', 'incognito', 'key', 'lock', 'security', 'ssl'],
+    },
+    {
+        id: 'network',
+        label: 'Network & Web',
+        icons: ['ajax', 'api', 'dns', 'network', 'wan', 'web', 'website-crawl', 'wifi'],
+    },
+    {
+        id: 'analytics',
+        label: 'Charts & Analytics',
+        icons: ['analysis', 'chart', 'correlation', 'optimization', 'predictions', 'report', 'score', 'sequence', 'trend-down', 'trend-up'],
+    },
+    {
+        id: 'media',
+        label: 'Media',
+        icons: [
+            'cd-dvd', 'gallery', 'hd', 'image', 'movie', 'musical-note', 'mute', 'pause', 'play', 'radio', 'reload',
+            'repeat', 'sd', 'stop', 'stop-sign', 'streaming', 'unmute', 'video', 'youtube',
+        ],
+    },
+    {
+        id: 'places',
+        label: 'Places & Buildings',
+        icons: ['bank', 'bath', 'bed', 'building', 'door', 'home', 'lantern', 'rooms', 'school'],
+    },
+    {
+        id: 'commerce',
+        label: 'Commerce & Finance',
+        icons: ['credit-card', 'shopping-cart', 'transactions'],
+    },
+    {
+        id: 'symbols',
+        label: 'Symbols & Awards',
+        icons: ['badge', 'benefit', 'certificate', 'crystal-globe', 'death', 'favorite', 'ownership', 'puzzle', 'rocket', 'sparkle', 'target', 'theme-picker'],
+    },
+    {
+        id: 'brands',
+        label: 'Brands',
+        icons: ['github', 'linkedin', 'scss'],
+    },
+    {
+        id: 'actions',
+        label: 'Actions',
+        icons: ['detach', 'download', 'duplicates', 'export', 'import', 'logout', 'manage', 'power', 'scan', 'settings', 'synchronize', 'upload'],
+    },
+    {
+        id: 'misc',
+        label: 'Miscellaneous',
+        icons: ['book', 'briefcase', 'dashboard', 'help', 'information', 'notes', 'other', 'reading', 'sources', 'staple', 'technical'],
+    },
+];
+
+const iconCategoryById = new Map(iconCategoryDefinitions.map(category => [category.id, category]));
+const otherCategory: IconCategory = { id: OTHER_CATEGORY_ID, label: 'Other', icons: [] };
+iconCategoryById.set(OTHER_CATEGORY_ID, otherCategory);
+
+const iconCategoryByPath = new Map<string, string>();
+iconCategoryDefinitions.forEach(category => {
+    category.icons.forEach(filePath => {
+        iconCategoryByPath.set(filePath, category.id);
+    });
+});
 
 const iconAliases: Record<string, string[]> = {
     'arrow-down': ['down', 'arrow', 'direction', 'below', 'south'],
@@ -499,6 +702,8 @@ const iconEntries: IconEntry[] = Object.entries(iconModules)
             const aliases = iconAliases[normalizedPath] || [];
             const allKeywords = [name, exportName, fileName, normalizedPath, ...aliases];
 
+            const categoryId = iconCategoryByPath.get(normalizedPath) ?? OTHER_CATEGORY_ID;
+
             return [
                 {
                     id: `${normalizedPath}:${exportName}`,
@@ -506,11 +711,22 @@ const iconEntries: IconEntry[] = Object.entries(iconModules)
                     keywords: allKeywords.join(' ').toLowerCase(),
                     name,
                     value,
+                    categoryId,
                 },
             ];
         });
     })
     .sort((left, right) => left.name.localeCompare(right.name));
+
+const iconCountsByCategory = iconEntries.reduce<Record<string, number>>((counts, entry) => {
+    counts[entry.categoryId] = (counts[entry.categoryId] ?? 0) + 1;
+    return counts;
+}, {});
+
+const visibleCategories: IconCategory[] = [
+    ...iconCategoryDefinitions.filter(category => (iconCountsByCategory[category.id] ?? 0) > 0),
+    ...((iconCountsByCategory[OTHER_CATEGORY_ID] ?? 0) > 0 ? [otherCategory] : []),
+];
 
 const renderIcon = (value: unknown) => {
     if (isValidElement(value)) {
@@ -548,10 +764,39 @@ const copyToClipboard = async (content: string) => {
 
 export const IconsPage: React.FC = () => {
     const [query, setQuery] = useState('');
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string>('all');
     const [toast, setToast] = useState<ToastDetails | null>(null);
 
     const normalizedQuery = query.trim().toLowerCase();
-    const filteredIcons = useMemo(() => iconEntries.filter(icon => !normalizedQuery || icon.keywords.includes(normalizedQuery)), [normalizedQuery]);
+    const filteredIcons = useMemo(
+        () =>
+            iconEntries.filter(icon => {
+                const matchesQuery = !normalizedQuery || icon.keywords.includes(normalizedQuery);
+                const matchesCategory = selectedCategoryId === 'all' || icon.categoryId === selectedCategoryId;
+                return matchesQuery && matchesCategory;
+            }),
+        [normalizedQuery, selectedCategoryId]
+    );
+
+    const groupedIcons = useMemo(() => {
+        if (selectedCategoryId !== 'all' || normalizedQuery) {
+            return null;
+        }
+
+        const groups = new Map<string, IconEntry[]>();
+        filteredIcons.forEach(icon => {
+            const bucket = groups.get(icon.categoryId);
+            if (bucket) {
+                bucket.push(icon);
+            } else {
+                groups.set(icon.categoryId, [icon]);
+            }
+        });
+
+        return visibleCategories
+            .map(category => ({ category, icons: groups.get(category.id) ?? [] }))
+            .filter(group => group.icons.length > 0);
+    }, [filteredIcons, normalizedQuery, selectedCategoryId]);
     const showCopyResult = useCallback(async (content: string, successMessage: string) => {
         try {
             await copyToClipboard(content);
@@ -593,7 +838,79 @@ export const IconsPage: React.FC = () => {
                     </span>
                 </div>
 
-                {filteredIcons.length > 0 ? (
+                <div className="icons-page__categories" role="tablist" aria-label="Icon categories">
+                    <button
+                        type="button"
+                        role="tab"
+                        aria-selected={selectedCategoryId === 'all'}
+                        className={`icons-page__category${selectedCategoryId === 'all' ? ' icons-page__category--active' : ''}`}
+                        onClick={() => setSelectedCategoryId('all')}
+                    >
+                        All <span className="icons-page__category-count">{iconEntries.length}</span>
+                    </button>
+                    {visibleCategories.map(category => {
+                        const isActive = selectedCategoryId === category.id;
+                        return (
+                            <button
+                                key={category.id}
+                                type="button"
+                                role="tab"
+                                aria-selected={isActive}
+                                className={`icons-page__category${isActive ? ' icons-page__category--active' : ''}`}
+                                onClick={() => setSelectedCategoryId(category.id)}
+                            >
+                                {category.label} <span className="icons-page__category-count">{iconCountsByCategory[category.id] ?? 0}</span>
+                            </button>
+                        );
+                    })}
+                </div>
+
+                {filteredIcons.length === 0 && (
+                    <div className="icons-page__empty">
+                        <h3>No icons found</h3>
+                        <p>Try a different search term or category.</p>
+                    </div>
+                )}
+
+                {filteredIcons.length > 0 && groupedIcons && (
+                    <div className="icons-page__groups">
+                        {groupedIcons.map(group => (
+                            <div key={group.category.id} className="icons-page__group">
+                                <div className="icons-page__group-header">
+                                    <h3>{group.category.label}</h3>
+                                    <span className="icons-page__count">{group.icons.length}</span>
+                                </div>
+                                <div className="icons-page__grid">
+                                    {group.icons.map(icon => (
+                                        <article key={icon.id} className="icons-page__tile">
+                                            <button
+                                                type="button"
+                                                className="icons-page__preview"
+                                                onClick={() => handleTagCopy(icon)}
+                                                aria-label={`Copy ${icon.name} icon SVG`}
+                                                title="Copy icon SVG"
+                                            >
+                                                {renderIcon(icon.value)}
+                                            </button>
+                                            <strong className="icons-page__name">{icon.name}</strong>
+                                            <button
+                                                type="button"
+                                                className="icons-page__path"
+                                                onClick={() => handleTagCopy(icon)}
+                                                aria-label={`Copy ${icon.filePath}`}
+                                                title="Copy icon tag"
+                                            >
+                                                {icon.filePath}
+                                            </button>
+                                        </article>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {filteredIcons.length > 0 && !groupedIcons && (
                     <div className="icons-page__grid">
                         {filteredIcons.map(icon => (
                             <article key={icon.id} className="icons-page__tile">
@@ -618,11 +935,6 @@ export const IconsPage: React.FC = () => {
                                 </button>
                             </article>
                         ))}
-                    </div>
-                ) : (
-                    <div className="icons-page__empty">
-                        <h3>No icons found</h3>
-                        <p>Try a different search term.</p>
                     </div>
                 )}
             </section>
