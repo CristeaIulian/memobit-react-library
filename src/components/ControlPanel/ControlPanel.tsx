@@ -139,6 +139,7 @@ export interface ControlPanelNavItem {
     onClick: () => void;
     icon?: IconName;
     color?: string;
+    count?: number;
     badges?: ControlPanelNavItemBadge[];
 }
 
@@ -608,6 +609,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                                 )}
                                 {item.color && <span className="control-panel__nav-dot" style={{ backgroundColor: item.color }} />}
                                 {item.label}
+                                {item.count !== undefined && <span className="control-panel__nav-count">{item.count}</span>}
                                 {item.badges && item.badges.length > 0 && (
                                     <span className="control-panel__nav-badges">
                                         {item.badges.map((badge, i) => (

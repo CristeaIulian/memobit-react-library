@@ -99,6 +99,13 @@
         }
     }
 
+    &__nav-count {
+        margin-left: auto;
+        padding-left: var(--spacing-8);
+        color: var(--body-color-muted);
+        font-size: var(--font-size-xs);
+    }
+
     &__actions {
         @include flex-column;
         gap: var(--spacing-8);
