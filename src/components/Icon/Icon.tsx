@@ -1,5 +1,20 @@
 import React from 'react';
 
+import { antenna } from '../../icons/antenna';
+import { chestnut } from '../../icons/chestnut';
+import { cookies } from '../../icons/cookies';
+import { dessert } from '../../icons/dessert';
+import { fondue } from '../../icons/fondue';
+import { glass } from '../../icons/glass';
+import { link } from '../../icons/link';
+import { microwave } from '../../icons/microwave';
+import { ninja } from '../../icons/ninja';
+import { peanut } from '../../icons/peanut';
+import { pudding } from '../../icons/pudding';
+import { softDrink } from '../../icons/soft-drink';
+import { star } from '../../icons/star';
+import { theater } from '../../icons/theater';
+import { tomato } from '../../icons/tomato';
 import { active } from '../../icons/active';
 import { afternoon } from '../../icons/afternoon';
 import { ajax } from '../../icons/ajax';
@@ -55,6 +70,10 @@ import { butterfly } from '../../icons/butterfly';
 import { buttonDevice } from '../../icons/button-device';
 import { cake } from '../../icons/cake';
 import { calendar } from '../../icons/calendar';
+import { calendarDay } from '../../icons/calendar-day';
+import { calendarMonth } from '../../icons/calendar-month';
+import { calendarWeek } from '../../icons/calendar-week';
+import { calendarYear } from '../../icons/calendar-year';
 import { calibrate } from '../../icons/calibrate';
 import { camera } from '../../icons/camera';
 import { candy } from '../../icons/candy';
@@ -80,6 +99,7 @@ import { christmasTree } from '../../icons/christmas-tree';
 import { clear } from '../../icons/clear';
 import { clipboard } from '../../icons/clipboard';
 import { cloud } from '../../icons/cloud';
+import { coffee } from '../../icons/coffee';
 import { comment } from '../../icons/comment';
 import { compass } from '../../icons/compass';
 import { connected } from '../../icons/connected';
@@ -181,6 +201,9 @@ import { fruits } from '../../icons/fruits';
 import { gallery } from '../../icons/gallery';
 import { gasDetector } from '../../icons/gas-detector';
 import { gateway } from '../../icons/gateway';
+import { gaugeHigh } from '../../icons/gauge-high';
+import { gaugeLow } from '../../icons/gauge-low';
+import { gaugeMedium } from '../../icons/gauge-medium';
 import { giftBox } from '../../icons/gift-box';
 import { girl } from '../../icons/girl';
 import { github } from '../../icons/github';
@@ -218,6 +241,7 @@ import { knife } from '../../icons/knife';
 import { laboratory } from '../../icons/laboratory';
 import { language } from '../../icons/language';
 import { lantern } from '../../icons/lantern';
+import { layers } from '../../icons/layers';
 import { leaf } from '../../icons/leaf';
 import { lemon } from '../../icons/lemon';
 import { lightBulb } from '../../icons/light-bulb';
@@ -245,6 +269,7 @@ import { menuHamburger } from '../../icons/menu-hamburger';
 import { microphone } from '../../icons/microphone';
 import { microscope } from '../../icons/microscope';
 import { milk } from '../../icons/milk';
+import { minimum } from '../../icons/minimum';
 import { minus } from '../../icons/minus';
 import { monitor } from '../../icons/monitor';
 import { monkey } from '../../icons/monkey';
@@ -317,6 +342,7 @@ import { robot } from '../../icons/robot';
 import { rocket } from '../../icons/rocket';
 import { rooms } from '../../icons/rooms';
 import { router } from '../../icons/router';
+import { ruler } from '../../icons/ruler';
 import { running } from '../../icons/running';
 import { salad } from '../../icons/salad';
 import { salt } from '../../icons/salt';
@@ -325,6 +351,7 @@ import { satellite } from '../../icons/satellite';
 import { saturn } from '../../icons/saturn';
 import { save } from '../../icons/save';
 import { scales } from '../../icons/scales';
+import { scan } from '../../icons/scan';
 import { school } from '../../icons/school';
 import { scissors } from '../../icons/scissors';
 import { score } from '../../icons/score';
@@ -360,6 +387,7 @@ import { stop } from '../../icons/stop';
 import { stopSign } from '../../icons/stop-sign';
 import { strawberry } from '../../icons/strawberry';
 import { streaming } from '../../icons/streaming';
+import { strength } from '../../icons/strength';
 import { sugar } from '../../icons/sugar';
 import { sun } from '../../icons/sun';
 import { surgery } from '../../icons/surgery';
@@ -384,6 +412,7 @@ import { tree } from '../../icons/tree';
 import { trendDown } from '../../icons/trend-down';
 import { trendUp } from '../../icons/trend-up';
 import { trip } from '../../icons/trip';
+import { trophy } from '../../icons/trophy';
 import { turkey } from '../../icons/turkey';
 import { turtle } from '../../icons/turtle';
 import { tv } from '../../icons/tv';
@@ -413,30 +442,10 @@ import { workout } from '../../icons/workout';
 import { wrench } from '../../icons/wrench';
 import { yoga } from '../../icons/yoga';
 import { youtube } from '../../icons/youtube';
-import { calendarDay } from '../../icons/calendar-day';
-import { calendarWeek } from '../../icons/calendar-week';
-import { calendarMonth } from '../../icons/calendar-month';
-import { calendarYear } from '../../icons/calendar-year';
-import { scan } from '../../icons/scan';
-import { coffee } from '../../icons/coffee';
-import { ruler } from '../../icons/ruler';
-import { trophy } from '../../icons/trophy';
-import { strength } from '../../icons/strength';
-import { minimum } from '../../icons/minimum';
-import { layers } from '../../icons/layers';
-import { gaugeMedium } from '../../icons/gauge-medium';
-import { gaugeLow } from '../../icons/gauge-low';
-import { gaugeHigh } from '../../icons/gauge-high';
 
 import './Icon.scss';
 
 const iconMap = {
-    scan,
-    coffee,
-    'calendar-day': calendarDay,
-    'calendar-week': calendarWeek,
-    'calendar-month': calendarMonth,
-    'calendar-year': calendarYear,
     'arrow-down': arrowDown,
     'arrow-left': arrowLeft,
     'arrow-right': arrowRight,
@@ -448,6 +457,10 @@ const iconMap = {
     'birthday-cake': birthdayCake,
     'broken-heart': brokenHeart,
     'button-device': buttonDevice,
+    'calendar-day': calendarDay,
+    'calendar-month': calendarMonth,
+    'calendar-week': calendarWeek,
+    'calendar-year': calendarYear,
     'caret-down': caretDown,
     'caret-left': caretLeft,
     'caret-right': caretRight,
@@ -496,6 +509,9 @@ const iconMap = {
     'folder-open': folderOpen,
     'french-fries': frenchFries,
     'gas-detector': gasDetector,
+    'gauge-high': gaugeHigh,
+    'gauge-low': gaugeLow,
+    'gauge-medium': gaugeMedium,
     'glycemic-index': glycemicIndex,
     'ice-cream': iceCream,
     'ir-emitter': irEmitter,
@@ -510,11 +526,14 @@ const iconMap = {
     'signal-low': signalLow,
     'signal-medium': signalMedium,
     'smoke-detector': smokeDetector,
+    'soft-drink': softDrink,
     'stop-sign': stopSign,
     'theme-picker': themePicker,
     'toggle-off': toggleOff,
     'toggle-on': toggleOn,
     'transport-box': transportBox,
+    'trend-down': trendDown,
+    'trend-up': trendUp,
     'vertical-dots': verticalDots,
     'washing-machine': washingMachine,
     'water-leak': waterLeak,
@@ -527,6 +546,7 @@ const iconMap = {
     announcement,
     anomaly,
     ant,
+    antenna,
     api,
     appliances,
     archive,
@@ -577,16 +597,19 @@ const iconMap = {
     checkmark,
     cheese,
     cherries,
+    chestnut,
     chicken,
     chocolate,
     clear,
     clipboard,
     cloud,
+    coffee,
     comment,
     compass,
     connected,
     context,
     cook,
+    cookies,
     cooling,
     corn,
     correlation,
@@ -598,6 +621,7 @@ const iconMap = {
     defect,
     delete: delete_,
     dental,
+    dessert,
     detach,
     devices,
     digestive,
@@ -636,6 +660,7 @@ const iconMap = {
     fireworks,
     fish,
     folder,
+    fondue,
     food,
     fridge,
     fruits,
@@ -644,6 +669,7 @@ const iconMap = {
     giftBox,
     girl,
     github,
+    glass,
     gloves,
     goat,
     graduation,
@@ -675,9 +701,11 @@ const iconMap = {
     laboratory,
     language,
     lantern,
+    layers,
     leaf,
     lemon,
     lightning,
+    link,
     linkedin,
     lipids,
     list,
@@ -698,7 +726,9 @@ const iconMap = {
     mental,
     microphone,
     microscope,
+    microwave,
     milk,
+    minimum,
     minus,
     monitor,
     monkey,
@@ -714,6 +744,7 @@ const iconMap = {
     network,
     next,
     night,
+    ninja,
     noon,
     nose,
     notes,
@@ -726,6 +757,7 @@ const iconMap = {
     ownership,
     pause,
     pawn,
+    peanut,
     pear,
     penguin,
     pepper,
@@ -749,6 +781,7 @@ const iconMap = {
     previous,
     printer,
     proteins,
+    pudding,
     pumpkin,
     purifier,
     puzzle,
@@ -768,6 +801,7 @@ const iconMap = {
     rocket,
     rooms,
     router,
+    ruler,
     running,
     salad,
     salt,
@@ -776,6 +810,7 @@ const iconMap = {
     saturn,
     save,
     scales,
+    scan,
     school,
     scissors,
     score,
@@ -801,11 +836,13 @@ const iconMap = {
     speedometer,
     ssl,
     staple,
+    star,
     status,
     stop,
     stopSign,
     strawberry,
     streaming,
+    strength,
     sugar,
     sun,
     surgery,
@@ -816,16 +853,17 @@ const iconMap = {
     technical,
     teeth,
     telescope,
+    theater,
     thermometer,
     threshold,
     time,
+    tomato,
     toolbox,
     train,
     transactions,
     tree,
-    'trend-down': trendDown,
-    'trend-up': trendUp,
     trip,
+    trophy,
     turkey,
     turtle,
     tv,
@@ -851,14 +889,6 @@ const iconMap = {
     wrench,
     yoga,
     youtube,
-    ruler,
-    trophy,
-    strength,
-    minimum,
-    layers,
-    'gauge-low': gaugeLow,
-    'gauge-medium': gaugeMedium,
-    'gauge-high': gaugeHigh,
 } as const;
 
 export type IconName = keyof typeof iconMap;
