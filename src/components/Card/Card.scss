@@ -29,6 +29,12 @@
         color: var(--card-accent-color);
     }
 
+    // Semantic accent — coloured left border using rating-color-* tokens.
+    &.card-variant-success { border-left: var(--spacing-4) solid var(--rating-color-success); }
+    &.card-variant-warning { border-left: var(--spacing-4) solid var(--rating-color-warning); }
+    &.card-variant-danger  { border-left: var(--spacing-4) solid var(--rating-color-danger); }
+    &.card-variant-info    { border-left: var(--spacing-4) solid var(--rating-color-info); }
+
     &.is-clickable {
         &:hover {
             cursor: pointer;
