@@ -16,6 +16,7 @@
     "./dist/styles/effects.scss": "./dist/styles/effects.scss",
     "./dist/styles/highlight.scss": "./dist/styles/highlight.scss",
     "./dist/styles/utilities.scss": "./dist/styles/utilities.scss",
+    "./dist/styles/themes.scss": "./dist/styles/themes.scss",
     "./dist/styles/theming/amber-meridian.scss": "./dist/styles/theming/amber-meridian.scss",
     "./dist/styles/theming/archive-indigo.scss": "./dist/styles/theming/archive-indigo.scss",
     "./dist/styles/theming/arctic-blue.scss": "./dist/styles/theming/arctic-blue.scss",

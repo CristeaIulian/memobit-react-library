@@ -11,6 +11,7 @@ import { AvatarInitialsPage } from './pages/AvatarInitialsPage';
 import { BadgePage } from './pages/BadgePage';
 import { BMIPage } from './pages/BMIPage';
 import { BreadcrumbPage } from './pages/BreadcrumbPage';
+import { BulkActionBarPage } from './pages/BulkActionBarPage';
 import { ButtonPage } from './pages/ButtonPage';
 import { CalendarPage } from './pages/CalendarPage';
 import { CalendarHeatmapPage } from './pages/CalendarHeatmapPage';
@@ -109,6 +110,7 @@ export const routes: RouteConfig[] = [
     { path: '/badge', label: 'Badge', component: BadgePage },
     { path: '/bmi', label: 'BMI', component: BMIPage },
     { path: '/breadcrumb', label: 'Breadcrumb', component: BreadcrumbPage },
+    { path: '/bulk-action-bar', label: 'Bulk Action Bar', component: BulkActionBarPage },
     { path: '/button', label: 'Button', component: ButtonPage },
     { path: '/calendar', label: 'Calendar', component: CalendarPage },
     { path: '/calendar-heatmap', label: 'Calendar Heatmap', component: CalendarHeatmapPage },
