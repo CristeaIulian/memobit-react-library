@@ -17,15 +17,8 @@ export interface ThemeSettingsProps {
     onClose: () => void;
 }
 
-interface EffectsConfig {
-    effect: string;
-    components: string[];
-}
-
-const EFFECTS_STORAGE_KEY = 'effects';
-
 export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
-    const { theme, setTheme } = useTheme();
+    const { theme, effects, setPreviewTheme, setPreviewEffects, commitPreview, clearPreview } = useTheme();
 
     const componentsWithEffects = ['Card', 'Modal'];
 
@@ -39,8 +32,6 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
-    const [selectedEffect, setSelectedEffect] = useState<string>('');
-    const [selectedComponents, setSelectedComponents] = useState<string[]>([]);
 
     const filteredThemes = useMemo(() => {
         let themes = THEME_CONFIGS;
@@ -61,64 +52,45 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
         if (isOpen) {
             setSearchQuery('');
             setShowFavoritesOnly(false);
-            try {
-                const stored = localStorage.getItem(EFFECTS_STORAGE_KEY);
-                if (stored) {
-                    const config: EffectsConfig = JSON.parse(stored);
-                    setSelectedEffect(config.effect || '');
-                    setSelectedComponents(config.components || []);
-                } else {
-                    setSelectedEffect('');
-                    setSelectedComponents([]);
-                }
-            } catch (error) {
-                console.warn('Failed to load effects config:', error);
-                setSelectedEffect('');
-                setSelectedComponents([]);
-            }
         }
     }, [isOpen]);
 
+    const handleThemeSelect = (next: Theme) => {
+        setPreviewTheme(next);
+    };
+
     const handleEffectChange = (option: DropdownOption | DropdownOption[] | null) => {
-        if (!option || Array.isArray(option)) {
-            setSelectedEffect('');
-        } else {
-            setSelectedEffect(option.value as string);
-        }
+        const nextEffect = !option || Array.isArray(option) ? '' : (option.value as string);
+        setPreviewEffects({ effect: nextEffect, components: effects.components });
     };
 
     const handleComponentToggle = (componentName: string, checked: boolean) => {
-        if (checked) {
-            setSelectedComponents(prev => [...prev, componentName]);
-        } else {
-            setSelectedComponents(prev => prev.filter(c => c !== componentName));
-        }
+        const nextComponents = checked
+            ? [...effects.components, componentName]
+            : effects.components.filter(c => c !== componentName);
+        setPreviewEffects({ effect: effects.effect, components: nextComponents });
+    };
+
+    const handleCancel = () => {
+        clearPreview();
+        onClose();
     };
 
     const handleSave = () => {
-        try {
-            const config: EffectsConfig = {
-                effect: selectedEffect,
-                components: selectedComponents,
-            };
-            localStorage.setItem(EFFECTS_STORAGE_KEY, JSON.stringify(config));
-            window.dispatchEvent(new Event('storage'));
-            onClose();
-        } catch (error) {
-            console.error('Failed to save effects config:', error);
-        }
+        commitPreview();
+        onClose();
     };
 
     return (
         <Drawer
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={handleCancel}
             title="Theme Settings"
             position="right"
             width="520px"
             maxWidth="calc(100vw - 32px)"
             className="theme-settings-drawer"
-            secondary={{ text: 'Cancel', variant: 'default', onClick: onClose }}
+            secondary={{ text: 'Cancel', variant: 'default', onClick: handleCancel }}
             primary={{ text: 'Save changes', variant: 'success', onClick: handleSave }}
         >
             <div className="theme-settings">
@@ -148,7 +120,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                                         key={config.value}
                                         type="button"
                                         className={`theme-settings__swatch ${theme === config.value ? 'theme-settings__swatch--active' : ''}`}
-                                        onClick={() => setTheme(config.value as Theme)}
+                                        onClick={() => handleThemeSelect(config.value as Theme)}
                                     >
                                         <div
                                             className="theme-settings__preview"
@@ -184,7 +156,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                             id="effect-selector"
                             name="effect"
                             options={effectOptions}
-                            value={selectedEffect}
+                            value={effects.effect}
                             onChange={handleEffectChange}
                             placeholder="Choose an effect"
                         />
@@ -197,9 +169,9 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                                 <Checkbox
                                     key={component}
                                     label={component}
-                                    checked={selectedComponents.includes(component)}
+                                    checked={effects.components.includes(component)}
                                     onChange={checked => handleComponentToggle(component, checked)}
-                                    disabled={!selectedEffect}
+                                    disabled={!effects.effect}
                                 />
                             ))}
                         </div>

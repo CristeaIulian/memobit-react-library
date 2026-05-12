@@ -119,7 +119,17 @@ export { Slider } from './components/Slider';
 export { SplitPanel } from './components/SplitPanel';
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';
 export { Textarea } from './components/Textarea';
-export { ThemeSettings, type ThemeSettingsProps, ThemeContext, ThemeProvider, useTheme } from './components/ThemeSettings';
+export {
+    ThemeSettings,
+    type ThemeSettingsProps,
+    ThemeContext,
+    ThemeProvider,
+    type ThemeProviderProps,
+    type Theme,
+    type ThemeEffects,
+    type ThemeSaveValue,
+    useTheme,
+} from './components/ThemeSettings';
 export { TipsOfTheDay } from './components/TipsOfTheDay';
 export { Toast, type ToastAction, type ToastDetails } from './components/Toast';
 export { type ContextToastAction, ToastContainer, ToastProvider, type ToastType, useToast } from './components/ContextToast';
@@ -164,6 +174,11 @@ export type { User, LoginCredentials, LoginResponse, VerifyResponse, AuthConfig,
 // Export hooks
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';
 export { useFiltersPersistence } from './hooks/useFiltersPersistence';
+export {
+    useAppPersistence,
+    type AppPersistenceDefaults,
+    type UseAppPersistenceReturn,
+} from './hooks/useAppPersistence';
 export { useBodyScrollLock } from './hooks/useBodyScrollLock';
 export { useComponentEffect } from './hooks/useComponentEffect';
 export { useAuth } from './hooks/useAuth';
@@ -191,6 +206,7 @@ export {
     formatRelativeTime,
 } from './helpers/Datetime';
 export { FiltersStorage } from './helpers/FiltersStorage';
+export { AppPersistenceStorage } from './helpers/AppPersistenceStorage';
 export { highlightText } from './helpers/Highlight';
 export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { slugify, shortenText, truncateText } from './helpers/Strings';

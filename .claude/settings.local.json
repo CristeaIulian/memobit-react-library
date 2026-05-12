@@ -29,7 +29,11 @@
       "Bash(rg -l \"\\(#[0-9a-fA-F]{3,6}|'#[0-9a-fA-F]\\)\" bed.tsx layers.tsx dot.tsx dog.tsx goat.tsx monkey.tsx banana.tsx candy.tsx coffee.tsx knife.tsx strawberry.tsx bones.tsx hospital.tsx mental.tsx tree.tsx plug.tsx purifier.tsx speaker.tsx transport-box.tsx language.tsx girl.tsx strength.tsx trophy.tsx police-man.tsx bow.tsx ruler.tsx incognito.tsx web.tsx hd.tsx trend-down.tsx stop-sign.tsx sd.tsx scan.tsx heating.tsx)",
       "Bash(rm \"D:/Projects/Web Apps/Local Tools/tools-launcher/src/iconSvg.ts\" && echo \"Deleted\")",
       "Read(//d/Projects/Web Apps/.claude/skills/**)",
-      "Read(//d/Projects/Web Apps/.claude/**)"
+      "Read(//d/Projects/Web Apps/.claude/**)",
+      "PowerShell(Get-ChildItem -Path \"D:\\\\Projects\\\\Web Apps\\\\Local Tools\" -Directory | ForEach-Object { $_.Name })",
+      "Bash(find \"D:\\\\Projects\\\\Web Apps\\\\Local Tools\" -maxdepth 3 -name package.json -not -path \"*/node_modules/*\" 2>/dev/null | sort)",
+      "Bash(find \"D:\\\\Projects\\\\Web Apps\\\\Online\" -maxdepth 3 -name package.json -not -path \"*/node_modules/*\" 2>/dev/null | sort)",
+      "Bash(rm -f \"D:/Projects/Web Apps/Local Tools/emoji-to-favicon/craco.config.js\" \"D:/Projects/Web Apps/Local Tools/emoji-to-favicon/public/index.html\" \"D:/Projects/Web Apps/Online/central/dev/frontend/craco.config.js\" \"D:/Projects/Web Apps/Online/central/dev/frontend/public/index.html\" && echo \"deleted\")"
     ]
   }
 }

@@ -1,4 +1,4 @@
-import { createContext, FC, ReactNode, useEffect, useState } from 'react';
+import { createContext, FC, ReactNode, useCallback, useEffect, useState } from 'react';
 
 import { getThemeConfig } from './themeConfig';
 
@@ -52,34 +52,49 @@ export type Theme =
     | 'velvet-tome'
     | 'vital-signal';
 
+export interface ThemeEffects {
+    effect: string;
+    components: string[];
+}
+
+export interface ThemeSaveValue {
+    theme: Theme;
+    effects: ThemeEffects;
+}
+
 export interface ThemeContextType {
     theme: Theme;
-    setTheme: (theme: Theme) => void;
+    effects: ThemeEffects;
+    setPreviewTheme: (theme: Theme) => void;
+    setPreviewEffects: (effects: ThemeEffects) => void;
+    commitPreview: () => void;
+    clearPreview: () => void;
 }
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const THEME_STORAGE_KEY = 'app-theme';
-const DEFAULT_THEME: Theme = 'luna';
 const FONT_LINK_ID = 'theme-font-link';
 const FONT_LINK_DISPLAY_ID = 'theme-font-link-display';
 const FONT_LINK_MONO_ID = 'theme-font-link-mono';
 
-interface ThemeProviderProps {
+export interface ThemeProviderProps {
     children: ReactNode;
+    theme: Theme;
+    effects: ThemeEffects;
+    onSave?: (value: ThemeSaveValue) => void;
 }
 
-export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
-    const [theme, setThemeState] = useState<Theme>(() => {
-        const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-        return (storedTheme as Theme) || DEFAULT_THEME;
-    });
+export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects, onSave }) => {
+    const [previewTheme, setPreviewThemeState] = useState<Theme | null>(null);
+    const [previewEffects, setPreviewEffectsState] = useState<ThemeEffects | null>(null);
+
+    const activeTheme = previewTheme ?? theme;
+    const activeEffects = previewEffects ?? effects;
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem(THEME_STORAGE_KEY, theme);
+        document.documentElement.setAttribute('data-theme', activeTheme);
 
-        const themeConfig = getThemeConfig(theme);
+        const themeConfig = getThemeConfig(activeTheme);
 
         if (themeConfig) {
             let linkElement = document.getElementById(FONT_LINK_ID) as HTMLLinkElement;
@@ -123,11 +138,39 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
                 monoLinkElement?.remove();
             }
         }
-    }, [theme]);
+    }, [activeTheme]);
 
-    const setTheme = (newTheme: Theme) => {
-        setThemeState(newTheme);
-    };
+    const setPreviewTheme = useCallback((next: Theme) => {
+        setPreviewThemeState(next);
+    }, []);
 
-    return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;
+    const setPreviewEffects = useCallback((next: ThemeEffects) => {
+        setPreviewEffectsState(next);
+    }, []);
+
+    const clearPreview = useCallback(() => {
+        setPreviewThemeState(null);
+        setPreviewEffectsState(null);
+    }, []);
+
+    const commitPreview = useCallback(() => {
+        onSave?.({ theme: activeTheme, effects: activeEffects });
+        setPreviewThemeState(null);
+        setPreviewEffectsState(null);
+    }, [activeTheme, activeEffects, onSave]);
+
+    return (
+        <ThemeContext.Provider
+            value={{
+                theme: activeTheme,
+                effects: activeEffects,
+                setPreviewTheme,
+                setPreviewEffects,
+                commitPreview,
+                clearPreview,
+            }}
+        >
+            {children}
+        </ThemeContext.Provider>
+    );
 };
