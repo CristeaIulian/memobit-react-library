@@ -9,17 +9,18 @@ export interface EmptyStateProps {
     icon?: React.ReactNode | IconName;
     title: string;
     description?: string;
+    noCard?: boolean;
     primary?: ExternalButtonConfig;
     secondary?: ExternalButtonConfig;
     children?: React.ReactNode;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = ({ icon, title, description, primary, secondary, children }) => {
+export const EmptyState: React.FC<EmptyStateProps> = ({ icon, title, description, noCard, primary, secondary, children }) => {
     const hasActions = primary || secondary;
     const iconContent = typeof icon === 'string' ? <Icon name={icon as IconName} size="xxxl" /> : icon;
 
     return (
-        <div className="empty-state">
+        <div className={`empty-state${noCard ? ' empty-state--no-card' : ''}`}>
             {iconContent && <div className="empty-state__icon">{iconContent}</div>}
             <h3 className="empty-state__title">{title}</h3>
             {description && <p className="empty-state__description">{description}</p>}
