@@ -113,6 +113,7 @@ export interface DataViewProps<T> {
     responsive?: boolean;
     className?: string;
     onPageChange?: (page: number) => void;
+    onPageSizeChange?: (pageSize: number) => void;
     /** Group rows by a key. Rows render in group sections within the paginated slice. */
     group?: DataViewGroupConfig<T>;
     /** Display the "Showing X-Y of Z" results-count label above the data. Default: true. */
@@ -351,6 +352,7 @@ export function DataView<T>({
     responsive = true,
     className,
     onPageChange,
+    onPageSizeChange,
     group,
     showResultsCount = true,
     totalCount,
@@ -643,6 +645,7 @@ export function DataView<T>({
                             ? nextSize => {
                                   setPageSize(nextSize);
                                   handlePageChange(1);
+                                  onPageSizeChange?.(nextSize);
                               }
                             : undefined
                     }
@@ -843,6 +846,7 @@ export function DataView<T>({
                         ? nextSize => {
                               setPageSize(nextSize);
                               handlePageChange(1);
+                              onPageSizeChange?.(nextSize);
                           }
                         : undefined
                 }
