@@ -15,7 +15,7 @@ export {
 export { Button, type ButtonVariant } from './components/Button';
 export { Calendar, type CalendarProps, type CalendarMode, type CalendarDateRange } from './components/Calendar';
 export { CalendarHeatmap, type CalendarHeatmapProps, type CalendarHeatmapDataPoint } from './components/CalendarHeatmap';
-export { Card } from './components/Card';
+export { Card, type CardVariant } from './components/Card';
 export { ChatBot } from './components/ChatBot';
 export { Checkbox } from './components/Checkbox';
 export { Chip, type ChipProps, type ChipSize, type ChipVariant } from './components/Chip';
@@ -173,7 +173,6 @@ export type { User, LoginCredentials, LoginResponse, VerifyResponse, AuthConfig,
 
 // Export hooks
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';
-export { useFiltersPersistence } from './hooks/useFiltersPersistence';
 export {
     useAppPersistence,
     type AppPersistenceDefaults,
@@ -205,7 +204,6 @@ export {
     isAfter,
     formatRelativeTime,
 } from './helpers/Datetime';
-export { FiltersStorage } from './helpers/FiltersStorage';
 export { AppPersistenceStorage } from './helpers/AppPersistenceStorage';
 export { highlightText } from './helpers/Highlight';
 export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
