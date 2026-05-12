@@ -19,6 +19,7 @@ interface CollapsibleSectionProps {
     toggleSize?: 'small' | 'medium';
     toggleSpaceBetween?: boolean;
     toggleSwap?: boolean;
+    toggleTint?: 'plain' | 'default' | 'success' | 'info' | 'warning' | 'danger';
     toggleVariant?: 'success' | 'info' | 'warning' | 'danger';
     withCard?: boolean;
 }
@@ -38,6 +39,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     toggleSize,
     toggleSpaceBetween,
     toggleSwap,
+    toggleTint = 'plain',
     toggleVariant,
     withCard = false,
 }: CollapsibleSectionProps) => {
@@ -62,12 +64,12 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
         <div className={`collapsible-section ${withCard ? 'collapsible-section--with-card' : ''} ${className} ${isCollapsed ? 'collapsible-section__collapsed' : ''}`}>
             {title && (
                 <div
-                    className={`collapsible-section__header ${!hasFullRowClick ? 'collapsible-section__header--inline' : ''} ${toggleSpaceBetween ? 'collapsible-section__header--space-between' : ''} ${toggleSwap ? 'collapsible-section__header--swap' : ''} ${toggleHighlight ? 'collapsible-section__header--highlight' : ''} ${toggleAccent ? 'collapsible-section__header--accent' : ''} ${toggleSize ? `collapsible-section__header--size-${toggleSize}` : ''} ${toggleVariant ? `collapsible-section__header--variant-${toggleVariant}` : ''}`}
+                    className={`collapsible-section__header ${!hasFullRowClick ? 'collapsible-section__header--inline' : ''} ${toggleSpaceBetween ? 'collapsible-section__header--space-between' : ''} ${toggleSwap ? 'collapsible-section__header--swap' : ''} ${toggleHighlight ? 'collapsible-section__header--highlight' : ''} ${toggleAccent ? 'collapsible-section__header--accent' : ''} ${toggleSize ? `collapsible-section__header--size-${toggleSize}` : ''} ${toggleVariant ? `collapsible-section__header--variant-${toggleVariant}` : ''} ${toggleTint !== 'plain' ? `collapsible-section__header--tint-${toggleTint}` : ''}`}
                     onClick={hasFullRowClick ? handleToggle : undefined}
                 >
                     {hasFullRowClick ? (
                         <>
-                            <div className="collapsible-section__label">{icon && <Icon name={icon} />} {title}</div>
+                            <div className="collapsible-section__label">{icon && <Icon name={icon} variant={toggleVariant} />} {title}</div>
                             {toggleMiddleIcon && <span><Icon name={toggleMiddleIcon} /></span>}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
                                 <Icon name="caret-up" />
@@ -76,7 +78,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                         </>
                     ) : (
                         <button type="button" className="collapsible-section__inline-toggle" onClick={handleToggle}>
-                            <span className="collapsible-section__label">{icon && <Icon name={icon} />} {title}</span>
+                            <span className="collapsible-section__label">{icon && <Icon name={icon} variant={toggleVariant} />} {title}</span>
                             {toggleMiddleIcon && <span><Icon name={toggleMiddleIcon} /></span>}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
                                 <Icon name="caret-up" />

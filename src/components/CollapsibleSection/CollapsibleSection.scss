@@ -5,6 +5,10 @@
     flex-direction: column;
     gap: var(--spacing-16);
     width: 100%;
+    // Prevent shrinking below content size when nested in a flex column
+    // parent (e.g. an overflow:auto scroll container). Without this, flex
+    // semantics allow items with overflow:hidden to clip their content.
+    flex-shrink: 0;
 
     &__collapsed {
         gap: 0;
@@ -83,6 +87,14 @@
         &.collapsible-section__header {
             justify-content: space-between;
         }
+
+        // In inline mode the header has a single child (the toggle button),
+        // so `space-between` on the header alone has nothing to separate.
+        // Stretch the button to fill the row and let it space its own children.
+        .collapsible-section__inline-toggle {
+            flex: 1;
+            justify-content: space-between;
+        }
     }
 
     &__header--swap {
@@ -121,12 +133,41 @@
         color: var(--rating-color-danger);
     }
 
+    // Header background tint — opt-in via `toggleTint`. Default `'plain'` is
+    // no bg + no padding (header keeps the section's natural layout). Setting
+    // any other value gives the header zone a wash + light inset padding.
+    &__header--tint-default,
+    &__header--tint-success,
+    &__header--tint-warning,
+    &__header--tint-info,
+    &__header--tint-danger {
+        padding: var(--spacing-8) var(--spacing-12);
+        border-radius: var(--radius-sm);
+    }
+
+    &__header--tint-default {
+        background-color: var(--card-background-accent-color);
+    }
+    &__header--tint-success {
+        background-color: color-mix(in srgb, var(--rating-color-success) 12%, transparent);
+    }
+    &__header--tint-warning {
+        background-color: color-mix(in srgb, var(--rating-color-warning) 12%, transparent);
+    }
+    &__header--tint-info {
+        background-color: color-mix(in srgb, var(--rating-color-info) 12%, transparent);
+    }
+    &__header--tint-danger {
+        background-color: color-mix(in srgb, var(--rating-color-danger) 12%, transparent);
+    }
+
     &__content {
         height: fit-content;
         overflow: hidden;
         transition:
             height 0.3s ease-in-out,
-            opacity 0.3s ease-in-out;
+            opacity 0.3s ease-in-out,
+            padding 0.3s ease-in-out;
         opacity: 1;
         display: flex;
         flex-direction: column;
@@ -138,12 +179,45 @@
         }
     }
 
+    // Card-framed layout. Gives the section a proper "card with header bar"
+    // shape: outer frame (no outer padding, no row gap), header zone with its
+    // own padding + accent bg + bottom border, body with its own padding.
+    // Tint variants on the header override the default header bg.
     &--with-card {
         background: var(--card-background-color);
         border: 1px solid var(--card-border-color);
         border-radius: var(--radius);
-        padding: var(--spacing-16);
         box-shadow: var(--card-box-shadow);
+        overflow: hidden;
+        gap: 0;
+
+        > .collapsible-section__header {
+            padding: var(--spacing-8) var(--spacing-12);
+            background: var(--card-background-accent-color);
+            border-bottom: 1px solid var(--delimiter-color);
+
+            &.collapsible-section__header--tint-success {
+                background-color: color-mix(in srgb, var(--rating-color-success) 12%, transparent);
+            }
+            &.collapsible-section__header--tint-warning {
+                background-color: color-mix(in srgb, var(--rating-color-warning) 12%, transparent);
+            }
+            &.collapsible-section__header--tint-info {
+                background-color: color-mix(in srgb, var(--rating-color-info) 12%, transparent);
+            }
+            &.collapsible-section__header--tint-danger {
+                background-color: color-mix(in srgb, var(--rating-color-danger) 12%, transparent);
+            }
+        }
+
+        > .collapsible-section__content {
+            padding: var(--spacing-12);
+
+            &.collapsible-section__content--collapsed {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+        }
     }
 }
 
