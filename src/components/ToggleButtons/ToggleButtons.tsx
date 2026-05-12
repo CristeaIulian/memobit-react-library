@@ -18,10 +18,11 @@ interface ToggleProps {
     onToggleChange: (mode: string) => void;
     state: string;
     layout?: 'buttons' | 'cards';
+    size?: 'small' | 'medium' | 'large';
     states: ToggleState[];
 }
 
-export const ToggleButtons: FC<ToggleProps> = ({ state, onToggleChange, states, layout = 'buttons' }: ToggleProps) => {
+export const ToggleButtons: FC<ToggleProps> = ({ state, onToggleChange, states, layout = 'buttons', size = 'medium' }: ToggleProps) => {
     const { isAtLeast } = useBreakpoint();
 
     if (layout === 'cards') {
@@ -55,7 +56,7 @@ export const ToggleButtons: FC<ToggleProps> = ({ state, onToggleChange, states, 
     return (
         <div className="toggle-buttons">
             {states.map((s, index) => (
-                <Button key={`btn-toggle2-${index}-${s}`} variant={state === s.key ? 'warning' : 'default'} icon={s.icon} onClick={() => onToggleChange(s.key)}>
+                <Button key={`btn-toggle2-${index}-${s}`} size={size} variant={state === s.key ? 'warning' : 'default'} icon={s.icon} onClick={() => onToggleChange(s.key)}>
                     {isAtLeast('tablet') ? s.label : ''}
                 </Button>
             ))}
