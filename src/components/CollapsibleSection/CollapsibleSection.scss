@@ -137,6 +137,14 @@
             opacity: 0;
         }
     }
+
+    &--with-card {
+        background: var(--card-background-color);
+        border: 1px solid var(--card-border-color);
+        border-radius: var(--radius);
+        padding: var(--spacing-16);
+        box-shadow: var(--card-box-shadow);
+    }
 }
 
 @include mobile {

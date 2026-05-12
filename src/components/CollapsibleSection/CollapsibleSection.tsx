@@ -20,6 +20,7 @@ interface CollapsibleSectionProps {
     toggleSpaceBetween?: boolean;
     toggleSwap?: boolean;
     toggleVariant?: 'success' | 'info' | 'warning' | 'danger';
+    withCard?: boolean;
 }
 
 export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
@@ -38,6 +39,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     toggleSpaceBetween,
     toggleSwap,
     toggleVariant,
+    withCard = false,
 }: CollapsibleSectionProps) => {
     const [internalIsCollapsed, setInternalIsCollapsed] = useState(defaultCollapsed);
 
@@ -57,7 +59,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     const hasFullRowClick = !!rightDetails;
 
     return (
-        <div className={`collapsible-section ${className} ${isCollapsed ? 'collapsible-section__collapsed' : ''}`}>
+        <div className={`collapsible-section ${withCard ? 'collapsible-section--with-card' : ''} ${className} ${isCollapsed ? 'collapsible-section__collapsed' : ''}`}>
             {title && (
                 <div
                     className={`collapsible-section__header ${!hasFullRowClick ? 'collapsible-section__header--inline' : ''} ${toggleSpaceBetween ? 'collapsible-section__header--space-between' : ''} ${toggleSwap ? 'collapsible-section__header--swap' : ''} ${toggleHighlight ? 'collapsible-section__header--highlight' : ''} ${toggleAccent ? 'collapsible-section__header--accent' : ''} ${toggleSize ? `collapsible-section__header--size-${toggleSize}` : ''} ${toggleVariant ? `collapsible-section__header--variant-${toggleVariant}` : ''}`}
