@@ -3,39 +3,35 @@ import React, { useState } from 'react';
 import { CollapsibleSection, Button } from '../../../src';
 
 export const CollapsibleSectionPage: React.FC = () => {
-    const [isCollapsed2, setIsCollapsed2] = useState(false);
-    const [isCollapsed3, setIsCollapsed3] = useState(false);
-    const [isCollapsed4, setIsCollapsed4] = useState(false);
-    const [isCollapsed5, setIsCollapsed5] = useState(false);
-    const [isCollapsed6, setIsCollapsed6] = useState(false);
-    const [isCollapsed7, setIsCollapsed7] = useState(false);
-    const [isCollapsed8, setIsCollapsed8] = useState(false);
-    const [isCollapsed9, setIsCollapsed9] = useState(false);
-    const [isCollapsed10, setIsCollapsed10] = useState(false);
-    const [isCollapsed11, setIsCollapsed11] = useState(false);
+    const [parentCollapsed, setParentCollapsed] = useState(false);
 
     return (
         <div className="collapsible-section-page">
-            <h1>Collapsible Section Component</h1>
+            <h1>Collapsible Section</h1>
             <p>A flexible collapsible section component with various styling options.</p>
 
             <section className="page-section">
                 <h2>Basic Usage</h2>
 
                 <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
-                    <h3>Self Controllable</h3>
-                    <div className="component-group">
-                        <CollapsibleSection title="Details" isCollapsed={isCollapsed2} onToggle={setIsCollapsed2}>
-                            <p>Inner content</p>
-                        </CollapsibleSection>
-                    </div>
+                    <h3>Self Controlled</h3>
+                    <CollapsibleSection title="Details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
                 </div>
 
                 <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
-                    <h3 style={{ margin: 0 }}>Parent Controlled</h3>
-                    <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
-                        <Button onClick={() => setIsCollapsed3(!isCollapsed3)}>Toggle</Button>
-                        <CollapsibleSection isCollapsed={isCollapsed3} onToggle={setIsCollapsed3}>
+                    <h3>Default Collapsed</h3>
+                    <CollapsibleSection title="Details" defaultCollapsed>
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Parent Controlled</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>
+                        <div><Button onClick={() => setParentCollapsed(c => !c)}>Toggle</Button></div>
+                        <CollapsibleSection isCollapsed={parentCollapsed} onToggle={setParentCollapsed}>
                             <p>Inner content</p>
                         </CollapsibleSection>
                     </div>
@@ -46,87 +42,190 @@ export const CollapsibleSectionPage: React.FC = () => {
                 <h2>Layout Options</h2>
 
                 <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
-                    <h3>Space between icon & label</h3>
-                    <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
-                        <CollapsibleSection title="Details" isCollapsed={isCollapsed4} onToggle={setIsCollapsed4} toggleSpaceBetween>
-                            <p>Inner content</p>
-                        </CollapsibleSection>
-                    </div>
+                    <h3>Space Between</h3>
+                    <CollapsibleSection title="Details" toggleSpaceBetween>
+                        <p>Inner content</p>
+                    </CollapsibleSection>
                 </div>
 
                 <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
-                    <h3>Swap icon & label</h3>
-                    <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
-                        <CollapsibleSection title="Details" isCollapsed={isCollapsed5} onToggle={setIsCollapsed5} toggleSpaceBetween toggleSwap>
-                            <p>Inner content</p>
-                        </CollapsibleSection>
-                    </div>
+                    <h3>Swap (icon left)</h3>
+                    <CollapsibleSection title="Details" toggleSpaceBetween toggleSwap>
+                        <p>Inner content</p>
+                    </CollapsibleSection>
                 </div>
 
                 <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
-                    <h3>Toggle with details</h3>
-                    <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
-                        <CollapsibleSection title="Details" isCollapsed={isCollapsed6} onToggle={setIsCollapsed6} rightDetails="7 props">
-                            <p>Inner content</p>
-                        </CollapsibleSection>
-                    </div>
+                    <h3>Right Details</h3>
+                    <CollapsibleSection title="Details" rightDetails="7 props">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
                 </div>
 
                 <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
-                    <h3>Toggle with details and toggle swap</h3>
-                    <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
-                        <CollapsibleSection title="Details" isCollapsed={isCollapsed7} onToggle={setIsCollapsed7} rightDetails="7 props" toggleSwap>
-                            <p>Inner content</p>
-                        </CollapsibleSection>
-                    </div>
+                    <h3>Right Details + Swap</h3>
+                    <CollapsibleSection title="Details" rightDetails="7 props" toggleSwap>
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>With Icon</h3>
+                    <CollapsibleSection title="Details" icon="checkmark" rightDetails="3 items">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Size</h2>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Small</h3>
+                    <CollapsibleSection title="Small section" toggleSize="small" rightDetails="4 items">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Default</h3>
+                    <CollapsibleSection title="Default section" rightDetails="4 items">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Header Background (toggleTint)</h2>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Default</h3>
+                    <CollapsibleSection title="Default background" toggleTint="default" rightDetails="details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Success</h3>
+                    <CollapsibleSection title="Success background" toggleTint="success" toggleVariant="success" rightDetails="details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Info</h3>
+                    <CollapsibleSection title="Info background" toggleTint="info" toggleVariant="info" rightDetails="details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Warning</h3>
+                    <CollapsibleSection title="Warning background" toggleTint="warning" toggleVariant="warning" rightDetails="details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Danger</h3>
+                    <CollapsibleSection title="Danger background" toggleTint="danger" toggleVariant="danger" rightDetails="details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
                 </div>
             </section>
 
             <section className="page-section">
                 <h2>Styling Variants</h2>
 
-                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)', backgroundColor: '#3b3b3b' }}>
-                    <h3>Toggle with highlight</h3>
-                    <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
-                        <CollapsibleSection title="Details" isCollapsed={isCollapsed8} onToggle={setIsCollapsed8} rightDetails="7 props" toggleHighlight>
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Highlight</h3>
+                    <CollapsibleSection title="Details" rightDetails="7 props" toggleHighlight>
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Highlight + Accent</h3>
+                    <CollapsibleSection title="Details" rightDetails="7 props" toggleHighlight toggleAccent>
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Highlight + Variant</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+                        <CollapsibleSection title="Success" rightDetails="details" toggleHighlight toggleVariant="success">
+                            <p>Inner content</p>
+                        </CollapsibleSection>
+                        <CollapsibleSection title="Info" rightDetails="details" toggleHighlight toggleVariant="info">
+                            <p>Inner content</p>
+                        </CollapsibleSection>
+                        <CollapsibleSection title="Warning" rightDetails="details" toggleHighlight toggleVariant="warning">
+                            <p>Inner content</p>
+                        </CollapsibleSection>
+                        <CollapsibleSection title="Danger" rightDetails="details" toggleHighlight toggleVariant="danger">
                             <p>Inner content</p>
                         </CollapsibleSection>
                     </div>
                 </div>
 
-                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)', backgroundColor: '#3b3b3b' }}>
-                    <h3>Toggle with accent</h3>
-                    <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
-                        <CollapsibleSection title="Details" isCollapsed={isCollapsed9} onToggle={setIsCollapsed9} rightDetails="7 props" toggleHighlight toggleAccent>
-                            <p>Inner content</p>
-                        </CollapsibleSection>
-                    </div>
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Middle Icon</h3>
+                    <CollapsibleSection
+                        title="Details"
+                        toggleHighlight
+                        toggleVariant="warning"
+                        toggleSpaceBetween
+                        toggleMiddleIcon="checkmark"
+                    >
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>With Card</h2>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Default</h3>
+                    <CollapsibleSection title="Card section" withCard>
+                        <p>Inner content</p>
+                    </CollapsibleSection>
                 </div>
 
-                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)', backgroundColor: '#3b3b3b' }}>
-                    <h3>Toggle with variant</h3>
-                    <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
-                        <CollapsibleSection title="Details" isCollapsed={isCollapsed10} onToggle={setIsCollapsed10} rightDetails="7 props" toggleHighlight toggleVariant="warning">
-                            <p>Inner content</p>
-                        </CollapsibleSection>
-                    </div>
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>With Right Details</h3>
+                    <CollapsibleSection title="Card section" withCard rightDetails="5 items">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
                 </div>
 
-                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)', backgroundColor: '#3b3b3b' }}>
-                    <h3>Toggle with middle icon</h3>
-                    <div className="component-group" style={{ padding: 'var(--spacing-16)' }}>
-                        <CollapsibleSection
-                            title="Details"
-                            isCollapsed={isCollapsed11}
-                            onToggle={setIsCollapsed11}
-                            toggleHighlight
-                            toggleVariant="warning"
-                            toggleSpaceBetween
-                            toggleMiddleIcon="checkmark"
-                        >
-                            <p>Inner content</p>
-                        </CollapsibleSection>
-                    </div>
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Success Tint</h3>
+                    <CollapsibleSection title="Success header" withCard toggleTint="success" toggleVariant="success" rightDetails="details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Info Tint</h3>
+                    <CollapsibleSection title="Info header" withCard toggleTint="info" toggleVariant="info" rightDetails="details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Warning Tint</h3>
+                    <CollapsibleSection title="Warning header" withCard toggleTint="warning" toggleVariant="warning" rightDetails="details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
+                </div>
+
+                <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
+                    <h3>Danger Tint</h3>
+                    <CollapsibleSection title="Danger header" withCard toggleTint="danger" toggleVariant="danger" rightDetails="details">
+                        <p>Inner content</p>
+                    </CollapsibleSection>
                 </div>
             </section>
         </div>

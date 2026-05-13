@@ -321,6 +321,27 @@ export const SidebarPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>Search Filtering</h2>
+
+                <div className="showcase-group">
+                    <h3>Searchable Sidebar</h3>
+                    <div style={{ display: 'flex', minHeight: '560px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                        <Sidebar
+                            sections={librarySections}
+                            isOpen={true}
+                            width="280px"
+                            searchPlaceholder="Search shelves..."
+                        />
+                        <div style={{ flex: 1, padding: '32px', background: 'var(--body-background)' }}>
+                            <h3>Reading Shelf</h3>
+                            <p>Selected shelf: {libraryActiveItem}</p>
+                            <p>Type in the search box to filter the list.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>Toggle Sidebar</h2>
 
                 <div className="showcase-group">

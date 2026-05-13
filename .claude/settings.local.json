@@ -33,7 +33,14 @@
       "PowerShell(Get-ChildItem -Path \"D:\\\\Projects\\\\Web Apps\\\\Local Tools\" -Directory | ForEach-Object { $_.Name })",
       "Bash(find \"D:\\\\Projects\\\\Web Apps\\\\Local Tools\" -maxdepth 3 -name package.json -not -path \"*/node_modules/*\" 2>/dev/null | sort)",
       "Bash(find \"D:\\\\Projects\\\\Web Apps\\\\Online\" -maxdepth 3 -name package.json -not -path \"*/node_modules/*\" 2>/dev/null | sort)",
-      "Bash(rm -f \"D:/Projects/Web Apps/Local Tools/emoji-to-favicon/craco.config.js\" \"D:/Projects/Web Apps/Local Tools/emoji-to-favicon/public/index.html\" \"D:/Projects/Web Apps/Online/central/dev/frontend/craco.config.js\" \"D:/Projects/Web Apps/Online/central/dev/frontend/public/index.html\" && echo \"deleted\")"
+      "Bash(rm -f \"D:/Projects/Web Apps/Local Tools/emoji-to-favicon/craco.config.js\" \"D:/Projects/Web Apps/Local Tools/emoji-to-favicon/public/index.html\" \"D:/Projects/Web Apps/Online/central/dev/frontend/craco.config.js\" \"D:/Projects/Web Apps/Online/central/dev/frontend/public/index.html\" && echo \"deleted\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const p='D:/Projects/Web Apps/LIBRARIES/memobit-react/src/components/RichTextEditor/RichTextEditor.tsx';let c=fs.readFileSync\\(p,'utf8'\\);const zwsp=String.fromCharCode\\(0x200B\\);const before=c.length;c=c.split\\(zwsp\\).join\\('\\\\\\\\\\\\\\\\u200B'\\);fs.writeFileSync\\(p,c\\);console.log\\('delta',c.length-before\\);\")",
+      "Bash(cat)",
+      "Bash(node /tmp/fix.js)",
+      "Bash(cat /tmp/fix.js | grep -n \"join\\\\|u200B\")",
+      "Bash(node .fix_zwsp.js)",
+      "Bash(node .fix_zwsp.cjs)",
+      "Bash(Remove-Item \"D:/Projects/Web Apps/Online/memobit-react-presentation/src/pages/iconsAliases.ts\")"
     ]
   }
 }

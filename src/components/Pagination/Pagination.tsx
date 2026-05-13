@@ -24,6 +24,7 @@ const NAV_BUTTON_WIDTH_DESKTOP = 120;
 const NAV_BUTTON_WIDTH_MOBILE = 45;
 const DOTS_WIDTH = 45;
 const GAP = 8;
+const MAX_DELTA = 2; // Cap visible siblings per side — at most 1, c-2..c+2, …, N (≈ 9 buttons)
 
 export const Pagination: FC<PaginationProps> = ({
     currentPage,
@@ -45,13 +46,16 @@ export const Pagination: FC<PaginationProps> = ({
         const container = pagesRef.current;
         if (!container) return;
 
-        const containerWidth = container.parentElement?.offsetWidth ?? container.offsetWidth;
+        // Use the pages container's own width, not the parent — the parent (.pagination)
+        // also has to fit the page-size dropdown on the same row, which would otherwise
+        // get double-counted and yield an over-large delta.
+        const containerWidth = container.offsetWidth;
         const navButtonWidth = isAtLeast('desktop') ? NAV_BUTTON_WIDTH_DESKTOP : NAV_BUTTON_WIDTH_MOBILE;
         // Fixed space: 2 nav buttons + first page + last page + 2 dots + gaps
         const fixedWidth = navButtonWidth * 2 + PAGE_BUTTON_WIDTH * 2 + DOTS_WIDTH * 2 + GAP * 6;
         const availableWidth = containerWidth - fixedWidth;
         const maxMiddleButtons = Math.floor(availableWidth / (PAGE_BUTTON_WIDTH + GAP));
-        const newDelta = Math.max(0, Math.floor(maxMiddleButtons / 2));
+        const newDelta = Math.min(MAX_DELTA, Math.max(0, Math.floor(maxMiddleButtons / 2)));
 
         setDelta(newDelta);
     }, [isAtLeast]);

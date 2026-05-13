@@ -1,13 +1,13 @@
-export {
-    DataView,
-    type DataViewColumn,
-    type DataViewProps,
-    type DataViewCardConfig,
-    type DataViewTimelineConfig,
-    type DataViewEmptyConfig,
-    type DataViewDisplayMode,
-    type DataViewGroupConfig,
-    type DataViewGroup,
-    type DataViewGroupKey,
-    type SortDirection,
-} from './DataView';
+export { DataView } from './DataView';
+export type {
+    DataViewCardConfig,
+    DataViewColumn,
+    DataViewDisplayMode,
+    DataViewEmptyConfig,
+    DataViewGroup,
+    DataViewGroupConfig,
+    DataViewGroupKey,
+    DataViewProps,
+    DataViewTimelineConfig,
+    SortDirection,
+} from './DataView.types';

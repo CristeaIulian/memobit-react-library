@@ -32,12 +32,7 @@
             color: var(--button-default-hover-color);
             background-color: var(--button-default-hover-background-color);
             border-color: var(--button-default-hover-border-color);
-            transform: translateY(-1px);
         }
-    }
-
-    &:active {
-        transform: translateY(0);
     }
 
     &:disabled {

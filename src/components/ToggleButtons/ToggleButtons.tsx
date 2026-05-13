@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { useBreakpoint } from '../../hooks/useBreakpoint';
-import { Button } from '../Button';
+import { Button, type ButtonVariant } from '../Button';
 import { Tooltip } from '../Tooltip';
 
 import './ToggleButtons.scss';
@@ -10,11 +10,12 @@ import { IconName } from '../Icon';
 interface ToggleState {
     label: string;
     key: string;
-    icon: IconName;
+    icon?: IconName;
     description?: string;
 }
 
 interface ToggleProps {
+    activeVariant?: ButtonVariant;
     onToggleChange: (mode: string) => void;
     state: string;
     layout?: 'buttons' | 'cards';
@@ -22,7 +23,7 @@ interface ToggleProps {
     states: ToggleState[];
 }
 
-export const ToggleButtons: FC<ToggleProps> = ({ state, onToggleChange, states, layout = 'buttons', size = 'medium' }: ToggleProps) => {
+export const ToggleButtons: FC<ToggleProps> = ({ activeVariant = 'warning', state, onToggleChange, states, layout = 'buttons', size = 'medium' }: ToggleProps) => {
     const { isAtLeast } = useBreakpoint();
 
     if (layout === 'cards') {
@@ -56,7 +57,7 @@ export const ToggleButtons: FC<ToggleProps> = ({ state, onToggleChange, states, 
     return (
         <div className="toggle-buttons">
             {states.map((s, index) => (
-                <Button key={`btn-toggle2-${index}-${s}`} size={size} variant={state === s.key ? 'warning' : 'default'} icon={s.icon} onClick={() => onToggleChange(s.key)}>
+                <Button key={`btn-toggle2-${index}-${s}`} size={size} variant={state === s.key ? activeVariant : 'default'} icon={s.icon} onClick={() => onToggleChange(s.key)}>
                     {isAtLeast('tablet') ? s.label : ''}
                 </Button>
             ))}

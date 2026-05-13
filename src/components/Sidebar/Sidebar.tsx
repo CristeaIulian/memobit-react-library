@@ -1,7 +1,8 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import { AppHeader } from '../AppHeader';
 import { Icon, type IconName } from '../Icon';
+import { Search } from '../Search';
 import { useSidebarContext } from './SidebarContext';
 
 import './Sidebar.scss';
@@ -41,6 +42,7 @@ export interface SidebarProps {
     borderRadius?: string | number;
     margin?: string | number;
     shadow?: string;
+    searchPlaceholder?: string;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -56,11 +58,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
     borderRadius = 0,
     margin = 0,
     shadow = 'none',
+    searchPlaceholder,
 }) => {
+    const [searchQuery, setSearchQuery] = useState('');
     const sidebarContext = useSidebarContext();
     const isMobile = isMobileProp ?? sidebarContext?.isMobile ?? false;
     const isOpen = isOpenProp ?? (isMobile ? (sidebarContext?.isOpen ?? false) : true);
     const close = onClose ?? sidebarContext?.close ?? (() => undefined);
+
+    const visibleSections = searchPlaceholder && searchQuery
+        ? sections
+            .map(section => ({
+                ...section,
+                items: section.items.filter(item =>
+                    item.label.toLowerCase().includes(searchQuery.toLowerCase())
+                ),
+            }))
+            .filter(section => section.items.length > 0)
+        : sections;
 
     const sidebarClassName = [
         'sidebar',
@@ -103,9 +118,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <>
             {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
             <aside className={sidebarClassName} style={sidebarStyle}>
-                {sections.length > 0 && (
+                {searchPlaceholder && (
+                    <div className="sidebar__search">
+                        <Search value={searchQuery} onChange={setSearchQuery} placeholder={searchPlaceholder} />
+                    </div>
+                )}
+                {visibleSections.length > 0 && (
                     <nav className="sidebar__nav">
-                        {sections.map((section, sectionIndex) => (
+                        {visibleSections.map((section, sectionIndex) => (
                             <section className="sidebar__section" key={section.id ?? section.title ?? sectionIndex}>
                                 {(section.title || section.heading || section.icon || section.description) && (
                                     <div className="sidebar__section-header">
@@ -122,7 +142,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     </div>
                                 )}
                                 {section.items.map(item => (renderItem ? renderItem(item) : defaultRenderItem(item)))}
-                                {section.showDivider && sectionIndex < sections.length - 1 && <div className="sidebar__divider" />}
+                                {section.showDivider && sectionIndex < visibleSections.length - 1 && <div className="sidebar__divider" />}
                             </section>
                         ))}
                     </nav>

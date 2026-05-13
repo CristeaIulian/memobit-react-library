@@ -1,14 +1,82 @@
 .slider-component {
+    // Sizing tokens — overridden by modifier classes below.
+    --_track-thickness: var(--spacing-8);
+    --_thumb-size: var(--spacing-24);
+    --_value-size-inline: var(--font-size-xl);
+    --_value-size-display: var(--font-size-xxl);
+    // Input dimensions — overridden to swap axes in vertical mode.
+    --_input-width: 100%;
+    --_input-height: var(--_track-thickness);
+    --_input-writing-mode: horizontal-tb;
+    --_input-direction: ltr;
+    --_input-margin-bottom: var(--spacing-16);
+
+    &--thin {
+        --_track-thickness: var(--spacing-4);
+        --_thumb-size: var(--spacing-16);
+        --_value-size-inline: var(--font-size-md);
+        --_value-size-display: var(--font-size-lg);
+    }
+
+    // Explicit value size — overrides both the default and thin defaults.
+    &--value-xs  { --_value-size-inline: var(--font-size-xs);  --_value-size-display: var(--font-size-xs);  }
+    &--value-sm  { --_value-size-inline: var(--font-size-sm);  --_value-size-display: var(--font-size-sm);  }
+    &--value-md  { --_value-size-inline: var(--font-size-md);  --_value-size-display: var(--font-size-md);  }
+    &--value-lg  { --_value-size-inline: var(--font-size-lg);  --_value-size-display: var(--font-size-lg);  }
+    &--value-xl  { --_value-size-inline: var(--font-size-xl);  --_value-size-display: var(--font-size-xl);  }
+    &--value-xxl { --_value-size-inline: var(--font-size-xxl); --_value-size-display: var(--font-size-xxl); }
+
+    // Inline layout: slider on the left (flex: 1), value pinned to the right.
+    &--inline {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-12);
+        --_input-margin-bottom: 0;
+
+        .slider-input {
+            flex: 1 1 auto;
+        }
+
+        .slider-value-inline {
+            flex: 0 0 auto;
+            font-size: var(--_value-size-inline);
+            font-weight: var(--font-weight-semibold);
+            font-variant-numeric: tabular-nums;
+            line-height: var(--line-height-none);
+            min-width: var(--spacing-32);
+            text-align: right;
+
+            &.slider-state-info { color: var(--rating-color-info); }
+            &.slider-state-success { color: var(--rating-color-success); }
+            &.slider-state-warning { color: var(--rating-color-warning); }
+            &.slider-state-danger { color: var(--rating-color-danger); }
+        }
+    }
+
+    // Vertical layout: track runs bottom (min) → top (max).
+    &--vertical {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        --_input-width: var(--_track-thickness);
+        --_input-height: var(--spacing-200);
+        --_input-writing-mode: vertical-lr;
+        --_input-direction: rtl;
+        --_input-margin-bottom: var(--spacing-12);
+    }
+
     .slider-input {
-        width: 100%;
-        height: var(--spacing-8);
+        width: var(--_input-width);
+        height: var(--_input-height);
+        writing-mode: var(--_input-writing-mode);
+        direction: var(--_input-direction);
         -webkit-appearance: none;
         appearance: none;
         background-color: var(--slider-track-background-color);
         border: var(--spacing-1) solid var(--slider-track-border-color);
         border-radius: var(--radius-sm);
         outline: none;
-        margin-bottom: var(--spacing-16);
+        margin-bottom: var(--_input-margin-bottom);
         cursor: pointer;
         transition: all 0.2s ease;
 
@@ -20,8 +88,8 @@
         &::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: var(--spacing-24);
-            height: var(--spacing-24);
+            width: var(--_thumb-size);
+            height: var(--_thumb-size);
             background-color: var(--slider-thumb-background-color);
             cursor: pointer;
             border-radius: 50%;
@@ -36,8 +104,8 @@
         }
 
         &::-moz-range-thumb {
-            width: var(--spacing-24);
-            height: var(--spacing-24);
+            width: var(--_thumb-size);
+            height: var(--_thumb-size);
             background-color: var(--slider-thumb-background-color);
             cursor: pointer;
             border-radius: 50%;
@@ -56,26 +124,15 @@
         text-align: center;
 
         .slider-value {
-            font-size: var(--font-size-xxl);
+            font-size: var(--_value-size-display);
             font-weight: var(--font-weight-bold);
         }
 
         .slider-state {
-            &-info {
-                color: var(--rating-color-info);
-            }
-
-            &-success {
-                color: var(--rating-color-success);
-            }
-
-            &-warning {
-                color: var(--rating-color-warning);
-            }
-
-            &-danger {
-                color: var(--rating-color-danger);
-            }
+            &-info { color: var(--rating-color-info); }
+            &-success { color: var(--rating-color-success); }
+            &-warning { color: var(--rating-color-warning); }
+            &-danger { color: var(--rating-color-danger); }
         }
     }
 }

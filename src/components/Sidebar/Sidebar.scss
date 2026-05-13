@@ -6,6 +6,8 @@
     --sidebar-margin: 0;
     --sidebar-shadow: none;
 
+    display: flex;
+    flex-direction: column;
     width: var(--sidebar-width);
     margin: var(--sidebar-margin);
     background: var(--card-background-color);
@@ -19,10 +21,19 @@
         transform 0.3s ease,
         border-color 0.3s ease;
 
+    &__search {
+        padding: var(--spacing-8) var(--spacing-16);
+        border-bottom: var(--spacing-1) solid var(--delimiter-color);
+        flex-shrink: 0;
+    }
+
     &__nav {
         @include flex-column;
         gap: var(--spacing-12);
         padding: var(--spacing-16);
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
     }
 
     &__section {
@@ -177,6 +188,5 @@
 @include not-mobile {
     .sidebar {
         height: 100%;
-        overflow-y: auto;
     }
 }

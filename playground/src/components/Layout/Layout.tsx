@@ -50,7 +50,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Header />
 
             <div className="layout__container">
-                <Sidebar sections={sidebarSections} isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} isMobile={isMobile} showOverlay={false} />
+                <Sidebar sections={sidebarSections} isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} isMobile={isMobile} showOverlay={false} searchPlaceholder="Search pages..." />
 
                 {isMobile && isSidebarOpen && <div className="layout__overlay" onClick={() => setIsSidebarOpen(false)} />}
 
