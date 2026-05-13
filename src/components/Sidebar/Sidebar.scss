@@ -2,17 +2,19 @@
 
 .sidebar {
     --sidebar-width: 280px;
-    --sidebar-border-radius: 0;
-    --sidebar-margin: 0;
     --sidebar-shadow: none;
 
     display: flex;
     flex-direction: column;
     width: var(--sidebar-width);
-    margin: var(--sidebar-margin);
+    // Desktop & tablet: sidebar sits in a flex layout with a margin around it.
+    // Subtract the margins so the sidebar never overflows the viewport.
+    margin: var(--spacing-16);
+    min-height: calc(100vh - var(--spacing-32));
+    min-height: calc(100dvh - var(--spacing-32));
     background: var(--card-background-color);
-    border-right: var(--spacing-1) solid var(--delimiter-color);
-    border-radius: var(--sidebar-border-radius);
+    border: var(--spacing-1) solid var(--delimiter-color);
+    border-radius: var(--radius);
     box-shadow: var(--sidebar-shadow);
     flex-shrink: 0;
     overflow-x: hidden;
@@ -138,11 +140,18 @@
         pointer-events: none;
     }
 
+    // Mobile: full-height fixed sidebar against the left edge.
+    // No margin / no radius — every pixel counts on a small screen.
     &--mobile {
         position: fixed;
         top: 0;
         left: 0;
         bottom: 0;
+        margin: 0;
+        min-height: 0;
+        border: 0;
+        border-right: var(--spacing-1) solid var(--delimiter-color);
+        border-radius: 0;
         z-index: 1000;
         transform: translateX(-100%);
         box-shadow: var(--spacing-2) 0 var(--spacing-8) var(--box-shadow);

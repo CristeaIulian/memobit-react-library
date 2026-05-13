@@ -39,8 +39,6 @@ export interface SidebarProps {
     isMobile?: boolean;
     showOverlay?: boolean;
     contained?: boolean;
-    borderRadius?: string | number;
-    margin?: string | number;
     shadow?: string;
     searchPlaceholder?: string;
 }
@@ -55,8 +53,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     isMobile: isMobileProp,
     showOverlay = true,
     contained = false,
-    borderRadius = 0,
-    margin = 0,
     shadow = 'none',
     searchPlaceholder,
 }) => {
@@ -87,11 +83,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         .filter(Boolean)
         .join(' ');
     const overlayClassName = ['sidebar__overlay', contained ? 'sidebar__overlay--contained' : ''].filter(Boolean).join(' ');
-    const formatCssValue = (value: string | number): string => (typeof value === 'number' ? `${value}px` : value);
     const sidebarStyle = {
         '--sidebar-width': width,
-        '--sidebar-border-radius': formatCssValue(borderRadius),
-        '--sidebar-margin': formatCssValue(margin),
         '--sidebar-shadow': shadow,
     } as React.CSSProperties;
 
