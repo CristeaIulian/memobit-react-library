@@ -110,7 +110,7 @@ export const SidebarPage: React.FC = () => {
                 {
                     id: 'overview',
                     label: 'Overview',
-                    icon: 'O',
+                    icon: 'dashboard',
                     count: 12,
                     isActive: activeItem === 'overview',
                     onClick: () => setActiveItem('overview'),
@@ -118,7 +118,7 @@ export const SidebarPage: React.FC = () => {
                 {
                     id: 'roadmap',
                     label: 'Roadmap',
-                    emoji: '\u{1F680}',
+                    emoji: '🚀',
                     count: 4,
                     isActive: activeItem === 'roadmap',
                     onClick: () => setActiveItem('roadmap'),
@@ -137,7 +137,7 @@ export const SidebarPage: React.FC = () => {
         {
             id: 'groups',
             title: 'Groups',
-            icon: '#',
+            icon: 'categories',
             items: [
                 {
                     id: 'design',
@@ -158,7 +158,7 @@ export const SidebarPage: React.FC = () => {
                 {
                     id: 'research',
                     label: 'Research',
-                    emoji: '\u{1F52C}',
+                    emoji: '🔬',
                     count: 5,
                     isActive: activeItem === 'research',
                     onClick: () => setActiveItem('research'),
@@ -175,7 +175,7 @@ export const SidebarPage: React.FC = () => {
                 {
                     id: 'all-books',
                     label: 'All books',
-                    icon: '□',
+                    icon: 'layers',
                     count: 26,
                     isActive: libraryActiveItem === 'all-books',
                     onClick: () => setLibraryActiveItem('all-books'),
@@ -269,13 +269,7 @@ export const SidebarPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Groups, Counts and Sections</h3>
                     <div style={{ display: 'flex', minHeight: '420px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
-                        <Sidebar
-                            sections={workspaceSections}
-                            isOpen={true}
-                            width="280px"
-                            borderRadius="8px 0 0 8px"
-                            shadow="0 8px 24px rgba(0, 0, 0, 0.18)"
-                        />
+                        <Sidebar sections={workspaceSections} isOpen={true} width="280px" borderRadius="8px 0 0 8px" shadow="0 8px 24px rgba(0, 0, 0, 0.18)" />
                         <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
                             <h3>Workspace Content</h3>
                             <p>Active Item: {activeItem}</p>
@@ -285,7 +279,15 @@ export const SidebarPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>Card Style Sidebar</h3>
-                    <div style={{ display: 'flex', height: '420px', background: 'var(--body-background)', border: '1px solid var(--border-color)', borderRadius: '8px' }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            height: '420px',
+                            background: 'var(--body-background)',
+                            border: '1px solid var(--border-color)',
+                            borderRadius: '8px',
+                        }}
+                    >
                         <Sidebar
                             sections={workspaceSections}
                             isOpen={true}
@@ -326,12 +328,7 @@ export const SidebarPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Searchable Sidebar</h3>
                     <div style={{ display: 'flex', minHeight: '560px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
-                        <Sidebar
-                            sections={librarySections}
-                            isOpen={true}
-                            width="280px"
-                            searchPlaceholder="Search shelves..."
-                        />
+                        <Sidebar sections={librarySections} isOpen={true} width="280px" searchPlaceholder="Search shelves..." />
                         <div style={{ flex: 1, padding: '32px', background: 'var(--body-background)' }}>
                             <h3>Reading Shelf</h3>
                             <p>Selected shelf: {libraryActiveItem}</p>
