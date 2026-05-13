@@ -59,6 +59,37 @@
                 box-shadow 200ms ease-in-out;
         }
 
+        .dropdown-value-chip {
+            position: absolute;
+            top: 50%;
+            left: var(--spacing-12);
+            transform: translateY(-50%);
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            padding: var(--spacing-2) var(--spacing-8);
+            border-radius: var(--radius-full);
+            border: var(--spacing-1) solid var(--chip-selected-border-color, var(--body-accent-color));
+            background: var(--chip-selected-background-color, var(--card-background-accent-color));
+            color: var(--chip-selected-color, var(--body-accent-color));
+            font-size: var(--font-size-xs);
+            max-width: calc(100% - 80px);
+            cursor: pointer;
+
+            &__label {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            svg {
+                flex-shrink: 0;
+                width: var(--spacing-12);
+                height: var(--spacing-12);
+            }
+        }
+
         .dropdown-selected-count {
             position: absolute;
             bottom: -20px;

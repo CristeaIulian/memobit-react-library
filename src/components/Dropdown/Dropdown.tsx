@@ -41,6 +41,7 @@ export interface DropdownProps {
     success?: string;
     usePortal?: boolean;
     value?: number | number[] | string | string[] | null;
+    valueAsChip?: boolean;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -64,6 +65,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     success,
     usePortal = true,
     value,
+    valueAsChip = true,
 }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [filterText, setFilterText] = useState<string>(searchValue || '');
@@ -232,13 +234,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
                 // Auto-create custom value on close when allowCustomValue is enabled
                 if (allowCustomValue && !multiple && filterText.trim()) {
-                    const matchesSelection = selectedOptions.length > 0 &&
-                        selectedOptions[0].label.toLowerCase() === filterText.trim().toLowerCase();
+                    const matchesSelection = selectedOptions.length > 0 && selectedOptions[0].label.toLowerCase() === filterText.trim().toLowerCase();
 
                     if (!matchesSelection) {
-                        const existingOption = options.find(
-                            o => o.label.toLowerCase() === filterText.toLowerCase() || o.value.toString() === filterText
-                        );
+                        const existingOption = options.find(o => o.label.toLowerCase() === filterText.toLowerCase() || o.value.toString() === filterText);
                         const resolvedOption: DropdownOption = existingOption || {
                             label: filterText.trim(),
                             value: filterText.trim(),
@@ -665,8 +664,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const selectedSingleOption = !multiple && selectedOptions.length === 1 ? selectedOptions[0] : null;
-    const showSelectedPrefixIcon = Boolean(selectedSingleOption?.icon && !filterText);
-    const showSelectedSuffixIcon = Boolean(selectedSingleOption?.suffixIcon);
+    const showValueChip = valueAsChip && !isOpen && !multiple && selectedOptions.length > 0;
+    const showSelectedPrefixIcon = Boolean(selectedSingleOption?.icon && !filterText && !showValueChip);
+    const showSelectedSuffixIcon = Boolean(selectedSingleOption?.suffixIcon && !showValueChip);
 
     return (
         <div
@@ -688,11 +688,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     </span>
                 )}
 
+                {showValueChip && selectedSingleOption && (
+                    <span className="dropdown-value-chip" onClick={handleInputClick}>
+                        {selectedSingleOption.icon && <Icon name={selectedSingleOption.icon} />}
+                        <span className="dropdown-value-chip__label">{selectedSingleOption.label}</span>
+                    </span>
+                )}
+
                 <InputText
                     ref={inputRef}
                     id={inputId}
-                    placeholder={getPlaceholderText()}
-                    value={getDisplayText()}
+                    placeholder={showValueChip ? '' : getPlaceholderText()}
+                    value={showValueChip ? '' : getDisplayText()}
                     onChange={searchable || multiple ? handleInputChange : () => {}}
                     onClick={handleInputClick}
                     onKeyDown={handleKeyDown}
