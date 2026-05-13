@@ -26,6 +26,11 @@
     text-align: right;
 }
 
+// Text color
+.text-muted {
+    color: var(--body-color-muted);
+}
+
 // Cursor
 .cursor-pointer {
     cursor: pointer;
