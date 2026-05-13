@@ -215,3 +215,5 @@ export { getResultsCount } from './helpers/Pagination';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
 export { fuzzyMatch } from './helpers/Search';
 export { validateVin, type VinValidationResult } from './validators/Vin';
+export { LIB_VERSION } from './version';
+export { initVersionInfo } from './helpers/VersionInfo';

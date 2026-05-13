@@ -1,10 +1,16 @@
+import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
+const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8'));
+
 export default defineConfig({
+    define: {
+        __LIB_VERSION__: JSON.stringify(pkg.version),
+    },
     plugins: [
         react(),
         dts({
