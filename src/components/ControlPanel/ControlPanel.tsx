@@ -22,8 +22,6 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     isMobile: isMobileProp,
     showOverlay = true,
     contained = false,
-    borderRadius = 0,
-    margin = 0,
     shadow = 'none',
     header,
     navigation = [],
@@ -54,11 +52,8 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         .join(' ');
 
     const overlayClassName = ['control-panel__overlay', contained ? 'control-panel__overlay--contained' : ''].filter(Boolean).join(' ');
-    const formatCssValue = (value: string | number): string => (typeof value === 'number' ? `${value}px` : value);
     const panelStyle = {
         '--control-panel-width': width,
-        '--control-panel-border-radius': formatCssValue(borderRadius),
-        '--control-panel-margin': formatCssValue(margin),
         '--control-panel-shadow': shadow,
     } as React.CSSProperties;
 

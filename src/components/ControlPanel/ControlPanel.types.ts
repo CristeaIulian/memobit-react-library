@@ -139,8 +139,6 @@ export interface ControlPanelProps {
     isMobile?: boolean;
     showOverlay?: boolean;
     contained?: boolean;
-    borderRadius?: string | number;
-    margin?: string | number;
     shadow?: string;
     header?: ControlPanelHeader;
     navigation?: ControlPanelNavItem[];

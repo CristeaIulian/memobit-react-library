@@ -2,17 +2,17 @@
 
 .control-panel {
     --control-panel-width: 280px;
-    --control-panel-border-radius: 0;
-    --control-panel-margin: 0;
     --control-panel-shadow: none;
 
     width: var(--control-panel-width);
-    min-height: 100vh;
-    min-height: 100dvh;
-    margin: var(--control-panel-margin);
+    // Desktop & tablet: panel sits in a flex layout with a margin around it.
+    // Subtract the margins so the panel never overflows the viewport.
+    margin: var(--spacing-16);
+    min-height: calc(100vh - var(--spacing-32));
+    min-height: calc(100dvh - var(--spacing-32));
     background: var(--card-background-color);
-    border-right: var(--spacing-1) solid var(--delimiter-color);
-    border-radius: var(--control-panel-border-radius);
+    border: var(--spacing-1) solid var(--delimiter-color);
+    border-radius: var(--radius);
     box-shadow: var(--control-panel-shadow);
     flex-shrink: 0;
     overflow-x: hidden;
@@ -126,11 +126,18 @@
         pointer-events: none;
     }
 
+    // Mobile: full-height fixed panel against the left edge.
+    // No margin / no radius — every pixel counts on a small screen.
     &--mobile {
         position: fixed;
         top: 0;
         left: 0;
         bottom: 0;
+        margin: 0;
+        min-height: 0;
+        border: 0;
+        border-right: var(--spacing-1) solid var(--delimiter-color);
+        border-radius: 0;
         z-index: 1000;
         transform: translateX(-100%);
         box-shadow: var(--spacing-2) 0 var(--spacing-8) var(--box-shadow);
