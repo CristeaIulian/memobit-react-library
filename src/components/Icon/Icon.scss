@@ -2,7 +2,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--body-color);
+    // color: inherit (default) — icons follow parent text color, so a button/container
+    // setting `color: #fff` automatically tints the icon. Use variants below for explicit overrides.
 
     svg {
         display: block;
