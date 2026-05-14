@@ -16,7 +16,7 @@
     box-sizing: border-box;
 
     &__icon {
-        font-size: 2rem;
+        display: flex;
     }
 
     &__title {

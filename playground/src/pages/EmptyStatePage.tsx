@@ -14,7 +14,7 @@ export const EmptyStatePage: React.FC = () => {
                     <h3>No results</h3>
                     <div className="component-group">
                         <EmptyState
-                            icon="?"
+                            icon="search"
                             title="No items found"
                             description="Try adjusting filters or create a new entry."
                             primary={{ text: 'Create item', onClick: () => alert('Create clicked') }}

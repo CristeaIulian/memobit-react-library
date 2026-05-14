@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Calendar, CalendarProps, CalendarDateRange } from '../Calendar';
 import { Icon } from '../Icon';
@@ -40,6 +40,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const [seconds, setSeconds] = useState(0);
     const [isPM, setIsPM] = useState(false);
     const [rangeStart, setRangeStart] = useState<Date | null>(null);
+    const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({
+        position: 'fixed',
+        visibility: 'hidden',
+    });
 
     const inputRef = useRef<HTMLDivElement>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -73,6 +77,56 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [alwaysOpen, isOpen]);
+
+    const updateDropdownPosition = useCallback(() => {
+        if (alwaysOpen || !isOpen || !inputRef.current || !dropdownRef.current) {
+            return;
+        }
+
+        const anchorRect = inputRef.current.getBoundingClientRect();
+        const panelRect = dropdownRef.current.getBoundingClientRect();
+        const viewportMargin = 16;
+        const offset = 8;
+        const availableBelow = window.innerHeight - anchorRect.bottom - viewportMargin;
+        const availableAbove = anchorRect.top - viewportMargin;
+        const shouldShowAbove = availableBelow < panelRect.height && availableAbove > panelRect.height;
+
+        const top = shouldShowAbove
+            ? anchorRect.top - panelRect.height - offset
+            : anchorRect.bottom + offset;
+        const constrainedTop = Math.max(viewportMargin, Math.min(top, window.innerHeight - panelRect.height - viewportMargin));
+        const constrainedLeft = Math.max(
+            viewportMargin,
+            Math.min(anchorRect.left, window.innerWidth - panelRect.width - viewportMargin)
+        );
+
+        setDropdownStyle({
+            position: 'fixed',
+            top: `${constrainedTop}px`,
+            left: `${constrainedLeft}px`,
+            zIndex: 1000,
+        });
+    }, [alwaysOpen, isOpen]);
+
+    useEffect(() => {
+        if (alwaysOpen || !isOpen) {
+            setDropdownStyle({
+                position: 'fixed',
+                visibility: 'hidden',
+            });
+            return;
+        }
+
+        const animationFrame = requestAnimationFrame(() => requestAnimationFrame(updateDropdownPosition));
+        window.addEventListener('resize', updateDropdownPosition);
+        window.addEventListener('scroll', updateDropdownPosition, true);
+
+        return () => {
+            cancelAnimationFrame(animationFrame);
+            window.removeEventListener('resize', updateDropdownPosition);
+            window.removeEventListener('scroll', updateDropdownPosition, true);
+        };
+    }, [alwaysOpen, isOpen, updateDropdownPosition]);
 
     const formatDisplayValue = (): string => {
         if (!value) return '';
@@ -131,24 +185,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         e.stopPropagation();
         setRangeStart(null);
         onChange?.(undefined);
-    };
-
-    const getDropdownPosition = (): React.CSSProperties => {
-        if (!inputRef.current) return {};
-
-        const rect = inputRef.current.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const dropdownHeight = 400;
-
-        const spaceBelow = viewportHeight - rect.bottom;
-        const shouldShowAbove = spaceBelow < dropdownHeight && rect.top > dropdownHeight;
-
-        return {
-            position: 'fixed',
-            left: `${rect.left}px`,
-            top: shouldShowAbove ? `${rect.top - dropdownHeight - 8}px` : `${rect.bottom + 8}px`,
-            zIndex: 1000,
-        };
     };
 
     const displayValue = formatDisplayValue();
@@ -254,7 +290,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                     </div>
                 ) : (
                     createPortal(
-                        <div ref={dropdownRef} className="datepicker__dropdown" style={getDropdownPosition()}>
+                        <div ref={dropdownRef} className="datepicker__dropdown" style={dropdownStyle}>
                             <Calendar
                                 {...calendarProps}
                                 mode={mode}
