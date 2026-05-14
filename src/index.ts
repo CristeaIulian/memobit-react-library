@@ -75,6 +75,7 @@ export {
     type MiniStatsCardLabelPosition,
     type MiniStatsCardTrendVariant,
 } from './components/MiniStatsCard';
+export { Stats, type StatsProps, type StatsItem, type StatsAlign, type StatsSize } from './components/Stats';
 export { Modal } from './components/Modal';
 export { NavBar, type NavBarItem } from './components/NavBar';
 export { Pagination } from './components/Pagination';

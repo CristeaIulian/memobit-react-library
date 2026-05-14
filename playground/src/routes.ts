@@ -78,6 +78,7 @@ import { SidebarPage } from './pages/SidebarPage';
 import { SkeletonPage } from './pages/SkeletonPage';
 import { SliderPage } from './pages/SliderPage';
 import { SplitPanelPage } from './pages/SplitPanelPage';
+import { StatsPage } from './pages/StatsPage';
 import { SuggestionsListPage } from './pages/SuggestionsListPage';
 import { TextareaPage } from './pages/TextareaPage';
 import { ThemeSettingsPage } from './pages/ThemeSettingsPage';
@@ -180,6 +181,7 @@ export const routes: RouteConfig[] = [
     { path: '/skeleton', label: 'Skeleton', component: SkeletonPage },
     { path: '/slider', label: 'Slider', component: SliderPage },
     { path: '/split-panel', label: 'Split Panel', component: SplitPanelPage },
+    { path: '/stats', label: 'Stats', component: StatsPage },
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
     { path: '/textarea', label: 'Textarea', component: TextareaPage },
     { path: '/theme-settings', label: 'Theme Settings', component: ThemeSettingsPage },
