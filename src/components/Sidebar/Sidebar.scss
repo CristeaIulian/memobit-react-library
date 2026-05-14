@@ -10,8 +10,7 @@
     // Desktop & tablet: sidebar sits in a flex layout with a margin around it.
     // Subtract the margins so the sidebar never overflows the viewport.
     margin: var(--spacing-16);
-    min-height: calc(100vh - var(--spacing-32));
-    min-height: calc(100dvh - var(--spacing-32));
+    min-height: 0;
     background: var(--card-background-color);
     border: var(--spacing-1) solid var(--delimiter-color);
     border-radius: var(--radius);
@@ -196,6 +195,7 @@
 
 @include not-mobile {
     .sidebar {
-        height: 100%;
+        height: calc(100% - var(--spacing-32));
+        max-height: calc(100% - var(--spacing-32));
     }
 }
