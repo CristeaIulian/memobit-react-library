@@ -12,7 +12,7 @@ export const Home: React.FC = () => {
     return (
         <div className="home">
             <header className="home__header">
-                <h1>Component Library Playground</h1>
+                <h1>Home</h1>
                 <p>
                     Welcome to the interactive playground for testing and previewing components. Select a component from the sidebar to explore its features and
                     variations.

@@ -22,7 +22,7 @@ export const Header = ({ isSidebarOpen = false, onToggleSidebar }: HeaderProps) 
                 )}
             </header>
             <header className="not-mobile">
-                <h1>Component Library Playground</h1>
+                <h1>Memobit Library Playground</h1>
                 <p>Test and preview components before building</p>
             </header>
 
