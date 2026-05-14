@@ -63,7 +63,12 @@
     }
 
     &__body {
-        padding: var(--spacing-24);
+        box-sizing: border-box;
+        padding: var(--spacing-16);
+
+        &--no-padding {
+            padding: 0;
+        }
     }
 
     &__footer {
@@ -103,6 +108,14 @@
     }
 
     .modal {
+        &__body {
+            padding: var(--spacing-8);
+
+            &--no-padding {
+                padding: 0;
+            }
+        }
+
         &__footer {
             justify-content: space-between;
         }

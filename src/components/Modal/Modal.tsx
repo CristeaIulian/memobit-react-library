@@ -12,6 +12,7 @@ interface ModalProps {
     children?: ReactNode;
     className?: string;
     isOpen: boolean;
+    noPadding?: boolean;
     onClose?: () => void;
     onOverlayClick?: (event: MouseEvent) => void;
     primary?: ExternalButtonConfig;
@@ -27,6 +28,7 @@ export const Modal: FC<ModalProps> = ({
     children,
     className,
     isOpen,
+    noPadding = false,
     onClose,
     onOverlayClick,
     primary,
@@ -76,7 +78,7 @@ export const Modal: FC<ModalProps> = ({
                         &times;
                     </Button>
                 </div>
-                {children}
+                {children !== undefined && children !== null && <div className={`modal__body ${noPadding ? 'modal__body--no-padding' : ''}`}>{children}</div>}
                 {hasFooter && (
                     <div className="modal__footer">
                         {tertiary && (
