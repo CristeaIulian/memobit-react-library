@@ -205,8 +205,8 @@ export const DataViewPage: React.FC = () => {
                             state={desktopView}
                             onToggleChange={mode => setDesktopView(mode as DataViewDisplayMode)}
                             states={[
-                                { key: 'table', label: 'Table', icon: 'T' },
-                                { key: 'cards', label: 'Cards', icon: 'C' },
+                                { key: 'table', label: 'Table', icon: 'table' },
+                                { key: 'cards', label: 'Cards', icon: 'grid' },
                             ]}
                         />
                         <DataView<UserRow>
@@ -323,7 +323,7 @@ export const DataViewPage: React.FC = () => {
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
-                        <DataView<UserRow> columns={basicColumns} data={users.slice(0, 4)} rowKey={row => row.id} responsive={false} showPageSize={false} />
+                        <DataView<UserRow> columns={basicColumns} data={users.slice(0, 4)} rowKey={row => row.id} showPageSize={false} />
                     </div>
                 </div>
             </section>

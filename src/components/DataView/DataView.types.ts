@@ -99,11 +99,10 @@ export interface DataViewProps<T> {
     onSortChange?: (sort: { key: string | null; direction: SortDirection }) => void;
     /** Show the built-in sort controls above cards. */
     showCardSortControls?: boolean;
-    /** Desktop layout. Mobile still renders cards when responsive is true. */
+    /** Selected layout mode. */
     desktopView?: DataViewDisplayMode;
     /** Maximum width for each card. Number values are treated as px. */
     cardMaxWidth?: number | string;
-    responsive?: boolean;
     className?: string;
     onPageChange?: (page: number) => void;
     onPageSizeChange?: (pageSize: number) => void;
@@ -120,3 +119,5 @@ export interface DataViewProps<T> {
     /** Noun appended to the results-count label, e.g. "books". */
     itemNoun?: string;
 }
+
+

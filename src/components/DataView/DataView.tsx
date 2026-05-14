@@ -56,7 +56,6 @@ export function DataView<T>({
     showCardSortControls = true,
     desktopView = 'table',
     cardMaxWidth,
-    responsive = true,
     className,
     onPageChange,
     onPageSizeChange,
@@ -153,9 +152,7 @@ export function DataView<T>({
     const totalPages = Math.max(1, Math.ceil(totalForPagination / pageSize));
     const safeCurrentPage = Math.min(currentPage, totalPages);
     // When server-paginated, `data` is already the page slice — skip client slicing.
-    const pagedData = isServerPaginated
-        ? sortedData
-        : sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
+    const pagedData = isServerPaginated ? sortedData : sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
 
     const resultsCountLabel = showResultsCount
         ? getResultsCount(pageSize, totalForPagination, totalCount ?? totalForPagination, safeCurrentPage, itemNoun)
@@ -269,9 +266,7 @@ export function DataView<T>({
 
     // ── Card mode ────────────────────────────────────────────────────────────
 
-    const showCards = (responsive && isMobile) || (!isMobile && desktopView === 'cards');
-
-    if (showCards) {
+    if (desktopView === 'cards') {
         return (
             <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`}>
                 {resultsCountNode}
@@ -587,3 +582,4 @@ export function DataView<T>({
         </div>
     );
 }
+
