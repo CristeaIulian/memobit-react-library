@@ -12,6 +12,7 @@ export interface SidebarItem {
     label: string;
     isActive?: boolean;
     onClick?: () => void;
+    className?: string;
     icon?: IconName;
     emoji?: string;
     bulletColor?: string;
@@ -94,7 +95,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
     };
 
     const defaultRenderItem = (item: SidebarItem) => (
-        <button key={item.id} className={`sidebar__link ${item.isActive ? 'sidebar__link--active' : ''}`} onClick={() => handleItemClick(item)}>
+        <button
+            key={item.id}
+            className={['sidebar__link', item.isActive ? 'sidebar__link--active' : '', item.className].filter(Boolean).join(' ')}
+            onClick={() => handleItemClick(item)}
+        >
             {item.icon && <span className="sidebar__link-icon"><Icon name={item.icon} /></span>}
             {item.emoji && <span className="sidebar__link-emoji">{item.emoji}</span>}
             {item.bulletColor && <span className="sidebar__link-bullet" style={{ backgroundColor: item.bulletColor }} />}

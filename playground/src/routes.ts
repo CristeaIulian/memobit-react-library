@@ -81,6 +81,7 @@ import { SplitPanelPage } from './pages/SplitPanelPage';
 import { StatsPage } from './pages/StatsPage';
 import { SuggestionsListPage } from './pages/SuggestionsListPage';
 import { TextareaPage } from './pages/TextareaPage';
+import { ThemeLabPage } from './pages/ThemeLabPage';
 import { ThemeSettingsPage } from './pages/ThemeSettingsPage';
 import { TipsOfTheDayPage } from './pages/TipsOfTheDayPage';
 import { ToastPage } from './pages/ToastPage';
@@ -184,6 +185,7 @@ export const routes: RouteConfig[] = [
     { path: '/stats', label: 'Stats', component: StatsPage },
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
     { path: '/textarea', label: 'Textarea', component: TextareaPage },
+    { path: '/theme-lab', label: 'Theme Lab', component: ThemeLabPage },
     { path: '/theme-settings', label: 'Theme Settings', component: ThemeSettingsPage },
     { path: '/timeline', label: 'Timeline', component: TimelinePage },
     { path: '/tips-of-the-day', label: 'Tips Of The Day', component: TipsOfTheDayPage },
@@ -195,5 +197,11 @@ export const routes: RouteConfig[] = [
     { path: '/tree', label: 'Tree', component: TreePage },
 ];
 
-// Alphabetically sorted routes for sidebar (excluding Home)
-export const sortedRoutes = routes.filter(r => r.path !== '/').sort((a, b) => a.label.localeCompare(b.label));
+// Sidebar/home routes with Theme Lab pinned first, then the rest alphabetically.
+export const sortedRoutes = routes
+    .filter(r => r.path !== '/')
+    .sort((a, b) => {
+        if (a.path === '/theme-lab') return -1;
+        if (b.path === '/theme-lab') return 1;
+        return a.label.localeCompare(b.label);
+    });

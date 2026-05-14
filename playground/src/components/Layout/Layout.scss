@@ -60,6 +60,17 @@
     }
 }
 
+.playground-sidebar-item--theme-lab {
+    background: color-mix(in srgb, var(--body-accent-color) 16%, transparent);
+    border-color: color-mix(in srgb, var(--body-accent-color) 42%, transparent);
+    color: var(--body-color-accent);
+}
+
+.playground-sidebar-item--theme-lab:hover {
+    background: color-mix(in srgb, var(--body-accent-color) 24%, transparent);
+    border-color: color-mix(in srgb, var(--body-accent-color) 55%, transparent);
+}
+
 @include not-mobile {
     .layout__content {
         padding-left: var(--spacing-24);

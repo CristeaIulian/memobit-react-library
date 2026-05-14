@@ -38,6 +38,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             items: sortedRoutes.map(route => ({
                 id: route.path,
                 label: route.label,
+                className: route.path === '/theme-lab' ? 'playground-sidebar-item playground-sidebar-item--theme-lab' : undefined,
                 isActive: location.pathname === route.path,
                 onClick: () => navigate(route.path),
             })),

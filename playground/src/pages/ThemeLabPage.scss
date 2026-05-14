@@ -1,0 +1,114 @@
+.theme-lab-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+}
+
+.theme-lab-page__hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12);
+}
+
+.theme-lab-page__summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-12);
+}
+
+.theme-lab-page__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-16);
+}
+
+.theme-lab-page__grid--wide {
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+}
+
+.theme-lab-page__stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+}
+
+.theme-lab-page__inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-12);
+    align-items: center;
+}
+
+.theme-lab-page__inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-16);
+}
+
+.theme-lab-page__toolbar-preview {
+    padding: var(--spacing-16);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--card-background-accent-color);
+}
+
+.theme-lab-page__mini-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-12);
+}
+
+.theme-lab-page__float-preview {
+    position: relative;
+    min-height: 180px;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius);
+    padding: var(--spacing-16);
+    background: var(--body-background);
+    overflow: hidden;
+}
+
+.theme-lab-page__scroll-box {
+    position: relative;
+    height: 260px;
+    overflow-y: auto;
+    padding: var(--spacing-16);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--card-background-accent-color);
+}
+
+.theme-lab-page__scroll-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+}
+
+.theme-lab-page__split-box {
+    height: 360px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.theme-lab-page__tree-box,
+.theme-lab-page__suggestions-box {
+    padding: var(--spacing-16);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--card-background-accent-color);
+}
+
+.theme-lab-page__muted {
+    color: var(--body-color-muted);
+}
+
+@media (max-width: 768px) {
+    .theme-lab-page__grid,
+    .theme-lab-page__grid--wide,
+    .theme-lab-page__inputs,
+    .theme-lab-page__summary,
+    .theme-lab-page__mini-cards {
+        grid-template-columns: 1fr;
+    }
+}
