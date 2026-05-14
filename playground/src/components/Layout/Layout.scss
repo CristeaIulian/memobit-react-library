@@ -21,32 +21,6 @@
         position: relative;
     }
 
-    &__hamburger {
-        position: fixed;
-        top: 85px;
-        left: var(--spacing-16);
-        z-index: 900;
-        background: var(--card-background-color);
-        border: 1px solid var(--delimiter-color);
-        border-radius: var(--radius);
-        width: 44px;
-        height: 44px;
-        @include flex-center;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--body-color-accent);
-        transition: all 0.2s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-
-        &:hover {
-            background: var(--card-background-accent-color);
-        }
-
-        &:active {
-            transform: scale(0.95);
-        }
-    }
-
     &__overlay {
         position: fixed;
         top: 0;
@@ -80,11 +54,11 @@
 
 @include mobile {
     .layout__content {
-        padding-top: 60px;
+        padding-top: var(--spacing-8);
     }
 
-    .layout__hamburger {
-        top: 80px;
+    .layout__content > * > h1:first-child {
+        margin-top: 0;
     }
 }
 

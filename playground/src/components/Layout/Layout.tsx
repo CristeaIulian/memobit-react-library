@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Header } from '../../Header';
-import { Icon, Sidebar, SidebarSection, useBreakpoint } from '../../../../src';
+import { Sidebar, SidebarSection, useBreakpoint } from '../../../../src';
 import { sortedRoutes } from '../../routes';
 
 import './Layout.scss';
@@ -48,22 +48,24 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
     return (
         <div className="layout">
-            <Header />
+            <Header isSidebarOpen={isSidebarOpen} onToggleSidebar={toggleSidebar} />
 
             <div className="layout__container">
-                <Sidebar sections={sidebarSections} isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} isMobile={isMobile} showOverlay={false} searchPlaceholder="Search pages..." />
+                <Sidebar
+                    sections={sidebarSections}
+                    appHeaderProps={
+                        isMobile ? { icon: 'toolbox', appName: 'Playground', heading: 'Components' } : undefined
+                    }
+                    isOpen={isSidebarOpen}
+                    onClose={() => setIsSidebarOpen(false)}
+                    isMobile={isMobile}
+                    showOverlay={false}
+                    searchPlaceholder="Search pages..."
+                />
 
                 {isMobile && isSidebarOpen && <div className="layout__overlay" onClick={() => setIsSidebarOpen(false)} />}
 
-                <main className="layout__content">
-                    {isMobile && !isSidebarOpen && (
-                        <button className="layout__hamburger" onClick={toggleSidebar} aria-label="Toggle navigation">
-                            <Icon name="menu-hamburger" />
-                        </button>
-                    )}
-
-                    {children}
-                </main>
+                <main className="layout__content">{children}</main>
             </div>
         </div>
     );

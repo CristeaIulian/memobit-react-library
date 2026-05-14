@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 
-import { AppHeader } from '../AppHeader';
+import { AppHeader, type AppHeaderProps } from '../AppHeader';
 import { Icon, type IconName } from '../Icon';
 import { Search } from '../Search';
 import { useSidebarContext } from './SidebarContext';
@@ -34,6 +34,7 @@ export interface SidebarProps {
     sections: SidebarSection[];
     width?: string;
     className?: string;
+    appHeaderProps?: AppHeaderProps;
     renderItem?: (item: SidebarItem) => ReactNode;
     isOpen?: boolean;
     onClose?: () => void;
@@ -48,6 +49,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     sections,
     width = '280px',
     className = '',
+    appHeaderProps,
     renderItem,
     isOpen: isOpenProp,
     onClose,
@@ -63,16 +65,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
     const isOpen = isOpenProp ?? (isMobile ? (sidebarContext?.isOpen ?? false) : true);
     const close = onClose ?? sidebarContext?.close ?? (() => undefined);
 
-    const visibleSections = searchPlaceholder && searchQuery
-        ? sections
-            .map(section => ({
-                ...section,
-                items: section.items.filter(item =>
-                    item.label.toLowerCase().includes(searchQuery.toLowerCase())
-                ),
-            }))
-            .filter(section => section.items.length > 0)
-        : sections;
+    const visibleSections =
+        searchPlaceholder && searchQuery
+            ? sections
+                  .map(section => ({
+                      ...section,
+                      items: section.items.filter(item => item.label.toLowerCase().includes(searchQuery.toLowerCase())),
+                  }))
+                  .filter(section => section.items.length > 0)
+            : sections;
 
     const sidebarClassName = [
         'sidebar',
@@ -100,7 +101,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
             className={['sidebar__link', item.isActive ? 'sidebar__link--active' : '', item.className].filter(Boolean).join(' ')}
             onClick={() => handleItemClick(item)}
         >
-            {item.icon && <span className="sidebar__link-icon"><Icon name={item.icon} /></span>}
+            {item.icon && (
+                <span className="sidebar__link-icon">
+                    <Icon name={item.icon} />
+                </span>
+            )}
             {item.emoji && <span className="sidebar__link-emoji">{item.emoji}</span>}
             {item.bulletColor && <span className="sidebar__link-bullet" style={{ backgroundColor: item.bulletColor }} />}
             <span className="sidebar__link-label">{item.label}</span>
@@ -116,6 +121,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <>
             {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
             <aside className={sidebarClassName} style={sidebarStyle}>
+                {appHeaderProps && (
+                    <AppHeader
+                        {...appHeaderProps}
+                        className={['sidebar__app-header', appHeaderProps.className].filter(Boolean).join(' ')}
+                    />
+                )}
                 {searchPlaceholder && (
                     <div className="sidebar__search">
                         <Search value={searchQuery} onChange={setSearchQuery} placeholder={searchPlaceholder} />
@@ -128,13 +139,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                 {(section.title || section.heading || section.icon || section.description) && (
                                     <div className="sidebar__section-header">
                                         {(section.icon || section.title || section.heading) && (
-                                            <AppHeader
-                                                className="sidebar__section-app-header"
-                                                icon={section.icon}
-                                                appName={section.title}
-                                                heading={section.heading}
-                                                showSeparator={false}
-                                            />
+                                            <div className="sidebar__section-title-row">
+                                                {section.icon && (
+                                                    <span className="sidebar__section-icon">
+                                                        <Icon name={section.icon} />
+                                                    </span>
+                                                )}
+                                                <div className="sidebar__section-copy">
+                                                    {section.title && <span className="sidebar__section-title">{section.title}</span>}
+                                                    {section.heading && <span className="sidebar__section-heading">{section.heading}</span>}
+                                                </div>
+                                            </div>
                                         )}
                                         {section.description && <p className="sidebar__section-description">{section.description}</p>}
                                     </div>
