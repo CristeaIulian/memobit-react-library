@@ -3,7 +3,7 @@
 [data-theme='luna'] {
     --font-family: 'Roboto', sans-serif;
 
-    --body-background: #16181e;
+    --body-background: #252831;
     --body-background-base: var(--body-background);
     --body-background-wash: var(--body-background-base);
     --body-color: #ccced0;
@@ -24,7 +24,7 @@
     --header-font-weight: 500;
 
     --card-background-color: #3b3d46;
-    --card-background-accent-color: #2e3037;
+    --card-background-accent-color: #444751;
     --card-border-color: #3b3d46;
     --card-backdrop-filter: none;
     --card-border-accent-color: #f6a821; // active items - generally border-left 2-4px
@@ -116,7 +116,7 @@
     --tabs-inactive-background-color: transparent;
     --tabs-inactive-color: #949ba2;
 
-    --modal-background-color: #21242a;
+    --modal-background-color: #30333b;
     --modal-border-color: #44464f7f;
     --modal-backdrop-filter: none;
     --modal-header-background-color: #44464f7f;
@@ -129,7 +129,7 @@
     --modal-title-letter-spacing: normal;
     --modal-title-text-transform: none;
     --modal-body-color: #949ba2;
-    --modal-footer-background-color: #1d1f24;
+    --modal-footer-background-color: #2b2e36;
     --modal-color: #ffffff;
     --modal-box-shadow: 0 0 3px 1px #111;
     --modal-surface-box-shadow: var(--modal-box-shadow);
@@ -181,7 +181,7 @@
     --form-control-selection-label-color: #fff;
     --form-control-focus-ring: rgba(246, 168, 33, 0.4);
 
-    --calendar-background-color: #21242a;
+    --calendar-background-color: #30333b;
     --calendar-border-color: #3d404c;
     --calendar-header-background-color: #3b3d46;
     --calendar-header-color: #ffffff;
@@ -199,7 +199,7 @@
     --tooltip-border-color: #f6a526;
     --tooltip-color: #ffffff;
 
-    --popover-background-color: #24262d;
+    --popover-background-color: #30333b;
     --popover-border-color: #f6a526;
     --popover-color: #f6a821;
     --popover-arrow-color: #f6a821;
