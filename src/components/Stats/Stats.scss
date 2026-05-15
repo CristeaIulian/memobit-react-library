@@ -9,6 +9,15 @@
 
     &--align-center {
         justify-content: center;
+
+        .stats__item {
+            align-items: center;
+            text-align: center;
+        }
+
+        .stats__value {
+            justify-content: center;
+        }
     }
 
     &--size-small {
@@ -55,5 +64,21 @@
         font-size: var(--font-size-md);
         font-weight: var(--font-weight-semibold);
         color: var(--body-color);
+
+        &--success {
+            color: var(--button-success-background-color);
+        }
+
+        &--warning {
+            color: var(--button-warning-background-color);
+        }
+
+        &--danger {
+            color: var(--body-danger-color);
+        }
+
+        &--info {
+            color: var(--button-info-background-color);
+        }
     }
 }
