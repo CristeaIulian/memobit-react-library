@@ -77,7 +77,14 @@ export const IconPage: React.FC = () => (
                 </article>
                 <article className="icon-page__tile">
                     <div className="icon-page__preview">
-                        <Icon name="save" size="xl" pulse />
+                        <Icon name="save" size="xl" fade />
+                    </div>
+                    <strong className="icon-page__name">fade</strong>
+                    <code className="icon-page__code">fade</code>
+                </article>
+                <article className="icon-page__tile">
+                    <div className="icon-page__preview">
+                        <Icon name="heart" size="xl" pulse variant="danger" />
                     </div>
                     <strong className="icon-page__name">pulse</strong>
                     <code className="icon-page__code">pulse</code>
@@ -91,7 +98,14 @@ export const IconPage: React.FC = () => (
                 </article>
                 <article className="icon-page__tile icon-page__tile--hover-hint">
                     <div className="icon-page__preview">
-                        <Icon name="save" size="xl" pulseOnHover />
+                        <Icon name="save" size="xl" fadeOnHover />
+                    </div>
+                    <strong className="icon-page__name">fadeOnHover</strong>
+                    <code className="icon-page__code">fadeOnHover</code>
+                </article>
+                <article className="icon-page__tile icon-page__tile--hover-hint">
+                    <div className="icon-page__preview">
+                        <Icon name="heart" size="xl" pulseOnHover variant="danger" />
                     </div>
                     <strong className="icon-page__name">pulseOnHover</strong>
                     <code className="icon-page__code">pulseOnHover</code>
@@ -122,7 +136,8 @@ export const IconPage: React.FC = () => (
 <Icon name="settings" size="xxxl" />          // empty states
 <Icon name="settings" spin />                 // permanent spin
 <Icon name="settings" spinOnHover />          // spin on hover only
-<Icon name="save" pulse variant="danger" />   // permanent pulse`}</pre>
+<Icon name="save" fade />                     // permanent fade
+<Icon name="heart" pulse variant="danger" />  // permanent pulse`}</pre>
         </section>
     </div>
 );

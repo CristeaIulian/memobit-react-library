@@ -27,11 +27,13 @@
 
     // Permanent animations
     &--spin svg  { animation: icon-spin 1s linear infinite; }
-    &--pulse     { animation: icon-pulse 2s ease-in-out infinite; }
+    &--fade      { animation: icon-fade 2s ease-in-out infinite; }
+    &--pulse     { animation: icon-pulse 1.6s ease-in-out infinite; }
 
     // Hover-only animations
     &--spin-hover:hover svg { animation: icon-spin 1s linear infinite; }
-    &--pulse-hover:hover    { animation: icon-pulse 2s ease-in-out infinite; }
+    &--fade-hover:hover     { animation: icon-fade 2s ease-in-out infinite; }
+    &--pulse-hover:hover    { animation: icon-pulse 1.6s ease-in-out infinite; }
 }
 
 @keyframes icon-spin {
@@ -39,7 +41,12 @@
     to   { transform: rotate(360deg); }
 }
 
-@keyframes icon-pulse {
+@keyframes icon-fade {
     0%, 100% { opacity: 1; }
     50%       { opacity: 0.4; }
+}
+
+@keyframes icon-pulse {
+    0%, 100% { transform: scale(1); }
+    45%      { transform: scale(1.16); }
 }
