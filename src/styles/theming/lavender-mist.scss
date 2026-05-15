@@ -3,9 +3,12 @@
 [data-theme='lavender-mist'] {
     --font-family: Inter, Roboto, sans-serif;
 
-    --body-background: #faf5ff;
-    --body-background-base: var(--body-background);
-    --body-background-wash: var(--body-background-base);
+    --body-background: var(--body-background-wash, var(--body-background-base));
+    --body-background-base: #faf5ff;
+    --body-background-wash:
+        radial-gradient(60% 50% at 100% 0%, rgba(168, 85, 247, 0.14) 0%, transparent 65%),
+        radial-gradient(50% 45% at 0% 100%, rgba(216, 180, 254, 0.16) 0%, transparent 65%),
+        linear-gradient(155deg, #fffaff 0%, #f7edff 55%, #fdfbff 100%);
     --body-color: #581c87;
     --body-color-accent: #3b0764;
     --body-color-muted: #64748b;

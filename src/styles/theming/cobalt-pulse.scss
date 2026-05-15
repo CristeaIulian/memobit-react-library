@@ -6,9 +6,12 @@
     --font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     --form-control-font-family: var(--font-family-mono);
 
-    --body-background: #0a0b0d;
-    --body-background-base: var(--body-background);
-    --body-background-wash: var(--body-background-base);
+    --body-background: var(--body-background-wash, var(--body-background-base));
+    --body-background-base: #0a0b0d;
+    --body-background-wash:
+        radial-gradient(60% 50% at 100% 0%, rgba(79, 142, 247, 0.16) 0%, transparent 65%),
+        radial-gradient(48% 42% at 0% 100%, rgba(150, 80, 255, 0.12) 0%, transparent 65%),
+        linear-gradient(155deg, #11131d 0%, #08090c 55%, #0d0e14 100%);
     --body-color: #e8eaf4;
     --body-color-accent: #ffffff;
     --body-color-muted: #6b7394;

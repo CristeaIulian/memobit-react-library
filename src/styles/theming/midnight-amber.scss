@@ -6,9 +6,12 @@
     --font-family-display: 'Syne', 'Space Mono', sans-serif;
     --font-family-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-    --body-background: #0d0d0f;
-    --body-background-base: var(--body-background);
-    --body-background-wash: var(--body-background-base);
+    --body-background: var(--body-background-wash, var(--body-background-base));
+    --body-background-base: #0d0d0f;
+    --body-background-wash:
+        radial-gradient(60% 50% at 100% 0%, rgba(240, 192, 64, 0.14) 0%, transparent 65%),
+        radial-gradient(48% 42% at 0% 100%, rgba(224, 96, 128, 0.1) 0%, transparent 65%),
+        linear-gradient(155deg, #151310 0%, #0a0a0c 55%, #101012 100%);
     --body-color: #e8e8f0;
     --body-color-accent: #ffffff;
     --body-color-muted: #6b6b80;
