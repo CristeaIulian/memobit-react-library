@@ -1,77 +1,7 @@
-import { createContext, FC, ReactNode, useCallback, useEffect, useState } from 'react';
+import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 
 import { getThemeConfig } from './themeConfig';
-
-export type Theme =
-    | 'amber-meridian'
-    | 'archive-indigo'
-    | 'arctic-blue'
-    | 'asphalt-code'
-    | 'azure-night'
-    | 'blueprint-clay'
-    | 'blush-market'
-    | 'brass-chronicle'
-    | 'carbon-velocity'
-    | 'chalk-circuit'
-    | 'clinical-aqua'
-    | 'cobalt-pulse'
-    | 'crawler-dusk'
-    | 'crimson-dusk'
-    | 'cyber-forest'
-    | 'dashdarkx'
-    | 'ember-night'
-    | 'emerald-ledger'
-    | 'frost-petal'
-    | 'garden-harvest'
-    | 'gilded-bear'
-    | 'graphite-shell'
-    | 'horizon-amber'
-    | 'horizon-drift'
-    | 'ivory-serif'
-    | 'lavender-mist'
-    | 'light-blue'
-    | 'luna'
-    | 'mesh-circuit'
-    | 'midnight-amber'
-    | 'mint-meadow'
-    | 'mintone'
-    | 'neon-tokyo'
-    | 'ocean-breeze'
-    | 'ocean-depths'
-    | 'sandstone'
-    | 'sandy-parchment'
-    | 'signal-burst'
-    | 'slate-focus'
-    | 'spectrum-vault'
-    | 'tailwind-vue-dark'
-    | 'terminal-phosphor'
-    | 'terracotta-kitchen'
-    | 'twilight-pulse'
-    | 'vault-guard'
-    | 'velvet-reel'
-    | 'velvet-tome'
-    | 'vital-signal';
-
-export interface ThemeEffects {
-    effect: string;
-    components: string[];
-}
-
-export interface ThemeSaveValue {
-    theme: Theme;
-    effects: ThemeEffects;
-}
-
-export interface ThemeContextType {
-    theme: Theme;
-    effects: ThemeEffects;
-    setPreviewTheme: (theme: Theme) => void;
-    setPreviewEffects: (effects: ThemeEffects) => void;
-    commitPreview: () => void;
-    clearPreview: () => void;
-}
-
-export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+import { ThemeContext, type Theme, type ThemeEffects, type ThemeSaveValue } from './ThemeContextValue';
 
 const FONT_LINK_ID = 'theme-font-link';
 const FONT_LINK_DISPLAY_ID = 'theme-font-link-display';

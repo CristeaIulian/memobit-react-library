@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 
 import { Checkbox } from '../Checkbox';
 import { Drawer } from '../Drawer';
@@ -7,7 +7,7 @@ import { Search } from '../Search';
 import { ToggleSwitch } from '../ToggleSwitch';
 
 import { useTheme } from './useTheme';
-import { Theme } from './ThemeContext';
+import { type Theme } from './ThemeContextValue';
 import { FAVORITE_THEMES, THEME_CONFIGS } from './themeConfig';
 
 import './ThemeSettings.scss';
@@ -32,6 +32,8 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+    const activeThemeRef = useRef<HTMLButtonElement | null>(null);
+    const hasScrolledToActiveThemeRef = useRef(false);
 
     const filteredThemes = useMemo(() => {
         let themes = THEME_CONFIGS;
@@ -52,8 +54,23 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
         if (isOpen) {
             setSearchQuery('');
             setShowFavoritesOnly(false);
+        } else {
+            hasScrolledToActiveThemeRef.current = false;
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (!isOpen || searchQuery || showFavoritesOnly || hasScrolledToActiveThemeRef.current) {
+            return;
+        }
+
+        const animationFrameId = window.requestAnimationFrame(() => {
+            activeThemeRef.current?.scrollIntoView({ block: 'center', inline: 'nearest' });
+            hasScrolledToActiveThemeRef.current = true;
+        });
+
+        return () => window.cancelAnimationFrame(animationFrameId);
+    }, [isOpen, searchQuery, showFavoritesOnly, theme]);
 
     const handleThemeSelect = (next: Theme) => {
         setPreviewTheme(next);
@@ -65,9 +82,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
     };
 
     const handleComponentToggle = (componentName: string, checked: boolean) => {
-        const nextComponents = checked
-            ? [...effects.components, componentName]
-            : effects.components.filter(c => c !== componentName);
+        const nextComponents = checked ? [...effects.components, componentName] : effects.components.filter(c => c !== componentName);
         setPreviewEffects({ effect: effects.effect, components: nextComponents });
     };
 
@@ -90,26 +105,16 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
             width="520px"
             maxWidth="calc(100vw - 32px)"
             className="theme-settings-drawer"
-            secondary={{ text: 'Cancel', variant: 'default', onClick: handleCancel }}
-            primary={{ text: 'Save changes', variant: 'success', onClick: handleSave }}
+            secondary={{ text: 'Cancel', variant: 'default', onClick: handleCancel, icon: 'clear' }}
+            primary={{ text: 'Save changes', variant: 'success', onClick: handleSave, icon: 'save' }}
         >
             <div className="theme-settings">
                 <div className="theme-settings__content">
                     <div className="theme-settings__section">
                         <label>Select Theme</label>
                         <div className="theme-settings__toolbar">
-                            <Search
-                                placeholder="Search themes..."
-                                value={searchQuery}
-                                onChange={setSearchQuery}
-                            />
-                            <ToggleSwitch
-                                checked={showFavoritesOnly}
-                                onChange={setShowFavoritesOnly}
-                                onLabel="Favorites"
-                                offLabel="Favorites"
-                                size="small"
-                            />
+                            <Search placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />
+                            <ToggleSwitch checked={showFavoritesOnly} onChange={setShowFavoritesOnly} onLabel="Favorites" offLabel="Favorites" size="small" />
                         </div>
                         <div className="theme-settings__grid">
                             {filteredThemes.length === 0 ? (
@@ -118,17 +123,13 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                                 filteredThemes.map(config => (
                                     <button
                                         key={config.value}
+                                        ref={theme === config.value ? activeThemeRef : null}
                                         type="button"
                                         className={`theme-settings__swatch ${theme === config.value ? 'theme-settings__swatch--active' : ''}`}
                                         onClick={() => handleThemeSelect(config.value as Theme)}
                                     >
-                                        <div
-                                            className="theme-settings__preview"
-                                            data-theme={config.value}
-                                        >
-                                            {FAVORITE_THEMES.has(config.value) && (
-                                                <span className="theme-settings__favorite-badge">&#11088;</span>
-                                            )}
+                                        <div className="theme-settings__preview" data-theme={config.value}>
+                                            {FAVORITE_THEMES.has(config.value) && <span className="theme-settings__favorite-badge">&#11088;</span>}
                                             <div className="theme-settings__preview-header" />
                                             <div className="theme-settings__preview-body">
                                                 <div className="theme-settings__preview-card">

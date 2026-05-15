@@ -15,7 +15,7 @@ export default defineConfig({
         react(),
         dts({
             tsconfigPath: './tsconfig.json',
-            rollupTypes: true,
+            bundleTypes: true,
         }),
         viteStaticCopy({
             targets: [
@@ -25,6 +25,7 @@ export default defineConfig({
                 { src: 'src/styles/scrollbars.scss', dest: 'styles' },
                 { src: 'src/styles/utilities.scss', dest: 'styles' },
                 { src: 'src/styles/themes.scss', dest: 'styles' },
+                { src: 'src/styles/theming/_profile-theme.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/amber-meridian.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/archive-indigo.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/arctic-blue.scss', dest: 'styles/theming' },
@@ -37,6 +38,8 @@ export default defineConfig({
                 { src: 'src/styles/theming/chalk-circuit.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/clinical-aqua.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/cobalt-pulse.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/citrus-vital.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/command-slate.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/crawler-dusk.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/crimson-dusk.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/cyber-forest.scss', dest: 'styles/theming' },
@@ -54,16 +57,21 @@ export default defineConfig({
                 { src: 'src/styles/theming/light-blue.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/luna.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/mesh-circuit.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/midnight-atlas.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/midnight-amber.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/midnight-folio.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/mint-meadow.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/mintone.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/neon-tokyo.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/noir-marquee.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/ocean-breeze.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/ocean-depths.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/sandstone.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/sandy-parchment.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/signal-burst.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/signal-clarity.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/slate-focus.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/slate-bazaar.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/spectrum-vault.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/tailwind-vue-dark.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/terminal-phosphor.scss', dest: 'styles/theming' },
@@ -72,6 +80,7 @@ export default defineConfig({
                 { src: 'src/styles/theming/vault-guard.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/velvet-reel.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/velvet-tome.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/vital-aurora.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/vital-signal.scss', dest: 'styles/theming' },
             ],
         }),
@@ -86,11 +95,11 @@ export default defineConfig({
     build: {
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
-            formats: ['es', 'cjs'],
+            formats: ['es'],
             fileName: format => (format === 'es' ? 'index.esm.js' : 'index.js'),
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime'],
+            external: ['react', 'react-dom', 'react/jsx-runtime', '@google/genai'],
             output: {
                 globals: {
                     react: 'React',
@@ -104,7 +113,7 @@ export default defineConfig({
                 },
             },
         },
-        sourcemap: true,
-        minify: 'terser',
+        sourcemap: false,
+        minify: 'esbuild',
     },
 });

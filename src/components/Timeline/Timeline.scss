@@ -59,6 +59,11 @@ $size-font: (
     md: var(--font-size-sm),
     lg: var(--font-size-md),
 );
+$size-min-width: (
+    sm: 90px,
+    md: 120px,
+    lg: 160px,
+);
 
 // ── Root ──────────────────────────────────────────────────────────────────────
 .timeline {
@@ -166,7 +171,7 @@ $size-font: (
             }
 
             &.timeline--horizontal .timeline__item {
-                min-width: if($s == sm, 90px, if($s == lg, 160px, 120px));
+                min-width: map.get($size-min-width, $s);
             }
         }
     }

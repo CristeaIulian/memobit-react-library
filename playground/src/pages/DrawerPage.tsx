@@ -192,13 +192,7 @@ export const DrawerPage: React.FC = () => {
                     <h3>Drawer with Icon and Title</h3>
                     <div className="component-group">
                         <Button onClick={() => setIconDrawerOpen(true)}>Open Drawer with Icon</Button>
-                        <Drawer
-                            isOpen={isIconDrawerOpen}
-                            onClose={() => setIconDrawerOpen(false)}
-                            position="left"
-                            title="Filters"
-                            icon="filters"
-                        >
+                        <Drawer isOpen={isIconDrawerOpen} onClose={() => setIconDrawerOpen(false)} position="left" title="Filters" icon="filters">
                             <p>Drawer with an icon next to the title — no need to add emojis to the label.</p>
                         </Drawer>
                     </div>
@@ -306,6 +300,7 @@ export const DrawerPage: React.FC = () => {
                             footer={<span style={{ color: 'var(--body-color-muted)' }}>Unsaved changes</span>}
                             secondary={{
                                 text: 'Cancel',
+                                icon: 'clear',
                                 onClick: () => setFooterDrawerOpen(false),
                                 variant: 'default',
                             }}
@@ -348,6 +343,7 @@ export const DrawerPage: React.FC = () => {
                             title="BOOK - B02"
                             secondary={{
                                 text: 'Cancel',
+                                icon: 'clear',
                                 onClick: () => setBookDetailDrawerOpen(false),
                                 variant: 'default',
                             }}

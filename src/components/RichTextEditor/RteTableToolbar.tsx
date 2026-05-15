@@ -6,7 +6,7 @@ import { TableToolbarPos } from './hooks/useTableOps';
 
 interface RteTableToolbarProps {
     pos: TableToolbarPos;
-    toolbarRef: RefObject<HTMLDivElement>;
+    toolbarRef: RefObject<HTMLDivElement | null>;
     addRowAbove: () => void;
     addRowBelow: () => void;
     removeRow: () => void;

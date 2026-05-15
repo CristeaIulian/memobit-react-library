@@ -18,6 +18,8 @@
 @use './theming/chalk-circuit';
 @use './theming/clinical-aqua';
 @use './theming/cobalt-pulse';
+@use './theming/citrus-vital';
+@use './theming/command-slate';
 @use './theming/crawler-dusk';
 @use './theming/crimson-dusk';
 @use './theming/cyber-forest';
@@ -35,16 +37,21 @@
 @use './theming/light-blue';
 @use './theming/luna';
 @use './theming/mesh-circuit';
+@use './theming/midnight-atlas';
 @use './theming/midnight-amber';
+@use './theming/midnight-folio';
 @use './theming/mint-meadow';
 @use './theming/mintone';
 @use './theming/neon-tokyo';
+@use './theming/noir-marquee';
 @use './theming/ocean-breeze';
 @use './theming/ocean-depths';
 @use './theming/sandstone';
 @use './theming/sandy-parchment';
 @use './theming/signal-burst';
+@use './theming/signal-clarity';
 @use './theming/slate-focus';
+@use './theming/slate-bazaar';
 @use './theming/spectrum-vault';
 @use './theming/tailwind-vue-dark';
 @use './theming/terminal-phosphor';
@@ -53,5 +60,6 @@
 @use './theming/vault-guard';
 @use './theming/velvet-reel';
 @use './theming/velvet-tome';
+@use './theming/vital-aurora';
 @use './theming/vital-signal';
 @use './scrollbars';

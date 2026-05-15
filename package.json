@@ -2,14 +2,13 @@
   "name": "@memobit/libs",
   "version": "1.0.0",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.js"
+      "import": "./dist/index.esm.js"
     },
     "./dist/index.css": "./dist/index.css",
     "./dist/styles/variables.scss": "./dist/styles/variables.scss",
@@ -18,6 +17,7 @@
     "./dist/styles/scrollbars.scss": "./dist/styles/scrollbars.scss",
     "./dist/styles/utilities.scss": "./dist/styles/utilities.scss",
     "./dist/styles/themes.scss": "./dist/styles/themes.scss",
+    "./dist/styles/theming/_profile-theme.scss": "./dist/styles/theming/_profile-theme.scss",
     "./dist/styles/theming/amber-meridian.scss": "./dist/styles/theming/amber-meridian.scss",
     "./dist/styles/theming/archive-indigo.scss": "./dist/styles/theming/archive-indigo.scss",
     "./dist/styles/theming/arctic-blue.scss": "./dist/styles/theming/arctic-blue.scss",
@@ -30,6 +30,8 @@
     "./dist/styles/theming/chalk-circuit.scss": "./dist/styles/theming/chalk-circuit.scss",
     "./dist/styles/theming/clinical-aqua.scss": "./dist/styles/theming/clinical-aqua.scss",
     "./dist/styles/theming/cobalt-pulse.scss": "./dist/styles/theming/cobalt-pulse.scss",
+    "./dist/styles/theming/citrus-vital.scss": "./dist/styles/theming/citrus-vital.scss",
+    "./dist/styles/theming/command-slate.scss": "./dist/styles/theming/command-slate.scss",
     "./dist/styles/theming/crawler-dusk.scss": "./dist/styles/theming/crawler-dusk.scss",
     "./dist/styles/theming/crimson-dusk.scss": "./dist/styles/theming/crimson-dusk.scss",
     "./dist/styles/theming/cyber-forest.scss": "./dist/styles/theming/cyber-forest.scss",
@@ -47,16 +49,21 @@
     "./dist/styles/theming/light-blue.scss": "./dist/styles/theming/light-blue.scss",
     "./dist/styles/theming/luna.scss": "./dist/styles/theming/luna.scss",
     "./dist/styles/theming/mesh-circuit.scss": "./dist/styles/theming/mesh-circuit.scss",
+    "./dist/styles/theming/midnight-atlas.scss": "./dist/styles/theming/midnight-atlas.scss",
     "./dist/styles/theming/midnight-amber.scss": "./dist/styles/theming/midnight-amber.scss",
+    "./dist/styles/theming/midnight-folio.scss": "./dist/styles/theming/midnight-folio.scss",
     "./dist/styles/theming/mint-meadow.scss": "./dist/styles/theming/mint-meadow.scss",
     "./dist/styles/theming/mintone.scss": "./dist/styles/theming/mintone.scss",
     "./dist/styles/theming/neon-tokyo.scss": "./dist/styles/theming/neon-tokyo.scss",
+    "./dist/styles/theming/noir-marquee.scss": "./dist/styles/theming/noir-marquee.scss",
     "./dist/styles/theming/ocean-breeze.scss": "./dist/styles/theming/ocean-breeze.scss",
     "./dist/styles/theming/ocean-depths.scss": "./dist/styles/theming/ocean-depths.scss",
     "./dist/styles/theming/sandstone.scss": "./dist/styles/theming/sandstone.scss",
     "./dist/styles/theming/sandy-parchment.scss": "./dist/styles/theming/sandy-parchment.scss",
     "./dist/styles/theming/signal-burst.scss": "./dist/styles/theming/signal-burst.scss",
+    "./dist/styles/theming/signal-clarity.scss": "./dist/styles/theming/signal-clarity.scss",
     "./dist/styles/theming/slate-focus.scss": "./dist/styles/theming/slate-focus.scss",
+    "./dist/styles/theming/slate-bazaar.scss": "./dist/styles/theming/slate-bazaar.scss",
     "./dist/styles/theming/spectrum-vault.scss": "./dist/styles/theming/spectrum-vault.scss",
     "./dist/styles/theming/tailwind-vue-dark.scss": "./dist/styles/theming/tailwind-vue-dark.scss",
     "./dist/styles/theming/terminal-phosphor.scss": "./dist/styles/theming/terminal-phosphor.scss",
@@ -65,6 +72,7 @@
     "./dist/styles/theming/vault-guard.scss": "./dist/styles/theming/vault-guard.scss",
     "./dist/styles/theming/velvet-reel.scss": "./dist/styles/theming/velvet-reel.scss",
     "./dist/styles/theming/velvet-tome.scss": "./dist/styles/theming/velvet-tome.scss",
+    "./dist/styles/theming/vital-aurora.scss": "./dist/styles/theming/vital-aurora.scss",
     "./dist/styles/theming/vital-signal.scss": "./dist/styles/theming/vital-signal.scss"
   },
   "files": [
@@ -80,33 +88,35 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css}\""
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "@eslint/js": "^9.33.0",
-    "@types/react": "^18.3.24",
-    "@types/react-dom": "^18.3.7",
-    "@types/react-router-dom": "^5.3.3",
-    "@vitejs/plugin-react": "^4.5.2",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.2.5",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "prettier": "^3.5.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sass": "^1.92.0",
-    "terser": "^5.39.0",
-    "typescript": "^5.7.3",
-    "vite": "^6.3.5",
-    "vite-plugin-dts": "^4.5.4",
-    "vite-plugin-static-copy": "^3.0.0"
+    "@eslint/js": "9.39.4",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "esbuild": "^0.28.0",
+    "eslint": "9.39.4",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-prettier": "5.5.5",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-simple-import-sort": "13.0.0",
+    "globals": "17.6.0",
+    "prettier": "3.8.3",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "sass": "1.99.0",
+    "terser": "5.47.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.59.3",
+    "vite": "8.0.13",
+    "vite-plugin-dts": "5.0.0",
+    "vite-plugin-static-copy": "3.4.0"
   },
   "dependencies": {
-    "@google/genai": "1.29.1",
-    "react-router-dom": "^6.30.2"
+    "@google/genai": "2.2.0",
+    "react-router-dom": "7.15.1"
   }
 }

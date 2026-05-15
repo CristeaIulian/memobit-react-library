@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 
-import { Icon, IconName } from '../Icon';
+import { Icon, IconName, IconVariant } from '../Icon';
 
 import './Button.scss';
 
@@ -15,6 +15,7 @@ export interface ButtonProps {
     disabled?: boolean;
     /** Icon rendered before children. Accepts an IconName string or a ReactElement. */
     icon?: IconName | React.ReactElement;
+    iconVariant?: IconVariant;
     loading?: boolean;
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
     emojiIcon?: string;
@@ -37,6 +38,7 @@ export const Button: React.FC<ButtonProps> = ({
     disabled = false,
     fullWidth = false,
     icon,
+    iconVariant = 'default',
     loading = false,
     onClick,
     emojiIcon,
@@ -63,7 +65,7 @@ export const Button: React.FC<ButtonProps> = ({
                 </>
             ) : (
                 <>
-                    {icon !== undefined && (typeof icon === 'string' ? <Icon size="lg" name={icon} /> : icon)}
+                    {icon !== undefined && (typeof icon === 'string' ? <Icon size="lg" name={icon} variant={iconVariant} /> : icon)}
                     {emojiIcon && <span>{emojiIcon}</span>}
                     {children && <span>{children}</span>}
                     {sufixIcon && <span>{sufixIcon}</span>}
