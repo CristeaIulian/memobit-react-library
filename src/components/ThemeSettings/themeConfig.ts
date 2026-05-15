@@ -131,22 +131,25 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         value: 'ivory-serif',
         label: 'Ivory Serif',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap',
-        fontUrlDisplay:
-            'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
     },
     {
         value: 'clinical-aqua',
         label: 'Clinical Aqua',
         fontUrl: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap',
-        fontUrlDisplay:
-            'https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap',
     },
     {
         value: 'velvet-tome',
         label: 'Velvet Tome',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap',
-        fontUrlDisplay:
-            'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
+    },
+    {
+        value: 'midnight-folio',
+        label: 'Midnight Folio',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap',
     },
     {
         value: 'velvet-reel',
@@ -155,17 +158,28 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap',
     },
     {
+        value: 'noir-marquee',
+        label: 'Noir Marquee',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&display=swap',
+    },
+    {
         value: 'garden-harvest',
         label: 'Garden Harvest',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap',
     },
     {
+        value: 'citrus-vital',
+        label: 'Citrus Vital',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700&display=swap',
+    },
+    {
         value: 'horizon-amber',
         label: 'Horizon Amber',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap',
-        fontUrlDisplay:
-            'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap',
     },
     {
         value: 'chalk-circuit',
@@ -177,15 +191,19 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         value: 'terracotta-kitchen',
         label: 'Terracotta Kitchen',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap',
-        fontUrlDisplay:
-            'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
     },
     {
         value: 'blush-market',
         label: 'Blush Market',
         fontUrl: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap',
-        fontUrlDisplay:
-            'https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&display=swap',
+    },
+    {
+        value: 'slate-bazaar',
+        label: 'Slate Bazaar',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap',
     },
     {
         value: 'slate-focus',
@@ -197,6 +215,12 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         label: 'Horizon Drift',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap',
+    },
+    {
+        value: 'midnight-atlas',
+        label: 'Midnight Atlas',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&display=swap',
     },
     {
         value: 'vault-guard',
@@ -220,8 +244,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         value: 'emerald-ledger',
         label: 'Emerald Ledger',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
-        fontUrlDisplay:
-            'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
     },
     {
         value: 'vital-signal',
@@ -233,8 +256,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         value: 'gilded-bear',
         label: 'Gilded Bear',
         fontUrl: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap',
-        fontUrlDisplay:
-            'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
     },
     {
         value: 'mesh-circuit',
@@ -245,9 +267,14 @@ export const THEME_CONFIGS: ThemeConfig[] = [
     {
         value: 'amber-meridian',
         label: 'Amber Meridian',
-        fontUrl:
-            'https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap',
+    },
+    {
+        value: 'vital-aurora',
+        label: 'Vital Aurora',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700;800&display=swap',
     },
     {
         value: 'spectrum-vault',
@@ -268,17 +295,21 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         fontUrlMono: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap',
     },
     {
+        value: 'signal-clarity',
+        label: 'Signal Clarity',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap',
+    },
+    {
         value: 'blueprint-clay',
         label: 'Blueprint Clay',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap',
-        fontUrlDisplay:
-            'https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap',
     },
     {
         value: 'brass-chronicle',
         label: 'Brass Chronicle',
-        fontUrl:
-            'https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap',
     },
     {
@@ -286,6 +317,12 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         label: 'Graphite Shell',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap',
+    },
+    {
+        value: 'command-slate',
+        label: 'Command Slate',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap',
     },
 ];
 
