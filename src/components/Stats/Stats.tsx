@@ -4,10 +4,12 @@ import './Stats.scss';
 
 export type StatsAlign = 'left' | 'center';
 export type StatsSize = 'small' | 'medium';
+export type StatsValueVariant = 'default' | 'success' | 'warning' | 'danger' | 'info';
 
 export interface StatsItem {
     label: string;
     value: ReactNode;
+    variant?: StatsValueVariant;
 }
 
 export interface StatsProps {
@@ -47,7 +49,7 @@ export const Stats: React.FC<StatsProps> = ({
             {items.map((item, i) => (
                 <div key={`${item.label}-${i}`} className="stats__item">
                     <span className="stats__label">{item.label}</span>
-                    <span className="stats__value">{item.value}</span>
+                    <span className={`stats__value stats__value--${item.variant ?? 'default'}`}>{item.value}</span>
                 </div>
             ))}
         </div>
