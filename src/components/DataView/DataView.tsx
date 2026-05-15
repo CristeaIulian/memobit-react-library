@@ -11,11 +11,12 @@ import { Pagination } from '../Pagination';
 import { calculateTimelineMarkers, TimelineMarkerDot, type TimelineMarkerInfo, type TimelineMarkersItem } from '../TimelineMarkers';
 
 import { CardView, DEFAULT_PAGE_SIZES, getColumnLabel, renderCellContent, renderColumnLabel } from './DataView.CardView';
+import { DataViewMiniSort } from './DataView.MiniSort';
 import type { DataViewColumn, DataViewGroup, DataViewGroupKey, DataViewProps, SortDirection } from './DataView.types';
 
 import './DataView.scss';
 
-// ─── Sort icon ───────────────────────────────────────────────────────────────
+// Sort icon
 
 interface SortIconProps {
     state: 'unsorted' | 'asc' | 'desc';
@@ -29,7 +30,7 @@ function SortIcon({ state }: SortIconProps) {
     );
 }
 
-// ─── DataView ───────────────────────────────────────────────────────────────
+// DataView
 
 export function DataView<T>({
     columns,
@@ -53,6 +54,7 @@ export function DataView<T>({
     sortKey: controlledSortKey,
     sortDirection: controlledSortDirection,
     onSortChange,
+    miniSort,
     showCardSortControls = true,
     desktopView = 'table',
     cardMaxWidth,
@@ -151,18 +153,12 @@ export function DataView<T>({
     const totalForPagination = isServerPaginated ? controlledTotalItems : sortedData.length;
     const totalPages = Math.max(1, Math.ceil(totalForPagination / pageSize));
     const safeCurrentPage = Math.min(currentPage, totalPages);
-    // When server-paginated, `data` is already the page slice — skip client slicing.
+    // When server-paginated, `data` is already the page slice, so skip client slicing.
     const pagedData = isServerPaginated ? sortedData : sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
 
     const resultsCountLabel = showResultsCount
         ? getResultsCount(pageSize, totalForPagination, totalCount ?? totalForPagination, safeCurrentPage, itemNoun)
         : null;
-    const resultsCountNode = resultsCountLabel ? (
-        <div className="data-view__results-row">
-            <div className="data-view__results-count">{resultsCountLabel}</div>
-        </div>
-    ) : null;
-
     const groupTotals = useMemo<Map<DataViewGroupKey, number> | null>(() => {
         if (!group) return null;
         const totals = new Map<DataViewGroupKey, number>();
@@ -205,7 +201,7 @@ export function DataView<T>({
         return entries;
     }, [group, groupTotals, pagedData]);
 
-    // Timeline markers for table mode — must be called before any conditional return
+    // Timeline markers for table mode. Must be called before any conditional return.
     const tableTimelineMarkers = useMemo(() => {
         if (!timeline) return new Map<number, TimelineMarkerInfo>();
         const items: TimelineMarkersItem[] = pagedData.map(row => ({
@@ -213,7 +209,6 @@ export function DataView<T>({
             date: timeline.dateAccessor(row),
         }));
         return calculateTimelineMarkers(items, timeline.granularity);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pagedData, timeline]);
 
     const updateSelection = (nextIds: Array<string | number>) => {
@@ -263,13 +258,25 @@ export function DataView<T>({
     }));
     const hasSortControls = sortableColumns.length > 0;
     const activeSortColumn = sortKey ? sortableColumns.find(column => column.key === sortKey) : undefined;
+    const miniSortAlign = miniSort?.align ?? 'left';
+    const hasMiniSort = (miniSort?.columns ?? miniSort?.column ?? []).length > 0;
+    const miniSortNode = hasMiniSort ? (
+        <DataViewMiniSort columns={columns} config={miniSort} sortKey={sortKey} sortDirection={sortDirection} onSort={updateSort} />
+    ) : null;
+    const topControlsNode =
+        resultsCountLabel || miniSortNode ? (
+            <div className={`data-view__top-row data-view__top-row--mini-${miniSortAlign}`}>
+                {resultsCountLabel && <div className="data-view__results-count">{resultsCountLabel}</div>}
+                {miniSortNode}
+            </div>
+        ) : null;
 
-    // ── Card mode ────────────────────────────────────────────────────────────
+    // Card mode
 
     if (desktopView === 'cards') {
         return (
             <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`}>
-                {resultsCountNode}
+                {topControlsNode}
                 {showCardSortControls && hasSortControls && (
                     <div className="data-view__card-sort-bar">
                         <div className="data-view__card-sort-field">
@@ -303,7 +310,7 @@ export function DataView<T>({
                             title={sortDirection === 'asc' ? 'Sort descending' : 'Sort ascending'}
                             variant="ghost"
                         >
-                            {sortDirection === 'asc' ? '↑' : '↓'}
+                            <Icon name={sortDirection === 'asc' ? 'arrow-up' : 'arrow-down'} />
                         </Button>
                     </div>
                 )}
@@ -369,7 +376,7 @@ export function DataView<T>({
         );
     }
 
-    // ── Table mode (desktop) ─────────────────────────────────────────────────
+    // Table mode (desktop)
 
     const tableColumns = columns.filter(col => !col.hideInTable);
     const allSelected = selectable && selectedIds.length > 0 && selectedIds.length === data.length;
@@ -378,11 +385,11 @@ export function DataView<T>({
 
     const tableContent = (
         <>
-            {resultsCountNode}
+            {topControlsNode}
             <div className="data-view__wrapper">
                 <table>
                     <thead>
-                        {/* ── Column header row ── */}
+                        {/* Column header row */}
                         <tr>
                             {showTimeline && <th className="data-view__timeline-cell" />}
                             {selectable && (
@@ -430,7 +437,7 @@ export function DataView<T>({
                             )}
                         </tr>
 
-                        {/* ── Filter row (only when at least one column has a filter) ── */}
+                        {/* Filter row (only when at least one column has a filter) */}
                         {hasFilters && (
                             <tr className="data-view__filter-row">
                                 {showTimeline && <td className="data-view__filter-cell data-view__filter-cell--spacer" />}

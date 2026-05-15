@@ -7,6 +7,8 @@ export type {
     DataViewGroup,
     DataViewGroupConfig,
     DataViewGroupKey,
+    DataViewMiniSortConfig,
+    DataViewMiniSortItem,
     DataViewProps,
     DataViewTimelineConfig,
     SortDirection,

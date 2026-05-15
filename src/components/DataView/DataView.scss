@@ -12,10 +12,95 @@
         gap: var(--spacing-8);
     }
 
+    &__top-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-12);
+
+        &--mini-center {
+            justify-content: center;
+        }
+
+        &--mini-right {
+            .data-view__mini-sort {
+                margin-left: auto;
+            }
+        }
+    }
+
     &__results-count {
         color: var(--body-sub-title-color);
         font-size: var(--font-size-sm);
         font-weight: var(--font-weight-medium);
+    }
+
+    &__mini-sort {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-4);
+        padding: var(--spacing-4);
+        border: var(--spacing-1) solid var(--delimiter-color);
+        border-radius: var(--radius);
+        background: var(--card-background-accent-color);
+
+        @include mobile {
+            display: none;
+        }
+    }
+
+    &__mini-sort-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-6);
+        min-height: 32px;
+        padding: var(--spacing-4) var(--spacing-8);
+        border: 0;
+        border-radius: calc(var(--radius) - var(--spacing-2));
+        background: transparent;
+        color: var(--body-color);
+        cursor: pointer;
+        font: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        transition:
+            background var(--transition-fast),
+            color var(--transition-fast),
+            box-shadow var(--transition-fast);
+
+        &:hover:not(:disabled) {
+            background: color-mix(in srgb, var(--body-accent-color) 10%, transparent);
+            color: var(--body-color-accent);
+        }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 var(--spacing-2) color-mix(in srgb, var(--body-accent-color) 35%, transparent);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        &.is-active {
+            background: var(--body-accent-color);
+            color: var(--button-primary-text-color, var(--body-background-color));
+
+            .data-view__mini-sort-icon {
+                color: currentColor;
+            }
+        }
+    }
+
+    &__mini-sort-label {
+        white-space: nowrap;
+    }
+
+    &__mini-sort-icon {
+        flex-shrink: 0;
     }
 
     &__wrapper {
@@ -78,7 +163,7 @@
         }
     }
 
-    // ── Column header content ───────────────────────────────────────────
+    // Column header content
 
     &__th-content {
         display: flex;
@@ -98,7 +183,7 @@
         flex-shrink: 0;
     }
 
-    // ── Sort icon ───────────────────────────────────────────────────────
+    // Sort icon
 
     &__sort-icon {
         font-size: var(--font-size-xs);
@@ -120,7 +205,7 @@
         }
     }
 
-    // ── Resizer handle ──────────────────────────────────────────────────
+    // Resizer handle
 
     &__resizer {
         position: absolute;
@@ -131,7 +216,7 @@
         cursor: col-resize;
     }
 
-    // ── Filter row (table mode) ─────────────────────────────────────────
+    // Filter row (table mode)
 
     &__filter-row {
         background: var(--card-background-color);
@@ -161,7 +246,7 @@
         }
     }
 
-    // ── Filter bar (card mode) ──────────────────────────────────────────
+    // Filter bar (card mode)
 
     &__filter-bar {
         display: flex;
@@ -178,7 +263,7 @@
         min-width: 140px;
     }
 
-    // ── Misc ────────────────────────────────────────────────────────────
+    // Misc
 
     &__checkbox {
         width: 40px;
@@ -216,7 +301,7 @@
         gap: var(--spacing-8);
     }
 
-    // ── Card mode ───────────────────────────────────────────────────────
+    // Card mode
 
     &--cards {
         gap: var(--spacing-16);
@@ -403,7 +488,7 @@
     overflow: visible;
 }
 
-// ── Grouping ────────────────────────────────────────────────────────────
+// Grouping
 
 .data-view {
     &__groups {

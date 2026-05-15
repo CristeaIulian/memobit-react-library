@@ -37,6 +37,8 @@ export {
     type DataViewGroupConfig,
     type DataViewGroup,
     type DataViewGroupKey,
+    type DataViewMiniSortConfig,
+    type DataViewMiniSortItem,
     type SortDirection,
 } from './components/DataView';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';

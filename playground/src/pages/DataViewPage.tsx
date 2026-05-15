@@ -152,7 +152,7 @@ export const DataViewPage: React.FC = () => {
                 <h2>Filters &amp; Sorting</h2>
                 <p>
                     Each column optionally accepts a <code>filter</code> node rendered in a dedicated filter row below the headers. Sorting is built in — click
-                    any sortable column header to toggle asc/desc. Both are optional per-column.
+                    any sortable column header to toggle asc/desc, or expose configured one-way quick sorts with <code>miniSort</code>.
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
@@ -170,6 +170,13 @@ export const DataViewPage: React.FC = () => {
                             empty={{
                                 title: 'No results',
                                 description: 'Try changing the filter values.',
+                            }}
+                            miniSort={{
+                                columns: [
+                                    { column: 'name' },
+                                    { column: 'score', direction: 'desc', icon: 'trend-up', label: 'Top score' },
+                                    { column: 'joinedAt', direction: 'desc', icon: 'calendar', label: 'Newest' },
+                                ],
                             }}
                         />
                     </div>

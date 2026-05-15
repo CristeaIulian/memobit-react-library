@@ -27,7 +27,7 @@ export interface DataViewColumn<T> {
 
 export interface DataViewCardConfig<T> {
     icon?: (row: T) => IconName | undefined;
-    /** Renders above the card header — use for thumbnails / hero images. */
+    /** Renders above the card header. Use for thumbnails / hero images. */
     media?: (row: T) => React.ReactNode;
     title: (row: T) => React.ReactNode;
     subtitle?: (row: T) => React.ReactNode;
@@ -46,6 +46,20 @@ export interface DataViewEmptyConfig {
     icon?: React.ReactNode;
     primary?: ExternalButtonConfig;
     secondary?: ExternalButtonConfig;
+}
+
+export interface DataViewMiniSortItem {
+    column: string;
+    direction?: SortDirection;
+    icon?: IconName;
+    label?: React.ReactNode;
+}
+
+export interface DataViewMiniSortConfig {
+    align?: 'left' | 'center' | 'right';
+    columns?: DataViewMiniSortItem[];
+    /** Alias for `columns`, supported for concise configs like `{ column: [...] }`. */
+    column?: DataViewMiniSortItem[];
 }
 
 export type DataViewGroupKey = string | number | null;
@@ -76,7 +90,7 @@ export interface DataViewProps<T> {
     rowKey?: (row: T, index: number) => string | number;
     selectable?: boolean;
     onSelectionChange?: (rows: T[]) => void;
-    /** Controlled selection — when provided, DataView reflects this array of row keys instead of its internal state. */
+    /** Controlled selection. When provided, DataView reflects this array of row keys instead of its internal state. */
     selectedIds?: Array<string | number>;
     pageSizeOptions?: number[];
     initialPageSize?: number;
@@ -97,6 +111,8 @@ export interface DataViewProps<T> {
     /** Controlled sort direction. */
     sortDirection?: SortDirection;
     onSortChange?: (sort: { key: string | null; direction: SortDirection }) => void;
+    /** Optional desktop quick-sort nav. Hidden by default. */
+    miniSort?: DataViewMiniSortConfig;
     /** Show the built-in sort controls above cards. */
     showCardSortControls?: boolean;
     /** Selected layout mode. */
@@ -114,7 +130,7 @@ export interface DataViewProps<T> {
     group?: DataViewGroupConfig<T>;
     /** Display the "Showing X-Y of Z" results-count label above the data. Default: true. */
     showResultsCount?: boolean;
-    /** Unfiltered total used to render the "filtered (… total)" form when smaller than this value. Defaults to `data.length`. */
+    /** Unfiltered total used to render the "filtered (... total)" form when smaller than this value. Defaults to `data.length`. */
     totalCount?: number;
     /** Noun appended to the results-count label, e.g. "books". */
     itemNoun?: string;
