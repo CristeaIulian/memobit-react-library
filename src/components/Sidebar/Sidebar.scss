@@ -215,19 +215,19 @@
 }
 
 .sidebar::-webkit-scrollbar {
-    width: var(--spacing-4);
+    width: var(--scrollbar-size);
 }
 
 .sidebar::-webkit-scrollbar-track {
-    background: var(--card-background-color);
+    background: var(--scrollbar-track-color);
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background: var(--delimiter-color);
-    border-radius: var(--spacing-4);
+    background: var(--scrollbar-thumb-color);
+    border-radius: var(--scrollbar-radius);
 
     &:hover {
-        background: var(--body-color-muted);
+        background: var(--scrollbar-thumb-hover-color);
     }
 }
 

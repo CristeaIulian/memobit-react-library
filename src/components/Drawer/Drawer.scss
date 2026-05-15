@@ -162,18 +162,18 @@
 
 // Custom scrollbar for drawer content
 .drawer__content::-webkit-scrollbar {
-    width: 6px;
+    width: var(--scrollbar-size);
 }
 
 .drawer__content::-webkit-scrollbar-track {
-    background: var(--card-background-color);
+    background: var(--scrollbar-track-color);
 }
 
 .drawer__content::-webkit-scrollbar-thumb {
-    background: var(--delimiter-color);
-    border-radius: 3px;
+    background: var(--scrollbar-thumb-color);
+    border-radius: var(--scrollbar-radius);
 
     &:hover {
-        background: var(--body-color-muted);
+        background: var(--scrollbar-thumb-hover-color);
     }
 }

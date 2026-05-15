@@ -281,23 +281,22 @@
         top: auto;
     }
 
-    // Custom scrollbar for dark theme
     &::-webkit-scrollbar {
-        width: var(--spacing-8);
+        width: var(--scrollbar-size);
     }
 
     &::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: var(--radius-sm);
+        background: var(--scrollbar-track-color);
+        border-radius: var(--scrollbar-radius);
     }
 
     &::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: var(--radius-sm);
+        background: var(--scrollbar-thumb-color);
+        border-radius: var(--scrollbar-radius);
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: var(--scrollbar-thumb-hover-color);
     }
 
     .dropdown-options-list {
