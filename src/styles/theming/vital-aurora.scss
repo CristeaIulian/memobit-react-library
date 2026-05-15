@@ -1,0 +1,45 @@
+// Vital Aurora theme - Dedicated to Life Expectancy / Lifespan app
+// Household almanac light: paper, ink, editorial serif, red deltas, lime readings
+@use './profile-theme' as profile;
+
+[data-theme='vital-aurora'] {
+    @include profile.app-profile(
+        (
+            font-family: "'IBM Plex Mono', ui-monospace, monospace",
+            display-family: "'Newsreader', Georgia, serif",
+            base: #eee9df,
+            surface: #f6f2ea,
+            surface-alt: #e7dfcf,
+            surface-strong: #e9e2d3,
+            border: #cfc6b5,
+            border-strong: #151512,
+            text: #191915,
+            title: #0b0b09,
+            muted: #6f6a5f,
+            sub-title: #3f3b34,
+            accent: #ef4d35,
+            accent-strong: #db3f2b,
+            accent-soft: #ded4c2,
+            accent-contrast: #fffaf1,
+            success: #b8e10c,
+            success-contrast: #0b0b09,
+            warning: #b8e10c,
+            warning-contrast: #0b0b09,
+            danger: #ef4d35,
+            info: #0c0c0a,
+            info-contrast: #fffaf1,
+            wash-a: #ef4d35,
+            wash-b: #b8e10c,
+            header-background: #0c0c0a,
+            header-color: #fffaf1,
+            dropdown-header-background: #f6f2ea,
+            dropdown-header-color: #191915,
+            form-background: #f6f2ea,
+            form-focus-background: #fffaf1,
+            modal-footer-background: #e9e2d3,
+            title-transform: none,
+            title-letter-spacing: 0,
+            label-letter-spacing: 0.14em,
+        )
+    );
+}

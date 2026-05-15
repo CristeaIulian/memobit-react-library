@@ -2,14 +2,13 @@
 // Motivational dark: deep charcoal, sunrise amber-gold, forward momentum
 [data-theme='horizon-amber'] {
     --font-family: 'Outfit', 'DM Sans', sans-serif;
-    --font-family-display: 'Playfair Display', Georgia, serif;
+    --font-family-display: 'Sora', 'Outfit', sans-serif;
 
     --body-background: var(--body-background-wash, var(--body-background-base));
     --body-background-base: #111318;
     --body-background-wash:
         radial-gradient(70% 55% at 100% 100%, rgba(245, 158, 11, 0.16) 0%, transparent 60%),
-        radial-gradient(50% 45% at 0% 0%, rgba(120, 60, 20, 0.12) 0%, transparent 65%),
-        linear-gradient(150deg, #161820 0%, #0f1016 55%, #141620 100%);
+        radial-gradient(50% 45% at 0% 0%, rgba(120, 60, 20, 0.12) 0%, transparent 65%), linear-gradient(150deg, #161820 0%, #0f1016 55%, #141620 100%);
     --body-color: #e4e6f4;
     --body-color-accent: #ffffff;
     --body-color-muted: #7880a0;
@@ -40,10 +39,10 @@
     --card-footer-background-color: #161820;
     --card-footer-color: #7880a0;
     --card-title-color: var(--body-title-color);
-    --card-title-font-family: var(--font-family-display, Georgia, serif);
+    --card-title-font-family: var(--font-family-display, sans-serif);
     --card-title-font-size: var(--font-size-lg);
-    --card-title-font-style: italic;
-    --card-title-font-weight: 600;
+    --card-title-font-style: normal;
+    --card-title-font-weight: 700;
     --card-title-letter-spacing: normal;
     --card-title-text-transform: none;
 
@@ -127,10 +126,10 @@
     --modal-header-background-color: #161820;
     --modal-header-color: #ffffff;
     --modal-title-color: var(--modal-header-color);
-    --modal-title-font-family: var(--font-family-display, Georgia, serif);
-    --modal-title-font-size: var(--font-size-xl);
-    --modal-title-font-style: italic;
-    --modal-title-font-weight: 600;
+    --modal-title-font-family: var(--font-family-display, sans-serif);
+    --modal-title-font-size: var(--font-size-lg);
+    --modal-title-font-style: normal;
+    --modal-title-font-weight: 700;
     --modal-title-letter-spacing: normal;
     --modal-title-text-transform: none;
     --modal-body-color: #b8c0d8;
@@ -175,7 +174,7 @@
     --form-control-focus-background-color: #161820;
     --form-control-focus-border-color: #f59e0b;
     --form-control-focus-color: #ffffff;
-    --form-control-placeholder-color: #424868;
+    --form-control-placeholder-color: #8d94b4;
     --form-control-success-background-color: rgba(34, 197, 94, 0.1);
     --form-control-success-color: #22c55e;
     --form-control-success-border-color: #22c55e;
