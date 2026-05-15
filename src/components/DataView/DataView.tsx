@@ -9,6 +9,7 @@ import { EmptyState } from '../EmptyState';
 import { Icon } from '../Icon';
 import { Pagination } from '../Pagination';
 import { calculateTimelineMarkers, TimelineMarkerDot, type TimelineMarkerInfo, type TimelineMarkersItem } from '../TimelineMarkers';
+import { Tooltip } from '../Tooltip';
 
 import { CardView, DEFAULT_PAGE_SIZES, getColumnLabel, renderCellContent, renderColumnLabel } from './DataView.CardView';
 import { DataViewMiniSort } from './DataView.MiniSort';
@@ -24,7 +25,7 @@ interface SortIconProps {
 
 function SortIcon({ state }: SortIconProps) {
     return (
-        <span className={`data-view__sort-icon data-view__sort-icon--${state}`} aria-hidden="true">
+        <span className={`data-view__sort-icon data-view__sort-icon--${state}`}>
             <Icon name={state === 'asc' ? 'arrow-up' : state === 'desc' ? 'arrow-down' : 'arrow-bidirectional-vertical'} />
         </span>
     );
@@ -299,19 +300,19 @@ export function DataView<T>({
                                 }}
                             />
                         </div>
-                        <Button
-                            ariaLabel={`Sort ${sortDirection === 'asc' ? 'descending' : 'ascending'}`}
-                            className="data-view__card-sort-direction"
-                            disabled={!activeSortColumn}
-                            onClick={() => {
-                                if (!activeSortColumn) return;
-                                updateSort(activeSortColumn.key, sortDirection === 'asc' ? 'desc' : 'asc');
-                            }}
-                            title={sortDirection === 'asc' ? 'Sort descending' : 'Sort ascending'}
-                            variant="ghost"
-                        >
-                            <Icon name={sortDirection === 'asc' ? 'arrow-up' : 'arrow-down'} />
-                        </Button>
+                        <Tooltip title={sortDirection === 'asc' ? 'Sort descending' : 'Sort ascending'}>
+                            <Button
+                                className="data-view__card-sort-direction"
+                                disabled={!activeSortColumn}
+                                onClick={() => {
+                                    if (!activeSortColumn) return;
+                                    updateSort(activeSortColumn.key, sortDirection === 'asc' ? 'desc' : 'asc');
+                                }}
+                                variant="ghost"
+                            >
+                                <Icon name={sortDirection === 'asc' ? 'arrow-up' : 'arrow-down'} />
+                            </Button>
+                        </Tooltip>
                     </div>
                 )}
 

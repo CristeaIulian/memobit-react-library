@@ -1,4 +1,6 @@
+import { Button } from '../Button';
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 import { getColumnLabel } from './DataView.CardView';
 import type { DataViewColumn, DataViewMiniSortConfig, SortDirection } from './DataView.types';
@@ -16,7 +18,7 @@ export function DataViewMiniSort<T>({ columns, config, sortDirection, sortKey, o
     if (items.length === 0) return null;
 
     return (
-        <nav className="data-view__mini-sort" aria-label="Quick sort">
+        <div className="data-view__mini-sort">
             {items.map((item, index) => {
                 const direction = item.direction ?? 'asc';
                 const column = columns.find(col => col.key === item.column);
@@ -26,21 +28,20 @@ export function DataViewMiniSort<T>({ columns, config, sortDirection, sortKey, o
                 const labelText = typeof label === 'string' || typeof label === 'number' ? String(label) : item.column;
 
                 return (
-                    <button
-                        key={`${item.column}-${direction}-${index}`}
-                        type="button"
-                        className={`data-view__mini-sort-button${isActive ? ' is-active' : ''}`}
-                        disabled={!column}
-                        aria-label={`Sort ${labelText} ${direction === 'asc' ? 'ascending' : 'descending'}`}
-                        aria-pressed={isActive}
-                        title={`Sort ${labelText} ${direction === 'asc' ? 'ascending' : 'descending'}`}
-                        onClick={() => onSort(item.column, direction)}
-                    >
-                        {icon && <Icon className="data-view__mini-sort-icon" name={icon} size="sm" variant={isActive ? 'accent' : 'muted'} />}
-                        <span className="data-view__mini-sort-label">{label}</span>
-                    </button>
+                    <Tooltip key={`${item.column}-${direction}-${index}`} title={`Sort ${labelText} ${direction === 'asc' ? 'ascending' : 'descending'}`}>
+                        <Button
+                            className={`data-view__mini-sort-button${isActive ? ' is-active' : ''}`}
+                            disabled={!column}
+                            icon={icon ? <Icon className="data-view__mini-sort-icon" name={icon} size="sm" variant={isActive ? 'accent' : 'muted'} /> : undefined}
+                            size="small"
+                            variant="ghost"
+                            onClick={() => onSort(item.column, direction)}
+                        >
+                            {label}
+                        </Button>
+                    </Tooltip>
                 );
             })}
-        </nav>
+        </div>
     );
 }

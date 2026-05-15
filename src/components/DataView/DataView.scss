@@ -50,7 +50,7 @@
         }
     }
 
-    &__mini-sort-button {
+    &__mini-sort-button.button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -86,17 +86,17 @@
         }
 
         &.is-active {
-            background: var(--body-accent-color);
-            color: var(--button-primary-text-color, var(--body-background-color));
+            background: var(--button-info-background-color);
+            color: var(--button-info-color);
 
             .data-view__mini-sort-icon {
                 color: currentColor;
             }
         }
-    }
 
-    &__mini-sort-label {
-        white-space: nowrap;
+        > span {
+            white-space: nowrap;
+        }
     }
 
     &__mini-sort-icon {
@@ -363,7 +363,7 @@
         -webkit-backdrop-filter: var(--card-backdrop-filter, none);
 
         &:hover {
-            box-shadow: var(--card-hover-box-shadow, 0 var(--spacing-8) var(--spacing-24) rgba(0, 0, 0, 0.18));
+            box-shadow: var(--card-surface-box-shadow);
             transform: translateY(-2px);
         }
 
