@@ -8,7 +8,15 @@ import { ToggleSwitch } from '../ToggleSwitch';
 
 import { useTheme } from './useTheme';
 import { type Theme } from './ThemeContextValue';
-import { FAVORITE_THEMES, THEME_CONFIGS } from './themeConfig';
+import { FAVORITE_THEMES, getThemeAppearance, THEME_CONFIGS, type ThemeAppearance } from './themeConfig';
+
+type AppearanceFilter = 'all' | ThemeAppearance;
+
+const APPEARANCE_FILTERS: { value: AppearanceFilter; label: string }[] = [
+    { value: 'all', label: 'All' },
+    { value: 'light', label: 'Light' },
+    { value: 'dark', label: 'Dark' },
+];
 
 import './ThemeSettings.scss';
 
@@ -32,6 +40,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+    const [appearanceFilter, setAppearanceFilter] = useState<AppearanceFilter>('all');
     const activeThemeRef = useRef<HTMLButtonElement | null>(null);
     const hasScrolledToActiveThemeRef = useRef(false);
 
@@ -42,25 +51,30 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
             themes = themes.filter(config => FAVORITE_THEMES.has(config.value));
         }
 
+        if (appearanceFilter !== 'all') {
+            themes = themes.filter(config => getThemeAppearance(config.value) === appearanceFilter);
+        }
+
         if (searchQuery.trim()) {
             const query = searchQuery.toLowerCase().trim();
             themes = themes.filter(config => config.label.toLowerCase().includes(query));
         }
 
         return themes;
-    }, [searchQuery, showFavoritesOnly]);
+    }, [searchQuery, showFavoritesOnly, appearanceFilter]);
 
     useEffect(() => {
         if (isOpen) {
             setSearchQuery('');
             setShowFavoritesOnly(false);
+            setAppearanceFilter('all');
         } else {
             hasScrolledToActiveThemeRef.current = false;
         }
     }, [isOpen]);
 
     useEffect(() => {
-        if (!isOpen || searchQuery || showFavoritesOnly || hasScrolledToActiveThemeRef.current) {
+        if (!isOpen || searchQuery || showFavoritesOnly || appearanceFilter !== 'all' || hasScrolledToActiveThemeRef.current) {
             return;
         }
 
@@ -70,7 +84,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
         });
 
         return () => window.cancelAnimationFrame(animationFrameId);
-    }, [isOpen, searchQuery, showFavoritesOnly, theme]);
+    }, [isOpen, searchQuery, showFavoritesOnly, appearanceFilter, theme]);
 
     const handleThemeSelect = (next: Theme) => {
         setPreviewTheme(next);
@@ -115,6 +129,21 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                         <div className="theme-settings__toolbar">
                             <Search placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />
                             <ToggleSwitch checked={showFavoritesOnly} onChange={setShowFavoritesOnly} onLabel="Favorites" offLabel="Favorites" size="small" />
+                        </div>
+                        <div className="theme-settings__appearance" role="group" aria-label="Filter by appearance">
+                            {APPEARANCE_FILTERS.map(filter => (
+                                <button
+                                    key={filter.value}
+                                    type="button"
+                                    className={`theme-settings__appearance-option ${
+                                        appearanceFilter === filter.value ? 'theme-settings__appearance-option--active' : ''
+                                    }`}
+                                    aria-pressed={appearanceFilter === filter.value}
+                                    onClick={() => setAppearanceFilter(filter.value)}
+                                >
+                                    {filter.label}
+                                </button>
+                            ))}
                         </div>
                         <div className="theme-settings__grid">
                             {filteredThemes.length === 0 ? (

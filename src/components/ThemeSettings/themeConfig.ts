@@ -177,6 +177,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         label: 'Garden Harvest',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap',
+        recommendedApps: ['Nutrition'],
     },
     {
         value: 'citrus-vital',
@@ -374,7 +375,8 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         label: 'Atelier Media',
         recommendedApps: ['MediaOrganizer'],
         fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
-        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap',
+        fontUrlDisplay:
+            'https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap',
     },
     {
         value: 'chrono-atlas',
@@ -395,6 +397,32 @@ export const FAVORITE_THEMES = new Set([
     'sandstone',
     'tailwind-vue-dark',
 ]);
+
+export const LIGHT_THEMES = new Set([
+    'atelier-media',
+    'blueprint-clay',
+    'blush-market',
+    'chrono-atlas',
+    'clinical-aqua',
+    'frost-petal',
+    'garden-harvest',
+    'horizon-drift',
+    'ivory-serif',
+    'lavender-mist',
+    'mint-meadow',
+    'mintone',
+    'ocean-breeze',
+    'sandstone',
+    'sandy-parchment',
+    'terracotta-kitchen',
+    'vital-aurora',
+]);
+
+export type ThemeAppearance = 'light' | 'dark';
+
+export const getThemeAppearance = (themeValue: string): ThemeAppearance => {
+    return LIGHT_THEMES.has(themeValue) ? 'light' : 'dark';
+};
 
 export const getThemeConfig = (themeValue: string): ThemeConfig | undefined => {
     return THEME_CONFIGS.find(config => config.value === themeValue);
