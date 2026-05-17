@@ -28,9 +28,69 @@
         border-top: var(--spacing-1) solid var(--delimiter-color);
     }
 
+    &__nav-node {
+        @include flex-column;
+        gap: var(--spacing-4);
+    }
+
+    &__nav-row {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-4);
+        padding-left: calc(var(--control-panel-nav-depth, 0) * var(--spacing-16));
+    }
+
+    &__nav-toggle,
+    &__nav-toggle-placeholder {
+        flex-shrink: 0;
+        width: var(--spacing-24);
+        height: var(--spacing-24);
+    }
+
+    &__nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--body-color-muted);
+        cursor: pointer;
+        transition:
+            background var(--transition-fast),
+            color var(--transition-fast),
+            transform var(--transition-fast);
+
+        &:hover {
+            background: var(--card-background-accent-color);
+            color: var(--body-color-accent);
+        }
+
+        &--open {
+            color: var(--body-accent-color);
+            transform: rotate(90deg);
+        }
+    }
+
+    &__nav-toggle-placeholder {
+        display: inline-block;
+    }
+
+    &__nav-children {
+        @include flex-column;
+        gap: var(--spacing-4);
+        display: none;
+
+        &--open {
+            display: flex;
+        }
+    }
+
     &__nav-item {
         display: flex;
         align-items: center;
+        gap: var(--spacing-8);
         width: 100%;
         min-height: var(--spacing-40);
         padding: var(--spacing-8) var(--spacing-12);
@@ -60,12 +120,19 @@
         }
     }
 
+    &__nav-label {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
     &__nav-dot {
         flex-shrink: 0;
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        margin-right: var(--spacing-8);
     }
 
     &__nav-badges {

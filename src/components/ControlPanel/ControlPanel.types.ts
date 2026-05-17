@@ -124,11 +124,14 @@ export interface ControlPanelNavItem {
     id: string;
     label: string;
     isActive: boolean;
-    onClick: () => void;
+    onClick?: () => void;
     icon?: IconName;
     color?: string;
     count?: number;
     badges?: ControlPanelNavItemBadge[];
+    children?: ControlPanelNavItem[];
+    isOpen?: boolean;
+    onOpenChange?: (isOpen: boolean, item: ControlPanelNavItem) => void;
 }
 
 export interface ControlPanelProps {
