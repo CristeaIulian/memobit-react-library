@@ -7,6 +7,9 @@
     --body-background: var(--body-background-wash, var(--body-background-base));
     --body-background-base: #f4ecdc;
     --body-background-wash: radial-gradient(120% 100% at 0% 0%, #f8ecd0 0%, #e8d7af 45%, #cbb383 100%);
+    --body-background-glow:
+        radial-gradient(900px 500px at 80% 10%, oklch(0.55 0.08 75 / 0.33) 0%, transparent 60%),
+        radial-gradient(700px 700px at 10% 90%, color-mix(in oklch, oklch(0.82 0.13 75) 14%, transparent) 0%, transparent 65%);
     --body-color: #423929;
     --body-color-accent: #20160d;
     --body-color-muted: #7e725f;

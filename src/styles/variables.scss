@@ -6,6 +6,11 @@
     --checkbox-size: 18px;
     --radio-size: 18px;
 
+    // Optional ambient background overlay, painted as a fixed body::before layer.
+    // Themes only set this when they want a radial glow behind app content;
+    // otherwise it stays `none` and the overlay is inert.
+    --body-background-glow: none;
+
     --spacing-1: 1px;
     --spacing-2: 2px;
     --spacing-4: 4px;
