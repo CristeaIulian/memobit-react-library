@@ -46,7 +46,7 @@ export const ProgressBar = ({
         }
 
         return (labelAfterValue ? displayTextContent : displayTextContent.reverse()).join(' - ');
-    }, []);
+    }, [showPercentage, value, label, labelAfterValue]);
 
     return (
         <div
