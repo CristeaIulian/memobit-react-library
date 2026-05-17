@@ -118,7 +118,7 @@ export const Drawer: React.FC<DrawerProps> = ({
                                 const tooltipText = action.title ?? action.label;
 
                                 return tooltipText ? (
-                                    <Tooltip key={action.id} title={tooltipText}>
+                                    <Tooltip key={action.id} title={tooltipText} position="bottom">
                                         {button}
                                     </Tooltip>
                                 ) : (
