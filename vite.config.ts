@@ -1,4 +1,5 @@
-import { readFileSync } from 'fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { execSync } from 'child_process';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -6,10 +7,41 @@ import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8'));
+const buildNumberPath = resolve(__dirname, '.build-number');
+
+const getCommitHash = (): string => {
+    try {
+        return execSync('git rev-parse --short HEAD', { cwd: __dirname }).toString().trim();
+    } catch {
+        return 'unknown';
+    }
+};
+
+const readBuildNumber = (): number => {
+    try {
+        const value = Number(readFileSync(buildNumberPath, 'utf-8').trim());
+        return Number.isFinite(value) ? value : 0;
+    } catch {
+        return 0;
+    }
+};
+
+const libBuildNumber = readBuildNumber() + 1;
+writeFileSync(buildNumberPath, `${libBuildNumber}\n`);
+
+const libVersionInfo = {
+    version: pkg.version,
+    buildNumber: libBuildNumber,
+    commit: getCommitHash(),
+    buildDate: new Date().toISOString(),
+};
 
 export default defineConfig({
     define: {
-        __LIB_VERSION__: JSON.stringify(pkg.version),
+        __LIB_VERSION__: JSON.stringify(libVersionInfo.version),
+        __LIB_BUILD_NUMBER__: JSON.stringify(libVersionInfo.buildNumber),
+        __LIB_COMMIT__: JSON.stringify(libVersionInfo.commit),
+        __LIB_BUILD_DATE__: JSON.stringify(libVersionInfo.buildDate),
     },
     plugins: [
         react(),
@@ -84,11 +116,19 @@ export default defineConfig({
                 { src: 'src/styles/theming/vital-signal.scss', dest: 'styles/theming' },
             ],
         }),
+        {
+            name: 'memobit-lib-version-metadata',
+            closeBundle() {
+                const distDir = resolve(__dirname, 'dist');
+                mkdirSync(distDir, { recursive: true });
+                writeFileSync(resolve(distDir, 'version.json'), `${JSON.stringify(libVersionInfo, null, 2)}\n`);
+            },
+        },
     ],
     css: {
         preprocessorOptions: {
             scss: {
-                api: 'modern-compiler',
+                silenceDeprecations: ['legacy-js-api'],
             },
         },
     },

@@ -6,12 +6,7 @@ export { AvatarInitials } from './components/AvatarInitials';
 export { Badge, type BadgeVariant, type BadgeProps } from './components/Badge';
 export { BMI } from './components/BMI';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
-export {
-    BulkActionBar,
-    type BulkAction,
-    type BulkActionBarProgress,
-    type BulkActionBarProps,
-} from './components/BulkActionBar';
+export { BulkActionBar, type BulkAction, type BulkActionBarProgress, type BulkActionBarProps } from './components/BulkActionBar';
 export { Button, type ButtonVariant } from './components/Button';
 export { Calendar, type CalendarProps, type CalendarMode, type CalendarDateRange } from './components/Calendar';
 export { CalendarHeatmap, type CalendarHeatmapProps, type CalendarHeatmapDataPoint } from './components/CalendarHeatmap';
@@ -176,11 +171,7 @@ export type { User, LoginCredentials, LoginResponse, VerifyResponse, AuthConfig,
 
 // Export hooks
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';
-export {
-    useAppPersistence,
-    type AppPersistenceDefaults,
-    type UseAppPersistenceReturn,
-} from './hooks/useAppPersistence';
+export { useAppPersistence, type AppPersistenceDefaults, type UseAppPersistenceReturn } from './hooks/useAppPersistence';
 export { useBodyScrollLock } from './hooks/useBodyScrollLock';
 export { useComponentEffect } from './hooks/useComponentEffect';
 export { useAuth } from './hooks/useAuth';
@@ -218,5 +209,5 @@ export { getResultsCount } from './helpers/Pagination';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
 export { fuzzyMatch } from './helpers/Search';
 export { validateVin, type VinValidationResult } from './validators/Vin';
-export { LIB_VERSION } from './version';
+export { LIB_BUILD_DATE, LIB_BUILD_ID, LIB_BUILD_NUMBER, LIB_COMMIT, LIB_VERSION } from './version';
 export { initVersionInfo } from './helpers/VersionInfo';

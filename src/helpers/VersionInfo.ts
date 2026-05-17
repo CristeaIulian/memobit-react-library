@@ -1,4 +1,4 @@
-import { LIB_VERSION } from '../version';
+import { LIB_BUILD_DATE, LIB_BUILD_NUMBER, LIB_COMMIT, LIB_VERSION } from '../version';
 
 interface AppVersionInfo {
     app: string;
@@ -8,6 +8,9 @@ interface AppVersionInfo {
 
 interface FullVersionInfo extends AppVersionInfo {
     lib: string;
+    libBuildNumber: number;
+    libCommit: string;
+    libBuildDate: string;
 }
 
 declare global {
@@ -37,16 +40,22 @@ const showToast = (info: FullVersionInfo): void => {
         'box-shadow:0 4px 16px rgba(0,0,0,0.35)',
         'pointer-events:none',
     ].join(';');
-    el.textContent = `app ${info.app} (${info.commit}) · lib ${info.lib} · built ${info.buildDate}`;
+    el.textContent = `app ${info.app} (${info.commit}) - lib build ${info.libBuildNumber} - built ${info.buildDate}`;
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 5000);
 };
 
 export const initVersionInfo = (appInfo: AppVersionInfo): void => {
-    const versions: FullVersionInfo = { ...appInfo, lib: LIB_VERSION };
+    const versions: FullVersionInfo = {
+        ...appInfo,
+        lib: LIB_VERSION,
+        libBuildNumber: LIB_BUILD_NUMBER,
+        libCommit: LIB_COMMIT,
+        libBuildDate: LIB_BUILD_DATE,
+    };
     window.__VERSIONS__ = versions;
     console.info(
-        `%c build %c app ${versions.app} (${versions.commit}) · lib ${versions.lib} · ${versions.buildDate} `,
+        `%c build %c app ${versions.app} (${versions.commit}) - lib build ${versions.libBuildNumber} - ${versions.buildDate} `,
         'background:#222;color:#0f0;padding:2px 6px;border-radius:3px 0 0 3px;font-weight:bold',
         'background:#333;color:#eee;padding:2px 6px;border-radius:0 3px 3px 0'
     );

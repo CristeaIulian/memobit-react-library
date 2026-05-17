@@ -41,7 +41,8 @@
       "Bash(node .fix_zwsp.js)",
       "Bash(node .fix_zwsp.cjs)",
       "Bash(Remove-Item \"D:/Projects/Web Apps/Online/memobit-react-presentation/src/pages/iconsAliases.ts\")",
-      "Bash(rm \"D:/Projects/Web Apps/Online/central/dev/frontend/vite.config.js\" \"D:/Projects/Web Apps/Online/central/dev/frontend/vite.config.d.ts\" \"D:/Projects/Web Apps/Local Tools/investments/vite.config.js\" \"D:/Projects/Web Apps/Local Tools/investments/vite.config.d.ts\")"
+      "Bash(rm \"D:/Projects/Web Apps/Online/central/dev/frontend/vite.config.js\" \"D:/Projects/Web Apps/Online/central/dev/frontend/vite.config.d.ts\" \"D:/Projects/Web Apps/Local Tools/investments/vite.config.js\" \"D:/Projects/Web Apps/Local Tools/investments/vite.config.d.ts\")",
+      "Bash(rm -r \"D:/Projects/Web Apps/.claude/skills/view-mode-cards/\")"
     ]
   }
 }
