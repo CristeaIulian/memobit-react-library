@@ -17,6 +17,8 @@ export const ControlPanelPage: React.FC = () => {
     const [groupBy, setGroupBy] = useState<string | null>(null);
     const [visibleColumns, setVisibleColumns] = useState(['name', 'status', 'owner', 'priority']);
     const [activeNavItem, setActiveNavItem] = useState<string>('overview');
+    const [activeTreeNavItem, setActiveTreeNavItem] = useState<string>('campaigns');
+    const [openTreeNavItems, setOpenTreeNavItems] = useState<string[]>(['workspace', 'planning']);
 
     const [filterValues, setFilterValues] = useState<Record<string, ControlPanelFilterValue>>({
         scope: 'all',
@@ -201,6 +203,106 @@ export const ControlPanelPage: React.FC = () => {
         },
     ];
 
+    const isTreeNavOpen = (id: string) => openTreeNavItems.includes(id);
+
+    const handleTreeNavOpenChange = (isOpen: boolean, item: ControlPanelNavItem) => {
+        setOpenTreeNavItems(prev => (isOpen ? [...new Set([...prev, item.id])] : prev.filter(id => id !== item.id)));
+    };
+
+    const treeNavigation: ControlPanelNavItem[] = [
+        {
+            id: 'workspace',
+            label: 'Workspace',
+            icon: 'dashboard',
+            isActive: false,
+            isOpen: isTreeNavOpen('workspace'),
+            onOpenChange: handleTreeNavOpenChange,
+            children: [
+                {
+                    id: 'campaigns',
+                    label: 'Campaigns',
+                    icon: 'lightning',
+                    count: 8,
+                    isActive: activeTreeNavItem === 'campaigns',
+                    onClick: () => setActiveTreeNavItem('campaigns'),
+                },
+                {
+                    id: 'experiments',
+                    label: 'Experiments',
+                    icon: 'laboratory',
+                    count: 3,
+                    badges: [{ count: 2, variant: 'warning' }],
+                    isActive: activeTreeNavItem === 'experiments',
+                    onClick: () => setActiveTreeNavItem('experiments'),
+                },
+                {
+                    id: 'archive',
+                    label: 'Archive',
+                    icon: 'archive',
+                    count: 21,
+                    isActive: activeTreeNavItem === 'archive',
+                    onClick: () => setActiveTreeNavItem('archive'),
+                },
+            ],
+        },
+        {
+            id: 'planning',
+            label: 'Planning',
+            icon: 'calendar',
+            isActive: false,
+            isOpen: isTreeNavOpen('planning'),
+            onOpenChange: handleTreeNavOpenChange,
+            children: [
+                {
+                    id: 'roadmap',
+                    label: 'Roadmap',
+                    icon: 'map',
+                    isActive: activeTreeNavItem === 'roadmap',
+                    onClick: () => setActiveTreeNavItem('roadmap'),
+                },
+                {
+                    id: 'sprints',
+                    label: 'Sprints',
+                    icon: 'layers',
+                    isActive: false,
+                    isOpen: isTreeNavOpen('sprints'),
+                    onOpenChange: handleTreeNavOpenChange,
+                    children: [
+                        {
+                            id: 'current-sprint',
+                            label: 'Current sprint',
+                            color: '#22c55e',
+                            count: 14,
+                            isActive: activeTreeNavItem === 'current-sprint',
+                            onClick: () => setActiveTreeNavItem('current-sprint'),
+                        },
+                        {
+                            id: 'blocked',
+                            label: 'Blocked',
+                            color: '#ef4444',
+                            badges: [{ count: 5, variant: 'danger' }],
+                            isActive: activeTreeNavItem === 'blocked',
+                            onClick: () => setActiveTreeNavItem('blocked'),
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            id: 'insights',
+            label: 'Insights',
+            icon: 'chart',
+            count: 6,
+            isActive: activeTreeNavItem === 'insights',
+            onClick: () => setActiveTreeNavItem('insights'),
+        },
+    ];
+
+    const activeTreeNavLabel =
+        treeNavigation
+            .flatMap(item => [item, ...(item.children ?? []), ...((item.children ?? []).flatMap(child => child.children ?? []))])
+            .find(item => item.id === activeTreeNavItem)?.label ?? 'None';
+
     const handleFilterChange = (event: ControlPanelFilterChangeEvent) => {
         setFilterValues(prev => ({ ...prev, [event.filterId]: event.value }));
     };
@@ -266,7 +368,6 @@ export const ControlPanelPage: React.FC = () => {
                             }}
                             isOpen={true}
                             width="320px"
-                            borderRadius="8px 0 0 8px"
                             shadow="0 8px 24px rgba(0, 0, 0, 0.18)"
                         />
                         <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
@@ -320,8 +421,6 @@ export const ControlPanelPage: React.FC = () => {
                             onFilterChange={handleLibraryFilterChange}
                             isOpen={true}
                             width="340px"
-                            borderRadius="18px"
-                            margin="24px"
                             shadow="0 16px 32px rgba(0, 0, 0, 0.16)"
                         />
                         <div style={{ flex: 1, padding: '32px', background: 'var(--body-background)' }}>
@@ -429,6 +528,26 @@ export const ControlPanelPage: React.FC = () => {
                             </p>
                             <p style={{ marginTop: '16px', color: 'var(--text-secondary)' }}>
                                 Navigation items now support an optional <code>icon</code> prop that accepts any IconName to display an icon before the label.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Navigation Section Tree</h2>
+
+                <div className="showcase-group">
+                    <h3>Expandable Nav Sections</h3>
+                    <div style={{ display: 'flex', minHeight: '420px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                        <ControlPanel header={{ icon: 'tree', siteName: 'Operations' }} navigation={treeNavigation} isOpen={true} width="320px" />
+                        <div style={{ flex: 1, padding: '16px', background: 'var(--body-background)' }}>
+                            <h3>Selected Tree Item</h3>
+                            <p>
+                                Active: <strong>{activeTreeNavLabel}</strong>
+                            </p>
+                            <p style={{ marginTop: '16px', color: 'var(--text-secondary)' }}>
+                                Nested navigation items can be grouped into expandable sections with counts, status dots, and alert badges.
                             </p>
                         </div>
                     </div>
