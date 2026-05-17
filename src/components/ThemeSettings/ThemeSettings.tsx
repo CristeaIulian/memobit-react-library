@@ -146,9 +146,12 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                                         </div>
                                         <div className="theme-settings__swatch-meta">
                                             <span className="theme-settings__swatch-label">{config.label}</span>
-                                            {config.recommendedApp && (
-                                                <span className="theme-settings__swatch-app" title={`Best for: ${config.recommendedApp}`}>
-                                                    Best for: {config.recommendedApp}
+                                            {config.recommendedApps && config.recommendedApps.length > 0 && (
+                                                <span
+                                                    className="theme-settings__swatch-app"
+                                                    title={`Best for: ${config.recommendedApps.join(', ')}`}
+                                                >
+                                                    Best for: {config.recommendedApps.join(', ')}
                                                 </span>
                                             )}
                                         </div>
