@@ -15,6 +15,13 @@
     align-items: center;
     gap: var(--spacing-8);
 
+    // Inline svg/img inside the children span default to baseline alignment,
+    // which leaves them visually offset from adjacent text.
+    svg,
+    img {
+        vertical-align: middle;
+    }
+
     &:hover {
         cursor: pointer;
     }
