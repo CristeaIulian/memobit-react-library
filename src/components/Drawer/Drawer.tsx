@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { Button, type ButtonProps, type ExternalButtonConfig } from '../Button';
 import { Icon, IconName } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 import './Drawer.scss';
 
@@ -101,20 +102,29 @@ export const Drawer: React.FC<DrawerProps> = ({
                     )}
                     {actions.length > 0 && (
                         <div className="drawer__header-actions">
-                            {actions.map(action => (
-                                <Button
-                                    key={action.id}
-                                    disabled={action.disabled}
-                                    onClick={action.onClick}
-                                    icon={action.icon}
-                                    emojiIcon={action.emojiIcon}
-                                    size={action.size ?? 'small'}
-                                    title={action.title ?? action.label}
-                                    variant={action.variant ?? 'ghost'}
-                                >
-                                    {action.label}
-                                </Button>
-                            ))}
+                            {actions.map(action => {
+                                const button = (
+                                    <Button
+                                        disabled={action.disabled}
+                                        onClick={action.onClick}
+                                        icon={action.icon}
+                                        emojiIcon={action.emojiIcon}
+                                        size={action.size ?? 'small'}
+                                        variant={action.variant ?? 'ghost'}
+                                    >
+                                        {action.label}
+                                    </Button>
+                                );
+                                const tooltipText = action.title ?? action.label;
+
+                                return tooltipText ? (
+                                    <Tooltip key={action.id} title={tooltipText}>
+                                        {button}
+                                    </Tooltip>
+                                ) : (
+                                    <React.Fragment key={action.id}>{button}</React.Fragment>
+                                );
+                            })}
                         </div>
                     )}
                     <Button ariaLabel="Close drawer" className="drawer__close" onClick={onClose} size="medium" title="Close drawer" variant="ghost">
