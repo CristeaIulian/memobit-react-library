@@ -1,0 +1,121 @@
+@use '../../styles/utilities.scss' as *;
+
+.banner {
+    --banner-accent-color: var(--body-accent-color);
+    --banner-background-color: var(--card-background-color);
+    --banner-border-color: var(--card-border-color);
+    --banner-color: var(--body-color);
+
+    position: relative;
+    display: flex;
+    width: 100%;
+    border: var(--spacing-1) solid var(--banner-border-color);
+    border-left: var(--spacing-4) solid var(--banner-accent-color);
+    border-radius: var(--radius);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--banner-accent-color) 12%, transparent), transparent 42%), var(--banner-background-color);
+    color: var(--banner-color);
+    box-shadow: var(--card-surface-box-shadow, var(--card-box-shadow));
+
+    &--success {
+        --banner-accent-color: var(--button-success-background-color);
+        --banner-border-color: color-mix(in srgb, var(--button-success-background-color) 45%, var(--card-border-color));
+    }
+
+    &--info {
+        --banner-accent-color: var(--button-info-background-color);
+        --banner-border-color: color-mix(in srgb, var(--button-info-background-color) 45%, var(--card-border-color));
+    }
+
+    &--warning {
+        --banner-accent-color: var(--button-warning-background-color);
+        --banner-border-color: color-mix(in srgb, var(--button-warning-background-color) 45%, var(--card-border-color));
+    }
+
+    &--danger {
+        --banner-accent-color: var(--button-danger-background-color);
+        --banner-border-color: color-mix(in srgb, var(--button-danger-background-color) 45%, var(--card-border-color));
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-24);
+        width: 100%;
+        padding: var(--spacing-20) var(--spacing-60) var(--spacing-20) var(--spacing-20);
+    }
+
+    &__copy {
+        min-width: 0;
+    }
+
+    &__title {
+        margin: 0;
+        color: var(--body-color-accent);
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-semibold);
+        line-height: 1.35;
+    }
+
+    &__description {
+        margin: var(--spacing-4) 0 0;
+        color: var(--body-color);
+        font-size: var(--font-size-sm);
+        line-height: 1.5;
+    }
+
+    &__action {
+        flex: 0 0 auto;
+    }
+
+    &__dismiss {
+        position: absolute;
+        top: var(--spacing-12);
+        right: var(--spacing-12);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--spacing-32);
+        height: var(--spacing-32);
+        padding: 0;
+        border: none;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--body-color-muted);
+        cursor: pointer;
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+            background: color-mix(in srgb, var(--banner-accent-color) 12%, transparent);
+            color: var(--banner-accent-color);
+        }
+
+        &:focus-visible {
+            outline: var(--spacing-2) solid var(--banner-accent-color);
+            outline-offset: var(--spacing-2);
+        }
+    }
+}
+
+@include mobile {
+    .banner {
+        &__content {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: var(--spacing-16);
+            padding: var(--spacing-16) var(--spacing-48) var(--spacing-16) var(--spacing-16);
+        }
+
+        &__action {
+            width: 100%;
+
+            .button {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+    }
+}

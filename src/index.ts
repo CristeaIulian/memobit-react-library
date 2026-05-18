@@ -4,6 +4,7 @@ export { AlertDialog } from './components/AlertDialog';
 export { AppHeader, type AppHeaderProps } from './components/AppHeader';
 export { AvatarInitials } from './components/AvatarInitials';
 export { Badge, type BadgeVariant, type BadgeProps } from './components/Badge';
+export { Banner, type BannerProps, type BannerVariant } from './components/Banner';
 export { BMI } from './components/BMI';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
 export { BulkActionBar, type BulkAction, type BulkActionBarProgress, type BulkActionBarProps } from './components/BulkActionBar';

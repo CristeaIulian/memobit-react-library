@@ -9,6 +9,7 @@ import { AppHeaderPage } from './pages/AppHeaderPage';
 import { AuthLoginPage } from './pages/AuthLoginPage';
 import { AvatarInitialsPage } from './pages/AvatarInitialsPage';
 import { BadgePage } from './pages/BadgePage';
+import { BannerPage } from './pages/BannerPage';
 import { BMIPage } from './pages/BMIPage';
 import { BreadcrumbPage } from './pages/BreadcrumbPage';
 import { BulkActionBarPage } from './pages/BulkActionBarPage';
@@ -110,6 +111,7 @@ export const routes: RouteConfig[] = [
     { path: '/auth-login', label: 'Auth Login', component: AuthLoginPage },
     { path: '/avatar-initials', label: 'Avatar Initials', component: AvatarInitialsPage },
     { path: '/badge', label: 'Badge', component: BadgePage },
+    { path: '/banner', label: 'Banner', component: BannerPage },
     { path: '/bmi', label: 'BMI', component: BMIPage },
     { path: '/breadcrumb', label: 'Breadcrumb', component: BreadcrumbPage },
     { path: '/bulk-action-bar', label: 'Bulk Action Bar', component: BulkActionBarPage },
