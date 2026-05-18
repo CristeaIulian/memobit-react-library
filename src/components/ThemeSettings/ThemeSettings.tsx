@@ -57,7 +57,11 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
 
         if (searchQuery.trim()) {
             const query = searchQuery.toLowerCase().trim();
-            themes = themes.filter(config => config.label.toLowerCase().includes(query));
+            themes = themes.filter(
+                config =>
+                    config.label.toLowerCase().includes(query) ||
+                    (config.recommendedApps ?? []).some(app => app.toLowerCase().includes(query))
+            );
         }
 
         return themes;
