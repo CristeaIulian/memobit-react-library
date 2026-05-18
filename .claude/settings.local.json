@@ -86,7 +86,30 @@
       "Bash(nslookup shelf.memobit.ro 8.8.8.8)",
       "Bash(nslookup shelf.memobit.ro)",
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} | SSL verify=%{ssl_verify_result}\\\\n\" --resolve shelf.memobit.ro:443:93.113.54.177 --max-time 15 https://shelf.memobit.ro)",
-      "Bash(curl -s --resolve shelf.memobit.ro:443:93.113.54.177 --max-time 15 https://shelf.memobit.ro)"
+      "Bash(curl -s --resolve shelf.memobit.ro:443:93.113.54.177 --max-time 15 https://shelf.memobit.ro)",
+      "Bash(python -c \"import cairosvg; print\\('  yes', cairosvg.__version__\\)\")",
+      "Bash(python -c \"import PIL; print\\('  yes', PIL.__version__\\)\")",
+      "Bash(magick -version)",
+      "Bash(inkscape --version)",
+      "Bash(rsvg-convert --version)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --virtual-time-budget=5000 --window-size=1300,1480 --screenshot=\"D:\\\\Projects\\\\Web Apps\\\\favicon-gallery.png\" \"file:///D:/Projects/Web%20Apps/favicon-gallery.html\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --virtual-time-budget=4000 --window-size=620,320 --screenshot=\"D:\\\\Projects\\\\Web Apps\\\\_voyage-preview.png\" \"file:///D:/Projects/Web%20Apps/_voyage-preview.html\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --virtual-time-budget=4000 --window-size=640,400 --screenshot=\"D:\\\\Projects\\\\Web Apps\\\\_voyage-preview.png\" \"file:///D:/Projects/Web%20Apps/_voyage-preview.html\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --virtual-time-budget=4000 --window-size=720,520 --screenshot=\"D:\\\\Projects\\\\Web Apps\\\\_basket-colors.png\" \"file:///D:/Projects/Web%20Apps/_basket-colors.html\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --virtual-time-budget=4000 --window-size=720,760 --screenshot=\"D:\\\\Projects\\\\Web Apps\\\\_icons-preview.png\" \"file:///D:/Projects/Web%20Apps/_icons-preview.html\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --virtual-time-budget=4000 --window-size=720,1180 --screenshot=\"D:\\\\Projects\\\\Web Apps\\\\_icons-preview.png\" \"file:///D:/Projects/Web%20Apps/_icons-preview.html\")",
+      "Bash(\"C:\\\\Program Files\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --virtual-time-budget=5000 --window-size=1300,1480 --screenshot=\"D:\\\\Projects\\\\Web Apps\\\\favicon-gallery.png\" \"file:///D:/Projects/Web%20Apps/favicon-gallery.html\")",
+      "Bash(python \"C:/Users/iulia/AppData/Local/Temp/pulse_internal.py\")",
+      "Bash(grep -nA12 '\"assets\"' Online/angular-showcase/angular.json)",
+      "Bash(ls \"Local Tools/pension/public\")",
+      "Bash(ls \"Local Tools/faviconify/public\")",
+      "Bash(grep -rl \"theme-color\" \"Local Tools/iot/frontend/index.html\" \"Local Tools/faviconify/index.html\" \"Local Tools/pension/index.html\")",
+      "Bash(python -c ' *)",
+      "Bash(\"C:\\\\Program Files\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --virtual-time-budget=5000 --window-size=1300,2520 --screenshot=\"D:\\\\Projects\\\\Web Apps\\\\favicon-gallery.png\" \"file:///D:/Projects/Web%20Apps/favicon-gallery.html\")",
+      "Bash(rm _iconcheck.html _iconcheck.png)",
+      "Bash(sed -n '24,32p;68,74p' components/Header/Header.tsx)",
+      "Bash(sed -n '12,16p;66,72p' App.tsx)",
+      "Bash(grep -nE \"loadHub|getApiCall\\\\\\(\\\\`|ApiCallHub\" dev/frontend/src/services/api.ts)"
     ]
   }
 }
