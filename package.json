@@ -16,6 +16,7 @@
     "./dist/styles/highlight.scss": "./dist/styles/highlight.scss",
     "./dist/styles/scrollbars.scss": "./dist/styles/scrollbars.scss",
     "./dist/styles/utilities.scss": "./dist/styles/utilities.scss",
+    "./dist/styles/utility-classes.scss": "./dist/styles/utility-classes.scss",
     "./dist/styles/themes.scss": "./dist/styles/themes.scss",
     "./dist/styles/theming/_profile-theme.scss": "./dist/styles/theming/_profile-theme.scss",
     "./dist/styles/theming/amber-meridian.scss": "./dist/styles/theming/amber-meridian.scss",
@@ -83,7 +84,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && npm pack",
+    "generate:icon-names": "node scripts/generate-icon-names.mjs",
     "dev": "vite build --watch",
     "playground": "vite serve playground --config playground/vite.config.ts",
     "lint": "eslint src --ext .ts,.tsx",

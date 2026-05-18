@@ -8,7 +8,7 @@ import '../../src/styles/variables.scss';
 import '../../src/styles/effects.scss';
 import '../../src/styles/highlight.scss';
 import '../../src/styles/themes.scss';
-import '../../src/styles/utilities.scss';
+import '../../src/styles/utility-classes.scss';
 
 import './App.scss';
 

@@ -56,6 +56,7 @@ export default defineConfig({
                 { src: 'src/styles/highlight.scss', dest: 'styles' },
                 { src: 'src/styles/scrollbars.scss', dest: 'styles' },
                 { src: 'src/styles/utilities.scss', dest: 'styles' },
+                { src: 'src/styles/utility-classes.scss', dest: 'styles' },
                 { src: 'src/styles/themes.scss', dest: 'styles' },
                 { src: 'src/styles/theming/_profile-theme.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/amber-meridian.scss', dest: 'styles/theming' },

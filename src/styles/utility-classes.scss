@@ -1,0 +1,93 @@
+// Emitted utility classes — import once globally (not per component).
+// Mixins live in utilities.scss.
+@use 'utilities' as *;
+
+// use this effect when you want to bring attention
+.status-pulse {
+    animation: pulse-status 2s ease-in-out infinite;
+}
+
+@keyframes pulse-status {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+// Text alignment
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+// Text color
+.text-muted {
+    color: var(--body-color-muted);
+}
+
+// Cursor
+.cursor-pointer {
+    cursor: pointer;
+}
+
+// Flexbox helpers
+.flex-around {
+    @include flex-around;
+}
+
+.flex-center {
+    @include flex-center;
+}
+
+.flex-between {
+    @include flex-between;
+}
+
+.flex-column {
+    @include flex-column;
+}
+
+.flex-wrap {
+    @include flex-wrap;
+}
+
+// Responsive visibility
+.mobile {
+    @media (min-width: 769px) {
+        display: none !important;
+    }
+}
+
+.tablet {
+    @media (max-width: 768px), (min-width: 1025px) {
+        display: none !important;
+    }
+}
+
+.desktop {
+    @media (max-width: 1024px) {
+        display: none !important;
+    }
+}
+
+.not-mobile {
+    @media (max-width: 768px) {
+        display: none !important;
+    }
+}
+
+.not-desktop {
+    @media (min-width: 1025px) {
+        display: none !important;
+    }
+}

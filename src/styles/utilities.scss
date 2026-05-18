@@ -1,40 +1,5 @@
-// use this effect when you want to bring attention
-.status-pulse {
-    animation: pulse-status 2s ease-in-out infinite;
-}
-
-@keyframes pulse-status {
-    0%,
-    100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.6;
-    }
-}
-
-// Text alignment
-.text-center {
-    text-align: center;
-}
-
-.text-left {
-    text-align: left;
-}
-
-.text-right {
-    text-align: right;
-}
-
-// Text color
-.text-muted {
-    color: var(--body-color-muted);
-}
-
-// Cursor
-.cursor-pointer {
-    cursor: pointer;
-}
+// Mixins only — emits no CSS. Safe to @use from any component SCSS.
+// Emitted utility classes live in utility-classes.scss (imported once globally).
 
 // Flex mixins
 @mixin flex-around {
@@ -63,33 +28,6 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-}
-
-@mixin flex-wrap {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-// Flexbox helpers
-.flex-around {
-    @include flex-around;
-}
-
-.flex-center {
-    @include flex-center;
-}
-
-.flex-between {
-    @include flex-between;
-}
-
-.flex-column {
-    @include flex-column;
-}
-
-.flex-wrap {
-    @include flex-wrap;
 }
 
 // Typography
@@ -296,35 +234,5 @@
 @mixin not-desktop {
     @media (max-width: 1024px) {
         @content;
-    }
-}
-
-.mobile {
-    @media (min-width: 769px) {
-        display: none !important;
-    }
-}
-
-.tablet {
-    @media (max-width: 768px), (min-width: 1025px) {
-        display: none !important;
-    }
-}
-
-.desktop {
-    @media (max-width: 1024px) {
-        display: none !important;
-    }
-}
-
-.not-mobile {
-    @media (max-width: 768px) {
-        display: none !important;
-    }
-}
-
-.not-desktop {
-    @media (min-width: 1025px) {
-        display: none !important;
     }
 }

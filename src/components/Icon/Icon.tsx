@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { iconMap, IconName } from './iconMap';
+import { iconMap } from './iconMap';
+import { IconName } from './iconNames';
 
 import './Icon.scss';
 
-export type { IconName };
 export type IconSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl';
 export type IconVariant = 'default' | 'muted' | 'accent' | 'info' | 'success' | 'warning' | 'danger';
 

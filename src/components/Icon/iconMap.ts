@@ -1,3 +1,7 @@
+import { ReactElement } from 'react';
+
+import { IconName } from './iconNames';
+
 import { antenna } from '../../icons/antenna';
 import { chestnut } from '../../icons/chestnut';
 import { cookies } from '../../icons/cookies';
@@ -183,6 +187,7 @@ import { filetypeTypescript } from '../../icons/filetype-typescript';
 import { filetypeWav } from '../../icons/filetype-wav';
 import { filetypeXls } from '../../icons/filetype-xls';
 import { filetypeXlsx } from '../../icons/filetype-xlsx';
+import { filetypeXml } from '../../icons/filetype-xml';
 import { filetypeZip } from '../../icons/filetype-zip';
 import { filters } from '../../icons/filters';
 import { fire } from '../../icons/fire';
@@ -473,7 +478,7 @@ import { storm } from '../../icons/storm';
 import { uranus } from '../../icons/uranus';
 import { venus } from '../../icons/venus';
 
-export const iconMap = {
+export const iconMap: Record<IconName, ReactElement> = {
     'arrow-down': arrowDown,
     'arrow-left': arrowLeft,
     'arrow-right': arrowRight,
@@ -532,6 +537,7 @@ export const iconMap = {
     'filetype-wav': filetypeWav,
     'filetype-xls': filetypeXls,
     'filetype-xlsx': filetypeXlsx,
+    'filetype-xml': filetypeXml,
     'filetype-zip': filetypeZip,
     'fishing-rod': fishingRod,
     'folder-open': folderOpen,
@@ -694,7 +700,7 @@ export const iconMap = {
     fruits,
     gallery,
     gateway,
-    giftBox,
+    'gift-box': giftBox,
     girl,
     github,
     glass,
@@ -868,7 +874,6 @@ export const iconMap = {
     star,
     status,
     stop,
-    stopSign,
     strawberry,
     streaming,
     strength,
@@ -949,6 +954,4 @@ export const iconMap = {
     storm,
     uranus,
     venus,
-} as const;
-
-export type IconName = keyof typeof iconMap;
+};
