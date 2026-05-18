@@ -21,6 +21,7 @@ export { CommandPalette, type CommandPaletteProps, type CommandItem } from './co
 export { ContextMenu } from './components/ContextMenu';
 export { CountryWithFlag } from './components/CountryWithFlag';
 export { ColorPicker, type ColorPickerProps } from './components/ColorPicker';
+export { CopyButton, type CopyButtonProps, type CopyButtonStatus } from './components/CopyButton';
 export { EmojiPicker, type EmojiPickerProps } from './components/EmojiPicker';
 export {
     DataView,
@@ -79,6 +80,7 @@ export { NavBar, type NavBarItem } from './components/NavBar';
 export { Pagination } from './components/Pagination';
 export { Popover, usePopover } from './components/Popover';
 export { ProgressBar } from './components/ProgressBar';
+export { ProgressRing, type ProgressRingProps, type ProgressRingSize, type ProgressRingState } from './components/ProgressRing';
 export { QuickAdd } from './components/QuickAdd';
 export { QuickNumberUpdate } from './components/QuickNumberUpdate';
 export { QuickOptionUpdate } from './components/QuickOptionUpdate';

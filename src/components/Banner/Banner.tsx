@@ -39,7 +39,7 @@ export const Banner: React.FC<BannerProps> = ({
     };
 
     return (
-        <section className={`banner banner--${variant} ${className}`} role="region" aria-label={typeof title === 'string' ? title : 'Banner'}>
+        <section className={`banner banner--${variant} ${className}`}>
             <div className="banner__content">
                 <div className="banner__copy">
                     <h3 className="banner__title">{title}</h3>
@@ -53,7 +53,7 @@ export const Banner: React.FC<BannerProps> = ({
                     </div>
                 )}
             </div>
-            <button className="banner__dismiss" type="button" aria-label={dismissLabel} title={dismissLabel} onClick={handleDismiss}>
+            <button className="banner__dismiss" type="button" title={dismissLabel} onClick={handleDismiss}>
                 <Icon name="clear" size="sm" />
             </button>
         </section>

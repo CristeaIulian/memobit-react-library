@@ -7,7 +7,6 @@ import './Button.scss';
 export type ButtonVariant = 'plain' | 'ghost' | 'default' | 'success' | 'info' | 'warning' | 'danger';
 
 export interface ButtonProps {
-    ariaLabel?: string;
     borders?: 'sharp' | 'rounded';
     children?: React.ReactNode;
     className?: string;

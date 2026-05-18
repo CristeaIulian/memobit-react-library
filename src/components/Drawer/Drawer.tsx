@@ -127,7 +127,7 @@ export const Drawer: React.FC<DrawerProps> = ({
                             })}
                         </div>
                     )}
-                    <Button ariaLabel="Close drawer" className="drawer__close" onClick={onClose} size="medium" title="Close drawer" variant="ghost">
+                    <Button className="drawer__close" onClick={onClose} size="medium" title="Close drawer" variant="ghost">
                         &times;
                     </Button>
                 </div>

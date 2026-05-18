@@ -28,6 +28,7 @@ import { ConfirmDialogPage } from './pages/ConfirmDialogPage';
 import { ContextMenuPage } from './pages/ContextMenuPage';
 import { ContextToastPage } from './pages/ContextToastPage';
 import { CountryWithFlagPage } from './pages/CountryWithFlagPage';
+import { CopyButtonPage } from './pages/CopyButtonPage';
 import { DataViewPage } from './pages/DataViewPage';
 import { DatePickerPage } from './pages/DatePickerPage';
 import { DateRangePickerPage } from './pages/DateRangePickerPage';
@@ -64,6 +65,7 @@ import { NotificationsPanelPage } from './pages/NotificationsPanelPage';
 import { PaginationPage } from './pages/PaginationPage';
 import { PopoverPage } from './pages/PopoverPage';
 import { ProgressBarPage } from './pages/ProgressBarPage';
+import { ProgressRingPage } from './pages/ProgressRingPage';
 import { QuickAddPage } from './pages/QuickAddPage';
 import { QuickNumberUpdatePage } from './pages/QuickNumberUpdatePage';
 import { QuickOptionUpdatePage } from './pages/QuickOptionUpdatePage';
@@ -130,6 +132,7 @@ export const routes: RouteConfig[] = [
     { path: '/context-menu', label: 'Context Menu', component: ContextMenuPage },
     { path: '/context-toast', label: 'Context Toast', component: ContextToastPage },
     { path: '/country-with-flag', label: 'Country With Flag', component: CountryWithFlagPage },
+    { path: '/copy-button', label: 'Copy Button', component: CopyButtonPage },
     { path: '/data-view', label: 'Data View', component: DataViewPage },
     { path: '/datepicker', label: 'DatePicker', component: DatePickerPage },
     { path: '/date-range-picker', label: 'Date Range Picker', component: DateRangePickerPage },
@@ -169,6 +172,7 @@ export const routes: RouteConfig[] = [
     { path: '/pagination', label: 'Pagination', component: PaginationPage },
     { path: '/popover', label: 'Popover', component: PopoverPage },
     { path: '/progress-bar', label: 'Progress Bar', component: ProgressBarPage },
+    { path: '/progress-ring', label: 'Progress Ring', component: ProgressRingPage },
     { path: '/quick-add', label: 'Quick Add', component: QuickAddPage },
     { path: '/quick-number-update', label: 'Quick Number Update', component: QuickNumberUpdatePage },
     { path: '/quick-option-update', label: 'Quick Option Update', component: QuickOptionUpdatePage },

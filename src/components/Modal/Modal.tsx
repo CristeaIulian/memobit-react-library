@@ -74,7 +74,7 @@ export const Modal: FC<ModalProps> = ({
                     <h2>
                         {titleIcon ? <Icon name={titleIcon} /> : null} {title}
                     </h2>
-                    <Button ariaLabel="Close modal" className="modal__close" onClick={onClose} size="medium" title="Close modal" variant="ghost">
+                    <Button className="modal__close" onClick={onClose} size="medium" title="Close modal" variant="ghost">
                         &times;
                     </Button>
                 </div>
