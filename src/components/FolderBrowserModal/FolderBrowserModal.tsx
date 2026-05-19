@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Button } from '../Button';
 import { EmptyState } from '../EmptyState';
 import { Icon } from '../Icon';
+import { InputText } from '../InputText';
 import { Loading } from '../Loading';
 import { Modal } from '../Modal';
 
@@ -47,6 +48,7 @@ export const FolderBrowserModal = ({
 }: FolderBrowserModalProps) => {
     const [listing, setListing] = useState<FolderBrowserListing | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [pathInput, setPathInput] = useState('');
 
     const navigate = useCallback(
         async (path?: string) => {
@@ -68,9 +70,20 @@ export const FolderBrowserModal = ({
         }
     }, [isOpen, initialPath, navigate]);
 
+    // Keep the editable path field in sync with the directory actually loaded.
+    useEffect(() => {
+        setPathInput(listing?.current ?? '');
+    }, [listing]);
+
     const handleUp = () => {
         if (!listing) return;
         void navigate(listing.parent ?? '');
+    };
+
+    const handlePathSubmit = () => {
+        const trimmed = pathInput.trim();
+        if (isLoading || trimmed === (listing?.current ?? '')) return;
+        void navigate(trimmed === '' ? undefined : trimmed);
     };
 
     const atDrives = listing?.current === null;
@@ -99,9 +112,18 @@ export const FolderBrowserModal = ({
                     <Button variant="default" size="small" icon="arrow-up" disabled={isLoading || atDrives} onClick={handleUp}>
                         Up
                     </Button>
-                    <span className="folder-browser__path" title={listing?.current ?? 'This PC'}>
-                        {listing?.current ?? 'This PC - pick a drive'}
-                    </span>
+                    <div className={`folder-browser__path${listing?.error ? ' folder-browser__path--error' : ''}`}>
+                        <InputText
+                            value={pathInput}
+                            placeholder="Paste or type a folder path, then press Enter"
+                            disabled={isLoading}
+                            onChange={setPathInput}
+                            onKeyDown={event => event.key === 'Enter' && handlePathSubmit()}
+                        />
+                    </div>
+                    <Button variant="default" size="small" icon="arrow-right" disabled={isLoading} onClick={handlePathSubmit}>
+                        Go
+                    </Button>
                 </div>
 
                 {listing?.error && <p className="folder-browser__error">{listing.error}</p>}

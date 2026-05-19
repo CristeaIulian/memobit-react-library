@@ -7,19 +7,27 @@
 
 .folder-browser__path-row {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: var(--spacing-8);
 }
 
 .folder-browser__path {
   min-width: 0;
   flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--body-color-muted);
-  font-family: 'Cascadia Mono', 'Courier New', monospace;
-  font-size: var(--font-size-sm);
+
+  .input-text-wrapper,
+  .input-text {
+    height: 100%;
+  }
+
+  .input-text {
+    font-family: 'Cascadia Mono', 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+  }
+
+  &--error .input-text {
+    border-color: var(--rating-color-danger);
+  }
 }
 
 .folder-browser__error {

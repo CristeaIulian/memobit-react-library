@@ -45,6 +45,12 @@ const makeEntry = (parent: string, name: string): FolderBrowserEntry => ({
     path: parent.endsWith('\\') ? `${parent}${name}` : `${parent}\\${name}`,
 });
 
+// A folder "exists" if it is a key in the tree or appears as a child of one.
+const validPaths = new Set<string>([
+    ...Object.keys(folderTree),
+    ...Object.entries(folderTree).flatMap(([parent, names]) => names.map(name => makeEntry(parent, name).path)),
+]);
+
 const createListing = (path?: string): FolderBrowserListing => {
     if (!path) {
         return {
@@ -65,11 +71,22 @@ const createListing = (path?: string): FolderBrowserListing => {
         };
     }
 
-    const directories = (folderTree[path] ?? []).map(name => makeEntry(path, name));
+    const normalized = path.endsWith('\\') && path.length > 3 ? path.slice(0, -1) : path;
+    if (!validPaths.has(normalized)) {
+        return {
+            current: path,
+            parent: null,
+            drives,
+            directories: [],
+            error: `Folder "${path}" does not exist.`,
+        };
+    }
+
+    const directories = (folderTree[normalized] ?? []).map(name => makeEntry(normalized, name));
 
     return {
-        current: path,
-        parent: getParentPath(path),
+        current: normalized,
+        parent: getParentPath(normalized),
         drives,
         directories,
     };
