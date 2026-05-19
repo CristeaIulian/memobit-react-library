@@ -8,11 +8,18 @@ interface ControlPanelNavProps {
     navigation: ControlPanelNavItem[];
 }
 
-export const ControlPanelNav: React.FC<ControlPanelNavProps> = ({ navigation }) => (
-    <nav className="control-panel__nav">{navigation.map(item => renderNavItem(item))}</nav>
-);
+export const ControlPanelNav: React.FC<ControlPanelNavProps> = ({ navigation }) => {
+    // Only reserve the expand/collapse column when at least one item is expandable;
+    // otherwise a flat list would carry a dead-space placeholder before every item.
+    const showToggleColumn = navigation.some(item => (item.children?.length ?? 0) > 0);
+    return (
+        <nav className="control-panel__nav">
+            {navigation.map(item => renderNavItem(item, showToggleColumn))}
+        </nav>
+    );
+};
 
-function renderNavItem(item: ControlPanelNavItem, depth = 0): React.ReactNode {
+function renderNavItem(item: ControlPanelNavItem, showToggleColumn: boolean, depth = 0): React.ReactNode {
     const children = item.children ?? [];
     const hasChildren = children.length > 0;
     const isOpen = item.isOpen ?? false;
@@ -41,13 +48,14 @@ function renderNavItem(item: ControlPanelNavItem, depth = 0): React.ReactNode {
     return (
         <div key={item.id} className="control-panel__nav-node">
             <div className="control-panel__nav-row" style={{ '--control-panel-nav-depth': depth } as React.CSSProperties}>
-                {hasChildren ? (
-                    <button className={`control-panel__nav-toggle${isOpen ? ' control-panel__nav-toggle--open' : ''}`} onClick={handleToggle} type="button">
-                        <Icon name="caret-right" />
-                    </button>
-                ) : (
-                    <span className="control-panel__nav-toggle-placeholder" />
-                )}
+                {showToggleColumn &&
+                    (hasChildren ? (
+                        <button className={`control-panel__nav-toggle${isOpen ? ' control-panel__nav-toggle--open' : ''}`} onClick={handleToggle} type="button">
+                            <Icon name="caret-right" />
+                        </button>
+                    ) : (
+                        <span className="control-panel__nav-toggle-placeholder" />
+                    ))}
                 <button className={itemClassName} onClick={handleClick} type="button">
                     {item.icon && <Icon name={item.icon} />}
                     {item.color && <span className="control-panel__nav-dot" style={{ backgroundColor: item.color }} />}
@@ -66,7 +74,7 @@ function renderNavItem(item: ControlPanelNavItem, depth = 0): React.ReactNode {
             </div>
             {hasChildren && (
                 <div className={`control-panel__nav-children${isOpen ? ' control-panel__nav-children--open' : ''}`}>
-                    {children.map(child => renderNavItem(child, depth + 1))}
+                    {children.map(child => renderNavItem(child, showToggleColumn, depth + 1))}
                 </div>
             )}
         </div>
