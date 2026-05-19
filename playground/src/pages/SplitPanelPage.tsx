@@ -73,7 +73,7 @@ const DemoBox: React.FC<DemoBoxProps> = ({ height = 420, children }) => (
         style={{
             height,
             border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-md)',
+            borderRadius: 'var(--radius)',
             overflow: 'hidden',
             position: 'relative',
         }}

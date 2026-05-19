@@ -39,6 +39,9 @@ $guide-width: 1px;
 
 // ── Root ──────────────────────────────────────────────────────────────────────
 .tree {
+    --depth: 0;
+    --guide-level: 0;
+
     list-style: none;
     margin: 0;
     padding: 0;
@@ -83,7 +86,7 @@ $guide-width: 1px;
     display: flex;
     align-items: center;
     height: $row-height;
-    padding-left: calc(var(--depth, 0) * #{$indent});
+    padding-left: calc(var(--depth) * #{$indent});
     padding-right: var(--spacing-8);
     gap: var(--spacing-8);
     border-radius: var(--radius-sm);
@@ -118,7 +121,7 @@ $guide-width: 1px;
         &::before {
             content: '';
             position: absolute;
-            left: calc(var(--depth, 0) * #{$indent});
+            left: calc(var(--depth) * #{$indent});
             top: 50%;
             transform: translateY(-50%);
             width: 2px;
@@ -159,7 +162,7 @@ $guide-width: 1px;
     // guide-level * indent  →  left edge of that column
     // + half indent          →  centre of that column's toggle
     // - half line width      →  centre the 1px line itself
-    left: calc(var(--guide-level, 0) * #{$indent} + #{$indent} * 0.5 - #{$guide-width} * 0.5);
+    left: calc(var(--guide-level) * #{$indent} + #{$indent} * 0.5 - #{$guide-width} * 0.5);
     width: $guide-width;
     background: var(--delimiter-color);
     border-radius: var(--radius-full);

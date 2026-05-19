@@ -1,6 +1,8 @@
 .tour-hud {
     // Warm highlight; themes may override --tour-hud-accent-color.
     --tour-hud-accent: var(--tour-hud-accent-color, var(--body-accent-color));
+    // Overridden per-instance via inline style when a `width` prop is passed.
+    --tour-hud-width: auto;
 
     position: absolute;
     left: 50%;

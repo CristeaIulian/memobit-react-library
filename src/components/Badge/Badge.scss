@@ -1,4 +1,6 @@
 .badge {
+    --badge-custom-color: var(--body-accent-color);
+
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-4);

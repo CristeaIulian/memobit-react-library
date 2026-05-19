@@ -1,6 +1,8 @@
 @use '../../styles/utilities' as *;
 
 .drawer-overlay {
+    --drawer-overlay-backdrop-filter: blur(8px) saturate(0.9);
+
     position: fixed;
     top: 0;
     left: 0;
@@ -8,9 +10,9 @@
     bottom: 0;
     background: var(--backdrop-color);
     z-index: 1000;
-    backdrop-filter: var(--drawer-overlay-backdrop-filter, blur(8px) saturate(0.9));
+    backdrop-filter: var(--drawer-overlay-backdrop-filter);
     animation: fadeIn 0.3s ease;
-    -webkit-backdrop-filter: var(--drawer-overlay-backdrop-filter, blur(8px) saturate(0.9));
+    -webkit-backdrop-filter: var(--drawer-overlay-backdrop-filter);
 }
 
 .drawer {

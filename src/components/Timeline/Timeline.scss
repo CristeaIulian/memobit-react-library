@@ -67,6 +67,8 @@ $size-min-width: (
 
 // ── Root ──────────────────────────────────────────────────────────────────────
 .timeline {
+    --item-index: 0;
+
     list-style: none;
     margin: 0;
     padding: 0;
@@ -297,7 +299,7 @@ $size-min-width: (
         opacity: 0;
         transform: translateY(8px);
         animation: timeline-fade-in var(--duration-slide) ease forwards;
-        animation-delay: calc(var(--item-index, 0) * 80ms);
+        animation-delay: calc(var(--item-index) * 80ms);
     }
 
     &.timeline--horizontal .timeline__item {
