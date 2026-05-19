@@ -57,10 +57,17 @@ export interface ToolbarNotificationsConfig {
     emptyMessage?: string;
 }
 
+export interface ToolbarHeadingConfig {
+    title: string;
+    description?: string;
+}
+
 export interface ToolbarProps {
     children?: ReactNode;
     className?: string;
     controlPanelToggle?: boolean | ToolbarControlPanelToggleConfig;
+    /** Descriptive headline shown at the far left of the toolbar. */
+    heading?: ToolbarHeadingConfig;
     /** When true, drops the toolbar's card chrome (background, border, radius, padding). */
     noCard?: boolean;
     menuItems: MenuHamburgerItem[];
@@ -98,7 +105,17 @@ const getSortDropdownValue = (sort: ToolbarSortConfig): string | number | null |
     return sort.value;
 };
 
-export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', controlPanelToggle, noCard = false, menuItems, notifications, search, sort }) => {
+export const Toolbar: React.FC<ToolbarProps> = ({
+    children,
+    className = '',
+    controlPanelToggle,
+    heading,
+    noCard = false,
+    menuItems,
+    notifications,
+    search,
+    sort,
+}) => {
     const controlPanel = useControlPanelContext();
     const shouldShowControlPanelToggle = Boolean(controlPanelToggle && controlPanel?.isMobile);
     const rootClassName = ['memobit-toolbar', noCard ? 'memobit-toolbar--no-card' : '', className].filter(Boolean).join(' ');
@@ -134,6 +151,13 @@ export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', cont
                 <Button className="memobit-toolbar__control-panel-toggle" icon="menu-hamburger" onClick={controlPanel?.toggle} size="medium" variant="default">
                     {controlPanelToggle ? getControlPanelToggleLabel(controlPanelToggle) : 'Filters'}
                 </Button>
+            )}
+
+            {heading && (
+                <div className="memobit-toolbar__heading">
+                    <span className="memobit-toolbar__heading-title">{heading.title}</span>
+                    {heading.description && <span className="memobit-toolbar__heading-description">{heading.description}</span>}
+                </div>
             )}
 
             {hasContent && (

@@ -1,6 +1,7 @@
 export {
     Toolbar,
     type ToolbarControlPanelToggleConfig,
+    type ToolbarHeadingConfig,
     type ToolbarNotificationsConfig,
     type ToolbarProps,
     type ToolbarSearchConfig,
