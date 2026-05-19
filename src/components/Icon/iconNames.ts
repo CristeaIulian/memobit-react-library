@@ -465,6 +465,7 @@ export type IconName =
     | 'vertical-dots'
     | 'video'
     | 'view'
+    | 'virus'
     | 'wait'
     | 'wan'
     | 'warning'

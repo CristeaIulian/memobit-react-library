@@ -26,6 +26,7 @@ import { announcement } from '../../icons/announcement';
 import { anomaly } from '../../icons/anomaly';
 import { ant } from '../../icons/ant';
 import { api } from '../../icons/api';
+import { virus } from '../../icons/virus';
 import { appliances } from '../../icons/appliances';
 import { archive } from '../../icons/archive';
 import { arrowDown } from '../../icons/arrow-down';
@@ -583,6 +584,7 @@ export const iconMap: Record<IconName, ReactElement> = {
     anomaly,
     ant,
     antenna,
+    virus,
     api,
     appliances,
     archive,
