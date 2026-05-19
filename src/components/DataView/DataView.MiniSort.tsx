@@ -1,6 +1,4 @@
-import { Button } from '../Button';
-import { Icon } from '../Icon';
-import { Tooltip } from '../Tooltip';
+import { MiniSort, type MiniSortItem } from '../MiniSort';
 
 import { getColumnLabel } from './DataView.CardView';
 import type { DataViewColumn, DataViewMiniSortConfig, SortDirection } from './DataView.types';
@@ -17,31 +15,16 @@ export function DataViewMiniSort<T>({ columns, config, sortDirection, sortKey, o
     const items = config?.columns ?? config?.column ?? [];
     if (items.length === 0) return null;
 
-    return (
-        <div className="data-view__mini-sort">
-            {items.map((item, index) => {
-                const direction = item.direction ?? 'asc';
-                const column = columns.find(col => col.key === item.column);
-                const label = item.label ?? (column ? getColumnLabel(column) : item.column);
-                const icon = item.icon ?? column?.icon;
-                const isActive = sortKey === item.column && sortDirection === direction;
-                const labelText = typeof label === 'string' || typeof label === 'number' ? String(label) : item.column;
+    const sortItems: MiniSortItem[] = items.map(item => {
+        const column = columns.find(col => col.key === item.column);
+        return {
+            value: item.column,
+            label: item.label ?? (column ? getColumnLabel(column) : item.column),
+            icon: item.icon ?? column?.icon,
+            direction: item.direction ?? 'asc',
+            disabled: !column,
+        };
+    });
 
-                return (
-                    <Tooltip key={`${item.column}-${direction}-${index}`} title={`Sort ${labelText} ${direction === 'asc' ? 'ascending' : 'descending'}`}>
-                        <Button
-                            className={`data-view__mini-sort-button${isActive ? ' is-active' : ''}`}
-                            disabled={!column}
-                            icon={icon ? <Icon className="data-view__mini-sort-icon" name={icon} size="sm" variant={isActive ? 'accent' : 'muted'} /> : undefined}
-                            size="small"
-                            variant="ghost"
-                            onClick={() => onSort(item.column, direction)}
-                        >
-                            {label}
-                        </Button>
-                    </Tooltip>
-                );
-            })}
-        </div>
-    );
+    return <MiniSort items={sortItems} sortKey={sortKey} sortDirection={sortDirection} onSort={onSort} align={config?.align ?? 'left'} />;
 }
