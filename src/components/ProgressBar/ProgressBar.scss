@@ -61,17 +61,45 @@
         font-weight: 500;
     }
 
+    // Outlined text stays legible over the empty track, the coloured fill, and
+    // any mid-tone in between — independent of theme or fill state.
+    &__inline-label {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        padding: 0 var(--spacing-8);
+        font-size: var(--spacing-12);
+        font-weight: 600;
+        color: #fff;
+        text-shadow:
+            -1px -1px 0 rgba(0, 0, 0, 0.65),
+            1px -1px 0 rgba(0, 0, 0, 0.65),
+            -1px 1px 0 rgba(0, 0, 0, 0.65),
+            1px 1px 0 rgba(0, 0, 0, 0.65),
+            0 0 3px rgba(0, 0, 0, 0.55);
+        pointer-events: none;
+        white-space: nowrap;
+
+        &.progress-bar__inline-label-left {
+            justify-content: flex-start;
+        }
+
+        &.progress-bar__inline-label-center {
+            justify-content: center;
+        }
+
+        &.progress-bar__inline-label-right {
+            justify-content: flex-end;
+        }
+    }
+
     &__track .progress-fill {
         height: calc(100% - var(--spacing-2));
         background-color: var(--progress-default-bar-fill-color);
         border: var(--spacing-1) solid var(--progress-default-bar-border-color);
-        color: var(--progress-bar-color);
         border-radius: var(--spacing-4);
-        text-shadow: var(--spacing-1) var(--spacing-1) #000;
-        font-size: var(--spacing-12);
-        display: flex;
-        align-items: center;
-        padding: 0 var(--spacing-4);
         transition: width 0.3s ease;
 
         &.progress-bar-success {

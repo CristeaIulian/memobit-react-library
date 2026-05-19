@@ -34,6 +34,8 @@ export const ProgressBar = ({
         .join(' ');
     const labelClassNames = `progress-bar__label progress-bar__label--${state} ${labelAlign ? `progress-bar__label-${labelAlign}` : ''}`;
 
+    const clampedValue = value > 100 ? 100 : value < 0 ? 0 : value;
+
     const displayText = useMemo((): string => {
         const displayTextContent = [];
 
@@ -48,18 +50,18 @@ export const ProgressBar = ({
         return (labelAfterValue ? displayTextContent : displayTextContent.reverse()).join(' - ');
     }, [showPercentage, value, label, labelAfterValue]);
 
+    const showInsideLabel = labelPosition === 'inside' && Boolean(displayText);
+
     return (
         <div
             className={`progress-bar ${labelPosition === 'before' || labelPosition === 'after' ? 'progress-bar-inline' : ''}  ${thin ? 'progress-bar-thin' : ''}`}
         >
             {(labelPosition === 'above' || labelPosition === 'before') && displayText && <div className={labelClassNames}>{displayText}</div>}
             <div className="progress-bar__track">
-                <div
-                    className={`${fillClassNames} ${labelPosition === 'after' ? 'progress-bar__label-after' : ''} `}
-                    style={{ width: `${value > 100 ? 100 : value}%` }}
-                >
-                    {labelPosition === 'inside' && displayText}
-                </div>
+                <div className={`${fillClassNames} ${labelPosition === 'after' ? 'progress-bar__label-after' : ''} `} style={{ width: `${clampedValue}%` }} />
+                {showInsideLabel && (
+                    <span className={`progress-bar__inline-label progress-bar__inline-label-${labelAlign}`}>{displayText}</span>
+                )}
             </div>
             {(labelPosition === 'below' || labelPosition === 'after') && displayText && <div className={labelClassNames}>{displayText}</div>}
         </div>
