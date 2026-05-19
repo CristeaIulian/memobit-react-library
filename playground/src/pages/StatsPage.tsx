@@ -84,7 +84,7 @@ export const StatsPage: React.FC = () => {
                                 },
                                 {
                                     label: 'Trend',
-                                    value: <span style={{ color: 'var(--color-success-700)' }}>+12.4%</span>,
+                                    value: <span style={{ color: 'var(--rating-color-success)' }}>+12.4%</span>,
                                 },
                             ]}
                         />

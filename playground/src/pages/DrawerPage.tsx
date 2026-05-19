@@ -33,7 +33,7 @@ const bookDrawerStyles: Record<string, React.CSSProperties> = {
     title: {
         margin: 0,
         color: 'var(--body-color-accent)',
-        fontFamily: 'var(--font-family-emphasis, var(--font-family, serif))',
+        fontFamily: 'var(--font-family-display, var(--font-family, serif))',
         fontSize: '32px',
         fontStyle: 'italic',
         fontWeight: 500,
@@ -365,7 +365,7 @@ export const DrawerPage: React.FC = () => {
                                             <div style={{ width: '22px', height: '1px', marginBottom: '14px', background: 'rgba(255, 248, 230, 0.65)' }} />
                                             <strong
                                                 style={{
-                                                    fontFamily: 'var(--font-family-emphasis, var(--font-family, serif))',
+                                                    fontFamily: 'var(--font-family-display, var(--font-family, serif))',
                                                     fontSize: '20px',
                                                     fontStyle: 'italic',
                                                     lineHeight: 1.15,

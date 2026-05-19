@@ -250,7 +250,7 @@ export const SplitPanelPage: React.FC = () => {
                                     <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--body-sub-title-color)', margin: 0 }}>
                                         Published {selectedArticle.date}
                                     </p>
-                                    <p style={{ lineHeight: 'var(--line-height-relaxed)', margin: 0 }}>
+                                    <p style={{ lineHeight: 'var(--line-height-loose)', margin: 0 }}>
                                         {selectedArticle.content}
                                     </p>
                                 </div>

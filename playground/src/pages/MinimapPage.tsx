@@ -246,10 +246,10 @@ export const MinimapPage: React.FC = () => {
                                         style={{
                                             color:
                                                 row.level === 'error'
-                                                    ? 'var(--danger-color)'
+                                                    ? 'var(--rating-color-danger)'
                                                     : row.level === 'warn'
-                                                      ? 'var(--warning-color)'
-                                                      : 'var(--success-color)',
+                                                      ? 'var(--rating-color-warning)'
+                                                      : 'var(--rating-color-success)',
                                         }}
                                     >
                                         {row.level}

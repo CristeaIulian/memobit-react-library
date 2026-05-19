@@ -526,7 +526,7 @@ export const ControlPanelPage: React.FC = () => {
                             <p>
                                 Active: <strong>{navigation.find(item => item.isActive)?.label}</strong>
                             </p>
-                            <p style={{ marginTop: '16px', color: 'var(--text-secondary)' }}>
+                            <p style={{ marginTop: '16px', color: 'var(--body-color-muted)' }}>
                                 Navigation items now support an optional <code>icon</code> prop that accepts any IconName to display an icon before the label.
                             </p>
                         </div>
@@ -546,7 +546,7 @@ export const ControlPanelPage: React.FC = () => {
                             <p>
                                 Active: <strong>{activeTreeNavLabel}</strong>
                             </p>
-                            <p style={{ marginTop: '16px', color: 'var(--text-secondary)' }}>
+                            <p style={{ marginTop: '16px', color: 'var(--body-color-muted)' }}>
                                 Nested navigation items can be grouped into expandable sections with counts, status dots, and alert badges.
                             </p>
                         </div>
