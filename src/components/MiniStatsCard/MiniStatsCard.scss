@@ -24,6 +24,7 @@
         line-height: 1.2;
 
         &-number {
+            font-family: var(--font-family-display);
             font-size: var(--font-size-xxl);
             font-weight: var(--font-weight-bold);
 
@@ -129,6 +130,22 @@
 
         .mini-stats-card__label {
             text-align: right;
+        }
+    }
+
+    // Filled (tinted background) variants
+    &--filled {
+        border-color: transparent;
+    }
+
+    &--filled.mini-stats-card--variant-default {
+        background-color: var(--card-background-accent-color);
+    }
+
+    @each $name, $color in (success: var(--rating-color-success), warning: var(--rating-color-warning), danger: var(--rating-color-danger), info: var(--rating-color-info)) {
+        &--filled.mini-stats-card--variant-#{$name} {
+            background-color: color-mix(in srgb, #{$color} 14%, var(--card-background-color));
+            border-color: color-mix(in srgb, #{$color} 32%, transparent);
         }
     }
 }

@@ -30,6 +30,8 @@ export interface MiniStatsCardProps {
     trendVariant?: MiniStatsCardTrendVariant;
     /** Optional footer content */
     footer?: React.ReactNode;
+    /** Tint the whole card with a soft background matching the variant. */
+    filled?: boolean;
     /** Additional CSS class */
     className?: string;
 }
@@ -46,6 +48,7 @@ export const MiniStatsCard: React.FC<MiniStatsCardProps> = ({
     trendLabel,
     trendVariant = 'success',
     footer,
+    filled = false,
     className = '',
 }) => {
     const renderValue = () => (
@@ -77,8 +80,18 @@ export const MiniStatsCard: React.FC<MiniStatsCardProps> = ({
         );
     };
 
+    const cardClassName = [
+        'mini-stats-card',
+        `mini-stats-card--align-${align}`,
+        filled ? 'mini-stats-card--filled' : '',
+        filled ? `mini-stats-card--variant-${variant}` : '',
+        className,
+    ]
+        .filter(Boolean)
+        .join(' ');
+
     return (
-        <Card className={`mini-stats-card mini-stats-card--align-${align} ${className}`} noPadding>
+        <Card className={cardClassName} noPadding>
             <div className="mini-stats-card__content">
                 {labelPosition === 'top' && renderLabel()}
                 <div className="mini-stats-card__value-container">
