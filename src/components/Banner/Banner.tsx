@@ -9,20 +9,26 @@ export type BannerVariant = 'default' | 'success' | 'info' | 'warning' | 'danger
 
 export interface BannerProps {
     action?: ExternalButtonConfig;
+    /** Optional secondary button rendered next to `action`. */
+    secondaryAction?: ExternalButtonConfig;
     className?: string;
     description: React.ReactNode;
     dismissLabel?: string;
     onDismiss?: () => void;
+    /** Show the corner dismiss (✕) button. Default: true. */
+    showDismiss?: boolean;
     title: React.ReactNode;
     variant?: BannerVariant;
 }
 
 export const Banner: React.FC<BannerProps> = ({
     action,
+    secondaryAction,
     className = '',
     description,
     dismissLabel = 'Dismiss',
     onDismiss,
+    showDismiss = true,
     title,
     variant = 'default',
 }: BannerProps) => {
@@ -45,17 +51,26 @@ export const Banner: React.FC<BannerProps> = ({
                     <h3 className="banner__title">{title}</h3>
                     <p className="banner__description">{description}</p>
                 </div>
-                {action && (
+                {(action || secondaryAction) && (
                     <div className="banner__action">
-                        <Button {...action} size={action.size || 'small'} variant={actionVariant}>
-                            {action.text}
-                        </Button>
+                        {action && (
+                            <Button {...action} size={action.size || 'small'} variant={actionVariant}>
+                                {action.text}
+                            </Button>
+                        )}
+                        {secondaryAction && (
+                            <Button {...secondaryAction} size={secondaryAction.size || 'small'} variant={secondaryAction.variant || 'ghost'}>
+                                {secondaryAction.text}
+                            </Button>
+                        )}
                     </div>
                 )}
             </div>
-            <button className="banner__dismiss" type="button" title={dismissLabel} onClick={handleDismiss}>
-                <Icon name="clear" size="sm" />
-            </button>
+            {showDismiss && (
+                <button className="banner__dismiss" type="button" title={dismissLabel} onClick={handleDismiss}>
+                    <Icon name="clear" size="sm" />
+                </button>
+            )}
         </section>
     );
 };
