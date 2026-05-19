@@ -23,6 +23,9 @@
     --body-accent-color: #a8472a;
     --body-danger-color: #9a2b2b;
 
+    // Warm brass highlight for the tour HUD (overrides the default reddish accent).
+    --tour-hud-accent-color: #b8924a;
+
     --backdrop-color: rgba(31, 24, 16, 0.42);
     --text-shadow: rgba(31, 24, 16, 0.14);
     --box-shadow: rgba(31, 24, 16, 0.18);
