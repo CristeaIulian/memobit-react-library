@@ -109,7 +109,8 @@
       "Bash(rm _iconcheck.html _iconcheck.png)",
       "Bash(sed -n '24,32p;68,74p' components/Header/Header.tsx)",
       "Bash(sed -n '12,16p;66,72p' App.tsx)",
-      "Bash(grep -nE \"loadHub|getApiCall\\\\\\(\\\\`|ApiCallHub\" dev/frontend/src/services/api.ts)"
+      "Bash(grep -nE \"loadHub|getApiCall\\\\\\(\\\\`|ApiCallHub\" dev/frontend/src/services/api.ts)",
+      "Bash(git -C \"D:\\\\Projects\\\\Web Apps\\\\LIBRARIES\\\\memobit-react\" diff src/components/Drawer/Drawer.tsx)"
     ]
   }
 }
