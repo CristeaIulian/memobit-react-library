@@ -103,7 +103,7 @@ export const ContextMenu = ({ target, onClose, children, autoClose = false }: Co
                 style={{
                     position: 'fixed',
                     inset: 0,
-                    zIndex: 999,
+                    zIndex: 1190,
                 }}
                 className="memobit-context-menu-back-drop"
                 onClick={onClose}
