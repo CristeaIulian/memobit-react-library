@@ -160,6 +160,7 @@ export { JourneyWizard, type JourneyStep, type JourneyWizardPresentation, type J
 export { ToggleButtons } from './components/ToggleButtons';
 export { ToggleSwitch, type ToggleSwitchProps, type ToggleSwitchVariant } from './components/ToggleSwitch';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
+export { TourHud, type TourHudProps } from './components/TourHud';
 export { Tree, type TreeNode } from './components/Tree';
 export { WHtR } from './components/WHtR';
 
