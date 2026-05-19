@@ -93,6 +93,7 @@ import { ToolbarPage } from './pages/ToolbarPage';
 import { ToggleButtonsPage } from './pages/ToggleButtonsPage';
 import { ToggleSwitchPage } from './pages/ToggleSwitchPage';
 import { TooltipPage } from './pages/TooltipPage';
+import { TourHudPage } from './pages/TourHudPage';
 import { TimelinePage } from './pages/TimelinePage';
 import { TreePage } from './pages/TreePage';
 import { DiffViewerPage } from './pages/DiffViewerPage';
@@ -202,6 +203,7 @@ export const routes: RouteConfig[] = [
     { path: '/toggle-buttons', label: 'Toggle Buttons', component: ToggleButtonsPage },
     { path: '/toggle-switch', label: 'Toggle Switch', component: ToggleSwitchPage },
     { path: '/tooltip', label: 'Tooltip', component: TooltipPage },
+    { path: '/tour-hud', label: 'Tour HUD', component: TourHudPage },
     { path: '/tree', label: 'Tree', component: TreePage },
 ];
 

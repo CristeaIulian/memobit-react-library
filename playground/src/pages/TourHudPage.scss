@@ -1,0 +1,165 @@
+.tour-hud-page {
+    .tour-hud-demo {
+        position: relative;
+        min-height: 360px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        background:
+            linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 38%),
+            var(--card-background-accent-color);
+    }
+
+    .tour-hud-demo--dashboard,
+    .tour-hud-demo--timeline,
+    .tour-hud-demo--compact {
+        padding: var(--spacing-24);
+    }
+
+    .tour-hud-demo--compact {
+        min-height: 240px;
+    }
+
+    .tour-hud-demo__toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-16);
+        padding-bottom: var(--spacing-20);
+        border-bottom: 1px solid var(--border-color);
+
+        > div {
+            display: grid;
+            gap: var(--spacing-2);
+        }
+
+        strong {
+            color: var(--body-color-accent);
+            font-size: var(--font-size-lg);
+        }
+
+        span {
+            color: var(--body-color-muted);
+            font-size: var(--font-size-sm);
+        }
+    }
+
+    .tour-hud-demo__restart {
+        position: absolute;
+        right: var(--spacing-24);
+        bottom: var(--spacing-24);
+    }
+
+    .tour-hud-dashboard {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(140px, 0.8fr));
+        gap: var(--spacing-16);
+        margin-top: var(--spacing-24);
+    }
+
+    .tour-hud-dashboard__panel {
+        display: grid;
+        align-content: start;
+        gap: var(--spacing-8);
+        min-height: 150px;
+        padding: var(--spacing-20);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        background-color: var(--card-background-color);
+
+        strong {
+            color: var(--body-color-accent);
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        p {
+            margin: 0;
+            color: var(--body-color-muted);
+            font-size: var(--font-size-sm);
+        }
+    }
+
+    .tour-hud-dashboard__panel--main {
+        min-height: 190px;
+    }
+
+    .tour-hud-dashboard__eyebrow {
+        color: var(--body-color-muted);
+        font-size: var(--font-size-xs);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .tour-hud-timeline {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--spacing-12);
+        max-width: 780px;
+    }
+
+    .tour-hud-timeline__item {
+        display: grid;
+        gap: var(--spacing-8);
+        min-height: 118px;
+        padding: var(--spacing-16);
+        color: var(--body-color);
+        text-align: left;
+        background-color: var(--card-background-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        cursor: pointer;
+
+        span {
+            color: var(--body-color-muted);
+            font-family: var(--font-family-mono, monospace);
+            font-size: var(--font-size-xs);
+        }
+
+        strong {
+            color: var(--body-color-accent);
+            font-size: var(--font-size-md);
+        }
+
+        &.is-active {
+            border-color: #36d399;
+            box-shadow: 0 0 0 1px rgba(54, 211, 153, 0.3);
+        }
+    }
+
+    .tour-hud--release {
+        --tour-hud-accent-color: #36d399;
+    }
+
+    .tour-hud-steps {
+        display: flex;
+        gap: var(--spacing-8);
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 760px) {
+        .tour-hud-demo {
+            min-height: 460px;
+        }
+
+        .tour-hud-dashboard,
+        .tour-hud-timeline {
+            grid-template-columns: 1fr;
+        }
+
+        .tour-hud {
+            left: var(--spacing-16);
+            right: var(--spacing-16);
+            bottom: var(--spacing-16);
+            width: auto;
+            max-width: none;
+            transform: none;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .tour-hud__controls {
+            justify-content: space-between;
+        }
+    }
+}

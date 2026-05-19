@@ -1,0 +1,82 @@
+.tour-hud {
+    // Warm highlight; themes may override --tour-hud-accent-color.
+    --tour-hud-accent: var(--tour-hud-accent-color, var(--body-accent-color));
+
+    position: absolute;
+    left: 50%;
+    bottom: var(--spacing-64);
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    max-width: 640px;
+    padding: var(--spacing-12) var(--spacing-16);
+    color: var(--tooltip-color);
+    background-color: var(--tooltip-background-color);
+    border: 1px solid var(--tour-hud-accent);
+    border-radius: var(--radius);
+    box-shadow: var(--card-box-shadow);
+
+    &__body {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+
+    &__context {
+        font-family: var(--font-family-mono, monospace);
+        font-size: var(--font-size-xxs);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--tour-hud-accent);
+    }
+
+    &__title {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    &__note {
+        overflow: hidden;
+        font-size: var(--font-size-xs);
+        font-style: italic;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        opacity: 0.8;
+    }
+
+    &__controls {
+        display: flex;
+        gap: var(--spacing-8);
+        flex-shrink: 0;
+    }
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-4);
+        padding: var(--spacing-4) var(--spacing-8);
+        font-family: var(--font-family-sans, sans-serif);
+        font-size: var(--font-size-xxs);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--tour-hud-accent);
+        background: transparent;
+        border: 1px solid var(--tour-hud-accent);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+
+        &:hover:not(:disabled) {
+            color: var(--tooltip-background-color);
+            background-color: var(--tour-hud-accent);
+        }
+
+        &:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+    }
+}
