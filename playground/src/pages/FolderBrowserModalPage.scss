@@ -1,0 +1,86 @@
+.folder-browser-modal-page {
+    .folder-browser-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--spacing-16);
+    }
+
+    .folder-browser-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: var(--spacing-16);
+        min-height: 220px;
+        padding: var(--spacing-16);
+        background-color: var(--card-background-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+    }
+
+    .folder-browser-card__body {
+        display: grid;
+        gap: var(--spacing-12);
+    }
+
+    .folder-browser-card h3,
+    .folder-browser-card p {
+        margin: 0;
+    }
+
+    .folder-browser-card p {
+        color: var(--body-color-muted);
+        font-size: var(--font-size-sm);
+    }
+
+    .folder-browser-card__path {
+        display: grid;
+        gap: var(--spacing-4);
+        padding: var(--spacing-12);
+        background-color: var(--card-background-accent-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+    }
+
+    .folder-browser-card__path span {
+        color: var(--body-color-muted);
+        font-size: var(--font-size-xs);
+        text-transform: uppercase;
+    }
+
+    .folder-browser-card__path strong {
+        overflow: hidden;
+        color: var(--body-color-accent);
+        font-family: var(--font-family-mono, monospace);
+        font-size: var(--font-size-xs);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .folder-browser-path-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: var(--spacing-8);
+    }
+
+    .folder-browser-path-list__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-12);
+        min-width: 0;
+        padding: var(--spacing-8) var(--spacing-12);
+        background-color: var(--card-background-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+    }
+
+    .folder-browser-path-list__item strong {
+        min-width: 0;
+        overflow: hidden;
+        color: var(--body-color-accent);
+        font-family: var(--font-family-mono, monospace);
+        font-size: var(--font-size-xs);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
