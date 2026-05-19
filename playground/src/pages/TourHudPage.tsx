@@ -131,6 +131,7 @@ export const TourHudPage: React.FC = () => {
                                 total={productSteps.length}
                                 title={productStep.title}
                                 note={productStep.note}
+                                width={620}
                                 onPrev={() => setProductIndex(index => clampStep(index - 1, productSteps.length))}
                                 onNext={() => setProductIndex(index => clampStep(index + 1, productSteps.length))}
                                 onExit={() => setProductTourVisible(false)}
@@ -175,6 +176,7 @@ export const TourHudPage: React.FC = () => {
                             total={releaseSteps.length}
                             title={releaseStep.title}
                             note={releaseStep.note}
+                            width="560px"
                             onPrev={() => setReleaseIndex(index => clampStep(index - 1, releaseSteps.length))}
                             onNext={() => setReleaseIndex(index => clampStep(index + 1, releaseSteps.length))}
                             onExit={() => setReleaseIndex(0)}

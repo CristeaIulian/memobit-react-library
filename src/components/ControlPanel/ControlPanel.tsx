@@ -22,6 +22,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     isMobile: isMobileProp,
     showOverlay = true,
     contained = false,
+    flush = false,
     shadow = 'none',
     header,
     navigation = [],
@@ -46,6 +47,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         isOpen ? 'control-panel--open' : 'control-panel--closed',
         isMobile ? 'control-panel--mobile' : '',
         contained ? 'control-panel--contained' : '',
+        flush ? 'control-panel--flush' : '',
         className,
     ]
         .filter(Boolean)

@@ -124,6 +124,8 @@ export interface ControlPanelNavItem {
     id: string;
     label: string;
     isActive: boolean;
+    /** Visually fades the item (e.g. a toggled-off entry) while keeping it clickable. */
+    dimmed?: boolean;
     onClick?: () => void;
     icon?: IconName;
     color?: string;
@@ -142,6 +144,8 @@ export interface ControlPanelProps {
     isMobile?: boolean;
     showOverlay?: boolean;
     contained?: boolean;
+    /** Removes the desktop margin and border-radius so the panel sits flush against content. */
+    flush?: boolean;
     shadow?: string;
     header?: ControlPanelHeader;
     navigation?: ControlPanelNavItem[];

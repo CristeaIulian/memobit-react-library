@@ -10,7 +10,7 @@
     margin: var(--spacing-16);
     min-height: calc(100vh - var(--spacing-32));
     min-height: calc(100dvh - var(--spacing-32));
-    background: var(--card-background-color);
+    background: var(--control-panel-background, var(--card-background-color));
     border: var(--spacing-1) solid var(--delimiter-color);
     border-radius: var(--radius);
     box-shadow: var(--control-panel-shadow);
@@ -99,13 +99,14 @@
         background: transparent;
         color: var(--body-color);
         font-size: var(--font-size-sm);
-        font-weight: var(--font-weight-medium);
+        font-weight: var(--font-weight-normal);
         text-align: left;
         cursor: pointer;
         transition:
             background var(--transition-fast),
             border-color var(--transition-fast),
-            color var(--transition-fast);
+            color var(--transition-fast),
+            opacity var(--transition-fast);
 
         &:hover {
             background: var(--card-background-accent-color);
@@ -116,7 +117,15 @@
             border-color: var(--body-accent-color);
             background: var(--card-background-accent-color);
             color: var(--body-accent-color);
-            font-weight: var(--font-weight-semibold);
+            font-weight: var(--font-weight-medium);
+        }
+
+        &--dimmed {
+            opacity: 0.45;
+
+            &:hover {
+                opacity: 1;
+            }
         }
     }
 
@@ -216,6 +225,14 @@
 
     &--contained {
         position: absolute;
+    }
+
+    // Flush: no desktop margin or radius — the panel connects directly to content.
+    &--flush:not(&--mobile) {
+        margin: 0;
+        border-radius: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
     }
 
     &__overlay {

@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-16);
+    box-sizing: border-box;
     max-width: 640px;
     padding: var(--spacing-12) var(--spacing-16);
     color: var(--tooltip-color);
@@ -17,6 +18,11 @@
     border: 1px solid var(--tour-hud-accent);
     border-radius: var(--radius);
     box-shadow: var(--card-box-shadow);
+
+    &--fixed-width {
+        width: var(--tour-hud-width);
+        max-width: calc(100% - var(--spacing-32));
+    }
 
     &__body {
         flex: 1;

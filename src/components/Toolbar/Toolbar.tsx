@@ -61,6 +61,8 @@ export interface ToolbarProps {
     children?: ReactNode;
     className?: string;
     controlPanelToggle?: boolean | ToolbarControlPanelToggleConfig;
+    /** When true, drops the toolbar's card chrome (background, border, radius, padding). */
+    noCard?: boolean;
     menuItems: MenuHamburgerItem[];
     notifications?: ToolbarNotificationsConfig;
     search?: ToolbarSearchConfig;
@@ -96,10 +98,10 @@ const getSortDropdownValue = (sort: ToolbarSortConfig): string | number | null |
     return sort.value;
 };
 
-export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', controlPanelToggle, menuItems, notifications, search, sort }) => {
+export const Toolbar: React.FC<ToolbarProps> = ({ children, className = '', controlPanelToggle, noCard = false, menuItems, notifications, search, sort }) => {
     const controlPanel = useControlPanelContext();
     const shouldShowControlPanelToggle = Boolean(controlPanelToggle && controlPanel?.isMobile);
-    const rootClassName = ['memobit-toolbar', className].filter(Boolean).join(' ');
+    const rootClassName = ['memobit-toolbar', noCard ? 'memobit-toolbar--no-card' : '', className].filter(Boolean).join(' ');
     const hasContent = Boolean(search || sort || children);
 
     const handleSortChange = (option: DropdownOption | DropdownOption[] | null) => {

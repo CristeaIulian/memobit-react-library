@@ -26,6 +26,7 @@ function renderNavItem(item: ControlPanelNavItem, showToggleColumn: boolean, dep
     const itemClassName = [
         'control-panel__nav-item',
         item.isActive ? 'control-panel__nav-item--active' : '',
+        item.dimmed ? 'control-panel__nav-item--dimmed' : '',
         hasChildren ? 'control-panel__nav-item--has-children' : '',
     ]
         .filter(Boolean)
