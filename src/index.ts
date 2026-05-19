@@ -45,6 +45,12 @@ export { Drawer, type DrawerHeaderAction, type DrawerPosition, type DrawerProps 
 export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
 export { EmptyState, type EmptyStateProps } from './components/EmptyState';
 export { FileDropzone, type FileDropzoneProps } from './components/FileDropzone';
+export {
+    FolderBrowserModal,
+    type FolderBrowserModalProps,
+    type FolderBrowserListing,
+    type FolderBrowserEntry,
+} from './components/FolderBrowserModal';
 export { Flag } from './components/Flag';
 export { Icon, type IconName, type IconSize, type IconVariant } from './components/Icon';
 export { FloatButton } from './components/FloatButton';
@@ -75,6 +81,8 @@ export {
     type MiniStatsCardTrendVariant,
 } from './components/MiniStatsCard';
 export { Stats, type StatsProps, type StatsItem, type StatsAlign, type StatsSize } from './components/Stats';
+export { StickyBar, type StickyBarProps, type StickyBarPosition, type StickyBarAlign } from './components/StickyBar';
+export { MiniSort, type MiniSortProps, type MiniSortItem, type MiniSortDirection, type MiniSortAlign } from './components/MiniSort';
 export { Minimap, type MinimapProps, type MinimapBand } from './components/Minimap';
 export { Modal } from './components/Modal';
 export { NavBar, type NavBarItem } from './components/NavBar';
@@ -147,6 +155,7 @@ export {
 export {
     Toolbar,
     type ToolbarControlPanelToggleConfig,
+    type ToolbarHeadingConfig,
     type ToolbarNotificationsConfig,
     type ToolbarProps,
     type ToolbarSearchConfig,

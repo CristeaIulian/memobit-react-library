@@ -38,6 +38,7 @@ import { EmptyStatePage } from './pages/EmptyStatePage';
 import { EmojiPickerPage } from './pages/EmojiPickerPage';
 import { FileDropzonePage } from './pages/FileDropzonePage';
 import { FlagPage } from './pages/FlagPage';
+import { FolderBrowserModalPage } from './pages/FolderBrowserModalPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
 import { FormPage } from './pages/FormPage';
 import { HighlightPage } from './pages/HighlightPage';
@@ -59,6 +60,7 @@ import { LoadingPage } from './pages/LoadingPage';
 import { MacronutrientsPieChartPage } from './pages/MacronutrientsPieChartPage';
 import { MenuHamburgerPage } from './pages/MenuHamburgerPage';
 import { MinimapPage } from './pages/MinimapPage';
+import { MiniSortPage } from './pages/MiniSortPage';
 import { MiniStatsCardPage } from './pages/MiniStatsCardPage';
 import { ModalPage } from './pages/ModalPage';
 import { NavBarPage } from './pages/NavBarPage';
@@ -83,6 +85,7 @@ import { SkeletonPage } from './pages/SkeletonPage';
 import { SliderPage } from './pages/SliderPage';
 import { SplitPanelPage } from './pages/SplitPanelPage';
 import { StatsPage } from './pages/StatsPage';
+import { StickyBarPage } from './pages/StickyBarPage';
 import { SuggestionsListPage } from './pages/SuggestionsListPage';
 import { TextareaPage } from './pages/TextareaPage';
 import { ThemeLabPage } from './pages/ThemeLabPage';
@@ -145,6 +148,7 @@ export const routes: RouteConfig[] = [
     { path: '/emoji-picker', label: 'Emoji Picker', component: EmojiPickerPage },
     { path: '/file-dropzone', label: 'File Dropzone', component: FileDropzonePage },
     { path: '/flag', label: 'Flag', component: FlagPage },
+    { path: '/folder-browser-modal', label: 'Folder Browser Modal', component: FolderBrowserModalPage },
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
     { path: '/forms', label: 'Forms', component: FormPage },
     { path: '/highlight', label: 'Highlight', component: HighlightPage },
@@ -168,6 +172,7 @@ export const routes: RouteConfig[] = [
     { path: '/macronutrients-pie-chart', label: 'Macronutrients Pie Chart', component: MacronutrientsPieChartPage },
     { path: '/menu-hamburger', label: 'Menu Hamburger', component: MenuHamburgerPage },
     { path: '/minimap', label: 'Minimap', component: MinimapPage },
+    { path: '/mini-sort', label: 'MiniSort', component: MiniSortPage },
     { path: '/mini-stats-card', label: 'Mini Stats Card', component: MiniStatsCardPage },
     { path: '/modal', label: 'Modal', component: ModalPage },
     { path: '/navbar', label: 'NavBar', component: NavBarPage },
@@ -192,6 +197,7 @@ export const routes: RouteConfig[] = [
     { path: '/slider', label: 'Slider', component: SliderPage },
     { path: '/split-panel', label: 'Split Panel', component: SplitPanelPage },
     { path: '/stats', label: 'Stats', component: StatsPage },
+    { path: '/sticky-bar', label: 'StickyBar', component: StickyBarPage },
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
     { path: '/textarea', label: 'Textarea', component: TextareaPage },
     { path: '/theme-lab', label: 'Theme Lab', component: ThemeLabPage },
