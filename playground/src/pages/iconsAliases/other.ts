@@ -3,7 +3,6 @@ export const aliasesOther: Record<string, string[]> = {
     'battery-empty': ['power', 'low', 'dead', 'charge', 'energy'],
     'battery-full': ['power', 'charged', 'complete', 'energy', '100'],
     'battery-half': ['power', 'medium', 'charge', 'energy', '50'],
-    bug: ['error', 'debug', 'issue', 'insect'],
     cooling: ['temperature', 'cold', 'ac', 'aircon', 'climate'],
     delete: ['remove', 'trash', 'bin', 'erase', 'discard'],
     gloves: ['protection', 'winter', 'safety', 'hands'],

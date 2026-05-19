@@ -5,33 +5,33 @@ import { Icon, type IconName, type IconSize, type IconVariant } from '../../../s
 import './IconPage.scss';
 
 const sizes: { value: IconSize; px: string }[] = [
-    { value: 'sm',   px: '~14px' },
-    { value: 'md',   px: '~16px' },
-    { value: 'lg',   px: '~20px' },
-    { value: 'xl',   px: '~24px' },
-    { value: 'xxl',  px: '~32px' },
+    { value: 'sm', px: '~14px' },
+    { value: 'md', px: '~16px' },
+    { value: 'lg', px: '~20px' },
+    { value: 'xl', px: '~24px' },
+    { value: 'xxl', px: '~32px' },
     { value: 'xxxl', px: '~48px — empty states' },
 ];
 
 const variants: { value: IconVariant; token: string }[] = [
     { value: 'default', token: 'inherited' },
-    { value: 'muted',   token: '--body-color-muted' },
-    { value: 'accent',  token: '--body-accent-color' },
-    { value: 'info',    token: '--button-info-background-color' },
+    { value: 'muted', token: '--body-color-muted' },
+    { value: 'accent', token: '--body-accent-color' },
+    { value: 'info', token: '--button-info-background-color' },
     { value: 'success', token: '--button-success-background-color' },
     { value: 'warning', token: '--button-warning-background-color' },
-    { value: 'danger',  token: '--body-danger-color' },
+    { value: 'danger', token: '--body-danger-color' },
 ];
 
-const previewIcon: IconName = 'settings';
+const previewIcon: IconName = 'romania-flag';
 
 export const IconPage: React.FC = () => (
     <div className="icon-page">
         <header className="icon-page__header">
             <h1>Icon</h1>
             <p>
-                Renders library SVG icons with controlled <code>size</code>, <code>variant</code>, and animations.
-                Icons use <code>fill="currentColor"</code> so they inherit theme colors automatically.
+                Renders library SVG icons with controlled <code>size</code>, <code>variant</code>, and animations. Icons use <code>fill="currentColor"</code> so
+                they inherit theme colors automatically.
             </p>
         </header>
 
@@ -132,10 +132,10 @@ export const IconPage: React.FC = () => (
             <pre className="icon-page__usage">{`import { Icon } from '@memobit/libs';
 
 <Icon name="save" />
-<Icon name="settings" size="lg" variant="accent" />
-<Icon name="settings" size="xxxl" />          // empty states
-<Icon name="settings" spin />                 // permanent spin
-<Icon name="settings" spinOnHover />          // spin on hover only
+<Icon name="romania-flag" size="lg" variant="accent" />
+<Icon name="romania-flag" size="xxxl" />      // empty states
+<Icon name="romania-flag" spin />             // permanent spin
+<Icon name="romania-flag" spinOnHover />      // spin on hover only
 <Icon name="save" fade />                     // permanent fade
 <Icon name="heart" pulse variant="danger" />  // permanent pulse`}</pre>
         </section>

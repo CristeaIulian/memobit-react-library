@@ -58,6 +58,7 @@ import { ListPage } from './pages/ListPage';
 import { LoadingPage } from './pages/LoadingPage';
 import { MacronutrientsPieChartPage } from './pages/MacronutrientsPieChartPage';
 import { MenuHamburgerPage } from './pages/MenuHamburgerPage';
+import { MinimapPage } from './pages/MinimapPage';
 import { MiniStatsCardPage } from './pages/MiniStatsCardPage';
 import { ModalPage } from './pages/ModalPage';
 import { NavBarPage } from './pages/NavBarPage';
@@ -165,6 +166,7 @@ export const routes: RouteConfig[] = [
     { path: '/loading', label: 'Loading', component: LoadingPage },
     { path: '/macronutrients-pie-chart', label: 'Macronutrients Pie Chart', component: MacronutrientsPieChartPage },
     { path: '/menu-hamburger', label: 'Menu Hamburger', component: MenuHamburgerPage },
+    { path: '/minimap', label: 'Minimap', component: MinimapPage },
     { path: '/mini-stats-card', label: 'Mini Stats Card', component: MiniStatsCardPage },
     { path: '/modal', label: 'Modal', component: ModalPage },
     { path: '/navbar', label: 'NavBar', component: NavBarPage },

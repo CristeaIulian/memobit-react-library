@@ -342,6 +342,7 @@ import { report } from '../../icons/report';
 import { reproductive } from '../../icons/reproductive';
 import { returnIcon } from '../../icons/return';
 import { rice } from '../../icons/rice';
+import { romaniaFlag } from '../../icons/romania-flag';
 import { robot } from '../../icons/robot';
 import { rocket } from '../../icons/rocket';
 import { rooms } from '../../icons/rooms';
@@ -555,6 +556,7 @@ export const iconMap: Record<IconName, ReactElement> = {
     'musical-note': musicalNote,
     'not-found': notFound,
     'police-man': policeMan,
+    'romania-flag': romaniaFlag,
     'shopping-cart': shoppingCart,
     'signal-full': signalFull,
     'signal-low': signalLow,

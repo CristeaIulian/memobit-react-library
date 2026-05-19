@@ -10,6 +10,7 @@ export const aliasesSymbols: Record<string, string[]> = {
     favorite: ['star', 'like', 'bookmark', 'love', 'heart'],
     ownership: ['owner', 'assigned', 'belongs', 'admin', 'administrator', 'responsible', 'author', 'creator', 'accountability', 'managed', 'assignee'],
     puzzle: ['game', 'logic', 'problem', 'piece'],
+    'romania-flag': ['romania', 'romanian', 'flag', 'country', 'national', 'tricolor', 'europe'],
     rocket: ['launch', 'space', 'flight', 'project', 'start', 'mission', 'breakthrough'],
     sparkle: ['shine', 'star', 'magical', 'twinkle', 'glitter', 'special', 'bright', 'highlight'],
     star: ['astronomy', 'rating', 'celebrity', 'shining', 'cosmos'],

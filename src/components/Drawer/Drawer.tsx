@@ -44,6 +44,8 @@ export interface DrawerProps {
     showOverlay?: boolean;
     /** When false, the drawer does not lock body scroll — use for persistent side panels. */
     lockScroll?: boolean;
+    /** When true, the header close (×) button is not rendered — use for persistent panels. */
+    hideClose?: boolean;
     actions?: DrawerHeaderAction[];
     primary?: ExternalButtonConfig;
     secondary?: ExternalButtonConfig;
@@ -65,6 +67,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     className = '',
     showOverlay = true,
     lockScroll = true,
+    hideClose = false,
     actions = [],
     primary,
     secondary,
@@ -146,9 +149,11 @@ export const Drawer: React.FC<DrawerProps> = ({
                             })}
                         </div>
                     )}
-                    <Button className="drawer__close" onClick={onClose} size="medium" title="Close drawer" variant="ghost">
-                        &times;
-                    </Button>
+                    {!hideClose && (
+                        <Button className="drawer__close" onClick={onClose} size="medium" title="Close drawer" variant="ghost">
+                            &times;
+                        </Button>
+                    )}
                 </div>
                 <div className="drawer__content">{children}</div>
                 {hasFooter && (

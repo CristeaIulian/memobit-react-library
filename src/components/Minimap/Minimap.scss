@@ -1,0 +1,61 @@
+.minimap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    padding: var(--spacing-8) var(--spacing-12);
+    background-color: var(--card-background-color);
+    border-bottom: 1px solid var(--card-border-color);
+
+    &__caption {
+        font-size: var(--font-size-xxs);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--body-color-muted);
+    }
+
+    &__track {
+        position: relative;
+        height: var(--spacing-40);
+        cursor: pointer;
+        touch-action: none;
+    }
+
+    &__bars {
+        position: absolute;
+        inset: 0 0 var(--spacing-6) 0;
+        display: flex;
+        align-items: flex-end;
+        gap: var(--spacing-1);
+    }
+
+    &__bar {
+        flex: 1;
+        min-height: var(--spacing-1);
+        background-color: var(--body-color-muted);
+        opacity: 0.4;
+    }
+
+    &__bands {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: var(--spacing-4);
+    }
+
+    &__band {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+
+    &__viewport {
+        position: absolute;
+        top: calc(-1 * var(--spacing-2));
+        bottom: calc(-1 * var(--spacing-2));
+        background-color: color-mix(in srgb, var(--body-accent-color) 14%, transparent);
+        border-left: var(--spacing-2) solid var(--body-accent-color);
+        border-right: var(--spacing-2) solid var(--body-accent-color);
+        pointer-events: none;
+    }
+}

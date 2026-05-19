@@ -364,6 +364,7 @@ export type IconName =
     | 'rice'
     | 'robot'
     | 'rocket'
+    | 'romania-flag'
     | 'rooms'
     | 'router'
     | 'ruler'
