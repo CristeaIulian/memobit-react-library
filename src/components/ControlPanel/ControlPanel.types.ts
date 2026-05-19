@@ -77,6 +77,8 @@ export interface ControlPanelClearFiltersEvent {
 export interface ControlPanelOptionItem {
     value: string | number;
     label: string;
+    /** Optional hover tooltip describing the option. */
+    title?: string;
 }
 
 export type ControlPanelOption =
@@ -97,9 +99,17 @@ export interface ControlPanelOptionChangeEvent {
 
 export type ControlPanelViewMode = 'table' | 'cards' | 'gallery';
 
+export interface ControlPanelViewToggleOption {
+    value: ControlPanelViewMode;
+    label: string;
+    icon: IconName;
+}
+
 export interface ControlPanelViewToggleConfig {
     value: string;
     showGallery?: boolean;
+    /** Override the default Grid/Table/Gallery buttons with custom labels and icons. */
+    options?: ControlPanelViewToggleOption[];
     onChange: (value: ControlPanelViewMode) => void;
 }
 

@@ -4,6 +4,7 @@ import { Button } from '../Button';
 import { Chip } from '../Chip';
 import { IconName } from '../Icon';
 import { Separator } from '../Separator';
+import { Tooltip } from '../Tooltip';
 
 import {
     ControlPanelGroupByConfig,
@@ -51,7 +52,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
         {viewToggle && (
             <div className="control-panel__option control-panel__option--view-toggle">
                 <div className="control-panel__option-view-toggle">
-                    {[...VIEW_TOGGLE_OPTIONS, ...(viewToggle.showGallery ? [GALLERY_OPTION] : [])].map(opt => (
+                    {(viewToggle.options ?? [...VIEW_TOGGLE_OPTIONS, ...(viewToggle.showGallery ? [GALLERY_OPTION] : [])]).map(opt => (
                         <Button
                             key={opt.value}
                             icon={opt.icon}
@@ -139,9 +140,9 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                         <div className="control-panel__filter-list" role="radiogroup" aria-label={option.label}>
                                             {option.options.map(radioOption => {
                                                 const isSelected = option.value === radioOption.value;
-                                                return (
+                                                const emitChange = () => onOptionChange?.({ optionId: option.id, value: radioOption.value });
+                                                const row = (
                                                     <div
-                                                        key={radioOption.value}
                                                         className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''}`}
                                                     >
                                                         <label className="control-panel__filter-radio-label">
@@ -149,13 +150,24 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                                                 checked={isSelected}
                                                                 className="control-panel__filter-radio-input"
                                                                 name={`control-panel-option-${option.id}`}
-                                                                onChange={() => onOptionChange?.({ optionId: option.id, value: radioOption.value })}
+                                                                onChange={emitChange}
+                                                                /* Re-clicking the selected radio fires no `change`, so re-emit here. */
+                                                                onClick={() => {
+                                                                    if (isSelected) emitChange();
+                                                                }}
                                                                 type="radio"
                                                                 value={radioOption.value}
                                                             />
                                                             <span className="control-panel__filter-label">{radioOption.label}</span>
                                                         </label>
                                                     </div>
+                                                );
+                                                return radioOption.title ? (
+                                                    <Tooltip key={radioOption.value} title={radioOption.title}>
+                                                        {row}
+                                                    </Tooltip>
+                                                ) : (
+                                                    <React.Fragment key={radioOption.value}>{row}</React.Fragment>
                                                 );
                                             })}
                                         </div>

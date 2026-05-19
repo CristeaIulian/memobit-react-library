@@ -19,6 +19,7 @@ export {
     type ControlPanelOptionChangeEvent,
     type ControlPanelViewMode,
     type ControlPanelViewToggleConfig,
+    type ControlPanelViewToggleOption,
     type ControlPanelGroupByConfig,
     type ControlPanelVisibleColumnsConfig,
 } from './ControlPanel';
