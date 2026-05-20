@@ -1,8 +1,8 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 
-import './Textarea.scss';
+import './InputTextarea.scss';
 
-interface TextareaProps {
+interface InputTextareaProps {
     autoComplete?: 'on' | 'off';
     autoFocus?: boolean;
     cols?: number;
@@ -23,7 +23,7 @@ interface TextareaProps {
     value?: string;
 }
 
-export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+export const InputTextarea = forwardRef<HTMLTextAreaElement, InputTextareaProps>(
     (
         {
             autoComplete = 'on',
@@ -48,17 +48,17 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         ref
     ) => {
         return (
-            <div className="textarea-wrapper">
+            <div className="input-textarea-wrapper">
                 {label && (
-                    <label htmlFor={id} className="textarea-label">
+                    <label htmlFor={id} className="input-textarea-label">
                         {label}
-                        {required && <span className="textarea-required">*</span>}
+                        {required && <span className="input-textarea-required">*</span>}
                     </label>
                 )}
                 <textarea
                     autoComplete={autoComplete}
                     autoFocus={autoFocus}
-                    className={`textarea${error ? ' textarea-error' : ''}${success ? ' textarea-success' : ''}`}
+                    className={`input-textarea${error ? ' input-textarea-error' : ''}${success ? ' input-textarea-success' : ''}`}
                     cols={cols}
                     disabled={disabled}
                     id={id}
@@ -73,8 +73,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                     rows={rows}
                     value={value}
                 />
-                {error && <span className="textarea-error-message">{error}</span>}
-                {success && <span className="textarea-success-message">{success}</span>}
+                {error && <span className="input-textarea-error-message">{error}</span>}
+                {success && <span className="input-textarea-success-message">{success}</span>}
             </div>
         );
     }

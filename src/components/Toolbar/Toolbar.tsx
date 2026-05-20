@@ -4,7 +4,7 @@ import { Button } from '../Button';
 import { Dropdown, type DropdownOption } from '../Dropdown';
 import { MenuHamburger, type MenuHamburgerItem } from '../MenuHamburger';
 import { NotificationPanel, type NotificationPanelItem } from '../NotificationPanel';
-import { Search, type SearchProps } from '../Search';
+import { InputSearch, type InputSearchProps } from '../InputSearch';
 import { useControlPanelContext } from '../ControlPanel';
 
 import './Toolbar.scss';
@@ -13,7 +13,7 @@ export interface ToolbarControlPanelToggleConfig {
     label?: string;
 }
 
-export interface ToolbarSearchConfig extends Omit<SearchProps, 'className'> {
+export interface ToolbarSearchConfig extends Omit<InputSearchProps, 'className'> {
     className?: string;
 }
 
@@ -164,7 +164,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 <div className="memobit-toolbar__content">
                     {search && (
                         <div className="memobit-toolbar__search">
-                            <Search {...search} className={['memobit-toolbar__search-input', search.className].filter(Boolean).join(' ')} />
+                            <InputSearch {...search} className={['memobit-toolbar__search-input', search.className].filter(Boolean).join(' ')} />
                         </div>
                     )}
 

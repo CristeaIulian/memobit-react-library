@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
 import { EMOJI_KEYWORDS } from './emojiKeywords';
-import { Search } from '../Search';
+import { InputSearch } from '../InputSearch';
 
 import './EmojiPicker.scss';
 
@@ -778,7 +778,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ value, onChange }) => 
     return (
         <div className="emoji-picker">
             <div className="emoji-picker__search">
-                <Search placeholder="Search emoji..." value={search} onChange={setSearch} autoFocus />
+                <InputSearch placeholder="Search emoji..." value={search} onChange={setSearch} autoFocus />
             </div>
 
             {!filteredEmojis && (

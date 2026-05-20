@@ -3,7 +3,7 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Checkbox } from '../Checkbox';
 import { Drawer } from '../Drawer';
 import { Dropdown, DropdownOption } from '../Dropdown';
-import { Search } from '../Search';
+import { InputSearch } from '../InputSearch';
 import { ToggleSwitch } from '../ToggleSwitch';
 
 import { useTheme } from './useTheme';
@@ -131,7 +131,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                     <div className="theme-settings__section">
                         <label>Select Theme</label>
                         <div className="theme-settings__toolbar">
-                            <Search placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />
+                            <InputSearch placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />
                             <ToggleSwitch checked={showFavoritesOnly} onChange={setShowFavoritesOnly} onLabel="Favorites" offLabel="Favorites" size="small" />
                         </div>
                         <div className="theme-settings__appearance" role="group" aria-label="Filter by appearance">

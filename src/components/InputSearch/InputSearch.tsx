@@ -1,9 +1,9 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 import { InputText } from '../InputText';
 import { Icon } from '../Icon';
-import './Search.scss';
+import './InputSearch.scss';
 
-export interface SearchProps {
+export interface InputSearchProps {
     autoComplete?: 'on' | 'off';
     autoFocus?: boolean;
     disabled?: boolean;
@@ -21,7 +21,7 @@ export interface SearchProps {
     className?: string;
 }
 
-export const Search = forwardRef<HTMLInputElement, SearchProps>(
+export const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
     (
         {
             autoComplete = 'off',
@@ -49,8 +49,8 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
         const showClearButton = value && value.length > 0 && !disabled && !readOnly;
 
         return (
-            <div className={`search ${className}`}>
-                <div className="search__icon">
+            <div className={`input-search ${className}`}>
+                <div className="input-search__icon">
                     <Icon name="search" />
                 </div>
                 <InputText
@@ -71,7 +71,7 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
                     ref={ref}
                 />
                 {showClearButton && (
-                    <button type="button" className="search__clear" onClick={handleClear} aria-label="Clear search">
+                    <button type="button" className="input-search__clear" onClick={handleClear} aria-label="Clear search">
                         <Icon name="clear" size="sm" />
                     </button>
                 )}

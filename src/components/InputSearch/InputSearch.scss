@@ -1,18 +1,18 @@
 @use '../../styles/utilities' as *;
 
-.search {
+.input-search {
     position: relative;
     width: 100%;
 
-    // Offset from bottom of .search (== bottom of input) to center the icons
+    // Offset from bottom of .input-search (== bottom of input) to center the icons
     // vertically within the input.
-    --search-line-offset: var(--spacing-12);
-    --search-line-height: calc(var(--font-size-sm) * var(--line-height-normal));
+    --input-search-line-offset: var(--spacing-12);
+    --input-search-line-height: calc(var(--font-size-sm) * var(--line-height-normal));
 
     &__icon {
-        @include form-control-affix(var(--search-line-height));
+        @include form-control-affix(var(--input-search-line-height));
         left: var(--spacing-12);
-        bottom: var(--search-line-offset);
+        bottom: var(--input-search-line-offset);
         pointer-events: none;
 
         .icon {
@@ -21,9 +21,9 @@
     }
 
     &__clear {
-        @include form-control-affix(var(--search-line-height));
+        @include form-control-affix(var(--input-search-line-height));
         right: var(--spacing-8);
-        bottom: var(--search-line-offset);
+        bottom: var(--input-search-line-offset);
         background: none;
         border: none;
         padding: var(--spacing-4);
@@ -45,7 +45,7 @@
         padding-left: var(--spacing-40);
     }
 
-    &:has(.search__clear) .input-text {
+    &:has(.input-search__clear) .input-text {
         padding-right: var(--spacing-40);
     }
 }

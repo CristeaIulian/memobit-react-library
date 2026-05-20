@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { format2Digits } from '../../helpers/Numbers';
 import { Button } from '../Button';
-import { Search } from '../Search';
+import { InputSearch } from '../InputSearch';
 
 import './SuggestionsList.scss';
 import { Tooltip } from '../Tooltip';
@@ -95,7 +95,7 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
                 </Tooltip>
                 {enableSearch && (
                     <div className="list-suggestions-list-search">
-                        <Search value={searchValue} onChange={setSearchValue} placeholder="Search suggestions..." />
+                        <InputSearch value={searchValue} onChange={setSearchValue} placeholder="Search suggestions..." />
                     </div>
                 )}
                 <div className="list-suggestions-list-rows">

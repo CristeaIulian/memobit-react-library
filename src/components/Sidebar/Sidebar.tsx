@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from 'react';
 
 import { AppHeader, type AppHeaderProps } from '../AppHeader';
 import { Icon, type IconName } from '../Icon';
-import { Search } from '../Search';
+import { InputSearch } from '../InputSearch';
 import { useSidebarContext } from './SidebarContext';
 
 import './Sidebar.scss';
@@ -129,7 +129,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 )}
                 {searchPlaceholder && (
                     <div className="sidebar__search">
-                        <Search value={searchQuery} onChange={setSearchQuery} placeholder={searchPlaceholder} />
+                        <InputSearch value={searchQuery} onChange={setSearchQuery} placeholder={searchPlaceholder} />
                     </div>
                 )}
                 {visibleSections.length > 0 && (

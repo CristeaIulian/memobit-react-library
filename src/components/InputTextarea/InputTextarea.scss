@@ -1,0 +1,3 @@
+@use '../../styles/utilities' as *;
+
+@include form-control-component('input-textarea');

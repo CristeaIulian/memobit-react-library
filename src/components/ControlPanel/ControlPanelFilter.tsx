@@ -9,7 +9,7 @@ import { InputDate } from '../InputDate';
 import { InputNumber } from '../InputNumber';
 import { InputText } from '../InputText';
 import { Rating } from '../Rating';
-import { Search } from '../Search';
+import { InputSearch } from '../InputSearch';
 
 import {
     ControlPanelFilter,
@@ -96,7 +96,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
 
     if (filter.type === 'search') {
         return (
-            <Search
+            <InputSearch
                 className="control-panel__filter-search"
                 onChange={value => emitFilterChange({ filterId: filter.id, type: filter.type, value })}
                 placeholder={filter.placeholder}
