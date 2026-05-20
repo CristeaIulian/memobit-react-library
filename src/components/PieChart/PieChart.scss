@@ -1,0 +1,66 @@
+.pie-chart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--body-color);
+
+    svg {
+        display: block;
+        overflow: visible;
+    }
+
+    &--small {
+        --pie-chart-label-font-size: var(--font-size-xs);
+        --pie-chart-empty-label-font-size: var(--font-size-xs);
+    }
+
+    &--medium {
+        --pie-chart-label-font-size: var(--font-size-sm);
+        --pie-chart-empty-label-font-size: var(--font-size-sm);
+    }
+
+    &--large {
+        --pie-chart-label-font-size: var(--font-size-md);
+        --pie-chart-empty-label-font-size: var(--font-size-md);
+    }
+
+    &__slice {
+        stroke: var(--card-background-color);
+        stroke-linejoin: round;
+    }
+
+    &__empty-circle {
+        fill: var(--progress-bar-background-color);
+        stroke: var(--delimiter-color);
+        stroke-width: var(--spacing-1);
+    }
+
+    &__empty-label {
+        fill: var(--body-color-muted);
+        font-size: var(--pie-chart-empty-label-font-size);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    &__value-label {
+        font-size: var(--pie-chart-label-font-size);
+        font-weight: var(--font-weight-semibold);
+        pointer-events: none;
+
+        &--inside {
+            fill: #fff;
+            paint-order: stroke;
+            stroke: rgba(0, 0, 0, 0.55);
+            stroke-linejoin: round;
+            stroke-width: 3px;
+        }
+
+        &--outside {
+            stroke: none;
+        }
+    }
+
+    &__leader-line {
+        stroke-width: var(--spacing-1);
+        stroke-linecap: round;
+    }
+}
