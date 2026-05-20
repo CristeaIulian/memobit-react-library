@@ -299,8 +299,8 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         value: 'vital-aurora',
         label: 'Vital Aurora',
         recommendedApps: ['Life Expectancy / Lifespan'],
-        fontUrl: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap',
-        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700;800&display=swap',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap',
     },
     {
         value: 'spectrum-vault',
