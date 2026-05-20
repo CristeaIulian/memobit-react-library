@@ -3,6 +3,51 @@
     flex-direction: column;
     gap: var(--spacing-4);
 
+    &--vertical {
+        align-items: center;
+
+        .progress-bar__track {
+            width: var(--spacing-16);
+            height: var(--spacing-200);
+        }
+
+        .progress-fill {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: calc(100% - var(--spacing-2));
+            margin: 0 auto;
+            transition: height 0.3s ease;
+        }
+
+        .progress-bar__inline-label {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            padding: var(--spacing-8) 0;
+
+            &.progress-bar__inline-label-left {
+                justify-content: flex-end;
+            }
+
+            &.progress-bar__inline-label-right {
+                justify-content: flex-start;
+            }
+        }
+
+        &.progress-bar-inline {
+            align-items: center;
+
+            .progress-bar__track {
+                flex: none;
+            }
+
+            .progress-bar__label {
+                min-width: auto;
+            }
+        }
+    }
+
     &.progress-bar-inline {
         flex-direction: row;
         align-items: center;
@@ -141,6 +186,12 @@
         }
     }
 
+    &--vertical {
+        .progress-bar__track .progress-fill {
+            transition: height 0.3s ease;
+        }
+    }
+
     &.progress-bar-thin {
         .progress-bar__track {
             height: var(--spacing-6);
@@ -149,6 +200,13 @@
             .progress-fill {
                 border-radius: var(--spacing-24);
             }
+        }
+    }
+
+    &--vertical.progress-bar-thin {
+        .progress-bar__track {
+            width: var(--spacing-6);
+            height: var(--spacing-200);
         }
     }
 }

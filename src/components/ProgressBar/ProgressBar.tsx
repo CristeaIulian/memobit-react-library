@@ -1,33 +1,42 @@
-import { useMemo } from 'react';
+import { type CSSProperties, useMemo } from 'react';
 
 import { format2Digits } from '../../helpers/Numbers';
 
 import './ProgressBar.scss';
 
-interface ProgressBarProps {
-    label?: string;
-    state?: 'default' | 'danger' | 'success' | 'warning' | 'info';
-    value: number;
-    showPercentage?: boolean;
-    striped?: boolean;
+export type ProgressBarState = 'default' | 'danger' | 'success' | 'warning' | 'info';
+export type ProgressBarOrientation = 'horizontal' | 'vertical';
+export type ProgressBarLabelPosition = 'inside' | 'above' | 'below' | 'before' | 'after';
+export type ProgressBarLabelAlign = 'left' | 'center' | 'right';
+
+export interface ProgressBarProps {
     animated?: boolean;
-    thin?: boolean;
-    labelPosition?: 'inside' | 'above' | 'below' | 'before' | 'after';
-    labelAlign?: 'left' | 'center' | 'right';
+    height?: CSSProperties['height'];
+    label?: string;
     labelAfterValue?: boolean;
+    labelAlign?: ProgressBarLabelAlign;
+    labelPosition?: ProgressBarLabelPosition;
+    orientation?: ProgressBarOrientation;
+    showPercentage?: boolean;
+    state?: ProgressBarState;
+    striped?: boolean;
+    thin?: boolean;
+    value: number;
 }
 
 export const ProgressBar = ({
-    label,
-    state = 'default',
-    value = 0,
-    showPercentage = true,
-    striped = false,
     animated = false,
-    thin = false,
-    labelPosition = 'inside',
-    labelAlign = 'left',
+    height,
+    label,
     labelAfterValue = false,
+    labelAlign = 'left',
+    labelPosition = 'inside',
+    orientation = 'horizontal',
+    showPercentage = true,
+    state = 'default',
+    striped = false,
+    thin = false,
+    value = 0,
 }: ProgressBarProps) => {
     const fillClassNames = ['progress-fill', `progress-bar-${state}`, striped && 'progress-bar-striped', animated && striped && 'progress-bar-animated']
         .filter(Boolean)
@@ -51,17 +60,20 @@ export const ProgressBar = ({
     }, [showPercentage, value, label, labelAfterValue]);
 
     const showInsideLabel = labelPosition === 'inside' && Boolean(displayText);
+    const isVertical = orientation === 'vertical';
+    const trackStyle = isVertical && height ? ({ height } as CSSProperties) : undefined;
+    const fillStyle = isVertical ? ({ height: `${clampedValue}%` } as CSSProperties) : ({ width: `${clampedValue}%` } as CSSProperties);
 
     return (
         <div
-            className={`progress-bar ${labelPosition === 'before' || labelPosition === 'after' ? 'progress-bar-inline' : ''}  ${thin ? 'progress-bar-thin' : ''}`}
+            className={`progress-bar progress-bar--${orientation} ${
+                labelPosition === 'before' || labelPosition === 'after' ? 'progress-bar-inline' : ''
+            }  ${thin ? 'progress-bar-thin' : ''}`}
         >
             {(labelPosition === 'above' || labelPosition === 'before') && displayText && <div className={labelClassNames}>{displayText}</div>}
-            <div className="progress-bar__track">
-                <div className={`${fillClassNames} ${labelPosition === 'after' ? 'progress-bar__label-after' : ''} `} style={{ width: `${clampedValue}%` }} />
-                {showInsideLabel && (
-                    <span className={`progress-bar__inline-label progress-bar__inline-label-${labelAlign}`}>{displayText}</span>
-                )}
+            <div className="progress-bar__track" style={trackStyle}>
+                <div className={`${fillClassNames} ${labelPosition === 'after' ? 'progress-bar__label-after' : ''} `} style={fillStyle} />
+                {showInsideLabel && <span className={`progress-bar__inline-label progress-bar__inline-label-${labelAlign}`}>{displayText}</span>}
             </div>
             {(labelPosition === 'below' || labelPosition === 'after') && displayText && <div className={labelClassNames}>{displayText}</div>}
         </div>
