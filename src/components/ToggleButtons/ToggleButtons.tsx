@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { Button, type ButtonVariant } from '../Button';
+import { Icon, IconName } from '../Icon';
 import { Tooltip } from '../Tooltip';
 
 import './ToggleButtons.scss';
-import { IconName } from '../Icon';
 
 interface ToggleState {
     label: string;
@@ -23,7 +23,14 @@ interface ToggleProps {
     states: ToggleState[];
 }
 
-export const ToggleButtons: FC<ToggleProps> = ({ activeVariant = 'warning', state, onToggleChange, states, layout = 'buttons', size = 'medium' }: ToggleProps) => {
+export const ToggleButtons: FC<ToggleProps> = ({
+    activeVariant = 'warning',
+    state,
+    onToggleChange,
+    states,
+    layout = 'buttons',
+    size = 'medium',
+}: ToggleProps) => {
     const { isAtLeast } = useBreakpoint();
 
     if (layout === 'cards') {
@@ -37,7 +44,11 @@ export const ToggleButtons: FC<ToggleProps> = ({ activeVariant = 'warning', stat
                             className={`toggle-buttons__card${state === s.key ? ' toggle-buttons__card--active' : ''}`}
                             onClick={() => onToggleChange(s.key)}
                         >
-                            <span className="toggle-buttons__card-icon">{s.icon}</span>
+                            {s.icon && (
+                                <span className="toggle-buttons__card-icon">
+                                    <Icon name={s.icon} size="xl" />
+                                </span>
+                            )}
                             <span className="toggle-buttons__card-label">{s.label}</span>
                         </button>
                     );
@@ -57,7 +68,13 @@ export const ToggleButtons: FC<ToggleProps> = ({ activeVariant = 'warning', stat
     return (
         <div className="toggle-buttons">
             {states.map((s, index) => (
-                <Button key={`btn-toggle2-${index}-${s}`} size={size} variant={state === s.key ? activeVariant : 'default'} icon={s.icon} onClick={() => onToggleChange(s.key)}>
+                <Button
+                    key={`btn-toggle2-${index}-${s}`}
+                    size={size}
+                    variant={state === s.key ? activeVariant : 'default'}
+                    icon={s.icon}
+                    onClick={() => onToggleChange(s.key)}
+                >
                     {isAtLeast('tablet') ? s.label : ''}
                 </Button>
             ))}

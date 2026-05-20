@@ -25,6 +25,11 @@
     &--cards {
         column-gap: var(--spacing-6);
         height: auto;
+
+        > .tooltip-trigger {
+            flex: 1;
+            display: flex;
+        }
     }
 
     &__card {
@@ -32,7 +37,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: var(--spacing-4);
+        min-width: var(--spacing-64);
         padding: var(--spacing-12) var(--spacing-4);
         border: 1px solid var(--form-control-border-color);
         border-radius: var(--radius-sm);
@@ -55,12 +62,23 @@
     }
 
     &__card-icon {
-        font-size: var(--font-size-xl);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--spacing-32);
+        height: var(--spacing-32);
         line-height: 1;
+
+        .icon {
+            width: 100%;
+            height: 100%;
+        }
     }
 
     &__card-label {
         font-size: var(--font-size-xs);
         font-weight: var(--font-weight-medium);
+        line-height: 1.2;
+        text-align: center;
     }
 }
