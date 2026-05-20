@@ -1,7 +1,5 @@
-.toast {
+.toast.toast--fixed {
     position: fixed;
-    top: var(--spacing-16);
-    right: var(--spacing-16);
     padding: var(--spacing-16);
     border: 1px solid;
     border-radius: var(--radius);
@@ -12,6 +10,50 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-16);
+
+    &.toast--top-left {
+        top: var(--spacing-16);
+        left: var(--spacing-16);
+    }
+
+    &.toast--top-right {
+        top: var(--spacing-16);
+        right: var(--spacing-16);
+    }
+
+    &.toast--bottom-left {
+        bottom: var(--spacing-16);
+        left: var(--spacing-16);
+    }
+
+    &.toast--bottom-right {
+        right: var(--spacing-16);
+        bottom: var(--spacing-16);
+    }
+
+    &.toast--top {
+        top: var(--spacing-16);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &.toast--bottom {
+        bottom: var(--spacing-16);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &.toast--left {
+        top: 50%;
+        left: var(--spacing-16);
+        transform: translateY(-50%);
+    }
+
+    &.toast--right {
+        top: 50%;
+        right: var(--spacing-16);
+        transform: translateY(-50%);
+    }
 
     &__message {
         flex: 1;
@@ -77,11 +119,9 @@
 
 @keyframes slideIn {
     from {
-        transform: translateX(100%);
         opacity: 0;
     }
     to {
-        transform: translateX(0);
         opacity: 1;
     }
 }

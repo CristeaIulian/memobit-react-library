@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import './ContextToast.scss';
 
@@ -9,12 +9,15 @@ export interface ContextToastAction {
     onClick: () => void;
 }
 
+export type ToastContainerPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'top' | 'bottom' | 'left' | 'right';
+
 interface ToastProps {
     id: string;
     message: string;
     type?: ToastType;
     action?: ContextToastAction;
     onClose: (id: string) => void;
+    showDismissButton?: boolean;
     timeout: number;
 }
 
@@ -33,7 +36,8 @@ interface ToastContextValue {
 }
 
 interface ToastContainerProps {
-    position?: 'bottom-left' | 'bottom-center' | 'bottom-right';
+    position?: ToastContainerPosition;
+    showDismissButton?: boolean;
 }
 
 interface ToastProviderProps {
@@ -62,7 +66,7 @@ const CloseIcon = () => (
 );
 
 // ContextToast Component for individual notifications
-const ContextToast = ({ id, message, type = 'info', action, onClose, timeout = 2000 }: ToastProps) => {
+const ContextToast = ({ id, message, type = 'info', action, onClose, showDismissButton = true, timeout = 2000 }: ToastProps) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             onClose(id);
@@ -91,21 +95,32 @@ const ContextToast = ({ id, message, type = 'info', action, onClose, timeout = 2
                     {action.label}
                 </button>
             )}
-            <button onClick={handleClose} className="toast__close-button">
-                <CloseIcon />
-            </button>
+            {showDismissButton && (
+                <button onClick={handleClose} className="toast__close-button" aria-label="Close">
+                    <CloseIcon />
+                </button>
+            )}
         </div>
     );
 };
 
 // ContextToast Container (Manages position and multiple toasts)
-export const ToastContainer = ({ position = 'bottom-right' }: ToastContainerProps) => {
+export const ToastContainer = ({ position = 'bottom-right', showDismissButton = true }: ToastContainerProps) => {
     const { toasts, removeToast } = useToast();
 
     return (
         <div className={`toast-container toast-container--${position}`}>
             {toasts.map(toast => (
-                <ContextToast key={toast.id} id={toast.id} message={toast.message} type={toast.type} action={toast.action} timeout={toast.timeout} onClose={removeToast} />
+                <ContextToast
+                    key={toast.id}
+                    id={toast.id}
+                    message={toast.message}
+                    type={toast.type}
+                    action={toast.action}
+                    showDismissButton={showDismissButton}
+                    timeout={toast.timeout}
+                    onClose={removeToast}
+                />
             ))}
         </div>
     );
