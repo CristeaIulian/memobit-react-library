@@ -152,6 +152,7 @@ export type IconName =
     | 'evening'
     | 'expense'
     | 'export'
+    | 'external-link'
     | 'fan'
     | 'favorite'
     | 'fibers'

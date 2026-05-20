@@ -463,6 +463,7 @@ import { cigarette } from '../../icons/cigarette';
 import { cube } from '../../icons/cube';
 import { equalizer } from '../../icons/equalizer';
 import { expense } from '../../icons/expense';
+import { externalLink } from '../../icons/external-link';
 import { fan } from '../../icons/fan';
 import { fog } from '../../icons/fog';
 import { inkCartridge } from '../../icons/ink-cartridge';
@@ -932,6 +933,7 @@ export const iconMap: Record<IconName, ReactElement> = {
     polenta,
     'arrow-bidirectional-horizontal': arrowBidirectionalHorizontal,
     'arrow-bidirectional-vertical': arrowBidirectionalVertical,
+    'external-link': externalLink,
     'ink-cartridge': inkCartridge,
     'lock-open': lockOpen,
     burst,

@@ -372,7 +372,7 @@ export const iconCategoryDefinitions: IconCategory[] = [
     {
         id: 'network',
         label: 'Network & Web',
-        icons: ['ajax', 'antenna', 'api', 'dns', 'link', 'network', 'wan', 'web', 'website-crawl', 'wifi'],
+        icons: ['ajax', 'antenna', 'api', 'dns', 'external-link', 'link', 'network', 'wan', 'web', 'website-crawl', 'wifi'],
     },
     {
         id: 'analytics',

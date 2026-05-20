@@ -3,6 +3,7 @@ export const aliasesNetwork: Record<string, string[]> = {
     antenna: ['signal', 'reception', 'broadcast', 'frequency', 'wireless'],
     api: ['json', 'api', 'web-service'],
     dns: ['server', 'domain', 'network', 'ip', 'lookup'],
+    'external-link': ['external', 'open', 'new-tab', 'new-window', 'outbound', 'launch', 'share', 'url'],
     link: ['url', 'connection', 'hyperlink', 'chain', 'anchor'],
     network: ['connection', 'internet', 'wifi', 'lan', 'online'],
     wan: ['network', 'wide-area', 'connectivity', 'external'],
