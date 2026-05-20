@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Search } from '../../../src';
+import { InputSearch } from '../../../src';
 
-export const SearchPage: React.FC = () => {
+export const InputSearchPage: React.FC = () => {
     const [searchValue, setSearchValue] = useState('');
     const [searchValue2, setSearchValue2] = useState('');
     const [searchValue3, setSearchValue3] = useState('');
+    const [eventSearchValue, setEventSearchValue] = useState('');
+    const [lastEvent, setLastEvent] = useState('No event yet');
 
     return (
         <div className="component-page">
-            <h1>Search Component</h1>
+            <h1>InputSearch Component</h1>
             <p>A search input component built on top of InputText with a search icon.</p>
 
             <section className="page-section">
@@ -16,11 +18,7 @@ export const SearchPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Default Search</h3>
                     <div className="component-group">
-                        <Search
-                            value={searchValue}
-                            onChange={setSearchValue}
-                            placeholder="Search..."
-                        />
+                        <InputSearch value={searchValue} onChange={setSearchValue} placeholder="Search..." />
                         <p style={{ marginTop: '12px' }}>Current value: {searchValue || '(empty)'}</p>
                     </div>
                 </div>
@@ -31,16 +29,8 @@ export const SearchPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Different Placeholder Text</h3>
                     <div className="component-group" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                        <Search
-                            value={searchValue2}
-                            onChange={setSearchValue2}
-                            placeholder="Search for products..."
-                        />
-                        <Search
-                            value={searchValue3}
-                            onChange={setSearchValue3}
-                            placeholder="Find users..."
-                        />
+                        <InputSearch value={searchValue2} onChange={setSearchValue2} placeholder="Search for products..." />
+                        <InputSearch value={searchValue3} onChange={setSearchValue3} placeholder="Find users..." />
                     </div>
                 </div>
             </section>
@@ -52,22 +42,22 @@ export const SearchPage: React.FC = () => {
                     <div className="component-group" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>Normal</label>
-                            <Search placeholder="Search..." />
+                            <InputSearch placeholder="Search..." />
                         </div>
 
                         <div>
                             <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>Disabled</label>
-                            <Search placeholder="Search..." disabled value="Disabled search" />
+                            <InputSearch placeholder="Search..." disabled value="Disabled search" />
                         </div>
 
                         <div>
                             <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>Read-only</label>
-                            <Search placeholder="Search..." readOnly value="Read-only search" />
+                            <InputSearch placeholder="Search..." readOnly value="Read-only search" />
                         </div>
 
                         <div>
                             <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>Auto-focused</label>
-                            <Search placeholder="Search..." autoFocus />
+                            <InputSearch placeholder="Search..." autoFocus />
                         </div>
                     </div>
                 </div>
@@ -80,12 +70,12 @@ export const SearchPage: React.FC = () => {
                     <div className="component-group" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>AutoComplete On</label>
-                            <Search placeholder="Search..." autoComplete="on" />
+                            <InputSearch placeholder="Search..." autoComplete="on" />
                         </div>
 
                         <div>
                             <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>AutoComplete Off (default)</label>
-                            <Search placeholder="Search..." autoComplete="off" />
+                            <InputSearch placeholder="Search..." autoComplete="off" />
                         </div>
                     </div>
                 </div>
@@ -98,22 +88,22 @@ export const SearchPage: React.FC = () => {
                     <div className="component-group" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                         <div>
                             <h4 style={{ marginBottom: '8px', fontSize: '16px' }}>Product Search</h4>
-                            <Search placeholder="Search for products by name or SKU..." />
+                            <InputSearch placeholder="Search for products by name or SKU..." />
                         </div>
 
                         <div>
                             <h4 style={{ marginBottom: '8px', fontSize: '16px' }}>User Search</h4>
-                            <Search placeholder="Search users by name or email..." />
+                            <InputSearch placeholder="Search users by name or email..." />
                         </div>
 
                         <div>
                             <h4 style={{ marginBottom: '8px', fontSize: '16px' }}>Document Search</h4>
-                            <Search placeholder="Search documents..." />
+                            <InputSearch placeholder="Search documents..." />
                         </div>
 
                         <div>
                             <h4 style={{ marginBottom: '8px', fontSize: '16px' }}>Table Filter</h4>
-                            <Search placeholder="Filter table results..." />
+                            <InputSearch placeholder="Filter table results..." />
                         </div>
                     </div>
                 </div>
@@ -124,17 +114,23 @@ export const SearchPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>With Event Handlers</h3>
                     <div className="component-group">
-                        <Search
+                        <InputSearch
+                            value={eventSearchValue}
+                            onChange={setEventSearchValue}
                             placeholder="Type and press Enter..."
-                            onKeyDown={(e) => {
+                            required
+                            onBlur={() => setLastEvent('blur')}
+                            onClick={() => setLastEvent('click')}
+                            onKeyDown={e => {
+                                setLastEvent(`key down: ${e.key}`);
                                 if (e.key === 'Enter') {
                                     alert(`Search submitted: ${(e.target as HTMLInputElement).value}`);
                                 }
                             }}
+                            onKeyUp={event => setLastEvent(`key up: ${event.key}`)}
                         />
-                        <p style={{ marginTop: '12px', fontSize: '14px', color: 'var(--body-color-muted)' }}>
-                            Press Enter to trigger search
-                        </p>
+                        <p style={{ marginTop: '12px', fontSize: '14px', color: 'var(--body-color-muted)' }}>Press Enter to trigger search</p>
+                        <p>Last event: {lastEvent}</p>
                     </div>
                 </div>
             </section>

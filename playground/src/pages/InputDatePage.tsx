@@ -8,6 +8,8 @@ export const InputDatePage: React.FC = () => {
     const [boundedDate, setBoundedDate] = useState<string>('2026-02-20');
     const [emptyDate, setEmptyDate] = useState<string>('');
     const [validDate, setValidDate] = useState<string>('2026-02-25');
+    const [eventDate, setEventDate] = useState<string>('2026-03-01');
+    const [lastEvent, setLastEvent] = useState<string>('No event yet');
 
     const errorMessage = emptyDate ? '' : 'Please select a date';
 
@@ -21,25 +23,14 @@ export const InputDatePage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Date input</h3>
                     <div className="component-group">
-                        <InputDate
-                            id="basic-date"
-                            label="Start date"
-                            value={dateValue}
-                            onChange={value => setDateValue(value ?? '')}
-                        />
+                        <InputDate id="basic-date" label="Start date" value={dateValue} onChange={value => setDateValue(value ?? '')} />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Date and time</h3>
                     <div className="component-group">
-                        <InputDate
-                            id="datetime"
-                            label="Meeting time"
-                            type="datetime"
-                            value={dateTimeValue}
-                            onChange={value => setDateTimeValue(value ?? '')}
-                        />
+                        <InputDate id="datetime" label="Meeting time" type="datetime" value={dateTimeValue} onChange={value => setDateTimeValue(value ?? '')} />
                     </div>
                 </div>
             </section>
@@ -94,6 +85,31 @@ export const InputDatePage: React.FC = () => {
                     <div className="component-group">
                         <InputDate id="disabled-date" label="Disabled" value="2026-02-20" disabled />
                     </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Input Options and Events</h2>
+                <div className="showcase-group">
+                    <h3>Focus, Highlight, Clearable and Keyboard Events</h3>
+                    <div className="component-group">
+                        <InputDate
+                            id="event-date"
+                            label="Event date"
+                            value={eventDate}
+                            onChange={value => setEventDate(value ?? '')}
+                            autoComplete="off"
+                            autoFocus
+                            clearable
+                            highlighted
+                            onBlur={() => setLastEvent('blur')}
+                            onClick={() => setLastEvent('click')}
+                            onKeyDown={event => setLastEvent(`key down: ${event.key}`)}
+                            onKeyUp={event => setLastEvent(`key up: ${event.key}`)}
+                        />
+                        <InputDate id="readonly-date" label="Read only" value="2026-04-01" readOnly />
+                    </div>
+                    <p>Last event: {lastEvent}</p>
                 </div>
             </section>
         </div>

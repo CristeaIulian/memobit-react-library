@@ -16,11 +16,7 @@ export const FileDropzonePage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Upload attachments</h3>
                     <div className="component-group">
-                        <FileDropzone
-                            label="Project files"
-                            accept="image/*,application/pdf"
-                            onFiles={files => setFileCount(files.length)}
-                        />
+                        <FileDropzone label="Project files" accept="image/*,application/pdf" onFiles={files => setFileCount(files.length)} />
                     </div>
                     <p>Files selected: {fileCount}</p>
                 </div>
@@ -31,14 +27,19 @@ export const FileDropzonePage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Upload multiple assets</h3>
                     <div className="component-group">
-                        <FileDropzone
-                            label="Marketing assets"
-                            accept="image/*"
-                            multiple
-                            onFiles={files => setMultiCount(files.length)}
-                        />
+                        <FileDropzone label="Marketing assets" accept="image/*" multiple onFiles={files => setMultiCount(files.length)} />
                     </div>
                     <p>Files selected: {multiCount}</p>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Without Image Preview</h2>
+                <div className="showcase-group">
+                    <h3>Upload supporting documents</h3>
+                    <div className="component-group">
+                        <FileDropzone label="Evidence files" accept="image/*,application/pdf" showPreview={false} multiple />
+                    </div>
                 </div>
             </section>
         </div>

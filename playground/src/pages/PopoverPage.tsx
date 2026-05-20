@@ -48,7 +48,12 @@ export const PopoverPage: React.FC = () => {
                         <h3>Auto (Default)</h3>
                         <div className="component-group">
                             <Button onClick={e => popover.toggle('auto', e)}>Auto Placement</Button>
-                            <Popover placement="auto" visible={popover.isVisible('auto')} anchorEl={popover.getAnchorEl('auto')} onClose={() => popover.hide('auto')}>
+                            <Popover
+                                placement="auto"
+                                visible={popover.isVisible('auto')}
+                                anchorEl={popover.getAnchorEl('auto')}
+                                onClose={() => popover.hide('auto')}
+                            >
                                 Automatically picks the best position based on available space.
                             </Popover>
                         </div>
@@ -58,7 +63,12 @@ export const PopoverPage: React.FC = () => {
                         <h3>Top</h3>
                         <div className="component-group">
                             <Button onClick={e => popover.toggle('top', e)}>Top Placement</Button>
-                            <Popover placement="top" visible={popover.isVisible('top')} anchorEl={popover.getAnchorEl('top')} onClose={() => popover.hide('top')}>
+                            <Popover
+                                placement="top"
+                                visible={popover.isVisible('top')}
+                                anchorEl={popover.getAnchorEl('top')}
+                                onClose={() => popover.hide('top')}
+                            >
                                 Positioned above the trigger element.
                             </Popover>
                         </div>
@@ -68,7 +78,12 @@ export const PopoverPage: React.FC = () => {
                         <h3>Bottom</h3>
                         <div className="component-group">
                             <Button onClick={e => popover.toggle('bottom', e)}>Bottom Placement</Button>
-                            <Popover placement="bottom" visible={popover.isVisible('bottom')} anchorEl={popover.getAnchorEl('bottom')} onClose={() => popover.hide('bottom')}>
+                            <Popover
+                                placement="bottom"
+                                visible={popover.isVisible('bottom')}
+                                anchorEl={popover.getAnchorEl('bottom')}
+                                onClose={() => popover.hide('bottom')}
+                            >
                                 Positioned below the trigger element.
                             </Popover>
                         </div>
@@ -78,7 +93,12 @@ export const PopoverPage: React.FC = () => {
                         <h3>Left</h3>
                         <div className="component-group">
                             <Button onClick={e => popover.toggle('left', e)}>Left Placement</Button>
-                            <Popover placement="left" visible={popover.isVisible('left')} anchorEl={popover.getAnchorEl('left')} onClose={() => popover.hide('left')}>
+                            <Popover
+                                placement="left"
+                                visible={popover.isVisible('left')}
+                                anchorEl={popover.getAnchorEl('left')}
+                                onClose={() => popover.hide('left')}
+                            >
                                 Positioned to the left of the trigger.
                             </Popover>
                         </div>
@@ -88,7 +108,12 @@ export const PopoverPage: React.FC = () => {
                         <h3>Right</h3>
                         <div className="component-group">
                             <Button onClick={e => popover.toggle('right', e)}>Right Placement</Button>
-                            <Popover placement="right" visible={popover.isVisible('right')} anchorEl={popover.getAnchorEl('right')} onClose={() => popover.hide('right')}>
+                            <Popover
+                                placement="right"
+                                visible={popover.isVisible('right')}
+                                anchorEl={popover.getAnchorEl('right')}
+                                onClose={() => popover.hide('right')}
+                            >
                                 Positioned to the right of the trigger.
                             </Popover>
                         </div>
@@ -105,7 +130,11 @@ export const PopoverPage: React.FC = () => {
                         <h3>Default Offset (8px)</h3>
                         <div className="component-group">
                             <Button onClick={e => popover.toggle('offset-default', e)}>Default</Button>
-                            <Popover visible={popover.isVisible('offset-default')} anchorEl={popover.getAnchorEl('offset-default')} onClose={() => popover.hide('offset-default')}>
+                            <Popover
+                                visible={popover.isVisible('offset-default')}
+                                anchorEl={popover.getAnchorEl('offset-default')}
+                                onClose={() => popover.hide('offset-default')}
+                            >
                                 Standard 8px offset from trigger.
                             </Popover>
                         </div>
@@ -115,7 +144,12 @@ export const PopoverPage: React.FC = () => {
                         <h3>Small Offset (4px)</h3>
                         <div className="component-group">
                             <Button onClick={e => popover.toggle('offset-small', e)}>Small Offset</Button>
-                            <Popover offset={4} visible={popover.isVisible('offset-small')} anchorEl={popover.getAnchorEl('offset-small')} onClose={() => popover.hide('offset-small')}>
+                            <Popover
+                                offset={4}
+                                visible={popover.isVisible('offset-small')}
+                                anchorEl={popover.getAnchorEl('offset-small')}
+                                onClose={() => popover.hide('offset-small')}
+                            >
                                 Closer to trigger with 4px offset.
                             </Popover>
                         </div>
@@ -125,7 +159,12 @@ export const PopoverPage: React.FC = () => {
                         <h3>Large Offset (16px)</h3>
                         <div className="component-group">
                             <Button onClick={e => popover.toggle('offset-large', e)}>Large Offset</Button>
-                            <Popover offset={16} visible={popover.isVisible('offset-large')} anchorEl={popover.getAnchorEl('offset-large')} onClose={() => popover.hide('offset-large')}>
+                            <Popover
+                                offset={16}
+                                visible={popover.isVisible('offset-large')}
+                                anchorEl={popover.getAnchorEl('offset-large')}
+                                onClose={() => popover.hide('offset-large')}
+                            >
                                 Further from trigger with 16px offset.
                             </Popover>
                         </div>
@@ -171,7 +210,12 @@ export const PopoverPage: React.FC = () => {
                         <h3>Help Text</h3>
                         <div className="component-group">
                             <Button onClick={e => popover.toggle('help', e)}>Need Help?</Button>
-                            <Popover placement="top" visible={popover.isVisible('help')} anchorEl={popover.getAnchorEl('help')} onClose={() => popover.hide('help')}>
+                            <Popover
+                                placement="top"
+                                visible={popover.isVisible('help')}
+                                anchorEl={popover.getAnchorEl('help')}
+                                onClose={() => popover.hide('help')}
+                            >
                                 Click the button to perform the action. You can undo this later in settings.
                             </Popover>
                         </div>

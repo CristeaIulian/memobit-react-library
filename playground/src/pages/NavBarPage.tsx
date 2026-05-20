@@ -150,7 +150,9 @@ export const NavBarPage: React.FC = () => {
                             logo={<Icon name="smartphone" size="xxl" />}
                             actions={
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                    <span style={{ fontSize: '20px', cursor: 'pointer' }}><Icon name="user" /></span>
+                                    <span style={{ fontSize: '20px', cursor: 'pointer' }}>
+                                        <Icon name="user" />
+                                    </span>
                                 </div>
                             }
                         />
@@ -184,6 +186,16 @@ export const NavBarPage: React.FC = () => {
                                 <p style={{ marginTop: '100px' }}>End of content.</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Static and Fixed NavBars</h3>
+                    <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
+                        <NavBar items={basicItems} position="static" />
+                    </div>
+                    <div style={{ position: 'relative', minHeight: 120, border: '1px solid var(--delimiter-color)', overflow: 'hidden', marginTop: 16 }}>
+                        <NavBar items={basicItems} position="fixed" logo={<strong>Fixed demo</strong>} />
                     </div>
                 </div>
             </section>
@@ -261,6 +273,16 @@ export const NavBarPage: React.FC = () => {
                         <div style={{ padding: '32px', background: 'var(--body-background)' }}>
                             <h3>Responsive Content</h3>
                             <p>The navbar adapts to different screen sizes automatically.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Collapsible NavBar</h3>
+                    <div style={{ border: '1px solid var(--delimiter-color)', overflow: 'hidden' }}>
+                        <NavBar items={[...itemsWithIcons, ...basicItems.map(item => ({ ...item, id: `extra-${item.id}` }))]} collapsible />
+                        <div style={{ padding: '24px', background: 'var(--body-background)' }}>
+                            <p>Extra items collapse behind the more button until expanded.</p>
                         </div>
                     </div>
                 </div>

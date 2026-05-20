@@ -29,6 +29,24 @@ export const BMIPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>Pediatric BMI</h2>
+                <div className="showcase-group">
+                    <h3>Female, age 12</h3>
+                    <div className="component-group">
+                        <BMI height={152} weight={43} age={12} sex="female" showIndicator showLabels />
+                    </div>
+                    <h3>Male, age 16 without labels</h3>
+                    <div className="component-group">
+                        <BMI height={172} weight={68} age={16} sex="male" showIndicator showLabels={false} />
+                    </div>
+                    <h3>Adult bar without indicator</h3>
+                    <div className="component-group">
+                        <BMI height={180} weight={80} showIndicator={false} showLabels />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>Waist-to-Height Ratio (WHtR)</h2>
                 <p>A body composition indicator. Values below 0.5 are considered healthy.</p>
                 <div className="showcase-group">

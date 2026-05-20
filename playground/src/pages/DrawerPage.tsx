@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Drawer, Button, Chip, InputNumber, Rating, InputText, InputEmail, Textarea } from '../../../src';
+import { Drawer, Button, Chip, InputNumber, Rating, InputText, InputEmail, InputTextarea } from '../../../src';
 
 const bookDrawerStyles: Record<string, React.CSSProperties> = {
     stack: {
@@ -111,6 +111,7 @@ export const DrawerPage: React.FC = () => {
     const [isFooterDrawerOpen, setFooterDrawerOpen] = useState<boolean>(false);
     const [isIconDrawerOpen, setIconDrawerOpen] = useState<boolean>(false);
     const [isBookDetailDrawerOpen, setBookDetailDrawerOpen] = useState<boolean>(false);
+    const [isPersistentDrawerOpen, setPersistentDrawerOpen] = useState<boolean>(false);
     const [bookPage, setBookPage] = useState<number>(177);
     const [notePage, setNotePage] = useState<number | undefined>(undefined);
     const bookProgress = Math.round((bookPage / 248) * 100);
@@ -238,7 +239,7 @@ export const DrawerPage: React.FC = () => {
                                 </div>
                                 <div style={{ marginBottom: '16px' }}>
                                     <label style={{ display: 'block', marginBottom: '8px' }}>Message:</label>
-                                    <Textarea />
+                                    <InputTextarea />
                                 </div>
                             </div>
                         </Drawer>
@@ -279,6 +280,30 @@ export const DrawerPage: React.FC = () => {
                             <p>This drawer doesn't have a backdrop overlay.</p>
                             <p>You can still interact with the page content behind it.</p>
                             <p>Use the close button or press ESC to close.</p>
+                        </Drawer>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Persistent Drawer with Back Action</h3>
+                    <div className="component-group">
+                        <Button onClick={() => setPersistentDrawerOpen(true)}>Open Persistent Drawer</Button>
+                        <Drawer
+                            isOpen={isPersistentDrawerOpen}
+                            onClose={() => setPersistentDrawerOpen(false)}
+                            position="left"
+                            title="Nested settings"
+                            icon="settings"
+                            lockScroll={false}
+                            hideClose
+                            onBack={() => setPersistentDrawerOpen(false)}
+                            backLabel="Back to settings"
+                            width="360px"
+                        >
+                            <p>This drawer keeps page scroll unlocked and uses a back button instead of the close button.</p>
+                            <Button variant="info" onClick={() => setPersistentDrawerOpen(false)}>
+                                Done
+                            </Button>
                         </Drawer>
                     </div>
                 </div>

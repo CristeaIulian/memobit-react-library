@@ -123,6 +123,13 @@ export const MenuHamburgerPage: React.FC = () => {
                         <MenuHamburger items={singleMenuItem} />
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>MenuHamburger with Responsive Behavior Disabled</h3>
+                    <div className="component-group">
+                        <MenuHamburger items={hamburgerMenuItems} label="Workspace" disableResponsive />
+                    </div>
+                </div>
             </section>
         </div>
     );

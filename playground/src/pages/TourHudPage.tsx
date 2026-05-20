@@ -102,12 +102,7 @@ export const TourHudPage: React.FC = () => {
                             <div className="tour-hud-dashboard__panel tour-hud-dashboard__panel--main">
                                 <span className="tour-hud-dashboard__eyebrow">Current focus</span>
                                 <strong>{productStep.metric}</strong>
-                                <ProgressBar
-                                    value={productStep.value}
-                                    state={productStep.status}
-                                    label={productStep.label}
-                                    labelPosition="below"
-                                />
+                                <ProgressBar value={productStep.value} state={productStep.status} label={productStep.label} labelPosition="below" />
                             </div>
 
                             <div className="tour-hud-dashboard__panel">
@@ -194,12 +189,7 @@ export const TourHudPage: React.FC = () => {
                     <div className="tour-hud-demo tour-hud-demo--compact">
                         <div className="tour-hud-steps">
                             {[0, 1, 2].map(index => (
-                                <Button
-                                    key={index}
-                                    size="small"
-                                    variant={compactIndex === index ? 'info' : 'ghost'}
-                                    onClick={() => setCompactIndex(index)}
-                                >
+                                <Button key={index} size="small" variant={compactIndex === index ? 'info' : 'ghost'} onClick={() => setCompactIndex(index)}>
                                     Step {index + 1}
                                 </Button>
                             ))}

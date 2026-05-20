@@ -54,6 +54,25 @@ export const CopyButtonPage: React.FC = () => {
                         />
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Disabled, Children, Reset Delay and Error Callback</h3>
+                    <div className="component-group">
+                        <CopyButton
+                            value="default-variant-copy"
+                            variant="default"
+                            resetDelay={800}
+                            title="Copy default variant"
+                            onError={() => setLastCopied('Copy failed')}
+                        >
+                            Copy default
+                        </CopyButton>
+                        <CopyButton value="danger-variant-copy" variant="danger" label="Copy danger" onCopy={setLastCopied} />
+                        <CopyButton value="disabled-copy" disabled title="Copy unavailable">
+                            Disabled copy
+                        </CopyButton>
+                    </div>
+                </div>
             </section>
         </div>
     );

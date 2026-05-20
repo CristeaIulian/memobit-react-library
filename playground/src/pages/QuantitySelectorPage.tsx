@@ -130,14 +130,7 @@ export const QuantitySelectorPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Success State</h3>
                     <div className="component-group">
-                        <QuantitySelector
-                            label="Quantity"
-                            min={1}
-                            max={10}
-                            value={5}
-                            onChange={() => {}}
-                            success="Quantity is valid"
-                        />
+                        <QuantitySelector label="Quantity" min={1} max={10} value={5} onChange={() => {}} success="Quantity is valid" />
                     </div>
                 </div>
                 <div className="showcase-group">

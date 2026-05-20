@@ -25,7 +25,7 @@ const ARTICLES: Article[] = [
     },
     {
         id: 2,
-        title: 'TypeScript 5.4 — What\'s New',
+        title: "TypeScript 5.4 — What's New",
         category: 'TypeScript',
         date: '2026-03-05',
         content:
@@ -100,9 +100,8 @@ export const SplitPanelPage: React.FC = () => {
         <div>
             <h1>SplitPanel</h1>
             <p>
-                A resizable two-pane layout. The left pane holds the primary content; the right pane slides in as a
-                detail panel. Users can drag the divider to redistribute space. Pressing <kbd>Esc</kbd> or clicking ✕
-                closes the panel.
+                A resizable two-pane layout. The left pane holds the primary content; the right pane slides in as a detail panel. Users can drag the divider to
+                redistribute space. Pressing <kbd>Esc</kbd> or clicking ✕ closes the panel.
             </p>
 
             {/* ── Basic ── */}
@@ -126,7 +125,9 @@ export const SplitPanelPage: React.FC = () => {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>
                                     <p>This is the right panel content.</p>
                                     <p>Drag the divider handle to resize both panes.</p>
-                                    <p>Press <kbd>Esc</kbd> or click ✕ to close.</p>
+                                    <p>
+                                        Press <kbd>Esc</kbd> or click ✕ to close.
+                                    </p>
                                 </div>
                             }
                         >
@@ -147,8 +148,8 @@ export const SplitPanelPage: React.FC = () => {
             <section className="page-section">
                 <h2>Split Proportions</h2>
                 <p>
-                    Control the initial split via <code>defaultLeftPercent</code>. The user can always drag to
-                    adjust. Use <code>minLeftPercent</code> and <code>minRightPercent</code> to set hard limits.
+                    Control the initial split via <code>defaultLeftPercent</code>. The user can always drag to adjust. Use <code>minLeftPercent</code> and{' '}
+                    <code>minRightPercent</code> to set hard limits.
                 </p>
 
                 <div className="showcase-group">
@@ -225,8 +226,8 @@ export const SplitPanelPage: React.FC = () => {
             <section className="page-section">
                 <h2>Practical Example — List &amp; Detail</h2>
                 <p>
-                    Click any article row to open its detail in the right panel. This is the primary use case:
-                    keeping the list in context while reading the detail.
+                    Click any article row to open its detail in the right panel. This is the primary use case: keeping the list in context while reading the
+                    detail.
                 </p>
 
                 <DemoBox height={500}>
@@ -241,7 +242,7 @@ export const SplitPanelPage: React.FC = () => {
                             selectedArticle && (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
                                     <div style={{ display: 'flex', gap: 'var(--spacing-8)', flexWrap: 'wrap' }}>
-                                        {selectedArticle.tags.map((tag) => (
+                                        {selectedArticle.tags.map(tag => (
                                             <Badge key={tag} variant="info" size="small">
                                                 {tag}
                                             </Badge>
@@ -250,16 +251,14 @@ export const SplitPanelPage: React.FC = () => {
                                     <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--body-sub-title-color)', margin: 0 }}>
                                         Published {selectedArticle.date}
                                     </p>
-                                    <p style={{ lineHeight: 'var(--line-height-loose)', margin: 0 }}>
-                                        {selectedArticle.content}
-                                    </p>
+                                    <p style={{ lineHeight: 'var(--line-height-loose)', margin: 0 }}>{selectedArticle.content}</p>
                                 </div>
                             )
                         }
                     >
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', padding: 'var(--spacing-16)' }}>
                             <h3 style={{ margin: '0 0 var(--spacing-8)' }}>Articles</h3>
-                            {ARTICLES.map((article) => (
+                            {ARTICLES.map(article => (
                                 <Card
                                     key={article.id}
                                     style={{
@@ -269,10 +268,10 @@ export const SplitPanelPage: React.FC = () => {
                                     onClick={() => setSelectedArticle(article)}
                                 >
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--spacing-8)' }}>
-                                        <span style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)' }}>
-                                            {article.title}
-                                        </span>
-                                        <Badge variant="default" size="small">{article.category}</Badge>
+                                        <span style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)' }}>{article.title}</span>
+                                        <Badge variant="default" size="small">
+                                            {article.category}
+                                        </Badge>
                                     </div>
                                     <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--body-sub-title-color)', margin: 'var(--spacing-4) 0 0' }}>
                                         {article.date}
@@ -310,8 +309,12 @@ export const SplitPanelPage: React.FC = () => {
                         ].map(([prop, type, def, desc]) => (
                             <tr key={prop} style={{ borderBottom: '1px solid var(--border-color)' }}>
                                 <td style={{ padding: 'var(--spacing-8) var(--spacing-12)', fontFamily: 'monospace' }}>{prop}</td>
-                                <td style={{ padding: 'var(--spacing-8) var(--spacing-12)', fontFamily: 'monospace', color: 'var(--body-sub-title-color)' }}>{type}</td>
-                                <td style={{ padding: 'var(--spacing-8) var(--spacing-12)', fontFamily: 'monospace', color: 'var(--body-sub-title-color)' }}>{def}</td>
+                                <td style={{ padding: 'var(--spacing-8) var(--spacing-12)', fontFamily: 'monospace', color: 'var(--body-sub-title-color)' }}>
+                                    {type}
+                                </td>
+                                <td style={{ padding: 'var(--spacing-8) var(--spacing-12)', fontFamily: 'monospace', color: 'var(--body-sub-title-color)' }}>
+                                    {def}
+                                </td>
                                 <td style={{ padding: 'var(--spacing-8) var(--spacing-12)', color: 'var(--body-sub-title-color)' }}>{desc}</td>
                             </tr>
                         ))}

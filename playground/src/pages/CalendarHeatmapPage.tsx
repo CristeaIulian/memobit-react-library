@@ -45,8 +45,8 @@ export const CalendarHeatmapPage: FC = () => {
         <div className="component-page">
             <h1>Calendar Heatmap Component</h1>
             <p>
-                A GitHub-style calendar heatmap for visualizing time-series count data. All days in the range are
-                shown — empty days are rendered as zero — making data sparseness immediately visible.
+                A GitHub-style calendar heatmap for visualizing time-series count data. All days in the range are shown — empty days are rendered as zero —
+                making data sparseness immediately visible.
             </p>
 
             <section className="page-section">
@@ -54,12 +54,7 @@ export const CalendarHeatmapPage: FC = () => {
                 <div className="showcase-group">
                     <h3>Default — few events over a month</h3>
                     <div className="component-group">
-                        <CalendarHeatmap
-                            data={sparseData}
-                            startDate={addDays(today, -29)}
-                            endDate={today}
-                            countLabel="impulse"
-                        />
+                        <CalendarHeatmap data={sparseData} startDate={addDays(today, -29)} endDate={today} countLabel="impulse" />
                     </div>
                 </div>
             </section>
@@ -69,12 +64,7 @@ export const CalendarHeatmapPage: FC = () => {
                 <div className="showcase-group">
                     <h3>Default purple scale — commit-style activity</h3>
                     <div className="component-group">
-                        <CalendarHeatmap
-                            data={yearData}
-                            startDate={new Date('2025-04-17')}
-                            endDate={today}
-                            countLabel="commit"
-                        />
+                        <CalendarHeatmap data={yearData} startDate={new Date('2025-04-17')} endDate={today} countLabel="commit" />
                     </div>
                 </div>
             </section>
@@ -84,13 +74,7 @@ export const CalendarHeatmapPage: FC = () => {
                 <div className="showcase-group">
                     <h3>Green scale — health / streak tracking</h3>
                     <div className="component-group">
-                        <CalendarHeatmap
-                            data={yearData}
-                            startDate={new Date('2025-04-17')}
-                            endDate={today}
-                            colorFn={greenColorFn}
-                            countLabel="workout"
-                        />
+                        <CalendarHeatmap data={yearData} startDate={new Date('2025-04-17')} endDate={today} colorFn={greenColorFn} countLabel="workout" />
                     </div>
                 </div>
             </section>
@@ -100,24 +84,14 @@ export const CalendarHeatmapPage: FC = () => {
                 <div className="showcase-group">
                     <h3>Last 7 days</h3>
                     <div className="component-group">
-                        <CalendarHeatmap
-                            data={sparseData}
-                            startDate={addDays(today, -6)}
-                            endDate={today}
-                            countLabel="event"
-                        />
+                        <CalendarHeatmap data={sparseData} startDate={addDays(today, -6)} endDate={today} countLabel="event" />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Last 6 months</h3>
                     <div className="component-group">
-                        <CalendarHeatmap
-                            data={yearData}
-                            startDate={addDays(today, -179)}
-                            endDate={today}
-                            countLabel="entry"
-                        />
+                        <CalendarHeatmap data={yearData} startDate={addDays(today, -179)} endDate={today} countLabel="entry" />
                     </div>
                 </div>
             </section>

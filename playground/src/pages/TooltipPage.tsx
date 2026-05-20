@@ -156,13 +156,19 @@ export const TooltipPage: React.FC = () => {
                     <h3>On Icons/Symbols</h3>
                     <div className="component-group">
                         <Tooltip title="Click to edit">
-                            <span style={{ cursor: 'pointer', fontSize: '1.5rem' }}><Icon name="edit" /></span>
+                            <span style={{ cursor: 'pointer', fontSize: '1.5rem' }}>
+                                <Icon name="edit" />
+                            </span>
                         </Tooltip>
                         <Tooltip title="Click to delete" position="top">
-                            <span style={{ cursor: 'pointer', fontSize: '1.5rem' }}><Icon name="delete" /></span>
+                            <span style={{ cursor: 'pointer', fontSize: '1.5rem' }}>
+                                <Icon name="delete" />
+                            </span>
                         </Tooltip>
                         <Tooltip title="More information" position="right">
-                            <span style={{ cursor: 'help', fontSize: '1.5rem' }}><Icon name="information" /></span>
+                            <span style={{ cursor: 'help', fontSize: '1.5rem' }}>
+                                <Icon name="information" />
+                            </span>
                         </Tooltip>
                     </div>
                 </div>

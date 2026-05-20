@@ -12,11 +12,11 @@ import {
     InputNumber,
     InputPassword,
     InputPhone,
+    InputSearch,
     InputText,
+    InputTextarea,
     InputTime,
     InputUrl,
-    Search,
-    Textarea,
 } from '../../../src';
 
 import './FormPage.scss';
@@ -94,13 +94,13 @@ export const FormPage: React.FC = () => {
     return (
         <div className="form-page">
             <h1>Forms</h1>
-            <p className="form-page__intro">Two complete form examples using the input family, Search, and Textarea together in production-shaped layouts.</p>
+            <p className="form-page__intro">Two complete form examples using the input family together in production-shaped layouts.</p>
 
             <section className="page-section">
                 <h2>Account Intake</h2>
                 <form className="form-example" onSubmit={handleInviteSubmit}>
                     <div className="form-field--wide">
-                        <Search id="client-search" label="Client lookup" value={clientSearch} onChange={setClientSearch} placeholder="Search clients..." />
+                        <InputSearch id="client-search" label="Client lookup" value={clientSearch} onChange={setClientSearch} placeholder="Search clients..." />
                     </div>
 
                     <div className="form-grid">
@@ -170,7 +170,7 @@ export const FormPage: React.FC = () => {
                         />
                     </div>
 
-                    <Textarea id="bio" label="Internal bio" value={bio} onChange={setBio} rows={4} maxLength={240} placeholder="Add a short internal note" />
+                    <InputTextarea id="bio" label="Internal bio" value={bio} onChange={setBio} rows={4} maxLength={240} placeholder="Add a short internal note" />
 
                     <div className="form-actions">
                         <Button type="submit" variant="success">
@@ -198,7 +198,7 @@ export const FormPage: React.FC = () => {
                 <h2>Product Request</h2>
                 <form className="form-example" onSubmit={handleRequestSubmit}>
                     <div className="form-grid">
-                        <Search id="product-search" label="Product search" value={productSearch} onChange={setProductSearch} placeholder="Find products..." />
+                        <InputSearch id="product-search" label="Product search" value={productSearch} onChange={setProductSearch} placeholder="Find products..." />
                         <Dropdown
                             id="product-category"
                             name="category"
@@ -270,7 +270,7 @@ export const FormPage: React.FC = () => {
                         />
                     </div>
 
-                    <Textarea
+                    <InputTextarea
                         id="request-notes"
                         label="Request notes"
                         required

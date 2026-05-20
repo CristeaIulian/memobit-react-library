@@ -242,6 +242,16 @@ export const TreePage: React.FC = () => {
                     <Tree nodes={fileExplorerNodes.slice(0, 2)} showGuides={false} selectable />
                 </div>
             </section>
+
+            <section className="page-section">
+                <h2>Preselected and Non-Animated</h2>
+                <p className="section-description">
+                    Use <code>defaultSelectedId</code> to preselect a node and <code>animated=&#123;false&#125;</code> for instant expand/collapse.
+                </p>
+                <div className="showcase-group">
+                    <Tree nodes={fileExplorerNodes} selectable defaultSelectedId="tree" animated={false} />
+                </div>
+            </section>
         </div>
     );
 };

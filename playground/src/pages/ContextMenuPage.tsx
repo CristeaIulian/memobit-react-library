@@ -5,6 +5,7 @@ import { Button, ContextMenu } from '../../../src';
 export const ContextMenuPage: React.FC = () => {
     const [contextMenuTarget, setContextMenuTarget] = useState<EventTarget | null>(null);
     const [contextMenuTarget2, setContextMenuTarget2] = useState<EventTarget | null>(null);
+    const [autoCloseTarget, setAutoCloseTarget] = useState<EventTarget | null>(null);
 
     const handleContextMenuActionsButton = (event: MouseEvent<HTMLButtonElement>): void => {
         setContextMenuTarget(event.target);
@@ -20,6 +21,10 @@ export const ContextMenuPage: React.FC = () => {
 
     const closeMenu2 = () => {
         setContextMenuTarget2(null);
+    };
+
+    const closeAutoCloseMenu = () => {
+        setAutoCloseTarget(null);
     };
 
     const onActionsEdit = useCallback(() => {
@@ -77,6 +82,25 @@ export const ContextMenuPage: React.FC = () => {
                             </ContextMenu>
                         )}
                         <Button onClick={handleContextMenuActionsButton2}>Context menu Opener</Button>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Auto-close on Item Click</h3>
+                    <div className="component-group">
+                        {autoCloseTarget && (
+                            <ContextMenu target={autoCloseTarget} onClose={closeAutoCloseMenu} autoClose>
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <Button icon="save" onClick={() => alert('Saved')}>
+                                        Save
+                                    </Button>
+                                    <Button icon="archive" onClick={() => alert('Archived')}>
+                                        Archive
+                                    </Button>
+                                </div>
+                            </ContextMenu>
+                        )}
+                        <Button onClick={event => setAutoCloseTarget(event.target)}>Auto-close Opener</Button>
                     </div>
                 </div>
             </section>

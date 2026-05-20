@@ -109,6 +109,21 @@ export const ChipPage: FC = () => {
                         </Chip>
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Button Types and Titles</h3>
+                    <div className="component-group">
+                        <Chip title="Acts as a standard button" type="button">
+                            Button chip
+                        </Chip>
+                        <Chip title="Submits a form when used inside one" type="submit" variant="success">
+                            Submit chip
+                        </Chip>
+                        <Chip title="Resets a form when used inside one" type="reset" variant="warning">
+                            Reset chip
+                        </Chip>
+                    </div>
+                </div>
             </section>
         </div>
     );

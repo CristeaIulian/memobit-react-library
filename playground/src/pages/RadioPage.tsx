@@ -19,43 +19,17 @@ export const RadioPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Basic Radio Group</h3>
                     <div className="component-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <Radio
-                            checked={selectedOption === 1}
-                            onChange={() => setSelectedOption(1)}
-                            label="Option 1"
-                            name="basic-options"
-                            value={1}
-                        />
-                        <Radio
-                            checked={selectedOption === 2}
-                            onChange={() => setSelectedOption(2)}
-                            label="Option 2"
-                            name="basic-options"
-                            value={2}
-                        />
-                        <Radio
-                            checked={selectedOption === 3}
-                            onChange={() => setSelectedOption(3)}
-                            label="Option 3"
-                            name="basic-options"
-                            value={3}
-                        />
-                        <p style={{ marginTop: '8px', fontSize: '14px', color: 'var(--body-color-muted)' }}>
-                            Selected: Option {selectedOption}
-                        </p>
+                        <Radio checked={selectedOption === 1} onChange={() => setSelectedOption(1)} label="Option 1" name="basic-options" value={1} />
+                        <Radio checked={selectedOption === 2} onChange={() => setSelectedOption(2)} label="Option 2" name="basic-options" value={2} />
+                        <Radio checked={selectedOption === 3} onChange={() => setSelectedOption(3)} label="Option 3" name="basic-options" value={3} />
+                        <p style={{ marginTop: '8px', fontSize: '14px', color: 'var(--body-color-muted)' }}>Selected: Option {selectedOption}</p>
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Horizontal Layout</h3>
                     <div className="component-group" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                        <Radio
-                            checked={selectedSize === 'small'}
-                            onChange={() => setSelectedSize('small')}
-                            label="Small"
-                            name="size-options"
-                            value="small"
-                        />
+                        <Radio checked={selectedSize === 'small'} onChange={() => setSelectedSize('small')} label="Small" name="size-options" value="small" />
                         <Radio
                             checked={selectedSize === 'medium'}
                             onChange={() => setSelectedSize('medium')}
@@ -63,13 +37,7 @@ export const RadioPage: React.FC = () => {
                             name="size-options"
                             value="medium"
                         />
-                        <Radio
-                            checked={selectedSize === 'large'}
-                            onChange={() => setSelectedSize('large')}
-                            label="Large"
-                            name="size-options"
-                            value="large"
-                        />
+                        <Radio checked={selectedSize === 'large'} onChange={() => setSelectedSize('large')} label="Large" name="size-options" value="large" />
                     </div>
                 </div>
 
@@ -207,8 +175,7 @@ export const RadioPage: React.FC = () => {
                             <div
                                 style={{
                                     padding: '12px',
-                                    border:
-                                        selectedPlan === 'enterprise' ? '2px solid var(--body-accent-color)' : '1px solid var(--border-color)',
+                                    border: selectedPlan === 'enterprise' ? '2px solid var(--body-accent-color)' : '1px solid var(--border-color)',
                                     borderRadius: '4px',
                                 }}
                             >

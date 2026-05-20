@@ -184,23 +184,11 @@ export const SeparatorPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Login Form</h3>
                     <div className="component-group" style={{ maxWidth: '400px' }}>
-                        <button style={{ width: '100%', padding: '12px' }}>
-                            Continue with Google
-                        </button>
-                        <button style={{ width: '100%', padding: '12px' }}>
-                            Continue with Facebook
-                        </button>
+                        <button style={{ width: '100%', padding: '12px' }}>Continue with Google</button>
+                        <button style={{ width: '100%', padding: '12px' }}>Continue with Facebook</button>
                         <Separator label="OR" spacing={24} />
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            style={{ width: '100%', padding: '12px', marginBottom: '8px' }}
-                        />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            style={{ width: '100%', padding: '12px' }}
-                        />
+                        <input type="email" placeholder="Email" style={{ width: '100%', padding: '12px', marginBottom: '8px' }} />
+                        <input type="password" placeholder="Password" style={{ width: '100%', padding: '12px' }} />
                     </div>
                 </div>
 
@@ -221,7 +209,16 @@ export const SeparatorPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Toolbar with Vertical Separators</h3>
                     <div className="component-group">
-                        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '12px', background: 'var(--card-background-color)', borderRadius: '8px' }}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                gap: '12px',
+                                alignItems: 'center',
+                                padding: '12px',
+                                background: 'var(--card-background-color)',
+                                borderRadius: '8px',
+                            }}
+                        >
                             <button style={{ padding: '8px 12px' }}>Bold</button>
                             <button style={{ padding: '8px 12px' }}>Italic</button>
                             <button style={{ padding: '8px 12px' }}>Underline</button>

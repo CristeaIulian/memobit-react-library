@@ -52,11 +52,7 @@ export const BreadcrumbPage: React.FC = () => {
                     <div className="component-group">
                         <Breadcrumb
                             separator="›"
-                            items={[
-                                { label: 'Dashboard', href: '/dashboard' },
-                                { label: 'Settings', href: '/dashboard/settings' },
-                                { label: 'Profile' },
-                            ]}
+                            items={[{ label: 'Dashboard', href: '/dashboard' }, { label: 'Settings', href: '/dashboard/settings' }, { label: 'Profile' }]}
                         />
                     </div>
                 </div>
@@ -66,12 +62,7 @@ export const BreadcrumbPage: React.FC = () => {
                     <div className="component-group">
                         <Breadcrumb
                             separator="→"
-                            items={[
-                                { label: 'Level 1', href: '#' },
-                                { label: 'Level 2', href: '#' },
-                                { label: 'Level 3', href: '#' },
-                                { label: 'Current' },
-                            ]}
+                            items={[{ label: 'Level 1', href: '#' }, { label: 'Level 2', href: '#' }, { label: 'Level 3', href: '#' }, { label: 'Current' }]}
                         />
                     </div>
                 </div>
@@ -95,12 +86,7 @@ export const BreadcrumbPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Two Items Only</h3>
                     <div className="component-group">
-                        <Breadcrumb
-                            items={[
-                                { label: 'Home', href: '/' },
-                                { label: 'About Us' },
-                            ]}
-                        />
+                        <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'About Us' }]} />
                     </div>
                 </div>
             </section>

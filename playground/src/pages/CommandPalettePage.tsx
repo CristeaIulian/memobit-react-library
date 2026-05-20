@@ -4,6 +4,7 @@ import { Button, CommandPalette, type CommandItem } from '../../../src';
 
 export const CommandPalettePage: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isManualOpen, setManualOpen] = useState(false);
 
     const items = useMemo<CommandItem[]>(
         () => [
@@ -30,9 +31,19 @@ export const CommandPalettePage: React.FC = () => {
                         </Button>
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Custom Placeholder without Hotkey</h3>
+                    <div className="component-group">
+                        <Button variant="ghost" onClick={() => setManualOpen(true)}>
+                            Open Manual Palette
+                        </Button>
+                    </div>
+                </div>
             </section>
 
             <CommandPalette items={items} isOpen={isOpen} onOpenChange={setIsOpen} />
+            <CommandPalette items={items} isOpen={isManualOpen} onOpenChange={setManualOpen} placeholder="Jump to an action..." enableHotkey={false} />
         </div>
     );
 };

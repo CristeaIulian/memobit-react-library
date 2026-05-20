@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { JourneyWizard, Button, InputText, Textarea, ToggleSwitch, Rating, Chip } from '../../../src';
+import { JourneyWizard, Button, InputText, InputTextarea, ToggleSwitch, Rating, Chip } from '../../../src';
 
 export const JourneyWizardPage: React.FC = () => {
     const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -18,48 +18,26 @@ export const JourneyWizardPage: React.FC = () => {
 
     const tags = ['Beach', 'Mountains', 'City', 'Road trip', 'Cultural', 'Adventure'];
 
-    const toggleTag = (tag: string) =>
-        setSelectedTags(prev => (prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]));
+    const toggleTag = (tag: string) => setSelectedTags(prev => (prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]));
 
     const drawerSteps = [
         {
             id: 'name',
             title: 'Name your project',
             subtitle: 'Give your project a clear, descriptive name.',
-            content: (
-                <InputText
-                    label="Project name"
-                    value={projectName}
-                    onChange={setProjectName}
-                    placeholder="e.g. Q3 Budget Review"
-                />
-            ),
+            content: <InputText label="Project name" value={projectName} onChange={setProjectName} placeholder="e.g. Q3 Budget Review" />,
         },
         {
             id: 'details',
             title: 'Add a description',
             subtitle: 'Briefly describe what this project is about.',
-            content: (
-                <Textarea
-                    label="Description"
-                    value={projectDesc}
-                    onChange={setProjectDesc}
-                    placeholder="What is the goal of this project?"
-                    rows={5}
-                />
-            ),
+            content: <InputTextarea label="Description" value={projectDesc} onChange={setProjectDesc} placeholder="What is the goal of this project?" rows={5} />,
         },
         {
             id: 'settings',
             title: 'Configure notifications',
             subtitle: 'Choose how you want to be notified about project activity.',
-            content: (
-                <ToggleSwitch
-                    label="Enable notifications"
-                    checked={notifications}
-                    onChange={setNotifications}
-                />
-            ),
+            content: <ToggleSwitch label="Enable notifications" checked={notifications} onChange={setNotifications} />,
         },
     ];
 
@@ -68,14 +46,7 @@ export const JourneyWizardPage: React.FC = () => {
             id: 'destination',
             title: 'Where did you go?',
             subtitle: 'Start by naming the trip.',
-            content: (
-                <InputText
-                    label="Trip name"
-                    value={tripName}
-                    onChange={setTripName}
-                    placeholder="e.g. Portugal summer 2025"
-                />
-            ),
+            content: <InputText label="Trip name" value={tripName} onChange={setTripName} placeholder="e.g. Portugal summer 2025" />,
         },
         {
             id: 'tags',
@@ -107,14 +78,7 @@ export const JourneyWizardPage: React.FC = () => {
             title: 'Required field',
             subtitle: 'You must fill in the name before proceeding.',
             canProceed: validName.trim().length > 0,
-            content: (
-                <InputText
-                    label="Full name"
-                    value={validName}
-                    onChange={setValidName}
-                    placeholder="Type your name to unlock Next"
-                />
-            ),
+            content: <InputText label="Full name" value={validName} onChange={setValidName} placeholder="Type your name to unlock Next" />,
         },
         {
             id: 'confirm',
@@ -133,19 +97,29 @@ export const JourneyWizardPage: React.FC = () => {
             id: 'step1',
             title: 'Welcome',
             subtitle: 'This wizard is rendered inline — no drawer or modal needed.',
-            content: <p style={{ color: 'var(--body-color-muted)' }}>Inline wizards embed directly in the page layout, useful for guided onboarding flows inside a card or panel.</p>,
+            content: (
+                <p style={{ color: 'var(--body-color-muted)' }}>
+                    Inline wizards embed directly in the page layout, useful for guided onboarding flows inside a card or panel.
+                </p>
+            ),
         },
         {
             id: 'step2',
             title: 'Step two',
             subtitle: 'Navigate forward and back with the controls below.',
-            content: <p style={{ color: 'var(--body-color-muted)' }}>Progress dots at the top reflect the current position. The counter shows step N of total.</p>,
+            content: (
+                <p style={{ color: 'var(--body-color-muted)' }}>Progress dots at the top reflect the current position. The counter shows step N of total.</p>
+            ),
         },
         {
             id: 'step3',
             title: 'Done',
             subtitle: 'Hit Save to complete the inline flow.',
-            content: <p style={{ color: 'var(--body-color-muted)' }}>On the last step, Next becomes a Save button. Clicking it calls <code>onComplete</code>.</p>,
+            content: (
+                <p style={{ color: 'var(--body-color-muted)' }}>
+                    On the last step, Next becomes a Save button. Clicking it calls <code>onComplete</code>.
+                </p>
+            ),
         },
     ];
 
@@ -218,9 +192,7 @@ export const JourneyWizardPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Wizard embedded directly in the page</h3>
                     <div className="component-group">
-                        {!isInlineOpen && (
-                            <Button onClick={() => setInlineOpen(true)}>Start Inline Wizard</Button>
-                        )}
+                        {!isInlineOpen && <Button onClick={() => setInlineOpen(true)}>Start Inline Wizard</Button>}
                         <JourneyWizard
                             isOpen={isInlineOpen}
                             onClose={() => setInlineOpen(false)}

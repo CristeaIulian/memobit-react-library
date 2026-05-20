@@ -10,6 +10,8 @@ export const InputNumberPage: React.FC = () => {
     const [maxValue, setMaxValue] = useState<number>(95);
     const [rangeValue, setRangeValue] = useState<number>(50);
     const [stepValue, setStepValue] = useState<number>(0);
+    const [eventValue, setEventValue] = useState<number>(42);
+    const [lastEvent, setLastEvent] = useState<string>('No event yet');
 
     return (
         <div className="input-number-page">
@@ -93,6 +95,27 @@ export const InputNumberPage: React.FC = () => {
                         />
                         <p>Use the increment/decrement buttons to change by 5</p>
                     </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Input Options and Events</h2>
+                <div className="showcase-group">
+                    <h3>Autocomplete, Focus, Disabled and Keyboard Events</h3>
+                    <div className="component-group">
+                        <InputNumber
+                            label="Event number"
+                            value={eventValue}
+                            onChange={value => setEventValue(value ?? 0)}
+                            autoComplete="off"
+                            autoFocus
+                            highlighted
+                            onClick={() => setLastEvent('click')}
+                            onKeyDown={event => setLastEvent(`key down: ${event.key}`)}
+                        />
+                        <InputNumber label="Disabled number" value={12} disabled />
+                    </div>
+                    <p>Last event: {lastEvent}</p>
                 </div>
             </section>
         </div>

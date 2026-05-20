@@ -4,13 +4,14 @@ import { Pagination } from '../../../src';
 
 export const PaginationPage: React.FC = () => {
     const [page, setPage] = React.useState<number>(1);
+    const [pageSize, setPageSize] = React.useState<number>(10);
 
     const pageChanged = (newPage: number) => {
         setPage(newPage);
     };
 
-    const onPageSizeChange = (newItemsPerPage: any) => {
-        console.log('onPageSizeChange', newItemsPerPage);
+    const onPageSizeChange = (newItemsPerPage: number) => {
+        setPageSize(newItemsPerPage);
     };
 
     return (
@@ -45,9 +46,10 @@ export const PaginationPage: React.FC = () => {
                             currentPage={page}
                             totalPages={4}
                             onPageChange={pageChanged}
-                            pageSize={5}
+                            pageSize={pageSize}
                             pageSizeOptions={[5, 10, 20, 50, 100]}
                             onPageSizeChange={onPageSizeChange}
+                            pageSizeLabel="Items per page"
                         />
                     </div>
                 </div>

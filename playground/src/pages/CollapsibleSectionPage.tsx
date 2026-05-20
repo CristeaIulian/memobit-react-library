@@ -30,7 +30,9 @@ export const CollapsibleSectionPage: React.FC = () => {
                 <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
                     <h3>Parent Controlled</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>
-                        <div><Button onClick={() => setParentCollapsed(c => !c)}>Toggle</Button></div>
+                        <div>
+                            <Button onClick={() => setParentCollapsed(c => !c)}>Toggle</Button>
+                        </div>
                         <CollapsibleSection isCollapsed={parentCollapsed} onToggle={setParentCollapsed}>
                             <p>Inner content</p>
                         </CollapsibleSection>
@@ -171,13 +173,7 @@ export const CollapsibleSectionPage: React.FC = () => {
 
                 <div className="showcase-group highlight" style={{ padding: 'var(--spacing-16)', marginBottom: 'var(--spacing-16)' }}>
                     <h3>Middle Icon</h3>
-                    <CollapsibleSection
-                        title="Details"
-                        toggleHighlight
-                        toggleVariant="warning"
-                        toggleSpaceBetween
-                        toggleMiddleIcon="checkmark"
-                    >
+                    <CollapsibleSection title="Details" toggleHighlight toggleVariant="warning" toggleSpaceBetween toggleMiddleIcon="checkmark">
                         <p>Inner content</p>
                     </CollapsibleSection>
                 </div>

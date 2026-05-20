@@ -61,7 +61,9 @@ export const MiniSortPage: React.FC = () => {
     const [toggleDirection, setToggleDirection] = useState<MiniSortDirection>('desc');
 
     const sortedTasks = useMemo(() => {
-        return [...tasks].sort((a, b) => compareValues(a[quickKey as keyof TaskRow] as string | number, b[quickKey as keyof TaskRow] as string | number, quickDirection));
+        return [...tasks].sort((a, b) =>
+            compareValues(a[quickKey as keyof TaskRow] as string | number, b[quickKey as keyof TaskRow] as string | number, quickDirection)
+        );
     }, [quickDirection, quickKey]);
 
     const toggleSummary = useMemo(() => {
@@ -148,6 +150,22 @@ export const MiniSortPage: React.FC = () => {
                             onSort={(value, direction) => {
                                 setQuickKey(value);
                                 setQuickDirection(direction);
+                            }}
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Left-aligned compact control</h3>
+                    <div className="mini-sort-page__toolbar">
+                        <MiniSort
+                            align="left"
+                            items={toggleSortItems}
+                            sortKey={toggleKey}
+                            sortDirection={toggleDirection}
+                            onSort={(value, direction) => {
+                                setToggleKey(value);
+                                setToggleDirection(direction);
                             }}
                         />
                     </div>

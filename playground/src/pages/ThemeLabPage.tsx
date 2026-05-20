@@ -28,7 +28,9 @@ import {
     InputNumber,
     InputPassword,
     InputPhone,
+    InputSearch,
     InputText,
+    InputTextarea,
     InputTime,
     InputUrl,
     JourneyWizard,
@@ -45,7 +47,6 @@ import {
     Radio,
     Rating,
     ScrollToTop,
-    Search,
     Separator,
     SignalStrength,
     Skeleton,
@@ -53,7 +54,6 @@ import {
     SplitPanel,
     Stats,
     SuggestionsList,
-    Textarea,
     Toast,
     ToggleButtons,
     ToggleSwitch,
@@ -224,7 +224,15 @@ export const ThemeLabPage: React.FC = () => {
             id: 'ready',
             title: 'Ready to review',
             subtitle: 'Save this configuration as a checkpoint.',
-            content: <Stats items={[{ label: 'Search', value: toolbarSearch || 'theme' }, { label: 'Mode', value: toggleButtonsValue }, { label: 'Spacing', value: `${sliderValue}%` }]} />,
+            content: (
+                <Stats
+                    items={[
+                        { label: 'Search', value: toolbarSearch || 'theme' },
+                        { label: 'Mode', value: toggleButtonsValue },
+                        { label: 'Spacing', value: `${sliderValue}%` },
+                    ]}
+                />
+            ),
         },
     ];
 
@@ -279,13 +287,7 @@ export const ThemeLabPage: React.FC = () => {
                     <Card title="Headers and Trails" icon="dashboard">
                         <div className="theme-lab-page__stack">
                             <AppHeader appName="Theme Lab" heading="Mixed Component Preview" icon="theme-picker" />
-                            <Breadcrumb
-                                items={[
-                                    { label: 'Playground', href: '#' },
-                                    { label: 'Testing', href: '#' },
-                                    { label: 'Theme Lab' },
-                                ]}
-                            />
+                            <Breadcrumb items={[{ label: 'Playground', href: '#' }, { label: 'Testing', href: '#' }, { label: 'Theme Lab' }]} />
                             <NavBar items={navItems} logo={<strong>Memobit</strong>} actions={<AvatarInitials name="Iulia Marin" size="small" />} />
                         </div>
                     </Card>
@@ -295,7 +297,9 @@ export const ThemeLabPage: React.FC = () => {
                             <div className="theme-lab-page__inline">
                                 <AvatarInitials name="Iulia Marin" />
                                 <Badge variant="info">Preview</Badge>
-                                <Chip selected onClick={() => setToastType('info')}>Selected chip</Chip>
+                                <Chip selected onClick={() => setToastType('info')}>
+                                    Selected chip
+                                </Chip>
                                 <SignalStrength value={82} />
                                 <Icon name="information" />
                             </div>
@@ -342,10 +346,10 @@ export const ThemeLabPage: React.FC = () => {
                                 onChange={option => setStatusValue(option && !Array.isArray(option) ? String(option.value) : null)}
                             />
                             <InputFile label="Input File" onChange={() => undefined} />
-                            <Search label="Search" value={standaloneSearch} onChange={setStandaloneSearch} />
+                            <InputSearch label="Search" value={standaloneSearch} onChange={setStandaloneSearch} />
                         </div>
                         <div style={{ marginTop: '16px' }}>
-                            <Textarea label="Notes" value={textareaValue} onChange={setTextareaValue} rows={4} />
+                            <InputTextarea label="Notes" value={textareaValue} onChange={setTextareaValue} rows={4} />
                         </div>
                     </Card>
 
@@ -353,8 +357,20 @@ export const ThemeLabPage: React.FC = () => {
                         <div className="theme-lab-page__stack">
                             <div className="theme-lab-page__inline">
                                 <Checkbox checked={checkboxValue} onChange={setCheckboxValue} label="Enable elevated accents" />
-                                <Radio checked={radioValue === 'compact'} name="density" value="compact" label="Compact" onChange={value => setRadioValue(String(value))} />
-                                <Radio checked={radioValue === 'comfortable'} name="density" value="comfortable" label="Comfortable" onChange={value => setRadioValue(String(value))} />
+                                <Radio
+                                    checked={radioValue === 'compact'}
+                                    name="density"
+                                    value="compact"
+                                    label="Compact"
+                                    onChange={value => setRadioValue(String(value))}
+                                />
+                                <Radio
+                                    checked={radioValue === 'comfortable'}
+                                    name="density"
+                                    value="comfortable"
+                                    label="Comfortable"
+                                    onChange={value => setRadioValue(String(value))}
+                                />
                             </div>
                             <div className="theme-lab-page__inline">
                                 <ToggleSwitch checked={toggleValue} onChange={setToggleValue} variant="success" />
@@ -399,7 +415,11 @@ export const ThemeLabPage: React.FC = () => {
                                 initialPageSize={5}
                                 pageSizeOptions={[5, 10]}
                                 itemNoun="reports"
-                                actions={row => <Button variant="plain" onClick={() => setSplitItem(row)}>Inspect</Button>}
+                                actions={row => (
+                                    <Button variant="plain" onClick={() => setSplitItem(row)}>
+                                        Inspect
+                                    </Button>
+                                )}
                             />
                         </div>
                     </Card>
@@ -461,13 +481,19 @@ export const ThemeLabPage: React.FC = () => {
                         <div className="theme-lab-page__stack">
                             <div className="theme-lab-page__inline">
                                 <Button onClick={e => popover.toggle('theme-details', e)}>Open Popover</Button>
-                                <Popover visible={popover.isVisible('theme-details')} anchorEl={popover.getAnchorEl('theme-details')} onClose={() => popover.hide('theme-details')}>
+                                <Popover
+                                    visible={popover.isVisible('theme-details')}
+                                    anchorEl={popover.getAnchorEl('theme-details')}
+                                    onClose={() => popover.hide('theme-details')}
+                                >
                                     <strong>Theme detail</strong>
                                     <p style={{ margin: '8px 0 0' }}>Popover surfaces subtle tone and spacing differences quickly.</p>
                                 </Popover>
                                 <Button onClick={() => setModalOpen(true)}>Open Modal</Button>
                                 <Button onClick={() => setDrawerOpen(true)}>Open Drawer</Button>
-                                <Button variant="warning" onClick={() => setToastType('warning')}>Show Toast</Button>
+                                <Button variant="warning" onClick={() => setToastType('warning')}>
+                                    Show Toast
+                                </Button>
                             </div>
 
                             <Modal
@@ -541,11 +567,20 @@ export const ThemeLabPage: React.FC = () => {
                                             label: (
                                                 <button
                                                     type="button"
-                                                    style={{ all: 'unset', cursor: 'pointer', display: 'flex', width: '100%', justifyContent: 'space-between', gap: '12px' }}
+                                                    style={{
+                                                        all: 'unset',
+                                                        cursor: 'pointer',
+                                                        display: 'flex',
+                                                        width: '100%',
+                                                        justifyContent: 'space-between',
+                                                        gap: '12px',
+                                                    }}
                                                     onClick={() => setSplitItem(row)}
                                                 >
                                                     <span>{row.name}</span>
-                                                    <Badge variant="default" size="small">{row.owner}</Badge>
+                                                    <Badge variant="default" size="small">
+                                                        {row.owner}
+                                                    </Badge>
                                                 </button>
                                             ),
                                         }))}

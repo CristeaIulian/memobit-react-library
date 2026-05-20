@@ -22,6 +22,10 @@ export const DateRangePickerPage: React.FC = () => {
         start: '2026-03-05',
         end: '2026-03-12',
     });
+    const [manualCloseRange, setManualCloseRange] = useState<{ start?: string; end?: string }>({
+        start: '2026-05-01',
+        end: '2026-05-10',
+    });
 
     return (
         <div className="component-page">
@@ -33,13 +37,7 @@ export const DateRangePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Default (closed until opened)</h3>
                     <div className="component-group">
-                        <DateRangePicker
-                            label="Trip dates"
-                            value={compactRange}
-                            onChange={setCompactRange}
-                            min="2026-01-01"
-                            max="2026-12-31"
-                        />
+                        <DateRangePicker label="Trip dates" value={compactRange} onChange={setCompactRange} min="2026-01-01" max="2026-12-31" />
                     </div>
                     <p>
                         Selected: {compactRange.start ?? 'none'} to {compactRange.end ?? 'none'}
@@ -49,12 +47,7 @@ export const DateRangePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>With presets</h3>
                     <div className="component-group">
-                        <DateRangePicker
-                            label="Date Range"
-                            value={presetsRange}
-                            onChange={setPresetsRange}
-                            presets={PRESETS}
-                        />
+                        <DateRangePicker label="Date Range" value={presetsRange} onChange={setPresetsRange} presets={PRESETS} />
                     </div>
                     <p>
                         Selected: {presetsRange.start ?? 'none'} to {presetsRange.end ?? 'none'}
@@ -75,6 +68,16 @@ export const DateRangePickerPage: React.FC = () => {
                     </div>
                     <p>
                         Selected: {alwaysOpenRange.start ?? 'none'} to {alwaysOpenRange.end ?? 'none'}
+                    </p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Manual Close</h3>
+                    <div className="component-group">
+                        <DateRangePicker label="Audit window" value={manualCloseRange} onChange={setManualCloseRange} autoClose={false} presets={PRESETS} />
+                    </div>
+                    <p>
+                        Selected: {manualCloseRange.start ?? 'none'} to {manualCloseRange.end ?? 'none'}
                     </p>
                 </div>
             </section>

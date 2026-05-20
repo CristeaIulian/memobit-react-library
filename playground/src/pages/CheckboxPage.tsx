@@ -91,18 +91,8 @@ export const CheckboxPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>With Icons</h3>
                     <div className="component-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <Checkbox
-                            checked={features.darkMode}
-                            onChange={value => setFeatures({ ...features, darkMode: value })}
-                            icon="moon"
-                            label="Dark mode"
-                        />
-                        <Checkbox
-                            checked={features.autoSave}
-                            onChange={value => setFeatures({ ...features, autoSave: value })}
-                            icon="save"
-                            label="Auto-save"
-                        />
+                        <Checkbox checked={features.darkMode} onChange={value => setFeatures({ ...features, darkMode: value })} icon="moon" label="Dark mode" />
+                        <Checkbox checked={features.autoSave} onChange={value => setFeatures({ ...features, autoSave: value })} icon="save" label="Auto-save" />
                         <Checkbox
                             checked={features.analytics}
                             onChange={value => setFeatures({ ...features, analytics: value })}
@@ -136,6 +126,13 @@ export const CheckboxPage: React.FC = () => {
                     <div className="component-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         <Checkbox checked={false} label="Disabled unchecked" disabled />
                         <Checkbox checked={true} label="Disabled checked" disabled />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Indeterminate State</h3>
+                    <div className="component-group">
+                        <Checkbox checked={false} indeterminate label="Some nested options selected" />
                     </div>
                 </div>
             </section>

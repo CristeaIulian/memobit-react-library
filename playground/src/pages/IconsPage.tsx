@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 import React, { createElement, isValidElement, useCallback, useMemo, useState } from 'react';
 
-import { Search, Toast, type ToastDetails } from '../../../src';
+import { InputSearch, Toast, type ToastDetails } from '../../../src';
 
 import { iconAliases } from './iconsAliases';
 import { OTHER_CATEGORY_ID, iconCategoryByPath, iconCategoryDefinitions, otherCategory, type IconCategory } from './iconsCategories';
@@ -169,7 +169,7 @@ export const IconsPage: React.FC = () => {
                 </div>
 
                 <div className="icons-page__search">
-                    <Search value={query} onChange={setQuery} placeholder="Search icons by name, keyword, or alias..." />
+                    <InputSearch value={query} onChange={setQuery} placeholder="Search icons by name, keyword, or alias..." />
                 </div>
             </header>
 

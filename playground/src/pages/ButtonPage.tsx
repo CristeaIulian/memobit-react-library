@@ -90,6 +90,36 @@ export const ButtonPage: React.FC = () => {
                     </div>
                 </div>
             </section>
+
+            <section className="page-section">
+                <h2>Icon, Width and Native Type Options</h2>
+                <div className="showcase-group">
+                    <h3>Prefix, Suffix and Icon Variants</h3>
+                    <div className="component-group">
+                        <Button icon="save" iconVariant="success" title="Save changes">
+                            Save
+                        </Button>
+                        <Button emojiIcon="AI" sufixIcon="->" variant="info">
+                            Generate
+                        </Button>
+                        <Button icon="warning" iconVariant="warning" borders="sharp">
+                            Sharp warning
+                        </Button>
+                        <Button type="reset" variant="ghost">
+                            Reset form
+                        </Button>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Full Width</h3>
+                    <div className="component-group" style={{ width: '100%', maxWidth: 360 }}>
+                        <Button fullWidth variant="success">
+                            Continue
+                        </Button>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };

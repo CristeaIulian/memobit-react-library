@@ -217,6 +217,24 @@ export const InputMaskPage: React.FC = () => {
                 </div>
             </section>
 
+            <section className="page-section">
+                <h2>Field Styling Options</h2>
+                <div className="showcase-group">
+                    <div className="component-group" style={{ flexDirection: 'column', gap: 'var(--spacing-16)', maxWidth: 360 }}>
+                        <InputMask
+                            label="Membership code"
+                            name="membershipCode"
+                            mask="aaa-999"
+                            maskChar="•"
+                            mono={false}
+                            highlighted
+                            hint="Uses a custom mask character and proportional text."
+                            onChange={() => undefined}
+                        />
+                    </div>
+                </div>
+            </section>
+
             {/* ── Custom mask playground ──────────────────────────────── */}
             <section className="page-section">
                 <h2>Custom Mask Playground</h2>

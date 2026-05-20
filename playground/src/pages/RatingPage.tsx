@@ -6,6 +6,7 @@ export const RatingPage: React.FC = () => {
     const [fullRating, setFullRating] = useState(6);
     const [halfRating, setHalfRating] = useState(7);
     const [barRating, setBarRating] = useState(7);
+    const [hoverValue, setHoverValue] = useState<number | null>(null);
 
     return (
         <div className="rating-page">
@@ -117,6 +118,22 @@ export const RatingPage: React.FC = () => {
                     <div className="component-group">
                         <Rating rating={fullRating} maxRate={10} selectable onSelect={setFullRating} />
                     </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Hover Callbacks</h3>
+                    <div className="component-group">
+                        <Rating
+                            rating={fullRating}
+                            icon="star"
+                            maxRate={10}
+                            selectable
+                            onSelect={setFullRating}
+                            onHover={setHoverValue}
+                            onHoverEnd={() => setHoverValue(null)}
+                        />
+                    </div>
+                    <p>Hover value: {hoverValue ?? 'none'}</p>
                 </div>
 
                 <div className="showcase-group">

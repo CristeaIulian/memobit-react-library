@@ -28,12 +28,7 @@ export const ListPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>With active selection</h3>
                     <div className="component-group">
-                        <List
-                            items={fruits}
-                            selectable
-                            defaultSelectedId={selectedItem?.id}
-                            onSelect={item => setSelectedItem(item)}
-                        />
+                        <List items={fruits} selectable defaultSelectedId={selectedItem?.id} onSelect={item => setSelectedItem(item)} />
                     </div>
                     <p>Selected: {selectedItem?.label ?? 'None'}</p>
                 </div>

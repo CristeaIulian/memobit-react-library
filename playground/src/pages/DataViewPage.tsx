@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-import { Badge, Button, DataView, Search, ToggleButtons, type DataViewColumn, type DataViewDisplayMode } from '../../../src';
+import { Badge, Button, DataView, InputSearch, ToggleButtons, type DataViewColumn, type DataViewDisplayMode, type SortDirection } from '../../../src';
 
 // ── Basic example ───────────────────────────────────────────────────────────
 
@@ -54,6 +54,10 @@ const statusVariantMap: Record<string, 'success' | 'danger' | 'warning'> = {
 export const DataViewPage: React.FC = () => {
     const [selectedCount, setSelectedCount] = useState(0);
     const [desktopView, setDesktopView] = useState<DataViewDisplayMode>('table');
+    const [controlledPage, setControlledPage] = useState(1);
+    const [controlledPageSize, setControlledPageSize] = useState(3);
+    const [controlledSortKey, setControlledSortKey] = useState<string | null>('score');
+    const [controlledSortDirection, setControlledSortDirection] = useState<SortDirection>('desc');
 
     // ── Filters + Sorting example ───────────────────────────────────────
     const [nameFilter, setNameFilter] = useState('');
@@ -69,18 +73,33 @@ export const DataViewPage: React.FC = () => {
         });
     }, [nameFilter, roleFilter, statusFilter]);
 
+    const controlledSortedUsers = useMemo(() => {
+        const next = [...users];
+        if (controlledSortKey) {
+            next.sort((a, b) => {
+                const left = a[controlledSortKey as keyof UserRow];
+                const right = b[controlledSortKey as keyof UserRow];
+                const comparison = String(left).localeCompare(String(right), undefined, { numeric: true });
+                return controlledSortDirection === 'asc' ? comparison : -comparison;
+            });
+        }
+        return next;
+    }, [controlledSortDirection, controlledSortKey]);
+
+    const controlledPageUsers = controlledSortedUsers.slice((controlledPage - 1) * controlledPageSize, controlledPage * controlledPageSize);
+
     const filterColumns: DataViewColumn<UserRow>[] = [
         {
             key: 'name',
             header: 'Name',
             sortable: true,
-            filter: <Search placeholder="Search name…" value={nameFilter} onChange={setNameFilter} />,
+            filter: <InputSearch placeholder="Search name…" value={nameFilter} onChange={setNameFilter} />,
         },
         {
             key: 'role',
             header: 'Role',
             sortable: true,
-            filter: <Search placeholder="Search role…" value={roleFilter} onChange={setRoleFilter} />,
+            filter: <InputSearch placeholder="Search role…" value={roleFilter} onChange={setRoleFilter} />,
         },
         {
             key: 'score',
@@ -91,7 +110,7 @@ export const DataViewPage: React.FC = () => {
             key: 'status',
             header: 'Status',
             sortable: true,
-            filter: <Search placeholder="Search status…" value={statusFilter} onChange={setStatusFilter} />,
+            filter: <InputSearch placeholder="Search status…" value={statusFilter} onChange={setStatusFilter} />,
         },
         {
             key: 'joinedAt',
@@ -232,6 +251,62 @@ export const DataViewPage: React.FC = () => {
                                 ),
                             }}
                             showPageSize={false}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Controlled Pagination, Sorting and Grouping</h2>
+                <p>Controlled props allow server-backed lists to own sorting, page, page size, and selected ids while DataView renders the current slice.</p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <DataView<UserRow>
+                            columns={basicColumns}
+                            data={controlledPageUsers}
+                            rowKey={row => row.id}
+                            selectable
+                            selectedIds={[1, 4]}
+                            actionsWidth={180}
+                            currentPage={controlledPage}
+                            totalItems={controlledSortedUsers.length}
+                            totalCount={users.length}
+                            initialPageSize={controlledPageSize}
+                            pageSizeOptions={[2, 3, 4]}
+                            onPageChange={setControlledPage}
+                            onPageSizeChange={pageSize => {
+                                setControlledPageSize(pageSize);
+                                setControlledPage(1);
+                            }}
+                            sortKey={controlledSortKey}
+                            sortDirection={controlledSortDirection}
+                            onSortChange={({ key, direction }) => {
+                                setControlledSortKey(key);
+                                setControlledSortDirection(direction);
+                            }}
+                            showResultsCount
+                            showCardSortControls
+                            desktopView="cards"
+                            cardMaxWidth={340}
+                            itemNoun="team members"
+                            rowClassName={row => (row.score >= 90 ? 'is-highlighted' : '')}
+                            group={{
+                                groupBy: row => row.status,
+                                groupLabel: status => status ?? 'No status',
+                                collapsible: true,
+                            }}
+                            card={{
+                                title: row => row.name,
+                                subtitle: row => `${row.role} / Score ${row.score}`,
+                                badges: row => (
+                                    <Badge variant={row.status === 'Active' ? 'success' : row.status === 'On Hold' ? 'warning' : 'danger'}>{row.status}</Badge>
+                                ),
+                            }}
+                            actions={row => (
+                                <Button size="small" variant="ghost" onClick={() => alert(`Queued ${row.name}`)}>
+                                    Queue
+                                </Button>
+                            )}
                         />
                     </div>
                 </div>

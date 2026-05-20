@@ -32,17 +32,14 @@ export const StickyBarPage: React.FC = () => {
                                 <div key={row.id} className="sticky-bar-demo__row">
                                     <strong>{row.title}</strong>
                                     <span>{row.owner}</span>
-                                    <Badge variant={row.severity === 'High' ? 'danger' : row.severity === 'Medium' ? 'warning' : 'success'}>{row.severity}</Badge>
+                                    <Badge variant={row.severity === 'High' ? 'danger' : row.severity === 'Medium' ? 'warning' : 'success'}>
+                                        {row.severity}
+                                    </Badge>
                                 </div>
                             ))}
                         </div>
 
-                        <StickyBar
-                            ariaLabel="Selected items actions"
-                            visible={bottomVisible}
-                            onClose={() => setBottomVisible(false)}
-                            closeLabel="Dismiss"
-                        >
+                        <StickyBar ariaLabel="Selected items actions" visible={bottomVisible} onClose={() => setBottomVisible(false)} closeLabel="Dismiss">
                             <div className="sticky-bar-page__summary">
                                 <strong>4 selected</strong>
                                 <span>Ready for bulk review</span>
@@ -90,7 +87,9 @@ export const StickyBarPage: React.FC = () => {
                                         #{row.id} {row.title}
                                     </strong>
                                     <span>{row.owner}</span>
-                                    <Badge variant={row.severity === 'High' ? 'danger' : row.severity === 'Medium' ? 'warning' : 'success'}>{row.severity}</Badge>
+                                    <Badge variant={row.severity === 'High' ? 'danger' : row.severity === 'Medium' ? 'warning' : 'success'}>
+                                        {row.severity}
+                                    </Badge>
                                 </div>
                             ))}
                         </div>
@@ -130,6 +129,16 @@ export const StickyBarPage: React.FC = () => {
                                     Save
                                 </Button>
                             </div>
+                        </StickyBar>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>End Aligned Status Bar</h3>
+                    <div className="sticky-bar-demo">
+                        <div className="sticky-bar-demo__placeholder">Content area</div>
+                        <StickyBar position="bottom" align="end" role="status" ariaLabel="Sync status">
+                            <span className="sticky-bar-page__hint">All changes synced</span>
                         </StickyBar>
                     </div>
                 </div>

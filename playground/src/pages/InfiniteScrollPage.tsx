@@ -79,7 +79,11 @@ export const InfiniteScrollPage: React.FC = () => {
                             isLoading={isLoading}
                             onLoadMore={loadMore}
                             onScrollChange={setScrollInfo}
-                            endMessage={<span><Icon name="checkmark" /> All {TOTAL_ITEMS} items loaded.</span>}
+                            endMessage={
+                                <span>
+                                    <Icon name="checkmark" /> All {TOTAL_ITEMS} items loaded.
+                                </span>
+                            }
                         >
                             {items.map(item => (
                                 <div key={item.id} className="infinite-scroll-demo-item">
@@ -144,7 +148,13 @@ export const InfiniteScrollPage: React.FC = () => {
                     hasMore={cardsHasMore}
                     isLoading={cardsLoading}
                     onLoadMore={loadMoreCards}
-                    endMessage={<span><Icon name="checkmark" /> All {TOTAL_ITEMS} cards loaded.</span>}
+                    rootMargin="120px"
+                    threshold={0.25}
+                    endMessage={
+                        <span>
+                            <Icon name="checkmark" /> All {TOTAL_ITEMS} cards loaded.
+                        </span>
+                    }
                 >
                     <div className="infinite-scroll-card-grid">
                         {cards.map(card => (

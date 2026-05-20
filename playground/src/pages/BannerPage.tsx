@@ -32,6 +32,12 @@ export const BannerPage: FC = () => {
                     <h3>Variants</h3>
                     <div className="component-group">
                         <Banner
+                            variant="default"
+                            title="Default announcement"
+                            description="A neutral banner for informational copy that should not imply status."
+                            showDismiss={false}
+                        />
+                        <Banner
                             variant="success"
                             title="Backup complete"
                             description="The latest snapshot finished successfully and is ready to restore from."
@@ -73,6 +79,27 @@ export const BannerPage: FC = () => {
                                 Restore banner
                             </Button>
                         )}
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Primary and Secondary Actions</h3>
+                    <div className="component-group">
+                        <Banner
+                            title="Invite your team"
+                            description="Add collaborators now or keep setting up the workspace first."
+                            dismissLabel="Hide invitation banner"
+                            action={{
+                                text: 'Invite people',
+                                icon: 'users',
+                                onClick: () => alert('Invite people'),
+                            }}
+                            secondaryAction={{
+                                text: 'Later',
+                                variant: 'plain',
+                                onClick: () => alert('Maybe later'),
+                            }}
+                        />
                     </div>
                 </div>
             </section>

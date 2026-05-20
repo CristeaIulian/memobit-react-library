@@ -12,6 +12,9 @@ export const ModalPage: React.FC = () => {
     const [isSmallOpen, setSmallOpen] = useState<boolean>(false);
     const [isMediumOpen, setMediumOpen] = useState<boolean>(false);
     const [isLargeOpen, setLargeOpen] = useState<boolean>(false);
+    const [isAutoOpen, setAutoOpen] = useState<boolean>(false);
+    const [isPortalOpen, setPortalOpen] = useState<boolean>(false);
+    const [isNoPaddingOpen, setNoPaddingOpen] = useState<boolean>(false);
     const [isCustomOverlayOpen, setCustomOverlayOpen] = useState<boolean>(false);
     const [isTertiaryButtonOpen, setTertiaryButtonOpen] = useState<boolean>(false);
     const [formData, setFormData] = useState({ name: '', email: '' });
@@ -238,6 +241,18 @@ export const ModalPage: React.FC = () => {
                         <Button onClick={() => setLargeOpen(true)}>Large Modal</Button>
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Auto Size Modal</h3>
+                    <div className="component-group">
+                        <Modal isOpen={isAutoOpen} onClose={() => setAutoOpen(false)} title="Auto size" size="auto">
+                            <div style={{ padding: '16px' }}>
+                                <p>The modal sizes itself to compact content.</p>
+                            </div>
+                        </Modal>
+                        <Button onClick={() => setAutoOpen(true)}>Auto Modal</Button>
+                    </div>
+                </div>
             </section>
 
             <section className="page-section">
@@ -296,6 +311,24 @@ export const ModalPage: React.FC = () => {
                             </div>
                         </Modal>
                         <Button onClick={() => setFormOpen(true)}>Show Form Modal</Button>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Portal and No Padding</h3>
+                    <div className="component-group">
+                        <Modal isOpen={isPortalOpen} onClose={() => setPortalOpen(false)} title="Portal modal" usePortal>
+                            <div style={{ padding: 16 }}>
+                                <p>This modal is rendered through a portal.</p>
+                            </div>
+                        </Modal>
+                        <Modal isOpen={isNoPaddingOpen} onClose={() => setNoPaddingOpen(false)} title="No padding" noPadding>
+                            <div style={{ padding: 24, background: 'var(--card-background-accent-color)' }}>
+                                <p>The body has no default padding, so embedded layouts can own their spacing.</p>
+                            </div>
+                        </Modal>
+                        <Button onClick={() => setPortalOpen(true)}>Portal Modal</Button>
+                        <Button onClick={() => setNoPaddingOpen(true)}>No Padding Modal</Button>
                     </div>
                 </div>
 

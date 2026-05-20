@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-import { ControlPanelProvider, Search, Toolbar, type DropdownOption, type MenuHamburgerItem, useControlPanelContext } from '../../../src';
+import { ControlPanelProvider, InputSearch, Toolbar, type DropdownOption, type MenuHamburgerItem, useControlPanelContext } from '../../../src';
 
 const sortOptions: DropdownOption[] = [
     { label: 'Title asc', value: 'title-asc' },
@@ -86,6 +86,16 @@ export const ToolbarPage: React.FC = () => {
                     <Toolbar menuItems={menuItems} />
                     <p style={{ marginTop: '12px' }}>Last action: {activeMenu}</p>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Heading without Card Chrome</h3>
+                    <Toolbar
+                        heading={{ title: 'Production queue', description: '12 deployments waiting for review' }}
+                        noCard
+                        menuItems={menuItems}
+                        search={{ onChange: setSearch, placeholder: 'Search queue...', value: search }}
+                    />
+                </div>
             </section>
 
             <section className="page-section">
@@ -142,7 +152,7 @@ export const ToolbarPage: React.FC = () => {
                             value: movieSort,
                         }}
                     >
-                        <Search label="IMDB ID" onChange={setImdbSearch} placeholder="tt1234567" value={imdbSearch} />
+                        <InputSearch label="IMDB ID" onChange={setImdbSearch} placeholder="tt1234567" value={imdbSearch} />
                     </Toolbar>
                     <p style={{ marginTop: '12px' }}>
                         Title: {moviesSearch || '(empty)'} | IMDB: {imdbSearch || '(empty)'} | Sort: {movieSort}

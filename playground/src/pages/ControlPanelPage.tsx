@@ -19,6 +19,7 @@ export const ControlPanelPage: React.FC = () => {
     const [activeNavItem, setActiveNavItem] = useState<string>('overview');
     const [activeTreeNavItem, setActiveTreeNavItem] = useState<string>('campaigns');
     const [openTreeNavItems, setOpenTreeNavItems] = useState<string[]>(['workspace', 'planning']);
+    const [isMobilePanelOpen, setMobilePanelOpen] = useState(false);
 
     const [filterValues, setFilterValues] = useState<Record<string, ControlPanelFilterValue>>({
         scope: 'all',
@@ -300,7 +301,7 @@ export const ControlPanelPage: React.FC = () => {
 
     const activeTreeNavLabel =
         treeNavigation
-            .flatMap(item => [item, ...(item.children ?? []), ...((item.children ?? []).flatMap(child => child.children ?? []))])
+            .flatMap(item => [item, ...(item.children ?? []), ...(item.children ?? []).flatMap(child => child.children ?? [])])
             .find(item => item.id === activeTreeNavItem)?.label ?? 'None';
 
     const handleFilterChange = (event: ControlPanelFilterChangeEvent) => {
@@ -549,6 +550,43 @@ export const ControlPanelPage: React.FC = () => {
                             <p style={{ marginTop: '16px', color: 'var(--body-color-muted)' }}>
                                 Nested navigation items can be grouped into expandable sections with counts, status dots, and alert badges.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Mobile and Contained Variants</h2>
+                <div className="showcase-group">
+                    <h3>Contained Mobile Panel with Overlay</h3>
+                    <button type="button" className="button button-small button-info button-rounded" onClick={() => setMobilePanelOpen(true)}>
+                        Open mobile panel
+                    </button>
+                    <div
+                        style={{
+                            position: 'relative',
+                            minHeight: 420,
+                            border: '1px solid var(--border-color)',
+                            borderRadius: 8,
+                            overflow: 'hidden',
+                            marginTop: 16,
+                        }}
+                    >
+                        <ControlPanel
+                            header={{ icon: 'filters', siteName: 'Mobile filters' }}
+                            filters={workspaceFilters.slice(0, 3)}
+                            onFilterChange={handleFilterChange}
+                            isOpen={isMobilePanelOpen}
+                            isMobile
+                            showOverlay
+                            contained
+                            flush
+                            width="300px"
+                            onClose={() => setMobilePanelOpen(false)}
+                        />
+                        <div style={{ padding: 24, background: 'var(--body-background)', minHeight: 420 }}>
+                            <h3>Contained Content</h3>
+                            <p>The panel owns the overlay and calls onClose when the overlay or close affordance is used.</p>
                         </div>
                     </div>
                 </div>

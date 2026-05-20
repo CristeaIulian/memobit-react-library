@@ -7,6 +7,8 @@ export const InputTimePage: React.FC = () => {
     const [boundedTime, setBoundedTime] = useState<string>('12:30');
     const [emptyTime, setEmptyTime] = useState<string>('');
     const [validTime, setValidTime] = useState<string>('14:30');
+    const [eventTime, setEventTime] = useState<string>('16:45');
+    const [lastEvent, setLastEvent] = useState<string>('No event yet');
 
     return (
         <div className="component-page">
@@ -18,12 +20,7 @@ export const InputTimePage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Time input</h3>
                     <div className="component-group">
-                        <InputTime
-                            id="basic-time"
-                            label="Start time"
-                            value={timeValue}
-                            onChange={value => setTimeValue(value ?? '')}
-                        />
+                        <InputTime id="basic-time" label="Start time" value={timeValue} onChange={value => setTimeValue(value ?? '')} />
                     </div>
                 </div>
             </section>
@@ -78,6 +75,29 @@ export const InputTimePage: React.FC = () => {
                     <div className="component-group">
                         <InputTime id="disabled-time" label="Disabled" value="14:00" disabled />
                     </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>States and Events</h2>
+                <div className="showcase-group">
+                    <h3>Focus, Highlight, Read-only and Keyboard Events</h3>
+                    <div className="component-group">
+                        <InputTime
+                            id="event-time"
+                            label="Event time"
+                            value={eventTime}
+                            onChange={value => setEventTime(value ?? '')}
+                            autoFocus
+                            highlighted
+                            onBlur={() => setLastEvent('blur')}
+                            onClick={() => setLastEvent('click')}
+                            onKeyDown={event => setLastEvent(`key down: ${event.key}`)}
+                            onKeyUp={event => setLastEvent(`key up: ${event.key}`)}
+                        />
+                        <InputTime id="readonly-time" label="Read only" value="09:30" readOnly />
+                    </div>
+                    <p>Last event: {lastEvent}</p>
                 </div>
             </section>
         </div>

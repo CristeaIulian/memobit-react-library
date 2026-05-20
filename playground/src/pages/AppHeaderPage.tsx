@@ -50,6 +50,29 @@ export const AppHeaderPage: FC = () => {
                 </div>
 
                 <div className="showcase-group">
+                    <h3>AppHeader with Custom SVG</h3>
+                    <div className="component-group">
+                        <AppHeader
+                            svg={
+                                <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+                                    <rect x="2" y="2" width="18" height="18" rx="5" fill="currentColor" opacity="0.16" />
+                                    <path
+                                        d="M7 12.5 10 15l5-8"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            }
+                            appName="Approvals"
+                            heading="Ready for review"
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
                     <h3>Different Icons</h3>
                     <div className="component-group">
                         <AppHeader icon="movie" appName="Movies" heading="Collection" />

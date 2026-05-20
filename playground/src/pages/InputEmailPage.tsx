@@ -10,25 +10,20 @@ export const InputEmailPage: React.FC = () => {
     const [onChangeEmail, setOnChangeEmail] = useState<string>('');
     const [customErrorEmail, setCustomErrorEmail] = useState<string>('');
     const [successEmail, setSuccessEmail] = useState<string>('valid@example.com');
+    const [eventEmail, setEventEmail] = useState<string>('events@example.com');
+    const [lastEvent, setLastEvent] = useState<string>('No event yet');
 
     return (
         <div className="component-page">
             <h1>Input Email Component</h1>
-            <p>
-                An email input component with built-in validation, visual feedback, and
-                customizable error messages.
-            </p>
+            <p>An email input component with built-in validation, visual feedback, and customizable error messages.</p>
 
             <section className="page-section">
                 <h2>Basic Usage</h2>
                 <div className="showcase-group">
                     <h3>Default Email Input</h3>
                     <div className="component-group">
-                        <InputEmail
-                            value={email}
-                            onChange={setEmail}
-                            placeholder="Enter your email..."
-                        />
+                        <InputEmail value={email} onChange={setEmail} placeholder="Enter your email..." />
                     </div>
                     <p>Current value: {email || '(empty)'}</p>
                 </div>
@@ -36,11 +31,7 @@ export const InputEmailPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>With Initial Value</h3>
                     <div className="component-group">
-                        <InputEmail
-                            value={emailWithValue}
-                            onChange={setEmailWithValue}
-                            placeholder="Enter your email..."
-                        />
+                        <InputEmail value={emailWithValue} onChange={setEmailWithValue} placeholder="Enter your email..." />
                     </div>
                     <p>Current value: {emailWithValue}</p>
                 </div>
@@ -107,12 +98,7 @@ export const InputEmailPage: React.FC = () => {
                     <h3>Pre-filled Invalid Email</h3>
                     <p>Try fixing this invalid email to see the green border</p>
                     <div className="component-group">
-                        <InputEmail
-                            value="invalid-email"
-                            onChange={() => {}}
-                            showValidation={true}
-                            validateOn="blur"
-                        />
+                        <InputEmail value="invalid-email" onChange={() => {}} showValidation={true} validateOn="blur" />
                     </div>
                 </div>
             </section>
@@ -123,12 +109,7 @@ export const InputEmailPage: React.FC = () => {
                     <h3>Success State</h3>
                     <p>Using the success prop for manual validation feedback</p>
                     <div className="component-group">
-                        <InputEmail
-                            label="Email address"
-                            value={successEmail}
-                            onChange={setSuccessEmail}
-                            success="Email is available and verified"
-                        />
+                        <InputEmail label="Email address" value={successEmail} onChange={setSuccessEmail} success="Email is available and verified" />
                     </div>
                 </div>
             </section>
@@ -138,36 +119,43 @@ export const InputEmailPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Disabled</h3>
                     <div className="component-group">
-                        <InputEmail
-                            value="disabled@example.com"
-                            onChange={() => {}}
-                            disabled
-                        />
+                        <InputEmail value="disabled@example.com" onChange={() => {}} disabled />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Read Only</h3>
                     <div className="component-group">
-                        <InputEmail
-                            value="readonly@example.com"
-                            onChange={() => {}}
-                            readOnly
-                        />
+                        <InputEmail value="readonly@example.com" onChange={() => {}} readOnly />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Required with Validation</h3>
                     <div className="component-group">
+                        <InputEmail value={email} onChange={setEmail} placeholder="Required email..." required showValidation={true} />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Native Options and Events</h3>
+                    <div className="component-group">
                         <InputEmail
-                            value={email}
-                            onChange={setEmail}
-                            placeholder="Required email..."
-                            required
-                            showValidation={true}
+                            label="Work email"
+                            value={eventEmail}
+                            onChange={setEventEmail}
+                            autoComplete="email"
+                            autoFocus
+                            maxLength={48}
+                            highlighted
+                            error="Example manual error"
+                            onBlur={() => setLastEvent('blur')}
+                            onClick={() => setLastEvent('click')}
+                            onKeyDown={event => setLastEvent(`key down: ${event.key}`)}
+                            onKeyUp={event => setLastEvent(`key up: ${event.key}`)}
                         />
                     </div>
+                    <p>Last event: {lastEvent}</p>
                 </div>
             </section>
 
@@ -184,34 +172,15 @@ export const InputEmailPage: React.FC = () => {
                         }}
                     >
                         <div>
-                            <label style={{ display: 'block', marginBottom: '8px' }}>
-                                Primary Email *
-                            </label>
-                            <InputEmail
-                                value={email}
-                                onChange={setEmail}
-                                placeholder="you@example.com"
-                                showValidation={true}
-                                validateOn="blur"
-                                required
-                            />
+                            <label style={{ display: 'block', marginBottom: '8px' }}>Primary Email *</label>
+                            <InputEmail value={email} onChange={setEmail} placeholder="you@example.com" showValidation={true} validateOn="blur" required />
                         </div>
                         <div>
-                            <label style={{ display: 'block', marginBottom: '8px' }}>
-                                Secondary Email (Optional)
-                            </label>
-                            <InputEmail
-                                value=""
-                                onChange={() => {}}
-                                placeholder="backup@example.com"
-                                showValidation={true}
-                                validateOn="blur"
-                            />
+                            <label style={{ display: 'block', marginBottom: '8px' }}>Secondary Email (Optional)</label>
+                            <InputEmail value="" onChange={() => {}} placeholder="backup@example.com" showValidation={true} validateOn="blur" />
                         </div>
                         <div>
-                            <label style={{ display: 'block', marginBottom: '8px' }}>
-                                Recovery Email *
-                            </label>
+                            <label style={{ display: 'block', marginBottom: '8px' }}>Recovery Email *</label>
                             <InputEmail
                                 value=""
                                 onChange={() => {}}

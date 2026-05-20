@@ -7,6 +7,7 @@ const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export const QuickAddPage: React.FC = () => {
     const [items, setItems] = useState<string[]>([]);
     const [showQuickAdd, setShowQuickAdd] = useState<boolean>(false);
+    const [showQuickEdit, setShowQuickEdit] = useState<boolean>(false);
 
     const handleSave = async (value: string | undefined) => {
         await wait(400);
@@ -36,6 +37,28 @@ export const QuickAddPage: React.FC = () => {
                         )}
                     </div>
                     <p>Saved: {items.length > 0 ? items.join(', ') : 'No tags yet'}</p>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Prefilled Portal Modal</h2>
+                <div className="showcase-group">
+                    <h3>Edit an existing tag</h3>
+                    <div className="component-group">
+                        <Button onClick={() => setShowQuickEdit(true)}>Open Prefilled Quick Add</Button>
+                        {showQuickEdit && (
+                            <QuickAdd
+                                placeholder="Tag name"
+                                title="Rename tag"
+                                titleIcon="edit"
+                                value="Roadmap"
+                                isOpen={showQuickEdit}
+                                usePortal
+                                onSave={handleSave}
+                                onClose={() => setShowQuickEdit(false)}
+                            />
+                        )}
+                    </div>
                 </div>
             </section>
         </div>

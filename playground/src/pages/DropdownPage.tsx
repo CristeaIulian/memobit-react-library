@@ -197,6 +197,31 @@ export const DropdownPage: React.FC = () => {
                 </div>
 
                 <div className="showcase-group">
+                    <h3>Field Styling and Value Display</h3>
+                    <div className="component-group" style={{ width: '60%', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <Dropdown
+                            name="highlighted-dropdown"
+                            label="Highlighted country"
+                            options={largeListOptions}
+                            value="country-7"
+                            onChange={newOption => console.log('handleHighlightedSelect', newOption)}
+                            placeholder="Search or select a country..."
+                            highlighted
+                            autofocus
+                        />
+                        <Dropdown
+                            name="plain-value-dropdown"
+                            label="Selected value without chip"
+                            options={largeListOptions}
+                            value="country-4"
+                            onChange={newOption => console.log('handlePlainValueSelect', newOption)}
+                            placeholder="Search or select a country..."
+                            valueAsChip={false}
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
                     <h3>Large List with Multi-Select</h3>
                     <div className="component-group" style={{ width: '60%' }}>
                         <Dropdown

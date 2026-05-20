@@ -339,6 +339,48 @@ export const SidebarPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>App Header and Custom Item Renderer</h2>
+
+                <div className="showcase-group">
+                    <h3>Custom Navigation Rows</h3>
+                    <div style={{ display: 'flex', minHeight: '440px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                        <Sidebar
+                            sections={workspaceSections}
+                            isOpen={true}
+                            width="300px"
+                            appHeaderProps={{ icon: 'dashboard', appName: 'Workspace', heading: 'Navigation' }}
+                            renderItem={item => (
+                                <button
+                                    key={item.id}
+                                    type="button"
+                                    onClick={item.onClick}
+                                    style={{
+                                        width: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        gap: 12,
+                                        padding: '10px 12px',
+                                        border: 0,
+                                        borderRadius: 6,
+                                        background: item.isActive ? 'var(--color-primary-light)' : 'transparent',
+                                        color: 'var(--body-color)',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    <span>{item.label}</span>
+                                    {item.count !== undefined && <strong>{item.count}</strong>}
+                                </button>
+                            )}
+                        />
+                        <div style={{ flex: 1, padding: '24px', background: 'var(--body-background)' }}>
+                            <h3>Custom Renderer Content</h3>
+                            <p>Active Item: {activeItem}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>Toggle Sidebar</h2>
 
                 <div className="showcase-group">
@@ -392,7 +434,7 @@ export const SidebarPage: React.FC = () => {
                                 isOpen={isMobileSidebarOpen}
                                 onClose={() => setMobileSidebarOpen(false)}
                                 isMobile={true}
-                                showOverlay={false}
+                                showOverlay
                                 contained
                             />
                             <div style={{ padding: '16px', background: 'var(--body-background)', height: '100%' }}>

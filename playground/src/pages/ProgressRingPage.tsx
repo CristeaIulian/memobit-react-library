@@ -67,6 +67,14 @@ export const ProgressRingPage: React.FC = () => {
                         </Button>
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Stroke Options</h3>
+                    <div className="component-group">
+                        <ProgressRing value={62} label="Square caps" rounded={false} thickness={12} state="default" />
+                        <ProgressRing value={62} label="Thin stroke" thickness={4} state="info" />
+                    </div>
+                </div>
             </section>
         </div>
     );

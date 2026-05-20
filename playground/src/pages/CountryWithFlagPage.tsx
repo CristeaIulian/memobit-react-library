@@ -26,11 +26,13 @@ export const CountryWithFlagPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Compact to large</h3>
                     <div className="component-group">
+                        <CountryWithFlag code="ro" size="xxs" label="Romania" />
                         <CountryWithFlag code="fr" size="xs" label="France" />
                         <CountryWithFlag code="es" size="sm" label="Spain" />
                         <CountryWithFlag code="it" size="md" label="Italy" />
                         <CountryWithFlag code="jp" size="lg" label="Japan" />
                         <CountryWithFlag code="br" size="xl" label="Brazil" />
+                        <CountryWithFlag code="us" size="xxl" label="United States" />
                     </div>
                 </div>
             </section>

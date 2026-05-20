@@ -5,9 +5,7 @@ export const SkeletonPage: React.FC = () => {
     return (
         <div className="component-page">
             <h1>Skeleton Component</h1>
-            <p>
-                Loading placeholder components to improve perceived performance while content is being fetched.
-            </p>
+            <p>Loading placeholder components to improve perceived performance while content is being fetched.</p>
 
             <section className="page-section">
                 <h2>Variants</h2>

@@ -13,8 +13,7 @@ export const AuthLoginPage: React.FC = () => {
         <div className="component-page">
             <h1>Auth Login Component</h1>
             <p>
-                Full-page login experience powered by <code>AuthProvider</code>. Configure
-                the auth API endpoints in your app to enable login.
+                Full-page login experience powered by <code>AuthProvider</code>. Configure the auth API endpoints in your app to enable login.
             </p>
 
             <section className="page-section">

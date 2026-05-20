@@ -5,6 +5,7 @@ import { ConfirmDialog, Button } from '../../../src';
 export const ConfirmDialogPage: React.FC = () => {
     const [isConfirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false);
     const [isConfirmDialogOpen2, setConfirmDialogOpen2] = useState<boolean>(false);
+    const [isPortalDialogOpen, setPortalDialogOpen] = useState<boolean>(false);
 
     return (
         <div className="confirm-dialog-page">
@@ -39,6 +40,21 @@ export const ConfirmDialogPage: React.FC = () => {
                             cancel={{ text: 'Abort', icon: 'clear', variant: 'info', onClick: () => setConfirmDialogOpen2(false) }}
                         />
                         <Button onClick={() => setConfirmDialogOpen2(true)}>Show Confirm Dialog</Button>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Portal Rendering</h3>
+                    <div className="component-group">
+                        <ConfirmDialog
+                            message="This dialog renders through a portal."
+                            isOpen={isPortalDialogOpen}
+                            title="Portal confirm"
+                            usePortal
+                            confirm={{ text: 'Continue', icon: 'checkmark', variant: 'success', onClick: () => setPortalDialogOpen(false) }}
+                            cancel={{ text: 'Cancel', icon: 'clear', onClick: () => setPortalDialogOpen(false) }}
+                        />
+                        <Button onClick={() => setPortalDialogOpen(true)}>Show Portal Confirm Dialog</Button>
                     </div>
                 </div>
             </section>

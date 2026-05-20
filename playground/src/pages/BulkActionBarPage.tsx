@@ -94,7 +94,10 @@ export const BulkActionBarPage: FC = () => {
     return (
         <div className="bulk-action-bar-page">
             <h1>Bulk Action Bar Component</h1>
-            <p>A sticky bar that surfaces actions across a multi-select. Hides itself when nothing is selected. Optional progress display for sequential bulk operations.</p>
+            <p>
+                A sticky bar that surfaces actions across a multi-select. Hides itself when nothing is selected. Optional progress display for sequential bulk
+                operations.
+            </p>
 
             <section className="page-section">
                 <h2>Standard Usage</h2>
@@ -105,12 +108,7 @@ export const BulkActionBarPage: FC = () => {
                     </p>
                     {renderItemList()}
                     <p style={{ color: 'var(--body-color-muted)' }}>{lastResult}</p>
-                    <BulkActionBar
-                        selectionCount={selected.size}
-                        actions={actionsWithBusyState}
-                        progress={progress ?? undefined}
-                        onClear={clearSelection}
-                    />
+                    <BulkActionBar selectionCount={selected.size} actions={actionsWithBusyState} progress={progress ?? undefined} onClear={clearSelection} />
                 </div>
             </section>
 
@@ -121,12 +119,7 @@ export const BulkActionBarPage: FC = () => {
                     <p style={{ color: 'var(--body-color-muted)', marginTop: 0 }}>
                         Pass <code>visible</code> to override the auto-hide-on-zero-selection behavior. Useful for review queues or admin panels.
                     </p>
-                    <BulkActionBar
-                        selectionCount={0}
-                        visible
-                        label="Approve or reject the pending submissions"
-                        actions={minimalActions}
-                    />
+                    <BulkActionBar selectionCount={0} visible label="Approve or reject the pending submissions" actions={minimalActions} />
                 </div>
             </section>
 
@@ -146,6 +139,30 @@ export const BulkActionBarPage: FC = () => {
                             { key: 'flag', label: 'Flag', icon: 'warning', variant: 'warning', onClick: () => setLastResult('Flagged (top demo)') },
                         ]}
                         onClear={() => setLastResult('Cleared (top demo)')}
+                    />
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Bottom Position with Custom Clear Label</h2>
+                <div className="showcase-group">
+                    <h3>Sticky to bottom</h3>
+                    <BulkActionBar
+                        selectionCount={2}
+                        position="bottom"
+                        label="2 previews selected"
+                        clearLabel="Deselect previews"
+                        actions={[
+                            { key: 'export', label: 'Export', icon: 'export', variant: 'info', onClick: () => setLastResult('Exported (bottom demo)') },
+                            {
+                                key: 'archive-bottom',
+                                label: 'Archive',
+                                icon: 'archive',
+                                variant: 'default',
+                                onClick: () => setLastResult('Archived (bottom demo)'),
+                            },
+                        ]}
+                        onClear={() => setLastResult('Deselected (bottom demo)')}
                     />
                 </div>
             </section>

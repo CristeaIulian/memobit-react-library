@@ -26,8 +26,7 @@ export const AccordionPage: React.FC = () => {
         {
             id: 'faq-4',
             title: 'Is it accessible?',
-            content:
-                'The accordion follows accessibility best practices, including proper ARIA attributes and keyboard navigation support.',
+            content: 'The accordion follows accessibility best practices, including proper ARIA attributes and keyboard navigation support.',
         },
     ];
 
@@ -38,9 +37,7 @@ export const AccordionPage: React.FC = () => {
             icon: 'rocket',
             content: (
                 <div>
-                    <p>
-                        Our product is optimized for speed and efficiency, ensuring smooth performance even with large datasets.
-                    </p>
+                    <p>Our product is optimized for speed and efficiency, ensuring smooth performance even with large datasets.</p>
                     <ul>
                         <li>Lightning-fast load times</li>
                         <li>Optimized rendering</li>
@@ -172,9 +169,7 @@ export const AccordionPage: React.FC = () => {
     return (
         <div className="component-page">
             <h1>Accordion Component</h1>
-            <p>
-                A collapsible content component for organizing information in expandable sections.
-            </p>
+            <p>A collapsible content component for organizing information in expandable sections.</p>
 
             <section className="page-section">
                 <h2>Basic Usage</h2>
@@ -201,11 +196,7 @@ export const AccordionPage: React.FC = () => {
                     <h3>With Initial Expanded Items</h3>
                     <p>First and third items are expanded by default</p>
                     <div className="component-group">
-                        <Accordion
-                            items={faqItems}
-                            allowMultiple
-                            defaultExpanded={['faq-1', 'faq-3']}
-                        />
+                        <Accordion items={faqItems} allowMultiple defaultExpanded={['faq-1', 'faq-3']} />
                     </div>
                 </div>
             </section>
@@ -226,11 +217,7 @@ export const AccordionPage: React.FC = () => {
                     <h3>With onChange Callback</h3>
                     <p>Currently expanded: {expandedIds.length > 0 ? expandedIds.join(', ') : 'None'}</p>
                     <div className="component-group">
-                        <Accordion
-                            items={documentationItems}
-                            allowMultiple
-                            onChange={setExpandedIds}
-                        />
+                        <Accordion items={documentationItems} allowMultiple onChange={setExpandedIds} />
                     </div>
                 </div>
             </section>

@@ -214,6 +214,16 @@ export const TimelinePage: React.FC = () => {
                     <Timeline items={changelogItems.slice(0, 3)} connected={false} size="sm" />
                 </div>
             </section>
+
+            <section className="page-section">
+                <h2>Without Mount Animation</h2>
+                <p className="section-description">
+                    Set <code>animated=&#123;false&#125;</code> when the timeline should render without staggered entrance motion.
+                </p>
+                <div className="showcase-group">
+                    <Timeline items={activityFeedItems.slice(0, 3)} animated={false} />
+                </div>
+            </section>
         </div>
     );
 };

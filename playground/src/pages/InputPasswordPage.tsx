@@ -6,6 +6,8 @@ export const InputPasswordPage: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [confirmed, setConfirmed] = useState<string>('');
     const [validPassword, setValidPassword] = useState<string>('SecurePass123!');
+    const [eventPassword, setEventPassword] = useState<string>('Secret123!');
+    const [lastEvent, setLastEvent] = useState<string>('No event yet');
 
     const passwordError = password && password.length < 8 ? 'Password must be at least 8 characters.' : '';
     const confirmError = confirmed && confirmed !== password ? 'Passwords do not match.' : '';
@@ -88,6 +90,28 @@ export const InputPasswordPage: React.FC = () => {
                     <div className="component-group">
                         <InputPassword id="disabled-password" label="Disabled" value="password" disabled />
                     </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Native Options and Events</h3>
+                    <div className="component-group">
+                        <InputPassword
+                            id="event-password"
+                            label="Event password"
+                            value={eventPassword}
+                            onChange={setEventPassword}
+                            autoComplete="off"
+                            autoFocus
+                            highlighted
+                            maxLength={32}
+                            onBlur={() => setLastEvent('blur')}
+                            onClick={() => setLastEvent('click')}
+                            onKeyDown={event => setLastEvent(`key down: ${event.key}`)}
+                            onKeyUp={event => setLastEvent(`key up: ${event.key}`)}
+                        />
+                        <InputPassword id="readonly-password" label="Read only" value="readonly-secret" readOnly />
+                    </div>
+                    <p>Last event: {lastEvent}</p>
                 </div>
             </section>
         </div>

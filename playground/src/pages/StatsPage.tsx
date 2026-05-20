@@ -76,9 +76,7 @@ export const StatsPage: React.FC = () => {
                                     value: (
                                         <>
                                             187 ms
-                                            <span style={{ color: 'var(--body-color-muted)', fontSize: 'var(--font-size-xs)' }}>
-                                                avg
-                                            </span>
+                                            <span style={{ color: 'var(--body-color-muted)', fontSize: 'var(--font-size-xs)' }}>avg</span>
                                         </>
                                     ),
                                 },

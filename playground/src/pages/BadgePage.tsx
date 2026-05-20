@@ -63,6 +63,19 @@ export const BadgePage: FC = () => {
                         </Badge>
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Clickable and Custom Color Badges</h3>
+                    <div className="component-group">
+                        <Badge customColor="#7c3aed">Custom purple</Badge>
+                        <Badge customColor="#0891b2" isActive onClick={() => alert('Active badge clicked')}>
+                            Active filter
+                        </Badge>
+                        <Badge customColor="#64748b" isActive={false} onClick={() => alert('Inactive badge clicked')}>
+                            Inactive filter
+                        </Badge>
+                    </div>
+                </div>
             </section>
         </div>
     );

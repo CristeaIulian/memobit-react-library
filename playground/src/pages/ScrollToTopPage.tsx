@@ -35,15 +35,27 @@ export const ScrollToTopPage: React.FC = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>scrollThreshold</code></td>
-                            <td><code>number</code></td>
-                            <td><code>200</code></td>
+                            <td>
+                                <code>scrollThreshold</code>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td>
+                                <code>200</code>
+                            </td>
                             <td>Number of pixels to scroll before the button becomes visible</td>
                         </tr>
                         <tr>
-                            <td><code>scrollContainer</code></td>
-                            <td><code>HTMLElement | null</code></td>
-                            <td><code>undefined</code></td>
+                            <td>
+                                <code>scrollContainer</code>
+                            </td>
+                            <td>
+                                <code>HTMLElement | null</code>
+                            </td>
+                            <td>
+                                <code>undefined</code>
+                            </td>
                             <td>A scrollable container element. When omitted, listens to window scroll.</td>
                         </tr>
                     </tbody>
@@ -70,9 +82,7 @@ const [container, setContainer] = useState<HTMLElement | null>(null);
 
             {/* Spacer to enable scrolling */}
             <div style={{ height: '150vh' }}>
-                <p style={{ paddingTop: '300px', textAlign: 'center', opacity: 0.5 }}>
-                    Keep scrolling to see the ScrollToTop button appear...
-                </p>
+                <p style={{ paddingTop: '300px', textAlign: 'center', opacity: 0.5 }}>Keep scrolling to see the ScrollToTop button appear...</p>
             </div>
 
             <ScrollToTop scrollContainer={scrollContainer} />

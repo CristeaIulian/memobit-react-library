@@ -18,6 +18,7 @@ import { CalendarPage } from './pages/CalendarPage';
 import { CalendarHeatmapPage } from './pages/CalendarHeatmapPage';
 import { CardPage } from './pages/CardPage';
 import { ChatBotPage } from './pages/ChatBotPage';
+import { ChangePasswordModalPage } from './pages/ChangePasswordModalPage';
 import { CheckboxPage } from './pages/CheckboxPage';
 import { ChipPage } from './pages/ChipPage';
 import { CollapsibleSectionPage } from './pages/CollapsibleSectionPage';
@@ -57,7 +58,6 @@ import { InfiniteScrollPage } from './pages/InfiniteScrollPage';
 import { RichTextEditorPage } from './pages/RichTextEditorPage';
 import { ListPage } from './pages/ListPage';
 import { LoadingPage } from './pages/LoadingPage';
-import { MacronutrientsPieChartPage } from './pages/MacronutrientsPieChartPage';
 import { MenuHamburgerPage } from './pages/MenuHamburgerPage';
 import { MinimapPage } from './pages/MinimapPage';
 import { MiniSortPage } from './pages/MiniSortPage';
@@ -66,6 +66,7 @@ import { ModalPage } from './pages/ModalPage';
 import { NavBarPage } from './pages/NavBarPage';
 import { NotificationsPanelPage } from './pages/NotificationsPanelPage';
 import { PaginationPage } from './pages/PaginationPage';
+import { PieChartPage } from './pages/PieChartPage';
 import { PopoverPage } from './pages/PopoverPage';
 import { ProgressBarPage } from './pages/ProgressBarPage';
 import { ProgressRingPage } from './pages/ProgressRingPage';
@@ -76,7 +77,7 @@ import { QuantitySelectorPage } from './pages/QuantitySelectorPage';
 import { RadioPage } from './pages/RadioPage';
 import { RatingPage } from './pages/RatingPage';
 import { ScrollToTopPage } from './pages/ScrollToTopPage';
-import { SearchPage } from './pages/SearchPage';
+import { InputSearchPage } from './pages/InputSearchPage';
 import { SeparatorPage } from './pages/SeparatorPage';
 import { SignalStrengthPage } from './pages/SignalStrengthPage';
 import { ControlPanelPage } from './pages/ControlPanelPage';
@@ -87,7 +88,7 @@ import { SplitPanelPage } from './pages/SplitPanelPage';
 import { StatsPage } from './pages/StatsPage';
 import { StickyBarPage } from './pages/StickyBarPage';
 import { SuggestionsListPage } from './pages/SuggestionsListPage';
-import { TextareaPage } from './pages/TextareaPage';
+import { InputTextareaPage } from './pages/InputTextareaPage';
 import { ThemeLabPage } from './pages/ThemeLabPage';
 import { ThemeSettingsPage } from './pages/ThemeSettingsPage';
 import { TipsOfTheDayPage } from './pages/TipsOfTheDayPage';
@@ -98,10 +99,12 @@ import { ToggleSwitchPage } from './pages/ToggleSwitchPage';
 import { TooltipPage } from './pages/TooltipPage';
 import { TourHudPage } from './pages/TourHudPage';
 import { TimelinePage } from './pages/TimelinePage';
+import { TimelineMarkersPage } from './pages/TimelineMarkersPage';
 import { TreePage } from './pages/TreePage';
 import { DiffViewerPage } from './pages/DiffViewerPage';
 import { InputMaskPage } from './pages/InputMaskPage';
 import { JourneyWizardPage } from './pages/JourneyWizardPage';
+import { WHtRPage } from './pages/WHtRPage';
 
 export interface RouteConfig {
     path: string;
@@ -127,6 +130,7 @@ export const routes: RouteConfig[] = [
     { path: '/calendar-heatmap', label: 'Calendar Heatmap', component: CalendarHeatmapPage },
     { path: '/card', label: 'Card', component: CardPage },
     { path: '/chatbot', label: 'ChatBot', component: ChatBotPage },
+    { path: '/change-password-modal', label: 'Change Password Modal', component: ChangePasswordModalPage },
     { path: '/checkbox', label: 'Checkbox', component: CheckboxPage },
     { path: '/chip', label: 'Chip', component: ChipPage },
     { path: '/collapsible-section', label: 'Collapsible Section', component: CollapsibleSectionPage },
@@ -169,7 +173,6 @@ export const routes: RouteConfig[] = [
     { path: '/rich-text-editor', label: 'Rich Text Editor', component: RichTextEditorPage },
     { path: '/list', label: 'List', component: ListPage },
     { path: '/loading', label: 'Loading', component: LoadingPage },
-    { path: '/macronutrients-pie-chart', label: 'Macronutrients Pie Chart', component: MacronutrientsPieChartPage },
     { path: '/menu-hamburger', label: 'Menu Hamburger', component: MenuHamburgerPage },
     { path: '/minimap', label: 'Minimap', component: MinimapPage },
     { path: '/mini-sort', label: 'MiniSort', component: MiniSortPage },
@@ -178,6 +181,7 @@ export const routes: RouteConfig[] = [
     { path: '/navbar', label: 'NavBar', component: NavBarPage },
     { path: '/notifications-panel', label: 'Notifications Panel', component: NotificationsPanelPage },
     { path: '/pagination', label: 'Pagination', component: PaginationPage },
+    { path: '/pie-chart', label: 'PieChart', component: PieChartPage },
     { path: '/popover', label: 'Popover', component: PopoverPage },
     { path: '/progress-bar', label: 'Progress Bar', component: ProgressBarPage },
     { path: '/progress-ring', label: 'Progress Ring', component: ProgressRingPage },
@@ -188,7 +192,7 @@ export const routes: RouteConfig[] = [
     { path: '/radio', label: 'Radio', component: RadioPage },
     { path: '/rating', label: 'Rating', component: RatingPage },
     { path: '/scroll-to-top', label: 'Scroll To Top', component: ScrollToTopPage },
-    { path: '/search', label: 'Search', component: SearchPage },
+    { path: '/input-search', label: 'Input Search', component: InputSearchPage },
     { path: '/separator', label: 'Separator', component: SeparatorPage },
     { path: '/signal-strength', label: 'Signal Strength', component: SignalStrengthPage },
     { path: '/control-panel', label: 'Control Panel', component: ControlPanelPage },
@@ -199,10 +203,11 @@ export const routes: RouteConfig[] = [
     { path: '/stats', label: 'Stats', component: StatsPage },
     { path: '/sticky-bar', label: 'StickyBar', component: StickyBarPage },
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
-    { path: '/textarea', label: 'Textarea', component: TextareaPage },
+    { path: '/input-textarea', label: 'Input Textarea', component: InputTextareaPage },
     { path: '/theme-lab', label: 'Theme Lab', component: ThemeLabPage },
     { path: '/theme-settings', label: 'Theme Settings', component: ThemeSettingsPage },
     { path: '/timeline', label: 'Timeline', component: TimelinePage },
+    { path: '/timeline-markers', label: 'Timeline Markers', component: TimelineMarkersPage },
     { path: '/tips-of-the-day', label: 'Tips Of The Day', component: TipsOfTheDayPage },
     { path: '/toast', label: 'Toast', component: ToastPage },
     { path: '/toolbar', label: 'Toolbar', component: ToolbarPage },
@@ -211,6 +216,7 @@ export const routes: RouteConfig[] = [
     { path: '/tooltip', label: 'Tooltip', component: TooltipPage },
     { path: '/tour-hud', label: 'Tour HUD', component: TourHudPage },
     { path: '/tree', label: 'Tree', component: TreePage },
+    { path: '/whtr', label: 'WHtR', component: WHtRPage },
 ];
 
 // Sidebar/home routes with Theme Lab pinned first, then the rest alphabetically.

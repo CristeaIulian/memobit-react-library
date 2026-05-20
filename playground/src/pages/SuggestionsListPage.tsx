@@ -229,10 +229,17 @@ export const SuggestionsListPage: React.FC = () => {
                         />
                     </div>
                     {selectedItem && (
-                        <div className="component-group" style={{ marginTop: '20px', padding: '16px', backgroundColor: 'rgba(96, 165, 250, 0.1)', borderRadius: '8px' }}>
+                        <div
+                            className="component-group"
+                            style={{ marginTop: '20px', padding: '16px', backgroundColor: 'rgba(96, 165, 250, 0.1)', borderRadius: '8px' }}
+                        >
                             <h3>Selected Item:</h3>
-                            <p><strong>Name:</strong> {selectedItem.name}</p>
-                            <p><strong>Value:</strong> {selectedItem.value} {selectedItem.unit}</p>
+                            <p>
+                                <strong>Name:</strong> {selectedItem.name}
+                            </p>
+                            <p>
+                                <strong>Value:</strong> {selectedItem.value} {selectedItem.unit}
+                            </p>
                         </div>
                     )}
                 </div>

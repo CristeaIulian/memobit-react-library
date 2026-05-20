@@ -355,6 +355,39 @@ export const ProgressBarPage: React.FC = () => {
             </section>
 
             <section className="page-section">
+                <h2>Vertical Bars</h2>
+
+                <div className="showcase-group">
+                    <h3>Default vertical orientation</h3>
+                    <div className="component-group" style={{ alignItems: 'flex-end', gap: '24px' }}>
+                        <ProgressBar orientation="vertical" state="default" value={23} labelPosition="below" />
+                        <ProgressBar orientation="vertical" state="info" value={50} label="Sync" labelPosition="below" />
+                        <ProgressBar orientation="vertical" state="success" value={75} label="Done" labelPosition="below" />
+                        <ProgressBar orientation="vertical" state="warning" value={65} label="Risk" labelPosition="below" />
+                        <ProgressBar orientation="vertical" state="danger" value={30} label="Error" labelPosition="below" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Custom height and inside labels</h3>
+                    <div className="component-group" style={{ alignItems: 'flex-end', gap: '24px' }}>
+                        <ProgressBar orientation="vertical" state="info" value={68} height={140} label="CPU" labelAlign="center" />
+                        <ProgressBar orientation="vertical" state="success" value={92} height={180} label="RAM" labelAlign="center" />
+                        <ProgressBar orientation="vertical" state="warning" value={44} height={120} label="Disk" labelAlign="center" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Thin, striped and animated</h3>
+                    <div className="component-group" style={{ alignItems: 'flex-end', gap: '24px' }}>
+                        <ProgressBar orientation="vertical" state="success" value={100} label="Complete" labelPosition="below" showPercentage={false} thin />
+                        <ProgressBar orientation="vertical" state="info" value={55} label="Streaming" labelPosition="below" striped />
+                        <ProgressBar orientation="vertical" state="warning" value={72} label="Active" labelPosition="below" striped animated />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
                 <h2>Real-World Examples</h2>
 
                 <div className="showcase-group">

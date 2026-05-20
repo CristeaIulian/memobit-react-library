@@ -74,6 +74,30 @@ export const CardPage: React.FC = () => {
                         </Card>
                     </div>
                 </div>
+
+                <div className="showcase-group">
+                    <h3>Semantic Variants and No Padding</h3>
+                    <div className="component-group">
+                        <Card title="Default" variant="default">
+                            Neutral card.
+                        </Card>
+                        <Card title="Success" variant="success">
+                            Positive status card.
+                        </Card>
+                        <Card title="Info" variant="info">
+                            Informational card.
+                        </Card>
+                        <Card title="Warning" variant="warning">
+                            Needs attention.
+                        </Card>
+                        <Card title="Danger" variant="danger">
+                            Destructive context.
+                        </Card>
+                        <Card noPadding title="No padding">
+                            <div style={{ padding: 16, background: 'var(--card-background-accent-color)' }}>Content controls its own spacing.</div>
+                        </Card>
+                    </div>
+                </div>
             </section>
         </div>
     );

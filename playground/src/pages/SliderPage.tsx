@@ -12,6 +12,7 @@ export const SliderPage: React.FC = () => {
     const [valueSizeValue, setValueSizeValue] = useState<number>(65);
     const [verticalValue, setVerticalValue] = useState<number>(40);
     const [verticalThinValue, setVerticalThinValue] = useState<number>(70);
+    const [statusValue, setStatusValue] = useState<number>(82);
 
     return (
         <div className="slider-page">
@@ -54,14 +55,7 @@ export const SliderPage: React.FC = () => {
                     <h3>showValueAtTheRight — compact form-row layout</h3>
                     <p>Value label height matches the slider thumb (~24px). Useful inside form rows where a tall stacked number takes too much space.</p>
                     <div className="component-group" style={{ width: '60%' }}>
-                        <Slider
-                            value={matchValue}
-                            onChange={setMatchValue}
-                            min={0.1}
-                            max={3.0}
-                            step={0.1}
-                            showValueAtTheRight
-                        />
+                        <Slider value={matchValue} onChange={setMatchValue} min={0.1} max={3.0} step={0.1} showValueAtTheRight />
                     </div>
                 </div>
             </section>
@@ -80,15 +74,7 @@ export const SliderPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>thin + showValueAtTheRight</h3>
                     <div className="component-group" style={{ width: '60%' }}>
-                        <Slider
-                            value={thinInlineValue}
-                            onChange={setThinInlineValue}
-                            min={0.1}
-                            max={5.0}
-                            step={0.1}
-                            thin
-                            showValueAtTheRight
-                        />
+                        <Slider value={thinInlineValue} onChange={setThinInlineValue} min={0.1} max={5.0} step={0.1} thin showValueAtTheRight />
                     </div>
                 </div>
             </section>
@@ -114,6 +100,28 @@ export const SliderPage: React.FC = () => {
                     <h3>valueSize="xs" (inline)</h3>
                     <div className="component-group" style={{ width: '60%' }}>
                         <Slider value={valueSizeValue} onChange={setValueSizeValue} min={0} max={100} showValueAtTheRight valueSize="xs" />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Additional Value Sizes</h3>
+                    <div className="component-group" style={{ width: '60%' }}>
+                        <Slider value={valueSizeValue} onChange={setValueSizeValue} min={0} max={100} valueSize="md" />
+                        <Slider value={valueSizeValue} onChange={setValueSizeValue} min={0} max={100} valueSize="lg" />
+                        <Slider value={valueSizeValue} onChange={setValueSizeValue} min={0} max={100} valueSize="xl" />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>State and Disabled Examples</h2>
+                <div className="showcase-group">
+                    <h3>Large Value State</h3>
+                    <div className="component-group" style={{ width: '60%' }}>
+                        <Slider value={statusValue} onChange={setStatusValue} min={0} max={100} largeValueState="success" />
+                        <Slider value={statusValue} onChange={setStatusValue} min={0} max={100} largeValueState="warning" />
+                        <Slider value={statusValue} onChange={setStatusValue} min={0} max={100} largeValueState="danger" />
+                        <Slider value={statusValue} onChange={setStatusValue} min={0} max={100} disabled />
                     </div>
                 </div>
             </section>

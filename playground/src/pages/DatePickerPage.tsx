@@ -14,6 +14,9 @@ export const DatePickerPage: React.FC = () => {
     const today = new Date();
     const minDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
     const maxDate = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+    const [controlledMonth, setControlledMonth] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
+    const [controlledRangeStart, setControlledRangeStart] = useState<Date | null>(null);
+    const disabledDates = [new Date(today.getFullYear(), today.getMonth(), 12), new Date(today.getFullYear(), today.getMonth(), 18)];
 
     const handleSingleDateChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
         setSingleDate(value as Date | undefined);
@@ -51,9 +54,8 @@ export const DatePickerPage: React.FC = () => {
         <div className="component-page">
             <h1>DatePicker</h1>
             <p>
-                An interactive date picker component combining calendar selection with an input
-                field. Supports single, range, and multiple date selection, with optional time
-                picking functionality.
+                An interactive date picker component combining calendar selection with an input field. Supports single, range, and multiple date selection, with
+                optional time picking functionality.
             </p>
 
             <section className="page-section">
@@ -61,59 +63,43 @@ export const DatePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Single Date Selection</h3>
                     <div className="component-group">
-                        <DatePicker
-                            value={singleDate}
-                            onChange={handleSingleDateChange}
-                            placeholder="Select a date..."
-                        />
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} placeholder="Select a date..." />
                     </div>
-                    <p>
-                        Selected: {singleDate ? singleDate.toLocaleDateString() : 'None'}
-                    </p>
+                    <p>Selected: {singleDate ? singleDate.toLocaleDateString() : 'None'}</p>
                 </div>
 
                 <div className="showcase-group">
                     <h3>With Custom Date Format (DD/MM/YYYY)</h3>
                     <div className="component-group">
-                        <DatePicker
-                            value={customFormatDate}
-                            onChange={handleCustomFormatDateChange}
-                            dateFormat="DD/MM/YYYY"
-                            placeholder="DD/MM/YYYY"
-                        />
+                        <DatePicker value={customFormatDate} onChange={handleCustomFormatDateChange} dateFormat="DD/MM/YYYY" placeholder="DD/MM/YYYY" />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Disabled State</h3>
                     <div className="component-group">
-                        <DatePicker
-                            value={singleDate}
-                            onChange={handleSingleDateChange}
-                            disabled
-                        />
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} disabled />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Not Clearable</h3>
                     <div className="component-group">
-                        <DatePicker
-                            value={singleDate}
-                            onChange={handleSingleDateChange}
-                            clearable={false}
-                        />
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} clearable={false} />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Clearable</h3>
+                    <div className="component-group">
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} clearable placeholder="Clearable date..." />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Always Visible</h3>
                     <div className="component-group">
-                        <DatePicker
-                            value={singleDate}
-                            onChange={handleSingleDateChange}
-                            alwaysOpen
-                        />
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} alwaysOpen />
                     </div>
                 </div>
             </section>
@@ -123,44 +109,23 @@ export const DatePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Date and Time (24-hour format)</h3>
                     <div className="component-group">
-                        <DatePicker
-                            value={dateWithTime}
-                            onChange={handleDateWithTimeChange}
-                            withTime
-                            placeholder="Select date and time..."
-                        />
+                        <DatePicker value={dateWithTime} onChange={handleDateWithTimeChange} withTime timeFormat="24h" placeholder="Select date and time..." />
                     </div>
-                    <p>
-                        Selected: {dateWithTime ? dateWithTime.toLocaleString() : 'None'}
-                    </p>
+                    <p>Selected: {dateWithTime ? dateWithTime.toLocaleString() : 'None'}</p>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Date and Time (12-hour format)</h3>
                     <div className="component-group">
-                        <DatePicker
-                            value={dateWith12h}
-                            onChange={handleDateWith12hChange}
-                            withTime
-                            timeFormat="12h"
-                            placeholder="Select date and time..."
-                        />
+                        <DatePicker value={dateWith12h} onChange={handleDateWith12hChange} withTime timeFormat="12h" placeholder="Select date and time..." />
                     </div>
-                    <p>
-                        Selected: {dateWith12h ? dateWith12h.toLocaleString() : 'None'}
-                    </p>
+                    <p>Selected: {dateWith12h ? dateWith12h.toLocaleString() : 'None'}</p>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Date and Time with Seconds</h3>
                     <div className="component-group">
-                        <DatePicker
-                            value={dateWithSeconds}
-                            onChange={handleDateWithSecondsChange}
-                            withTime
-                            withSeconds
-                            placeholder="Select date and time..."
-                        />
+                        <DatePicker value={dateWithSeconds} onChange={handleDateWithSecondsChange} withTime withSeconds placeholder="Select date and time..." />
                     </div>
                     <p>
                         Selected:{' '}
@@ -183,20 +148,9 @@ export const DatePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Date Range Picker</h3>
                     <div className="component-group">
-                        <DatePicker
-                            mode="range"
-                            value={rangeDate}
-                            onChange={handleRangeDateChange}
-                            placeholder="Select date range..."
-                            autoClose={false}
-                        />
+                        <DatePicker mode="range" value={rangeDate} onChange={handleRangeDateChange} placeholder="Select date range..." autoClose={false} />
                     </div>
-                    <p>
-                        Selected:{' '}
-                        {rangeDate
-                            ? `${rangeDate.start.toLocaleDateString()} - ${rangeDate.end.toLocaleDateString()}`
-                            : 'None'}
-                    </p>
+                    <p>Selected: {rangeDate ? `${rangeDate.start.toLocaleDateString()} - ${rangeDate.end.toLocaleDateString()}` : 'None'}</p>
                 </div>
             </section>
 
@@ -213,12 +167,7 @@ export const DatePickerPage: React.FC = () => {
                             autoClose={false}
                         />
                     </div>
-                    <p>
-                        Selected:{' '}
-                        {multipleDates && multipleDates.length > 0
-                            ? multipleDates.map(d => d.toLocaleDateString()).join(', ')
-                            : 'None'}
-                    </p>
+                    <p>Selected: {multipleDates && multipleDates.length > 0 ? multipleDates.map(d => d.toLocaleDateString()).join(', ') : 'None'}</p>
                 </div>
             </section>
 
@@ -227,19 +176,12 @@ export const DatePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Birth Date Selection</h3>
                     <p>
-                        Click on the month or year in the calendar header to quickly navigate.
-                        Useful for selecting dates far in the past (e.g., birth dates).
+                        Click on the month or year in the calendar header to quickly navigate. Useful for selecting dates far in the past (e.g., birth dates).
                     </p>
                     <div className="component-group">
-                        <DatePicker
-                            value={birthDate}
-                            onChange={handleBirthDateChange}
-                            placeholder="Select your birth date..."
-                        />
+                        <DatePicker value={birthDate} onChange={handleBirthDateChange} placeholder="Select your birth date..." />
                     </div>
-                    <p>
-                        Selected: {birthDate ? birthDate.toLocaleDateString() : 'None'}
-                    </p>
+                    <p>Selected: {birthDate ? birthDate.toLocaleDateString() : 'None'}</p>
                 </div>
             </section>
 
@@ -248,8 +190,7 @@ export const DatePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Min/Max Dates</h3>
                     <p>
-                        Allowed range: {minDate.toLocaleDateString()} to{' '}
-                        {maxDate.toLocaleDateString()}
+                        Allowed range: {minDate.toLocaleDateString()} to {maxDate.toLocaleDateString()}
                     </p>
                     <div className="component-group">
                         <DatePicker
@@ -265,24 +206,50 @@ export const DatePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Monday as First Day of Week</h3>
                     <div className="component-group">
-                        <DatePicker
-                            value={singleDate}
-                            onChange={handleSingleDateChange}
-                            firstDayOfWeek={1}
-                            placeholder="Week starts Monday..."
-                        />
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} firstDayOfWeek={1} placeholder="Week starts Monday..." />
                     </div>
                 </div>
 
                 <div className="showcase-group">
                     <h3>Without Today Button</h3>
                     <div className="component-group">
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} showToday={false} placeholder="No today button..." />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Controlled Calendar Options</h2>
+                <div className="showcase-group">
+                    <h3>Controlled Month and Range Start</h3>
+                    <div className="component-group">
+                        <DatePicker
+                            mode="range"
+                            value={rangeDate}
+                            onChange={handleRangeDateChange}
+                            currentMonth={controlledMonth}
+                            onMonthChange={setControlledMonth}
+                            rangeStart={controlledRangeStart}
+                            onRangeStartChange={setControlledRangeStart}
+                            autoClose={false}
+                            alwaysOpen
+                        />
+                    </div>
+                    <p>Visible month: {controlledMonth.toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}</p>
+                    <p>Range start: {controlledRangeStart ? controlledRangeStart.toLocaleDateString() : 'None'}</p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Disabled Dates, Year-only and Hidden Header</h3>
+                    <div className="component-group">
                         <DatePicker
                             value={singleDate}
                             onChange={handleSingleDateChange}
-                            showToday={false}
-                            placeholder="No today button..."
+                            disabledDates={disabledDates}
+                            placeholder="12th and 18th disabled..."
                         />
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} yearOnly placeholder="Year-only header..." />
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} showHeader={false} placeholder="No header..." />
                     </div>
                 </div>
             </section>
@@ -298,22 +265,9 @@ export const DatePickerPage: React.FC = () => {
                             gap: '16px',
                         }}
                     >
-                        <DatePicker
-                            value={singleDate}
-                            onChange={handleSingleDateChange}
-                            placeholder="Start date..."
-                        />
-                        <DatePicker
-                            value={singleDate}
-                            onChange={handleSingleDateChange}
-                            placeholder="End date..."
-                        />
-                        <DatePicker
-                            value={dateWithTime}
-                            onChange={handleDateWithTimeChange}
-                            withTime
-                            placeholder="Date with time..."
-                        />
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} placeholder="Start date..." />
+                        <DatePicker value={singleDate} onChange={handleSingleDateChange} placeholder="End date..." />
+                        <DatePicker value={dateWithTime} onChange={handleDateWithTimeChange} withTime placeholder="Date with time..." />
                     </div>
                 </div>
             </section>

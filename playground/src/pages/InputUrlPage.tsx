@@ -11,6 +11,8 @@ export const InputUrlPage: React.FC = () => {
     const [submitError, setSubmitError] = useState<string | undefined>(undefined);
     const [isSubmitValid, setIsSubmitValid] = useState<boolean>(true);
     const [validUrl, setValidUrl] = useState<string>('https://example.com');
+    const [eventUrl, setEventUrl] = useState<string>('https://docs.example.com');
+    const [lastEvent, setLastEvent] = useState<string>('No event yet');
 
     const handleSubmit = () => {
         if (!isSubmitValid || !submitUrl) {
@@ -111,6 +113,28 @@ export const InputUrlPage: React.FC = () => {
                             onChange={value => setValidUrl(value)}
                         />
                     </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Input Options and Events</h2>
+                <div className="showcase-group">
+                    <h3>Focus, Highlight, Max Length and Keyboard Events</h3>
+                    <div className="component-group">
+                        <InputUrl
+                            label="Documentation URL"
+                            value={eventUrl}
+                            onChange={setEventUrl}
+                            autoFocus
+                            highlighted
+                            maxLength={80}
+                            onBlur={() => setLastEvent('blur')}
+                            onClick={() => setLastEvent('click')}
+                            onKeyDown={event => setLastEvent(`key down: ${event.key}`)}
+                            onKeyUp={event => setLastEvent(`key up: ${event.key}`)}
+                        />
+                    </div>
+                    <p>Last event: {lastEvent}</p>
                 </div>
             </section>
 
