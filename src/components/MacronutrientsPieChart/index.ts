@@ -1,1 +1,0 @@
-export { MacronutrientsPieChart } from './MacronutrientsPieChart';
