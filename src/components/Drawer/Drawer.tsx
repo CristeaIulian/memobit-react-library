@@ -47,6 +47,10 @@ export interface DrawerProps {
     /** When true, the header close (×) button is not rendered — use for persistent panels. */
     hideClose?: boolean;
     actions?: DrawerHeaderAction[];
+    /** Optional back action rendered on the LEFT side of the header — typically a navigation affordance. */
+    onBack?: () => void;
+    /** Tooltip / aria-label for the back button. */
+    backLabel?: string;
     primary?: ExternalButtonConfig;
     secondary?: ExternalButtonConfig;
     footer?: React.ReactNode;
@@ -69,6 +73,8 @@ export const Drawer: React.FC<DrawerProps> = ({
     lockScroll = true,
     hideClose = false,
     actions = [],
+    onBack,
+    backLabel = 'Back',
     primary,
     secondary,
     footer,
@@ -116,6 +122,11 @@ export const Drawer: React.FC<DrawerProps> = ({
             {showOverlay && <div className="drawer-overlay" onClick={onClose} style={{ zIndex: overlayZIndex }} />}
             <div className={`drawer drawer--${position} ${className}`} style={drawerStyle}>
                 <div className="drawer__header">
+                    {onBack && (
+                        <Tooltip title={backLabel} position="bottom">
+                            <Button className="drawer__back" onClick={onBack} size="small" variant="ghost" icon="arrow-left" aria-label={backLabel} />
+                        </Tooltip>
+                    )}
                     {(title || icon) && (
                         <h2 className="drawer__title">
                             {icon && <Icon name={icon} />}

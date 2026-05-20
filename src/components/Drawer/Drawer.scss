@@ -88,6 +88,11 @@
         flex-shrink: 0;
     }
 
+    &__back {
+        flex-shrink: 0;
+        align-self: center;
+    }
+
     &__close {
         width: 32px;
         height: 32px;
