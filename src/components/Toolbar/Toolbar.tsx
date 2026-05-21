@@ -2,6 +2,7 @@ import React, { type ReactNode } from 'react';
 
 import { Button } from '../Button';
 import { Dropdown, type DropdownOption } from '../Dropdown';
+import { Icon, type IconName } from '../Icon';
 import { MenuHamburger, type MenuHamburgerItem } from '../MenuHamburger';
 import { NotificationPanel, type NotificationPanelItem } from '../NotificationPanel';
 import { InputSearch, type InputSearchProps } from '../InputSearch';
@@ -60,6 +61,12 @@ export interface ToolbarNotificationsConfig {
 export interface ToolbarHeadingConfig {
     title: string;
     description?: string;
+    /** Brand icon shown left of the title. Pass one of svg / icon / emoji. */
+    svg?: ReactNode;
+    icon?: IconName;
+    emoji?: string;
+    /** Makes the heading clickable (e.g. to navigate home). */
+    onClick?: () => void;
 }
 
 export interface ToolbarProps {
@@ -154,9 +161,21 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             )}
 
             {heading && (
-                <div className="memobit-toolbar__heading">
-                    <span className="memobit-toolbar__heading-title">{heading.title}</span>
-                    {heading.description && <span className="memobit-toolbar__heading-description">{heading.description}</span>}
+                <div
+                    className={['memobit-toolbar__heading', heading.onClick ? 'memobit-toolbar__heading--clickable' : ''].filter(Boolean).join(' ')}
+                    onClick={heading.onClick}
+                >
+                    {(heading.svg || heading.icon || heading.emoji) && (
+                        <span className="memobit-toolbar__heading-icon">
+                            {heading.svg}
+                            {heading.icon && <Icon name={heading.icon} />}
+                            {heading.emoji}
+                        </span>
+                    )}
+                    <div className="memobit-toolbar__heading-copy">
+                        <span className="memobit-toolbar__heading-title">{heading.title}</span>
+                        {heading.description && <span className="memobit-toolbar__heading-description">{heading.description}</span>}
+                    </div>
                 </div>
             )}
 

@@ -24,6 +24,7 @@
     "./dist/styles/theming/arctic-blue.scss": "./dist/styles/theming/arctic-blue.scss",
     "./dist/styles/theming/asphalt-code.scss": "./dist/styles/theming/asphalt-code.scss",
     "./dist/styles/theming/atelier-media.scss": "./dist/styles/theming/atelier-media.scss",
+    "./dist/styles/theming/audit-ember.scss": "./dist/styles/theming/audit-ember.scss",
     "./dist/styles/theming/azure-night.scss": "./dist/styles/theming/azure-night.scss",
     "./dist/styles/theming/blueprint-clay.scss": "./dist/styles/theming/blueprint-clay.scss",
     "./dist/styles/theming/blush-market.scss": "./dist/styles/theming/blush-market.scss",

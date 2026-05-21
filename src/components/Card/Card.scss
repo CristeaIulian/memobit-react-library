@@ -29,11 +29,16 @@
         color: var(--card-accent-color);
     }
 
-    // Semantic accent — coloured left border using rating-color-* tokens.
-    &.card-variant-success { border-left: var(--spacing-4) solid var(--rating-color-success); }
-    &.card-variant-warning { border-left: var(--spacing-4) solid var(--rating-color-warning); }
-    &.card-variant-danger  { border-left: var(--spacing-4) solid var(--rating-color-danger); }
-    &.card-variant-info    { border-left: var(--spacing-4) solid var(--rating-color-info); }
+    // Semantic accent — coloured left border + matching radial-tint background
+    // using rating-color-* tokens. Themes can override the per-intent gradient via
+    // --card-tint-{intent}-background; falls back to a computed gradient by default.
+    @each $name, $color in (success: var(--rating-color-success), warning: var(--rating-color-warning), danger: var(--rating-color-danger), info: var(--rating-color-info)) {
+        &.card-variant-#{$name} {
+            border-left: var(--spacing-4) solid #{$color};
+            background-image: var(--card-tint-#{$name}-background,
+                radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, #{$color} 14%, transparent) 0%, transparent 70%));
+        }
+    }
 
     &.is-clickable {
         &:hover {

@@ -330,6 +330,13 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap',
     },
     {
+        value: 'audit-ember',
+        label: 'Audit Ember',
+        recommendedApps: ['Network Audit'],
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap',
+        fontUrlMono: 'https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&display=swap',
+    },
+    {
         value: 'blueprint-clay',
         label: 'Blueprint Clay',
         recommendedApps: ['Real Estate Crawler'],

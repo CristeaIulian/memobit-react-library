@@ -133,18 +133,26 @@
         }
     }
 
-    // Filled (tinted background) variants
+    // Filled (tinted background) variants.
+    // Each filled variant paints a radial-gradient using the matching rating-color-* token
+    // over the card background. Themes can override the per-intent token to tune origin,
+    // radius, alpha or swap the gradient for a solid fill.
     &--filled {
         border-color: transparent;
     }
 
     &--filled.mini-stats-card--variant-default {
         background-color: var(--card-background-accent-color);
+        background-image: var(--card-tint-default-background,
+            radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, var(--body-accent-color) 14%, transparent) 0%, transparent 70%));
+        border-color: color-mix(in srgb, var(--body-accent-color) 22%, transparent);
     }
 
     @each $name, $color in (success: var(--rating-color-success), warning: var(--rating-color-warning), danger: var(--rating-color-danger), info: var(--rating-color-info)) {
         &--filled.mini-stats-card--variant-#{$name} {
-            background-color: color-mix(in srgb, #{$color} 14%, var(--card-background-color));
+            background-color: var(--card-background-color);
+            background-image: var(--card-tint-#{$name}-background,
+                radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, #{$color} 18%, transparent) 0%, transparent 70%));
             border-color: color-mix(in srgb, #{$color} 32%, transparent);
         }
     }

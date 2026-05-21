@@ -6,6 +6,7 @@ export type Theme =
     | 'arctic-blue'
     | 'asphalt-code'
     | 'atelier-media'
+    | 'audit-ember'
     | 'azure-night'
     | 'blueprint-clay'
     | 'blush-market'
