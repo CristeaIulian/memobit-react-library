@@ -29,6 +29,9 @@ export interface ControlPanelAction {
 export interface ControlPanelFilterOption extends DropdownOption {
     color?: string;
     count?: number | string;
+    /** Optional image URL rendered as a small round avatar before the option label.
+     *  Used by the `chips` filter to show a face crop / product thumbnail / etc. */
+    imageUrl?: string;
 }
 
 export interface ControlPanelDateRangePreset {
@@ -60,6 +63,11 @@ export interface ControlPanelFilter {
     maxDate?: string;
     presets?: ControlPanelDateRangePreset[];
     isActive?: boolean;
+    /** Optional cap on the rendered options area. When set, the chip/option
+     *  list becomes vertically scrollable past this height. Number is taken as
+     *  px; string is passed through (`'40vh'`, `'320px'`, etc.). Omit to let
+     *  the list expand freely. Honored by the `chips` filter today. */
+    maxHeight?: string | number;
 }
 
 export interface ControlPanelFilterChangeEvent {

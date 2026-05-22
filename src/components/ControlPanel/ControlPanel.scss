@@ -349,6 +349,31 @@
         flex-wrap: wrap;
     }
 
+    // Wraps the optional searchable input + the chip cloud so the gap between
+    // them is consistent and the search input takes the panel's full width.
+    &__filter-chips-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-8);
+    }
+
+    &__filter-chip-search {
+        width: 100%;
+    }
+
+    // Small round avatar rendered before a chip's label (e.g. face crops in a
+    // people picker). Sits flush against the chip's left edge with a small
+    // negative inline-margin to feel inset.
+    &__filter-chip-avatar {
+        width: var(--spacing-20);
+        height: var(--spacing-20);
+        border-radius: var(--radius-full);
+        object-fit: cover;
+        margin-left: calc(var(--spacing-4) * -1);
+        margin-right: var(--spacing-6);
+        vertical-align: middle;
+    }
+
     &__filter-radio {
         display: flex;
         align-items: center;

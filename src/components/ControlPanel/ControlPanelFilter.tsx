@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Button } from '../Button';
 import { Chip } from '../Chip';
@@ -58,6 +58,10 @@ interface ControlPanelFilterControlProps {
 const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ filter, onChange: emitFilterChange }) => {
     const selectedValues = getArrayValue(filter.value);
     const filterOptions = filter.options ?? [];
+    // Local search state for `searchable` chips filters — lets the user type
+    // to narrow a long option list (e.g. people picker) without the consumer
+    // having to wire its own InputSearch.
+    const [chipSearch, setChipSearch] = useState('');
 
     if (filter.type === 'checkbox') {
         return (
@@ -289,31 +293,57 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
     }
 
     if (filter.type === 'chips') {
+        const trimmedSearch = chipSearch.trim().toLowerCase();
+        const visibleOptions = filter.searchable && trimmedSearch
+            ? filterOptions.filter(o => o.label.toLowerCase().includes(trimmedSearch))
+            : filterOptions;
         return (
-            <div className="control-panel__filter-chips">
-                {filterOptions.map(option => {
-                    const isSelected = selectedValues.includes(option.value);
-                    return (
-                        <Chip
-                            key={option.value}
-                            color={option.color}
-                            count={option.count}
-                            selected={isSelected}
-                            onClick={() => {
-                                const nextValue = isSelected ? selectedValues.filter(v => v !== option.value) : [...selectedValues, option.value];
-                                emitFilterChange({
-                                    filterId: filter.id,
-                                    type: filter.type,
-                                    value: getFilterArrayValue(nextValue),
-                                    option,
-                                    options: filterOptions.filter(o => nextValue.includes(o.value)),
-                                });
-                            }}
-                        >
-                            {option.label}
-                        </Chip>
-                    );
-                })}
+            <div className="control-panel__filter-chips-wrap">
+                {filter.searchable && filterOptions.length > 0 && (
+                    <InputSearch
+                        className="control-panel__filter-chip-search"
+                        value={chipSearch}
+                        onChange={setChipSearch}
+                        placeholder={filter.placeholder ?? 'Filter...'}
+                    />
+                )}
+                <div
+                    className="control-panel__filter-chips"
+                    style={filter.maxHeight !== undefined
+                        ? { maxHeight: typeof filter.maxHeight === 'number' ? `${filter.maxHeight}px` : filter.maxHeight, overflowY: 'auto' }
+                        : undefined}
+                >
+                    {visibleOptions.map(option => {
+                        const isSelected = selectedValues.includes(option.value);
+                        return (
+                            <Chip
+                                key={option.value}
+                                color={option.color}
+                                count={option.count}
+                                selected={isSelected}
+                                onClick={() => {
+                                    const nextValue = isSelected ? selectedValues.filter(v => v !== option.value) : [...selectedValues, option.value];
+                                    emitFilterChange({
+                                        filterId: filter.id,
+                                        type: filter.type,
+                                        value: getFilterArrayValue(nextValue),
+                                        option,
+                                        options: filterOptions.filter(o => nextValue.includes(o.value)),
+                                    });
+                                }}
+                            >
+                                {option.imageUrl && (
+                                    <img
+                                        className="control-panel__filter-chip-avatar"
+                                        src={option.imageUrl}
+                                        alt=""
+                                    />
+                                )}
+                                {option.label}
+                            </Chip>
+                        );
+                    })}
+                </div>
             </div>
         );
     }
