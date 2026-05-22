@@ -7,10 +7,12 @@
 
     --body-background: var(--body-background-wash, var(--body-background-base));
     --body-background-base: #1f1c18;
+    // Near-flat charcoal — the design is a deliberately quiet "vault" with no
+    // visible color shifts. A whisper of warmth at top-right only; below 0.04
+    // alpha the glow stays subliminal and never reads as a panel.
     --body-background-wash:
-        radial-gradient(60% 55% at 100% 0%, rgba(232, 185, 122, 0.14) 0%, transparent 65%),
-        radial-gradient(55% 50% at 0% 100%, rgba(232, 185, 122, 0.08) 0%, transparent 65%),
-        linear-gradient(160deg, #221e1a 0%, #1f1c18 55%, #1a1714 100%);
+        radial-gradient(70% 60% at 100% 0%, rgba(232, 185, 122, 0.035) 0%, transparent 70%),
+        #1f1c18;
     --body-color: #f3ecde;
     --body-color-accent: #faf5e8;
     --body-color-muted: #b3a999;
@@ -23,22 +25,25 @@
     --text-shadow: rgba(0, 0, 0, 0.45);
     --box-shadow: rgba(0, 0, 0, 0.5);
 
-    --header-background-color: #25221d;
-    --header-border-bottom-color: rgba(255, 255, 255, 0.07);
+    --header-background-color: #1f1c18;
+    --header-border-bottom-color: rgba(255, 255, 255, 0.05);
     --header-color: #f3ecde;
     --header-font-weight: 500;
 
-    --card-background-color: #25221d;
-    --card-background-accent-color: #2c2823;
-    --card-border-color: rgba(255, 255, 255, 0.07);
+    // Cards: barely lifted from body. The "card" reads through its thin border
+    // and inner content, not through a contrasting panel fill. This is the
+    // photographic-vault feel — surfaces dissolve, content stands.
+    --card-background-color: #221f1b;
+    --card-background-accent-color: #26221d;
+    --card-border-color: rgba(255, 255, 255, 0.06);
     --card-backdrop-filter: none;
     --card-border-accent-color: #e8b97a;
-    --card-hover-border-color: rgba(232, 185, 122, 0.4);
+    --card-hover-border-color: rgba(232, 185, 122, 0.32);
     --card-color: #f3ecde;
     --card-accent-color: #e8b97a;
-    --card-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
+    --card-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     --card-surface-box-shadow: var(--card-box-shadow);
-    --card-footer-background-color: #1a1714;
+    --card-footer-background-color: #1c1915;
     --card-footer-color: #b3a999;
     --card-title-color: var(--body-title-color);
     --card-title-font-family: var(--font-family-display, Georgia, serif);
