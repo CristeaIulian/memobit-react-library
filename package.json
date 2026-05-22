@@ -62,6 +62,7 @@
     "./dist/styles/theming/noir-marquee.scss": "./dist/styles/theming/noir-marquee.scss",
     "./dist/styles/theming/ocean-breeze.scss": "./dist/styles/theming/ocean-breeze.scss",
     "./dist/styles/theming/ocean-depths.scss": "./dist/styles/theming/ocean-depths.scss",
+    "./dist/styles/theming/orbital-night.scss": "./dist/styles/theming/orbital-night.scss",
     "./dist/styles/theming/sandstone.scss": "./dist/styles/theming/sandstone.scss",
     "./dist/styles/theming/sandy-parchment.scss": "./dist/styles/theming/sandy-parchment.scss",
     "./dist/styles/theming/screening-room.scss": "./dist/styles/theming/screening-room.scss",

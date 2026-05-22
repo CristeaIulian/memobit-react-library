@@ -102,6 +102,7 @@ export default defineConfig({
                 { src: 'src/styles/theming/noir-marquee.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/ocean-breeze.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/ocean-depths.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/orbital-night.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/sandstone.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/sandy-parchment.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/screening-room.scss', dest: 'styles/theming' },
