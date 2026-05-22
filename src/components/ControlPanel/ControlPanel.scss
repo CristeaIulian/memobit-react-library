@@ -145,6 +145,13 @@
         border-radius: 50%;
     }
 
+    &__nav-icon {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     &__nav-badges {
         display: flex;
         align-items: center;

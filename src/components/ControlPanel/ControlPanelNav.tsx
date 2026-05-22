@@ -58,8 +58,13 @@ function renderNavItem(item: ControlPanelNavItem, showToggleColumn: boolean, dep
                         <span className="control-panel__nav-toggle-placeholder" />
                     ))}
                 <button className={itemClassName} onClick={handleClick} type="button">
-                    {item.icon && <Icon name={item.icon} />}
-                    {item.color && <span className="control-panel__nav-dot" style={{ backgroundColor: item.color }} />}
+                    {item.icon ? (
+                        <span className="control-panel__nav-icon" style={item.color ? { color: item.color } : undefined}>
+                            <Icon name={item.icon} />
+                        </span>
+                    ) : (
+                        item.color && <span className="control-panel__nav-dot" style={{ backgroundColor: item.color }} />
+                    )}
                     <span className="control-panel__nav-label">{item.label}</span>
                     {item.count !== undefined && <span className="control-panel__nav-count">{item.count}</span>}
                     {item.badges && item.badges.length > 0 && (
