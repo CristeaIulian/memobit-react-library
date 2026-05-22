@@ -52,6 +52,7 @@
     "./dist/styles/theming/ivory-serif.scss": "./dist/styles/theming/ivory-serif.scss",
     "./dist/styles/theming/lavender-mist.scss": "./dist/styles/theming/lavender-mist.scss",
     "./dist/styles/theming/light-blue.scss": "./dist/styles/theming/light-blue.scss",
+    "./dist/styles/theming/lumen.scss": "./dist/styles/theming/lumen.scss",
     "./dist/styles/theming/luna.scss": "./dist/styles/theming/luna.scss",
     "./dist/styles/theming/mesh-circuit.scss": "./dist/styles/theming/mesh-circuit.scss",
     "./dist/styles/theming/midnight-atlas.scss": "./dist/styles/theming/midnight-atlas.scss",

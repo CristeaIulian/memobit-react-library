@@ -34,6 +34,7 @@ export type Theme =
     | 'ivory-serif'
     | 'lavender-mist'
     | 'light-blue'
+    | 'lumen'
     | 'luna'
     | 'mesh-circuit'
     | 'midnight-atlas'

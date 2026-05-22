@@ -61,6 +61,14 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         fontUrl: 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap',
     },
     {
+        value: 'lumen',
+        label: 'Lumen',
+        recommendedApps: ['Photo Face Search'],
+        fontUrl: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap',
+        fontUrlMono: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap',
+    },
+    {
         value: 'luna',
         label: 'Luna',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap',

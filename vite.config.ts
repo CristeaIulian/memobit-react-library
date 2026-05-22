@@ -92,6 +92,7 @@ export default defineConfig({
                 { src: 'src/styles/theming/ivory-serif.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/lavender-mist.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/light-blue.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/lumen.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/luna.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/mesh-circuit.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/midnight-atlas.scss', dest: 'styles/theming' },
