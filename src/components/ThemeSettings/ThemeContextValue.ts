@@ -44,6 +44,7 @@ export type Theme =
     | 'noir-marquee'
     | 'ocean-breeze'
     | 'ocean-depths'
+    | 'orbital-night'
     | 'sandstone'
     | 'sandy-parchment'
     | 'screening-room'

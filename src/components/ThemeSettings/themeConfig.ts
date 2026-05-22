@@ -392,6 +392,13 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         fontUrl: 'https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
     },
+    {
+        value: 'orbital-night',
+        label: 'Orbital Night',
+        recommendedApps: ['Global Pulse'],
+        fontUrl: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap',
+        fontUrlMono: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap',
+    },
 ];
 
 export const FAVORITE_THEMES = new Set([

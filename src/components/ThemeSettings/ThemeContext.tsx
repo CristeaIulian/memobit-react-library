@@ -1,6 +1,6 @@
 import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 
-import { getThemeConfig } from './themeConfig';
+import { getThemeConfig, THEME_CONFIGS } from './themeConfig';
 import { ThemeContext, type Theme, type ThemeEffects, type ThemeSaveValue } from './ThemeContextValue';
 
 const FONT_LINK_ID = 'theme-font-link';
@@ -83,6 +83,39 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
         setPreviewEffectsState(null);
     }, []);
 
+    useEffect(() => {
+        const isTypingTarget = (el: EventTarget | null) => {
+            if (!(el instanceof HTMLElement)) return false;
+            const tag = el.tagName;
+            return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+        };
+
+        const handler = (e: KeyboardEvent) => {
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            if (isTypingTarget(e.target)) return;
+
+            if (e.key === '[' || e.key === ']') {
+                e.preventDefault();
+                const themes = THEME_CONFIGS.map((c) => c.value as Theme);
+                const currentIdx = themes.indexOf(activeTheme);
+                const startIdx = currentIdx === -1 ? 0 : currentIdx;
+                const delta = e.key === ']' ? 1 : -1;
+                const nextIdx = (startIdx + delta + themes.length) % themes.length;
+                setPreviewThemeState(themes[nextIdx]);
+            } else if (e.key === 'Escape' && previewTheme) {
+                e.preventDefault();
+                setPreviewThemeState(null);
+                setPreviewEffectsState(null);
+            }
+        };
+
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, [activeTheme, previewTheme]);
+
+    const activeThemeIdx = THEME_CONFIGS.findIndex((c) => c.value === activeTheme);
+    const activeThemeLabel = activeThemeIdx >= 0 ? THEME_CONFIGS[activeThemeIdx].label : activeTheme;
+
     const commitPreview = useCallback(() => {
         onSave?.({ theme: activeTheme, effects: activeEffects });
         setPreviewThemeState(null);
@@ -101,6 +134,29 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
             }}
         >
             {children}
+            {previewTheme && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        bottom: 16,
+                        right: 16,
+                        zIndex: 99999,
+                        padding: '8px 12px',
+                        borderRadius: 8,
+                        background: 'rgba(0, 0, 0, 0.85)',
+                        color: '#fff',
+                        font: '500 13px/1.4 system-ui, sans-serif',
+                        pointerEvents: 'none',
+                        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
+                    }}
+                >
+                    {activeThemeLabel}
+                    <span style={{ opacity: 0.6, marginLeft: 8 }}>
+                        {activeThemeIdx + 1}/{THEME_CONFIGS.length}
+                    </span>
+                    <div style={{ opacity: 0.5, fontSize: 11, marginTop: 2 }}>[ prev · ] next · Esc revert</div>
+                </div>
+            )}
         </ThemeContext.Provider>
     );
 };
