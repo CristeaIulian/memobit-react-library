@@ -66,6 +66,7 @@ export default defineConfig({
                 { src: 'src/styles/theming/atelier-media.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/audit-ember.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/azure-night.scss', dest: 'styles/theming' },
+                { src: 'src/styles/theming/blossom-meadow.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/blueprint-clay.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/blush-market.scss', dest: 'styles/theming' },
                 { src: 'src/styles/theming/brass-chronicle.scss', dest: 'styles/theming' },

@@ -26,6 +26,7 @@
     "./dist/styles/theming/atelier-media.scss": "./dist/styles/theming/atelier-media.scss",
     "./dist/styles/theming/audit-ember.scss": "./dist/styles/theming/audit-ember.scss",
     "./dist/styles/theming/azure-night.scss": "./dist/styles/theming/azure-night.scss",
+    "./dist/styles/theming/blossom-meadow.scss": "./dist/styles/theming/blossom-meadow.scss",
     "./dist/styles/theming/blueprint-clay.scss": "./dist/styles/theming/blueprint-clay.scss",
     "./dist/styles/theming/blush-market.scss": "./dist/styles/theming/blush-market.scss",
     "./dist/styles/theming/brass-chronicle.scss": "./dist/styles/theming/brass-chronicle.scss",

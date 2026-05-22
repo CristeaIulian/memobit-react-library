@@ -19,6 +19,13 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
     },
     {
+        value: 'blossom-meadow',
+        label: 'Blossom Meadow',
+        fontUrl: 'https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap',
+        fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&display=swap',
+        recommendedApps: ['child-progress'],
+    },
+    {
         value: 'crimson-dusk',
         label: 'Crimson Dusk',
         fontUrl: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap',

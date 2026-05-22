@@ -8,6 +8,7 @@ export type Theme =
     | 'atelier-media'
     | 'audit-ember'
     | 'azure-night'
+    | 'blossom-meadow'
     | 'blueprint-clay'
     | 'blush-market'
     | 'brass-chronicle'
