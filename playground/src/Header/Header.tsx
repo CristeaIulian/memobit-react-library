@@ -5,18 +5,17 @@ import { Button, Icon, ThemeSettings } from '../../../src';
 import './Header.scss';
 
 interface HeaderProps {
-    isSidebarOpen?: boolean;
     onToggleSidebar?: () => void;
 }
 
-export const Header = ({ isSidebarOpen = false, onToggleSidebar }: HeaderProps) => {
+export const Header = ({ onToggleSidebar }: HeaderProps) => {
     const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 
     return (
         <div className="appHeader">
             <header className="mobile">
                 {onToggleSidebar && (
-                    <button className="appHeader__sidebar-toggle" onClick={onToggleSidebar} aria-label="Toggle navigation" aria-expanded={isSidebarOpen}>
+                    <button className="appHeader__sidebar-toggle" onClick={onToggleSidebar} title="Toggle navigation">
                         <Icon name="menu-hamburger" />
                     </button>
                 )}

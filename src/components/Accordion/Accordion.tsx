@@ -104,7 +104,6 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
                 className="accordion-item__header"
                 onClick={handleClick}
                 disabled={disabled}
-                aria-expanded={isExpanded}
             >
                 <span className="accordion-item__title">
                     {icon && <Icon name={icon} />}

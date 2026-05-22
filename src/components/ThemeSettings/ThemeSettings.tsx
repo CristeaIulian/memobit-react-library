@@ -134,7 +134,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                             <InputSearch placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />
                             <ToggleSwitch checked={showFavoritesOnly} onChange={setShowFavoritesOnly} onLabel="Favorites" offLabel="Favorites" size="small" />
                         </div>
-                        <div className="theme-settings__appearance" role="group" aria-label="Filter by appearance">
+                        <div className="theme-settings__appearance">
                             {APPEARANCE_FILTERS.map(filter => (
                                 <button
                                     key={filter.value}
@@ -142,7 +142,6 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                                     className={`theme-settings__appearance-option ${
                                         appearanceFilter === filter.value ? 'theme-settings__appearance-option--active' : ''
                                     }`}
-                                    aria-pressed={appearanceFilter === filter.value}
                                     onClick={() => setAppearanceFilter(filter.value)}
                                 >
                                     {filter.label}

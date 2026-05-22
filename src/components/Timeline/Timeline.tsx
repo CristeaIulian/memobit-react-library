@@ -45,7 +45,7 @@ export const Timeline: React.FC<TimelineProps> = ({ items, orientation = 'vertic
         .join(' ');
 
     return (
-        <ol className={rootClass} aria-label="Timeline">
+        <ol className={rootClass}>
             {items.map((item, index) => {
                 const itemClass = ['timeline__item', item.active ? 'timeline__item--active' : '', item.muted ? 'timeline__item--muted' : '']
                     .filter(Boolean)
@@ -56,12 +56,11 @@ export const Timeline: React.FC<TimelineProps> = ({ items, orientation = 'vertic
                         key={item.id}
                         className={itemClass}
                         style={{ '--item-index': index } as React.CSSProperties}
-                        aria-current={item.active ? 'step' : undefined}
                     >
                         {/* Node */}
                         <div className="timeline__node">
                             <div className={variantDotClass(item.variant)}>{item.icon ? <span className="timeline__dot-icon">{item.icon}</span> : null}</div>
-                            {connected && index < items.length - 1 && <div className="timeline__connector" aria-hidden="true" />}
+                            {connected && index < items.length - 1 && <div className="timeline__connector" />}
                         </div>
 
                         {/* Content */}

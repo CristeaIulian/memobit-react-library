@@ -50,7 +50,7 @@ export const Toast: FC<ToastProps> = ({
                 </button>
             )}
             {canDismiss && (
-                <button className="toast__close" onClick={onClose} aria-label="Close">
+                <button className="toast__close" onClick={onClose} title="Close">
                     x
                 </button>
             )}

@@ -23,7 +23,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, separator = '/', 
     };
 
     return (
-        <nav className={`breadcrumb ${className}`} aria-label="Breadcrumb">
+        <nav className={`breadcrumb ${className}`}>
             <ol className="breadcrumb__list">
                 {items.map((item, index) => {
                     const isLast = index === items.length - 1;

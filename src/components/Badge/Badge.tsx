@@ -27,7 +27,6 @@ export const Badge: FC<BadgeProps> = ({ variant = 'default', children, className
             className={`badge ${variantClass} ${className} badge-size--${size} ${activeClass} ${clickableClass}`}
             style={style}
             onClick={onClick}
-            role={onClick ? 'button' : undefined}
             tabIndex={onClick ? 0 : undefined}
             onKeyDown={
                 onClick

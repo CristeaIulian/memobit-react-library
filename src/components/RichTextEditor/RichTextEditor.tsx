@@ -318,11 +318,6 @@ export const RichTextEditor = ({
                     onClick={handleEditorClick}
                     onKeyDown={handleKeyDown}
                     onBlur={onBlur}
-                    role="textbox"
-                    aria-multiline
-                    aria-required={required}
-                    aria-label={label}
-                    aria-invalid={!!error}
                 />
             </div>
 

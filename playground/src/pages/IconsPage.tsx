@@ -181,11 +181,9 @@ export const IconsPage: React.FC = () => {
                     </span>
                 </div>
 
-                <div className="icons-page__categories" role="tablist" aria-label="Icon categories">
+                <div className="icons-page__categories">
                     <button
                         type="button"
-                        role="tab"
-                        aria-selected={selectedCategoryId === 'all'}
                         className={`icons-page__category${selectedCategoryId === 'all' ? ' icons-page__category--active' : ''}`}
                         onClick={() => setSelectedCategoryId('all')}
                     >
@@ -197,8 +195,6 @@ export const IconsPage: React.FC = () => {
                             <button
                                 key={category.id}
                                 type="button"
-                                role="tab"
-                                aria-selected={isActive}
                                 className={`icons-page__category${isActive ? ' icons-page__category--active' : ''}`}
                                 onClick={() => setSelectedCategoryId(category.id)}
                             >
@@ -230,7 +226,6 @@ export const IconsPage: React.FC = () => {
                                                 type="button"
                                                 className="icons-page__preview"
                                                 onClick={() => handleTagCopy(icon)}
-                                                aria-label={`Copy ${icon.name} icon SVG`}
                                                 title="Copy icon SVG"
                                             >
                                                 {renderIcon(icon.value)}
@@ -240,7 +235,6 @@ export const IconsPage: React.FC = () => {
                                                 type="button"
                                                 className="icons-page__path"
                                                 onClick={() => handleTagCopy(icon)}
-                                                aria-label={`Copy ${icon.filePath}`}
                                                 title="Copy icon tag"
                                             >
                                                 {icon.filePath}
@@ -261,7 +255,6 @@ export const IconsPage: React.FC = () => {
                                     type="button"
                                     className="icons-page__preview"
                                     onClick={() => handleTagCopy(icon)}
-                                    aria-label={`Copy ${icon.name} icon SVG`}
                                     title="Copy icon SVG"
                                 >
                                     {renderIcon(icon.value)}
@@ -271,7 +264,6 @@ export const IconsPage: React.FC = () => {
                                     type="button"
                                     className="icons-page__path"
                                     onClick={() => handleTagCopy(icon)}
-                                    aria-label={`Copy ${icon.filePath}`}
                                     title="Copy icon tag"
                                 >
                                     {icon.filePath}

@@ -18,7 +18,7 @@ interface RteToolbarProps {
 }
 
 export const RteToolbar: React.FC<RteToolbarProps> = ({ advanced, isActive, exec, applyHeading, insertTaskList, openLinkPrompt, insertTable, undo, redo }) => (
-    <div className="rte-toolbar" role="toolbar" aria-label="Text formatting">
+    <div className="rte-toolbar">
         <div className="rte-toolbar-group">
             {HISTORY_BUTTONS.map(btn => (
                 <Tooltip title={btn.title} key={btn.command}>

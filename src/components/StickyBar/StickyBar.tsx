@@ -21,8 +21,6 @@ export interface StickyBarProps {
     /** Pixel offset from the edge, used to stack multiple bars. Default: 0. */
     offset?: number;
     className?: string;
-    role?: string;
-    ariaLabel?: string;
 }
 
 export const StickyBar: React.FC<StickyBarProps> = ({
@@ -34,8 +32,6 @@ export const StickyBar: React.FC<StickyBarProps> = ({
     closeLabel = 'Close',
     offset = 0,
     className,
-    role = 'region',
-    ariaLabel,
 }) => {
     if (!visible) return null;
 
@@ -43,7 +39,7 @@ export const StickyBar: React.FC<StickyBarProps> = ({
     const style = offset ? { [position]: `${offset}px` } : undefined;
 
     return (
-        <div className={rootClassName} style={style} role={role} aria-label={ariaLabel}>
+        <div className={rootClassName} style={style}>
             <div className="sticky-bar__content">{children}</div>
             {onClose && (
                 <Button className="sticky-bar__close" icon="clear" onClick={onClose} size="small" variant="ghost" title={closeLabel}>

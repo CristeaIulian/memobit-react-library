@@ -93,7 +93,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     return (
         <div className="command-palette">
             <div className="command-palette__backdrop" onClick={close} />
-            <div className="command-palette__panel" role="dialog" aria-modal="true">
+            <div className="command-palette__panel">
                 <div className="command-palette__input">
                     <InputText autoFocus placeholder={placeholder} value={query} onChange={setQuery} />
                 </div>

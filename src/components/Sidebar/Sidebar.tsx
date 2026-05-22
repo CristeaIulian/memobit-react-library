@@ -110,7 +110,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {item.bulletColor && <span className="sidebar__link-bullet" style={{ backgroundColor: item.bulletColor }} />}
             <span className="sidebar__link-label">{item.label}</span>
             {item.count !== undefined && (
-                <span className="sidebar__link-count" aria-label={item.countLabel}>
+                <span className="sidebar__link-count" title={item.countLabel}>
                     {item.count}
                 </span>
             )}

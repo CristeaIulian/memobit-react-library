@@ -11,7 +11,7 @@ interface RteLinkPromptProps {
 }
 
 export const RteLinkPrompt: React.FC<RteLinkPromptProps> = ({ isEditing, linkText, linkUrl, setLinkText, setLinkUrl, confirmLink, cancelLink }) => (
-    <div className="rte-link-prompt" role="dialog" aria-label={isEditing ? 'Edit link' : 'Insert link'}>
+    <div className="rte-link-prompt">
         <input
             className="rte-link-input"
             type="text"

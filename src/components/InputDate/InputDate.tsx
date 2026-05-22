@@ -83,7 +83,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
                         required={required}
                     />
                     {showClear && (
-                        <button type="button" className="input-date-clear" onClick={() => onChange?.(undefined)} aria-label="Clear date">
+                        <button type="button" className="input-date-clear" onClick={() => onChange?.(undefined)} title="Clear date">
                             <Icon name="clear" size="sm" />
                         </button>
                     )}

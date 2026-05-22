@@ -182,7 +182,7 @@ export const FormPage: React.FC = () => {
                     </div>
 
                     {inviteSubmitted && (
-                        <div className="form-summary" role="status">
+                        <div className="form-summary">
                             <span>
                                 <strong>Invite ready:</strong> {fullName || 'Unnamed user'} as {role || 'no role'} for {clientSearch || 'no client selected'}.
                             </span>
@@ -290,7 +290,7 @@ export const FormPage: React.FC = () => {
                     </div>
 
                     {requestSubmitted && (
-                        <div className="form-summary" role="status">
+                        <div className="form-summary">
                             <span>
                                 <strong>Request queued:</strong> {quantity ?? 0} {category || 'uncategorized'} unit(s) for{' '}
                                 {sku || productSearch || 'selected product'}.

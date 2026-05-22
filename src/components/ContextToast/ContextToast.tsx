@@ -96,7 +96,7 @@ const ContextToast = ({ id, message, type = 'info', action, onClose, showDismiss
                 </button>
             )}
             {showDismissButton && (
-                <button onClick={handleClose} className="toast__close-button" aria-label="Close">
+                <button onClick={handleClose} className="toast__close-button" title="Close">
                     <CloseIcon />
                 </button>
             )}

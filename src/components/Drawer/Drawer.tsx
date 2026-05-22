@@ -49,7 +49,7 @@ export interface DrawerProps {
     actions?: DrawerHeaderAction[];
     /** Optional back action rendered on the LEFT side of the header — typically a navigation affordance. */
     onBack?: () => void;
-    /** Tooltip / aria-label for the back button. */
+    /** Tooltip for the back button. */
     backLabel?: string;
     primary?: ExternalButtonConfig;
     secondary?: ExternalButtonConfig;
@@ -124,7 +124,7 @@ export const Drawer: React.FC<DrawerProps> = ({
                 <div className="drawer__header">
                     {onBack && (
                         <Tooltip title={backLabel} position="bottom">
-                            <Button className="drawer__back" onClick={onBack} size="small" variant="ghost" icon="arrow-left" aria-label={backLabel} />
+                            <Button className="drawer__back" onClick={onBack} size="small" variant="ghost" icon="arrow-left" />
                         </Tooltip>
                     )}
                     {(title || icon) && (

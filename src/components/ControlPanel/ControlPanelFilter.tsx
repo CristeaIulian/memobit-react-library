@@ -229,7 +229,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
     if (filter.type === 'dropdown') {
         if (!filter.multiple && filterOptions.length > 0 && filterOptions.length <= DROPDOWN_RADIO_FILTER_LIMIT) {
             return (
-                <div className="control-panel__filter-list" role="radiogroup" aria-label={filter.label}>
+                <div className="control-panel__filter-list">
                     {filterOptions.map(option => {
                         const isSelected = filter.value === option.value;
                         return (
@@ -290,7 +290,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
 
     if (filter.type === 'chips') {
         return (
-            <div className="control-panel__filter-chips" role="group" aria-label={filter.label}>
+            <div className="control-panel__filter-chips">
                 {filterOptions.map(option => {
                     const isSelected = selectedValues.includes(option.value);
                     return (
@@ -319,7 +319,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
     }
 
     return (
-        <div className="control-panel__filter-list" role="radiogroup" aria-label={filter.label}>
+        <div className="control-panel__filter-list">
             {filterOptions.map(option => {
                 const isSelected = filter.value === option.value;
                 return (

@@ -57,7 +57,7 @@ export const BulkActionBar: React.FC<BulkActionBarProps> = ({
     const displayLabel: ReactNode = progress ? formatProgress(progress) : label ?? `${selectionCount} selected`;
 
     return (
-        <div className={rootClassName} role="region" aria-label="Bulk actions">
+        <div className={rootClassName}>
             <div className="memobit-bulk-action-bar__label">{displayLabel}</div>
             <div className="memobit-bulk-action-bar__actions">
                 {actions.map(action => (

@@ -23,7 +23,7 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
         return (
             <div className="float-button-container">
                 <Tooltip title={actions[0].label} position="left">
-                    <button className="float-button" onClick={actions[0].onClick} aria-label={actions[0].label}>
+                    <button className="float-button" onClick={actions[0].onClick}>
                         <span className="float-button__icon">
                             <Icon name={actions[0].icon} size="xxl" />
                         </span>
@@ -61,7 +61,7 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
                 </>
             )}
 
-            <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu} aria-label="Actions menu">
+            <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu} title="Actions menu">
                 <span className="float-button__icon">
                     <Icon name={isMenuOpen ? 'clear' : 'plus'} size="xxl" />
                 </span>

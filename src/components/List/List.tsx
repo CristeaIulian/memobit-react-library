@@ -36,7 +36,6 @@ export const List: React.FC<ListProps> = ({
     return (
         <ul
             className={`list list--${direction} ${selectable ? 'list--selectable' : ''} ${className}`}
-            role={selectable ? 'listbox' : 'list'}
         >
             {items.map((item, index) => {
                 const isActive = selectable && selectedId === item.id;
@@ -52,9 +51,6 @@ export const List: React.FC<ListProps> = ({
                         ]
                             .filter(Boolean)
                             .join(' ')}
-                        role={selectable ? 'option' : 'listitem'}
-                        aria-selected={selectable ? isActive : undefined}
-                        aria-disabled={item.disabled}
                         onClick={() => handleClick(item)}
                     >
                         {item.label}

@@ -108,11 +108,11 @@ export const InfiniteScroll = ({
             {children}
 
             {/* ── Sentinel — IntersectionObserver target ── */}
-            <div ref={sentinelRef} className="infinite-scroll__sentinel" aria-hidden="true" />
+            <div ref={sentinelRef} className="infinite-scroll__sentinel" />
 
             {/* ── Loader ── */}
             {isLoading && (
-                <div className="infinite-scroll__loader" role="status" aria-label="Loading more">
+                <div className="infinite-scroll__loader">
                     <div className="infinite-scroll__spinner" />
                     <span className="infinite-scroll__loader-text">
                         <Loading />

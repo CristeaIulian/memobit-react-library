@@ -249,7 +249,7 @@ export const InputMask = forwardRef<InputMaskHandle, InputMaskProps>(
 
                 <div className="input-mask__field">
                     {icon && (
-                        <span className="input-mask__icon" aria-hidden="true">
+                        <span className="input-mask__icon">
                             {icon}
                         </span>
                     )}
@@ -271,13 +271,10 @@ export const InputMask = forwardRef<InputMaskHandle, InputMaskProps>(
                             /* controlled via onKeyDown */
                         }}
                         onKeyDown={handleKeyDown}
-                        aria-label={label}
-                        aria-invalid={resolvedVariant === 'danger'}
-                        aria-describedby={error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined}
                     />
 
                     {/* Progress indicator: filled slots / total */}
-                    <span className="input-mask__counter" aria-hidden="true">
+                    <span className="input-mask__counter">
                         {internalRaw.length}/{slots}
                     </span>
 
@@ -286,9 +283,7 @@ export const InputMask = forwardRef<InputMaskHandle, InputMaskProps>(
 
                 {(hint || error) && (
                     <p
-                        id={error ? `${inputId}-error` : `${inputId}-hint`}
                         className={error ? 'input-mask__error' : 'input-mask__hint'}
-                        role={error ? 'alert' : undefined}
                     >
                         {error ?? hint}
                     </p>

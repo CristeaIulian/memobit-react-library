@@ -45,9 +45,6 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
             className={`toggle-switch toggle-switch-${size} toggle-switch-${variant} ${checked ? 'toggle-switch-checked' : ''} ${disabled ? 'toggle-switch-disabled' : ''} ${className || ''}`}
             onClick={handleToggle}
             onKeyDown={handleKeyDown}
-            role="switch"
-            aria-checked={checked}
-            aria-disabled={disabled}
             tabIndex={disabled ? -1 : 0}
         >
             <div className="toggle-switch__track">

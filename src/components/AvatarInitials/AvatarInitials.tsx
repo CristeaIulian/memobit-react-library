@@ -56,8 +56,6 @@ export const AvatarInitials: React.FC<AvatarInitialsProps> = ({
             className={`avatar-initials avatar-initials--${size} avatar-initials--${shape} ${className}`}
             style={{ backgroundColor: background, color }}
             title={name}
-            role="img"
-            aria-label={`Avatar for ${name}`}
         >
             <span className="avatar-initials__text">{initials}</span>
         </div>

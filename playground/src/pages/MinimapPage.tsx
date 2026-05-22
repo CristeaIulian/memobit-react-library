@@ -114,7 +114,7 @@ const ChartPreview: React.FC<ChartPreviewProps> = ({ values, startIndex }) => {
                 </span>
             </div>
 
-            <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Selected chart range" style={{ display: 'block', width: '100%', height: 'auto' }}>
+            <svg viewBox={`0 0 ${width} ${height}`} style={{ display: 'block', width: '100%', height: 'auto' }}>
                 {[0.25, 0.5, 0.75].map(mark => (
                     <line
                         key={mark}

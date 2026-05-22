@@ -39,7 +39,7 @@ export const StickyBarPage: React.FC = () => {
                             ))}
                         </div>
 
-                        <StickyBar ariaLabel="Selected items actions" visible={bottomVisible} onClose={() => setBottomVisible(false)} closeLabel="Dismiss">
+                        <StickyBar visible={bottomVisible} onClose={() => setBottomVisible(false)} closeLabel="Dismiss">
                             <div className="sticky-bar-page__summary">
                                 <strong>4 selected</strong>
                                 <span>Ready for bulk review</span>
@@ -109,7 +109,7 @@ export const StickyBarPage: React.FC = () => {
                     <h3>Centered helper bar stacked above a bottom bar</h3>
                     <div className="sticky-bar-demo sticky-bar-demo--stacked">
                         <div className="sticky-bar-demo__placeholder">
-                            <ToggleSwitch label="Show helper bar" checked={stackedVisible} onChange={setStackedVisible} />
+                            <ToggleSwitch onLabel="Show helper bar" offLabel="Show helper bar" checked={stackedVisible} onChange={setStackedVisible} />
                         </div>
 
                         <StickyBar position="bottom" align="center" visible={stackedVisible} offset={68}>
@@ -137,7 +137,7 @@ export const StickyBarPage: React.FC = () => {
                     <h3>End Aligned Status Bar</h3>
                     <div className="sticky-bar-demo">
                         <div className="sticky-bar-demo__placeholder">Content area</div>
-                        <StickyBar position="bottom" align="end" role="status" ariaLabel="Sync status">
+                        <StickyBar position="bottom" align="end">
                             <span className="sticky-bar-page__hint">All changes synced</span>
                         </StickyBar>
                     </div>

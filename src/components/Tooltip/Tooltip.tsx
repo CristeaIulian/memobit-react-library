@@ -154,7 +154,6 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
                             top: `${tooltipPosition.top}px`,
                             left: `${tooltipPosition.left}px`,
                         }}
-                        role="tooltip"
                     >
                         {title}
                         <div className={`tooltip__arrow tooltip__arrow--${position}`} />

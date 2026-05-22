@@ -149,7 +149,7 @@ export const TourHudPage: React.FC = () => {
                     <h3>Custom accent color for a release timeline</h3>
 
                     <div className="tour-hud-demo tour-hud-demo--timeline">
-                        <div className="tour-hud-timeline" aria-label="Release timeline">
+                        <div className="tour-hud-timeline">
                             {releaseSteps.map((step, index) => (
                                 <button
                                     key={step.phase}

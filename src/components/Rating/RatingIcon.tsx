@@ -39,7 +39,7 @@ export const RatingIcon: FC<RatingIconProps> = ({ type, filled, variant, size = 
 
     if (type === 'star') {
         return (
-            <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <HalfGradient />
                 <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill={fill} />
             </svg>
@@ -48,7 +48,7 @@ export const RatingIcon: FC<RatingIconProps> = ({ type, filled, variant, size = 
 
     if (type === 'bullet') {
         return (
-            <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <HalfGradient />
                 <circle cx="12" cy="12" r="10" fill={fill} />
             </svg>
@@ -62,7 +62,7 @@ export const RatingIcon: FC<RatingIconProps> = ({ type, filled, variant, size = 
         const radius = barHeight / 2;
 
         return (
-            <svg width={barWidth} height={barHeight} viewBox={`0 0 ${barWidth} ${barHeight}`} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg width={barWidth} height={barHeight} viewBox={`0 0 ${barWidth} ${barHeight}`} xmlns="http://www.w3.org/2000/svg">
                 <HalfGradient />
                 <rect x="0" y="0" width={barWidth} height={barHeight} rx={radius} fill={fill} />
             </svg>

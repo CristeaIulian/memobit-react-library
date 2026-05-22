@@ -313,13 +313,13 @@ export const Calendar: React.FC<CalendarProps> = ({
         if (view === 'years') {
             return (
                 <div className="calendar__header">
-                    <button type="button" className="calendar__nav-button" onClick={handlePreviousYears} aria-label="Previous years">
+                    <button type="button" className="calendar__nav-button" onClick={handlePreviousYears} title="Previous years">
                         ‹
                     </button>
                     <div className="calendar__month-year">
                         {yearsRangeStart} - {yearsRangeStart + YEARS_PER_PAGE - 1}
                     </div>
-                    <button type="button" className="calendar__nav-button" onClick={handleNextYears} aria-label="Next years">
+                    <button type="button" className="calendar__nav-button" onClick={handleNextYears} title="Next years">
                         ›
                     </button>
                 </div>
@@ -329,13 +329,13 @@ export const Calendar: React.FC<CalendarProps> = ({
         if (view === 'months') {
             return (
                 <div className="calendar__header">
-                    <button type="button" className="calendar__nav-button" onClick={handlePreviousYear} aria-label="Previous year">
+                    <button type="button" className="calendar__nav-button" onClick={handlePreviousYear} title="Previous year">
                         ‹
                     </button>
                     <button type="button" className="calendar__header-button" onClick={handleYearHeaderClick}>
                         {displayMonth.getFullYear()}
                     </button>
-                    <button type="button" className="calendar__nav-button" onClick={handleNextYear} aria-label="Next year">
+                    <button type="button" className="calendar__nav-button" onClick={handleNextYear} title="Next year">
                         ›
                     </button>
                 </div>
@@ -344,7 +344,7 @@ export const Calendar: React.FC<CalendarProps> = ({
 
         return (
             <div className="calendar__header">
-                <button type="button" className="calendar__nav-button" onClick={handlePreviousMonth} aria-label="Previous month">
+                <button type="button" className="calendar__nav-button" onClick={handlePreviousMonth} title="Previous month">
                     ‹
                 </button>
                 <div className="calendar__month-year">
@@ -361,7 +361,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                         </>
                     )}
                 </div>
-                <button type="button" className="calendar__nav-button" onClick={handleNextMonth} aria-label="Next month">
+                <button type="button" className="calendar__nav-button" onClick={handleNextMonth} title="Next month">
                     ›
                 </button>
             </div>
@@ -447,7 +447,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                                         className={getDayClassName(date)}
                                         onClick={() => handleDateClick(date)}
                                         disabled={isDateDisabled(date)}
-                                        aria-label={date.toDateString()}
+                                        title={date.toDateString()}
                                     >
                                         {date.getDate()}
                                     </button>

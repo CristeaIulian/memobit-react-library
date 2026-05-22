@@ -16,7 +16,7 @@ interface SortIconProps {
 
 function SortIcon({ state }: SortIconProps) {
     return (
-        <span className={`suggestions-list__sort-icon suggestions-list__sort-icon--${state}`} aria-hidden="true">
+        <span className={`suggestions-list__sort-icon suggestions-list__sort-icon--${state}`}>
             <Icon name={state === 'asc' ? 'arrow-up' : state === 'desc' ? 'arrow-down' : 'arrow-bidirectional-vertical'} />
         </span>
     );
@@ -123,7 +123,6 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
                                 className={`list-suggestions-list-row ${onRowClick ? 'list-suggestions-list-row--clickable' : ''}`}
                                 key={`list-suggestions-list-row-${index}`}
                                 onClick={() => onRowClick?.(el)}
-                                role={onRowClick ? 'button' : undefined}
                                 tabIndex={onRowClick ? 0 : undefined}
                                 onKeyDown={e => {
                                     if (onRowClick && (e.key === 'Enter' || e.key === ' ')) {

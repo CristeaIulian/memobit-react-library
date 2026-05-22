@@ -3,8 +3,6 @@ export const mental = (
         viewBox="0 0 64 64"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
-        aria-hidden="true"
-        role="img"
         className="iconify iconify--medical-icon"
         preserveAspectRatio="xMidYMid meet"
         fill="currentColor" width="1em" height="1em">

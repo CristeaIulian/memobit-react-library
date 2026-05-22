@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useId } from 'react';
+import React, { useState, useCallback } from 'react';
 import './Tree.scss';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -35,7 +35,7 @@ export interface TreeProps {
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 const ChevronIcon: React.FC<{ open: boolean }> = ({ open }) => (
-    <svg className={`tree__chevron ${open ? 'tree__chevron--open' : ''}`} viewBox="0 0 16 16" width="12" height="12" fill="none" aria-hidden="true">
+    <svg className={`tree__chevron ${open ? 'tree__chevron--open' : ''}`} viewBox="0 0 16 16" width="12" height="12" fill="none">
         <path d="M5 3l6 5-6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
@@ -56,7 +56,6 @@ const TreeNodeItem: React.FC<TreeNodeItemProps> = ({ node, depth, selectable, sh
     const [expanded, setExpanded] = useState(node.defaultExpanded ?? false);
     const hasChildren = Array.isArray(node.children) && node.children.length > 0;
     const isSelected = selectable && selectedId === node.id;
-    const innerId = useId();
 
     const handleToggle = useCallback(
         (e: React.MouseEvent | React.KeyboardEvent) => {
@@ -78,14 +77,8 @@ const TreeNodeItem: React.FC<TreeNodeItemProps> = ({ node, depth, selectable, sh
         .join(' ');
 
     return (
-        <li
-            role={hasChildren ? 'treeitem' : 'treeitem'}
-            aria-expanded={hasChildren ? expanded : undefined}
-            aria-selected={selectable ? isSelected : undefined}
-            aria-disabled={node.disabled}
-        >
+        <li>
             <div
-                id={innerId}
                 className={rowClass}
                 style={{ '--depth': depth } as React.CSSProperties}
                 tabIndex={node.disabled ? -1 : 0}
@@ -96,11 +89,11 @@ const TreeNodeItem: React.FC<TreeNodeItemProps> = ({ node, depth, selectable, sh
                 {showGuides &&
                     depth > 0 &&
                     Array.from({ length: depth }).map((_, i) => (
-                        <span key={i} className="tree__guide" style={{ '--guide-level': i } as React.CSSProperties} aria-hidden="true" />
+                        <span key={i} className="tree__guide" style={{ '--guide-level': i } as React.CSSProperties} />
                     ))}
 
                 {/* Chevron / leaf spacer */}
-                <span className="tree__toggle" aria-hidden="true">
+                <span className="tree__toggle">
                     {hasChildren ? <ChevronIcon open={expanded} /> : <span className="tree__leaf-dot" />}
                 </span>
 
@@ -117,8 +110,6 @@ const TreeNodeItem: React.FC<TreeNodeItemProps> = ({ node, depth, selectable, sh
             {/* Children */}
             {hasChildren && (
                 <ul
-                    role="group"
-                    aria-labelledby={innerId}
                     className={['tree__children', expanded ? 'tree__children--open' : '', animated ? 'tree__children--animated' : ''].filter(Boolean).join(' ')}
                 >
                     {node.children!.map(child => (
@@ -162,7 +153,7 @@ export const Tree: React.FC<TreeProps> = ({
     );
 
     return (
-        <ul role="tree" className={['tree', className].filter(Boolean).join(' ')} aria-multiselectable={false}>
+        <ul className={['tree', className].filter(Boolean).join(' ')}>
             {nodes.map(node => (
                 <TreeNodeItem
                     key={node.id}

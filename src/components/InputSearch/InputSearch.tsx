@@ -71,7 +71,7 @@ export const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
                     ref={ref}
                 />
                 {showClearButton && (
-                    <button type="button" className="input-search__clear" onClick={handleClear} aria-label="Clear search">
+                    <button type="button" className="input-search__clear" onClick={handleClear} title="Clear search">
                         <Icon name="clear" size="sm" />
                     </button>
                 )}

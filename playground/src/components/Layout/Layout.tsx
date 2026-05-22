@@ -48,7 +48,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
     return (
         <div className="layout">
-            <Header isSidebarOpen={isSidebarOpen} onToggleSidebar={toggleSidebar} />
+            <Header onToggleSidebar={toggleSidebar} />
 
             <div className="layout__container">
                 <Sidebar

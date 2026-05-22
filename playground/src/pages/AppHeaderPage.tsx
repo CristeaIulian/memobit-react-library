@@ -54,7 +54,7 @@ export const AppHeaderPage: FC = () => {
                     <div className="component-group">
                         <AppHeader
                             svg={
-                                <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+                                <svg width="22" height="22" viewBox="0 0 22 22">
                                     <rect x="2" y="2" width="18" height="18" rx="5" fill="currentColor" opacity="0.16" />
                                     <path
                                         d="M7 12.5 10 15l5-8"

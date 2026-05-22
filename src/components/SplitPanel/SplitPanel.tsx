@@ -102,7 +102,7 @@ export const SplitPanel: React.FC<SplitPanelProps> = ({
             <div className="split-panel__right">
                 <div className="split-panel__right-header">
                     {panelTitle && <h2 className="split-panel__right-title">{panelTitle}</h2>}
-                    <button className="split-panel__close" onClick={onPanelClose} aria-label="Close panel">
+                    <button className="split-panel__close" onClick={onPanelClose} title="Close panel">
                         ✕
                     </button>
                 </div>

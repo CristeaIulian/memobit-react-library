@@ -13,7 +13,6 @@ export interface PieChartDataPoint {
 }
 
 export interface PieChartProps {
-    ariaLabel?: string;
     className?: string;
     data?: PieChartDataPoint[];
     emptyLabel?: React.ReactNode;
@@ -90,7 +89,6 @@ const getSliceColor = (slice: PieChartDataPoint, index: number): string => {
 };
 
 export const PieChart: React.FC<PieChartProps> = ({
-    ariaLabel = 'Pie chart',
     className = '',
     data = [],
     emptyLabel,
@@ -145,7 +143,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 
     return (
         <div className={`pie-chart pie-chart--${size} pie-chart--values-${valuePosition} ${className}`.trim()}>
-            <svg width={chartSize} height={chartSize} viewBox={viewBox} role="img" aria-label={ariaLabel}>
+            <svg width={chartSize} height={chartSize} viewBox={viewBox}>
                 {!hasSlices && (
                     <>
                         <circle className="pie-chart__empty-circle" cx={center} cy={center} r={radius} />

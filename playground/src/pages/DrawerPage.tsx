@@ -450,7 +450,6 @@ export const DrawerPage: React.FC = () => {
                                     <h4 style={bookDrawerStyles.sectionTitle}>Set page</h4>
                                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 88px', gap: '14px', alignItems: 'center' }}>
                                         <input
-                                            aria-label="Set page"
                                             max="248"
                                             min="0"
                                             type="range"

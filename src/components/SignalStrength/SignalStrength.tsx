@@ -46,7 +46,6 @@ export function SignalStrength({ value, state, size = 16, className = '' }: Sign
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={`SignalStrength SignalStrength--${signalState} ${className}`}
-            aria-label={`Signal strength: ${value}%`}
         >
             {/* Bar 1 (shortest) */}
             <rect

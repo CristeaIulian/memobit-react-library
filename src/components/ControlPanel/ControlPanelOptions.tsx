@@ -72,7 +72,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                 {viewToggle && <Separator spacing={0} />}
                 <div className="control-panel__option control-panel__option--group-by">
                     <span className="control-panel__filter-title">Group by</span>
-                    <div className="control-panel__filter-chips" role="group" aria-label="Group by">
+                    <div className="control-panel__filter-chips">
                         {groupBy.options.map(opt => {
                             const isSelected = groupBy.value === opt.value;
                             return (
@@ -91,7 +91,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                 {(viewToggle || (groupBy && groupBy.options.length > 0)) && <Separator spacing={0} />}
                 <div className="control-panel__option control-panel__option--chips">
                     <span className="control-panel__filter-title">Visible columns</span>
-                    <div className="control-panel__filter-chips" role="group" aria-label="Visible columns">
+                    <div className="control-panel__filter-chips">
                         {visibleColumns.options.map(opt => {
                             const isSelected = visibleColumns.value.includes(opt.value);
                             return (
@@ -137,7 +137,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                 {option.type === 'radio' && (
                                     <>
                                         {option.label && <span className="control-panel__filter-title">{option.label}</span>}
-                                        <div className="control-panel__filter-list" role="radiogroup" aria-label={option.label}>
+                                        <div className="control-panel__filter-list">
                                             {option.options.map(radioOption => {
                                                 const isSelected = option.value === radioOption.value;
                                                 const emitChange = () => onOptionChange?.({ optionId: option.id, value: radioOption.value });
@@ -176,7 +176,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                 {option.type === 'chips' && (
                                     <>
                                         {option.label && <span className="control-panel__filter-title">{option.label}</span>}
-                                        <div className="control-panel__filter-chips" role="group" aria-label={option.label}>
+                                        <div className="control-panel__filter-chips">
                                             {option.options.map(chipOption => {
                                                 const isSelected = option.value.includes(chipOption.value);
                                                 return (

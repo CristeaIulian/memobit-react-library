@@ -205,7 +205,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 <span className={`datepicker__value ${!displayValue ? 'datepicker__value--placeholder' : ''}`}>{displayValue || placeholder}</span>
                 <div className="datepicker__actions">
                     {clearable && displayValue && (
-                        <button type="button" className="datepicker__clear" onClick={handleClear} aria-label="Clear">
+                        <button type="button" className="datepicker__clear" onClick={handleClear} title="Clear">
                             ×
                         </button>
                     )}
