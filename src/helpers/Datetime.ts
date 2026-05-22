@@ -74,10 +74,17 @@ export const getTodayDateString = (): string => {
 };
 
 export const APP_DATE_FORMAT = 'DD MMM YYYY';
+export const APP_DATE_TIME_FORMAT = 'DD MMM YYYY HH:mm';
 
 export const formatAppDate = (dateStr: string): string => {
     const [year, month, day] = dateStr.split('-').map(Number);
     return formatDate(new Date(year, month - 1, day), APP_DATE_FORMAT);
+};
+
+export const formatAppDateTime = (dateStr: string): string => {
+    const d = new Date(dateStr.replace(' ', 'T'));
+    if (isNaN(d.getTime())) return dateStr;
+    return formatDate(d, APP_DATE_TIME_FORMAT);
 };
 
 export const formatRelativeDuration = (days: number): string => {
