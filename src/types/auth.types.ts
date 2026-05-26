@@ -16,8 +16,8 @@ export interface LoginResponse {
         username: string;
         createdAt: string;
     };
-    token: string;
-    expiresAt: string;
+    // The auth token is now delivered as an httpOnly cookie, not in the response body.
+    expiresAt?: string;
 }
 
 export interface VerifyResponse {
@@ -31,7 +31,6 @@ export interface VerifyResponse {
 export interface AuthConfig {
     apiBaseUrl: string;
     appName?: string;
-    storageKey?: string;
 }
 
 export interface AuthContextValue {

@@ -70,6 +70,7 @@ export { Drawer, type DrawerHeaderAction, type DrawerPosition, type DrawerProps 
 export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
 export { EmojiPicker, type EmojiPickerProps } from './components/EmojiPicker';
 export { EmptyState, type EmptyStateProps } from './components/EmptyState';
+export { ErrorBoundary, type ErrorBoundaryProps } from './components/ErrorBoundary';
 export { FileDropzone, type FileDropzoneProps } from './components/FileDropzone';
 export { Flag } from './components/Flag';
 export { FloatButton } from './components/FloatButton';

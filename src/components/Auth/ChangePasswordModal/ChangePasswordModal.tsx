@@ -21,8 +21,6 @@ export function ChangePasswordModal({ isOpen, onClose }: ChangePasswordModalProp
     const [isLoading, setIsLoading] = useState(false);
     const [toast, setToast] = useState<ToastDetails | null>(null);
 
-    const storageKey = config.storageKey || 'auth_token';
-
     useEffect(() => {
         if (isOpen) {
             setCurrentPassword('');
@@ -52,13 +50,11 @@ export function ChangePasswordModal({ isOpen, onClose }: ChangePasswordModalProp
         setError('');
 
         try {
-            const token = localStorage.getItem(storageKey) || sessionStorage.getItem(storageKey);
-
             const response = await fetch(`${config.apiBaseUrl}/auth/changePassword`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     currentPassword,

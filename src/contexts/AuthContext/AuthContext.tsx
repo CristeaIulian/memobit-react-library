@@ -9,49 +9,39 @@ interface AuthProviderProps {
     config: AuthConfig;
 }
 
+// Auth uses an httpOnly cookie set by the backend on login. The token never enters JS,
+// so this provider never reads or writes localStorage/sessionStorage. All authenticated
+// requests must send `credentials: 'include'` so the browser attaches the cookie.
 export function AuthProvider({ children, config }: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    const storageKey = config.storageKey || 'auth_token';
-
     useEffect(() => {
         const restoreAuth = async () => {
-            const token = localStorage.getItem(storageKey) || sessionStorage.getItem(storageKey);
+            try {
+                const response = await fetch(`${config.apiBaseUrl}/auth/verify`, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                });
 
-            if (token) {
-                try {
-                    const response = await fetch(`${config.apiBaseUrl}/auth/verify`, {
-                        method: 'GET',
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                        },
+                if (response.ok) {
+                    const data: VerifyResponse = await response.json();
+                    setUser({
+                        id: data.user.id,
+                        username: data.user.username,
+                        createdAt: new Date(data.user.createdAt),
                     });
-
-                    if (response.ok) {
-                        const data: VerifyResponse = await response.json();
-                        setUser({
-                            id: data.user.id,
-                            username: data.user.username,
-                            createdAt: new Date(data.user.createdAt),
-                        });
-                    } else {
-                        localStorage.removeItem(storageKey);
-                        sessionStorage.removeItem(storageKey);
-                    }
-                } catch (error) {
-                    console.error('Failed to restore auth state:', error);
-                    localStorage.removeItem(storageKey);
-                    sessionStorage.removeItem(storageKey);
                 }
+            } catch (error) {
+                console.error('Failed to restore auth state:', error);
+            } finally {
+                setIsLoading(false);
             }
-
-            setIsLoading(false);
         };
 
         restoreAuth();
-    }, [config.apiBaseUrl, storageKey]);
+    }, [config.apiBaseUrl]);
 
     const login = useCallback(
         async (credentials: LoginCredentials) => {
@@ -59,9 +49,8 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
             try {
                 const response = await fetch(`${config.apiBaseUrl}/auth/login`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         username: credentials.username,
                         password: credentials.password,
@@ -76,16 +65,11 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
 
                 const data: LoginResponse = await response.json();
 
-                const userData: User = {
+                setUser({
                     id: data.user.id,
                     username: data.user.username,
                     createdAt: new Date(data.user.createdAt),
-                };
-
-                setUser(userData);
-
-                const storage = credentials.rememberMe ? localStorage : sessionStorage;
-                storage.setItem(storageKey, data.token);
+                });
             } catch (error) {
                 console.error('Login failed:', error);
                 throw error;
@@ -93,30 +77,22 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
                 setIsLoading(false);
             }
         },
-        [config.apiBaseUrl, storageKey]
+        [config.apiBaseUrl]
     );
 
     const logout = useCallback(async () => {
         try {
-            const token = localStorage.getItem(storageKey) || sessionStorage.getItem(storageKey);
-
-            if (token) {
-                await fetch(`${config.apiBaseUrl}/auth/logout`, {
-                    method: 'POST',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
-            }
+            await fetch(`${config.apiBaseUrl}/auth/logout`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+            });
         } catch (error) {
             console.error('Logout error:', error);
         } finally {
             setUser(null);
-            localStorage.removeItem(storageKey);
-            sessionStorage.removeItem(storageKey);
         }
-    }, [config.apiBaseUrl, storageKey]);
+    }, [config.apiBaseUrl]);
 
     return (
         <AuthContext.Provider
