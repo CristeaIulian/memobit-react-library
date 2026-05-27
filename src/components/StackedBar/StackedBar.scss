@@ -1,0 +1,139 @@
+.stacked-bar {
+    display: flex;
+    background-color: var(--progress-bar-background-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    font-weight: var(--font-weight-medium);
+
+    &--horizontal {
+        flex-direction: row;
+        width: 100%;
+        height: var(--spacing-16);
+
+        &.stacked-bar--thin {
+            height: var(--spacing-6);
+            border-radius: var(--spacing-24);
+        }
+    }
+
+    &--vertical {
+        flex-direction: column-reverse;
+        width: var(--spacing-16);
+        height: var(--spacing-200);
+
+        &.stacked-bar--thin {
+            width: var(--spacing-6);
+            border-radius: var(--spacing-24);
+        }
+    }
+
+    &__segment {
+        display: flex;
+        align-items: center;
+        background-color: var(--progress-default-bar-fill-color);
+        color: #fff;
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-tight);
+        white-space: nowrap;
+        overflow: hidden;
+        cursor: default;
+
+        &--default {
+            background-color: var(--progress-default-bar-fill-color);
+        }
+
+        &--success {
+            background-color: var(--progress-success-bar-fill-color);
+        }
+
+        &--warning {
+            background-color: var(--progress-warning-bar-fill-color);
+        }
+
+        &--danger {
+            background-color: var(--progress-danger-bar-fill-color);
+        }
+
+        &--info {
+            background-color: var(--progress-info-bar-fill-color);
+        }
+
+        &--striped {
+            background-image: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.18) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.18) 50%,
+                rgba(255, 255, 255, 0.18) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 1rem 1rem;
+        }
+
+        // Light dotted/hatched overlay — useful for "remainder" or
+        // "other" segments that should fade into the background visually.
+        &--hatched {
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.18) 2px,
+                rgba(0, 0, 0, 0.18) 4px
+            );
+        }
+
+        &--animated {
+            animation: stacked-bar-stripes 1s linear infinite;
+        }
+    }
+
+    &--horizontal &__segment {
+        min-width: 0;
+        height: 100%;
+        padding: 0 var(--spacing-8);
+        transition: width 0.3s ease;
+    }
+
+    &--vertical &__segment {
+        width: 100%;
+        min-height: 0;
+        justify-content: center;
+        padding: 0;
+        transition: height 0.3s ease;
+    }
+
+    &__segment-label {
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-shadow:
+            -1px -1px 0 rgba(0, 0, 0, 0.4),
+            1px -1px 0 rgba(0, 0, 0, 0.4),
+            -1px 1px 0 rgba(0, 0, 0, 0.4),
+            1px 1px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    // Hide inline text when there's no room for it to render legibly
+    // (narrow thin bars, narrow vertical bars). The native title tooltip
+    // still surfaces the full label on hover.
+    &--thin &__segment-label,
+    &--vertical &__segment-label {
+        display: none;
+    }
+
+    &--horizontal.stacked-bar--thin &__segment {
+        padding: 0;
+    }
+}
+
+@keyframes stacked-bar-stripes {
+    0% {
+        background-position: 1rem 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}

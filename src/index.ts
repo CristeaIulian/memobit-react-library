@@ -139,6 +139,14 @@ export { SignalStrength } from './components/SignalStrength';
 export { Skeleton, type SkeletonAnimation, type SkeletonProps, type SkeletonVariant } from './components/Skeleton';
 export { Slider } from './components/Slider';
 export { SplitPanel } from './components/SplitPanel';
+export {
+    StackedBar,
+    type StackedBarOrientation,
+    type StackedBarProps,
+    type StackedBarSegment,
+    type StackedBarSegmentPattern,
+    type StackedBarSegmentState,
+} from './components/StackedBar';
 export { Stats, type StatsAlign, type StatsItem, type StatsProps, type StatsSize } from './components/Stats';
 export { StickyBar, type StickyBarAlign, type StickyBarPosition, type StickyBarProps } from './components/StickyBar';
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';

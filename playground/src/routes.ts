@@ -85,6 +85,7 @@ import { SidebarPage } from './pages/SidebarPage';
 import { SkeletonPage } from './pages/SkeletonPage';
 import { SliderPage } from './pages/SliderPage';
 import { SplitPanelPage } from './pages/SplitPanelPage';
+import { StackedBarPage } from './pages/StackedBarPage';
 import { StatsPage } from './pages/StatsPage';
 import { StickyBarPage } from './pages/StickyBarPage';
 import { SuggestionsListPage } from './pages/SuggestionsListPage';
@@ -200,6 +201,7 @@ export const routes: RouteConfig[] = [
     { path: '/skeleton', label: 'Skeleton', component: SkeletonPage },
     { path: '/slider', label: 'Slider', component: SliderPage },
     { path: '/split-panel', label: 'Split Panel', component: SplitPanelPage },
+    { path: '/stacked-bar', label: 'Stacked Bar', component: StackedBarPage },
     { path: '/stats', label: 'Stats', component: StatsPage },
     { path: '/sticky-bar', label: 'StickyBar', component: StickyBarPage },
     { path: '/suggestions-list', label: 'Suggestions List', component: SuggestionsListPage },
