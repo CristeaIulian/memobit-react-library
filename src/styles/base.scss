@@ -1,0 +1,36 @@
+// Universal body painting + sizing. Consumed via themes.scss so every memobit
+// app picks it up automatically.
+//
+// Why this lives here:
+// Theme backgrounds are gradients (multi-stop linear/radial). If the body is
+// shorter than the viewport during initial render — empty content, loading
+// state — the gradient gets tiled vertically by default, producing visible
+// horizontal banding. `min-height: 100vh` ensures the body is at least as tall
+// as the viewport so the gradient renders at full size on first paint;
+// `background-repeat: no-repeat` is a defensive guard for edge cases (zoom,
+// tall viewport with short content after HMR).
+//
+// Do NOT use the `background` shorthand in consumer App.scss — it resets
+// `background-repeat` to its initial `repeat` value and re-introduces the
+// banding. Set `background-image` long-hand if a per-project override is
+// needed; otherwise omit and let this rule own it.
+
+html,
+body {
+    background: var(--body-background);
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+// Ambient glow overlay — themes opt in via `--body-background-glow`. Pinned to
+// the viewport so it stays put on scroll; z-index: -1 keeps it behind app content.
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--body-background-glow, none);
+    pointer-events: none;
+}
