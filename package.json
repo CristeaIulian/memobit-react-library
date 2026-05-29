@@ -12,6 +12,7 @@
     },
     "./dist/index.css": "./dist/index.css",
     "./dist/styles/variables.scss": "./dist/styles/variables.scss",
+    "./dist/styles/base.scss": "./dist/styles/base.scss",
     "./dist/styles/effects.scss": "./dist/styles/effects.scss",
     "./dist/styles/highlight.scss": "./dist/styles/highlight.scss",
     "./dist/styles/scrollbars.scss": "./dist/styles/scrollbars.scss",

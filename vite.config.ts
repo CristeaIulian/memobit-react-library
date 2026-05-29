@@ -52,6 +52,7 @@ export default defineConfig({
         viteStaticCopy({
             targets: [
                 { src: 'src/styles/variables.scss', dest: 'styles' },
+                { src: 'src/styles/base.scss', dest: 'styles' },
                 { src: 'src/styles/effects.scss', dest: 'styles' },
                 { src: 'src/styles/highlight.scss', dest: 'styles' },
                 { src: 'src/styles/scrollbars.scss', dest: 'styles' },
