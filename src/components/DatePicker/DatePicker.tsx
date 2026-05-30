@@ -104,7 +104,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             position: 'fixed',
             top: `${constrainedTop}px`,
             left: `${constrainedLeft}px`,
-            zIndex: 1000,
+            zIndex: 1100,
         });
     }, [alwaysOpen, isOpen]);
 
