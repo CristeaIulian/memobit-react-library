@@ -49,7 +49,7 @@ export const Banner: React.FC<BannerProps> = ({
             <div className="banner__content">
                 <div className="banner__copy">
                     <h3 className="banner__title">{title}</h3>
-                    <p className="banner__description">{description}</p>
+                    <div className="banner__description">{description}</div>
                 </div>
                 {(action || secondaryAction) && (
                     <div className="banner__action">
