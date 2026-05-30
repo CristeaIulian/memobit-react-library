@@ -84,12 +84,16 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         padding: var(--spacing-16);
         min-width: 280px;
+        // Portaled to document.body, so it must outrank Drawer (1001) and any
+        // other portaled menus that share document.body as their host.
+        z-index: 1100;
     }
 
     &__dropdown--inline {
         position: static;
         margin-top: var(--spacing-12);
         box-shadow: none;
+        z-index: auto;
     }
 
     &__time {
