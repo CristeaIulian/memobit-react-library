@@ -12,11 +12,13 @@ export interface ThemeProviderProps {
     theme: Theme;
     effects: ThemeEffects;
     onSave?: (value: ThemeSaveValue) => void;
+    allowedThemes?: string[];
 }
 
-export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects, onSave }) => {
+export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects, onSave, allowedThemes }) => {
     const [previewTheme, setPreviewThemeState] = useState<Theme | null>(null);
     const [previewEffects, setPreviewEffectsState] = useState<ThemeEffects | null>(null);
+    const [copied, setCopied] = useState(false);
 
     const activeTheme = previewTheme ?? theme;
     const activeEffects = previewEffects ?? effects;
@@ -96,7 +98,11 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
 
             if (e.key === '[' || e.key === ']') {
                 e.preventDefault();
-                const themes = THEME_CONFIGS.map((c) => c.value as Theme);
+                const allThemes = THEME_CONFIGS.map((c) => c.value as Theme);
+                const themes = allowedThemes && allowedThemes.length > 0
+                    ? allThemes.filter((t) => allowedThemes.includes(t))
+                    : allThemes;
+                if (themes.length === 0) return;
                 const currentIdx = themes.indexOf(activeTheme);
                 const startIdx = currentIdx === -1 ? 0 : currentIdx;
                 const delta = e.key === ']' ? 1 : -1;
@@ -111,7 +117,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
 
         window.addEventListener('keydown', handler);
         return () => window.removeEventListener('keydown', handler);
-    }, [activeTheme, previewTheme]);
+    }, [activeTheme, previewTheme, allowedThemes]);
 
     const activeThemeIdx = THEME_CONFIGS.findIndex((c) => c.value === activeTheme);
     const activeThemeLabel = activeThemeIdx >= 0 ? THEME_CONFIGS[activeThemeIdx].label : activeTheme;
@@ -139,7 +145,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
                     style={{
                         position: 'fixed',
                         bottom: 16,
-                        right: 16,
+                        right: 300,
                         zIndex: 99999,
                         padding: '8px 12px',
                         borderRadius: 8,
@@ -150,7 +156,11 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
                     }}
                 >
                     <span
-                        onClick={() => void navigator.clipboard.writeText(activeThemeLabel)}
+                        onClick={() => {
+                            void navigator.clipboard.writeText(activeThemeLabel);
+                            setCopied(true);
+                            window.setTimeout(() => setCopied(false), 1500);
+                        }}
                         style={{ cursor: 'pointer' }}
                         title="Copy theme name"
                     >
@@ -160,6 +170,24 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
                         {activeThemeIdx + 1}/{THEME_CONFIGS.length}
                     </span>
                     <div style={{ opacity: 0.5, fontSize: 11, marginTop: 2, pointerEvents: 'none' }}>[ prev · ] next · Esc revert</div>
+                    {copied && (
+                        <div
+                            style={{
+                                position: 'absolute',
+                                bottom: 'calc(100% + 6px)',
+                                right: 0,
+                                padding: '4px 8px',
+                                borderRadius: 6,
+                                background: 'rgba(40, 160, 90, 0.95)',
+                                color: '#fff',
+                                font: '500 11px/1.2 system-ui, sans-serif',
+                                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.25)',
+                                pointerEvents: 'none',
+                            }}
+                        >
+                            Copied!
+                        </div>
+                    )}
                 </div>
             )}
         </ThemeContext.Provider>

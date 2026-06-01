@@ -23,9 +23,24 @@ import './ThemeSettings.scss';
 export interface ThemeSettingsProps {
     isOpen: boolean;
     onClose: () => void;
+    allowedThemes?: string[];
+    currentApp?: string;
+    showEffects?: boolean;
+    showSearch?: boolean;
+    showFavorites?: boolean;
+    showAppearanceFilter?: boolean;
 }
 
-export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
+export const ThemeSettings: FC<ThemeSettingsProps> = ({
+    isOpen,
+    onClose,
+    allowedThemes,
+    currentApp,
+    showEffects = true,
+    showSearch = true,
+    showFavorites = true,
+    showAppearanceFilter = true,
+}) => {
     const { theme, effects, setPreviewTheme, setPreviewEffects, commitPreview, clearPreview } = useTheme();
 
     const componentsWithEffects = ['Card', 'Modal'];
@@ -40,15 +55,29 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+    const [showRecommendedOnly, setShowRecommendedOnly] = useState(false);
     const [appearanceFilter, setAppearanceFilter] = useState<AppearanceFilter>('all');
     const activeThemeRef = useRef<HTMLButtonElement | null>(null);
     const hasScrolledToActiveThemeRef = useRef(false);
 
+    const currentAppKey = currentApp?.trim().toLowerCase() ?? '';
+
     const filteredThemes = useMemo(() => {
         let themes = THEME_CONFIGS;
 
+        if (allowedThemes && allowedThemes.length > 0) {
+            const allowed = new Set(allowedThemes);
+            themes = themes.filter(config => allowed.has(config.value));
+        }
+
         if (showFavoritesOnly) {
             themes = themes.filter(config => FAVORITE_THEMES.has(config.value));
+        }
+
+        if (showRecommendedOnly && currentAppKey) {
+            themes = themes.filter(config =>
+                (config.recommendedApps ?? []).some(app => app.toLowerCase() === currentAppKey)
+            );
         }
 
         if (appearanceFilter !== 'all') {
@@ -65,12 +94,13 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
         }
 
         return themes;
-    }, [searchQuery, showFavoritesOnly, appearanceFilter]);
+    }, [searchQuery, showFavoritesOnly, showRecommendedOnly, currentAppKey, appearanceFilter, allowedThemes]);
 
     useEffect(() => {
         if (isOpen) {
             setSearchQuery('');
             setShowFavoritesOnly(false);
+            setShowRecommendedOnly(false);
             setAppearanceFilter('all');
         } else {
             hasScrolledToActiveThemeRef.current = false;
@@ -78,7 +108,14 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
     }, [isOpen]);
 
     useEffect(() => {
-        if (!isOpen || searchQuery || showFavoritesOnly || appearanceFilter !== 'all' || hasScrolledToActiveThemeRef.current) {
+        if (
+            !isOpen ||
+            searchQuery ||
+            showFavoritesOnly ||
+            showRecommendedOnly ||
+            appearanceFilter !== 'all' ||
+            hasScrolledToActiveThemeRef.current
+        ) {
             return;
         }
 
@@ -88,7 +125,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
         });
 
         return () => window.cancelAnimationFrame(animationFrameId);
-    }, [isOpen, searchQuery, showFavoritesOnly, appearanceFilter, theme]);
+    }, [isOpen, searchQuery, showFavoritesOnly, showRecommendedOnly, appearanceFilter, theme]);
 
     const handleThemeSelect = (next: Theme) => {
         setPreviewTheme(next);
@@ -130,24 +167,47 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                 <div className="theme-settings__content">
                     <div className="theme-settings__section">
                         <label>Select Theme</label>
-                        <div className="theme-settings__toolbar">
-                            <InputSearch placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />
-                            <ToggleSwitch checked={showFavoritesOnly} onChange={setShowFavoritesOnly} onLabel="Favorites" offLabel="Favorites" size="small" />
-                        </div>
-                        <div className="theme-settings__appearance">
-                            {APPEARANCE_FILTERS.map(filter => (
-                                <button
-                                    key={filter.value}
-                                    type="button"
-                                    className={`theme-settings__appearance-option ${
-                                        appearanceFilter === filter.value ? 'theme-settings__appearance-option--active' : ''
-                                    }`}
-                                    onClick={() => setAppearanceFilter(filter.value)}
-                                >
-                                    {filter.label}
-                                </button>
-                            ))}
-                        </div>
+                        {(showSearch || showFavorites || currentApp) && (
+                            <div className="theme-settings__toolbar">
+                                {showSearch && (
+                                    <InputSearch placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />
+                                )}
+                                {currentApp && (
+                                    <ToggleSwitch
+                                        checked={showRecommendedOnly}
+                                        onChange={setShowRecommendedOnly}
+                                        onLabel={`For ${currentApp}`}
+                                        offLabel={`For ${currentApp}`}
+                                        size="small"
+                                    />
+                                )}
+                                {showFavorites && (
+                                    <ToggleSwitch
+                                        checked={showFavoritesOnly}
+                                        onChange={setShowFavoritesOnly}
+                                        onLabel="Favorites"
+                                        offLabel="Favorites"
+                                        size="small"
+                                    />
+                                )}
+                            </div>
+                        )}
+                        {showAppearanceFilter && (
+                            <div className="theme-settings__appearance">
+                                {APPEARANCE_FILTERS.map(filter => (
+                                    <button
+                                        key={filter.value}
+                                        type="button"
+                                        className={`theme-settings__appearance-option ${
+                                            appearanceFilter === filter.value ? 'theme-settings__appearance-option--active' : ''
+                                        }`}
+                                        onClick={() => setAppearanceFilter(filter.value)}
+                                    >
+                                        {filter.label}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                         <div className="theme-settings__grid">
                             {filteredThemes.length === 0 ? (
                                 <div className="theme-settings__empty">No themes found</div>
@@ -178,14 +238,6 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                                         </div>
                                         <div className="theme-settings__swatch-meta">
                                             <span className="theme-settings__swatch-label">{config.label}</span>
-                                            {config.recommendedApps && config.recommendedApps.length > 0 && (
-                                                <span
-                                                    className="theme-settings__swatch-app"
-                                                    title={`Best for: ${config.recommendedApps.join(', ')}`}
-                                                >
-                                                    Best for: {config.recommendedApps.join(', ')}
-                                                </span>
-                                            )}
                                         </div>
                                     </button>
                                 ))
@@ -193,32 +245,36 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({ isOpen, onClose }) => {
                         </div>
                     </div>
 
-                    <div className="theme-settings__section">
-                        <label htmlFor="effect-selector">Component Effect</label>
-                        <Dropdown
-                            id="effect-selector"
-                            name="effect"
-                            options={effectOptions}
-                            value={effects.effect}
-                            onChange={handleEffectChange}
-                            placeholder="Choose an effect"
-                        />
-                    </div>
-
-                    <div className="theme-settings__section">
-                        <label>Apply Effect To:</label>
-                        <div className="theme-settings__components">
-                            {componentsWithEffects.map(component => (
-                                <Checkbox
-                                    key={component}
-                                    label={component}
-                                    checked={effects.components.includes(component)}
-                                    onChange={checked => handleComponentToggle(component, checked)}
-                                    disabled={!effects.effect}
+                    {showEffects && (
+                        <>
+                            <div className="theme-settings__section">
+                                <label htmlFor="effect-selector">Component Effect</label>
+                                <Dropdown
+                                    id="effect-selector"
+                                    name="effect"
+                                    options={effectOptions}
+                                    value={effects.effect}
+                                    onChange={handleEffectChange}
+                                    placeholder="Choose an effect"
                                 />
-                            ))}
-                        </div>
-                    </div>
+                            </div>
+
+                            <div className="theme-settings__section">
+                                <label>Apply Effect To:</label>
+                                <div className="theme-settings__components">
+                                    {componentsWithEffects.map(component => (
+                                        <Checkbox
+                                            key={component}
+                                            label={component}
+                                            checked={effects.components.includes(component)}
+                                            onChange={checked => handleComponentToggle(component, checked)}
+                                            disabled={!effects.effect}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </Drawer>

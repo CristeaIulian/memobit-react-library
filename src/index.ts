@@ -153,6 +153,8 @@ export { StickyBar, type StickyBarAlign, type StickyBarPosition, type StickyBarP
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';
 export {
     type Theme,
+    type ThemeConfig,
+    THEME_CONFIGS,
     ThemeContext,
     type ThemeEffects,
     ThemeProvider,
@@ -160,6 +162,7 @@ export {
     type ThemeSaveValue,
     ThemeSettings,
     type ThemeSettingsProps,
+    getThemeConfig,
     useTheme,
 } from './components/ThemeSettings';
 export { Timeline, type TimelineItem, type TimelineOrientation, type TimelineSize } from './components/Timeline';
