@@ -1,4 +1,4 @@
-// Carbon Velocity theme - Dedicated to Cars app
+// Carbon Velocity theme - Dedicated to Garage app
 // Racing dark: carbon-fiber near-black, racing red accent, chrome-silver text
 [data-theme='carbon-velocity'] {
     --font-family: 'Rajdhani', 'Barlow', sans-serif;
@@ -8,8 +8,7 @@
     --body-background-base: #0c0d0f;
     --body-background-wash:
         radial-gradient(55% 45% at 100% 0%, rgba(220, 38, 38, 0.14) 0%, transparent 60%),
-        radial-gradient(45% 55% at 0% 100%, rgba(120, 12, 12, 0.18) 0%, transparent 65%),
-        linear-gradient(160deg, #111316 0%, #0a0b0d 60%, #0e0f12 100%);
+        radial-gradient(45% 55% at 0% 100%, rgba(120, 12, 12, 0.18) 0%, transparent 65%), linear-gradient(160deg, #111316 0%, #0a0b0d 60%, #0e0f12 100%);
     --body-color: #c8cdd6;
     --body-color-accent: #ffffff;
     --body-color-muted: #6e7480;

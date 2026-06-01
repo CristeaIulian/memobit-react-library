@@ -1,4 +1,4 @@
-// Slate Focus theme - Dedicated to Todo app
+// Slate Focus theme - Dedicated to Tasks app
 // Ultra-minimal dark: deep slate, sharp azure blue, distraction-free clarity
 [data-theme='slate-focus'] {
     --font-family: 'Inter', 'Helvetica Neue', sans-serif;
@@ -8,8 +8,7 @@
     --body-background-base: #121417;
     --body-background-wash:
         radial-gradient(60% 50% at 100% 0%, rgba(59, 130, 246, 0.12) 0%, transparent 65%),
-        radial-gradient(50% 45% at 0% 100%, rgba(107, 114, 128, 0.08) 0%, transparent 65%),
-        linear-gradient(155deg, #171a20 0%, #0f1114 55%, #13161a 100%);
+        radial-gradient(50% 45% at 0% 100%, rgba(107, 114, 128, 0.08) 0%, transparent 65%), linear-gradient(155deg, #171a20 0%, #0f1114 55%, #13161a 100%);
     --body-color: #e0e4ec;
     --body-color-accent: #ffffff;
     --body-color-muted: #6b7280;

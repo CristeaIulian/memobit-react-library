@@ -1,4 +1,4 @@
-// Archive Indigo theme - Dedicated to Media Organizer app
+// Archive Indigo theme - Dedicated to Atelier Media app
 // Structured dark: deep indigo-navy, cool indigo accent, organized clarity
 [data-theme='archive-indigo'] {
     --font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
@@ -8,8 +8,7 @@
     --body-background-base: #090c18;
     --body-background-wash:
         radial-gradient(55% 50% at 100% 0%, rgba(99, 102, 241, 0.14) 0%, transparent 65%),
-        radial-gradient(50% 45% at 0% 100%, rgba(99, 102, 241, 0.1) 0%, transparent 65%),
-        linear-gradient(155deg, #0d1020 0%, #070a16 55%, #0b0e1c 100%);
+        radial-gradient(50% 45% at 0% 100%, rgba(99, 102, 241, 0.1) 0%, transparent 65%), linear-gradient(155deg, #0d1020 0%, #070a16 55%, #0b0e1c 100%);
     --body-color: #d8daf8;
     --body-color-accent: #ffffff;
     --body-color-muted: #5060a0;

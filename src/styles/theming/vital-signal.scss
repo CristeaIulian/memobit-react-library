@@ -1,4 +1,4 @@
-// Vital Signal theme - Dedicated to Health Intelligence System app
+// Vital Signal theme - Dedicated to Health-IQ app
 // Medical AI dark: deep teal-black, pulse cyan, clean analytical confidence
 [data-theme='vital-signal'] {
     --font-family: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
@@ -8,8 +8,7 @@
     --body-background-base: #060e10;
     --body-background-wash:
         radial-gradient(60% 50% at 100% 0%, rgba(34, 211, 238, 0.14) 0%, transparent 65%),
-        radial-gradient(50% 45% at 0% 100%, rgba(34, 211, 238, 0.1) 0%, transparent 65%),
-        linear-gradient(155deg, #081418 0%, #040c0e 55%, #061012 100%);
+        radial-gradient(50% 45% at 0% 100%, rgba(34, 211, 238, 0.1) 0%, transparent 65%), linear-gradient(155deg, #081418 0%, #040c0e 55%, #061012 100%);
     --body-color: #c0e8f0;
     --body-color-accent: #ffffff;
     --body-color-muted: #4a8898;

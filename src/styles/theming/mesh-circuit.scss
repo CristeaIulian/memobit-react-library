@@ -1,4 +1,4 @@
-// Mesh Circuit theme - Dedicated to Internet of Things app
+// Mesh Circuit theme - Dedicated to IoT app
 // Connected device dark: deep circuit-board black, electric cyan nodes, network topology
 [data-theme='mesh-circuit'] {
     --font-family: 'Space Grotesk', 'DM Sans', sans-serif;
@@ -9,8 +9,7 @@
     --body-background-wash:
         radial-gradient(35% 30% at 20% 20%, rgba(34, 211, 238, 0.14) 0%, transparent 60%),
         radial-gradient(30% 28% at 80% 70%, rgba(34, 211, 238, 0.12) 0%, transparent 60%),
-        radial-gradient(28% 25% at 60% 15%, rgba(103, 232, 249, 0.1) 0%, transparent 60%),
-        linear-gradient(155deg, #091018 0%, #040a10 55%, #081218 100%);
+        radial-gradient(28% 25% at 60% 15%, rgba(103, 232, 249, 0.1) 0%, transparent 60%), linear-gradient(155deg, #091018 0%, #040a10 55%, #081218 100%);
     --body-color: #b8d8e8;
     --body-color-accent: #ffffff;
     --body-color-muted: #406880;

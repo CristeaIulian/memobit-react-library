@@ -1,4 +1,4 @@
-// Clinical Aqua theme - Dedicated to MedTrack app
+// Clinical Aqua theme - Dedicated to Pulse app
 // Clean medical light: crisp white surfaces, confident teal, precise and trustworthy
 [data-theme='clinical-aqua'] {
     --font-family: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
@@ -8,8 +8,7 @@
     --body-background-base: #f0f5f7;
     --body-background-wash:
         radial-gradient(55% 50% at 100% 0%, rgba(8, 145, 178, 0.1) 0%, transparent 65%),
-        radial-gradient(40% 45% at 0% 100%, rgba(8, 145, 178, 0.06) 0%, transparent 65%),
-        linear-gradient(140deg, #f4f9fb 0%, #eaf2f5 55%, #e0ecf0 100%);
+        radial-gradient(40% 45% at 0% 100%, rgba(8, 145, 178, 0.06) 0%, transparent 65%), linear-gradient(140deg, #f4f9fb 0%, #eaf2f5 55%, #e0ecf0 100%);
     --body-color: #1a2d35;
     --body-color-accent: #0a1820;
     --body-color-muted: #5a7a84;
