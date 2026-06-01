@@ -146,15 +146,20 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
                         background: 'rgba(0, 0, 0, 0.85)',
                         color: '#fff',
                         font: '500 13px/1.4 system-ui, sans-serif',
-                        pointerEvents: 'none',
                         boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
                     }}
                 >
-                    {activeThemeLabel}
-                    <span style={{ opacity: 0.6, marginLeft: 8 }}>
+                    <span
+                        onClick={() => void navigator.clipboard.writeText(activeThemeLabel)}
+                        style={{ cursor: 'pointer' }}
+                        title="Copy theme name"
+                    >
+                        {activeThemeLabel}
+                    </span>
+                    <span style={{ opacity: 0.6, marginLeft: 8, pointerEvents: 'none' }}>
                         {activeThemeIdx + 1}/{THEME_CONFIGS.length}
                     </span>
-                    <div style={{ opacity: 0.5, fontSize: 11, marginTop: 2 }}>[ prev · ] next · Esc revert</div>
+                    <div style={{ opacity: 0.5, fontSize: 11, marginTop: 2, pointerEvents: 'none' }}>[ prev · ] next · Esc revert</div>
                 </div>
             )}
         </ThemeContext.Provider>
