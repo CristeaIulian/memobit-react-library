@@ -175,7 +175,7 @@ export interface ControlPanelNavItem {
     onClick?: () => void;
     icon?: IconName;
     color?: string;
-    count?: number;
+    count?: number | string;
     badges?: ControlPanelNavItemBadge[];
     children?: ControlPanelNavItem[];
     isOpen?: boolean;
