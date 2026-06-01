@@ -204,7 +204,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
     {
         value: 'horizon-amber',
         label: 'Horizon Amber',
-        recommendedApps: ['Personal Development Tracker'],
+        recommendedApps: ['Ascend'],
         fontUrl: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap',
     },
