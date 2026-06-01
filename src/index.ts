@@ -20,6 +20,7 @@ export { ColorPicker, type ColorPickerProps } from './components/ColorPicker';
 export { type CommandItem, CommandPalette, type CommandPaletteProps } from './components/CommandPalette';
 export { Confetti, type ConfettiHandle } from './components/Confetti';
 export { ConfirmDialog } from './components/ConfirmDialog';
+export { ConfirmPopover, type ConfirmPopoverButton, type ConfirmPopoverProps } from './components/ConfirmPopover';
 export { ContextMenu } from './components/ContextMenu';
 export { type ContextToastAction, ToastContainer, type ToastContainerPosition, ToastProvider, type ToastType, useToast } from './components/ContextToast';
 export { ControlPanelProvider, useControlPanel, useControlPanelContext } from './components/ControlPanel';

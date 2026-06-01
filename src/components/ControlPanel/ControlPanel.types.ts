@@ -14,6 +14,30 @@ export interface ControlPanelHeader {
     onClick?: () => void;
 }
 
+export interface ControlPanelActionConfirmButton {
+    text?: string;
+    icon?: IconName;
+    variant?: ButtonProps['variant'];
+}
+
+export interface ControlPanelActionConfirm {
+    /** Short heading shown above the message. Defaults to the action's label. */
+    title?: string;
+    /** Optional explanatory body. */
+    message?: string;
+    /** Optional leading icon next to the title. */
+    icon?: IconName;
+    /** Popover placement relative to the action button. Defaults to 'right'
+     *  so the popover floats out into the main content area instead of
+     *  obscuring the rest of the sidebar. */
+    placement?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
+    /** Overrides for the confirm (primary) button label/icon/variant.
+     *  The click handler always comes from the parent `ControlPanelAction.onClick`. */
+    confirm?: ControlPanelActionConfirmButton;
+    /** Overrides for the cancel (secondary) button. */
+    cancel?: ControlPanelActionConfirmButton;
+}
+
 export interface ControlPanelAction {
     id: string;
     label: string;
@@ -24,6 +48,10 @@ export interface ControlPanelAction {
     size?: ButtonProps['size'];
     fullWidth?: boolean;
     disabled?: boolean;
+    /** When set, clicking the action opens a small confirmation popover anchored
+     *  to the button instead of firing onClick directly. onClick fires only after
+     *  the user picks the confirm option inside the popover. */
+    confirm?: ControlPanelActionConfirm;
 }
 
 export interface ControlPanelFilterOption extends DropdownOption {

@@ -30,7 +30,7 @@ export interface ExternalButtonConfig extends ButtonProps {
     text: string;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     borders = 'rounded',
     children,
     className,
@@ -47,9 +47,10 @@ export const Button: React.FC<ButtonProps> = ({
     title,
     type = 'button',
     variant = 'default',
-}: ButtonProps) => {
+}, ref) => {
     return (
         <button
+            ref={ref}
             className={`button button-${size} button-${variant} ${borders === 'rounded' ? 'button-rounded' : ''} ${fullWidth ? 'is-full-width' : ''} ${className || ''}`}
             disabled={disabled}
             onClick={onClick}
@@ -72,4 +73,6 @@ export const Button: React.FC<ButtonProps> = ({
             )}
         </button>
     );
-};
+});
+
+Button.displayName = 'Button';

@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { AppHeader } from '../AppHeader';
 import { Button } from '../Button';
+import { ConfirmPopover } from '../ConfirmPopover';
 import { Separator } from '../Separator';
 
 import { ControlPanelFilterItem } from './ControlPanelFilter';
 import { ControlPanelNav } from './ControlPanelNav';
 import { ControlPanelOptions } from './ControlPanelOptions';
 import { useControlPanelContext } from './ControlPanelContext';
-import { ControlPanelOption, ControlPanelOptionGroup, ControlPanelProps } from './ControlPanel.types';
+import { ControlPanelAction, ControlPanelOption, ControlPanelOptionGroup, ControlPanelProps } from './ControlPanel.types';
 
 import './ControlPanel.scss';
 
@@ -83,19 +84,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                 {actions.length > 0 && (
                     <div className="control-panel__actions">
                         {actions.map(action => (
-                            <Button
-                                key={action.id}
-                                className="control-panel__action"
-                                disabled={action.disabled}
-                                fullWidth={action.fullWidth ?? true}
-                                icon={action.icon}
-                                onClick={action.onClick}
-                                size={action.size ?? 'medium'}
-                                sufixIcon={action.suffixIcon}
-                                variant={action.variant ?? 'default'}
-                            >
-                                {action.label}
-                            </Button>
+                            <ControlPanelActionButton key={action.id} action={action} />
                         ))}
                     </div>
                 )}
@@ -133,6 +122,78 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     />
                 )}
             </aside>
+        </>
+    );
+};
+
+// Renders a single action button. When `action.confirm` is set, intercepts the
+// click and opens a small ConfirmPopover anchored to the button instead of
+// firing onClick immediately. The user's onClick fires only after they pick the
+// confirm option, keeping the consumer API as simple as a plain button.
+interface ControlPanelActionButtonProps {
+    action: ControlPanelAction;
+}
+
+const ControlPanelActionButton: React.FC<ControlPanelActionButtonProps> = ({ action }) => {
+    // Anchor captured from the click event since Button doesn't forward refs.
+    // anchorEl stays set after the popover closes so position recomputes work
+    // correctly if the user reopens — and React reusing the same DOM node
+    // means we don't need to refresh it on every render.
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+    const [confirmVisible, setConfirmVisible] = useState(false);
+
+    const handleClick: React.MouseEventHandler<HTMLButtonElement> = event => {
+        if (action.confirm) {
+            setAnchorEl(event.currentTarget);
+            setConfirmVisible(true);
+            return;
+        }
+        action.onClick?.(event);
+    };
+
+    const handleConfirm = () => {
+        // Synthetic event isn't meaningful for a confirm flow — the action's
+        // onClick signature accepts a MouseEvent only because Button's onClick
+        // does. Pass a minimal event-like value cast to satisfy the type.
+        action.onClick?.({} as React.MouseEvent<HTMLButtonElement>);
+    };
+
+    return (
+        <>
+            <Button
+                className="control-panel__action"
+                disabled={action.disabled}
+                fullWidth={action.fullWidth ?? true}
+                icon={action.icon}
+                onClick={handleClick}
+                size={action.size ?? 'medium'}
+                sufixIcon={action.suffixIcon}
+                variant={action.variant ?? 'default'}
+            >
+                {action.label}
+            </Button>
+            {action.confirm && (
+                <ConfirmPopover
+                    visible={confirmVisible}
+                    onClose={() => setConfirmVisible(false)}
+                    anchorEl={anchorEl}
+                    title={action.confirm.title ?? action.label}
+                    message={action.confirm.message}
+                    icon={action.confirm.icon}
+                    placement={action.confirm.placement ?? 'right'}
+                    confirm={{
+                        text: action.confirm.confirm?.text ?? 'Confirm',
+                        icon: action.confirm.confirm?.icon,
+                        variant: action.confirm.confirm?.variant ?? action.variant ?? 'info',
+                        onClick: handleConfirm,
+                    }}
+                    cancel={{
+                        text: action.confirm.cancel?.text ?? 'Cancel',
+                        icon: action.confirm.cancel?.icon,
+                        variant: action.confirm.cancel?.variant ?? 'default',
+                    }}
+                />
+            )}
         </>
     );
 };

@@ -22,7 +22,13 @@
     max-width: 800px;
     width: 100%;
     max-height: calc(100vh * 0.9);
-    overflow-y: auto;
+    // Flex column with header + scrollable body + footer. The body is the only
+    // part that scrolls — so headers and action footers stay pinned in view
+    // even when the body is much taller than the viewport. Previously the
+    // whole modal had `overflow-y: auto`, which pushed primary buttons
+    // (Save, Confirm, Label N Faces, etc.) off-screen on long lists.
+    display: flex;
+    flex-direction: column;
     position: relative;
     box-shadow: var(--modal-surface-box-shadow, var(--modal-box-shadow));
     -webkit-overflow-scrolling: touch;
@@ -40,6 +46,7 @@
         justify-content: space-between;
         align-items: center;
         gap: var(--spacing-12);
+        flex-shrink: 0;
 
         h2 {
             flex: 1;
@@ -65,6 +72,13 @@
     &__body {
         box-sizing: border-box;
         padding: var(--spacing-16);
+        // Body absorbs all leftover height and scrolls internally when its
+        // content overflows. min-height: 0 is required for the flex item to
+        // shrink below its intrinsic content size and let overflow-y work.
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
 
         &--no-padding {
             padding: 0;
@@ -77,6 +91,7 @@
         gap: var(--spacing-16);
         justify-content: flex-end;
         border-top: var(--spacing-1) solid var(--modal-border-color);
+        flex-shrink: 0;
     }
 
     &--small {

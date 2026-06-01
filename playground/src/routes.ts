@@ -26,6 +26,7 @@ import { ColorPickerPage } from './pages/ColorPickerPage';
 import { CommandPalettePage } from './pages/CommandPalettePage';
 import { ConfettiPage } from './pages/ConfettiPage';
 import { ConfirmDialogPage } from './pages/ConfirmDialogPage';
+import { ConfirmPopoverPage } from './pages/ConfirmPopoverPage';
 import { ContextMenuPage } from './pages/ContextMenuPage';
 import { ContextToastPage } from './pages/ContextToastPage';
 import { CountryWithFlagPage } from './pages/CountryWithFlagPage';
@@ -139,6 +140,7 @@ export const routes: RouteConfig[] = [
     { path: '/command-palette', label: 'Command Palette', component: CommandPalettePage },
     { path: '/confetti', label: 'Confetti', component: ConfettiPage },
     { path: '/confirm-dialog', label: 'Confirm Dialog', component: ConfirmDialogPage },
+    { path: '/confirm-popover', label: 'Confirm Popover', component: ConfirmPopoverPage },
     { path: '/context-menu', label: 'Context Menu', component: ContextMenuPage },
     { path: '/context-toast', label: 'Context Toast', component: ContextToastPage },
     { path: '/country-with-flag', label: 'Country With Flag', component: CountryWithFlagPage },
