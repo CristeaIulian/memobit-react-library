@@ -25,7 +25,18 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     const calculatePosition = () => {
         if (!triggerRef.current || !tooltipRef.current) return;
 
-        const triggerRect = triggerRef.current.getBoundingClientRect();
+        // The inline-flex `.tooltip-trigger` span collapses to zero size
+        // when its child is absolutely-positioned (taken out of flow),
+        // which would place the tooltip at the parent's inline insertion
+        // point instead of over the actual content. Prefer the first
+        // element child's rect — for normal inline content it matches the
+        // span; for absolute/fixed children it gives the real on-screen
+        // bounds we want to anchor against.
+        const childEl = triggerRef.current.firstElementChild as HTMLElement | null;
+        const triggerRect =
+            childEl && childEl.getBoundingClientRect().width > 0
+                ? childEl.getBoundingClientRect()
+                : triggerRef.current.getBoundingClientRect();
         const tooltipRect = tooltipRef.current.getBoundingClientRect();
         const spacing = 8;
 
