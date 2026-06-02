@@ -94,26 +94,53 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setFocusedIndex(-1);
     }, [filterText, options, searchable]);
 
-    // Handle controlled component behavior with value prop
+    // Tracks the value seen on the previous run of the controlled-value
+    // effect below. Lets us tell apart "value actually changed" (parent
+    // committed a new selection or cleared it) from "value unchanged, effect
+    // re-fired because options/multiple/etc reference changed" (common when
+    // parents pass an inline .map() result as options). The distinction
+    // matters because filterText carries user-typed search text — wiping it
+    // on every options-ref change destroyed the typed text mid-keystroke.
+    const prevValueRef = useRef<typeof value>(value);
+
+    // Handle controlled component behavior with value prop.
+    //
+    // Two responsibilities, treated differently:
+    //   1. selectedOptions — keep in sync with `value` against the current
+    //      `options` list. Always update so a late-arriving options list
+    //      can resolve a label for an already-set value.
+    //   2. filterText (the search input contents) — only touch when `value`
+    //      actually transitions. If `value` is unchanged and the effect
+    //      re-fired purely because the options array got a new reference,
+    //      the user may be actively typing and we MUST NOT clobber their
+    //      input.
     useEffect(() => {
-        // Handle reset scenarios
+        const prevValue = prevValueRef.current;
+        prevValueRef.current = value;
+        const valueChanged = !Object.is(prevValue, value);
+
+        // Reset scenarios — only touch filterText if value actually transitioned.
         if (value === null || value === undefined) {
-            setSelectedOptions([]);
-            setFilterText('');
+            if (valueChanged) {
+                setSelectedOptions([]);
+                setFilterText('');
+            }
             return;
         }
 
-        // Handle empty array for multiple selection reset
         if (multiple && Array.isArray(value) && value.length === 0) {
-            setSelectedOptions([]);
-            setFilterText('');
+            if (valueChanged) {
+                setSelectedOptions([]);
+                setFilterText('');
+            }
             return;
         }
 
-        // Handle empty string for single selection reset
         if (!multiple && value === '') {
-            setSelectedOptions([]);
-            setFilterText('');
+            if (valueChanged) {
+                setSelectedOptions([]);
+                setFilterText('');
+            }
             return;
         }
 
@@ -127,8 +154,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     return (value as string[]).includes(option.value.toString());
                 });
                 setSelectedOptions(selected);
-                // Clear filterText for multiple mode (chips are shown instead)
-                setFilterText('');
+                // Multiple mode shows chips, not search text — clear filterText
+                // when the value actually changes, but never on an options-ref
+                // re-render (user could be typing to add another chip).
+                if (valueChanged) setFilterText('');
             } else if (!multiple && (typeof value === 'string' || typeof value === 'number')) {
                 // Handle both string and number values for single selection
                 const selectedOption = options.find(option => {
@@ -140,8 +169,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
                 if (selectedOption) {
                     setSelectedOptions([selectedOption]);
-                    // Set filterText for both searchable and non-searchable to show the selected value
-                    setFilterText(selectedOption.label);
+                    // Only sync the displayed label when value actually changes.
+                    // If user is searching with a value already set, preserve typing.
+                    if (valueChanged) setFilterText(selectedOption.label);
                 } else if (allowCustomValue && typeof value === 'string' && value.trim()) {
                     // If custom values are allowed and value is a non-empty string, show it as a custom option
                     const customOption: DropdownOption = {
@@ -150,11 +180,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         className: 'custom-option',
                     };
                     setSelectedOptions([customOption]);
-                    setFilterText(value.trim());
+                    if (valueChanged) setFilterText(value.trim());
                 } else {
-                    // If value doesn't match any option, clear selection
-                    setSelectedOptions([]);
-                    setFilterText('');
+                    // If value doesn't match any option, clear selection — but
+                    // only on actual value change, not on options-ref churn.
+                    if (valueChanged) {
+                        setSelectedOptions([]);
+                        setFilterText('');
+                    }
                 }
             }
         } else if (allowCustomValue && !multiple && typeof value === 'string' && value.trim()) {
@@ -165,11 +198,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 className: 'custom-option',
             };
             setSelectedOptions([customOption]);
-            setFilterText(value.trim());
+            if (valueChanged) setFilterText(value.trim());
         } else {
-            // If no options available yet, clear the display
-            setSelectedOptions([]);
-            setFilterText('');
+            // If no options available yet, clear the display — only when value transitions.
+            if (valueChanged) {
+                setSelectedOptions([]);
+                setFilterText('');
+            }
         }
     }, [value, options, multiple, searchable, allowCustomValue]);
 
