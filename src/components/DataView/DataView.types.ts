@@ -100,6 +100,11 @@ export interface DataViewProps<T> {
     actionsWidth?: number;
     timeline?: DataViewTimelineConfig<T>;
     onRowClick?: (row: T) => void;
+    /** When provided, each row/card renders as a real link so middle-click,
+     *  Ctrl/Cmd-click, and the browser's "Open in new tab" all work natively.
+     *  Plain left-click still calls `onRowClick` (or follows the href if no
+     *  click handler is set). Return `undefined` to opt a specific row out. */
+    rowHref?: (row: T) => string | undefined;
     rowClassName?: (row: T) => string;
     empty?: DataViewEmptyConfig;
     /** Initial sorted column key for uncontrolled sorting. */

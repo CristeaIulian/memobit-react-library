@@ -295,6 +295,9 @@
             box-shadow var(--transition-fast),
             transform var(--transition-fast);
         -webkit-backdrop-filter: var(--card-backdrop-filter, none);
+        // Strip default anchor styling when rendered as <a> (rowHref).
+        color: inherit;
+        text-decoration: none;
 
         &:hover {
             box-shadow: var(--card-surface-box-shadow);

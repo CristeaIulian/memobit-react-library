@@ -48,6 +48,7 @@ export function DataView<T>({
     actionsWidth,
     timeline,
     onRowClick,
+    rowHref,
     rowClassName,
     empty,
     initialSortKey = null,
@@ -336,6 +337,7 @@ export function DataView<T>({
                     actions={actions}
                     timeline={timeline}
                     onRowClick={onRowClick}
+                    rowHref={rowHref}
                     rowClassName={rowClassName}
                     empty={empty}
                     selectable={selectable}
@@ -488,11 +490,30 @@ export function DataView<T>({
                                 const rowId = resolvedRowKey(row, index);
                                 const isSelected = selectedIds.includes(rowId);
                                 const marker = tableTimelineMarkers.get(index);
+                                const href = rowHref?.(row);
+                                const isClickable = !!onRowClick || !!href;
+                                const handleTableRowClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
+                                    // Modifier-click on a row with `href` should open a new tab,
+                                    // matching the anchor card behaviour for tables.
+                                    if (href && (e.metaKey || e.ctrlKey || e.shiftKey)) {
+                                        window.open(href, '_blank', 'noopener,noreferrer');
+                                        return;
+                                    }
+                                    onRowClick?.(row);
+                                };
+                                const handleTableRowAuxClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
+                                    // Middle-click — browser doesn't do anything by default on a
+                                    // <tr>, so open the row's href ourselves.
+                                    if (e.button !== 1 || !href) return;
+                                    e.preventDefault();
+                                    window.open(href, '_blank', 'noopener,noreferrer');
+                                };
                                 return (
                                     <tr
                                         key={rowId}
-                                        className={`${isSelected ? 'is-selected' : ''} ${onRowClick ? 'data-view__row--clickable' : ''} ${rowClassName?.(row) || ''}`}
-                                        onClick={onRowClick ? () => onRowClick(row) : undefined}
+                                        className={`${isSelected ? 'is-selected' : ''} ${isClickable ? 'data-view__row--clickable' : ''} ${rowClassName?.(row) || ''}`}
+                                        onClick={isClickable ? handleTableRowClick : undefined}
+                                        onAuxClick={href ? handleTableRowAuxClick : undefined}
                                     >
                                         {showTimeline && <td className="data-view__timeline-cell">{marker && <TimelineMarkerDot marker={marker} />}</td>}
                                         {selectable && (

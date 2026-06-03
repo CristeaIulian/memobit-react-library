@@ -44,6 +44,7 @@ export interface CardViewProps<T> {
     actions?: (row: T) => React.ReactNode;
     timeline?: DataViewTimelineConfig<T>;
     onRowClick?: (row: T) => void;
+    rowHref?: (row: T) => string | undefined;
     rowClassName?: (row: T) => string;
     empty?: DataViewEmptyConfig;
     selectable?: boolean;
@@ -66,6 +67,7 @@ export function CardView<T>({
     actions,
     timeline,
     onRowClick,
+    rowHref,
     rowClassName,
     empty,
     selectable,
@@ -103,57 +105,83 @@ export function CardView<T>({
         const marker = timelineMarkers.get(index);
         const rowId = rowKey(row, index);
         const isSelected = selectable && selectedIds.includes(rowId);
+        const href = rowHref?.(row);
+        const isClickable = !!onRowClick || !!href;
+        const cardClass = `data-view__card ${isClickable ? 'data-view__card--clickable' : ''} ${isSelected ? 'data-view__card--selected' : ''} ${rowClassName?.(row) || ''}`;
+
+        // When `rowHref` is set, render the card as an <a> so middle-click,
+        // Ctrl/Cmd-click and "Open link in new tab" work natively. Plain
+        // left-click is intercepted so the host can keep client-side routing.
+        const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+            if (onRowClick) {
+                e.preventDefault();
+                onRowClick(row);
+            }
+        };
+
+        const cardInner = (
+            <>
+                {selectable && onToggleSelect && (
+                    <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
+                        <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
+                    </div>
+                )}
+                {card?.media && (
+                    <div className="data-view__card-media">{card.media(row)}</div>
+                )}
+                {card && (() => {
+                    const cardIcon = card.icon?.(row);
+                    return (
+                        <div className="data-view__card-header">
+                            <div className="data-view__card-title-row">
+                                <div className="data-view__card-title-line">
+                                    {cardIcon && <Icon className="data-view__card-icon" name={cardIcon} />}
+                                    <span className="data-view__card-title">{card.title(row)}</span>
+                                </div>
+                                {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
+                            </div>
+                            {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
+                        </div>
+                    );
+                })()}
+
+                {cardColumns.length > 0 && (
+                    <div className="data-view__card-body">
+                        {cardColumns.map(col => (
+                            <div key={col.key} className="data-view__card-field">
+                                <span className="data-view__card-label">{renderColumnLabel(col)}</span>
+                                <span className="data-view__card-value">
+                                    {renderCellContent(col, row)}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {actions && (
+                    <div className="data-view__card-actions" onClick={e => e.stopPropagation()}>
+                        {actions(row)}
+                    </div>
+                )}
+            </>
+        );
 
         return (
             <React.Fragment key={rowId}>
                 {marker && <TimelineMobileSeparator marker={marker} />}
-                <div
-                    className={`data-view__card ${onRowClick ? 'data-view__card--clickable' : ''} ${isSelected ? 'data-view__card--selected' : ''} ${rowClassName?.(row) || ''}`}
-                    onClick={onRowClick ? () => onRowClick(row) : undefined}
-                >
-                    {selectable && onToggleSelect && (
-                        <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
-                            <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
-                        </div>
-                    )}
-                    {card?.media && (
-                        <div className="data-view__card-media">{card.media(row)}</div>
-                    )}
-                    {card && (() => {
-                        const cardIcon = card.icon?.(row);
-                        return (
-                            <div className="data-view__card-header">
-                                <div className="data-view__card-title-row">
-                                    <div className="data-view__card-title-line">
-                                        {cardIcon && <Icon className="data-view__card-icon" name={cardIcon} />}
-                                        <span className="data-view__card-title">{card.title(row)}</span>
-                                    </div>
-                                    {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
-                                </div>
-                                {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
-                            </div>
-                        );
-                    })()}
-
-                    {cardColumns.length > 0 && (
-                        <div className="data-view__card-body">
-                            {cardColumns.map(col => (
-                                <div key={col.key} className="data-view__card-field">
-                                    <span className="data-view__card-label">{renderColumnLabel(col)}</span>
-                                    <span className="data-view__card-value">
-                                        {renderCellContent(col, row)}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {actions && (
-                        <div className="data-view__card-actions" onClick={e => e.stopPropagation()}>
-                            {actions(row)}
-                        </div>
-                    )}
-                </div>
+                {href ? (
+                    <a className={cardClass} href={href} onClick={handleAnchorClick}>
+                        {cardInner}
+                    </a>
+                ) : (
+                    <div
+                        className={cardClass}
+                        onClick={onRowClick ? () => onRowClick(row) : undefined}
+                    >
+                        {cardInner}
+                    </div>
+                )}
             </React.Fragment>
         );
     };
