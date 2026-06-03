@@ -390,6 +390,16 @@
         text-align: center;
     }
 
+    // "Create '<typed>'" affordance — appears below the filtered options
+    // when allowCustomValue is enabled and the typed text has no match.
+    // Visually distinct (accent colour + top border) so it doesn't look
+    // like just another option.
+    .dropdown-options-list .dropdown-option--create {
+        color: var(--body-accent-color);
+        border-top: 1px solid var(--delimiter-color);
+        font-weight: var(--font-weight-medium);
+    }
+
     // Mobile responsive adjustments
     @include mobile {
         max-height: var(--spacing-300);

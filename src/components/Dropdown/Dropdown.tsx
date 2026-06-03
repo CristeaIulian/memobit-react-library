@@ -675,12 +675,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                 ref={el => {
                                     optionsRef.current[filteredOptions.length] = el;
                                 }}
-                                className={`dropdown-option ${focusedIndex === filteredOptions.length ? 'focused' : ''}`}
+                                className={`dropdown-option dropdown-option--create ${focusedIndex === filteredOptions.length ? 'focused' : ''}`}
                                 onClick={handleCreateCustomValue}
                                 onMouseEnter={() => setFocusedIndex(filteredOptions.length)}
                             >
                                 <div className="dropdown-option-content">
-                                    <span>Create "{filterText}"</span>
+                                    <span className="dropdown-option-label">
+                                        <Icon name="plus" />
+                                        <span>Create &ldquo;{filterText}&rdquo;</span>
+                                    </span>
                                 </div>
                             </li>
                         )}
