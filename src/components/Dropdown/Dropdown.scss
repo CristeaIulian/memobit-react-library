@@ -366,6 +366,13 @@
                     min-width: 0;
                 }
 
+                .dropdown-option-prefix {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex: 0 0 auto;
+                }
+
                 .dropdown-option-details {
                     display: block;
                     width: 100%;

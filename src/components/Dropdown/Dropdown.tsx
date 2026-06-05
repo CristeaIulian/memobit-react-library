@@ -14,6 +14,8 @@ export interface DropdownOption {
     details?: React.ReactNode;
     icon?: IconName;
     label: string;
+    /** Custom node rendered before the icon/label (e.g. an avatar). */
+    prefix?: React.ReactNode;
     suffixIcon?: IconName;
     value: string | number;
 }
@@ -661,6 +663,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                 )}
                                 <div className="dropdown-option-content">
                                     <span className="dropdown-option-label">
+                                        {option.prefix && <span className="dropdown-option-prefix">{option.prefix}</span>}
                                         {option.icon && <Icon name={option.icon} />}
                                         <span>{option.label}</span>
                                         {option.suffixIcon && <Icon name={option.suffixIcon} />}
