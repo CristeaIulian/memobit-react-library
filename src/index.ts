@@ -244,7 +244,7 @@ export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from 
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
 export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { getResultsCount } from './helpers/Pagination';
-export { fuzzyMatch } from './helpers/Search';
+export { foldDiacritics, fuzzyMatch } from './helpers/Search';
 export { shortenText, slugify, truncateText } from './helpers/Strings';
 export { extractDomainFromUrl, stripQueryString, stripTrackingParams } from './helpers/Urls';
 export { initVersionInfo } from './helpers/VersionInfo';

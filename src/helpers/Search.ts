@@ -1,3 +1,8 @@
+const COMBINING_MARKS = /[̀-ͯ]/g;
+
+// Lowercase + strip combining diacritics so "sma" matches "Smântână", "cafe" matches "café", etc.
+export const foldDiacritics = (input: string): string => input.normalize('NFD').replace(COMBINING_MARKS, '').toLowerCase();
+
 // Subsequence fuzzy match: characters must appear in order in the text, with up to 1 mismatch
 // per 4 characters. Short queries (< 4 chars) require all characters to match to avoid false positives.
 // e.g. "pigd" matches "pigafetta" (3/4 = 75% ≥ threshold).

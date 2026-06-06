@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { Button } from '../Button';
 import { Icon, type IconName } from '../Icon';
 import { InputText } from '../InputText';
+import { foldDiacritics } from '../../helpers/Search';
 import { caretDown } from '../../icons/caret-down';
 import { clear } from '../../icons/clear';
 
@@ -88,7 +89,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
         if (!searchable || !filterText) {
             setFilteredOptions(options);
         } else {
-            const filtered = options.filter(option => option.label.toLowerCase().includes(filterText.toLowerCase()));
+            const needle = foldDiacritics(filterText);
+            const filtered = options.filter(option => foldDiacritics(option.label).includes(needle));
             setFilteredOptions(filtered);
         }
 
