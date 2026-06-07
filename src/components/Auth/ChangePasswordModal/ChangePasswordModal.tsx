@@ -50,12 +50,21 @@ export function ChangePasswordModal({ isOpen, onClose }: ChangePasswordModalProp
         setError('');
 
         try {
+            // /auth/changePassword is a protected, state-changing POST, so the
+            // framework's CSRF middleware requires X-CSRF-Token. The cookie is
+            // not httpOnly precisely so JS can echo it back here.
+            const csrfMatch = document.cookie.match(/(?:^|;\s*)csrf_token=([^;]+)/);
+            const csrfToken = csrfMatch ? decodeURIComponent(csrfMatch[1]) : null;
+
+            const headers: Record<string, string> = {
+                'Content-Type': 'application/json',
+            };
+            if (csrfToken) headers['X-CSRF-Token'] = csrfToken;
+
             const response = await fetch(`${config.apiBaseUrl}/auth/changePassword`, {
                 method: 'POST',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers,
                 body: JSON.stringify({
                     currentPassword,
                     newPassword,
