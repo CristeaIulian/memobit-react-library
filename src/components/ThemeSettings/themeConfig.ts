@@ -104,7 +104,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         value: 'sandstone',
         label: 'Sandstone',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap',
-        recommendedApps: ['CookBook', 'Impulse'],
+        recommendedApps: ['CookBook', 'Impulse', 'Seeds'],
     },
     {
         value: 'tailwind-vue-dark',
@@ -120,7 +120,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
     {
         value: 'sandy-parchment',
         label: 'Sandy Parchment',
-        recommendedApps: ['Shelf', 'Ascend', 'Basket', 'CookBook', 'HUB', 'Impulse'],
+        recommendedApps: ['Shelf', 'Ascend', 'Basket', 'CookBook', 'HUB', 'Impulse', 'Seeds'],
         fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&display=swap',
     },
@@ -148,7 +148,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
     {
         value: 'signal-burst',
         label: 'Signal Burst',
-        recommendedApps: ['Impulse', 'Garage', 'Ascend', 'Basket', 'CookBook', 'Resume', 'NutriTrack'],
+        recommendedApps: ['Impulse', 'Garage', 'Ascend', 'Basket', 'CookBook', 'Resume', 'NutriTrack', 'Seeds'],
         fontUrl: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap',
     },
@@ -224,7 +224,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
     {
         value: 'terracotta-kitchen',
         label: 'Terracotta Kitchen',
-        recommendedApps: ['CookBook', 'Impulse', 'NutriTrack'],
+        recommendedApps: ['CookBook', 'Impulse', 'NutriTrack', 'Seeds'],
         fontUrl: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
     },
@@ -409,7 +409,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
     {
         value: 'chrono-atlas',
         label: 'Chrono Atlas',
-        recommendedApps: ['Atlas of Time', 'Garage', 'Ascend', 'Basket', 'CookBook', 'Resume', 'Pulse'],
+        recommendedApps: ['Atlas of Time', 'Garage', 'Ascend', 'Basket', 'CookBook', 'Resume', 'Pulse', 'Seeds'],
         fontUrl: 'https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
     },
