@@ -5,7 +5,17 @@ export { AppHeader, type AppHeaderProps } from './components/AppHeader';
 export { AvatarInitials } from './components/AvatarInitials';
 export { Badge, type BadgeProps, type BadgeVariant } from './components/Badge';
 export { Banner, type BannerProps, type BannerVariant } from './components/Banner';
-export { BMI } from './components/BMI';
+export {
+    ADULT_RANGES,
+    BMI,
+    type BMIRange,
+    calculateBMI,
+    getIndicatorColor,
+    getIndicatorPosition,
+    getPediatricRanges,
+    getRangeLabel,
+    PEDIATRIC_THRESHOLDS,
+} from './components/BMI';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
 export { type BulkAction, BulkActionBar, type BulkActionBarProgress, type BulkActionBarProps } from './components/BulkActionBar';
 export { Button, type ButtonVariant } from './components/Button';
