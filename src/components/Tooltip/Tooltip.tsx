@@ -12,15 +12,20 @@ interface TooltipProps {
     children: React.ReactNode;
     disabled?: boolean;
     className?: string;
+    maxWidth?: number | string;
+    maxHeight?: number | string;
 }
 
-export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay = 200, children, disabled = false, className = '' }) => {
+export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay = 200, children, disabled = false, className = '', maxWidth, maxHeight }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const triggerRef = useRef<HTMLSpanElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
     const isTouchInteractionRef = useRef(false);
+    const isInteractive = maxHeight !== undefined;
+    const closeDelay = isInteractive ? 150 : 0;
 
     const calculatePosition = () => {
         if (!triggerRef.current || !tooltipRef.current) return;
@@ -79,6 +84,10 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     const handleMouseEnter = () => {
         if (disabled || isTouchInteractionRef.current) return;
 
+        if (closeTimeoutRef.current) {
+            clearTimeout(closeTimeoutRef.current);
+            closeTimeoutRef.current = null;
+        }
         timeoutRef.current = setTimeout(() => {
             setIsVisible(true);
         }, delay);
@@ -89,7 +98,11 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
-        setIsVisible(false);
+        if (closeDelay > 0) {
+            closeTimeoutRef.current = setTimeout(() => setIsVisible(false), closeDelay);
+        } else {
+            setIsVisible(false);
+        }
     };
 
     const handlePointerDown = (event: React.PointerEvent<HTMLSpanElement>) => {
@@ -139,8 +152,24 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
+            if (closeTimeoutRef.current) {
+                clearTimeout(closeTimeoutRef.current);
+            }
         };
     }, []);
+
+    const handleTooltipMouseEnter = () => {
+        if (!isInteractive) return;
+        if (closeTimeoutRef.current) {
+            clearTimeout(closeTimeoutRef.current);
+            closeTimeoutRef.current = null;
+        }
+    };
+
+    const handleTooltipMouseLeave = () => {
+        if (!isInteractive) return;
+        closeTimeoutRef.current = setTimeout(() => setIsVisible(false), closeDelay);
+    };
 
     return (
         <>
@@ -160,11 +189,15 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
                 createPortal(
                     <div
                         ref={tooltipRef}
-                        className={`tooltip tooltip--${position} ${className}`}
+                        className={`tooltip tooltip--${position} ${isInteractive ? 'tooltip--scrollable' : ''} ${className}`}
                         style={{
                             top: `${tooltipPosition.top}px`,
                             left: `${tooltipPosition.left}px`,
+                            ...(maxWidth !== undefined && { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth }),
+                            ...(maxHeight !== undefined && { maxHeight: typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight }),
                         }}
+                        onMouseEnter={handleTooltipMouseEnter}
+                        onMouseLeave={handleTooltipMouseLeave}
                     >
                         {title}
                         <div className={`tooltip__arrow tooltip__arrow--${position}`} />

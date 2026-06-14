@@ -22,6 +22,12 @@
     animation: tooltipFadeIn 0.2s ease;
     pointer-events: none;
 
+    &--scrollable {
+        pointer-events: auto;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
     &__arrow {
         position: absolute;
         width: 8px;
