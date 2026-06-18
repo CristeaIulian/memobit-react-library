@@ -1,6 +1,37 @@
 {
   "name": "@memobit/libs",
   "version": "1.0.0",
+  "description": "React component library powering the Memobit apps — 100+ components, 470+ icons, 70+ themes, helpers and hooks. TypeScript-first, ESM-only, React 19.",
+  "keywords": [
+    "react",
+    "react-components",
+    "component-library",
+    "ui",
+    "ui-kit",
+    "design-system",
+    "typescript",
+    "themes",
+    "icons",
+    "hooks",
+    "memobit"
+  ],
+  "author": "Iulian Cristea <iulianx@gmail.com>",
+  "license": "Apache-2.0",
+  "homepage": "https://react.memobit.ro/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CristeaIulian/memobit-react-library.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CristeaIulian/memobit-react-library/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "type": "module",
   "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -90,6 +121,8 @@
   ],
   "scripts": {
     "build": "vite build && npm pack",
+    "release": "npm run build && npm publish",
+    "prepublishOnly": "vite build",
     "generate:icon-names": "node scripts/generate-icon-names.mjs",
     "dev": "vite build --watch",
     "playground": "vite serve playground --config playground/vite.config.ts",
