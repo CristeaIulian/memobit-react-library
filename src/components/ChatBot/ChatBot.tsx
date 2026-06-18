@@ -8,12 +8,13 @@ import { Loading } from '../Loading';
 
 import './ChatBot.scss';
 
-interface ChatBotProp {}
+export interface ChatBotProp {
+    apiKey: string;
+}
 
 interface ChatBotDetails {
     key: string;
     label: string;
-    apiKey: string;
     platformUrl: string;
 }
 
@@ -23,15 +24,14 @@ const chatBotsList: Record<ChatBot, ChatBotDetails> = {
     gemini: {
         key: 'gemini',
         label: 'Gemini',
-        apiKey: 'AIzaSyDUhWr5Hswi0Tu-y-pqA1FtsbLaKXRH-rQ',
         platformUrl: 'https://aistudio.google.com/',
     },
 };
 
 const defaultChatBot: ChatBot = 'gemini';
 
-const getGeminiResponse = (contents: string) => {
-    const ai = new GoogleGenAI({ apiKey: chatBotsList.gemini.apiKey });
+const getGeminiResponse = (apiKey: string, contents: string) => {
+    const ai = new GoogleGenAI({ apiKey });
 
     return ai.models.generateContent({
         model: 'gemini-2.5-flash',
@@ -45,7 +45,7 @@ const formatOutput = (content: string): string => {
 
 const currentChatBot = chatBotsList[defaultChatBot];
 
-export const ChatBot: FC<ChatBotProp> = ({}: ChatBotProp): ReactElement => {
+export const ChatBot: FC<ChatBotProp> = ({ apiKey }: ChatBotProp): ReactElement => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [inputContent, setInputContent] = useState<string>('');
     const [outputContent, setOutputContent] = useState<string>('');
@@ -55,7 +55,7 @@ export const ChatBot: FC<ChatBotProp> = ({}: ChatBotProp): ReactElement => {
 
         switch (currentChatBot.key) {
             case 'gemini':
-                getGeminiResponse(inputContent)
+                getGeminiResponse(apiKey, inputContent)
                     .then((response): void => {
                         if (response.text) {
                             setOutputContent(formatOutput(response.text));
@@ -73,7 +73,7 @@ export const ChatBot: FC<ChatBotProp> = ({}: ChatBotProp): ReactElement => {
                 console.warn(`Unknown ${currentChatBot.label} chatbot specified.`);
                 break;
         }
-    }, [inputContent]);
+    }, [apiKey, inputContent]);
 
     const handleInputOnChange = useCallback((value: string) => {
         setInputContent(value);

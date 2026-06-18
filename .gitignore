@@ -1,5 +1,5 @@
 node_modules
 dist/
 .parcel-cache/
-memobit-libs-1.0.0.tgz
+memobit-libs-*.tgz
 .build-number

@@ -22,7 +22,7 @@ export { Button, type ButtonVariant } from './components/Button';
 export { Calendar, type CalendarDateRange, type CalendarMode, type CalendarProps } from './components/Calendar';
 export { CalendarHeatmap, type CalendarHeatmapDataPoint, type CalendarHeatmapProps } from './components/CalendarHeatmap';
 export { Card, type CardVariant } from './components/Card';
-export { ChatBot } from './components/ChatBot';
+export { ChatBot, type ChatBotProp } from './components/ChatBot';
 export { Checkbox } from './components/Checkbox';
 export { Chip, type ChipProps, type ChipSize, type ChipVariant } from './components/Chip';
 export { CollapsibleSection } from './components/CollapsibleSection';
