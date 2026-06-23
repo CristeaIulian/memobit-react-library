@@ -50,7 +50,7 @@ export const ControlPanelPage: React.FC = () => {
             options: [
                 { label: 'All records', value: 'all', count: 42 },
                 { label: 'Assigned to me', value: 'mine', count: 11 },
-                { label: 'Watching', value: 'watching', count: 7 },
+                { label: 'Watching', value: 'watching', count: 7, disabled: true, tooltip: 'Watchlist is empty — disabled until you start watching a record.' },
             ],
         },
         {
@@ -65,6 +65,7 @@ export const ControlPanelPage: React.FC = () => {
                 { label: 'In progress', value: 'in-progress', color: '#f59e0b', count: 14 },
                 { label: 'Review', value: 'review', color: '#a855f7', count: 6 },
                 { label: 'Done', value: 'done', color: '#22c55e', count: 13 },
+                { label: 'Archived', value: 'archived', color: '#9ca3af', count: 0, disabled: true, tooltip: 'No archived records yet.' },
             ],
         },
         {
@@ -97,7 +98,7 @@ export const ControlPanelPage: React.FC = () => {
                 { label: 'Whole team', value: 'team' },
                 { label: 'Iulia', value: 'iulia' },
                 { label: 'Product', value: 'product' },
-                { label: 'Engineering', value: 'engineering' },
+                { label: 'Engineering', value: 'engineering', disabled: true, tooltip: 'Engineering owners are on leave this week.' },
             ],
         },
     ];
@@ -133,6 +134,7 @@ export const ControlPanelPage: React.FC = () => {
                 { label: 'Science', value: 'science', count: 2 },
                 { label: 'Art', value: 'art', count: 2 },
                 { label: 'Classics', value: 'classics', count: 2 },
+                { label: 'Graphic novels', value: 'graphic-novels', count: 0, disabled: true, tooltip: 'No graphic novels in your library yet.' },
             ],
         },
         {
@@ -464,6 +466,7 @@ export const ControlPanelPage: React.FC = () => {
                                         { value: 'low', label: 'Low' },
                                         { value: 'medium', label: 'Medium' },
                                         { value: 'high', label: 'High' },
+                                        { value: 'critical', label: 'Critical', disabled: true, title: 'Critical needs an SRE approval — disabled for self-serve.' },
                                     ],
                                 },
                                 {
@@ -477,6 +480,7 @@ export const ControlPanelPage: React.FC = () => {
                                         { value: 'backend', label: 'Backend' },
                                         { value: 'design', label: 'Design' },
                                         { value: 'bug', label: 'Bug' },
+                                        { value: 'security', label: 'Security', disabled: true, title: 'Security tag is restricted to the security team.' },
                                     ],
                                 },
                                 { id: 'compact', label: 'Compact mode', type: 'checkbox', value: false },

@@ -284,6 +284,50 @@ export const DropdownPage: React.FC = () => {
                 </div>
 
                 <div className="showcase-group">
+                    <h3>Dropdown with Disabled Options</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
+                        Options can be individually disabled via <code>disabled: true</code>. A <code>tooltip</code> on the same option becomes the native hover hint.
+                    </p>
+                    <div className="component-group" style={{ width: '60%' }}>
+                        <Dropdown
+                            name="disabled-options-dd"
+                            label="Provider"
+                            options={[
+                                { value: 'simulator', label: 'Simulator' },
+                                { value: 'home-assistant', label: 'Home Assistant' },
+                                { value: 'mqtt', label: 'MQTT', disabled: true, tooltip: 'MQTT broker is not reachable.' },
+                                { value: 'zwave', label: 'Z-Wave', disabled: true, tooltip: 'Z-Wave provider is disabled in Settings.' },
+                            ]}
+                            onChange={newOption => console.log('disabled-options', newOption)}
+                            placeholder="Pick a provider..."
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Multi-select with Disabled Options</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
+                        Disabled options are skipped from selection even in multi-select mode.
+                    </p>
+                    <div className="component-group" style={{ width: '60%' }}>
+                        <Dropdown
+                            name="disabled-multi-dd"
+                            label="Tags"
+                            multiple
+                            options={[
+                                { value: 'urgent', label: 'Urgent' },
+                                { value: 'frontend', label: 'Frontend' },
+                                { value: 'backend', label: 'Backend' },
+                                { value: 'security', label: 'Security', disabled: true, tooltip: 'Security tag is restricted to the security team.' },
+                                { value: 'compliance', label: 'Compliance', disabled: true, tooltip: 'Compliance review pending.' },
+                            ]}
+                            onChange={newOptions => console.log('disabled-multi', newOptions)}
+                            placeholder="Add tags..."
+                        />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
                     <h3>Dropdown Near Bottom (Auto Opens Upward)</h3>
                     <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
                         This dropdown is positioned near the bottom of the page. It should automatically open upward to stay visible.

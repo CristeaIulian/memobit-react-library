@@ -318,6 +318,17 @@
                 outline: none;
             }
 
+            &.dropdown-option--disabled {
+                opacity: 0.45;
+                cursor: not-allowed;
+
+                &:hover,
+                &.focused {
+                    background-color: transparent;
+                    color: inherit;
+                }
+            }
+
             &.selected {
                 background-color: var(--dropdown-options-selected-background-color);
                 color: var(--dropdown-options-selected-color);

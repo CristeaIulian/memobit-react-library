@@ -320,8 +320,11 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                                 key={option.value}
                                 color={option.color}
                                 count={option.count}
+                                disabled={option.disabled}
+                                title={option.tooltip}
                                 selected={isSelected}
                                 onClick={() => {
+                                    if (option.disabled) return;
                                     const nextValue = isSelected ? selectedValues.filter(v => v !== option.value) : [...selectedValues, option.value];
                                     emitFilterChange({
                                         filterId: filter.id,
@@ -353,11 +356,16 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
             {filterOptions.map(option => {
                 const isSelected = filter.value === option.value;
                 return (
-                    <div key={option.value} className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''}`}>
+                    <div
+                        key={option.value}
+                        className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''} ${option.disabled ? 'control-panel__filter-radio--disabled' : ''}`}
+                        title={option.tooltip}
+                    >
                         <label className="control-panel__filter-radio-label">
                             <input
                                 checked={isSelected}
                                 className="control-panel__filter-radio-input"
+                                disabled={option.disabled}
                                 name={filter.id}
                                 onChange={() => emitFilterChange({ filterId: filter.id, type: filter.type, value: option.value, option, options: [option] })}
                                 type="radio"

@@ -398,6 +398,20 @@
             background: var(--card-background-accent-color);
             color: var(--body-accent-color);
         }
+
+        &--disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+
+            &:hover {
+                background: transparent;
+                color: var(--body-color);
+            }
+
+            .control-panel__filter-radio-label {
+                cursor: not-allowed;
+            }
+        }
     }
 
     &__filter-radio-label {

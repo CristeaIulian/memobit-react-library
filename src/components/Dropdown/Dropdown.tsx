@@ -13,11 +13,17 @@ import './Dropdown.scss';
 export interface DropdownOption {
     className?: string;
     details?: React.ReactNode;
+    /** When true, the option cannot be selected. Rendered with a muted style.
+     *  Renderers should also honor `tooltip` to explain why. */
+    disabled?: boolean;
     icon?: IconName;
     label: string;
     /** Custom node rendered before the icon/label (e.g. an avatar). */
     prefix?: React.ReactNode;
     suffixIcon?: IconName;
+    /** Hover-tooltip text (rendered as a native `title` attribute) — useful for
+     *  explaining a `disabled` state or adding context to an unfamiliar option. */
+    tooltip?: string;
     value: string | number;
 }
 
@@ -311,6 +317,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     }, [allowCustomValue, filterText, isOpen, multiple, name, onChange, options, searchable, selectedOptions, usePortal]);
 
     const handleOptionClick = (option: DropdownOption) => {
+        if (option.disabled) return;
         if (multiple) {
             const isSelected = selectedOptions.some(selected => selected.value === option.value);
             let newSelection: DropdownOption[];
@@ -642,9 +649,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                 ref={el => {
                                     optionsRef.current[index] = el;
                                 }}
-                                className={`dropdown-option ${option.className || ''} ${focusedIndex === index ? 'focused' : ''} ${isOptionSelected(option) ? 'selected' : ''}`}
+                                className={`dropdown-option ${option.className || ''} ${focusedIndex === index ? 'focused' : ''} ${isOptionSelected(option) ? 'selected' : ''} ${option.disabled ? 'dropdown-option--disabled' : ''}`}
                                 onClick={() => handleOptionClick(option)}
                                 onMouseEnter={() => setFocusedIndex(index)}
+                                title={option.tooltip}
                             >
                                 {multiple && (
                                     <div className="dropdown-option-checkbox">

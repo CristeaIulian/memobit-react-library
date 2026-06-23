@@ -143,16 +143,18 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                                 const emitChange = () => onOptionChange?.({ optionId: option.id, value: radioOption.value });
                                                 const row = (
                                                     <div
-                                                        className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''}`}
+                                                        className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''} ${radioOption.disabled ? 'control-panel__filter-radio--disabled' : ''}`}
                                                     >
                                                         <label className="control-panel__filter-radio-label">
                                                             <input
                                                                 checked={isSelected}
                                                                 className="control-panel__filter-radio-input"
+                                                                disabled={radioOption.disabled}
                                                                 name={`control-panel-option-${option.id}`}
                                                                 onChange={emitChange}
                                                                 /* Re-clicking the selected radio fires no `change`, so re-emit here. */
                                                                 onClick={() => {
+                                                                    if (radioOption.disabled) return;
                                                                     if (isSelected) emitChange();
                                                                 }}
                                                                 type="radio"
@@ -182,8 +184,11 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                                 return (
                                                     <Chip
                                                         key={chipOption.value}
+                                                        disabled={chipOption.disabled}
+                                                        title={chipOption.title}
                                                         selected={isSelected}
                                                         onClick={() => {
+                                                            if (chipOption.disabled) return;
                                                             const next = isSelected
                                                                 ? option.value.filter(v => v !== chipOption.value)
                                                                 : [...option.value, chipOption.value];

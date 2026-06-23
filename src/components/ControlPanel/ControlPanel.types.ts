@@ -115,6 +115,8 @@ export interface ControlPanelOptionItem {
     label: string;
     /** Optional hover tooltip describing the option. */
     title?: string;
+    /** When true, the item cannot be selected. */
+    disabled?: boolean;
 }
 
 export type ControlPanelOption =
