@@ -122,6 +122,9 @@
   "scripts": {
     "build": "vite build && npm pack",
     "release": "npm run build && npm publish",
+    "ship": "npm version patch && npm run release && git push --follow-tags",
+    "ship:minor": "npm version minor && npm run release && git push --follow-tags",
+    "ship:major": "npm version major && npm run release && git push --follow-tags",
     "prepublishOnly": "vite build",
     "generate:icon-names": "node scripts/generate-icon-names.mjs",
     "dev": "vite build --watch",

@@ -58,6 +58,7 @@ export const DataViewPage: React.FC = () => {
     const [controlledPageSize, setControlledPageSize] = useState(3);
     const [controlledSortKey, setControlledSortKey] = useState<string | null>('score');
     const [controlledSortDirection, setControlledSortDirection] = useState<SortDirection>('desc');
+    const [expandedUserId, setExpandedUserId] = useState<number | null>(2);
 
     // ── Filters + Sorting example ───────────────────────────────────────
     const [nameFilter, setNameFilter] = useState('');
@@ -307,6 +308,45 @@ export const DataViewPage: React.FC = () => {
                                     Queue
                                 </Button>
                             )}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            {/* Row detail */}
+            <section className="page-section">
+                <h2>Row Detail (Expandable)</h2>
+                <p>
+                    Pass <code>rowDetail</code> to render an extra row spanning all columns directly below the matching row. Useful for inline players, expanded
+                    summaries, or nested content. Table mode only — return <code>null</code> to skip a row. Click a row to toggle the detail.
+                </p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <DataView<UserRow>
+                            columns={basicColumns}
+                            data={users.slice(0, 5)}
+                            rowKey={row => row.id}
+                            onRowClick={row => setExpandedUserId(prev => (prev === row.id ? null : row.id))}
+                            rowDetail={row => {
+                                if (row.id !== expandedUserId) return null;
+                                return (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
+                                        <strong>{row.name}</strong>
+                                        <span style={{ color: 'var(--body-color-muted)' }}>
+                                            {row.role} · joined {row.joinedAt} · score {row.score}
+                                        </span>
+                                        <div style={{ display: 'flex', gap: 'var(--spacing-8)', marginTop: 'var(--spacing-8)' }}>
+                                            <Button size="small" onClick={() => alert(`Message ${row.name}`)}>
+                                                Message
+                                            </Button>
+                                            <Button size="small" variant="ghost" onClick={() => setExpandedUserId(null)}>
+                                                Collapse
+                                            </Button>
+                                        </div>
+                                    </div>
+                                );
+                            }}
+                            showPageSize={false}
                         />
                     </div>
                 </div>

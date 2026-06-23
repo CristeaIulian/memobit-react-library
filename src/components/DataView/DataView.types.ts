@@ -100,6 +100,9 @@ export interface DataViewProps<T> {
     actionsWidth?: number;
     timeline?: DataViewTimelineConfig<T>;
     onRowClick?: (row: T) => void;
+    /** Render an optional detail row spanning all columns directly below the matching row.
+     *  Return `null`/`undefined` to skip rendering for that row. Table mode only. */
+    rowDetail?: (row: T) => React.ReactNode;
     /** When provided, each row/card renders as a real link so middle-click,
      *  Ctrl/Cmd-click, and the browser's "Open in new tab" all work natively.
      *  Plain left-click still calls `onRowClick` (or follows the href if no

@@ -220,6 +220,17 @@
         }
     }
 
+    &__row-detail {
+        background: var(--card-background-accent-color);
+        cursor: default;
+
+        &:hover { background: var(--card-background-accent-color); }
+
+        > td {
+            padding: var(--spacing-8) var(--spacing-12);
+        }
+    }
+
     &__timeline-cell {
         width: 0;
         padding: 0;

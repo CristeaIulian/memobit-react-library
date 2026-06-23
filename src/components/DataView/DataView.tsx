@@ -50,6 +50,7 @@ export function DataView<T>({
     onRowClick,
     rowHref,
     rowClassName,
+    rowDetail,
     empty,
     initialSortKey = null,
     initialSortDirection = 'asc',
@@ -508,41 +509,50 @@ export function DataView<T>({
                                     e.preventDefault();
                                     window.open(href, '_blank', 'noopener,noreferrer');
                                 };
+                                const detail = rowDetail?.(row);
                                 return (
-                                    <tr
-                                        key={rowId}
-                                        className={`${isSelected ? 'is-selected' : ''} ${isClickable ? 'data-view__row--clickable' : ''} ${rowClassName?.(row) || ''}`}
-                                        onClick={isClickable ? handleTableRowClick : undefined}
-                                        onAuxClick={href ? handleTableRowAuxClick : undefined}
-                                    >
-                                        {showTimeline && <td className="data-view__timeline-cell">{marker && <TimelineMarkerDot marker={marker} />}</td>}
-                                        {selectable && (
-                                            <td className="data-view__checkbox">
-                                                <Checkbox
-                                                    checked={isSelected}
-                                                    onChange={checked => {
-                                                        if (checked) {
-                                                            updateSelection([...selectedIds, rowId]);
-                                                        } else {
-                                                            updateSelection(selectedIds.filter(id => id !== rowId));
-                                                        }
-                                                    }}
-                                                />
-                                            </td>
+                                    <React.Fragment key={rowId}>
+                                        <tr
+                                            className={`${isSelected ? 'is-selected' : ''} ${isClickable ? 'data-view__row--clickable' : ''} ${rowClassName?.(row) || ''}`}
+                                            onClick={isClickable ? handleTableRowClick : undefined}
+                                            onAuxClick={href ? handleTableRowAuxClick : undefined}
+                                        >
+                                            {showTimeline && <td className="data-view__timeline-cell">{marker && <TimelineMarkerDot marker={marker} />}</td>}
+                                            {selectable && (
+                                                <td className="data-view__checkbox">
+                                                    <Checkbox
+                                                        checked={isSelected}
+                                                        onChange={checked => {
+                                                            if (checked) {
+                                                                updateSelection([...selectedIds, rowId]);
+                                                            } else {
+                                                                updateSelection(selectedIds.filter(id => id !== rowId));
+                                                            }
+                                                        }}
+                                                    />
+                                                </td>
+                                            )}
+                                            {tableColumns.map(column => (
+                                                <td key={column.key} style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}>
+                                                    {renderCellContent(column, row)}
+                                                </td>
+                                            ))}
+                                            {actions && (
+                                                <td className="data-view__actions-cell" style={actionsWidth ? { width: actionsWidth } : undefined}>
+                                                    <div className="data-view__table-actions" onClick={e => e.stopPropagation()}>
+                                                        {actions(row)}
+                                                    </div>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        {detail != null && detail !== false && (
+                                            <tr className="data-view__row-detail">
+                                                <td colSpan={totalCols} onClick={e => e.stopPropagation()}>
+                                                    {detail}
+                                                </td>
+                                            </tr>
                                         )}
-                                        {tableColumns.map(column => (
-                                            <td key={column.key} style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}>
-                                                {renderCellContent(column, row)}
-                                            </td>
-                                        ))}
-                                        {actions && (
-                                            <td className="data-view__actions-cell" style={actionsWidth ? { width: actionsWidth } : undefined}>
-                                                <div className="data-view__table-actions" onClick={e => e.stopPropagation()}>
-                                                    {actions(row)}
-                                                </div>
-                                            </td>
-                                        )}
-                                    </tr>
+                                    </React.Fragment>
                                 );
                             };
 
