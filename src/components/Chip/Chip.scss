@@ -84,6 +84,31 @@
         }
     }
 
+    // Chips with an explicit consumer-supplied color get a clearly filled background
+    // (rather than a faint tint) so the colour is recognisable at a glance, both
+    // selected and unselected. Built-in semantic variants (info/success/...) keep
+    // the lighter treatment so they don't dominate plain forms.
+    &--custom {
+        background: color-mix(in srgb, var(--chip-color) 22%, transparent);
+        color: var(--body-color);
+
+        &:hover:not(:disabled) {
+            background: color-mix(in srgb, var(--chip-color) 32%, transparent);
+        }
+
+        &.chip--selected {
+            background: var(--chip-color);
+            border-color: var(--chip-color);
+            color: var(--button-default-color, white);
+        }
+
+        &.chip--selected:hover:not(:disabled) {
+            background: var(--chip-color);
+            border-color: var(--chip-color);
+            color: var(--button-default-color, white);
+        }
+    }
+
     &--xsmall {
         min-height: var(--spacing-20);
         gap: var(--spacing-4);
