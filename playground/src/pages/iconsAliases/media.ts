@@ -13,6 +13,7 @@ export const aliasesMedia: Record<string, string[]> = {
     reload: ['refresh', 'update', 'sync', 'restart'],
     repeat: ['loop', 'cycle', 'again', 'replay'],
     sd: ['quality', 'video', 'resolution', 'standard-definition'],
+    shuffle: ['random', 'mix', 'randomize', 'crossing', 'arrows', 'playback'],
     stop: ['halt', 'end', 'terminate', 'finish'],
     'stop-sign': ['halt', 'warning', 'caution', 'stop'],
     streaming: ['video', 'live', 'broadcast', 'media'],

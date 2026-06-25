@@ -128,6 +128,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                             <div className={`control-panel__option control-panel__option--${option.type}`}>
                                 {option.type === 'checkbox' && (
                                     <Chip
+                                        icon={option.icon}
                                         selected={option.value ?? false}
                                         onClick={() => onOptionChange?.({ optionId: option.id, value: !(option.value ?? false) })}
                                     >

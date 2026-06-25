@@ -392,6 +392,7 @@ export type IconName =
     | 'ship'
     | 'shopping-cart'
     | 'shrink'
+    | 'shuffle'
     | 'signal-full'
     | 'signal-low'
     | 'signal-medium'

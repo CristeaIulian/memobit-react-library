@@ -397,6 +397,7 @@ export const iconCategoryDefinitions: IconCategory[] = [
             'reload',
             'repeat',
             'sd',
+            'shuffle',
             'stop',
             'stop-sign',
             'streaming',

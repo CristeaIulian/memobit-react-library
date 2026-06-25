@@ -371,6 +371,7 @@ import { settings } from '../../icons/settings';
 import { ship } from '../../icons/ship';
 import { shoppingCart } from '../../icons/shopping-cart';
 import { shrink } from '../../icons/shrink';
+import { shuffle } from '../../icons/shuffle';
 import { signalFull } from '../../icons/signal-full';
 import { signalLow } from '../../icons/signal-low';
 import { signalMedium } from '../../icons/signal-medium';
@@ -863,6 +864,7 @@ export const iconMap: Record<IconName, ReactElement> = {
     settings,
     ship,
     shrink,
+    shuffle,
     skin,
     skull,
     smartphone,

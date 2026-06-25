@@ -120,7 +120,7 @@ export interface ControlPanelOptionItem {
 }
 
 export type ControlPanelOption =
-    | { id: string; label: string; type: 'checkbox'; value?: boolean }
+    | { id: string; label: string; type: 'checkbox'; value?: boolean; icon?: IconName }
     | { id: string; label?: string; type: 'radio'; value?: string | number; options: ControlPanelOptionItem[] }
     | { id: string; label?: string; type: 'chips'; value: Array<string | number>; options: ControlPanelOptionItem[] };
 
