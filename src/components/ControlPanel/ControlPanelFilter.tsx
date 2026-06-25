@@ -321,6 +321,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                                 color={option.color}
                                 count={option.count}
                                 disabled={option.disabled}
+                                icon={option.icon}
                                 title={option.tooltip}
                                 selected={isSelected}
                                 onClick={() => {

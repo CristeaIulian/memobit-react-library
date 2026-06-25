@@ -60,6 +60,8 @@ export interface ControlPanelFilterOption extends DropdownOption {
     /** Optional image URL rendered as a small round avatar before the option label.
      *  Used by the `chips` filter to show a face crop / product thumbnail / etc. */
     imageUrl?: string;
+    /** Optional icon rendered before the option label (chips filter today). */
+    icon?: IconName;
 }
 
 export interface ControlPanelDateRangePreset {
@@ -117,6 +119,8 @@ export interface ControlPanelOptionItem {
     title?: string;
     /** When true, the item cannot be selected. */
     disabled?: boolean;
+    /** Optional icon rendered before the option label (radio + chips options). */
+    icon?: IconName;
 }
 
 export type ControlPanelOption =

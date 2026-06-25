@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button } from '../Button';
 import { Chip } from '../Chip';
-import { IconName } from '../Icon';
+import { Icon, IconName } from '../Icon';
 import { Separator } from '../Separator';
 import { Tooltip } from '../Tooltip';
 
@@ -161,6 +161,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                                                 type="radio"
                                                                 value={radioOption.value}
                                                             />
+                                                            {radioOption.icon && <Icon name={radioOption.icon} />}
                                                             <span className="control-panel__filter-label">{radioOption.label}</span>
                                                         </label>
                                                     </div>
@@ -186,6 +187,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                                     <Chip
                                                         key={chipOption.value}
                                                         disabled={chipOption.disabled}
+                                                        icon={chipOption.icon}
                                                         title={chipOption.title}
                                                         selected={isSelected}
                                                         onClick={() => {
