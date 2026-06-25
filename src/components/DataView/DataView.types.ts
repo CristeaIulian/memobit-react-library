@@ -88,6 +88,9 @@ export interface DataViewProps<T> {
     columns: DataViewColumn<T>[];
     data: T[];
     rowKey?: (row: T, index: number) => string | number;
+    /** Row keys that should remain at the top of the list regardless of sorting/pagination.
+     *  Pinned rows appear in the order given in this array, before any unpinned rows. */
+    pinnedIds?: Array<string | number>;
     selectable?: boolean;
     onSelectionChange?: (rows: T[]) => void;
     /** Controlled selection. When provided, DataView reflects this array of row keys instead of its internal state. */

@@ -220,6 +220,24 @@
         }
     }
 
+    &__row--pinned {
+        background: color-mix(in srgb, var(--body-accent-color) 6%, var(--card-background-color));
+
+        &:hover {
+            background: color-mix(in srgb, var(--body-accent-color) 10%, var(--card-background-color));
+        }
+
+        > td:first-of-type {
+            box-shadow: inset 3px 0 0 0 var(--body-accent-color);
+        }
+    }
+
+    &__pin-indicator {
+        color: var(--body-accent-color);
+        margin-right: var(--spacing-6);
+        vertical-align: middle;
+    }
+
     &__row-detail {
         background: var(--card-background-accent-color);
         cursor: default;
@@ -327,6 +345,29 @@
             border-color: var(--body-accent-color);
             background: var(--card-background-accent-color);
         }
+
+        &--pinned {
+            border-color: var(--body-accent-color);
+            box-shadow:
+                var(--card-surface-box-shadow, var(--card-box-shadow)),
+                inset 3px 0 0 0 var(--body-accent-color);
+        }
+    }
+
+    &__card-pin {
+        position: absolute;
+        top: var(--spacing-8);
+        right: var(--spacing-8);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--spacing-24);
+        height: var(--spacing-24);
+        border-radius: 50%;
+        background: var(--body-accent-color);
+        color: var(--card-background-color);
+        z-index: 1;
+        pointer-events: none;
     }
 
     &__card-media {

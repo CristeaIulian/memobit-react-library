@@ -49,6 +49,7 @@ export interface CardViewProps<T> {
     empty?: DataViewEmptyConfig;
     selectable?: boolean;
     selectedIds?: Array<string | number>;
+    pinnedIds?: Array<string | number>;
     onToggleSelect?: (rowId: string | number, checked: boolean) => void;
     cardMaxWidth?: number | string;
     isMobile?: boolean;
@@ -72,6 +73,7 @@ export function CardView<T>({
     empty,
     selectable,
     selectedIds = [],
+    pinnedIds,
     onToggleSelect,
     cardMaxWidth,
     isMobile = false,
@@ -82,6 +84,7 @@ export function CardView<T>({
     onToggleGroup,
 }: CardViewProps<T>) {
     const cardColumns = columns.filter(col => !col.hideInCard && !(isMobile && col.hideInMobile));
+    const pinnedSet = useMemo(() => new Set(pinnedIds ?? []), [pinnedIds]);
     const cardsClassName = `data-view__cards${cardMaxWidth !== undefined ? ' data-view__cards--grid' : ''}`;
     const cardsStyle = cardMaxWidth !== undefined ? ({ '--data-view-card-max-width': getCardMaxWidthValue(cardMaxWidth) } as React.CSSProperties) : undefined;
 
@@ -105,9 +108,10 @@ export function CardView<T>({
         const marker = timelineMarkers.get(index);
         const rowId = rowKey(row, index);
         const isSelected = selectable && selectedIds.includes(rowId);
+        const isPinned = pinnedSet.has(rowId);
         const href = rowHref?.(row);
         const isClickable = !!onRowClick || !!href;
-        const cardClass = `data-view__card ${isClickable ? 'data-view__card--clickable' : ''} ${isSelected ? 'data-view__card--selected' : ''} ${rowClassName?.(row) || ''}`;
+        const cardClass = `data-view__card ${isClickable ? 'data-view__card--clickable' : ''} ${isSelected ? 'data-view__card--selected' : ''} ${isPinned ? 'data-view__card--pinned' : ''} ${rowClassName?.(row) || ''}`;
 
         // When `rowHref` is set, render the card as an <a> so middle-click,
         // Ctrl/Cmd-click and "Open link in new tab" work natively. Plain
@@ -122,6 +126,11 @@ export function CardView<T>({
 
         const cardInner = (
             <>
+                {isPinned && (
+                    <span className="data-view__card-pin" title="Pinned">
+                        <Icon name="pin" size="sm" />
+                    </span>
+                )}
                 {selectable && onToggleSelect && (
                     <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
                         <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />

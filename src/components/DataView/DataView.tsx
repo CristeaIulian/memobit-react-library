@@ -37,6 +37,7 @@ export function DataView<T>({
     columns,
     data,
     rowKey,
+    pinnedIds,
     selectable = false,
     onSelectionChange,
     selectedIds: controlledSelectedIds,
@@ -127,30 +128,58 @@ export function DataView<T>({
         handlePageChange(1);
     };
 
+    const pinnedSet = useMemo(() => new Set(pinnedIds ?? []), [pinnedIds]);
+
     const sortedData = useMemo(() => {
-        if (!sortKey) return data;
-        const column = columns.find(col => col.key === sortKey);
-        if (!column) return data;
+        let base: T[] = data;
 
-        const accessor =
-            column.sortAccessor ||
-            column.accessor ||
-            ((row: T) => {
-                const value = (row as Record<string, unknown>)[column.key];
-                return typeof value === 'string' || typeof value === 'number' ? value : '';
-            });
+        if (sortKey) {
+            const column = columns.find(col => col.key === sortKey);
+            if (column) {
+                const accessor =
+                    column.sortAccessor ||
+                    column.accessor ||
+                    ((row: T) => {
+                        const value = (row as Record<string, unknown>)[column.key];
+                        return typeof value === 'string' || typeof value === 'number' ? value : '';
+                    });
 
-        const sorted = [...data].sort((a, b) => {
-            const aValue = accessor(a);
-            const bValue = accessor(b);
-            if (typeof aValue === 'number' && typeof bValue === 'number') {
-                return aValue - bValue;
+                const sorted = [...data].sort((a, b) => {
+                    const aValue = accessor(a);
+                    const bValue = accessor(b);
+                    if (typeof aValue === 'number' && typeof bValue === 'number') {
+                        return aValue - bValue;
+                    }
+                    return String(aValue).localeCompare(String(bValue));
+                });
+
+                base = sortDirection === 'asc' ? sorted : sorted.reverse();
             }
-            return String(aValue).localeCompare(String(bValue));
+        }
+
+        if (pinnedSet.size === 0) return base;
+
+        const pinnedRows: T[] = [];
+        const unpinnedRows: T[] = [];
+        base.forEach((row, index) => {
+            if (pinnedSet.has(resolvedRowKey(row, index))) {
+                pinnedRows.push(row);
+            } else {
+                unpinnedRows.push(row);
+            }
         });
 
-        return sortDirection === 'asc' ? sorted : sorted.reverse();
-    }, [columns, data, sortDirection, sortKey]);
+        if (pinnedIds && pinnedIds.length > 1 && pinnedRows.length > 1) {
+            const orderMap = new Map(pinnedIds.map((id, i) => [id, i]));
+            pinnedRows.sort((a, b) => {
+                const aOrder = orderMap.get(resolvedRowKey(a, 0)) ?? 0;
+                const bOrder = orderMap.get(resolvedRowKey(b, 0)) ?? 0;
+                return aOrder - bOrder;
+            });
+        }
+
+        return [...pinnedRows, ...unpinnedRows];
+    }, [columns, data, sortDirection, sortKey, pinnedSet, pinnedIds]);
 
     const isServerPaginated = controlledTotalItems !== undefined;
     const totalForPagination = isServerPaginated ? controlledTotalItems : sortedData.length;
@@ -343,6 +372,7 @@ export function DataView<T>({
                     empty={empty}
                     selectable={selectable}
                     selectedIds={selectedIds}
+                    pinnedIds={pinnedIds}
                     cardMaxWidth={cardMaxWidth}
                     isMobile={isMobile}
                     groups={computedGroups ?? undefined}
@@ -490,6 +520,7 @@ export function DataView<T>({
                             const renderTableRow = (row: T, index: number) => {
                                 const rowId = resolvedRowKey(row, index);
                                 const isSelected = selectedIds.includes(rowId);
+                                const isPinned = pinnedSet.has(rowId);
                                 const marker = tableTimelineMarkers.get(index);
                                 const href = rowHref?.(row);
                                 const isClickable = !!onRowClick || !!href;
@@ -513,7 +544,7 @@ export function DataView<T>({
                                 return (
                                     <React.Fragment key={rowId}>
                                         <tr
-                                            className={`${isSelected ? 'is-selected' : ''} ${isClickable ? 'data-view__row--clickable' : ''} ${rowClassName?.(row) || ''}`}
+                                            className={`${isSelected ? 'is-selected' : ''} ${isClickable ? 'data-view__row--clickable' : ''} ${isPinned ? 'data-view__row--pinned' : ''} ${rowClassName?.(row) || ''}`}
                                             onClick={isClickable ? handleTableRowClick : undefined}
                                             onAuxClick={href ? handleTableRowAuxClick : undefined}
                                         >
@@ -532,8 +563,13 @@ export function DataView<T>({
                                                     />
                                                 </td>
                                             )}
-                                            {tableColumns.map(column => (
+                                            {tableColumns.map((column, columnIndex) => (
                                                 <td key={column.key} style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}>
+                                                    {columnIndex === 0 && isPinned && (
+                                                        <Tooltip title="Pinned">
+                                                            <Icon className="data-view__pin-indicator" name="pin" size="sm" />
+                                                        </Tooltip>
+                                                    )}
                                                     {renderCellContent(column, row)}
                                                 </td>
                                             ))}

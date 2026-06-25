@@ -59,6 +59,13 @@ export const DataViewPage: React.FC = () => {
     const [controlledSortKey, setControlledSortKey] = useState<string | null>('score');
     const [controlledSortDirection, setControlledSortDirection] = useState<SortDirection>('desc');
     const [expandedUserId, setExpandedUserId] = useState<number | null>(2);
+    const [pinnedUserIds, setPinnedUserIds] = useState<Array<string | number>>([3, 7]);
+    const [pinnedSortKey, setPinnedSortKey] = useState<string | null>('score');
+    const [pinnedSortDirection, setPinnedSortDirection] = useState<SortDirection>('desc');
+
+    const togglePinned = (id: number) => {
+        setPinnedUserIds(prev => (prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]));
+    };
 
     // ── Filters + Sorting example ───────────────────────────────────────
     const [nameFilter, setNameFilter] = useState('');
@@ -308,6 +315,72 @@ export const DataViewPage: React.FC = () => {
                                     Queue
                                 </Button>
                             )}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            {/* Pinned rows */}
+            <section className="page-section">
+                <h2>Pinned Rows</h2>
+                <p>
+                    Pass <code>pinnedIds</code> to keep specific rows at the top of the list regardless of sorting. Pinned rows appear in the order given in the
+                    array and are clearly marked. Use the Pin/Unpin action to toggle, then sort by any column — the pinned rows stay at the top.
+                </p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <DataView<UserRow>
+                            columns={basicColumns}
+                            data={users}
+                            rowKey={row => row.id}
+                            pinnedIds={pinnedUserIds}
+                            sortKey={pinnedSortKey}
+                            sortDirection={pinnedSortDirection}
+                            onSortChange={({ key, direction }) => {
+                                setPinnedSortKey(key);
+                                setPinnedSortDirection(direction);
+                            }}
+                            actions={row => (
+                                <Button size="small" variant="ghost" onClick={() => togglePinned(row.id)}>
+                                    {pinnedUserIds.includes(row.id) ? 'Unpin' : 'Pin'}
+                                </Button>
+                            )}
+                            showPageSize={false}
+                            initialPageSize={5}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            {/* Pinned cards */}
+            <section className="page-section">
+                <h2>Pinned Cards</h2>
+                <p>Pinning works in cards mode too — pinned cards display a pin badge and remain first regardless of the active sort order.</p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <DataView<UserRow>
+                            columns={basicColumns}
+                            data={users}
+                            rowKey={row => row.id}
+                            pinnedIds={pinnedUserIds}
+                            desktopView="cards"
+                            cardMaxWidth={280}
+                            initialSortKey="score"
+                            initialSortDirection="desc"
+                            card={{
+                                title: row => row.name,
+                                subtitle: row => `${row.role} / Score ${row.score}`,
+                                badges: row => (
+                                    <Badge variant={row.status === 'Active' ? 'success' : row.status === 'On Hold' ? 'warning' : 'danger'}>{row.status}</Badge>
+                                ),
+                            }}
+                            actions={row => (
+                                <Button size="small" variant="ghost" onClick={() => togglePinned(row.id)}>
+                                    {pinnedUserIds.includes(row.id) ? 'Unpin' : 'Pin'}
+                                </Button>
+                            )}
+                            showPageSize={false}
+                            initialPageSize={6}
                         />
                     </div>
                 </div>
