@@ -48,6 +48,9 @@ export interface ControlPanelAction {
     size?: ButtonProps['size'];
     fullWidth?: boolean;
     disabled?: boolean;
+    /** Hover tooltip describing what the action does. Useful for explaining a
+     *  disabled state (e.g. why an action is unavailable for the current filter). */
+    tooltip?: string;
     /** When set, clicking the action opens a small confirmation popover anchored
      *  to the button instead of firing onClick directly. onClick fires only after
      *  the user picks the confirm option inside the popover. */

@@ -4,6 +4,7 @@ import { AppHeader } from '../AppHeader';
 import { Button } from '../Button';
 import { ConfirmPopover } from '../ConfirmPopover';
 import { Separator } from '../Separator';
+import { Tooltip } from '../Tooltip';
 
 import { ControlPanelFilterItem } from './ControlPanelFilter';
 import { ControlPanelNav } from './ControlPanelNav';
@@ -158,20 +159,24 @@ const ControlPanelActionButton: React.FC<ControlPanelActionButtonProps> = ({ act
         action.onClick?.({} as React.MouseEvent<HTMLButtonElement>);
     };
 
+    const button = (
+        <Button
+            className="control-panel__action"
+            disabled={action.disabled}
+            fullWidth={action.fullWidth ?? true}
+            icon={action.icon}
+            onClick={handleClick}
+            size={action.size ?? 'medium'}
+            sufixIcon={action.suffixIcon}
+            variant={action.variant ?? 'default'}
+        >
+            {action.label}
+        </Button>
+    );
+
     return (
         <>
-            <Button
-                className="control-panel__action"
-                disabled={action.disabled}
-                fullWidth={action.fullWidth ?? true}
-                icon={action.icon}
-                onClick={handleClick}
-                size={action.size ?? 'medium'}
-                sufixIcon={action.suffixIcon}
-                variant={action.variant ?? 'default'}
-            >
-                {action.label}
-            </Button>
+            {action.tooltip ? <Tooltip title={action.tooltip} position="right">{button}</Tooltip> : button}
             {action.confirm && (
                 <ConfirmPopover
                     visible={confirmVisible}
