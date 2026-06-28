@@ -102,7 +102,7 @@ export interface DataViewProps<T> {
     actions?: (row: T) => React.ReactNode;
     actionsWidth?: number;
     timeline?: DataViewTimelineConfig<T>;
-    onRowClick?: (row: T) => void;
+    onRowClick?: (row: T, event?: React.MouseEvent) => void;
     /** Render an optional detail row spanning all columns directly below the matching row.
      *  Return `null`/`undefined` to skip rendering for that row. Table mode only. */
     rowDetail?: (row: T) => React.ReactNode;

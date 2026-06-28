@@ -531,7 +531,7 @@ export function DataView<T>({
                                         window.open(href, '_blank', 'noopener,noreferrer');
                                         return;
                                     }
-                                    onRowClick?.(row);
+                                    onRowClick?.(row, e);
                                 };
                                 const handleTableRowAuxClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
                                     // Middle-click — browser doesn't do anything by default on a

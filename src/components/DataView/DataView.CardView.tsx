@@ -43,7 +43,7 @@ export interface CardViewProps<T> {
     card?: DataViewCardConfig<T>;
     actions?: (row: T) => React.ReactNode;
     timeline?: DataViewTimelineConfig<T>;
-    onRowClick?: (row: T) => void;
+    onRowClick?: (row: T, event?: React.MouseEvent) => void;
     rowHref?: (row: T) => string | undefined;
     rowClassName?: (row: T) => string;
     empty?: DataViewEmptyConfig;
@@ -120,7 +120,7 @@ export function CardView<T>({
             if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
             if (onRowClick) {
                 e.preventDefault();
-                onRowClick(row);
+                onRowClick(row, e);
             }
         };
 
@@ -186,7 +186,7 @@ export function CardView<T>({
                 ) : (
                     <div
                         className={cardClass}
-                        onClick={onRowClick ? () => onRowClick(row) : undefined}
+                        onClick={onRowClick ? (e) => onRowClick(row, e) : undefined}
                     >
                         {cardInner}
                     </div>
