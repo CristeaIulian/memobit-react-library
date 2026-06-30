@@ -17,7 +17,6 @@ import { ButtonPage } from './pages/ButtonPage';
 import { CalendarPage } from './pages/CalendarPage';
 import { CalendarHeatmapPage } from './pages/CalendarHeatmapPage';
 import { CardPage } from './pages/CardPage';
-import { ChatBotPage } from './pages/ChatBotPage';
 import { ChangePasswordModalPage } from './pages/ChangePasswordModalPage';
 import { CheckboxPage } from './pages/CheckboxPage';
 import { ChipPage } from './pages/ChipPage';
@@ -131,7 +130,6 @@ export const routes: RouteConfig[] = [
     { path: '/calendar', label: 'Calendar', component: CalendarPage },
     { path: '/calendar-heatmap', label: 'Calendar Heatmap', component: CalendarHeatmapPage },
     { path: '/card', label: 'Card', component: CardPage },
-    { path: '/chatbot', label: 'ChatBot', component: ChatBotPage },
     { path: '/change-password-modal', label: 'Change Password Modal', component: ChangePasswordModalPage },
     { path: '/checkbox', label: 'Checkbox', component: CheckboxPage },
     { path: '/chip', label: 'Chip', component: ChipPage },
