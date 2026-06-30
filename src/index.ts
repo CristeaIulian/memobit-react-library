@@ -63,6 +63,8 @@ export {
     DataView,
     type DataViewCardConfig,
     type DataViewColumn,
+    type DataViewColumnSelectorConfig,
+    type DataViewColumnSelectorOption,
     type DataViewDisplayMode,
     type DataViewEmptyConfig,
     type DataViewGroup,

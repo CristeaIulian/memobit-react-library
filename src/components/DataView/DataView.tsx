@@ -12,6 +12,7 @@ import { calculateTimelineMarkers, TimelineMarkerDot, type TimelineMarkerInfo, t
 import { Tooltip } from '../Tooltip';
 
 import { CardView, DEFAULT_PAGE_SIZES, getColumnLabel, renderCellContent, renderColumnLabel } from './DataView.CardView';
+import { DataViewColumnSelector } from './DataView.ColumnSelector';
 import { DataViewMiniSort } from './DataView.MiniSort';
 import type { DataViewColumn, DataViewGroup, DataViewGroupKey, DataViewProps, SortDirection } from './DataView.types';
 
@@ -71,6 +72,7 @@ export function DataView<T>({
     showResultsCount = true,
     totalCount,
     itemNoun,
+    columnSelector,
 }: DataViewProps<T>) {
     const { isMobile } = useBreakpoint();
     const [uncontrolledSortKey, setUncontrolledSortKey] = useState<string | null>(initialSortKey);
@@ -295,13 +297,30 @@ export function DataView<T>({
     const miniSortNode = hasMiniSort ? (
         <DataViewMiniSort columns={columns} config={miniSort} sortKey={sortKey} sortDirection={sortDirection} onSort={updateSort} />
     ) : null;
+    const columnSelectorNode =
+        columnSelector && columnSelector.options.length > 0 ? <DataViewColumnSelector config={columnSelector} /> : null;
     const topControlsNode =
-        resultsCountLabel || miniSortNode ? (
+        resultsCountLabel || miniSortNode || columnSelectorNode ? (
             <div className={`data-view__top-row data-view__top-row--mini-${miniSortAlign}`}>
                 {resultsCountLabel && <div className="data-view__results-count">{resultsCountLabel}</div>}
                 {miniSortNode}
+                {columnSelectorNode}
             </div>
         ) : null;
+
+    // No-columns guard — renders an empty state but keeps the column selector
+    // visible so the user can re-enable a column.
+
+    if (columns.length === 0) {
+        return (
+            <div className={`data-view${className ? ` ${className}` : ''}`}>
+                {topControlsNode}
+                <div className="data-view__wrapper data-view__wrapper--empty">
+                    <EmptyState title="No columns selected" description="Use the Columns button above to pick which columns to display." />
+                </div>
+            </div>
+        );
+    }
 
     // Card mode
 

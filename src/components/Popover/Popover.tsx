@@ -157,11 +157,17 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
         document.addEventListener('mousedown', handleClickOutside);
         document.addEventListener('keydown', handleEscape);
         window.addEventListener('resize', updatePosition);
+        // Capture-phase scroll listener so we reposition when ANY scrollable
+        // ancestor scrolls, not just the window. Without `true`, scroll events
+        // from inner containers don't bubble and the popover detaches from
+        // the anchor.
+        window.addEventListener('scroll', updatePosition, true);
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
             document.removeEventListener('keydown', handleEscape);
             window.removeEventListener('resize', updatePosition);
+            window.removeEventListener('scroll', updatePosition, true);
         };
     }, [visible, onClose, anchorEl, updatePosition]);
 

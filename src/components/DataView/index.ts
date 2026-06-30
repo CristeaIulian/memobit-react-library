@@ -2,6 +2,8 @@ export { DataView } from './DataView';
 export type {
     DataViewCardConfig,
     DataViewColumn,
+    DataViewColumnSelectorConfig,
+    DataViewColumnSelectorOption,
     DataViewDisplayMode,
     DataViewEmptyConfig,
     DataViewGroup,

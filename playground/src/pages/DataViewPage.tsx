@@ -63,6 +63,15 @@ export const DataViewPage: React.FC = () => {
     const [pinnedSortKey, setPinnedSortKey] = useState<string | null>('score');
     const [pinnedSortDirection, setPinnedSortDirection] = useState<SortDirection>('desc');
 
+    // ── Column selector example ─────────────────────────────────────────
+    const columnSelectorOptions = [
+        { key: 'name', label: 'Name' },
+        { key: 'role', label: 'Role' },
+        { key: 'score', label: 'Score' },
+        { key: 'status', label: 'Status' },
+    ];
+    const [visibleColumnKeys, setVisibleColumnKeys] = useState<string[]>(['name', 'role', 'score']);
+
     const togglePinned = (id: number) => {
         setPinnedUserIds(prev => (prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]));
     };
@@ -207,6 +216,31 @@ export const DataViewPage: React.FC = () => {
                             }}
                         />
                     </div>
+                </div>
+            </section>
+
+            {/* Column selector */}
+            <section className="page-section">
+                <h2>Column Selector</h2>
+                <p>
+                    Pass <code>columnSelector</code> to render a top-row button that opens a checkbox list of selectable column keys. The parent owns the
+                    selected keys and is notified via <code>onChange</code>. The button is hidden entirely when <code>options</code> is empty.
+                </p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <DataView<UserRow>
+                            columns={basicColumns.filter(col => visibleColumnKeys.includes(col.key))}
+                            data={users}
+                            rowKey={row => row.id}
+                            columnSelector={{
+                                options: columnSelectorOptions,
+                                selectedKeys: visibleColumnKeys,
+                                onChange: setVisibleColumnKeys,
+                            }}
+                            showPageSize={false}
+                        />
+                    </div>
+                    <p>Visible columns: {visibleColumnKeys.join(', ') || '(none)'}</p>
                 </div>
             </section>
 

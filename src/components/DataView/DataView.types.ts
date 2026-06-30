@@ -71,6 +71,19 @@ export interface DataViewGroup<T> {
     totalCount: number;
 }
 
+export interface DataViewColumnSelectorOption {
+    key: string;
+    label: string;
+}
+
+export interface DataViewColumnSelectorConfig {
+    options: DataViewColumnSelectorOption[];
+    selectedKeys: string[];
+    onChange: (selectedKeys: string[]) => void;
+    /** Trigger button label. Defaults to "Columns". */
+    label?: string;
+}
+
 export interface DataViewGroupConfig<T> {
     /** Extract group key from row. Return null for ungrouped/uncategorized items. */
     groupBy: (row: T) => DataViewGroupKey;
@@ -145,6 +158,8 @@ export interface DataViewProps<T> {
     totalCount?: number;
     /** Noun appended to the results-count label, e.g. "books". */
     itemNoun?: string;
+    /** Optional column-visibility selector rendered in the top controls. Hidden when `options` is empty. */
+    columnSelector?: DataViewColumnSelectorConfig;
 }
 
 
