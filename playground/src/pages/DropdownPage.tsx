@@ -297,6 +297,59 @@ export const DropdownPage: React.FC = () => {
                 </div>
 
                 <div className="showcase-group">
+                    <h3>Chips and Sort-Selected-First (Multi-Select)</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
+                        <code>sortSelectedFirst</code> floats already-selected options to the top of a long list while it's open. <code>showChips</code>{' '}
+                        renders each selection as a removable chip instead of joined text; <code>multilineChips</code> lets the chip row wrap onto
+                        multiple lines instead of scrolling on one line.
+                    </p>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>sortSelectedFirst - Selected options float to the top when opened</h4>
+                            <Dropdown
+                                name="sort-selected-first"
+                                label="Countries (sorted, selected first)"
+                                options={largeListOptions}
+                                multiple
+                                sortSelectedFirst
+                                onChange={newOptions => console.log('sortSelectedFirst', newOptions)}
+                                placeholder="Select countries..."
+                            />
+                        </div>
+
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>showChips - Single line, horizontally scrollable</h4>
+                            <Dropdown
+                                name="show-chips-single-line"
+                                label="Countries (chips, single line)"
+                                options={largeListOptions}
+                                multiple
+                                showChips
+                                sortSelectedFirst
+                                onChange={newOptions => console.log('showChips single-line', newOptions)}
+                                placeholder="Select countries..."
+                            />
+                        </div>
+
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>showChips + multilineChips - Wraps onto multiple lines</h4>
+                            <Dropdown
+                                name="show-chips-multiline"
+                                label="Countries (chips, multiline)"
+                                options={largeListOptions}
+                                multiple
+                                showChips
+                                multilineChips
+                                sortSelectedFirst
+                                onChange={newOptions => console.log('showChips multiline', newOptions)}
+                                placeholder="Select countries..."
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
                     <h3>Dropdown with Disabled Options</h3>
                     <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
                         Options can be individually disabled via <code>disabled: true</code>. A <code>tooltip</code> on the same option becomes the native hover hint.

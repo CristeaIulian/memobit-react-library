@@ -90,6 +90,75 @@
             }
         }
 
+        &--chips {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: var(--spacing-4);
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: var(--spacing-4) var(--spacing-80) var(--spacing-4) var(--spacing-8);
+
+            &::-webkit-scrollbar {
+                height: var(--scrollbar-size);
+            }
+
+            .input-text-wrapper {
+                flex: 1 1 var(--spacing-80);
+                min-width: var(--spacing-80);
+            }
+
+            input[type='text'] {
+                border: none;
+                padding: var(--spacing-4);
+            }
+        }
+
+        &--chips-multiline {
+            flex-wrap: wrap;
+            overflow: visible;
+            min-height: var(--spacing-40);
+
+            .dropdown-actions-buttons {
+                top: var(--spacing-4);
+                transform: none;
+            }
+        }
+
+        .dropdown-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            padding: var(--spacing-2) var(--spacing-8);
+            border-radius: var(--radius-full);
+            border: var(--spacing-1) solid var(--chip-selected-border-color, var(--body-accent-color));
+            background: var(--chip-selected-background-color, var(--card-background-accent-color));
+            color: var(--chip-selected-color, var(--body-accent-color));
+            font-size: var(--font-size-xs);
+            max-width: 100%;
+            flex-shrink: 0;
+
+            &__label {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &__remove {
+                @include flex-center;
+                border: none;
+                background: transparent;
+                padding: 0;
+                cursor: pointer;
+                color: inherit;
+
+                svg {
+                    width: var(--spacing-12);
+                    height: var(--spacing-12);
+                }
+            }
+        }
+
         .dropdown-selected-count {
             position: absolute;
             bottom: -20px;

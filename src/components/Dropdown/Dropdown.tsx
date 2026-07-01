@@ -41,6 +41,9 @@ export interface DropdownProps {
     /** Number of selected option labels to spell out before collapsing the rest into
      *  "(+N others)", when `multiple` is true. Defaults to 1, e.g. "France (+2 others)". */
     maxVisibleSelectedLabels?: number;
+    /** When `showChips` is true, lets the chip row wrap onto multiple lines
+     *  (container grows) instead of staying on a single scrollable line. */
+    multilineChips?: boolean;
     multiple?: boolean;
     name: string;
     onChange: (option: DropdownOption | DropdownOption[] | null, name: string) => void;
@@ -50,6 +53,14 @@ export interface DropdownProps {
     searchable?: boolean;
     searchValue?: string;
     selectedCountDisplay?: DropdownSelectedCountDisplay;
+    /** When `multiple` is true, renders each selection as a removable chip
+     *  instead of a joined text summary. */
+    showChips?: boolean;
+    /** When `multiple` is true, floats already-selected options to the top of
+     *  the list while it's open (frozen for the duration of that open
+     *  session), so they're easy to spot in a long list instead of being
+     *  scattered wherever they sort alphabetically. */
+    sortSelectedFirst?: boolean;
     success?: string;
     usePortal?: boolean;
     value?: number | number[] | string | string[] | null;
@@ -66,6 +77,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     id,
     label,
     maxVisibleSelectedLabels = 1,
+    multilineChips = false,
     multiple = false,
     name,
     onChange,
@@ -75,6 +87,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     searchable = true,
     searchValue,
     selectedCountDisplay = 'inline',
+    showChips = false,
+    sortSelectedFirst = false,
     success,
     usePortal = true,
     value,
@@ -94,19 +108,43 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const uid = useId();
     const inputId = id ?? `dropdown-${uid}`;
 
+    // Snapshot of `options` with already-selected items floated to the top,
+    // frozen for the duration of an open session (see effect below). Kept in
+    // a ref rather than state derived live from selectedOptions so that
+    // checking a box doesn't make it jump to the top mid-click — the list
+    // only re-sorts the next time the dropdown is opened.
+    const sortedBaseOptionsRef = useRef<DropdownOption[] | null>(null);
+
+    // Freeze the "selected first" ordering exactly once per open session.
+    useEffect(() => {
+        if (isOpen && sortSelectedFirst && multiple) {
+            const selectedValues = new Set(selectedOptions.map(option => option.value));
+            const selected: DropdownOption[] = [];
+            const unselected: DropdownOption[] = [];
+            options.forEach(option => (selectedValues.has(option.value) ? selected : unselected).push(option));
+            sortedBaseOptionsRef.current = [...selected, ...unselected];
+        } else if (!isOpen) {
+            sortedBaseOptionsRef.current = null;
+        }
+        // Intentionally omits `selectedOptions` so re-checking a box mid-session doesn't reshuffle the list.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOpen, sortSelectedFirst, multiple, options]);
+
     // Filter options when filterText changes
     useEffect(() => {
+        const baseOptions = sortedBaseOptionsRef.current ?? options;
+
         if (!searchable || !filterText) {
-            setFilteredOptions(options);
+            setFilteredOptions(baseOptions);
         } else {
             const needle = foldDiacritics(filterText);
-            const filtered = options.filter(option => foldDiacritics(option.label).includes(needle));
+            const filtered = baseOptions.filter(option => foldDiacritics(option.label).includes(needle));
             setFilteredOptions(filtered);
         }
 
         // Reset focused index when options change
         setFocusedIndex(-1);
-    }, [filterText, options, searchable]);
+    }, [filterText, options, searchable, isOpen]);
 
     // Tracks the value seen on the previous run of the controlled-value
     // effect below. Lets us tell apart "value actually changed" (parent
@@ -573,6 +611,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const getDisplayText = (): string => {
+        // In chip mode the selections are rendered as chips, not text — the
+        // field itself is always a pure search box.
+        if (multiple && showChips) {
+            return filterText;
+        }
+
         // While open and searchable, the field is a pure search box — never
         // pre-fill it with the selected label/summary, so typing to search
         // doesn't require deleting stale autofilled text first.
@@ -591,6 +635,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const getPlaceholderText = (): string => {
+        if (multiple && showChips) {
+            return selectedOptions.length > 0 ? '' : placeholder;
+        }
         if (isOpen && searchable) {
             return placeholder;
         }
@@ -718,6 +765,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const showValueChip = valueAsChip && !isOpen && !multiple && selectedOptions.length > 0;
     const showSelectedPrefixIcon = Boolean(selectedSingleOption?.icon && !filterText && !showValueChip);
     const showSelectedSuffixIcon = Boolean(selectedSingleOption?.suffixIcon && !showValueChip);
+    const chipsMode = multiple && showChips;
 
     return (
         <div
@@ -731,7 +779,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             )}
 
             <div
-                className={`dropdown-input-container ${showSelectedPrefixIcon ? 'dropdown-input-container--has-prefix-icon' : ''} ${showSelectedSuffixIcon ? 'dropdown-input-container--has-suffix-icon' : ''}`}
+                className={`dropdown-input-container ${showSelectedPrefixIcon ? 'dropdown-input-container--has-prefix-icon' : ''} ${showSelectedSuffixIcon ? 'dropdown-input-container--has-suffix-icon' : ''} ${chipsMode ? 'dropdown-input-container--chips' : ''} ${chipsMode && multilineChips ? 'dropdown-input-container--chips-multiline' : ''}`}
             >
                 {showSelectedPrefixIcon && selectedSingleOption?.icon && (
                     <span className="dropdown-selected-icon dropdown-selected-icon--prefix">
@@ -745,6 +793,25 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         <span className="dropdown-value-chip__label">{selectedSingleOption.label}</span>
                     </span>
                 )}
+
+                {chipsMode &&
+                    selectedOptions.map(option => (
+                        <span key={`dd-chip-${option.value}`} className="dropdown-chip">
+                            <span className="dropdown-chip__label">{option.label}</span>
+                            <button
+                                type="button"
+                                className="dropdown-chip__remove"
+                                title="Remove"
+                                disabled={disabled}
+                                onClick={event => {
+                                    event.stopPropagation();
+                                    handleRemoveSelectedOption(option);
+                                }}
+                            >
+                                {clear}
+                            </button>
+                        </span>
+                    ))}
 
                 <InputText
                     ref={inputRef}
