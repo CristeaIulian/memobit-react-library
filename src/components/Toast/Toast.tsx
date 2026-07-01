@@ -1,5 +1,7 @@
 import { FC, useEffect } from 'react';
 
+import { Icon } from '../Icon';
+
 import './Toast.scss';
 
 export interface ToastAction {
@@ -27,7 +29,7 @@ export const Toast: FC<ToastProps> = ({
     type = 'success',
     onClose,
     position = 'top-right',
-    showDismissButton,
+    showDismissButton = true,
     timeout = 3000,
     action,
 }: ToastProps) => {
@@ -39,8 +41,6 @@ export const Toast: FC<ToastProps> = ({
         return () => clearTimeout(timer);
     }, [onClose, timeout]);
 
-    const canDismiss = showDismissButton ?? Boolean(action);
-
     return (
         <div className={`toast toast--fixed toast-${type} toast--${position}`}>
             <span className="toast__message">{message}</span>
@@ -49,9 +49,9 @@ export const Toast: FC<ToastProps> = ({
                     {action.label}
                 </button>
             )}
-            {canDismiss && (
+            {showDismissButton && (
                 <button className="toast__close" onClick={onClose} title="Close">
-                    x
+                    <Icon name="clear" size="sm" />
                 </button>
             )}
         </div>

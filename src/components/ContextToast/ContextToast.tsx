@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
+import { Icon } from '../Icon';
+
 import './ContextToast.scss';
 
 export type ToastType = 'info' | 'success' | 'warning' | 'danger';
@@ -58,13 +60,6 @@ export const useToast = (): ToastContextValue => {
     return context;
 };
 
-const CloseIcon = () => (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-    </svg>
-);
-
 // ContextToast Component for individual notifications
 const ContextToast = ({ id, message, type = 'info', action, onClose, showDismissButton = true, timeout = 2000 }: ToastProps) => {
     useEffect(() => {
@@ -97,7 +92,7 @@ const ContextToast = ({ id, message, type = 'info', action, onClose, showDismiss
             )}
             {showDismissButton && (
                 <button onClick={handleClose} className="toast__close-button" title="Close">
-                    <CloseIcon />
+                    <Icon name="clear" size="sm" />
                 </button>
             )}
         </div>
