@@ -38,6 +38,9 @@ export interface DropdownProps {
     highlighted?: boolean;
     id?: string;
     label?: string;
+    /** Number of selected option labels to spell out before collapsing the rest into
+     *  "(+N others)", when `multiple` is true. Defaults to 1, e.g. "France (+2 others)". */
+    maxVisibleSelectedLabels?: number;
     multiple?: boolean;
     name: string;
     onChange: (option: DropdownOption | DropdownOption[] | null, name: string) => void;
@@ -62,6 +65,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     highlighted = false,
     id,
     label,
+    maxVisibleSelectedLabels = 1,
     multiple = false,
     name,
     onChange,
@@ -553,36 +557,29 @@ export const Dropdown: React.FC<DropdownProps> = ({
             return '';
         }
 
-        const firstLabel = selectedOptions[0].label;
+        const visibleCount = Math.max(1, maxVisibleSelectedLabels);
 
-        if (selectedOptions.length === 1) {
-            return firstLabel;
+        if (selectedOptions.length <= visibleCount) {
+            return selectedOptions.map(option => option.label).join(', ');
         }
 
-        if (selectedOptions.length === 2) {
-            return `${firstLabel} (+1 other)`;
-        }
+        const visibleLabels = selectedOptions
+            .slice(0, visibleCount)
+            .map(option => option.label)
+            .join(', ');
+        const remaining = selectedOptions.length - visibleCount;
 
-        return `${firstLabel} (+${selectedOptions.length - 1} others)`;
+        return `${visibleLabels} (+${remaining} ${remaining === 1 ? 'other' : 'others'})`;
     };
 
     const getDisplayText = (): string => {
-        if (searchable) {
-            // If actively typing/filtering, show the filter text
-            if (filterText) {
-                return filterText;
-            }
-            // If not typing, show the selected value
-            if (selectedOptions.length > 0) {
-                if (multiple) {
-                    return getMultiSelectDisplayText();
-                }
-                return selectedOptions[0].label;
-            }
-            return '';
+        // While open and searchable, the field is a pure search box — never
+        // pre-fill it with the selected label/summary, so typing to search
+        // doesn't require deleting stale autofilled text first.
+        if (searchable && isOpen) {
+            return filterText;
         }
 
-        // For non-searchable, show selected option(s)
         if (selectedOptions.length > 0) {
             if (multiple) {
                 return getMultiSelectDisplayText();
@@ -594,6 +591,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const getPlaceholderText = (): string => {
+        if (isOpen && searchable) {
+            return placeholder;
+        }
         if (selectedOptions.length > 0) {
             return '';
         }

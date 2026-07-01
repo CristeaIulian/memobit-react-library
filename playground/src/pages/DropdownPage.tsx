@@ -280,6 +280,19 @@ export const DropdownPage: React.FC = () => {
                                 placeholder="Select countries..."
                             />
                         </div>
+
+                        <div className="component-group" style={{ width: '60%' }}>
+                            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>maxVisibleSelectedLabels=4 - Spells out up to 4 names before collapsing</h4>
+                            <Dropdown
+                                name="max-visible-labels"
+                                label="Countries (up to 4 names shown)"
+                                options={largeListOptions}
+                                multiple
+                                maxVisibleSelectedLabels={4}
+                                onChange={newOptions => console.log('maxVisibleSelectedLabels', newOptions)}
+                                placeholder="Select countries..."
+                            />
+                        </div>
                     </div>
                 </div>
 
