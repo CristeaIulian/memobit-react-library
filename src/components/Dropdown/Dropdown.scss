@@ -313,6 +313,14 @@
         input[type='text'] {
             min-height: var(--spacing-40);
         }
+
+        // In chips mode the search input sits alongside/below chip rows
+        // rather than being the only content — the 40px floor above makes
+        // it tower over the ~24px-tall chips, especially on its own wrapped
+        // line in multiline mode. Match it to the chip height instead.
+        .dropdown-input-container--chips input[type='text'] {
+            min-height: var(--spacing-24);
+        }
     }
 
     // Allow overflow for floating mode to show the count below
