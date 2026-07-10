@@ -127,6 +127,19 @@
     &--horizontal.stacked-bar--thin &__segment {
         padding: 0;
     }
+
+    // Hairline between neighbours, painted in the track colour so it reads as a gap in the bar.
+    // Only BETWEEN segments, never on the outer edges, so the rounded track stays flush.
+    &--separators &__segment + &__segment {
+        border-left: var(--spacing-2) solid var(--progress-bar-background-color);
+    }
+
+    // Vertical bars stack column-reverse, so a later segment sits ABOVE its predecessor and the
+    // shared edge is its bottom one.
+    &--separators.stacked-bar--vertical &__segment + &__segment {
+        border-bottom: var(--spacing-2) solid var(--progress-bar-background-color);
+        border-left: 0;
+    }
 }
 
 @keyframes stacked-bar-stripes {

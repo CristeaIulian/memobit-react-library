@@ -21,6 +21,12 @@ export interface StackedBarProps {
     normalize?: boolean;
     orientation?: StackedBarOrientation;
     segments: StackedBarSegment[];
+    /**
+     * Draw a hairline between adjacent segments. Needed when a segment's colour encodes a *state*
+     * rather than an identity, since two neighbours can then share a colour and visually merge into
+     * one block. Opt-in, so existing bars keep their current look.
+     */
+    separators?: boolean;
     showLabels?: boolean;
     showPercentage?: boolean;
     thin?: boolean;
@@ -47,6 +53,7 @@ export const StackedBar = ({
     normalize = true,
     orientation = 'horizontal',
     segments,
+    separators = false,
     showLabels = true,
     showPercentage = true,
     thin = false,
@@ -80,7 +87,14 @@ export const StackedBar = ({
         trackStyle.width = width;
     }
 
-    const trackClassName = ['stacked-bar', `stacked-bar--${orientation}`, thin ? 'stacked-bar--thin' : ''].filter(Boolean).join(' ');
+    const trackClassName = [
+        'stacked-bar',
+        `stacked-bar--${orientation}`,
+        thin ? 'stacked-bar--thin' : '',
+        separators ? 'stacked-bar--separators' : '',
+    ]
+        .filter(Boolean)
+        .join(' ');
 
     return (
         <div className={trackClassName} style={trackStyle}>
