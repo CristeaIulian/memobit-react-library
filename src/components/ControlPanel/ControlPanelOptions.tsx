@@ -138,7 +138,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                 {option.type === 'radio' && (
                                     <>
                                         {option.label && <span className="control-panel__filter-title">{option.label}</span>}
-                                        <div className="control-panel__filter-list">
+                                        <div className={`control-panel__filter-list ${option.inline ? 'control-panel__filter-list--inline' : ''}`}>
                                             {option.options.map(radioOption => {
                                                 const isSelected = option.value === radioOption.value;
                                                 const emitChange = () => onOptionChange?.({ optionId: option.id, value: radioOption.value });

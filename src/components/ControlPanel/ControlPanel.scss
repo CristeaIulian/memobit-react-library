@@ -344,6 +344,23 @@
         gap: var(--spacing-8);
     }
 
+    // Opt-in for short mutually-exclusive radios (e.g. Exclude/Include/Only):
+    // flow them onto one row and wrap only when they no longer fit, instead of
+    // always stacking. Each radio then sizes to its content rather than the
+    // panel width.
+    &__filter-list--inline {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .control-panel__filter-radio {
+            flex: 0 0 auto;
+        }
+
+        .control-panel__filter-radio-label {
+            width: auto;
+        }
+    }
+
     &__filter-chips {
         flex-direction: row;
         flex-wrap: wrap;
