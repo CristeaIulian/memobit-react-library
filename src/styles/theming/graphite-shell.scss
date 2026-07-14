@@ -1,4 +1,4 @@
-// Graphite Shell theme - Dedicated to Tools Launcher app
+// Graphite Shell theme - Dedicated to Nexus app
 // Developer utility dark: near-black graphite, electric lime accent, raw terminal edge
 [data-theme='graphite-shell'] {
     --font-family: 'Space Mono', ui-monospace, monospace;
@@ -8,8 +8,7 @@
     --body-background-base: #080a08;
     --body-background-wash:
         radial-gradient(55% 50% at 100% 0%, rgba(132, 204, 22, 0.1) 0%, transparent 65%),
-        radial-gradient(45% 40% at 0% 100%, rgba(132, 204, 22, 0.08) 0%, transparent 65%),
-        linear-gradient(155deg, #0c0e0c 0%, #070908 55%, #0a0c0a 100%);
+        radial-gradient(45% 40% at 0% 100%, rgba(132, 204, 22, 0.08) 0%, transparent 65%), linear-gradient(155deg, #0c0e0c 0%, #070908 55%, #0a0c0a 100%);
     --body-color: #c0ccc0;
     --body-color-accent: #ffffff;
     --body-color-muted: #507050;

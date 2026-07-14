@@ -104,7 +104,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
         value: 'sandstone',
         label: 'Sandstone',
         fontUrl: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap',
-        recommendedApps: ['CookBook', 'Impulse', 'Seeds', 'Books Crawler'],
+        recommendedApps: ['CookBook', 'Impulse', 'Seeds'],
     },
     {
         value: 'tailwind-vue-dark',
@@ -120,7 +120,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
     {
         value: 'sandy-parchment',
         label: 'Sandy Parchment',
-        recommendedApps: ['Shelf', 'Ascend', 'Basket', 'CookBook', 'HUB', 'Impulse', 'Seeds', 'Books Crawler'],
+        recommendedApps: ['Shelf', 'Ascend', 'Basket', 'CookBook', 'HUB', 'Impulse', 'Seeds'],
         fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&display=swap',
     },
@@ -380,7 +380,7 @@ export const THEME_CONFIGS: ThemeConfig[] = [
     {
         value: 'command-slate',
         label: 'Command Slate',
-        recommendedApps: ['Tools Launcher'],
+        recommendedApps: ['Nexus'],
         fontUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
         fontUrlDisplay: 'https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap',
     },

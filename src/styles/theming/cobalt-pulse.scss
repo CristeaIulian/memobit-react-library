@@ -1,4 +1,4 @@
-// Cobalt Pulse theme - inspired by Project Content Finder
+// Cobalt Pulse theme - inspired by Nexus
 // Layered indigo-near-black surfaces, electric cobalt primary with a violet
 // gradient partner, warm amber match highlight, and crisp green/red status hits.
 [data-theme='cobalt-pulse'] {
@@ -10,8 +10,7 @@
     --body-background-base: #0a0b0d;
     --body-background-wash:
         radial-gradient(60% 50% at 100% 0%, rgba(79, 142, 247, 0.16) 0%, transparent 65%),
-        radial-gradient(48% 42% at 0% 100%, rgba(150, 80, 255, 0.12) 0%, transparent 65%),
-        linear-gradient(155deg, #11131d 0%, #08090c 55%, #0d0e14 100%);
+        radial-gradient(48% 42% at 0% 100%, rgba(150, 80, 255, 0.12) 0%, transparent 65%), linear-gradient(155deg, #11131d 0%, #08090c 55%, #0d0e14 100%);
     --body-color: #e8eaf4;
     --body-color-accent: #ffffff;
     --body-color-muted: #6b7394;
