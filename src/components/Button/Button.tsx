@@ -20,7 +20,8 @@ export interface ButtonProps {
     emojiIcon?: string;
     size?: 'small' | 'medium' | 'large';
     style?: React.CSSProperties;
-    sufixIcon?: string;
+    /** Icon rendered after children. Accepts an IconName string or a ReactElement. */
+    sufixIcon?: IconName | React.ReactElement;
     type?: 'button' | 'submit' | 'reset';
     title?: string;
     variant?: ButtonVariant;
@@ -68,7 +69,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
                     {icon !== undefined && (typeof icon === 'string' ? <Icon size="lg" name={icon} variant={iconVariant} /> : icon)}
                     {emojiIcon && <span>{emojiIcon}</span>}
                     {children && <span>{children}</span>}
-                    {sufixIcon && <span>{sufixIcon}</span>}
+                    {sufixIcon !== undefined && (typeof sufixIcon === 'string' ? <Icon size="lg" name={sufixIcon} variant={iconVariant} /> : sufixIcon)}
                 </>
             )}
         </button>

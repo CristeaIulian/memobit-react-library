@@ -3,7 +3,6 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { Button } from '../Button';
 import { Dropdown, type DropdownOption } from '../Dropdown';
-import { Icon } from '../Icon';
 
 import './Pagination.scss';
 
@@ -136,9 +135,8 @@ export const Pagination: FC<PaginationProps> = ({
                         </Button>
                     ))}
 
-                    <Button variant="default" borders="sharp" disabled={currentPage === totalPages} onClick={() => onPageChange(currentPage + 1)}>
+                    <Button variant="default" borders="sharp" disabled={currentPage === totalPages} sufixIcon="next" onClick={() => onPageChange(currentPage + 1)}>
                         {isAtLeast('desktop') ? 'Next' : ''}
-                        <Icon name="next" />
                     </Button>
                 </div>
             )}
