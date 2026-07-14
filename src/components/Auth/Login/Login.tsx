@@ -84,7 +84,7 @@ export function Login({ redirectPath = '/' }: LoginProps): ReactElement {
 
                         {error && <div className="LoginPage__error">{error}</div>}
 
-                        <Button type="submit" variant="info" loading={isLoading} fullWidth>
+                        <Button type="submit" variant="info" icon="key" loading={isLoading} fullWidth>
                             Sign In
                         </Button>
                     </form>

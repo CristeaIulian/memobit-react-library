@@ -168,7 +168,7 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
     return (
         <div className="suggestions-list">
             <div>
-                <Button onClick={toggleList}>
+                <Button icon={isVisible ? 'caret-up' : 'caret-down'} onClick={toggleList}>
                     {isVisible ? 'Hide' : 'Show'} {label} suggestions
                 </Button>
             </div>

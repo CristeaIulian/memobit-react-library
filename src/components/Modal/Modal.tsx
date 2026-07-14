@@ -74,9 +74,7 @@ export const Modal: FC<ModalProps> = ({
                     <h2>
                         {titleIcon ? <Icon name={titleIcon} /> : null} {title}
                     </h2>
-                    <Button className="modal__close" onClick={onClose} size="medium" title="Close modal" variant="ghost">
-                        &times;
-                    </Button>
+                    <Button className="modal__close" icon="clear" onClick={onClose} size="medium" title="Close modal" variant="ghost" />
                 </div>
                 {children !== undefined && children !== null && <div className={`modal__body ${noPadding ? 'modal__body--no-padding' : ''}`}>{children}</div>}
                 {hasFooter && (

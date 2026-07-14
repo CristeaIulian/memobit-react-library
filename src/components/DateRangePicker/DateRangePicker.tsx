@@ -213,16 +213,12 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
     const calendarContent = (
         <div className="date-range-picker__calendar">
             <div className="date-range-picker__nav">
-                <Button variant="default" onClick={() => setBaseMonth(addMonths(baseMonth, -1))}>
-                    Prev
-                </Button>
+                <Button variant="default" icon="caret-left" onClick={() => setBaseMonth(addMonths(baseMonth, -1))} title="Previous month" />
                 <span>
                     {baseMonth.toLocaleString('default', { month: 'long' })} {baseMonth.getFullYear()} -
                     {secondMonth.toLocaleString('default', { month: 'long' })} {secondMonth.getFullYear()}
                 </span>
-                <Button variant="default" onClick={() => setBaseMonth(addMonths(baseMonth, 1))}>
-                    Next
-                </Button>
+                <Button variant="default" icon="caret-right" onClick={() => setBaseMonth(addMonths(baseMonth, 1))} title="Next month" />
             </div>
 
             <div className="date-range-picker__months">
