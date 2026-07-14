@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from 'react';
 
 import { AppHeader, type AppHeaderProps } from '../AppHeader';
 import { Icon, type IconName } from '../Icon';
+import { Tooltip } from '../Tooltip';
 import { InputSearch } from '../InputSearch';
 import { useSidebarContext } from './SidebarContext';
 
@@ -110,9 +111,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {item.bulletColor && <span className="sidebar__link-bullet" style={{ backgroundColor: item.bulletColor }} />}
             <span className="sidebar__link-label">{item.label}</span>
             {item.count !== undefined && (
-                <span className="sidebar__link-count" title={item.countLabel}>
-                    {item.count}
-                </span>
+                <Tooltip title={item.countLabel}>
+                    <span className="sidebar__link-count">
+                        {item.count}
+                    </span>
+                </Tooltip>
             )}
         </button>
     );

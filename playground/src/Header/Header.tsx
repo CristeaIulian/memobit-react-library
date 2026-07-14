@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button, Icon, ThemeSettings } from '../../../src';
+import { Button, Icon, ThemeSettings, Tooltip } from '../../../src';
 
 import './Header.scss';
 
@@ -15,9 +15,11 @@ export const Header = ({ onToggleSidebar }: HeaderProps) => {
         <div className="appHeader">
             <header className="mobile">
                 {onToggleSidebar && (
-                    <button className="appHeader__sidebar-toggle" onClick={onToggleSidebar} title="Toggle navigation">
-                        <Icon name="menu-hamburger" />
-                    </button>
+                    <Tooltip title="Toggle navigation">
+                        <button className="appHeader__sidebar-toggle" onClick={onToggleSidebar}>
+                            <Icon name="menu-hamburger" />
+                        </button>
+                    </Tooltip>
                 )}
             </header>
             <header className="not-mobile">

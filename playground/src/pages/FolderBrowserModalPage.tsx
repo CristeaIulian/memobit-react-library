@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { Badge, Button, FolderBrowserModal, type FolderBrowserEntry, type FolderBrowserListing } from '../../../src';
+import { Badge, Button, FolderBrowserModal, Tooltip, type FolderBrowserEntry, type FolderBrowserListing } from '../../../src';
 
 import './FolderBrowserModalPage.scss';
 
@@ -107,7 +107,7 @@ const BrowserCard: React.FC<BrowserCardProps> = ({ title, description, buttonLab
             <p>{description}</p>
             <div className="folder-browser-card__path">
                 <span>Selected</span>
-                <strong title={selectedPath}>{selectedPath ?? 'None'}</strong>
+                <Tooltip title={selectedPath}><strong>{selectedPath ?? 'None'}</strong></Tooltip>
             </div>
         </div>
         <Button icon="folder-open" onClick={onOpen}>

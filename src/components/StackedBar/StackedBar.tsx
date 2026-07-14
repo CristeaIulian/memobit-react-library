@@ -1,5 +1,7 @@
 import { type CSSProperties, useMemo } from 'react';
 
+import { Tooltip } from '../Tooltip';
+
 import { format2Digits } from '../../helpers/Numbers';
 
 import './StackedBar.scss';
@@ -120,9 +122,11 @@ export const StackedBar = ({
                 const sizeStyle: CSSProperties = isVertical ? { height: `${percent}%` } : { width: `${percent}%` };
 
                 return (
-                    <div key={`stacked-bar-segment-${index}`} className={segmentClassName} style={sizeStyle} title={text}>
-                        {showLabels && <span className="stacked-bar__segment-label">{text}</span>}
-                    </div>
+                    <Tooltip key={`stacked-bar-segment-${index}`} title={text}>
+                        <div className={segmentClassName} style={sizeStyle}>
+                            {showLabels && <span className="stacked-bar__segment-label">{text}</span>}
+                        </div>
+                    </Tooltip>
                 );
             })}
         </div>

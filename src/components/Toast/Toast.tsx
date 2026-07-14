@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 import './Toast.scss';
 
@@ -50,9 +51,11 @@ export const Toast: FC<ToastProps> = ({
                 </button>
             )}
             {showDismissButton && (
-                <button className="toast__close" onClick={onClose} title="Close">
-                    <Icon name="clear" size="sm" />
-                </button>
+                <Tooltip title="Close">
+                    <button className="toast__close" onClick={onClose}>
+                        <Icon name="clear" size="sm" />
+                    </button>
+                </Tooltip>
             )}
         </div>
     );

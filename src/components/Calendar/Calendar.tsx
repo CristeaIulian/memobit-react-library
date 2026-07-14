@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+
+import { Tooltip } from '../Tooltip';
 import { getMonthMatrix, isSameDay, isToday, isWeekend, addMonths, isBefore, isAfter } from '../../helpers/Datetime';
 import './Calendar.scss';
 
@@ -313,15 +315,19 @@ export const Calendar: React.FC<CalendarProps> = ({
         if (view === 'years') {
             return (
                 <div className="calendar__header">
-                    <button type="button" className="calendar__nav-button" onClick={handlePreviousYears} title="Previous years">
-                        ‹
-                    </button>
+                    <Tooltip title="Previous years">
+                        <button type="button" className="calendar__nav-button" onClick={handlePreviousYears}>
+                            ‹
+                        </button>
+                    </Tooltip>
                     <div className="calendar__month-year">
                         {yearsRangeStart} - {yearsRangeStart + YEARS_PER_PAGE - 1}
                     </div>
-                    <button type="button" className="calendar__nav-button" onClick={handleNextYears} title="Next years">
-                        ›
-                    </button>
+                    <Tooltip title="Next years">
+                        <button type="button" className="calendar__nav-button" onClick={handleNextYears}>
+                            ›
+                        </button>
+                    </Tooltip>
                 </div>
             );
         }
@@ -329,24 +335,30 @@ export const Calendar: React.FC<CalendarProps> = ({
         if (view === 'months') {
             return (
                 <div className="calendar__header">
-                    <button type="button" className="calendar__nav-button" onClick={handlePreviousYear} title="Previous year">
-                        ‹
-                    </button>
+                    <Tooltip title="Previous year">
+                        <button type="button" className="calendar__nav-button" onClick={handlePreviousYear}>
+                            ‹
+                        </button>
+                    </Tooltip>
                     <button type="button" className="calendar__header-button" onClick={handleYearHeaderClick}>
                         {displayMonth.getFullYear()}
                     </button>
-                    <button type="button" className="calendar__nav-button" onClick={handleNextYear} title="Next year">
-                        ›
-                    </button>
+                    <Tooltip title="Next year">
+                        <button type="button" className="calendar__nav-button" onClick={handleNextYear}>
+                            ›
+                        </button>
+                    </Tooltip>
                 </div>
             );
         }
 
         return (
             <div className="calendar__header">
-                <button type="button" className="calendar__nav-button" onClick={handlePreviousMonth} title="Previous month">
-                    ‹
-                </button>
+                <Tooltip title="Previous month">
+                    <button type="button" className="calendar__nav-button" onClick={handlePreviousMonth}>
+                        ‹
+                    </button>
+                </Tooltip>
                 <div className="calendar__month-year">
                     {yearOnly ? (
                         <span className="calendar__header-label">{MONTH_NAMES[displayMonth.getMonth()]}</span>
@@ -361,9 +373,11 @@ export const Calendar: React.FC<CalendarProps> = ({
                         </>
                     )}
                 </div>
-                <button type="button" className="calendar__nav-button" onClick={handleNextMonth} title="Next month">
-                    ›
-                </button>
+                <Tooltip title="Next month">
+                    <button type="button" className="calendar__nav-button" onClick={handleNextMonth}>
+                        ›
+                    </button>
+                </Tooltip>
             </div>
         );
     };

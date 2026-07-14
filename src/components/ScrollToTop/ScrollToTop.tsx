@@ -1,5 +1,7 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 
+import { Tooltip } from '../Tooltip';
+
 import './ScrollToTop.scss';
 
 interface ScrollToTopProps {
@@ -39,8 +41,10 @@ export const ScrollToTop: FC<ScrollToTopProps> = ({ scrollContainer, scrollThres
     }
 
     return (
-        <button className={`scroll-to-top${className ? ` ${className}` : ''}`} onClick={scrollToTop} title="Scroll to top">
-            <span className="scroll-to-top__icon">&#9650;</span>
-        </button>
+        <Tooltip title="Scroll to top">
+            <button className={`scroll-to-top${className ? ` ${className}` : ''}`} onClick={scrollToTop}>
+                <span className="scroll-to-top__icon">&#9650;</span>
+            </button>
+        </Tooltip>
     );
 };

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 import './ContextToast.scss';
 
@@ -91,9 +92,11 @@ const ContextToast = ({ id, message, type = 'info', action, onClose, showDismiss
                 </button>
             )}
             {showDismissButton && (
-                <button onClick={handleClose} className="toast__close-button" title="Close">
-                    <Icon name="clear" size="sm" />
-                </button>
+                <Tooltip title="Close">
+                    <button onClick={handleClose} className="toast__close-button">
+                        <Icon name="clear" size="sm" />
+                    </button>
+                </Tooltip>
             )}
         </div>
     );

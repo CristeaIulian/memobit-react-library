@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Calendar, CalendarProps, CalendarDateRange } from '../Calendar';
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 import { formatDate } from '../../helpers/Datetime';
 import './DatePicker.scss';
 
@@ -205,9 +206,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 <span className={`datepicker__value ${!displayValue ? 'datepicker__value--placeholder' : ''}`}>{displayValue || placeholder}</span>
                 <div className="datepicker__actions">
                     {clearable && displayValue && (
-                        <button type="button" className="datepicker__clear" onClick={handleClear} title="Clear">
-                            ×
-                        </button>
+                        <Tooltip title="Clear">
+                            <button type="button" className="datepicker__clear" onClick={handleClear}>
+                                ×
+                            </button>
+                        </Tooltip>
                     )}
                     <span className="datepicker__icon"><Icon name="calendar" /></span>
                 </div>

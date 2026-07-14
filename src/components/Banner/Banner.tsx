@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Button, type ExternalButtonConfig } from '../Button';
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 import './Banner.scss';
 
@@ -67,9 +68,11 @@ export const Banner: React.FC<BannerProps> = ({
                 )}
             </div>
             {showDismiss && (
-                <button className="banner__dismiss" type="button" title={dismissLabel} onClick={handleDismiss}>
-                    <Icon name="clear" size="sm" />
-                </button>
+                <Tooltip title={dismissLabel}>
+                    <button className="banner__dismiss" type="button" onClick={handleDismiss}>
+                        <Icon name="clear" size="sm" />
+                    </button>
+                </Tooltip>
             )}
         </section>
     );

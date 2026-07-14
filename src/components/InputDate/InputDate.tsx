@@ -1,6 +1,7 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 import './InputDate.scss';
 
 interface InputDateProps {
@@ -83,9 +84,11 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
                         required={required}
                     />
                     {showClear && (
-                        <button type="button" className="input-date-clear" onClick={() => onChange?.(undefined)} title="Clear date">
-                            <Icon name="clear" size="sm" />
-                        </button>
+                        <Tooltip title="Clear date">
+                            <button type="button" className="input-date-clear" onClick={() => onChange?.(undefined)}>
+                                <Icon name="clear" size="sm" />
+                            </button>
+                        </Tooltip>
                     )}
                 </div>
                 {error && <span className="input-date-error-message">{error}</span>}

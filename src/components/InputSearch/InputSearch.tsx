@@ -1,6 +1,7 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 import { InputText } from '../InputText';
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 import './InputSearch.scss';
 
 export interface InputSearchProps {
@@ -71,9 +72,11 @@ export const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
                     ref={ref}
                 />
                 {showClearButton && (
-                    <button type="button" className="input-search__clear" onClick={handleClear} title="Clear search">
-                        <Icon name="clear" size="sm" />
-                    </button>
+                    <Tooltip title="Clear search">
+                        <button type="button" className="input-search__clear" onClick={handleClear}>
+                            <Icon name="clear" size="sm" />
+                        </button>
+                    </Tooltip>
                 )}
             </div>
         );

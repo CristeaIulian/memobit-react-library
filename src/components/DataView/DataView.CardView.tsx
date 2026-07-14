@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { Checkbox } from '../Checkbox';
 import { EmptyState } from '../EmptyState';
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 import { calculateTimelineMarkers, TimelineMobileSeparator, type TimelineMarkerInfo, type TimelineMarkersItem } from '../TimelineMarkers';
 
 import type { DataViewCardConfig, DataViewColumn, DataViewEmptyConfig, DataViewGroup, DataViewGroupKey, DataViewTimelineConfig } from './DataView.types';
@@ -127,9 +128,11 @@ export function CardView<T>({
         const cardInner = (
             <>
                 {isPinned && (
-                    <span className="data-view__card-pin" title="Pinned">
-                        <Icon name="pin" size="sm" />
-                    </span>
+                    <Tooltip title="Pinned">
+                        <span className="data-view__card-pin">
+                            <Icon name="pin" size="sm" />
+                        </span>
+                    </Tooltip>
                 )}
                 {selectable && onToggleSelect && (
                     <div className="data-view__card-select" onClick={e => e.stopPropagation()}>

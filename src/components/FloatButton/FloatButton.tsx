@@ -61,11 +61,13 @@ export const FloatButton: FC<FloatButtonProps> = ({ actions }) => {
                 </>
             )}
 
-            <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu} title="Actions menu">
-                <span className="float-button__icon">
-                    <Icon name={isMenuOpen ? 'clear' : 'plus'} size="xxl" />
-                </span>
-            </button>
+            <Tooltip title="Actions menu">
+                <button className={`float-button ${isMenuOpen ? 'float-button--active' : ''}`} onClick={toggleMenu}>
+                    <span className="float-button__icon">
+                        <Icon name={isMenuOpen ? 'clear' : 'plus'} size="xxl" />
+                    </span>
+                </button>
+            </Tooltip>
         </div>
     );
 };
