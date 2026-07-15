@@ -58,6 +58,12 @@
     }
 
     &__overlay {
+        // Fixed from the first paint so the portaled overlay is never laid out
+        // in document flow before JS measures it (avoids a scrollbar flash).
+        // Inline top/left from the positioning effect override these.
+        position: fixed;
+        top: 0;
+        left: 0;
         background: var(--card-background-color);
         border: var(--spacing-1) solid var(--delimiter-color);
         border-radius: var(--radius);

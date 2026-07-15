@@ -78,6 +78,12 @@
     }
 
     &__dropdown {
+        // Fixed from the first paint so the portaled dropdown is never laid out
+        // in document flow before JS measures it (avoids a scrollbar flash).
+        // Inline top/left override these; the --inline variant resets to static.
+        position: fixed;
+        top: 0;
+        left: 0;
         background-color: var(--calendar-background-color);
         border: 1px solid var(--calendar-border-color);
         border-radius: var(--radius);
