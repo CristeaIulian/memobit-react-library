@@ -43,7 +43,7 @@ export interface ControlPanelAction {
     label: string;
     onClick?: ButtonProps['onClick'];
     icon?: IconName;
-    suffixIcon?: string;
+    suffixIcon?: IconName;
     variant?: ButtonProps['variant'];
     size?: ButtonProps['size'];
     fullWidth?: boolean;
