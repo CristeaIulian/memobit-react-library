@@ -309,9 +309,10 @@ export function DataView<T>({
         ) : null;
 
     // No-columns guard — renders an empty state but keeps the column selector
-    // visible so the user can re-enable a column.
+    // visible so the user can re-enable a column. Card mode is driven by the
+    // `card` prop, not `columns`, so an empty `columns` array is valid there.
 
-    if (columns.length === 0) {
+    if (desktopView !== 'cards' && columns.length === 0) {
         return (
             <div className={`data-view${className ? ` ${className}` : ''}`}>
                 {topControlsNode}
