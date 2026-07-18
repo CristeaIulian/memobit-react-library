@@ -1,7 +1,7 @@
 .memobit-context-menu-back-drop {
     background-color: var(--backdrop-color);
     opacity: 0.2;
-    animation: fadeIn 0.2s ease;
+    animation: contextMenuBackdropFadeIn 0.2s ease;
 }
 
 .memobit-context-menu {
@@ -26,11 +26,11 @@
     }
 }
 
-@keyframes fadeIn {
+@keyframes contextMenuBackdropFadeIn {
     from {
         opacity: 0;
     }
     to {
-        opacity: 1;
+        opacity: 0.2;
     }
 }
