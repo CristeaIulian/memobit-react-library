@@ -99,7 +99,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [filteredOptions, setFilteredOptions] = useState<DropdownOption[]>(options);
     const [focusedIndex, setFocusedIndex] = useState<number>(-1);
     const [selectedOptions, setSelectedOptions] = useState<DropdownOption[]>([]);
-    const [portalPosition, setPortalPosition] = useState<{ top: number; left: number; width: number }>({ top: 0, left: 0, width: 0 });
+    const [portalPosition, setPortalPosition] = useState<{ top: number; bottom: number; left: number; width: number; maxHeight: number }>({
+        top: 0,
+        bottom: 0,
+        left: 0,
+        width: 0,
+        maxHeight: 300,
+    });
     const [shouldOpenUpward, setShouldOpenUpward] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const optionsRef = useRef<(HTMLLIElement | null)[]>([]);
@@ -274,36 +280,66 @@ export const Dropdown: React.FC<DropdownProps> = ({
         const calculatePosition = () => {
             if (!dropdownRef.current) return;
 
+            // getBoundingClientRect is relative to the *layout* viewport, which is
+            // also what `position: fixed` is anchored to — so the menu can be glued
+            // to the input with no scroll-offset math. That matters because the
+            // field often lives inside a scroll container (drawer/modal body) whose
+            // scrolling never touches `window.scrollY`; the old absolute + scrollY
+            // math silently drifted or clipped in that case.
             const rect = dropdownRef.current.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            const dropdownMenuHeight = 300; // Approximate max height of dropdown menu
 
-            // Calculate available space above and below
-            const spaceBelow = viewportHeight - rect.bottom;
-            const spaceAbove = rect.top;
+            // The *visual* viewport shrinks when the mobile keyboard opens (and,
+            // unlike `window.innerHeight`, reflects it). Use it to decide direction
+            // and cap height so the list never renders behind the keyboard.
+            const vv = window.visualViewport;
+            const visibleTop = vv?.offsetTop ?? 0;
+            const visibleHeight = vv?.height ?? window.innerHeight;
+            const visibleBottom = visibleTop + visibleHeight;
 
-            // Determine if should open upward
-            const openUpward = spaceBelow < dropdownMenuHeight && spaceAbove > spaceBelow;
+            const preferredHeight = 300; // Design max height of the dropdown menu
+            const gap = 8; // Breathing room from the viewport edge
+
+            const spaceBelow = visibleBottom - rect.bottom;
+            const spaceAbove = rect.top - visibleTop;
+
+            // Open upward only when there isn't room below and there's genuinely
+            // more room above.
+            const openUpward = spaceBelow < preferredHeight && spaceAbove > spaceBelow;
             setShouldOpenUpward(openUpward);
 
-            // Update portal position if using portal
             if (usePortal) {
+                const available = Math.max(0, (openUpward ? spaceAbove : spaceBelow) - gap);
+
                 setPortalPosition({
-                    top: openUpward ? rect.top + window.scrollY : rect.bottom + window.scrollY,
-                    left: rect.left + window.scrollX,
+                    // Fixed coordinates: no scroll offset added.
+                    top: rect.bottom,
+                    // For upward menus we anchor by `bottom`; `bottom` in a fixed
+                    // box is measured from the layout viewport's bottom edge.
+                    bottom: window.innerHeight - rect.top,
+                    left: rect.left,
                     width: rect.width,
+                    maxHeight: Math.min(preferredHeight, available),
                 });
             }
         };
 
         calculatePosition();
 
+        const vv = window.visualViewport;
+        // Capture-phase scroll catches scrolling of any ancestor container, not
+        // just the window (drawer/modal bodies scroll internally).
         window.addEventListener('scroll', calculatePosition, true);
         window.addEventListener('resize', calculatePosition);
+        // visualViewport fires on keyboard open/close and on-screen pan — the
+        // events `window` misses on mobile (iOS in particular).
+        vv?.addEventListener('resize', calculatePosition);
+        vv?.addEventListener('scroll', calculatePosition);
 
         return () => {
             window.removeEventListener('scroll', calculatePosition, true);
             window.removeEventListener('resize', calculatePosition);
+            vv?.removeEventListener('resize', calculatePosition);
+            vv?.removeEventListener('scroll', calculatePosition);
         };
     }, [isOpen, usePortal]);
 
@@ -678,11 +714,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 style={
                     usePortal
                         ? {
-                              position: 'absolute',
+                              position: 'fixed',
                               top: shouldOpenUpward ? 'auto' : `${portalPosition.top}px`,
-                              bottom: shouldOpenUpward ? `${window.innerHeight - portalPosition.top}px` : 'auto',
+                              bottom: shouldOpenUpward ? `${portalPosition.bottom}px` : 'auto',
                               left: `${portalPosition.left}px`,
                               width: `${portalPosition.width}px`,
+                              maxHeight: `${portalPosition.maxHeight}px`,
                               zIndex: 9999,
                           }
                         : undefined
