@@ -90,7 +90,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     </div>
                 )}
 
-                {navigation.length > 0 && <ControlPanelNav navigation={navigation} />}
+                {navigation.length > 0 && <ControlPanelNav navigation={navigation} onNavigate={isMobile ? close : undefined} />}
 
                 {hasFiltersSection && (
                     <div className="control-panel__filters">

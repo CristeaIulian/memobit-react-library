@@ -6,20 +6,22 @@ import { ControlPanelNavItem } from './ControlPanel.types';
 
 interface ControlPanelNavProps {
     navigation: ControlPanelNavItem[];
+    // Called after a leaf item navigates (its onClick fires). Used to close the mobile drawer.
+    onNavigate?: () => void;
 }
 
-export const ControlPanelNav: React.FC<ControlPanelNavProps> = ({ navigation }) => {
+export const ControlPanelNav: React.FC<ControlPanelNavProps> = ({ navigation, onNavigate }) => {
     // Only reserve the expand/collapse column when at least one item is expandable;
     // otherwise a flat list would carry a dead-space placeholder before every item.
     const showToggleColumn = navigation.some(item => (item.children?.length ?? 0) > 0);
     return (
         <nav className="control-panel__nav">
-            {navigation.map(item => renderNavItem(item, showToggleColumn))}
+            {navigation.map(item => renderNavItem(item, showToggleColumn, onNavigate))}
         </nav>
     );
 };
 
-function renderNavItem(item: ControlPanelNavItem, showToggleColumn: boolean, depth = 0): React.ReactNode {
+function renderNavItem(item: ControlPanelNavItem, showToggleColumn: boolean, onNavigate?: () => void, depth = 0): React.ReactNode {
     const children = item.children ?? [];
     const hasChildren = children.length > 0;
     const isOpen = item.isOpen ?? false;
@@ -35,6 +37,7 @@ function renderNavItem(item: ControlPanelNavItem, showToggleColumn: boolean, dep
     const handleClick = () => {
         if (item.onClick) {
             item.onClick();
+            onNavigate?.();
             return;
         }
 
@@ -80,7 +83,7 @@ function renderNavItem(item: ControlPanelNavItem, showToggleColumn: boolean, dep
             </div>
             {hasChildren && (
                 <div className={`control-panel__nav-children${isOpen ? ' control-panel__nav-children--open' : ''}`}>
-                    {children.map(child => renderNavItem(child, showToggleColumn, depth + 1))}
+                    {children.map(child => renderNavItem(child, showToggleColumn, onNavigate, depth + 1))}
                 </div>
             )}
         </div>
