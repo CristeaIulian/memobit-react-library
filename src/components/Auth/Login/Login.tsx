@@ -1,11 +1,11 @@
 import React, { type ReactElement, useEffect, useState } from 'react';
 
+import { useAuth } from '../../../hooks/useAuth';
 import { Button } from '../../Button';
 import { Checkbox } from '../../Checkbox';
 import { InputPassword } from '../../InputPassword';
 import { InputText } from '../../InputText';
 import { Toast } from '../../Toast';
-import { useAuth } from '../../../hooks/useAuth';
 
 import './Login.scss';
 

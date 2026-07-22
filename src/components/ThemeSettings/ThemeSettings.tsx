@@ -6,9 +6,11 @@ import { Dropdown, DropdownOption } from '../Dropdown';
 import { InputSearch } from '../InputSearch';
 import { ToggleSwitch } from '../ToggleSwitch';
 
-import { useTheme } from './useTheme';
-import { type Theme } from './ThemeContextValue';
 import { FAVORITE_THEMES, getThemeAppearance, THEME_CONFIGS, type ThemeAppearance } from './themeConfig';
+import { type Theme } from './ThemeContextValue';
+import { useTheme } from './useTheme';
+
+import './ThemeSettings.scss';
 
 type AppearanceFilter = 'all' | ThemeAppearance;
 
@@ -17,8 +19,6 @@ const APPEARANCE_FILTERS: { value: AppearanceFilter; label: string }[] = [
     { value: 'light', label: 'Light' },
     { value: 'dark', label: 'Dark' },
 ];
-
-import './ThemeSettings.scss';
 
 export interface ThemeSettingsProps {
     isOpen: boolean;

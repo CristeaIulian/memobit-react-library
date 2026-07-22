@@ -7,9 +7,9 @@ import { Dropdown } from '../Dropdown';
 import { Icon } from '../Icon';
 import { InputDate } from '../InputDate';
 import { InputNumber } from '../InputNumber';
+import { InputSearch } from '../InputSearch';
 import { InputText } from '../InputText';
 import { Rating } from '../Rating';
-import { InputSearch } from '../InputSearch';
 
 import {
     ControlPanelFilter,

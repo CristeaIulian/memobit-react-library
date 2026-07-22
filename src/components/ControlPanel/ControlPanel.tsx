@@ -6,11 +6,11 @@ import { ConfirmPopover } from '../ConfirmPopover';
 import { Separator } from '../Separator';
 import { Tooltip } from '../Tooltip';
 
+import { ControlPanelAction, ControlPanelOption, ControlPanelOptionGroup, ControlPanelProps } from './ControlPanel.types';
+import { useControlPanelContext } from './ControlPanelContext';
 import { ControlPanelFilterItem } from './ControlPanelFilter';
 import { ControlPanelNav } from './ControlPanelNav';
 import { ControlPanelOptions } from './ControlPanelOptions';
-import { useControlPanelContext } from './ControlPanelContext';
-import { ControlPanelAction, ControlPanelOption, ControlPanelOptionGroup, ControlPanelProps } from './ControlPanel.types';
 
 import './ControlPanel.scss';
 

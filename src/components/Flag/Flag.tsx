@@ -1,7 +1,8 @@
 import React from 'react';
 
-import './Flag.scss';
 import { Tooltip } from '../Tooltip';
+
+import './Flag.scss';
 
 interface FlagsProps {
     code: string;

@@ -1,4 +1,4 @@
-import { type ReactElement, type CSSProperties, type MouseEvent, useEffect, useRef, useState } from 'react';
+import { type CSSProperties, type MouseEvent, type ReactElement, useEffect, useRef, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 

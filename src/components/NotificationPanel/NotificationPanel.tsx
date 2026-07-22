@@ -1,4 +1,5 @@
 import { type CSSProperties, type FC, type ReactElement, useEffect, useRef, useState } from 'react';
+
 import { createPortal } from 'react-dom';
 
 import './NotificationPanel.scss';

@@ -1,7 +1,9 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
-import { InputText } from '../InputText';
+
 import { Icon } from '../Icon';
+import { InputText } from '../InputText';
 import { Tooltip } from '../Tooltip';
+
 import './InputSearch.scss';
 
 export interface InputSearchProps {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
+import { IconName } from '../Icon';
 import { InputText } from '../InputText';
 import { Modal } from '../Modal';
-import { IconName } from '../Icon';
 
 import './QuickAdd.scss';
 

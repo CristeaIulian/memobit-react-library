@@ -1,2 +1,2 @@
+export type { SeparatorAlign,SeparatorOrientation, SeparatorProps, SeparatorStyle } from './Separator';
 export { Separator } from './Separator';
-export type { SeparatorProps, SeparatorOrientation, SeparatorStyle, SeparatorAlign } from './Separator';

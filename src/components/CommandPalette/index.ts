@@ -1,1 +1,1 @@
-export { CommandPalette, type CommandPaletteProps, type CommandItem } from './CommandPalette';
+export { type CommandItem,CommandPalette, type CommandPaletteProps } from './CommandPalette';

@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
 
-import { Modal } from '../Modal';
-import { InputNumber } from '../InputNumber';
 import { IconName } from '../Icon';
+import { InputNumber } from '../InputNumber';
+import { Modal } from '../Modal';
 
 import './QuickNumberUpdate.scss';
 

@@ -163,9 +163,10 @@ export { Stats, type StatsAlign, type StatsItem, type StatsProps, type StatsSize
 export { StickyBar, type StickyBarAlign, type StickyBarPosition, type StickyBarProps } from './components/StickyBar';
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';
 export {
+    getThemeConfig,
     type Theme,
-    type ThemeConfig,
     THEME_CONFIGS,
+    type ThemeConfig,
     ThemeContext,
     type ThemeEffects,
     ThemeProvider,
@@ -173,7 +174,6 @@ export {
     type ThemeSaveValue,
     ThemeSettings,
     type ThemeSettingsProps,
-    getThemeConfig,
     useTheme,
 } from './components/ThemeSettings';
 export { Timeline, type TimelineItem, type TimelineOrientation, type TimelineSize } from './components/Timeline';

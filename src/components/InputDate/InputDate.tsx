@@ -2,6 +2,7 @@ import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
+
 import './InputDate.scss';
 
 interface InputDateProps {

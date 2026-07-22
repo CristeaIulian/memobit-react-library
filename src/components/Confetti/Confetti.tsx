@@ -145,7 +145,11 @@ const drawStar = (ctx: CanvasRenderingContext2D, x: number, y: number, r: number
     for (let i = 0; i < spikes * 2; i++) {
         const radius = i % 2 === 0 ? r : inner;
         const a = (i * Math.PI) / spikes - Math.PI / 2;
-        i === 0 ? ctx.moveTo(x + radius * Math.cos(a), y + radius * Math.sin(a)) : ctx.lineTo(x + radius * Math.cos(a), y + radius * Math.sin(a));
+        if (i === 0) {
+            ctx.moveTo(x + radius * Math.cos(a), y + radius * Math.sin(a));
+        } else {
+            ctx.lineTo(x + radius * Math.cos(a), y + radius * Math.sin(a));
+        }
     }
     ctx.closePath();
     ctx.fill();

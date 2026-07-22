@@ -1,9 +1,9 @@
-import { type FC, type ReactElement, type MouseEvent, useState } from 'react';
+import { type FC, type MouseEvent, type ReactElement, useState } from 'react';
 
+import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { Button } from '../Button';
 import { ContextMenu } from '../ContextMenu';
 import { Icon, type IconName } from '../Icon';
-import { useBreakpoint } from '../../hooks/useBreakpoint';
 
 import './MenuHamburger.scss';
 

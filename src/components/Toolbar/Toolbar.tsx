@@ -1,12 +1,12 @@
 import React, { type ReactNode } from 'react';
 
 import { Button } from '../Button';
+import { useControlPanelContext } from '../ControlPanel';
 import { Dropdown, type DropdownOption } from '../Dropdown';
 import { Icon, type IconName } from '../Icon';
+import { InputSearch, type InputSearchProps } from '../InputSearch';
 import { MenuHamburger, type MenuHamburgerItem } from '../MenuHamburger';
 import { NotificationPanel, type NotificationPanelItem } from '../NotificationPanel';
-import { InputSearch, type InputSearchProps } from '../InputSearch';
-import { useControlPanelContext } from '../ControlPanel';
 
 import './Toolbar.scss';
 

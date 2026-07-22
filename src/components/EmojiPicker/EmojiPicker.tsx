@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
 
-import { EMOJI_KEYWORDS } from './emojiKeywords';
 import { InputSearch } from '../InputSearch';
+
+import { EMOJI_KEYWORDS } from './emojiKeywords';
 
 import './EmojiPicker.scss';
 

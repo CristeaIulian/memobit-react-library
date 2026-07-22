@@ -1,7 +1,7 @@
 import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 
 import { getThemeConfig, THEME_CONFIGS } from './themeConfig';
-import { ThemeContext, type Theme, type ThemeEffects, type ThemeSaveValue } from './ThemeContextValue';
+import { type Theme, ThemeContext, type ThemeEffects, type ThemeSaveValue } from './ThemeContextValue';
 
 const FONT_LINK_ID = 'theme-font-link';
 const FONT_LINK_DISPLAY_ID = 'theme-font-link-display';

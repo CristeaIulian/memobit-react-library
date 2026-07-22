@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './Timeline.scss';
 
 export type TimelineVariant = 'default' | 'info' | 'success' | 'warning' | 'danger';

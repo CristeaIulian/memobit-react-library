@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './Separator.scss';
 
 export type SeparatorOrientation = 'horizontal' | 'vertical';

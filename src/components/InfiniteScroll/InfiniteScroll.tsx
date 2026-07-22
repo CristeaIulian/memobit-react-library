@@ -1,7 +1,8 @@
 import { CSSProperties, ReactNode, useCallback, useEffect, useRef } from 'react';
 
-import './InfiniteScroll.scss';
 import { Loading } from '../Loading';
+
+import './InfiniteScroll.scss';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

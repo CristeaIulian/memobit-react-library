@@ -1,1 +1,1 @@
-export { JourneyWizard, type JourneyStep, type JourneyWizardPresentation, type JourneyWizardProps } from './JourneyWizard';
+export { type JourneyStep, JourneyWizard, type JourneyWizardPresentation, type JourneyWizardProps } from './JourneyWizard';

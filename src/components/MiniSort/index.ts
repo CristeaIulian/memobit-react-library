@@ -1,2 +1,2 @@
+export type { MiniSortAlign,MiniSortDirection, MiniSortItem, MiniSortProps } from './MiniSort';
 export { MiniSort } from './MiniSort';
-export type { MiniSortProps, MiniSortItem, MiniSortDirection, MiniSortAlign } from './MiniSort';

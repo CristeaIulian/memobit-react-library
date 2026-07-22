@@ -1,1 +1,1 @@
-export { CalendarHeatmap, type CalendarHeatmapProps, type CalendarHeatmapDataPoint } from './CalendarHeatmap';
+export { CalendarHeatmap, type CalendarHeatmapDataPoint,type CalendarHeatmapProps } from './CalendarHeatmap';

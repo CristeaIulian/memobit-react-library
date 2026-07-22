@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 
-import { Tooltip } from '../Tooltip';
 import { Icon, IconName } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 import './FloatButton.scss';
 

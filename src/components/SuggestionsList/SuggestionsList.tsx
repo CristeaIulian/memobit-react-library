@@ -2,11 +2,11 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { format2Digits } from '../../helpers/Numbers';
 import { Button } from '../Button';
+import { Icon } from '../Icon';
 import { InputSearch } from '../InputSearch';
+import { Tooltip } from '../Tooltip';
 
 import './SuggestionsList.scss';
-import { Tooltip } from '../Tooltip';
-import { Icon } from '../Icon';
 
 type SortDirection = 'asc' | 'desc';
 

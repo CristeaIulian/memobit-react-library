@@ -1,2 +1,2 @@
+export type { StickyBarAlign,StickyBarPosition, StickyBarProps } from './StickyBar';
 export { StickyBar } from './StickyBar';
-export type { StickyBarProps, StickyBarPosition, StickyBarAlign } from './StickyBar';

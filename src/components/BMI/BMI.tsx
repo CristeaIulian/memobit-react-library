@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ADULT_RANGES, PEDIATRIC_THRESHOLDS, calculateBMI, getIndicatorColor, getIndicatorPosition, getPediatricRanges, getRangeLabel } from './bmiUtils';
+import { ADULT_RANGES, calculateBMI, getIndicatorColor, getIndicatorPosition, getPediatricRanges, getRangeLabel,PEDIATRIC_THRESHOLDS } from './bmiUtils';
 
 import './BMI.scss';
 

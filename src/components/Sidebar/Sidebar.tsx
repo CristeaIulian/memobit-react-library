@@ -2,8 +2,9 @@ import React, { ReactNode, useState } from 'react';
 
 import { AppHeader, type AppHeaderProps } from '../AppHeader';
 import { Icon, type IconName } from '../Icon';
-import { Tooltip } from '../Tooltip';
 import { InputSearch } from '../InputSearch';
+import { Tooltip } from '../Tooltip';
+
 import { useSidebarContext } from './SidebarContext';
 
 import './Sidebar.scss';

@@ -1,4 +1,5 @@
-import React, { useState, useRef, useCallback, useId, forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useCallback, useId, useImperativeHandle,useRef, useState } from 'react';
+
 import './InputMask.scss';
 
 // ── Types ─────────────────────────────────────────────────────────────────────

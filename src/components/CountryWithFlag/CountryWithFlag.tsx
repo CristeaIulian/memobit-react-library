@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Flag } from '../Flag/Flag';
 
 import './CountryWithFlag.scss';

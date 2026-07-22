@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 
+import { Icon, IconName } from '../Icon';
 import { Separator } from '../Separator';
 
 import './AppHeader.scss';
-import { Icon, IconName } from '../Icon';
 
 export interface AppHeaderProps {
     icon?: IconName;

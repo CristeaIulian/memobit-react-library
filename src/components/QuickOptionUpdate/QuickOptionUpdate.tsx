@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { Radio } from '../Radio';
-import { Modal } from '../Modal';
 import { IconName } from '../Icon';
+import { Modal } from '../Modal';
+import { Radio } from '../Radio';
 
 import './QuickOptionUpdate.scss';
 

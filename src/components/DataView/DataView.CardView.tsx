@@ -3,8 +3,8 @@ import React, { useMemo } from 'react';
 import { Checkbox } from '../Checkbox';
 import { EmptyState } from '../EmptyState';
 import { Icon } from '../Icon';
+import { calculateTimelineMarkers, type TimelineMarkerInfo, type TimelineMarkersItem,TimelineMobileSeparator } from '../TimelineMarkers';
 import { Tooltip } from '../Tooltip';
-import { calculateTimelineMarkers, TimelineMobileSeparator, type TimelineMarkerInfo, type TimelineMarkersItem } from '../TimelineMarkers';
 
 import type { DataViewCardConfig, DataViewColumn, DataViewEmptyConfig, DataViewGroup, DataViewGroupKey, DataViewTimelineConfig } from './DataView.types';
 

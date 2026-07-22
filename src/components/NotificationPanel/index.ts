@@ -1,2 +1,2 @@
-export { NotificationPanel } from './NotificationPanel';
 export type { NotificationPanelItem } from './NotificationPanel';
+export { NotificationPanel } from './NotificationPanel';

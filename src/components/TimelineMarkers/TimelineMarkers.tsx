@@ -1,4 +1,5 @@
 import { ReactNode, useMemo } from 'react';
+
 import './TimelineMarkers.scss';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

@@ -1,9 +1,9 @@
 import { type ReactElement, useEffect, useState } from 'react';
 
+import { useAuth } from '../../../hooks/useAuth';
 import { InputPassword } from '../../InputPassword';
 import { Modal } from '../../Modal';
 import { Toast, type ToastDetails } from '../../Toast';
-import { useAuth } from '../../../hooks/useAuth';
 
 import './ChangePasswordModal.scss';
 

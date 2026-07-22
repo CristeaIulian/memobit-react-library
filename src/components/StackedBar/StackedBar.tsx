@@ -1,8 +1,7 @@
 import { type CSSProperties, useMemo } from 'react';
 
-import { Tooltip } from '../Tooltip';
-
 import { format2Digits } from '../../helpers/Numbers';
+import { Tooltip } from '../Tooltip';
 
 import './StackedBar.scss';
 

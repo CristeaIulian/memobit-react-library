@@ -1,2 +1,2 @@
+export type { CalendarDateRange, CalendarMode, CalendarProps, CalendarView } from './Calendar';
 export { Calendar } from './Calendar';
-export type { CalendarProps, CalendarMode, CalendarDateRange, CalendarView } from './Calendar';

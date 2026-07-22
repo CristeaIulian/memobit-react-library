@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './Skeleton.scss';
 
 export type SkeletonVariant = 'text' | 'circular' | 'rectangular' | 'rounded';

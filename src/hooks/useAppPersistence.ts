@@ -57,14 +57,12 @@ export function useAppPersistence<TPages, TTheme>(
                 return next;
             });
         },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         [appId]
     );
 
     const clearAll = useCallback(() => {
         setState(resolvedDefaults);
         AppPersistenceStorage.clearAll(appId);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appId]);
 
     return {

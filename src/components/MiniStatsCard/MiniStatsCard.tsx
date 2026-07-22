@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Card } from '../Card/Card';
+
 import './MiniStatsCard.scss';
 
 export type MiniStatsCardVariant = 'default' | 'success' | 'warning' | 'danger' | 'info';

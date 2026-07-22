@@ -1,6 +1,8 @@
-import './Rating.scss';
 import { FC, ReactElement, useCallback } from 'react';
+
 import { RatingIcon, RatingIconType, RatingVariant } from './RatingIcon';
+
+import './Rating.scss';
 
 interface RatingProps {
     align?: 'left' | 'right' | 'space-between';

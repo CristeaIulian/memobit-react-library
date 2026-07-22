@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import { createPortal } from 'react-dom';
 
-import { Calendar, type CalendarDateRange } from '../Calendar';
-import { Button } from '../Button';
-import { InputText } from '../InputText';
 import { addMonths } from '../../helpers/Datetime';
+import { Button } from '../Button';
+import { Calendar, type CalendarDateRange } from '../Calendar';
+import { InputText } from '../InputText';
 
 import './DateRangePicker.scss';
 
