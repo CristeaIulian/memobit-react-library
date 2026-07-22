@@ -66,7 +66,6 @@
         }
 
         .accordion-item__content-wrapper {
-            max-height: 1000px;
             opacity: 1;
         }
     }
@@ -87,7 +86,7 @@
 
     &__content {
         padding: var(--spacing-16);
-        padding-top: 0;
+        padding-top: var(--spacing-8);
         color: var(--body-color);
         font-size: var(--font-size-sm);
         line-height: 1.6;

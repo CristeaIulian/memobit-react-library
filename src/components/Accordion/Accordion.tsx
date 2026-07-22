@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { Icon, type IconName } from '../Icon';
 
@@ -20,13 +20,7 @@ export interface AccordionProps {
     className?: string;
 }
 
-export const Accordion: React.FC<AccordionProps> = ({
-    items,
-    allowMultiple = false,
-    defaultExpanded = [],
-    onChange,
-    className = '',
-}: AccordionProps) => {
+export const Accordion: React.FC<AccordionProps> = ({ items, allowMultiple = false, defaultExpanded = [], onChange, className = '' }: AccordionProps) => {
     const [expandedIds, setExpandedIds] = useState<string[]>(defaultExpanded);
 
     const handleToggle = (id: string) => {
@@ -36,9 +30,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         let newExpandedIds: string[];
 
         if (allowMultiple) {
-            newExpandedIds = expandedIds.includes(id)
-                ? expandedIds.filter(expandedId => expandedId !== id)
-                : [...expandedIds, id];
+            newExpandedIds = expandedIds.includes(id) ? expandedIds.filter(expandedId => expandedId !== id) : [...expandedIds, id];
         } else {
             newExpandedIds = expandedIds.includes(id) ? [] : [id];
         }
@@ -49,7 +41,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 
     return (
         <div className={`accordion ${className}`}>
-            {items.map((item) => {
+            {items.map(item => {
                 const isExpanded = expandedIds.includes(item.id);
                 return (
                     <AccordionItem
@@ -78,15 +70,41 @@ interface AccordionItemProps {
     onToggle: (id: string) => void;
 }
 
-const AccordionItem: React.FC<AccordionItemProps> = ({
-    id,
-    title,
-    icon,
-    content,
-    isExpanded,
-    disabled = false,
-    onToggle,
-}) => {
+const AccordionItem: React.FC<AccordionItemProps> = ({ id, title, icon, content, isExpanded, disabled = false, onToggle }) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const isFirstRun = useRef(true);
+
+    useEffect(() => {
+        const el = wrapperRef.current;
+        if (!el) return;
+
+        // On mount, snap to the correct state without animating.
+        if (isFirstRun.current) {
+            isFirstRun.current = false;
+            el.style.maxHeight = isExpanded ? 'none' : '0';
+            return;
+        }
+
+        if (isExpanded) {
+            // Animate from 0 to the measured content height.
+            el.style.maxHeight = `${el.scrollHeight}px`;
+
+            const handleTransitionEnd = (event: TransitionEvent) => {
+                // Release the cap so later content or viewport changes can't clip the panel.
+                if (event.propertyName === 'max-height') {
+                    el.style.maxHeight = 'none';
+                }
+            };
+            el.addEventListener('transitionend', handleTransitionEnd);
+            return () => el.removeEventListener('transitionend', handleTransitionEnd);
+        }
+
+        // Collapse: pin to the current pixel height, then transition to 0.
+        el.style.maxHeight = `${el.scrollHeight}px`;
+        void el.offsetHeight; // force reflow so the browser registers the start height
+        el.style.maxHeight = '0';
+    }, [isExpanded]);
+
     const handleClick = () => {
         if (!disabled) {
             onToggle(id);
@@ -94,40 +112,17 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
     };
 
     return (
-        <div
-            className={`accordion-item ${isExpanded ? 'accordion-item--expanded' : ''} ${
-                disabled ? 'accordion-item--disabled' : ''
-            }`}
-        >
-            <button
-                type="button"
-                className="accordion-item__header"
-                onClick={handleClick}
-                disabled={disabled}
-            >
+        <div className={`accordion-item ${isExpanded ? 'accordion-item--expanded' : ''} ${disabled ? 'accordion-item--disabled' : ''}`}>
+            <button type="button" className="accordion-item__header" onClick={handleClick} disabled={disabled}>
                 <span className="accordion-item__title">
                     {icon && <Icon name={icon} />}
                     <span className="accordion-item__title-text">{title}</span>
                 </span>
                 <span className="accordion-item__icon">
-                    <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M4 6L8 10L12 6"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
+                    <Icon name="caret-down" size="md" />
                 </span>
             </button>
-            <div className="accordion-item__content-wrapper">
+            <div ref={wrapperRef} className="accordion-item__content-wrapper">
                 <div className="accordion-item__content">{content}</div>
             </div>
         </div>
