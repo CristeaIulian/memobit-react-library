@@ -447,6 +447,7 @@ import { trendDown } from '../../icons/trend-down';
 import { trendUp } from '../../icons/trend-up';
 import { trip } from '../../icons/trip';
 import { trophy } from '../../icons/trophy';
+import { tune } from '../../icons/tune';
 import { turkey } from '../../icons/turkey';
 import { turtle } from '../../icons/turtle';
 import { tv } from '../../icons/tv';
@@ -905,6 +906,7 @@ export const iconMap: Record<IconName, ReactElement> = {
     tree,
     trip,
     trophy,
+    tune,
     turkey,
     turtle,
     tv,

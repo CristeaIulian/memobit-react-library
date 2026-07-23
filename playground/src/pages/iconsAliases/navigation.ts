@@ -32,6 +32,7 @@ export const aliasesNavigation: Record<string, string[]> = {
     shrink: ['collapse', 'minimize', 'compress', 'reduce', 'decrease', 'zoom out', 'scale down'],
     square: ['shape', 'rectangle', 'box', 'outline', 'geometry', 'border'],
     table: ['grid', 'data', 'rows', 'columns', 'list'],
+    tune: ['filter', 'filters', 'sliders', 'adjust', 'settings', 'controls', 'refine', 'options'],
     ungroup: ['separate', 'split', 'detach', 'break-apart', 'release', 'expand'],
     'vertical-dots': ['menu', 'more', 'options', 'kebab'],
     view: ['eye', 'see', 'show', 'display', 'preview', 'look'],

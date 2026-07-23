@@ -45,6 +45,7 @@ export const iconCategoryDefinitions: IconCategory[] = [
             'table',
             'toggle-off',
             'toggle-on',
+            'tune',
             'ungroup',
             'vertical-dots',
             'view',

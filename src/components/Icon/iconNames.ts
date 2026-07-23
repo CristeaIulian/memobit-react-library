@@ -449,6 +449,7 @@ export type IconName =
     | 'trend-up'
     | 'trip'
     | 'trophy'
+    | 'tune'
     | 'turkey'
     | 'turtle'
     | 'tv'

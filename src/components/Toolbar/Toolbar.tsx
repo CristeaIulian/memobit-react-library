@@ -12,6 +12,8 @@ import './Toolbar.scss';
 
 export interface ToolbarControlPanelToggleConfig {
     label?: string;
+    /** Active filter count shown as a badge on the toggle. Hidden when 0 or undefined. */
+    count?: number;
 }
 
 export interface ToolbarSearchConfig extends Omit<InputSearchProps, 'className'> {
@@ -125,6 +127,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 }) => {
     const controlPanel = useControlPanelContext();
     const shouldShowControlPanelToggle = Boolean(controlPanelToggle && controlPanel?.isMobile);
+    const toggleCount = typeof controlPanelToggle === 'object' ? (controlPanelToggle.count ?? 0) : 0;
     const rootClassName = ['memobit-toolbar', noCard ? 'memobit-toolbar--no-card' : '', className].filter(Boolean).join(' ');
     const hasContent = Boolean(search || sort || children);
 
@@ -155,8 +158,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     return (
         <div className={rootClassName}>
             {shouldShowControlPanelToggle && (
-                <Button className="memobit-toolbar__control-panel-toggle" icon="menu-hamburger" onClick={controlPanel?.toggle} size="medium" variant="default">
+                <Button className="memobit-toolbar__control-panel-toggle" icon="tune" onClick={controlPanel?.toggle} size="medium" variant="default">
                     {controlPanelToggle ? getControlPanelToggleLabel(controlPanelToggle) : 'Filters'}
+                    {toggleCount > 0 && <span className="memobit-toolbar__control-panel-toggle-count">{toggleCount}</span>}
                 </Button>
             )}
 

@@ -15,6 +15,20 @@
         flex: 0 0 auto;
     }
 
+    &__control-panel-toggle-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: var(--spacing-20);
+        height: var(--spacing-20);
+        padding: 0 var(--spacing-6);
+        border-radius: 999px;
+        background: var(--body-accent-color);
+        color: var(--button-info-color);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+    }
+
     &__heading {
         flex: 0 1 auto;
         display: flex;

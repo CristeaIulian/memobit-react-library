@@ -78,7 +78,14 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         svg={header.svg}
                         appName={header.appName ?? header.siteName}
                         heading={header.heading}
-                        onClick={header.onClick}
+                        onClick={
+                            header.onClick
+                                ? () => {
+                                      header.onClick?.();
+                                      if (isMobile) close();
+                                  }
+                                : undefined
+                        }
                     />
                 )}
 
@@ -118,6 +125,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         normalizedOptionGroups={normalizedOptionGroups}
                         onOptionChange={onOptionChange}
                         viewToggle={viewToggle}
+                        onViewToggleComplete={isMobile ? close : undefined}
                         groupBy={groupBy}
                         visibleColumns={visibleColumns}
                     />

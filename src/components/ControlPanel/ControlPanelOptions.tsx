@@ -33,6 +33,8 @@ interface ControlPanelOptionsProps {
     normalizedOptionGroups: ControlPanelOptionGroup[];
     onOptionChange?: (event: ControlPanelOptionChangeEvent) => void;
     viewToggle?: ControlPanelViewToggleConfig;
+    // Called after the view mode changes. On mobile this closes the panel drawer.
+    onViewToggleComplete?: () => void;
     groupBy?: ControlPanelGroupByConfig;
     visibleColumns?: ControlPanelVisibleColumnsConfig;
 }
@@ -41,6 +43,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
     normalizedOptionGroups,
     onOptionChange,
     viewToggle,
+    onViewToggleComplete,
     groupBy,
     visibleColumns,
 }) => (
@@ -58,7 +61,10 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                             icon={opt.icon}
                             size="small"
                             variant={viewToggle.value === opt.value ? 'info' : 'default'}
-                            onClick={() => viewToggle.onChange(opt.value as ControlPanelViewMode)}
+                            onClick={() => {
+                                viewToggle.onChange(opt.value as ControlPanelViewMode);
+                                onViewToggleComplete?.();
+                            }}
                         >
                             {opt.label}
                         </Button>
