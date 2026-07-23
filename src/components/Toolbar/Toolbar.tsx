@@ -87,13 +87,10 @@ export interface ToolbarProps {
 
 const SORT_DIRECTION_SEPARATOR = '::';
 
-const getControlPanelToggleLabel = (controlPanelToggle: boolean | ToolbarControlPanelToggleConfig): string => {
-    if (typeof controlPanelToggle === 'object' && controlPanelToggle.label) {
-        return controlPanelToggle.label;
-    }
-
-    return 'Filters';
-};
+// The toggle is icon-only by default (the `tune` icon + count badge already
+// convey "filters"). A label only shows when an app explicitly opts into one.
+const getControlPanelToggleLabel = (controlPanelToggle: boolean | ToolbarControlPanelToggleConfig): string | undefined =>
+    typeof controlPanelToggle === 'object' ? controlPanelToggle.label : undefined;
 
 const getSortDropdownOptions = (sort: ToolbarSortConfig): DropdownOption[] => {
     if ('fields' in sort) {
@@ -158,8 +155,15 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     return (
         <div className={rootClassName}>
             {shouldShowControlPanelToggle && (
-                <Button className="memobit-toolbar__control-panel-toggle" icon="tune" onClick={controlPanel?.toggle} size="medium" variant="default">
-                    {controlPanelToggle ? getControlPanelToggleLabel(controlPanelToggle) : 'Filters'}
+                <Button
+                    className="memobit-toolbar__control-panel-toggle"
+                    icon="tune"
+                    onClick={controlPanel?.toggle}
+                    size="medium"
+                    title="Filters"
+                    variant="default"
+                >
+                    {controlPanelToggle && getControlPanelToggleLabel(controlPanelToggle)}
                     {toggleCount > 0 && <span className="memobit-toolbar__control-panel-toggle-count">{toggleCount}</span>}
                 </Button>
             )}

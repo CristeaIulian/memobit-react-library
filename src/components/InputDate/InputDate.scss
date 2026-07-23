@@ -1,18 +1,17 @@
 @use '../../styles/utilities' as *;
 
 @include form-control-component('input-date') {
+    // Hide the browser's native calendar indicator — we render our own themed picker/clear controls (see
+    // `.input-date-actions`) so their position is predictable and they never overlap each other.
     &::-webkit-calendar-picker-indicator {
-        filter: invert(0.5);
-        cursor: pointer;
-        opacity: 0.7;
-
-        &:hover {
-            opacity: 1;
-        }
+        display: none;
     }
 
+    // Reserve room on the right for the picker icon, plus the clear icon when the field is clearable + filled.
+    padding-right: var(--spacing-40);
+
     &--clearable {
-        padding-right: var(--spacing-32);
+        padding-right: calc(var(--spacing-40) + var(--spacing-24));
     }
 }
 
@@ -21,29 +20,42 @@
     width: 100%;
 }
 
-.input-date-clear {
+// Trailing controls (clear + open-calendar), pinned to the right and laid out side by side with a small gap.
+.input-date-actions {
     position: absolute;
-    right: var(--spacing-24);
+    right: var(--spacing-8);
     top: 50%;
     transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    z-index: 2;
+}
+
+.input-date-clear,
+.input-date-picker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     padding: var(--spacing-4);
     cursor: pointer;
     border-radius: var(--radius-sm);
     color: var(--form-control-placeholder-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: color var(--transition-fast);
-    z-index: 2;
 
-    &:hover {
+    &:hover:not(:disabled) {
         color: var(--form-control-color);
     }
 
     &:focus {
         outline: none;
         color: var(--form-control-focus-border-color);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
     }
 }

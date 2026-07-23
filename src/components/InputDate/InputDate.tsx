@@ -1,4 +1,4 @@
-import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
+import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent, useRef } from 'react';
 
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
@@ -56,6 +56,24 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
     ) => {
         const showClear = clearable && value && !disabled && !readOnly;
 
+        // Own the input node so the picker button can open the native calendar. Merge with any forwarded ref.
+        const innerRef = useRef<HTMLInputElement | null>(null);
+        const setRef = (node: HTMLInputElement | null) => {
+            innerRef.current = node;
+            if (typeof ref === 'function') {
+                ref(node);
+            } else if (ref) {
+                ref.current = node;
+            }
+        };
+
+        const openPicker = () => {
+            const node = innerRef.current;
+            if (node && !disabled && !readOnly) {
+                node.showPicker();
+            }
+        };
+
         return (
             <div className={`input-date-wrapper${highlighted ? ' input-date-highlighted' : ''}`}>
                 {label && (
@@ -74,7 +92,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
                         id={id}
                         max={max}
                         min={min}
-                        ref={ref}
+                        ref={setRef}
                         value={value ?? ''}
                         onBlur={onBlur}
                         onChange={e => onChange?.(e.target.value || undefined)}
@@ -84,13 +102,22 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
                         readOnly={readOnly}
                         required={required}
                     />
-                    {showClear && (
-                        <Tooltip title="Clear date">
-                            <button type="button" className="input-date-clear" onClick={() => onChange?.(undefined)}>
-                                <Icon name="clear" size="sm" />
+                    {/* We hide the browser's native calendar indicator (its position is unpredictable and clashes with
+                        the clear button) and render our own themed controls in a fixed, non-overlapping group. */}
+                    <div className="input-date-actions">
+                        {showClear && (
+                            <Tooltip title="Clear date">
+                                <button type="button" className="input-date-clear" onClick={() => onChange?.(undefined)}>
+                                    <Icon name="clear" size="sm" />
+                                </button>
+                            </Tooltip>
+                        )}
+                        <Tooltip title="Open calendar">
+                            <button type="button" className="input-date-picker" onClick={openPicker} disabled={disabled || readOnly} tabIndex={-1}>
+                                <Icon name="calendar" size="sm" />
                             </button>
                         </Tooltip>
-                    )}
+                    </div>
                 </div>
                 {error && <span className="input-date-error-message">{error}</span>}
                 {success && <span className="input-date-success-message">{success}</span>}
