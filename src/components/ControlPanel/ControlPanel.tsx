@@ -85,7 +85,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                 {actions.length > 0 && (
                     <div className="control-panel__actions">
                         {actions.map(action => (
-                            <ControlPanelActionButton key={action.id} action={action} />
+                            <ControlPanelActionButton key={action.id} action={action} onActionComplete={isMobile ? close : undefined} />
                         ))}
                     </div>
                 )}
@@ -133,9 +133,13 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
 // confirm option, keeping the consumer API as simple as a plain button.
 interface ControlPanelActionButtonProps {
     action: ControlPanelAction;
+    // Called after the action's onClick has fired. On mobile this closes the
+    // panel drawer; undefined on desktop where the panel is a persistent sidebar.
+    // Also runs after a confirm flow resolves.
+    onActionComplete?: () => void;
 }
 
-const ControlPanelActionButton: React.FC<ControlPanelActionButtonProps> = ({ action }) => {
+const ControlPanelActionButton: React.FC<ControlPanelActionButtonProps> = ({ action, onActionComplete }) => {
     // Anchor captured from the click event since Button doesn't forward refs.
     // anchorEl stays set after the popover closes so position recomputes work
     // correctly if the user reopens — and React reusing the same DOM node
@@ -150,6 +154,7 @@ const ControlPanelActionButton: React.FC<ControlPanelActionButtonProps> = ({ act
             return;
         }
         action.onClick?.(event);
+        onActionComplete?.();
     };
 
     const handleConfirm = () => {
@@ -157,6 +162,7 @@ const ControlPanelActionButton: React.FC<ControlPanelActionButtonProps> = ({ act
         // onClick signature accepts a MouseEvent only because Button's onClick
         // does. Pass a minimal event-like value cast to satisfy the type.
         action.onClick?.({} as React.MouseEvent<HTMLButtonElement>);
+        onActionComplete?.();
     };
 
     const button = (
