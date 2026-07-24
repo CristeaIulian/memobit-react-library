@@ -146,7 +146,7 @@
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
     "esbuild": "0.28.1",
-    "eslint": "10.6.0",
+    "eslint": "9.39.4",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import-x": "4.17.1",
     "eslint-plugin-prettier": "5.5.5",
@@ -165,7 +165,7 @@
     "vite-plugin-static-copy": "3.4.0"
   },
   "dependencies": {
-    "react-router-dom": "7.15.1"
+    "react-router-dom": "7.18.1"
   },
   "overrides": {
     "brace-expansion@1": "1.1.16",
