@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 
-import type { AuthConfig, AuthContextValue, LoginCredentials, LoginResponse, User, VerifyResponse } from '../../types/auth.types';
+import type { AuthConfig, AuthContextValue, LoginCredentials, LoginOutcome, LoginResponse, User, VerifyResponse } from '../../types/auth.types';
 
 export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
@@ -43,8 +43,19 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
         restoreAuth();
     }, [config.apiBaseUrl]);
 
+    const applyUser = useCallback((data: LoginResponse | VerifyResponse) => {
+        if (!data.user) {
+            return;
+        }
+        setUser({
+            id: data.user.id,
+            username: data.user.username,
+            createdAt: new Date(data.user.createdAt),
+        });
+    }, []);
+
     const login = useCallback(
-        async (credentials: LoginCredentials) => {
+        async (credentials: LoginCredentials): Promise<LoginOutcome> => {
             setIsLoading(true);
             try {
                 const response = await fetch(`${config.apiBaseUrl}/auth/login`, {
@@ -65,11 +76,14 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
 
                 const data: LoginResponse = await response.json();
 
-                setUser({
-                    id: data.user.id,
-                    username: data.user.username,
-                    createdAt: new Date(data.user.createdAt),
-                });
+                // Password accepted but a second factor is still needed — do NOT set the
+                // user; the UI collects a code and calls verifyMfa to finish.
+                if (data.mfaRequired) {
+                    return { mfaRequired: true, method: data.method };
+                }
+
+                applyUser(data);
+                return { mfaRequired: false };
             } catch (error) {
                 console.error('Login failed:', error);
                 throw error;
@@ -77,7 +91,36 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
                 setIsLoading(false);
             }
         },
-        [config.apiBaseUrl]
+        [config.apiBaseUrl, applyUser]
+    );
+
+    const verifyMfa = useCallback(
+        async (code: string, trustDevice: boolean): Promise<void> => {
+            setIsLoading(true);
+            try {
+                // Public route: protected by the httpOnly mfa_pending cookie (SameSite=Strict)
+                // + the server-side Origin check, so no CSRF token is required here.
+                const response = await fetch(`${config.apiBaseUrl}/auth/verifyMfa`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code, trustDevice }),
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Verification failed');
+                }
+
+                applyUser(await response.json());
+            } catch (error) {
+                console.error('MFA verification failed:', error);
+                throw error;
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [config.apiBaseUrl, applyUser]
     );
 
     const logout = useCallback(async () => {
@@ -102,6 +145,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
                 isLoading,
                 config,
                 login,
+                verifyMfa,
                 logout,
             }}
         >

@@ -42,6 +42,14 @@
     gap: var(--spacing-16);
 }
 
+.LoginPage__hint {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--body-sub-title-color);
+    text-align: center;
+    line-height: var(--line-height-normal);
+}
+
 .LoginPage__error {
     padding: var(--spacing-12);
     background: rgba(255, 90, 101, 0.1);

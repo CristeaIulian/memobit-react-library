@@ -210,12 +210,13 @@ export { WHtR } from './components/WHtR';
 // Export Auth components
 export { ChangePasswordModal } from './components/Auth/ChangePasswordModal';
 export { Login as AuthLogin } from './components/Auth/Login';
+export { MfaSetupModal } from './components/Auth/MfaSetupModal';
 
 // Export Auth context
 export { AuthContext, AuthProvider } from './contexts/AuthContext';
 
 // Export Auth types
-export type { AuthConfig, AuthContextValue, LoginCredentials, LoginResponse, User, VerifyResponse } from './types/auth.types';
+export type { AuthConfig, AuthContextValue, LoginCredentials, LoginOutcome, LoginResponse, MfaMethod, User, VerifyResponse } from './types/auth.types';
 
 // Export hooks
 export { type AppPersistenceDefaults, useAppPersistence, type UseAppPersistenceReturn } from './hooks/useAppPersistence';
