@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router';
 
 import { SidebarProvider, type Theme, ThemeProvider, useAppPersistence } from '../../src';
 import { Layout } from './components/Layout/Layout';
