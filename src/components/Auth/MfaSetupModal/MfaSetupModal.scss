@@ -40,15 +40,18 @@
     user-select: all;
 }
 
-.MfaSetupModal__uri {
-    padding: var(--spacing-8);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    font-family: monospace;
-    font-size: var(--font-size-xs);
-    color: var(--body-sub-title-color);
-    word-break: break-all;
-    user-select: all;
+.MfaSetupModal__qr {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-16);
+    border-radius: var(--radius);
+    // A QR must be dark-on-light to scan regardless of the app theme, so this
+    // box is intentionally white (not a theme token) — the one justified exception.
+    background: #ffffff;
+
+    svg {
+        display: block;
+    }
 }
 
 .MfaSetupModal__codes {

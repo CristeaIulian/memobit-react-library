@@ -165,6 +165,7 @@
     "vite-plugin-static-copy": "3.4.0"
   },
   "dependencies": {
+    "qrcode.react": "^4.2.0",
     "react-router-dom": "7.18.1"
   },
   "overrides": {

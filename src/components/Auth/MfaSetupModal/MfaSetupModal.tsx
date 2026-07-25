@@ -1,5 +1,7 @@
 import { type ReactElement, useCallback, useEffect, useState } from 'react';
 
+import { QRCodeSVG } from 'qrcode.react';
+
 import { useAuth } from '../../../hooks/useAuth';
 import type { MfaMethod } from '../../../types/auth.types';
 import { Button } from '../../Button';
@@ -191,12 +193,14 @@ export function MfaSetupModal({ isOpen, onClose }: MfaSetupModalProps): ReactEle
             case 'totp-setup':
                 return (
                     <div className="MfaSetupModal__section">
-                        <p className="MfaSetupModal__hint">
-                            In your authenticator app choose “Enter a setup key” and type the key below (account: your username, type: time-based).
-                        </p>
+                        <p className="MfaSetupModal__hint">Scan this with your authenticator app (Google Authenticator, Aegis, 1Password…).</p>
+                        {otpauthUri && (
+                            <div className="MfaSetupModal__qr">
+                                <QRCodeSVG value={otpauthUri} size={192} marginSize={2} />
+                            </div>
+                        )}
+                        <p className="MfaSetupModal__hint MfaSetupModal__hint--muted">Can’t scan? Choose “Enter a setup key” and type this key (time-based):</p>
                         <div className="MfaSetupModal__secret">{formattedSecret}</div>
-                        <p className="MfaSetupModal__hint MfaSetupModal__hint--muted">Or open this link on the device with the app:</p>
-                        <div className="MfaSetupModal__uri">{otpauthUri}</div>
                         <InputText placeholder="6-digit code from the app" value={code} onChange={setCode} autoFocus disabled={busy} />
                         <Button variant="info" icon="key" fullWidth loading={busy} onClick={confirmTotp}>
                             Verify &amp; enable
