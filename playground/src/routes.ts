@@ -105,6 +105,7 @@ import { TreePage } from './pages/TreePage';
 import { DiffViewerPage } from './pages/DiffViewerPage';
 import { InputMaskPage } from './pages/InputMaskPage';
 import { JourneyWizardPage } from './pages/JourneyWizardPage';
+import { VirtualListPage } from './pages/VirtualListPage';
 import { WHtRPage } from './pages/WHtRPage';
 
 export interface RouteConfig {
@@ -218,6 +219,7 @@ export const routes: RouteConfig[] = [
     { path: '/tooltip', label: 'Tooltip', component: TooltipPage },
     { path: '/tour-hud', label: 'Tour HUD', component: TourHudPage },
     { path: '/tree', label: 'Tree', component: TreePage },
+    { path: '/virtual-list', label: 'Virtual List', component: VirtualListPage },
     { path: '/whtr', label: 'WHtR', component: WHtRPage },
 ];
 

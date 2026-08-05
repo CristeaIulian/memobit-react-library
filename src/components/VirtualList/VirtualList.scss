@@ -1,0 +1,24 @@
+.virtual-list {
+    display: block;
+    max-height: var(--spacing-400);
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+
+    /* The gap sits on the rows rather than on the container: the list measures
+       one row's stride and reproduces it for every row it does not render, so
+       the spacing has to be part of that stride. Bottom margin (not top) makes
+       a row's stride exactly its own height plus the gap. */
+    &__row:not(:last-child) {
+        margin-bottom: var(--spacing-12);
+    }
+
+    &__spacer {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        flex: none;
+    }
+}

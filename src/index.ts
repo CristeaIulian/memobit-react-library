@@ -205,6 +205,7 @@ export {
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
 export { TourHud, type TourHudProps } from './components/TourHud';
 export { Tree, type TreeNode } from './components/Tree';
+export { VirtualList, type VirtualListProps } from './components/VirtualList';
 export { WHtR } from './components/WHtR';
 
 // Export Auth components

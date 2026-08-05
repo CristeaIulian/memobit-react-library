@@ -112,3 +112,8 @@ body {
 .medium-card {
     width: 500px;
 }
+
+// .component-group is a flex row; the virtual lists want the whole width of it.
+.playground-virtual-list {
+    flex: 1 1 100%;
+}
