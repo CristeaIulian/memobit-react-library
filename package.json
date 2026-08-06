@@ -166,7 +166,7 @@
     "vite-plugin-static-copy": "3.4.0"
   },
   "dependencies": {
-    "qrcode.react": "^4.2.0"
+    "qrcode.react": "4.2.0"
   },
   "overrides": {
     "brace-expansion@1": "1.1.18",
