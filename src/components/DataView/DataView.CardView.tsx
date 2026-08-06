@@ -213,7 +213,12 @@ export function CardView<T>({
                                 onClick={collapsible ? () => onToggleGroup?.(group.key) : undefined}
                             >
                                 <span className="data-view__group-label">{group.label}</span>
-                                {showGroupCount && <span className="data-view__group-count">{group.totalCount}</span>}
+                                {showGroupCount && (
+                                    <span className="data-view__group-count">
+                                        {/* A group that spans a page boundary shows how much of it is on this page. */}
+                                        {group.items.length === group.totalCount ? group.totalCount : `${group.items.length} of ${group.totalCount}`}
+                                    </span>
+                                )}
                                 {collapsible && <Icon className="data-view__group-chevron" name={isCollapsed ? 'caret-down' : 'caret-up'} size="sm" />}
                             </header>
                             {!isCollapsed && (

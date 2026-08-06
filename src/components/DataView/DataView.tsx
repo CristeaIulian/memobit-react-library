@@ -184,11 +184,56 @@ export function DataView<T>({
     }, [columns, data, sortDirection, sortKey, pinnedSet, pinnedIds]);
 
     const isServerPaginated = controlledTotalItems !== undefined;
-    const totalForPagination = isServerPaginated ? controlledTotalItems : sortedData.length;
+
+    /**
+     * With grouping on, rows have to be laid out group-by-group *before* the page slice.
+     * Sorting only orders by the sort column, and sortGroups only reorders headers within
+     * whatever rows a page happens to contain — so an ungrouped slice interleaves groups,
+     * the same group reappears on later pages, and its header count (which is global)
+     * disagrees with the handful of rows actually rendered under it.
+     *
+     * Server-paginated data is already a page slice; reordering it here would be wrong.
+     */
+    const orderedData = useMemo<T[]>(() => {
+        if (!group || isServerPaginated) return sortedData;
+
+        const buckets = new Map<DataViewGroupKey, T[]>();
+        const order: DataViewGroupKey[] = [];
+
+        sortedData.forEach(row => {
+            const key = group.groupBy(row);
+            const existing = buckets.get(key);
+            if (existing) {
+                existing.push(row);
+            } else {
+                buckets.set(key, [row]);
+                order.push(key);
+            }
+        });
+
+        const entries: DataViewGroup<T>[] = order.map(key => {
+            const items = buckets.get(key) as T[];
+            return { key, label: group.groupLabel(key), items, totalCount: items.length };
+        });
+
+        if (group.sortGroups) {
+            entries.sort(group.sortGroups);
+        } else {
+            entries.sort((a, b) => {
+                if (a.key === null) return 1;
+                if (b.key === null) return -1;
+                return 0;
+            });
+        }
+
+        return entries.flatMap(entry => entry.items);
+    }, [group, isServerPaginated, sortedData]);
+
+    const totalForPagination = isServerPaginated ? controlledTotalItems : orderedData.length;
     const totalPages = Math.max(1, Math.ceil(totalForPagination / pageSize));
     const safeCurrentPage = Math.min(currentPage, totalPages);
     // When server-paginated, `data` is already the page slice, so skip client slicing.
-    const pagedData = isServerPaginated ? sortedData : sortedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
+    const pagedData = isServerPaginated ? orderedData : orderedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
 
     const resultsCountLabel = showResultsCount
         ? getResultsCount(pageSize, totalForPagination, totalCount ?? totalForPagination, safeCurrentPage, itemNoun)
@@ -196,12 +241,12 @@ export function DataView<T>({
     const groupTotals = useMemo<Map<DataViewGroupKey, number> | null>(() => {
         if (!group) return null;
         const totals = new Map<DataViewGroupKey, number>();
-        sortedData.forEach(row => {
+        orderedData.forEach(row => {
             const key = group.groupBy(row);
             totals.set(key, (totals.get(key) ?? 0) + 1);
         });
         return totals;
-    }, [group, sortedData]);
+    }, [group, orderedData]);
 
     const computedGroups = useMemo<DataViewGroup<T>[] | null>(() => {
         if (!group || !groupTotals) return null;
@@ -626,7 +671,12 @@ export function DataView<T>({
                                             >
                                                 <td colSpan={totalCols} className="data-view__group-cell">
                                                     <span className="data-view__group-label">{grp.label}</span>
-                                                    {showGroupCount && <span className="data-view__group-count">{grp.totalCount}</span>}
+                                                    {showGroupCount && (
+                                                        <span className="data-view__group-count">
+                                                            {/* A group that spans a page boundary shows how much of it is on this page. */}
+                                                            {grp.items.length === grp.totalCount ? grp.totalCount : `${grp.items.length} of ${grp.totalCount}`}
+                                                        </span>
+                                                    )}
                                                     {group?.collapsible && (
                                                         <Icon className="data-view__group-chevron" name={isCollapsed ? 'caret-down' : 'caret-up'} size="sm" />
                                                     )}
