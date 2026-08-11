@@ -596,7 +596,17 @@ export function DataView<T>({
                                         window.open(href, '_blank', 'noopener,noreferrer');
                                         return;
                                     }
-                                    onRowClick?.(row, e);
+                                    if (onRowClick) {
+                                        onRowClick(row, e);
+                                        return;
+                                    }
+                                    // A <tr> can't be an anchor, so a plain click on an
+                                    // href-only row previously did nothing at all — the row
+                                    // looked interactive and wasn't. Follow the link the way
+                                    // the card view's native anchor does when no onRowClick is
+                                    // supplied. Consumers wanting client-side routing pass
+                                    // onRowClick and are handled above.
+                                    if (href) window.location.assign(href);
                                 };
                                 const handleTableRowAuxClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
                                     // Middle-click — browser doesn't do anything by default on a

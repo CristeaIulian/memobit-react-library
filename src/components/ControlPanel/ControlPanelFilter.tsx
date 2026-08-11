@@ -326,11 +326,21 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                                 selected={isSelected}
                                 onClick={() => {
                                     if (option.disabled) return;
-                                    const nextValue = isSelected ? selectedValues.filter(v => v !== option.value) : [...selectedValues, option.value];
+                                    // Chips default to multi-select, which is the long-standing
+                                    // behaviour. When `multiple` is explicitly false the row is a
+                                    // single choice: picking one replaces the selection rather
+                                    // than adding to it, and clicking the active chip clears it.
+                                    // `multiple` used to be read only by the dropdown branch, so
+                                    // a chips filter declared single-select still accumulated
+                                    // values and handed the consumer an array it never expected.
+                                    const isSingle = filter.multiple === false;
+                                    const nextValue = isSingle
+                                        ? (isSelected ? [] : [option.value])
+                                        : (isSelected ? selectedValues.filter(v => v !== option.value) : [...selectedValues, option.value]);
                                     emitFilterChange({
                                         filterId: filter.id,
                                         type: filter.type,
-                                        value: getFilterArrayValue(nextValue),
+                                        value: isSingle ? (nextValue[0] ?? null) : getFilterArrayValue(nextValue),
                                         option,
                                         options: filterOptions.filter(o => nextValue.includes(o.value)),
                                     });
