@@ -341,7 +341,15 @@
 
         &--grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--data-view-card-max-width)), 1fr));
+            // auto-FILL, not auto-fit. auto-fit collapses the tracks an
+            // underfilled row doesn't use and lets the survivors stretch across
+            // the full width, which made `cardMaxWidth` behave as a minimum
+            // rather than a maximum — three cards in a 2000px viewport blew up
+            // to ~600px each. Grouped card views hit this constantly, since a
+            // group is usually smaller than one row. auto-fill keeps the empty
+            // tracks, holding every card near the requested width no matter how
+            // few are in the row.
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--data-view-card-max-width)), 1fr));
             align-items: stretch;
         }
     }
