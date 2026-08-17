@@ -24,7 +24,7 @@ const NAV_BUTTON_WIDTH_DESKTOP = 120;
 const NAV_BUTTON_WIDTH_MOBILE = 45;
 const DOTS_WIDTH = 45;
 const GAP = 8;
-const MAX_DELTA = 2; // Cap visible siblings per side — at most 1, c-2..c+2, …, N (≈ 9 buttons)
+const MAX_DELTA = 4; // Cap visible siblings per side — at most 1, c-4..c+4, …, N (≈ 13 buttons)
 
 export const Pagination: FC<PaginationProps> = ({
     currentPage,
@@ -44,12 +44,20 @@ export const Pagination: FC<PaginationProps> = ({
 
     const calculateDelta = useCallback(() => {
         const container = pagesRef.current;
-        if (!container) return;
+        const row = container?.parentElement;
+        if (!container || !row) return;
 
-        // Use the pages container's own width, not the parent — the parent (.pagination)
-        // also has to fit the page-size dropdown on the same row, which would otherwise
-        // get double-counted and yield an over-large delta.
-        const containerWidth = container.offsetWidth;
+        // Measure the row, not the pages container. The container is shrink-to-fit
+        // in the centered layout (`flex: none`), so its own width only ever reports
+        // the buttons already rendered — measuring it locks delta at whatever it
+        // started as and it can never grow into free space. The siblings sharing
+        // the row (page-size dropdown, page counter) are subtracted so their width
+        // isn't handed out twice.
+        let siblingsWidth = 0;
+        for (const child of row.children) {
+            if (child !== container) siblingsWidth += (child as HTMLElement).offsetWidth + GAP;
+        }
+        const containerWidth = row.clientWidth - siblingsWidth;
         const navButtonWidth = isAtLeast('desktop') ? NAV_BUTTON_WIDTH_DESKTOP : NAV_BUTTON_WIDTH_MOBILE;
         // Fixed space: 2 nav buttons + first page + last page + 2 dots + gaps
         const fixedWidth = navButtonWidth * 2 + PAGE_BUTTON_WIDTH * 2 + DOTS_WIDTH * 2 + GAP * 6;
@@ -62,13 +70,18 @@ export const Pagination: FC<PaginationProps> = ({
 
     useEffect(() => {
         const container = pagesRef.current;
-        if (!container) return;
+        const row = container?.parentElement;
+        if (!container || !row) return;
 
+        // Watch the row as well: it's what the delta is derived from, and in the
+        // centered layout it can widen (sidebar collapse, window resize) without
+        // the shrink-to-fit pages container changing size at all.
         const observer = new ResizeObserver(() => {
             calculateDelta();
         });
 
         observer.observe(container);
+        observer.observe(row);
         calculateDelta();
 
         return () => observer.disconnect();
