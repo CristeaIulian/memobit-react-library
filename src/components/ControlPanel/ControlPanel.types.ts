@@ -129,7 +129,21 @@ export interface ControlPanelOptionItem {
 export type ControlPanelOption =
     | { id: string; label: string; type: 'checkbox'; value?: boolean; icon?: IconName }
     | { id: string; label?: string; type: 'radio'; value?: string | number; options: ControlPanelOptionItem[]; inline?: boolean }
-    | { id: string; label?: string; type: 'chips'; value: Array<string | number>; options: ControlPanelOptionItem[] };
+    | { id: string; label?: string; type: 'chips'; value: Array<string | number>; options: ControlPanelOptionItem[] }
+    | {
+          id: string;
+          label?: string;
+          type: 'slider';
+          value: number;
+          min?: number;
+          max?: number;
+          step?: number;
+          icon?: IconName;
+          /** Shows the current value next to the label. Defaults to true. */
+          showValue?: boolean;
+          /** Suffix appended to the displayed value (e.g. `'px'`). */
+          unit?: string;
+      };
 
 export interface ControlPanelOptionGroup {
     id?: string;

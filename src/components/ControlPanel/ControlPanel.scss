@@ -568,6 +568,24 @@
         align-items: flex-start;
     }
 
+    // The track reserves room below itself for the value block Slider renders
+    // by default; this option prints the value in the title row instead, so
+    // that reserved space would only add a gap the panel doesn't need.
+    &__option--slider .slider-input {
+        margin-bottom: 0;
+    }
+
+    // Pushed to the far end of the title row so the label reads first and the
+    // live value sits where the eye lands when dragging the thumb.
+    &__option-slider-value {
+        margin-left: auto;
+        color: var(--body-accent-color);
+        font-variant-numeric: tabular-nums;
+        // The title row is uppercased; a unit suffix rendered as "PX" reads as
+        // an abbreviation rather than a measurement.
+        text-transform: none;
+    }
+
     &__option-view-toggle {
         display: flex;
         gap: var(--spacing-8);

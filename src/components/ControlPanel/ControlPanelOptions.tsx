@@ -4,6 +4,7 @@ import { Button } from '../Button';
 import { Chip } from '../Chip';
 import { Icon, IconName } from '../Icon';
 import { Separator } from '../Separator';
+import { Slider } from '../Slider';
 import { Tooltip } from '../Tooltip';
 
 import {
@@ -181,6 +182,31 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                                 );
                                             })}
                                         </div>
+                                    </>
+                                )}
+                                {option.type === 'slider' && (
+                                    <>
+                                        {option.label && (
+                                            <span className="control-panel__filter-title">
+                                                {option.icon && <Icon name={option.icon} />}
+                                                {option.label}
+                                                {option.showValue !== false && (
+                                                    <span className="control-panel__option-slider-value">
+                                                        {option.value}
+                                                        {option.unit ?? ''}
+                                                    </span>
+                                                )}
+                                            </span>
+                                        )}
+                                        <Slider
+                                            min={option.min}
+                                            max={option.max}
+                                            step={option.step}
+                                            value={option.value}
+                                            onChange={value => onOptionChange?.({ optionId: option.id, value })}
+                                            showValues={false}
+                                            thin
+                                        />
                                     </>
                                 )}
                                 {option.type === 'chips' && (
