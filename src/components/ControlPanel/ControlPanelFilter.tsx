@@ -32,23 +32,99 @@ const getFilterArrayValue = (value: Array<string | number>): string[] | number[]
     return value.map(String);
 };
 
+// How many selected option labels a collapsed section previews before it falls
+// back to a `+N` remainder.
+const SUMMARY_LABEL_LIMIT = 2;
+
+const getSelectedOptionLabels = (filter: ControlPanelFilter): string[] => {
+    const options = filter.options ?? [];
+    return getArrayValue(filter.value).map(value => options.find(option => option.value === value)?.label ?? String(value));
+};
+
+// Preview text for a collapsed filter: enough to tell at a glance what the
+// section is holding without expanding it.
+const getFilterSummary = (filter: ControlPanelFilter): string | undefined => {
+    const { type, value } = filter;
+
+    if (value === null || value === undefined || value === '') return undefined;
+
+    if (type === 'checkbox') return value === true ? 'On' : undefined;
+
+    if (type === 'range') {
+        const [min, max] = Array.isArray(value) ? (value as Array<number | undefined>) : [];
+        if (min === undefined && max === undefined) return undefined;
+        if (min === undefined) return `≤ ${max}`;
+        if (max === undefined) return `≥ ${min}`;
+        return `${min} – ${max}`;
+    }
+
+    if (type === 'date-range') {
+        const [from, to] = Array.isArray(value) ? (value as string[]) : [];
+        if (!from && !to) return undefined;
+        if (!from) return `until ${to}`;
+        if (!to) return `from ${from}`;
+        return `${from} → ${to}`;
+    }
+
+    if (type === 'rating') return typeof value === 'number' && value > 0 ? String(value) : undefined;
+
+    if (type === 'text' || type === 'search' || type === 'date' || type === 'number') return String(value);
+
+    const labels = getSelectedOptionLabels(filter);
+    if (labels.length === 0) return undefined;
+    if (labels.length <= SUMMARY_LABEL_LIMIT) return labels.join(', ');
+    return `${labels.slice(0, SUMMARY_LABEL_LIMIT).join(', ')} +${labels.length - SUMMARY_LABEL_LIMIT}`;
+};
+
 interface ControlPanelFilterItemProps {
     filter: ControlPanelFilter;
+    /** Wraps the filter in a collapsible section whose header doubles as the
+     *  toggle. Each section keeps its own open state, so several can be open. */
+    collapsible?: boolean;
     onChange: (event: ControlPanelFilterChangeEvent) => void;
 }
 
-export const ControlPanelFilterItem: React.FC<ControlPanelFilterItemProps> = ({ filter, onChange }) => (
-    <div className={`control-panel__filter${filter.type === 'checkbox' ? ' control-panel__filter--checkbox' : ''}`}>
-        {filter.type !== 'checkbox' && (
-            <span className={`control-panel__filter-title${filter.isActive ? ' control-panel__filter-title--active' : ''}`}>
-                {filter.isActive && <span className="control-panel__filter-active-dot" />}
-                {filter.icon && <Icon name={filter.icon} />}
-                {filter.label}
-            </span>
-        )}
-        <ControlPanelFilterControl filter={filter} onChange={onChange} />
-    </div>
-);
+export const ControlPanelFilterItem: React.FC<ControlPanelFilterItemProps> = ({ filter, collapsible = false, onChange }) => {
+    // A checkbox filter renders as a lone chip carrying its own label — there is
+    // no heading to turn into a toggle, so it always stays visible.
+    const isCollapsible = collapsible && filter.type !== 'checkbox';
+    const [isExpanded, setIsExpanded] = useState(filter.defaultExpanded ?? false);
+    const summary = filter.summary ?? getFilterSummary(filter);
+
+    const title = (
+        <span className={`control-panel__filter-title${filter.isActive ? ' control-panel__filter-title--active' : ''}`}>
+            {filter.isActive && <span className="control-panel__filter-active-dot" />}
+            {filter.icon && <Icon name={filter.icon} />}
+            {filter.label}
+        </span>
+    );
+
+    const className = [
+        'control-panel__filter',
+        filter.type === 'checkbox' ? 'control-panel__filter--checkbox' : '',
+        isCollapsible ? 'control-panel__filter--collapsible' : '',
+        isCollapsible && !isExpanded ? 'control-panel__filter--collapsed' : '',
+    ]
+        .filter(Boolean)
+        .join(' ');
+
+    return (
+        <div className={className}>
+            {isCollapsible ? (
+                <button className="control-panel__filter-toggle" type="button" onClick={() => setIsExpanded(current => !current)}>
+                    {title}
+                    {!isExpanded && summary && <span className="control-panel__filter-summary">{summary}</span>}
+                    <span className="control-panel__filter-caret">
+                        <Icon name={isExpanded ? 'caret-up' : 'caret-down'} />
+                    </span>
+                </button>
+            ) : (
+                filter.type !== 'checkbox' && title
+            )}
+            {(!isCollapsible || isExpanded) && <ControlPanelFilterControl filter={filter} onChange={onChange} />}
+        </div>
+    );
+};
 
 interface ControlPanelFilterControlProps {
     filter: ControlPanelFilter;

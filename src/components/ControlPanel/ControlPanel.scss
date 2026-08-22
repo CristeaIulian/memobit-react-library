@@ -304,14 +304,86 @@
         font-weight: var(--font-weight-semibold);
     }
 
+    // Collapsible mode: rows sit close together and lean on their dividers for
+    // separation, so a panel with six filters reads as a short list instead of
+    // a scrolling wall.
+    &__filters--collapsible {
+        gap: var(--spacing-4);
+    }
+
     &__filter {
         flex: 1 1 100%;
+        // Without this the flex item's automatic minimum size is its min-content
+        // width, so one long chip label (a person's full name, a location) blows
+        // the section past the panel width and `overflow-x: hidden` shears the
+        // whole filter off. `min-width: 0` lets the section stay panel-wide and
+        // pushes the truncation down to the chip label, where the ellipsis is.
+        min-width: 0;
         @include flex-column;
         gap: var(--spacing-8);
 
         &--checkbox {
             flex: 0 0 auto;
         }
+
+        &--collapsible {
+            gap: var(--spacing-4);
+            padding-bottom: var(--spacing-4);
+            border-bottom: var(--spacing-1) solid var(--delimiter-color);
+
+            &:last-child {
+                padding-bottom: 0;
+                border-bottom: 0;
+            }
+        }
+    }
+
+    // Header of a collapsible filter: the whole row toggles the section, with
+    // the applied-value preview filling the space between title and caret.
+    &__filter-toggle {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+        width: 100%;
+        padding: var(--spacing-6) 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font-family: inherit;
+        text-align: left;
+
+        &:hover .control-panel__filter-title {
+            color: var(--body-color-accent);
+        }
+
+        &:hover .control-panel__filter-caret {
+            color: var(--body-color-accent);
+        }
+
+        .control-panel__filter-title {
+            flex: 0 1 auto;
+            min-width: 0;
+        }
+    }
+
+    &__filter-summary {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        color: var(--body-accent-color);
+        font-size: var(--font-size-xs);
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__filter-caret {
+        display: inline-flex;
+        flex-shrink: 0;
+        margin-left: auto;
+        color: var(--body-color-muted);
+        transition: color 0.2s ease;
     }
 
     &__filter-title {
@@ -380,8 +452,11 @@
 
     // Small round avatar rendered before a chip's label (e.g. face crops in a
     // people picker). Sits flush against the chip's left edge with a small
-    // negative inline-margin to feel inset.
+    // negative inline-margin to feel inset. `flex-shrink: 0` keeps it a circle:
+    // as a flex item it would otherwise get squeezed by a long label and the
+    // `object-fit: cover` crop would eat into the face.
     &__filter-chip-avatar {
+        flex-shrink: 0;
         width: var(--spacing-20);
         height: var(--spacing-20);
         border-radius: var(--radius-full);

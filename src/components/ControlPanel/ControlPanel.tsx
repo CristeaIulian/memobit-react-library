@@ -31,6 +31,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     actions = [],
     filters = [],
     filtersCount,
+    collapsibleFilters = false,
     onFilterChange,
     onClearFilters,
     options = [],
@@ -67,6 +68,12 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     const hasOptions = !!(viewToggle || groupBy || visibleColumns || normalizedOptionGroups.length > 0);
     const hasFiltersSection = filters.length > 0 || (filtersCount !== undefined && filtersCount > 0);
 
+    // A number opts collapsing in only past that many filters, so a page with
+    // one or two filters keeps them open while a filter-heavy page folds up.
+    const collapsibleThreshold = typeof collapsibleFilters === 'number' ? collapsibleFilters : collapsibleFilters ? 1 : Infinity;
+    const areFiltersCollapsible = filters.length >= collapsibleThreshold;
+    const filtersClassName = ['control-panel__filters', areFiltersCollapsible ? 'control-panel__filters--collapsible' : ''].filter(Boolean).join(' ');
+
     return (
         <>
             {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
@@ -100,7 +107,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                 {navigation.length > 0 && <ControlPanelNav navigation={navigation} onNavigate={isMobile ? close : undefined} />}
 
                 {hasFiltersSection && (
-                    <div className="control-panel__filters">
+                    <div className={filtersClassName}>
                         <div className="control-panel__filters-header">
                             <span className="control-panel__filters-heading">
                                 Filters
@@ -113,7 +120,12 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                             )}
                         </div>
                         {filters.map(filter => (
-                            <ControlPanelFilterItem key={filter.id} filter={filter} onChange={event => onFilterChange?.(event)} />
+                            <ControlPanelFilterItem
+                                key={filter.id}
+                                filter={filter}
+                                collapsible={filter.collapsible ?? areFiltersCollapsible}
+                                onChange={event => onFilterChange?.(event)}
+                            />
                         ))}
                     </div>
                 )}

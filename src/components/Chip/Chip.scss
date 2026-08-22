@@ -153,8 +153,16 @@
     }
 
     &__count {
+        flex-shrink: 0;
         color: var(--body-color-muted);
         font-size: var(--font-size-xs);
+    }
+
+    // The label is the only part allowed to give up width when a chip runs out
+    // of room — a shrinking icon or count would render clipped instead of
+    // ellipsised.
+    > .icon {
+        flex-shrink: 0;
     }
 
     &--selected &__count {

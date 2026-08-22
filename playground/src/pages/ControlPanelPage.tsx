@@ -12,6 +12,14 @@ import {
     ControlPanelViewMode,
 } from '../../../src';
 
+// Portrait-ish placeholder so the chip avatars in the demo behave like the real
+// face crops they stand in for (they get cropped to a circle, never squashed).
+const AVATAR_PLACEHOLDER =
+    'data:image/svg+xml;utf8,' +
+    encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 58"><rect width="48" height="58" fill="%23516"/><circle cx="24" cy="20" r="11" fill="%23fc9"/><ellipse cx="24" cy="52" rx="18" ry="18" fill="%23fc9"/></svg>',
+    );
+
 export const ControlPanelPage: React.FC = () => {
     const [viewMode, setViewMode] = useState<ControlPanelViewMode>('cards');
     const [groupBy, setGroupBy] = useState<string | null>(null);
@@ -33,6 +41,15 @@ export const ControlPanelPage: React.FC = () => {
         ownership: 'lent-out',
         categories: ['fiction', 'essays', 'non-fiction', 'sci-fi', 'poetry', 'fantasy', 'travel', 'science', 'art', 'classics'],
         languages: ['english', 'japanese', 'spanish', 'german', 'french', 'portuguese', 'italian'],
+    });
+
+    const [collapsibleFilterValues, setCollapsibleFilterValues] = useState<Record<string, ControlPanelFilterValue>>({
+        people: ['eliza', 'carmen', 'adrian'],
+        years: [],
+        taken: ['', ''],
+        rating: 0,
+        locations: ['beusnita'],
+        favourites: false,
     });
 
     const [optionValues, setOptionValues] = useState<Record<string, ControlPanelFilterValue>>({
@@ -152,6 +169,76 @@ export const ControlPanelPage: React.FC = () => {
                 { label: 'Portuguese', value: 'portuguese', count: 1 },
                 { label: 'Italian', value: 'italian', count: 1 },
             ],
+        },
+    ];
+
+    // A deliberately filter-heavy panel: six sections, one of them carrying
+    // labels long enough to have previously sheared off the panel edge.
+    const collapsibleFilters: ControlPanelFilter[] = [
+        {
+            id: 'people',
+            label: 'People',
+            icon: 'users',
+            type: 'chips',
+            searchable: true,
+            placeholder: 'Filter people...',
+            maxHeight: '40vh',
+            value: collapsibleFilterValues.people,
+            isActive: Array.isArray(collapsibleFilterValues.people) && (collapsibleFilterValues.people as string[]).length > 0,
+            options: [
+                { label: 'Iulian Cristea', value: 'iulian', count: 6009, imageUrl: AVATAR_PLACEHOLDER },
+                { label: 'Eliza Maria Cristea', value: 'eliza', count: 5928, imageUrl: AVATAR_PLACEHOLDER },
+                { label: 'Carmen Elena Cristea', value: 'carmen', count: 3573, imageUrl: AVATAR_PLACEHOLDER },
+                { label: 'Adrian Marius Dabuleanu', value: 'adrian', count: 171, imageUrl: AVATAR_PLACEHOLDER },
+            ],
+        },
+        {
+            id: 'years',
+            label: 'Years',
+            icon: 'calendar-year',
+            type: 'chips',
+            value: collapsibleFilterValues.years,
+            isActive: Array.isArray(collapsibleFilterValues.years) && (collapsibleFilterValues.years as number[]).length > 0,
+            options: [2026, 2025, 2024, 2023, 2022, 2021, 2020].map(year => ({ label: String(year), value: year })),
+        },
+        {
+            id: 'taken',
+            label: 'Date range',
+            icon: 'calendar',
+            type: 'date-range',
+            value: collapsibleFilterValues.taken,
+            isActive: Array.isArray(collapsibleFilterValues.taken) && (collapsibleFilterValues.taken as string[]).some(Boolean),
+        },
+        {
+            id: 'rating',
+            label: 'Rating',
+            icon: 'star',
+            type: 'rating',
+            maxRate: 5,
+            value: collapsibleFilterValues.rating,
+            isActive: typeof collapsibleFilterValues.rating === 'number' && collapsibleFilterValues.rating > 0,
+        },
+        {
+            id: 'locations',
+            label: 'Locations',
+            icon: 'location',
+            type: 'chips',
+            searchable: true,
+            placeholder: 'Filter by location...',
+            maxHeight: '40vh',
+            value: collapsibleFilterValues.locations,
+            isActive: Array.isArray(collapsibleFilterValues.locations) && (collapsibleFilterValues.locations as string[]).length > 0,
+            options: [
+                { label: 'Cascade de la Pastravarie spre Cascada Beusnita', value: 'beusnita', count: 42 },
+                { label: 'Bucuresti', value: 'bucuresti', count: 1204 },
+                { label: 'Sinaia', value: 'sinaia', count: 88 },
+            ],
+        },
+        {
+            id: 'favourites',
+            label: 'Favourites only',
+            type: 'checkbox',
+            value: collapsibleFilterValues.favourites === true,
         },
     ];
 
@@ -318,6 +405,10 @@ export const ControlPanelPage: React.FC = () => {
         setLibraryFilterValues(prev => ({ ...prev, [event.filterId]: event.value }));
     };
 
+    const handleCollapsibleFilterChange = (event: ControlPanelFilterChangeEvent) => {
+        setCollapsibleFilterValues(prev => ({ ...prev, [event.filterId]: event.value }));
+    };
+
     const handleOptionChange = (event: ControlPanelOptionChangeEvent) => {
         setOptionValues(prev => ({ ...prev, [event.optionId]: event.value as ControlPanelFilterValue }));
     };
@@ -441,6 +532,44 @@ export const ControlPanelPage: React.FC = () => {
                                 Languages:{' '}
                                 <strong>
                                     {Array.isArray(libraryFilterValues.languages) ? (libraryFilterValues.languages as string[]).join(', ') : 'none'}
+                                </strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Collapsible Filters — a filter-heavy panel</h3>
+                    <p>
+                        <code>collapsibleFilters</code> folds each filter into its own section so a page with many filters stays short. Sections open
+                        independently, so several can be expanded at once, and a collapsed header previews what is applied.
+                    </p>
+                    <div style={{ display: 'flex', minHeight: '520px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                        <ControlPanel
+                            header={{ icon: 'camera', siteName: 'Lumen', heading: 'Search' }}
+                            filters={collapsibleFilters}
+                            collapsibleFilters={3}
+                            onFilterChange={handleCollapsibleFilterChange}
+                            onClearFilters={() =>
+                                setCollapsibleFilterValues({ people: [], years: [], taken: ['', ''], rating: 0, locations: [], favourites: false })
+                            }
+                            isOpen={true}
+                            width="280px"
+                        />
+                        <div style={{ flex: 1, padding: '32px', background: 'var(--body-background)' }}>
+                            <h3>Search Results</h3>
+                            <p>
+                                People:{' '}
+                                <strong>
+                                    {Array.isArray(collapsibleFilterValues.people) ? (collapsibleFilterValues.people as string[]).join(', ') || 'none' : 'none'}
+                                </strong>
+                            </p>
+                            <p>
+                                Locations:{' '}
+                                <strong>
+                                    {Array.isArray(collapsibleFilterValues.locations)
+                                        ? (collapsibleFilterValues.locations as string[]).join(', ') || 'none'
+                                        : 'none'}
                                 </strong>
                             </p>
                         </div>

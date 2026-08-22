@@ -101,6 +101,19 @@ export interface ControlPanelFilter {
      *  px; string is passed through (`'40vh'`, `'320px'`, etc.). Omit to let
      *  the list expand freely. Honored by the `chips` filter today. */
     maxHeight?: string | number;
+    /** Overrides the panel-level `collapsibleFilters` setting for this filter —
+     *  e.g. to keep one cheap filter always visible in an otherwise collapsed
+     *  panel. `checkbox` filters are never collapsible (they render as a single
+     *  chip with no heading to click). */
+    collapsible?: boolean;
+    /** Starts a collapsible section open. Sections collapse by default so a long
+     *  filter list stays scannable; the collapsed header still previews what is
+     *  applied. Ignored when the filter isn't collapsible. */
+    defaultExpanded?: boolean;
+    /** Replaces the preview text shown in a collapsed section's header. Derived
+     *  from the filter's value when omitted (selected option labels, the date
+     *  range, the typed text, ...). Pass `''` to hide the preview. */
+    summary?: string;
 }
 
 export interface ControlPanelFilterChangeEvent {
@@ -156,7 +169,10 @@ export interface ControlPanelOptionChangeEvent {
     value: boolean | string | number | Array<string | number>;
 }
 
-export type ControlPanelViewMode = 'table' | 'cards' | 'gallery';
+/** Built-in listing modes. 'map' has no default toggle button — a page that
+ *  offers it supplies its own `options` entry, since only pages whose rows
+ *  carry coordinates can render one. */
+export type ControlPanelViewMode = 'table' | 'cards' | 'gallery' | 'map';
 
 export interface ControlPanelViewToggleOption {
     value: ControlPanelViewMode;
@@ -221,6 +237,13 @@ export interface ControlPanelProps {
     actions?: ControlPanelAction[];
     filters?: ControlPanelFilter[];
     filtersCount?: number;
+    /** Renders each filter as a collapsible section so a panel carrying many
+     *  filters stays compact. `true` collapses every filter; a number turns
+     *  collapsing on only once the panel renders at least that many filters
+     *  (`collapsibleFilters={3}` leaves a one- or two-filter page untouched).
+     *  Sections toggle independently — any number can be open at once — and a
+     *  collapsed header previews the applied value. */
+    collapsibleFilters?: boolean | number;
     onFilterChange?: (event: ControlPanelFilterChangeEvent) => void;
     onClearFilters?: (event: ControlPanelClearFiltersEvent) => void;
     options?: ControlPanelOption[] | ControlPanelOptionGroup[];
