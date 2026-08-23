@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { IconName } from '../Icon';
 import { InputText } from '../InputText';
@@ -20,6 +20,12 @@ interface QuickAddProps {
 export const QuickAdd: React.FC<QuickAddProps> = ({ isOpen = false, onClose, placeholder, title, onSave, titleIcon, value = '', usePortal = false }) => {
     const [currentValue, setCurrentValue] = useState<string | undefined>(value);
     const [isSaving, setIsSaving] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            setCurrentValue(value);
+        }
+    }, [isOpen, value]);
 
     const handleSave = async () => {
         setIsSaving(true);
