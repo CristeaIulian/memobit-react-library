@@ -46,20 +46,28 @@ export const Modal: FC<ModalProps> = ({
     const modalRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
 
+    // Escape must close only the topmost modal. Every open Modal attaches its
+    // own document listener, so without this one keypress closed the whole
+    // stack — a dialog opened on top of another took its parent down with it,
+    // dumping the user out of a context they were part-way through.
+    //
+    // Topmost is decided by DOM order rather than a mount-order registry:
+    // React runs child effects before parent ones, so a registry ends up
+    // listing an enclosing modal *after* the one rendered inside it. The
+    // overlays are appended in paint order, so the last one is the real top.
     useEffect(() => {
+        if (!isOpen) return;
+
         const handleEscape = (event: KeyboardEvent) => {
-            if (event.key === 'Escape' && onClose) {
-                onClose();
-            }
+            if (event.key !== 'Escape' || !onClose) return;
+            const overlays = document.querySelectorAll('.modal-overlay');
+            if (overlays[overlays.length - 1] !== overlayRef.current) return;
+            event.stopPropagation();
+            onClose();
         };
 
-        if (isOpen) {
-            document.addEventListener('keydown', handleEscape);
-        }
-
-        return () => {
-            document.removeEventListener('keydown', handleEscape);
-        };
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
     }, [isOpen, onClose]);
 
     if (!isOpen) {

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
@@ -128,23 +128,31 @@ export const ToastContainer = ({ position = 'bottom-right', showDismissButton = 
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }: ToastProviderProps) => {
     const [toasts, setToasts] = useState<ToastItem[]>([]);
 
-    // Handle removing a toast
-    const removeToast = (id: string) => {
+    // `addToast` and `removeToast` are memoised, and the context value with
+    // them, because consumers routinely list addToast in useCallback/useEffect
+    // dependency arrays. Recreating them on every render gave every one of
+    // those a new identity each time the provider re-rendered — which a toast
+    // itself causes — so data-loading effects re-fired in a loop and pages
+    // silently refetched everything after every mutation.
+    const removeToast = useCallback((id: string) => {
         setToasts(prev => prev.filter(toast => toast.id !== id));
-    };
+    }, []);
 
-    // Add a new toast
-    const addToast = (message: string, type: ToastType = 'info', timeout = 1500, action?: ContextToastAction) => {
-        const id = Date.now().toString();
-        setToasts(prev => [...prev, { id, message, type, timeout, action }]);
-        return id;
-    };
+    const addToast = useCallback(
+        (message: string, type: ToastType = 'info', timeout = 1500, action?: ContextToastAction) => {
+            // Date.now() alone collides when two toasts are raised in the same
+            // millisecond, which a bulk action does routinely.
+            const id = `${Date.now().toString()}-${Math.random().toString(36).slice(2, 8)}`;
+            setToasts(prev => [...prev, { id, message, type, timeout, action }]);
+            return id;
+        },
+        []
+    );
 
-    const value = {
-        toasts,
-        addToast,
-        removeToast,
-    };
+    const value = useMemo(
+        () => ({ toasts, addToast, removeToast }),
+        [toasts, addToast, removeToast]
+    );
 
     return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>;
 };
