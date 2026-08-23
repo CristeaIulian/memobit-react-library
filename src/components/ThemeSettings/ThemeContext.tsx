@@ -1,5 +1,7 @@
 import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 
+import { Tooltip } from '../Tooltip';
+
 import { getThemeConfig, THEME_CONFIGS } from './themeConfig';
 import { type Theme, ThemeContext, type ThemeEffects, type ThemeSaveValue } from './ThemeContextValue';
 
@@ -155,17 +157,18 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
                         boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
                     }}
                 >
-                    <span
-                        onClick={() => {
-                            void navigator.clipboard.writeText(activeThemeLabel);
-                            setCopied(true);
-                            window.setTimeout(() => setCopied(false), 1500);
-                        }}
-                        style={{ cursor: 'pointer' }}
-                        title="Copy theme name"
-                    >
-                        {activeThemeLabel}
-                    </span>
+                    <Tooltip title="Copy theme name">
+                        <span
+                            onClick={() => {
+                                void navigator.clipboard.writeText(activeThemeLabel);
+                                setCopied(true);
+                                window.setTimeout(() => setCopied(false), 1500);
+                            }}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            {activeThemeLabel}
+                        </span>
+                    </Tooltip>
                     <span style={{ opacity: 0.6, marginLeft: 8, pointerEvents: 'none' }}>
                         {activeThemeIdx + 1}/{THEME_CONFIGS.length}
                     </span>

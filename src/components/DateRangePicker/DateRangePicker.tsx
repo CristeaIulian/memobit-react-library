@@ -6,6 +6,7 @@ import { addMonths } from '../../helpers/Datetime';
 import { Button } from '../Button';
 import { Calendar, type CalendarDateRange } from '../Calendar';
 import { InputText } from '../InputText';
+import { Tooltip } from '../Tooltip';
 
 import './DateRangePicker.scss';
 
@@ -214,12 +215,16 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
     const calendarContent = (
         <div className="date-range-picker__calendar">
             <div className="date-range-picker__nav">
-                <Button variant="default" icon="caret-left" onClick={() => setBaseMonth(addMonths(baseMonth, -1))} title="Previous month" />
+                <Tooltip title="Previous month">
+                    <Button variant="default" icon="caret-left" onClick={() => setBaseMonth(addMonths(baseMonth, -1))} />
+                </Tooltip>
                 <span>
                     {baseMonth.toLocaleString('default', { month: 'long' })} {baseMonth.getFullYear()} -
                     {secondMonth.toLocaleString('default', { month: 'long' })} {secondMonth.getFullYear()}
                 </span>
-                <Button variant="default" icon="caret-right" onClick={() => setBaseMonth(addMonths(baseMonth, 1))} title="Next month" />
+                <Tooltip title="Next month">
+                    <Button variant="default" icon="caret-right" onClick={() => setBaseMonth(addMonths(baseMonth, 1))} />
+                </Tooltip>
             </div>
 
             <div className="date-range-picker__months">

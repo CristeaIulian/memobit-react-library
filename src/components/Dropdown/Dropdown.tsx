@@ -8,6 +8,7 @@ import { clear } from '../../icons/clear';
 import { Button } from '../Button';
 import { Icon, type IconName } from '../Icon';
 import { InputText } from '../InputText';
+import { Tooltip } from '../Tooltip';
 
 import './Dropdown.scss';
 
@@ -835,18 +836,19 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     selectedOptions.map(option => (
                         <span key={`dd-chip-${option.value}`} className="dropdown-chip">
                             <span className="dropdown-chip__label">{option.label}</span>
-                            <button
-                                type="button"
-                                className="dropdown-chip__remove"
-                                title="Remove"
-                                disabled={disabled}
-                                onClick={event => {
-                                    event.stopPropagation();
-                                    handleRemoveSelectedOption(option);
-                                }}
-                            >
-                                {clear}
-                            </button>
+                            <Tooltip title="Remove">
+                                <button
+                                    type="button"
+                                    className="dropdown-chip__remove"
+                                    disabled={disabled}
+                                    onClick={event => {
+                                        event.stopPropagation();
+                                        handleRemoveSelectedOption(option);
+                                    }}
+                                >
+                                    {clear}
+                                </button>
+                            </Tooltip>
                         </span>
                     ))}
 

@@ -6,6 +6,7 @@ import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { useComponentEffect } from '../../hooks/useComponentEffect';
 import { Button, type ExternalButtonConfig } from '../Button';
 import { Icon, IconName } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 import './Modal.scss';
 
@@ -83,7 +84,9 @@ export const Modal: FC<ModalProps> = ({
                     <h2>
                         {titleIcon ? <Icon name={titleIcon} /> : null} {title}
                     </h2>
-                    <Button className="modal__close" icon="clear" onClick={onClose} size="medium" title="Close modal" variant="ghost" />
+                    <Tooltip title="Close modal">
+                        <Button className="modal__close" icon="clear" onClick={onClose} size="medium" variant="ghost" />
+                    </Tooltip>
                 </div>
                 {children !== undefined && children !== null && <div className={`modal__body ${noPadding ? 'modal__body--no-padding' : ''}`}>{children}</div>}
                 {hasFooter && (

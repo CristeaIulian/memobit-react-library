@@ -161,7 +161,9 @@ export const Drawer: React.FC<DrawerProps> = ({
                         </div>
                     )}
                     {!hideClose && (
-                        <Button className="drawer__close" icon="clear" onClick={onClose} size="medium" title="Close drawer" variant="ghost" />
+                        <Tooltip title="Close drawer">
+                            <Button className="drawer__close" icon="clear" onClick={onClose} size="medium" variant="ghost" />
+                        </Tooltip>
                     )}
                 </div>
                 <div className="drawer__content">{children}</div>

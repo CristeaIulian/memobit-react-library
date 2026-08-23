@@ -7,6 +7,7 @@ import { Icon, type IconName } from '../Icon';
 import { InputSearch, type InputSearchProps } from '../InputSearch';
 import { MenuHamburger, type MenuHamburgerItem } from '../MenuHamburger';
 import { NotificationPanel, type NotificationPanelItem } from '../NotificationPanel';
+import { Tooltip } from '../Tooltip';
 
 import './Toolbar.scss';
 
@@ -155,17 +156,18 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     return (
         <div className={rootClassName}>
             {shouldShowControlPanelToggle && (
-                <Button
-                    className="memobit-toolbar__control-panel-toggle"
-                    icon="tune"
-                    onClick={controlPanel?.toggle}
-                    size="medium"
-                    title="Filters"
-                    variant="default"
-                >
-                    {controlPanelToggle && getControlPanelToggleLabel(controlPanelToggle)}
-                    {toggleCount > 0 && <span className="memobit-toolbar__control-panel-toggle-count">{toggleCount}</span>}
-                </Button>
+                <Tooltip title="Filters">
+                    <Button
+                        className="memobit-toolbar__control-panel-toggle"
+                        icon="tune"
+                        onClick={controlPanel?.toggle}
+                        size="medium"
+                        variant="default"
+                    >
+                        {controlPanelToggle && getControlPanelToggleLabel(controlPanelToggle)}
+                        {toggleCount > 0 && <span className="memobit-toolbar__control-panel-toggle-count">{toggleCount}</span>}
+                    </Button>
+                </Tooltip>
             )}
 
             {heading && (

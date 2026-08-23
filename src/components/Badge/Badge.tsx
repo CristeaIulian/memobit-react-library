@@ -1,5 +1,7 @@
 import { FC, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
+import { Tooltip } from '../Tooltip';
+
 import './Badge.scss';
 
 export type BadgeVariant = 'default' | 'success' | 'info' | 'warning' | 'danger';
@@ -41,17 +43,18 @@ export const Badge: FC<BadgeProps> = ({ variant = 'default', children, className
         >
             {children}
             {onClear && (
-                <button
-                    className="badge__clear"
-                    onClick={e => {
-                        e.stopPropagation();
-                        onClear();
-                    }}
-                    type="button"
-                    title="Remove"
-                >
-                    ×
-                </button>
+                <Tooltip title="Remove">
+                    <button
+                        className="badge__clear"
+                        onClick={e => {
+                            e.stopPropagation();
+                            onClear();
+                        }}
+                        type="button"
+                    >
+                        ×
+                    </button>
+                </Tooltip>
             )}
         </span>
     );
