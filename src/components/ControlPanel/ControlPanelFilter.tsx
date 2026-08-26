@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Button } from '../Button';
 import { Chip } from '../Chip';
@@ -126,6 +126,50 @@ export const ControlPanelFilterItem: React.FC<ControlPanelFilterItemProps> = ({ 
     );
 };
 
+/**
+ * A search box that types at the speed of the keyboard.
+ *
+ * The filter's `value` arrives from the page, and on the pages that own a
+ * ControlPanel it gets there the long way round: the page's onChange sets its
+ * own state, re-renders, rebuilds the filter array, and only then publishes it
+ * back through context in an effect — which React runs after paint. A plain
+ * controlled input therefore renders with a value one whole commit behind the
+ * keystrokes, and typing quickly drops or re-orders characters as each render
+ * resets the DOM value to the stale one.
+ *
+ * Holding the text locally makes the input authoritative for what the user is
+ * typing, while still adopting a value the page pushes for its own reasons —
+ * Clear filters, a preset, a restored session — which is any incoming value
+ * that is not the echo of what we last sent out.
+ */
+const ControlPanelFilterSearch: React.FC<{
+    placeholder?: string;
+    value: string;
+    onChange: (value: string) => void;
+}> = ({ placeholder, value, onChange }) => {
+    const [draft, setDraft] = useState(value);
+    const emitted = useRef(value);
+
+    useEffect(() => {
+        if (value === emitted.current) return;
+        emitted.current = value;
+        setDraft(value);
+    }, [value]);
+
+    return (
+        <InputSearch
+            className="control-panel__filter-search"
+            onChange={next => {
+                emitted.current = next;
+                setDraft(next);
+                onChange(next);
+            }}
+            placeholder={placeholder}
+            value={draft}
+        />
+    );
+};
+
 interface ControlPanelFilterControlProps {
     filter: ControlPanelFilter;
     onChange: (event: ControlPanelFilterChangeEvent) => void;
@@ -176,11 +220,10 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
 
     if (filter.type === 'search') {
         return (
-            <InputSearch
-                className="control-panel__filter-search"
-                onChange={value => emitFilterChange({ filterId: filter.id, type: filter.type, value })}
+            <ControlPanelFilterSearch
                 placeholder={filter.placeholder}
                 value={typeof filter.value === 'string' ? filter.value : ''}
+                onChange={value => emitFilterChange({ filterId: filter.id, type: filter.type, value })}
             />
         );
     }
