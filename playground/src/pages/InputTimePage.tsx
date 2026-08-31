@@ -9,6 +9,8 @@ export const InputTimePage: React.FC = () => {
     const [validTime, setValidTime] = useState<string>('14:30');
     const [eventTime, setEventTime] = useState<string>('16:45');
     const [lastEvent, setLastEvent] = useState<string>('No event yet');
+    const [clockTime, setClockTime] = useState<string>('11:00');
+    const [steppedTime, setSteppedTime] = useState<string>('08:15');
 
     return (
         <div className="component-page">
@@ -22,6 +24,36 @@ export const InputTimePage: React.FC = () => {
                     <div className="component-group">
                         <InputTime id="basic-time" label="Start time" value={timeValue} onChange={value => setTimeValue(value ?? '')} />
                     </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>With the analog clock</h2>
+                <p>
+                    <code>withClock</code> swaps the browser&apos;s own picker for a button that opens the <code>TimePicker</code> dial in a popover, so the
+                    field stays compact inside a form grid. Typing in the field still works.
+                </p>
+                <div className="showcase-group">
+                    <h3>Clock popover</h3>
+                    <div className="component-group">
+                        <InputTime id="clock-time" label="Reminder time" value={clockTime} onChange={value => setClockTime(value ?? '')} withClock />
+                    </div>
+                    <p>Selected: {clockTime || 'None'}</p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Snapping to 5 minutes</h3>
+                    <div className="component-group">
+                        <InputTime
+                            id="stepped-time"
+                            label="Recurrence time"
+                            value={steppedTime}
+                            onChange={value => setSteppedTime(value ?? '')}
+                            withClock
+                            minuteStep={5}
+                        />
+                    </div>
+                    <p>Selected: {steppedTime || 'None'}</p>
                 </div>
             </section>
 

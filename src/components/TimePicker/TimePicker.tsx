@@ -39,6 +39,8 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
     const isPM = value.hours >= 12;
     const showClock = withClock && (!collapsibleClock || isClockOpen);
+    const showToggle = withClock && collapsibleClock;
+    const showHeader = Boolean(label) || showToggle;
 
     const handleHoursChange = (hours: number) => {
         if (format === '12h') {
@@ -56,20 +58,22 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
     return (
         <div className={`time-picker${showClock ? ' time-picker--with-clock' : ''} ${className}`.trim()}>
-            <div className="time-picker__header">
-                {label && <span className="time-picker__label">{label}</span>}
-                {withClock && collapsibleClock && (
-                    <button
-                        className={`time-picker__clock-toggle${isClockOpen ? ' time-picker__clock-toggle--active' : ''}`}
-                        disabled={disabled}
-                        onClick={() => setIsClockOpen(!isClockOpen)}
-                        title={isClockOpen ? 'Hide clock' : 'Pick on a clock'}
-                        type="button"
-                    >
-                        <Icon name="time" />
-                    </button>
-                )}
-            </div>
+            {showHeader && (
+                <div className="time-picker__header">
+                    {label && <span className="time-picker__label">{label}</span>}
+                    {showToggle && (
+                        <button
+                            className={`time-picker__clock-toggle${isClockOpen ? ' time-picker__clock-toggle--active' : ''}`}
+                            disabled={disabled}
+                            onClick={() => setIsClockOpen(!isClockOpen)}
+                            title={isClockOpen ? 'Hide clock' : 'Pick on a clock'}
+                            type="button"
+                        >
+                            <Icon name="time" />
+                        </button>
+                    )}
+                </div>
+            )}
 
             <div className="time-picker__fields">
                 <TimeSpinner
