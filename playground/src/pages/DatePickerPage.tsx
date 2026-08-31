@@ -6,6 +6,7 @@ export const DatePickerPage: React.FC = () => {
     const [dateWithTime, setDateWithTime] = useState<Date | undefined>(new Date());
     const [dateWith12h, setDateWith12h] = useState<Date | undefined>(new Date());
     const [dateWithSeconds, setDateWithSeconds] = useState<Date | undefined>(new Date());
+    const [dateWithClock, setDateWithClock] = useState<Date | undefined>(new Date());
     const [rangeDate, setRangeDate] = useState<CalendarDateRange | undefined>();
     const [multipleDates, setMultipleDates] = useState<Date[] | undefined>();
     const [customFormatDate, setCustomFormatDate] = useState<Date | undefined>();
@@ -32,6 +33,10 @@ export const DatePickerPage: React.FC = () => {
 
     const handleDateWithSecondsChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
         setDateWithSeconds(value as Date | undefined);
+    };
+
+    const handleDateWithClockChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
+        setDateWithClock(value as Date | undefined);
     };
 
     const handleRangeDateChange = (value: Date | CalendarDateRange | Date[] | undefined) => {
@@ -115,9 +120,20 @@ export const DatePickerPage: React.FC = () => {
                 </div>
 
                 <div className="showcase-group">
+                    <h3>Date and Time with the analog clock</h3>
+                    <p>
+                        <code>withClock</code> adds the dial under the stepper inputs, so a time can be dropped in with two clicks instead of typing.
+                    </p>
+                    <div className="component-group">
+                        <DatePicker value={dateWithClock} onChange={handleDateWithClockChange} withTime withClock minuteStep={5} placeholder="Select date and time..." />
+                    </div>
+                    <p>Selected: {dateWithClock ? dateWithClock.toLocaleString() : 'None'}</p>
+                </div>
+
+                <div className="showcase-group">
                     <h3>Date and Time (12-hour format)</h3>
                     <div className="component-group">
-                        <DatePicker value={dateWith12h} onChange={handleDateWith12hChange} withTime timeFormat="12h" placeholder="Select date and time..." />
+                        <DatePicker value={dateWith12h} onChange={handleDateWith12hChange} withTime withClock timeFormat="12h" placeholder="Select date and time..." />
                     </div>
                     <p>Selected: {dateWith12h ? dateWith12h.toLocaleString() : 'None'}</p>
                 </div>
@@ -125,7 +141,7 @@ export const DatePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Date and Time with Seconds</h3>
                     <div className="component-group">
-                        <DatePicker value={dateWithSeconds} onChange={handleDateWithSecondsChange} withTime withSeconds placeholder="Select date and time..." />
+                        <DatePicker value={dateWithSeconds} onChange={handleDateWithSecondsChange} withTime withSeconds withClock placeholder="Select date and time..." />
                     </div>
                     <p>
                         Selected:{' '}

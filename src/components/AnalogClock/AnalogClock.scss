@@ -1,0 +1,151 @@
+@use '../../styles/variables.scss' as *;
+
+.analog-clock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-12);
+
+    &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-12);
+    }
+
+    &__readout {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+    }
+
+    &__segment {
+        background-color: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        color: var(--calendar-day-color);
+        cursor: pointer;
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-semibold);
+        line-height: 1;
+        padding: var(--spacing-4) var(--spacing-8);
+        transition: background-color var(--transition-fast), color var(--transition-fast);
+
+        &:hover:not(:disabled) {
+            background-color: var(--calendar-day-hover-background-color);
+        }
+
+        &--active {
+            background-color: var(--calendar-day-selected-background-color);
+            color: var(--calendar-day-selected-color);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    &__separator {
+        color: var(--calendar-day-disabled-color);
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-semibold);
+        line-height: 1;
+    }
+
+    &__period {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+
+    &__period-button {
+        background-color: transparent;
+        border: var(--spacing-1) solid var(--calendar-border-color);
+        border-radius: var(--radius-sm);
+        color: var(--calendar-day-color);
+        cursor: pointer;
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        line-height: 1;
+        padding: var(--spacing-4) var(--spacing-8);
+        transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+
+        &:hover:not(:disabled) {
+            border-color: var(--calendar-day-selected-background-color);
+        }
+
+        &--active {
+            background-color: var(--calendar-day-selected-background-color);
+            border-color: var(--calendar-day-selected-background-color);
+            color: var(--calendar-day-selected-color);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    &__dial {
+        cursor: pointer;
+        touch-action: none;
+        outline: none;
+        user-select: none;
+
+        &:focus-visible .analog-clock__face {
+            stroke: var(--calendar-day-selected-background-color);
+            stroke-width: 2;
+        }
+    }
+
+    &__face {
+        fill: var(--datepicker-input-background-color);
+        stroke: var(--calendar-border-color);
+        stroke-width: 1;
+    }
+
+    &__tick {
+        stroke: var(--calendar-day-disabled-color);
+        stroke-width: 1;
+
+        &--major {
+            stroke: var(--calendar-day-color);
+            stroke-width: 2;
+        }
+    }
+
+    &__hand {
+        stroke: var(--calendar-day-selected-background-color);
+        stroke-width: 2;
+    }
+
+    &__knob {
+        fill: var(--calendar-day-selected-background-color);
+    }
+
+    &__pivot {
+        fill: var(--calendar-day-selected-background-color);
+    }
+
+    &__number {
+        fill: var(--calendar-day-color);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        pointer-events: none;
+        user-select: none;
+
+        &--inner {
+            fill: var(--calendar-day-weekend-color);
+            font-size: var(--font-size-xs);
+        }
+
+        &--selected {
+            fill: var(--calendar-day-selected-color);
+            font-weight: var(--font-weight-semibold);
+        }
+    }
+}

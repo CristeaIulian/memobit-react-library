@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 import { UseBreakpointPage } from './pages/UseBreakpointPage';
 import { AccordionPage } from './pages/AccordionPage';
 import { AlertDialogPage } from './pages/AlertDialogPage';
+import { AnalogClockPage } from './pages/AnalogClockPage';
 import { AppHeaderPage } from './pages/AppHeaderPage';
 import { AuthLoginPage } from './pages/AuthLoginPage';
 import { AvatarInitialsPage } from './pages/AvatarInitialsPage';
@@ -101,6 +102,7 @@ import { TooltipPage } from './pages/TooltipPage';
 import { TourHudPage } from './pages/TourHudPage';
 import { TimelinePage } from './pages/TimelinePage';
 import { TimelineMarkersPage } from './pages/TimelineMarkersPage';
+import { TimePickerPage } from './pages/TimePickerPage';
 import { TreePage } from './pages/TreePage';
 import { DiffViewerPage } from './pages/DiffViewerPage';
 import { InputMaskPage } from './pages/InputMaskPage';
@@ -119,6 +121,7 @@ export const routes: RouteConfig[] = [
     { path: '/use-breakpoint', label: 'useBreakpoint Hook', component: UseBreakpointPage },
     { path: '/accordion', label: 'Accordion', component: AccordionPage },
     { path: '/alert-dialog', label: 'Alert Dialog', component: AlertDialogPage },
+    { path: '/analog-clock', label: 'Analog Clock', component: AnalogClockPage },
     { path: '/app-header', label: 'App Header', component: AppHeaderPage },
     { path: '/auth-login', label: 'Auth Login', component: AuthLoginPage },
     { path: '/avatar-initials', label: 'Avatar Initials', component: AvatarInitialsPage },
@@ -211,6 +214,7 @@ export const routes: RouteConfig[] = [
     { path: '/theme-settings', label: 'Theme Settings', component: ThemeSettingsPage },
     { path: '/timeline', label: 'Timeline', component: TimelinePage },
     { path: '/timeline-markers', label: 'Timeline Markers', component: TimelineMarkersPage },
+    { path: '/time-picker', label: 'Time Picker', component: TimePickerPage },
     { path: '/tips-of-the-day', label: 'Tips Of The Day', component: TipsOfTheDayPage },
     { path: '/toast', label: 'Toast', component: ToastPage },
     { path: '/toolbar', label: 'Toolbar', component: ToolbarPage },

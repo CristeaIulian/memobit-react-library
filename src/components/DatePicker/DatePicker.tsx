@@ -3,8 +3,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { formatDate } from '../../helpers/Datetime';
-import { Calendar, CalendarDateRange,CalendarProps } from '../Calendar';
+import { TimeValue } from '../AnalogClock';
+import { Calendar, CalendarDateRange, CalendarProps } from '../Calendar';
 import { Icon } from '../Icon';
+import { TimePicker } from '../TimePicker';
 import { Tooltip } from '../Tooltip';
 
 import './DatePicker.scss';
@@ -15,6 +17,9 @@ export interface DatePickerProps extends Omit<CalendarProps, 'onChange' | 'value
     withTime?: boolean;
     timeFormat?: '12h' | '24h';
     withSeconds?: boolean;
+    withClock?: boolean;
+    clockSize?: number;
+    minuteStep?: number;
     dateFormat?: string;
     placeholder?: string;
     disabled?: boolean;
@@ -30,6 +35,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     withTime = false,
     timeFormat = '24h',
     withSeconds = false,
+    withClock = false,
+    clockSize = 208,
+    minuteStep = 1,
     dateFormat = 'YYYY-MM-DD',
     placeholder = 'Select date...',
     disabled = false,
@@ -39,10 +47,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     ...calendarProps
 }: DatePickerProps) => {
     const [isOpenInternal, setIsOpenInternal] = useState(false);
-    const [hours, setHours] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [seconds, setSeconds] = useState(0);
-    const [isPM, setIsPM] = useState(false);
+    const [time, setTime] = useState<TimeValue>({ hours: 0, minutes: 0, seconds: 0 });
     const [rangeStart, setRangeStart] = useState<Date | null>(null);
     const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({
         position: 'fixed',
@@ -54,12 +59,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
     useEffect(() => {
         if (withTime && value instanceof Date) {
-            setHours(timeFormat === '12h' ? value.getHours() % 12 || 12 : value.getHours());
-            setMinutes(value.getMinutes());
-            setSeconds(value.getSeconds());
-            setIsPM(value.getHours() >= 12);
+            setTime({ hours: value.getHours(), minutes: value.getMinutes(), seconds: value.getSeconds() });
         }
-    }, [value, withTime, timeFormat]);
+    }, [value, withTime]);
 
     const isOpen = alwaysOpen ? !disabled : isOpenInternal;
 
@@ -125,8 +127,16 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         window.addEventListener('resize', updateDropdownPosition);
         window.addEventListener('scroll', updateDropdownPosition, true);
 
+        // The panel grows and shrinks while it is open (the analog clock can be
+        // collapsed), so its position has to be re-measured, not just on scroll.
+        const panelObserver = new ResizeObserver(() => updateDropdownPosition());
+        if (dropdownRef.current) {
+            panelObserver.observe(dropdownRef.current);
+        }
+
         return () => {
             cancelAnimationFrame(animationFrame);
+            panelObserver.disconnect();
             window.removeEventListener('resize', updateDropdownPosition);
             window.removeEventListener('scroll', updateDropdownPosition, true);
         };
@@ -167,8 +177,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         }
 
         const updatedDate = new Date(newValue);
-        const actualHours = timeFormat === '12h' ? (isPM ? (hours % 12) + 12 : hours % 12) : hours;
-        updatedDate.setHours(actualHours, minutes, seconds);
+        updatedDate.setHours(time.hours, time.minutes, time.seconds);
 
         onChange?.(updatedDate);
         if (autoClose && !alwaysOpen) {
@@ -176,12 +185,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         }
     };
 
-    const handleTimeChange = () => {
-        if (!value || !(value instanceof Date)) return;
+    const handleTimeChange = (newTime: TimeValue) => {
+        setTime(newTime);
+
+        if (!(value instanceof Date)) return;
 
         const updatedDate = new Date(value);
-        const actualHours = timeFormat === '12h' ? (isPM ? (hours % 12) + 12 : hours % 12) : hours;
-        updatedDate.setHours(actualHours, minutes, seconds);
+        updatedDate.setHours(newTime.hours, newTime.minutes, newTime.seconds);
         onChange?.(updatedDate);
     };
 
@@ -192,6 +202,33 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     };
 
     const displayValue = formatDisplayValue();
+
+    const renderPanel = () => (
+        <>
+            <Calendar
+                {...calendarProps}
+                mode={mode}
+                value={value}
+                onChange={handleCalendarChange}
+                rangeStart={mode === 'range' ? rangeStart : calendarProps.rangeStart}
+                onRangeStartChange={mode === 'range' ? setRangeStart : calendarProps.onRangeStartChange}
+            />
+
+            {withTime && mode === 'single' && value instanceof Date && (
+                <div className="datepicker__time">
+                    <TimePicker
+                        clockSize={clockSize}
+                        format={timeFormat}
+                        minuteStep={minuteStep}
+                        onChange={handleTimeChange}
+                        value={time}
+                        withClock={withClock}
+                        withSeconds={withSeconds}
+                    />
+                </div>
+            )}
+        </>
+    );
 
     return (
         <div className="datepicker">
@@ -222,152 +259,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             {isOpen &&
                 (alwaysOpen ? (
                     <div ref={dropdownRef} className="datepicker__dropdown datepicker__dropdown--inline">
-                        <Calendar
-                            {...calendarProps}
-                            mode={mode}
-                            value={value}
-                            onChange={handleCalendarChange}
-                            rangeStart={mode === 'range' ? rangeStart : calendarProps.rangeStart}
-                            onRangeStartChange={mode === 'range' ? setRangeStart : calendarProps.onRangeStartChange}
-                        />
-
-                        {withTime && mode === 'single' && value instanceof Date && (
-                            <div className="datepicker__time">
-                                <div className="datepicker__time-label">Time</div>
-                                <div className="datepicker__time-inputs">
-                                    <input
-                                        type="number"
-                                        className="datepicker__time-input"
-                                        value={hours}
-                                        onChange={e => {
-                                            const val = parseInt(e.target.value) || 0;
-                                            const max = timeFormat === '12h' ? 12 : 23;
-                                            setHours(Math.min(Math.max(val, 0), max));
-                                        }}
-                                        onBlur={handleTimeChange}
-                                        min="0"
-                                        max={timeFormat === '12h' ? '12' : '23'}
-                                    />
-                                    <span>:</span>
-                                    <input
-                                        type="number"
-                                        className="datepicker__time-input"
-                                        value={minutes}
-                                        onChange={e => {
-                                            const val = parseInt(e.target.value) || 0;
-                                            setMinutes(Math.min(Math.max(val, 0), 59));
-                                        }}
-                                        onBlur={handleTimeChange}
-                                        min="0"
-                                        max="59"
-                                    />
-                                    {withSeconds && (
-                                        <>
-                                            <span>:</span>
-                                            <input
-                                                type="number"
-                                                className="datepicker__time-input"
-                                                value={seconds}
-                                                onChange={e => {
-                                                    const val = parseInt(e.target.value) || 0;
-                                                    setSeconds(Math.min(Math.max(val, 0), 59));
-                                                }}
-                                                onBlur={handleTimeChange}
-                                                min="0"
-                                                max="59"
-                                            />
-                                        </>
-                                    )}
-                                    {timeFormat === '12h' && (
-                                        <button
-                                            type="button"
-                                            className="datepicker__time-period"
-                                            onClick={() => {
-                                                setIsPM(!isPM);
-                                                setTimeout(handleTimeChange, 0);
-                                            }}
-                                        >
-                                            {isPM ? 'PM' : 'AM'}
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        )}
+                        {renderPanel()}
                     </div>
                 ) : (
                     createPortal(
                         <div ref={dropdownRef} className="datepicker__dropdown" style={dropdownStyle}>
-                            <Calendar
-                                {...calendarProps}
-                                mode={mode}
-                                value={value}
-                                onChange={handleCalendarChange}
-                                rangeStart={mode === 'range' ? rangeStart : calendarProps.rangeStart}
-                                onRangeStartChange={mode === 'range' ? setRangeStart : calendarProps.onRangeStartChange}
-                            />
-
-                            {withTime && mode === 'single' && value instanceof Date && (
-                                <div className="datepicker__time">
-                                    <div className="datepicker__time-label">Time</div>
-                                    <div className="datepicker__time-inputs">
-                                        <input
-                                            type="number"
-                                            className="datepicker__time-input"
-                                            value={hours}
-                                            onChange={e => {
-                                                const val = parseInt(e.target.value) || 0;
-                                                const max = timeFormat === '12h' ? 12 : 23;
-                                                setHours(Math.min(Math.max(val, 0), max));
-                                            }}
-                                            onBlur={handleTimeChange}
-                                            min="0"
-                                            max={timeFormat === '12h' ? '12' : '23'}
-                                        />
-                                        <span>:</span>
-                                        <input
-                                            type="number"
-                                            className="datepicker__time-input"
-                                            value={minutes}
-                                            onChange={e => {
-                                                const val = parseInt(e.target.value) || 0;
-                                                setMinutes(Math.min(Math.max(val, 0), 59));
-                                            }}
-                                            onBlur={handleTimeChange}
-                                            min="0"
-                                            max="59"
-                                        />
-                                        {withSeconds && (
-                                            <>
-                                                <span>:</span>
-                                                <input
-                                                    type="number"
-                                                    className="datepicker__time-input"
-                                                    value={seconds}
-                                                    onChange={e => {
-                                                        const val = parseInt(e.target.value) || 0;
-                                                        setSeconds(Math.min(Math.max(val, 0), 59));
-                                                    }}
-                                                    onBlur={handleTimeChange}
-                                                    min="0"
-                                                    max="59"
-                                                />
-                                            </>
-                                        )}
-                                        {timeFormat === '12h' && (
-                                            <button
-                                                type="button"
-                                                className="datepicker__time-period"
-                                                onClick={() => {
-                                                    setIsPM(!isPM);
-                                                    setTimeout(handleTimeChange, 0);
-                                                }}
-                                            >
-                                                {isPM ? 'PM' : 'AM'}
-                                            </button>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
+                            {renderPanel()}
                         </div>,
                         document.body
                     )

@@ -2,6 +2,7 @@
 export { Accordion, type AccordionItemData, type AccordionProps } from './components/Accordion';
 export { AlertDialog } from './components/AlertDialog';
 export { AppHeader, type AppHeaderProps } from './components/AppHeader';
+export { AnalogClock, type AnalogClockMode, type AnalogClockProps, type TimeValue } from './components/AnalogClock';
 export { AvatarInitials } from './components/AvatarInitials';
 export { Badge, type BadgeProps, type BadgeVariant } from './components/Badge';
 export { Banner, type BannerProps, type BannerVariant } from './components/Banner';
@@ -177,6 +178,7 @@ export {
     useTheme,
 } from './components/ThemeSettings';
 export { Timeline, type TimelineItem, type TimelineOrientation, type TimelineSize } from './components/Timeline';
+export { TimePicker, type TimePickerProps } from './components/TimePicker';
 export {
     calculateTimelineMarkers,
     TimelineMarkerDot,
