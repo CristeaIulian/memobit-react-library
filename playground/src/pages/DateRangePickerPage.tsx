@@ -26,6 +26,10 @@ export const DateRangePickerPage: React.FC = () => {
         start: '2026-05-01',
         end: '2026-05-10',
     });
+    const [mondayFirstRange, setMondayFirstRange] = useState<{ start?: string; end?: string }>({
+        start: '2026-06-08',
+        end: '2026-06-14',
+    });
 
     return (
         <div className="component-page">
@@ -68,6 +72,22 @@ export const DateRangePickerPage: React.FC = () => {
                     </div>
                     <p>
                         Selected: {alwaysOpenRange.start ?? 'none'} to {alwaysOpenRange.end ?? 'none'}
+                    </p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Monday first</h3>
+                    <div className="component-group">
+                        <DateRangePicker
+                            label="Week starts Monday"
+                            value={mondayFirstRange}
+                            onChange={setMondayFirstRange}
+                            firstDayOfWeek={1}
+                            alwaysOpen
+                        />
+                    </div>
+                    <p>
+                        Selected: {mondayFirstRange.start ?? 'none'} to {mondayFirstRange.end ?? 'none'}
                     </p>
                 </div>
 

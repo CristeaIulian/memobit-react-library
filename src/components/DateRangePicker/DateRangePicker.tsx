@@ -29,6 +29,7 @@ export interface DateRangePickerProps {
     alwaysOpen?: boolean;
     autoClose?: boolean;
     presets?: DateRangePreset[];
+    firstDayOfWeek?: 0 | 1;
 }
 
 const toDate = (value?: string) => {
@@ -54,6 +55,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
     alwaysOpen = false,
     autoClose = true,
     presets,
+    firstDayOfWeek = 0,
 }) => {
     const [internalRange, setInternalRange] = useState<DateRange>({});
     const [baseMonth, setBaseMonth] = useState(() => new Date());
@@ -238,6 +240,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                     onMonthChange={setBaseMonth}
                     showHeader={false}
                     showToday={false}
+                    firstDayOfWeek={firstDayOfWeek}
                     minDate={min ? toDate(min) : undefined}
                     maxDate={max ? toDate(max) : undefined}
                 />
@@ -251,6 +254,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                     onMonthChange={setBaseMonth}
                     showHeader={false}
                     showToday={false}
+                    firstDayOfWeek={firstDayOfWeek}
                     minDate={min ? toDate(min) : undefined}
                     maxDate={max ? toDate(max) : undefined}
                 />
