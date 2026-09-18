@@ -426,6 +426,33 @@
 // ------------------------------------------------------------------- compact
 
 @media (max-width: 767px) {
+    // Left to wrap on its own the header strands the view switch alone on a third line,
+    // half-tucked under the grid. Pair the two control clusters on one row and give the
+    // title the next, so the order is deliberate rather than whatever fits.
+    .event-calendar__header {
+        gap: var(--spacing-8);
+    }
+
+    .event-calendar__nav {
+        flex: 1 1 auto;
+    }
+
+    .event-calendar__header .toggle-buttons {
+        flex: 0 0 auto;
+        margin-left: auto;
+    }
+
+    .event-calendar__title {
+        order: 1;
+        flex: 1 1 100%;
+        font-size: var(--font-size-md);
+    }
+
+    .event-calendar__header-extra {
+        order: 2;
+        flex: 1 1 100%;
+    }
+
     .event-calendar__day {
         min-height: var(--spacing-64);
         padding: var(--spacing-4);
