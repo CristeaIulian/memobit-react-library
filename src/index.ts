@@ -84,6 +84,14 @@ export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from
 export { EmojiPicker, type EmojiPickerProps } from './components/EmojiPicker';
 export { EmptyState, type EmptyStateProps } from './components/EmptyState';
 export { ErrorBoundary, type ErrorBoundaryProps } from './components/ErrorBoundary';
+export {
+    type CalendarDayBucket,
+    type CalendarEvent,
+    type CalendarEventVariant,
+    EventCalendar,
+    type EventCalendarProps,
+    type EventCalendarView,
+} from './components/EventCalendar';
 export { FileDropzone, type FileDropzoneProps } from './components/FileDropzone';
 export { Flag } from './components/Flag';
 export { FloatButton } from './components/FloatButton';

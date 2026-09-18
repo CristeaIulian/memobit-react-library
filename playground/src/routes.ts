@@ -37,6 +37,7 @@ import { DateRangePickerPage } from './pages/DateRangePickerPage';
 import { DrawerPage } from './pages/DrawerPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { EmptyStatePage } from './pages/EmptyStatePage';
+import { EventCalendarPage } from './pages/EventCalendarPage';
 import { EmojiPickerPage } from './pages/EmojiPickerPage';
 import { FileDropzonePage } from './pages/FileDropzonePage';
 import { FlagPage } from './pages/FlagPage';
@@ -154,6 +155,7 @@ export const routes: RouteConfig[] = [
     { path: '/diff-viewer', label: 'Diff Viewer', component: DiffViewerPage },
     { path: '/dropdown', label: 'Dropdown', component: DropdownPage },
     { path: '/empty-state', label: 'Empty State', component: EmptyStatePage },
+    { path: '/event-calendar', label: 'Event Calendar', component: EventCalendarPage },
     { path: '/emoji-picker', label: 'Emoji Picker', component: EmojiPickerPage },
     { path: '/file-dropzone', label: 'File Dropzone', component: FileDropzonePage },
     { path: '/flag', label: 'Flag', component: FlagPage },
