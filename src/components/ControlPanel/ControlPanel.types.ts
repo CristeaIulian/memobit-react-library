@@ -169,10 +169,10 @@ export interface ControlPanelOptionChangeEvent {
     value: boolean | string | number | Array<string | number>;
 }
 
-/** Built-in listing modes. 'map' has no default toggle button — a page that
- *  offers it supplies its own `options` entry, since only pages whose rows
- *  carry coordinates can render one. */
-export type ControlPanelViewMode = 'table' | 'cards' | 'gallery' | 'map';
+/** Built-in listing modes. 'map' and 'calendar' have no default toggle button —
+ *  a page that offers one supplies its own `options` entry, since only pages
+ *  whose rows carry coordinates (or dates) can render them. */
+export type ControlPanelViewMode = 'table' | 'cards' | 'gallery' | 'map' | 'calendar';
 
 export interface ControlPanelViewToggleOption {
     value: ControlPanelViewMode;
