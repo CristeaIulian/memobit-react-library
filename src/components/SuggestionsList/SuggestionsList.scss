@@ -17,7 +17,10 @@
             font-size: var(--font-size-md);
             font-weight: var(--font-weight-semibold);
             color: var(--body-title-color);
-            width: 100%;
+            // No `width: 100%`: the legend is a flex item in a column container, so it already
+            // stretches. Declaring it added the horizontal padding on top of the full width —
+            // `box-sizing` is not global here — and pushed the title past the card's right edge,
+            // giving the whole panel a horizontal scrollbar.
             border-bottom: 1px solid var(--card-border-color);
         }
 
