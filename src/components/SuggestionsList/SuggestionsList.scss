@@ -60,10 +60,12 @@
                 color: var(--body-title-color);
             }
 
+            // Sized to its own label while the rows size to their content: both stay flush to the
+            // right edge, so the column reads as aligned even though the two widths differ.
             &--value {
-                flex: 0;
-                width: 70px;
-                text-align: right;
+                flex: 0 0 auto;
+                min-width: 70px;
+                justify-content: flex-end;
             }
         }
 
@@ -107,11 +109,15 @@
 
             div {
                 &:first-child {
-                    flex: 1;
+                    flex: 1 1 auto;
+                    min-width: 0;
                 }
 
+                // 70px is a floor, not a fixed width: a short value still occupies the same column
+                // as before, while a longer one grows instead of wrapping onto several lines.
                 &:nth-child(2) {
-                    width: 70px;
+                    flex: 0 1 auto;
+                    min-width: 70px;
                     text-align: right;
                     color: var(--body-color-muted);
                     font-size: var(--font-size-sm);

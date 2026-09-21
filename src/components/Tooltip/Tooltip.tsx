@@ -31,18 +31,29 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     const calculatePosition = () => {
         if (!triggerRef.current || !tooltipRef.current) return;
 
-        // The inline-flex `.tooltip-trigger` span collapses to zero size
-        // when its child is absolutely-positioned (taken out of flow),
-        // which would place the tooltip at the parent's inline insertion
-        // point instead of over the actual content. Prefer the first
-        // element child's rect — for normal inline content it matches the
-        // span; for absolute/fixed children it gives the real on-screen
-        // bounds we want to anchor against.
+        // `.tooltip-trigger` is `display: contents`, so the span generates no box of its own and
+        // its rect is always zero — the trigger has to be measured through its children.
+        //
+        // Prefer the first element child: for normal inline content it matches the rendered
+        // content, and for an absolutely-positioned child it gives the real on-screen bounds,
+        // which a Range would collapse because the child is out of flow.
+        //
+        // Otherwise measure a Range over the span's contents. That covers a bare text node —
+        // `<Tooltip>ⓘ</Tooltip>` has no element child at all, and without this the zero rect
+        // pinned the tooltip to the top-left corner of the viewport.
         const childEl = triggerRef.current.firstElementChild as HTMLElement | null;
-        const triggerRect =
-            childEl && childEl.getBoundingClientRect().width > 0
-                ? childEl.getBoundingClientRect()
-                : triggerRef.current.getBoundingClientRect();
+        const childRect = childEl?.getBoundingClientRect();
+        let triggerRect = childRect && childRect.width > 0 ? childRect : triggerRef.current.getBoundingClientRect();
+
+        if (triggerRect.width === 0 && triggerRect.height === 0) {
+            const range = document.createRange();
+            range.selectNodeContents(triggerRef.current);
+            const rangeRect = range.getBoundingClientRect();
+
+            if (rangeRect.width > 0 || rangeRect.height > 0) {
+                triggerRect = rangeRect;
+            }
+        }
         const tooltipRect = tooltipRef.current.getBoundingClientRect();
         const spacing = 8;
 
