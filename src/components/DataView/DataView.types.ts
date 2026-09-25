@@ -32,6 +32,8 @@ export interface DataViewCardConfig<T> {
     title: (row: T) => React.ReactNode;
     subtitle?: (row: T) => React.ReactNode;
     badges?: (row: T) => React.ReactNode;
+    /** Optional per-row color rendered as an accent bar on the card's leading edge. */
+    accentColor?: (row: T) => string | undefined;
 }
 
 export interface DataViewTimelineConfig<T> {

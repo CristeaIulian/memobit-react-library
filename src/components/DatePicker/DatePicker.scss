@@ -108,6 +108,29 @@
         z-index: auto;
     }
 
+    &__dropdown-close {
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--spacing-32);
+        height: var(--spacing-32);
+        margin: calc(var(--spacing-16) * -1) calc(var(--spacing-16) * -1) 0 auto;
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-full);
+        color: var(--body-sub-title-color);
+        cursor: pointer;
+        z-index: 1;
+        transition: color 0.2s ease, background-color 0.2s ease;
+
+        &:hover {
+            color: var(--body-color);
+            background-color: var(--card-background-accent-color);
+        }
+    }
+
     &__time {
         border-top: 1px solid var(--calendar-border-color);
         margin-top: var(--spacing-16);

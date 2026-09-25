@@ -112,7 +112,9 @@ export function CardView<T>({
         const isPinned = pinnedSet.has(rowId);
         const href = rowHref?.(row);
         const isClickable = !!onRowClick || !!href;
-        const cardClass = `data-view__card ${isClickable ? 'data-view__card--clickable' : ''} ${isSelected ? 'data-view__card--selected' : ''} ${isPinned ? 'data-view__card--pinned' : ''} ${rowClassName?.(row) || ''}`;
+        const accentColor = card?.accentColor?.(row);
+        const cardClass = `data-view__card ${isClickable ? 'data-view__card--clickable' : ''} ${isSelected ? 'data-view__card--selected' : ''} ${isPinned ? 'data-view__card--pinned' : ''} ${accentColor ? 'data-view__card--accent' : ''} ${rowClassName?.(row) || ''}`;
+        const cardStyle = accentColor ? ({ '--data-view-card-accent-color': accentColor } as React.CSSProperties) : undefined;
 
         // When `rowHref` is set, render the card as an <a> so middle-click,
         // Ctrl/Cmd-click and "Open link in new tab" work natively. Plain
@@ -134,7 +136,7 @@ export function CardView<T>({
                         </span>
                     </Tooltip>
                 )}
-                {selectable && onToggleSelect && (
+                {selectable && onToggleSelect && !card && (
                     <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
                         <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
                     </div>
@@ -148,6 +150,11 @@ export function CardView<T>({
                         <div className="data-view__card-header">
                             <div className="data-view__card-title-row">
                                 <div className="data-view__card-title-line">
+                                    {selectable && onToggleSelect && (
+                                        <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
+                                            <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
+                                        </div>
+                                    )}
                                     {cardIcon && <Icon className="data-view__card-icon" name={cardIcon} />}
                                     <span className="data-view__card-title">{card.title(row)}</span>
                                 </div>
@@ -183,12 +190,13 @@ export function CardView<T>({
             <React.Fragment key={rowId}>
                 {marker && <TimelineMobileSeparator marker={marker} />}
                 {href ? (
-                    <a className={cardClass} href={href} onClick={handleAnchorClick}>
+                    <a className={cardClass} href={href} style={cardStyle} onClick={handleAnchorClick}>
                         {cardInner}
                     </a>
                 ) : (
                     <div
                         className={cardClass}
+                        style={cardStyle}
                         onClick={onRowClick ? (e) => onRowClick(row, e) : undefined}
                     >
                         {cardInner}

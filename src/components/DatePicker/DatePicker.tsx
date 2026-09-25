@@ -201,6 +201,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         onChange?.(undefined);
     };
 
+    const handleClosePanel = () => {
+        setRangeStart(null);
+        setIsOpenInternal(false);
+    };
+
     const displayValue = formatDisplayValue();
 
     const renderPanel = () => (
@@ -264,6 +269,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 ) : (
                     createPortal(
                         <div ref={dropdownRef} className="datepicker__dropdown" style={dropdownStyle}>
+                            <button type="button" className="datepicker__dropdown-close" onClick={handleClosePanel} title="Close">
+                                <Icon name="clear" />
+                            </button>
                             {renderPanel()}
                         </div>,
                         document.body
