@@ -7,8 +7,13 @@
 .tooltip {
     position: fixed;
     z-index: 9999;
-    background: var(--card-background-accent-color);
-    color: var(--body-color-accent);
+
+    // Every theme defines a solid `--tooltip-background-color` with a contrast colour to match, and
+    // this component was not using either: it painted `--card-background-accent-color` instead,
+    // which carries alpha in ten of the themes — 0.42 in sandy-parchment, 0.5 in most of the light
+    // ones — so whatever sat behind a tooltip read straight through its text.
+    background: var(--tooltip-background-color);
+    color: var(--tooltip-color);
     padding: var(--spacing-8) var(--spacing-12);
     border-radius: var(--radius);
     font-size: var(--font-size-sm);
@@ -17,7 +22,7 @@
     max-width: 300px;
     word-wrap: break-word;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border: 1px solid var(--delimiter-color);
+    border: 1px solid var(--tooltip-border-color);
     animation: tooltipFadeIn 0.2s ease;
     pointer-events: none;
 
@@ -31,8 +36,8 @@
         position: absolute;
         width: 8px;
         height: 8px;
-        background: var(--card-background-accent-color);
-        border: 1px solid var(--delimiter-color);
+        background: var(--tooltip-background-color);
+        border: 1px solid var(--tooltip-border-color);
         transform: rotate(45deg);
 
         &--top {
