@@ -42,6 +42,8 @@ export interface EventCalendarProps<T = unknown> {
     date?: Date;
     onDateChange?: (date: Date) => void;
     firstDayOfWeek?: 0 | 1;
+    /** Adds the ISO week number: a leading column in month view, a suffix on the week title. */
+    showWeekNumbers?: boolean;
     onEventClick?: (event: CalendarEvent<T>) => void;
     /** Fires on the empty part of a day cell (month) or an hour slot (week). */
     onDayClick?: (date: Date) => void;
@@ -53,6 +55,13 @@ export interface EventCalendarProps<T = unknown> {
     renderEvent?: (event: CalendarEvent<T>) => ReactNode;
     /** Chips shown in a month cell before the rest collapse behind "+N more". */
     maxEventsPerDay?: number;
+    /**
+     * Routes a chip click, a "+N more" and a day number through a `DayAgenda` listing that
+     * day instead of firing `onEventClick` straight away. `onEventClick` then fires from a
+     * row inside the agenda, and `onDayClick` becomes its Add action. Aiming at a 16px chip
+     * is the part that does not survive a phone, and a busy cell hides its events anyway.
+     */
+    dayAgenda?: boolean;
     showHeader?: boolean;
     /** Extra controls rendered in the header, between the title and the view switch. */
     headerExtra?: ReactNode;
@@ -80,4 +89,5 @@ export interface EventCalendarViewProps<T = unknown> {
     onDayClick?: (date: Date) => void;
     renderEvent?: (event: CalendarEvent<T>) => ReactNode;
     dragEnabled: boolean;
+    showWeekNumbers: boolean;
 }

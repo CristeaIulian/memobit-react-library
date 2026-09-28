@@ -34,6 +34,7 @@ import { CopyButtonPage } from './pages/CopyButtonPage';
 import { DataViewPage } from './pages/DataViewPage';
 import { DatePickerPage } from './pages/DatePickerPage';
 import { DateRangePickerPage } from './pages/DateRangePickerPage';
+import { DayAgendaPage } from './pages/DayAgendaPage';
 import { DrawerPage } from './pages/DrawerPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { EmptyStatePage } from './pages/EmptyStatePage';
@@ -151,6 +152,7 @@ export const routes: RouteConfig[] = [
     { path: '/data-view', label: 'Data View', component: DataViewPage },
     { path: '/datepicker', label: 'DatePicker', component: DatePickerPage },
     { path: '/date-range-picker', label: 'Date Range Picker', component: DateRangePickerPage },
+    { path: '/day-agenda', label: 'Day Agenda', component: DayAgendaPage },
     { path: '/drawer', label: 'Drawer', component: DrawerPage },
     { path: '/diff-viewer', label: 'Diff Viewer', component: DiffViewerPage },
     { path: '/dropdown', label: 'Dropdown', component: DropdownPage },

@@ -352,7 +352,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
     if (filter.type === 'dropdown') {
         if (!filter.multiple && filterOptions.length > 0 && filterOptions.length <= DROPDOWN_RADIO_FILTER_LIMIT) {
             return (
-                <div className="control-panel__filter-list">
+                <div className={`control-panel__filter-list ${filter.inline ? 'control-panel__filter-list--inline' : ''}`}>
                     {filterOptions.map(option => {
                         const isSelected = filter.value === option.value;
                         return (
@@ -482,7 +482,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
     }
 
     return (
-        <div className="control-panel__filter-list">
+        <div className={`control-panel__filter-list ${filter.inline ? 'control-panel__filter-list--inline' : ''}`}>
             {filterOptions.map(option => {
                 const isSelected = filter.value === option.value;
                 return (

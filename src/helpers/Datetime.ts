@@ -170,6 +170,25 @@ export const isToday = (date: Date): boolean => {
 };
 
 /**
+ * ISO-8601 week number (1-53). Weeks run Monday to Sunday and week 1 is the one
+ * holding the first Thursday of the year, which is why the date is nudged to the
+ * Thursday of its own week before the year is read.
+ */
+export const getIsoWeek = (date: Date): number => {
+    const thursday = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const isoDay = (thursday.getDay() + 6) % 7;
+
+    thursday.setDate(thursday.getDate() - isoDay + 3);
+
+    const firstThursday = new Date(thursday.getFullYear(), 0, 4);
+    const firstIsoDay = (firstThursday.getDay() + 6) % 7;
+
+    firstThursday.setDate(firstThursday.getDate() - firstIsoDay + 3);
+
+    return 1 + Math.round((thursday.getTime() - firstThursday.getTime()) / (7 * 86400000));
+};
+
+/**
  * Checks if a date is a weekend (Saturday or Sunday)
  */
 export const isWeekend = (date: Date): boolean => {

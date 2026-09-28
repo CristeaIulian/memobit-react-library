@@ -1,6 +1,6 @@
 import { DragEvent, useMemo, useState } from 'react';
 
-import { getMonthMatrix, isToday, isWeekend } from '../../helpers/Datetime';
+import { getIsoWeek, getMonthMatrix, isSameDay, isToday, isWeekend } from '../../helpers/Datetime';
 
 import { EventCalendarChip } from './EventCalendar.Chip';
 import { bucketEventsByDay } from './EventCalendar.helpers';
@@ -11,6 +11,8 @@ const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 interface EventCalendarMonthProps<T> extends EventCalendarViewProps<T> {
     maxEventsPerDay: number;
     emptyLabel?: string;
+    /** When set, the day number and "+N more" open the day rather than expanding the cell. */
+    onOpenDay?: (date: Date) => void;
 }
 
 export function EventCalendarMonth<T>({
@@ -26,7 +28,9 @@ export function EventCalendarMonth<T>({
     onDragStart,
     onDrop,
     onEventClick,
+    onOpenDay,
     renderEvent,
+    showWeekNumbers,
 }: EventCalendarMonthProps<T>) {
     const [expandedDay, setExpandedDay] = useState<string | null>(null);
     const [dragOverDay, setDragOverDay] = useState<string | null>(null);
@@ -41,6 +45,7 @@ export function EventCalendarMonth<T>({
 
     const currentMonth = date.getMonth();
     const hasAnyEvent = events.length > 0;
+    const today = new Date();
 
     const handleDrop = (dropEvent: DragEvent<HTMLDivElement>, day: Date) => {
         dropEvent.preventDefault();
@@ -60,6 +65,7 @@ export function EventCalendarMonth<T>({
     return (
         <div className="event-calendar__month">
             <div className="event-calendar__weekdays">
+                {showWeekNumbers && <div className="event-calendar__week-number event-calendar__week-number--head">Wk</div>}
                 {headerNames.map(name => (
                     <div className="event-calendar__weekday" key={name}>
                         {name}
@@ -68,13 +74,19 @@ export function EventCalendarMonth<T>({
             </div>
 
             <div className="event-calendar__weeks">
-                {weeks.map((week, weekIndex) => (
-                    <div className="event-calendar__week" key={weekIndex}>
+                {weeks.map((week, weekIndex) => {
+                    const isCurrentWeek = week.some(day => isSameDay(day, today));
+
+                    return (
+                    <div className={['event-calendar__week', isCurrentWeek ? 'event-calendar__week--current' : ''].filter(Boolean).join(' ')} key={weekIndex}>
+                        {showWeekNumbers && <div className="event-calendar__week-number">{getIsoWeek(week[0])}</div>}
                         {week.map(day => {
                             const key = day.toDateString();
                             const bucket = bucketByKey.get(key);
                             const dayEvents: CalendarEvent<T>[] = bucket ? [...bucket.allDay, ...bucket.timed] : [];
                             const isExpanded = expandedDay === key;
+                            const dayLabel =
+                                day.getDate() === 1 ? `${day.toLocaleDateString(undefined, { month: 'short' })} ${day.getDate()}` : String(day.getDate());
                             const visible = isExpanded ? dayEvents : dayEvents.slice(0, maxEventsPerDay);
                             const hiddenCount = dayEvents.length - visible.length;
 
@@ -98,9 +110,20 @@ export function EventCalendarMonth<T>({
                                     onDragOver={dropEvent => handleDragOver(dropEvent, key)}
                                     onDrop={dropEvent => handleDrop(dropEvent, day)}
                                 >
-                                    <div className="event-calendar__day-number">
-                                        {day.getDate() === 1 ? `${day.toLocaleDateString(undefined, { month: 'short' })} ${day.getDate()}` : day.getDate()}
-                                    </div>
+                                    {onOpenDay ? (
+                                        <button
+                                            className="event-calendar__day-number event-calendar__day-number--button"
+                                            onClick={clickEvent => {
+                                                clickEvent.stopPropagation();
+                                                onOpenDay(day);
+                                            }}
+                                            type="button"
+                                        >
+                                            {dayLabel}
+                                        </button>
+                                    ) : (
+                                        <div className="event-calendar__day-number">{dayLabel}</div>
+                                    )}
 
                                     <div className="event-calendar__day-events">
                                         {visible.map(event => (
@@ -122,6 +145,10 @@ export function EventCalendarMonth<T>({
                                                 className="event-calendar__more"
                                                 onClick={clickEvent => {
                                                     clickEvent.stopPropagation();
+                                                    if (onOpenDay) {
+                                                        onOpenDay(day);
+                                                        return;
+                                                    }
                                                     setExpandedDay(key);
                                                 }}
                                                 type="button"
@@ -147,7 +174,8 @@ export function EventCalendarMonth<T>({
                             );
                         })}
                     </div>
-                ))}
+                    );
+                })}
             </div>
 
             {!hasAnyEvent && emptyLabel && <div className="event-calendar__empty">{emptyLabel}</div>}

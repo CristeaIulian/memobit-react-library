@@ -78,6 +78,7 @@ export {
 } from './components/DataView';
 export { DatePicker, type DatePickerProps } from './components/DatePicker';
 export { DateRangePicker, type DateRangePickerProps, type DateRangePreset } from './components/DateRangePicker';
+export { DayAgenda, type DayAgendaProps } from './components/DayAgenda';
 export { DiffViewer } from './components/DiffViewer';
 export { Drawer, type DrawerHeaderAction, type DrawerPosition, type DrawerProps } from './components/Drawer';
 export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
@@ -252,6 +253,7 @@ export {
     formatRelativeTime,
     formatSecondsToMediaTime,
     getDaysInMonth,
+    getIsoWeek,
     getMonthMatrix,
     getTodayDateString,
     isAfter,

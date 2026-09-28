@@ -1,0 +1,111 @@
+.day-agenda {
+    --day-agenda-row-color: var(--body-accent-color);
+}
+
+.day-agenda__weekday {
+    margin-bottom: var(--spacing-12);
+    font-size: var(--font-size-sm);
+    color: var(--body-color-muted);
+}
+
+.day-agenda__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.day-agenda__row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-12);
+    min-width: 0;
+    padding: var(--spacing-8) var(--spacing-12);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--day-agenda-row-color);
+    background-color: color-mix(in srgb, var(--day-agenda-row-color) 14%, var(--card-background-color));
+    transition: background-color var(--transition-fast);
+
+    &--clickable {
+        cursor: pointer;
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--day-agenda-row-color) 28%, var(--card-background-color));
+        }
+    }
+
+    &--accent {
+        --day-agenda-row-color: var(--body-accent-color);
+    }
+
+    &--success {
+        --day-agenda-row-color: var(--button-success-background-color);
+    }
+
+    &--warning {
+        --day-agenda-row-color: var(--button-warning-background-color);
+    }
+
+    &--danger {
+        --day-agenda-row-color: var(--button-danger-background-color);
+    }
+
+    &--muted {
+        --day-agenda-row-color: var(--body-color-muted);
+    }
+
+    // Matches the calendar chip: computed rather than stored, so outlined not filled.
+    &--ghost {
+        --day-agenda-row-color: var(--body-color-muted);
+
+        background-color: transparent;
+        border: 1px dashed var(--day-agenda-row-color);
+        border-left-width: 3px;
+        border-left-style: solid;
+        color: var(--body-color-muted);
+    }
+
+    &--done {
+        --day-agenda-row-color: var(--body-color-muted);
+
+        opacity: 0.7;
+
+        .day-agenda__title {
+            text-decoration: line-through;
+        }
+    }
+}
+
+.day-agenda__time {
+    flex: 0 0 auto;
+    min-width: var(--spacing-48);
+    font-size: var(--font-size-xs);
+    font-variant-numeric: tabular-nums;
+    color: var(--body-color-muted);
+}
+
+.day-agenda__title {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: var(--font-size-sm);
+}
+
+.day-agenda__empty {
+    padding: var(--spacing-24) 0;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--body-color-muted);
+}
+
+@media (max-width: 767px) {
+    .day-agenda__row {
+        // A phone has no room for a time column beside the title, and truncating the
+        // title to keep one is the worse trade — stack them instead.
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-2);
+    }
+}

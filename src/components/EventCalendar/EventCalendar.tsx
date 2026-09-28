@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { addDays, addMonths } from '../../helpers/Datetime';
+import { addDays, addMonths, getIsoWeek } from '../../helpers/Datetime';
 import { Button } from '../Button';
+import { DayAgenda } from '../DayAgenda';
 import { ToggleButtons } from '../ToggleButtons';
 
 import { buildDroppedStart, getWeekDays, startOfDay } from './EventCalendar.helpers';
@@ -44,6 +45,7 @@ const formatWeekTitle = (date: Date, firstDayOfWeek: 0 | 1): string => {
 export function EventCalendar<T>({
     className,
     date,
+    dayAgenda = false,
     dayEndHour = 24,
     dayStartHour = 0,
     defaultDurationMinutes = 30,
@@ -60,11 +62,13 @@ export function EventCalendar<T>({
     onViewChange,
     renderEvent,
     showHeader = true,
+    showWeekNumbers = false,
     view,
 }: EventCalendarProps<T>) {
     const [internalDate, setInternalDate] = useState<Date>(() => startOfDay(date ?? new Date()));
     const [internalView, setInternalView] = useState<EventCalendarView>(view ?? 'month');
     const [dragging, setDragging] = useState<CalendarEvent<T> | null>(null);
+    const [agendaDate, setAgendaDate] = useState<Date | null>(null);
 
     const activeDate = date ?? internalDate;
     const activeView = view ?? internalView;
@@ -112,10 +116,29 @@ export function EventCalendar<T>({
         [dragging, onEventDrop]
     );
 
-    const title = useMemo(
-        () => (activeView === 'month' ? formatMonthTitle(activeDate) : formatWeekTitle(activeDate, firstDayOfWeek)),
-        [activeDate, activeView, firstDayOfWeek]
+    // With the agenda on, a chip is a way into its day rather than into itself: the cell is
+    // too cramped to aim at, and everything past `maxEventsPerDay` is behind "+N more" anyway.
+    const openDay = useCallback((day: Date) => setAgendaDate(startOfDay(day)), []);
+
+    const handleEventClick = useCallback(
+        (event: CalendarEvent<T>) => {
+            if (dayAgenda) {
+                openDay(event.start);
+                return;
+            }
+            onEventClick?.(event);
+        },
+        [dayAgenda, onEventClick, openDay]
     );
+
+    const title = useMemo(() => {
+        if (activeView === 'month') {
+            return formatMonthTitle(activeDate);
+        }
+
+        const weekTitle = formatWeekTitle(activeDate, firstDayOfWeek);
+        return showWeekNumbers ? `${weekTitle} · W${getIsoWeek(activeDate)}` : weekTitle;
+    }, [activeDate, activeView, firstDayOfWeek, showWeekNumbers]);
 
     const sharedProps = {
         date: activeDate,
@@ -127,8 +150,11 @@ export function EventCalendar<T>({
         onDragEnd: () => setDragging(null),
         onDragStart: (event: CalendarEvent<T>) => setDragging(event),
         onDrop: handleDrop,
-        onEventClick,
+        // Kept undefined when there is nothing to do with a click, so a chip does not
+        // advertise itself as clickable.
+        onEventClick: dayAgenda || onEventClick ? handleEventClick : undefined,
         renderEvent,
+        showWeekNumbers,
     };
 
     return (
@@ -152,7 +178,7 @@ export function EventCalendar<T>({
             )}
 
             {activeView === 'month' ? (
-                <EventCalendarMonth {...sharedProps} emptyLabel={emptyLabel} maxEventsPerDay={maxEventsPerDay} />
+                <EventCalendarMonth {...sharedProps} emptyLabel={emptyLabel} maxEventsPerDay={maxEventsPerDay} onOpenDay={dayAgenda ? openDay : undefined} />
             ) : (
                 <EventCalendarWeek
                     {...sharedProps}
@@ -160,6 +186,33 @@ export function EventCalendar<T>({
                     dayStartHour={dayStartHour}
                     defaultDurationMinutes={defaultDurationMinutes}
                     hourHeight={hourHeight}
+                />
+            )}
+
+            {agendaDate && (
+                <DayAgenda<T>
+                    date={agendaDate}
+                    emptyLabel={emptyLabel}
+                    events={events}
+                    isOpen
+                    onAdd={
+                        onDayClick
+                            ? day => {
+                                  setAgendaDate(null);
+                                  onDayClick(day);
+                              }
+                            : undefined
+                    }
+                    onClose={() => setAgendaDate(null)}
+                    onEventClick={
+                        onEventClick
+                            ? event => {
+                                  setAgendaDate(null);
+                                  onEventClick(event);
+                              }
+                            : undefined
+                    }
+                    renderEvent={renderEvent}
                 />
             )}
         </div>
