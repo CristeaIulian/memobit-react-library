@@ -3,7 +3,7 @@ import { DragEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { isToday, isWeekend } from '../../helpers/Datetime';
 
 import { EventCalendarChip } from './EventCalendar.Chip';
-import { bucketEventsByDay, formatHourLabel, getWeekDays, layoutDayEvents, startOfDay } from './EventCalendar.helpers';
+import { bucketEventsByDay, formatHourLabel, getWeekDays, isActiveHour, layoutDayEvents, startOfDay } from './EventCalendar.helpers';
 import { EventCalendarViewProps } from './EventCalendar.types';
 
 const DEFAULT_SCROLL_HOUR = 8;
@@ -16,6 +16,7 @@ interface EventCalendarWeekProps<T> extends EventCalendarViewProps<T> {
 }
 
 export function EventCalendarWeek<T>({
+    activeHours,
     date,
     dayEndHour,
     dayStartHour,
@@ -50,8 +51,8 @@ export function EventCalendarWeek<T>({
     // week's earliest event, falling back to the start of the working day.
     const firstEventHour = useMemo(() => {
         const starts = buckets.flatMap(bucket => bucket.timed.map(event => event.start.getHours()));
-        return starts.length > 0 ? Math.min(...starts) : DEFAULT_SCROLL_HOUR;
-    }, [buckets]);
+        return starts.length > 0 ? Math.min(...starts) : (activeHours?.start ?? DEFAULT_SCROLL_HOUR);
+    }, [activeHours, buckets]);
 
     useEffect(() => {
         if (!bodyRef.current) {
@@ -138,7 +139,16 @@ export function EventCalendarWeek<T>({
             <div className="event-calendar__week-body" ref={bodyRef}>
                 <div className="event-calendar__gutter" style={{ height: gridHeight }}>
                     {hours.map(hour => (
-                        <div className="event-calendar__gutter-hour" key={hour} style={{ height: hourHeight }}>
+                        <div
+                            className={[
+                                'event-calendar__gutter-hour',
+                                isActiveHour(hour, activeHours) ? '' : 'event-calendar__gutter-hour--inactive',
+                            ]
+                                .filter(Boolean)
+                                .join(' ')}
+                            key={hour}
+                            style={{ height: hourHeight }}
+                        >
                             <span>{formatHourLabel(hour)}</span>
                         </div>
                     ))}
@@ -160,6 +170,7 @@ export function EventCalendarWeek<T>({
                                     <div
                                         className={[
                                             'event-calendar__slot',
+                                            isActiveHour(hour, activeHours) ? '' : 'event-calendar__slot--inactive',
                                             dragOverSlot === key ? 'event-calendar__slot--drop-target' : '',
                                             onDayClick ? 'event-calendar__slot--clickable' : '',
                                         ]

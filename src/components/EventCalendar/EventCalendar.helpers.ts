@@ -1,6 +1,6 @@
 import { addDays, isSameDay } from '../../helpers/Datetime';
 
-import { CalendarDayBucket, CalendarEvent } from './EventCalendar.types';
+import { CalendarActiveHours, CalendarDayBucket, CalendarEvent } from './EventCalendar.types';
 
 export const MINUTES_PER_DAY = 1440;
 
@@ -157,6 +157,10 @@ export const buildDroppedStart = (event: CalendarEvent, target: Date, keepTimeOf
     next.setHours(event.start.getHours(), event.start.getMinutes(), 0, 0);
     return next;
 };
+
+/** Whether an hour falls inside the active band. No band means every hour counts. */
+export const isActiveHour = (hour: number, activeHours?: CalendarActiveHours): boolean =>
+    !activeHours || (hour >= activeHours.start && hour < activeHours.end);
 
 export const formatHourLabel = (hour: number): string => `${hour.toString().padStart(2, '0')}:00`;
 

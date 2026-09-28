@@ -1,111 +1,132 @@
-.day-agenda {
-    --day-agenda-row-color: var(--body-accent-color);
-}
-
 .day-agenda__weekday {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-8);
     margin-bottom: var(--spacing-12);
     font-size: var(--font-size-sm);
     color: var(--body-color-muted);
 }
 
-.day-agenda__list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-4);
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.day-agenda__empty {
+    font-size: var(--font-size-xs);
+    color: var(--body-sub-title-color);
+    opacity: 0.7;
 }
 
-.day-agenda__row {
+.day-agenda__all-day,
+.day-agenda__body {
+    border: 1px solid var(--card-border-color);
+    background-color: var(--card-background-color);
+}
+
+.day-agenda__all-day {
+    display: flex;
+    border-radius: var(--radius) var(--radius) 0 0;
+    border-bottom: none;
+    background-color: var(--card-background-accent-color);
+}
+
+.day-agenda__gutter-label,
+.day-agenda__gutter {
+    flex: 0 0 var(--spacing-48);
+    width: var(--spacing-48);
+    border-right: 1px solid var(--card-border-color);
+}
+
+.day-agenda__gutter-label {
     display: flex;
     align-items: center;
-    gap: var(--spacing-12);
-    min-width: 0;
-    padding: var(--spacing-8) var(--spacing-12);
-    border-radius: var(--radius-sm);
-    border-left: 3px solid var(--day-agenda-row-color);
-    background-color: color-mix(in srgb, var(--day-agenda-row-color) 14%, var(--card-background-color));
-    transition: background-color var(--transition-fast);
-
-    &--clickable {
-        cursor: pointer;
-
-        &:hover {
-            background-color: color-mix(in srgb, var(--day-agenda-row-color) 28%, var(--card-background-color));
-        }
-    }
-
-    &--accent {
-        --day-agenda-row-color: var(--body-accent-color);
-    }
-
-    &--success {
-        --day-agenda-row-color: var(--button-success-background-color);
-    }
-
-    &--warning {
-        --day-agenda-row-color: var(--button-warning-background-color);
-    }
-
-    &--danger {
-        --day-agenda-row-color: var(--button-danger-background-color);
-    }
-
-    &--muted {
-        --day-agenda-row-color: var(--body-color-muted);
-    }
-
-    // Matches the calendar chip: computed rather than stored, so outlined not filled.
-    &--ghost {
-        --day-agenda-row-color: var(--body-color-muted);
-
-        background-color: transparent;
-        border: 1px dashed var(--day-agenda-row-color);
-        border-left-width: 3px;
-        border-left-style: solid;
-        color: var(--body-color-muted);
-    }
-
-    &--done {
-        --day-agenda-row-color: var(--body-color-muted);
-
-        opacity: 0.7;
-
-        .day-agenda__title {
-            text-decoration: line-through;
-        }
-    }
-}
-
-.day-agenda__time {
-    flex: 0 0 auto;
-    min-width: var(--spacing-48);
-    font-size: var(--font-size-xs);
-    font-variant-numeric: tabular-nums;
+    justify-content: flex-end;
+    padding: var(--spacing-4) var(--spacing-6);
+    font-size: var(--font-size-xxs);
     color: var(--body-color-muted);
 }
 
-.day-agenda__title {
+.day-agenda__all-day-cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
     flex: 1 1 auto;
     min-width: 0;
-    overflow-wrap: anywhere;
-    font-size: var(--font-size-sm);
+    padding: var(--spacing-4);
 }
 
-.day-agenda__empty {
-    padding: var(--spacing-24) 0;
-    text-align: center;
-    font-size: var(--font-size-sm);
-    color: var(--body-color-muted);
-}
+.day-agenda__body {
+    display: flex;
+    // Vertical scrolling stays native; horizontal drags are the day-stepping swipe.
+    touch-action: pan-y;
+    // Tall enough to read a stretch of the day at once, short enough that the modal's
+    // own footer stays put rather than being pushed off a phone screen.
+    max-height: var(--spacing-300);
+    overflow-y: auto;
+    border-radius: var(--radius);
 
-@media (max-width: 767px) {
-    .day-agenda__row {
-        // A phone has no room for a time column beside the title, and truncating the
-        // title to keep one is the worse trade — stack them instead.
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-2);
+    // Squared off where the all-day row already caps the grid.
+    .day-agenda__all-day + & {
+        border-radius: 0 0 var(--radius) var(--radius);
     }
+}
+
+.day-agenda__gutter {
+    display: flex;
+    flex-direction: column;
+}
+
+.day-agenda__gutter-hour {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: var(--spacing-6);
+    font-size: var(--font-size-xxs);
+    font-variant-numeric: tabular-nums;
+    color: var(--body-color-muted);
+
+    // Nudges the label up so it sits against the gridline it names.
+    span {
+        transform: translateY(-50%);
+    }
+
+    &:first-child span {
+        transform: none;
+    }
+
+    &--inactive {
+        opacity: 0.5;
+    }
+}
+
+.day-agenda__column {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.day-agenda__slot {
+    border-bottom: 1px solid color-mix(in srgb, var(--card-border-color) 60%, transparent);
+    transition: background-color var(--transition-fast);
+
+    &:last-of-type {
+        border-bottom: none;
+    }
+
+    // Outside the active band. Recessed rather than the band being highlighted: the
+    // working day should read as the normal surface, not as something stuck on top.
+    // Mixed toward the page background, so it sinks in either theme — a lighter tint
+    // reads as emphasis on a dark one, which is the wrong way round.
+    &--inactive {
+        background-color: color-mix(in srgb, var(--body-background) 60%, transparent);
+    }
+
+    &--clickable:hover {
+        cursor: pointer;
+        background-color: color-mix(in srgb, var(--body-accent-color) 10%, transparent);
+    }
+}
+
+.day-agenda__chip {
+    // One event on its own has the whole width, so the title can sit beside the time
+    // rather than under it the way a crowded week column forces.
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--spacing-6);
 }

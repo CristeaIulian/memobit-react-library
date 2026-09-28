@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { addDays, addMonths, getIsoWeek } from '../../helpers/Datetime';
+import { addDays, addMonths } from '../../helpers/Datetime';
+import { useSwipe } from '../../hooks/useSwipe';
 import { Button } from '../Button';
 import { DayAgenda } from '../DayAgenda';
 import { ToggleButtons } from '../ToggleButtons';
@@ -43,6 +44,7 @@ const formatWeekTitle = (date: Date, firstDayOfWeek: 0 | 1): string => {
 };
 
 export function EventCalendar<T>({
+    activeHours,
     className,
     date,
     dayAgenda = false,
@@ -63,6 +65,7 @@ export function EventCalendar<T>({
     renderEvent,
     showHeader = true,
     showWeekNumbers = false,
+    swipeNavigation = true,
     view,
 }: EventCalendarProps<T>) {
     const [internalDate, setInternalDate] = useState<Date>(() => startOfDay(date ?? new Date()));
@@ -131,16 +134,24 @@ export function EventCalendar<T>({
         [dayAgenda, onEventClick, openDay]
     );
 
-    const title = useMemo(() => {
-        if (activeView === 'month') {
-            return formatMonthTitle(activeDate);
-        }
+    // The week view already names its own period ("16 – 22 Nov 2026"), which answers
+    // "which week is this" on its own — an ISO number beside it is a second, worse answer.
+    // Left goes forward, the way a phone calendar pages: the grid slides off to reveal
+    // what comes next. Restrained against the vertical axis so scrolling the week view's
+    // hour grid never turns into a page change.
+    const swipe = useSwipe({
+        enabled: swipeNavigation,
+        onSwipeLeft: () => step(1),
+        onSwipeRight: () => step(-1),
+    });
 
-        const weekTitle = formatWeekTitle(activeDate, firstDayOfWeek);
-        return showWeekNumbers ? `${weekTitle} · W${getIsoWeek(activeDate)}` : weekTitle;
-    }, [activeDate, activeView, firstDayOfWeek, showWeekNumbers]);
+    const title = useMemo(
+        () => (activeView === 'month' ? formatMonthTitle(activeDate) : formatWeekTitle(activeDate, firstDayOfWeek)),
+        [activeDate, activeView, firstDayOfWeek]
+    );
 
     const sharedProps = {
+        activeHours,
         date: activeDate,
         dragEnabled,
         draggingId: dragging?.id ?? null,
@@ -177,21 +188,30 @@ export function EventCalendar<T>({
                 </div>
             )}
 
-            {activeView === 'month' ? (
-                <EventCalendarMonth {...sharedProps} emptyLabel={emptyLabel} maxEventsPerDay={maxEventsPerDay} onOpenDay={dayAgenda ? openDay : undefined} />
-            ) : (
-                <EventCalendarWeek
-                    {...sharedProps}
-                    dayEndHour={dayEndHour}
-                    dayStartHour={dayStartHour}
-                    defaultDurationMinutes={defaultDurationMinutes}
-                    hourHeight={hourHeight}
-                />
-            )}
+            <div className="event-calendar__viewport" {...swipe}>
+                {activeView === 'month' ? (
+                    <EventCalendarMonth
+                        {...sharedProps}
+                        emptyLabel={emptyLabel}
+                        maxEventsPerDay={maxEventsPerDay}
+                        onOpenDay={dayAgenda ? openDay : undefined}
+                    />
+                ) : (
+                    <EventCalendarWeek
+                        {...sharedProps}
+                        dayEndHour={dayEndHour}
+                        dayStartHour={dayStartHour}
+                        defaultDurationMinutes={defaultDurationMinutes}
+                        hourHeight={hourHeight}
+                    />
+                )}
+            </div>
 
             {agendaDate && (
                 <DayAgenda<T>
+                    activeHours={activeHours}
                     date={agendaDate}
+                    onDateChange={setAgendaDate}
                     emptyLabel={emptyLabel}
                     events={events}
                     isOpen

@@ -2,6 +2,12 @@ import { ReactNode } from 'react';
 
 export type EventCalendarView = 'month' | 'week';
 
+/** Half-open [start, end): with start 9 and end 18, 17:00 is active and 18:00 is not. */
+export interface CalendarActiveHours {
+    start: number;
+    end: number;
+}
+
 /**
  * Visual treatment for a chip. `ghost` is for events that are computed rather than
  * stored — a projected recurrence, say — so they read as "expected" not "booked".
@@ -42,8 +48,14 @@ export interface EventCalendarProps<T = unknown> {
     date?: Date;
     onDateChange?: (date: Date) => void;
     firstDayOfWeek?: 0 | 1;
-    /** Adds the ISO week number: a leading column in month view, a suffix on the week title. */
+    /** Adds a leading ISO week-number column to the month grid. The week view names its own period, so it needs none. */
     showWeekNumbers?: boolean;
+    /**
+     * Swiping the grid left or right pages to the next or previous period — the month in
+     * month view, the week in week view. Touch only, so it costs a desktop nothing. Set
+     * false where a horizontal drag already means something else.
+     */
+    swipeNavigation?: boolean;
     onEventClick?: (event: CalendarEvent<T>) => void;
     /** Fires on the empty part of a day cell (month) or an hour slot (week). */
     onDayClick?: (date: Date) => void;
@@ -68,6 +80,13 @@ export interface EventCalendarProps<T = unknown> {
     /** First and last hour rendered by the week view. */
     dayStartHour?: number;
     dayEndHour?: number;
+    /**
+     * The hours that matter — working hours, opening hours. Everything outside the band
+     * recedes, so the part of the day worth reading is found without counting rows. Unlike
+     * `dayStartHour`/`dayEndHour` this trims nothing: a 21:00 event still shows, just
+     * against a quieter background. Omit to treat every hour alike.
+     */
+    activeHours?: CalendarActiveHours;
     /** Height of one hour row in the week view, in pixels. */
     hourHeight?: number;
     /** Assumed length of a timed event with no `end`. */
@@ -90,4 +109,5 @@ export interface EventCalendarViewProps<T = unknown> {
     renderEvent?: (event: CalendarEvent<T>) => ReactNode;
     dragEnabled: boolean;
     showWeekNumbers: boolean;
+    activeHours?: CalendarActiveHours;
 }

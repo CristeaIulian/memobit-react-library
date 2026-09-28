@@ -37,8 +37,9 @@ export const DayAgendaPage: FC = () => {
         <div className="component-page">
             <h1>Day Agenda Component</h1>
             <p>
-                One day&apos;s events, listed in a modal. A month cell can only carry a chip or three before the rest disappear behind{' '}
-                <code>+N more</code>, and those chips are far too small to aim at on a phone — this is the way into a busy day. Takes the same{' '}
+                One day laid out against the clock, in a modal. A month cell can only carry a chip or three before the rest disappear behind{' '}
+                <code>+N more</code>, and those chips are far too small to aim at on a phone — this is the way into a busy day. Events sit at the hour they
+                happen, overlapping ones split into lanes, and an empty stretch is itself the target for adding something at that time. Takes the same{' '}
                 <code>CalendarEvent&lt;T&gt;[]</code> the calendar is given and picks the day out itself, so there is no second, pre-filtered copy to keep in
                 sync.
             </p>
@@ -46,9 +47,9 @@ export const DayAgendaPage: FC = () => {
             <section className="page-section">
                 <h2>Inside EventCalendar</h2>
                 <p>
-                    Pass <code>dayAgenda</code> and the calendar routes a chip click, a <code>+N more</code> and a tap on the day number through the agenda for
-                    that day. <code>onEventClick</code> then fires from a row inside it, and <code>onDayClick</code> becomes the agenda&apos;s Add action. Click
-                    around 21–24 September.
+                    Pass <code>dayAgenda</code> and the calendar routes a chip click, a <code>+N more</code> and a tap on the day number through the day view
+                    for that date. <code>onEventClick</code> then fires from a chip inside it, and <code>onDayClick</code> receives the hour slot that was
+                    clicked. Click around 21–24 September.
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
@@ -57,7 +58,7 @@ export const DayAgendaPage: FC = () => {
                             dayAgenda
                             emptyLabel="Nothing scheduled this month"
                             events={SPREAD_OVER_THE_MONTH}
-                            onDayClick={day => pushLog(`Add on ${day.toDateString()}`)}
+                            onDayClick={day => pushLog(`Add at ${day.toLocaleString()}`)}
                             onEventClick={event => pushLog(`Opened "${event.title}" (${event.data?.owner})`)}
                             showWeekNumbers
                         />
@@ -79,19 +80,21 @@ export const DayAgendaPage: FC = () => {
             <section className="page-section">
                 <h2>Standalone</h2>
                 <p>
-                    It does not need a calendar around it — hand it a date and a list. Variants and a per-event <code>color</code> carry over from the chips, so
-                    a row reads the same way as the chip it was opened from.
+                    It does not need a calendar around it — hand it a date and a list. Trim the grid with <code>dayStartHour</code> / <code>dayEndHour</code>.
+                    All-day events get their own row above the clock, since they belong to no hour.
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
                         <Button onClick={() => setStandaloneOpen(true)}>Open 23 September</Button>
                         <DayAgenda<DemoMeta>
                             date={at(23)}
+                            dayEndHour={20}
+                            dayStartHour={7}
                             events={BUSY_DAY}
                             isOpen={standaloneOpen}
                             onAdd={day => {
                                 setStandaloneOpen(false);
-                                pushLog(`Add on ${day.toDateString()}`);
+                                pushLog(`Add at ${day.toLocaleString()}`);
                             }}
                             onClose={() => setStandaloneOpen(false)}
                             onEventClick={event => {
@@ -106,19 +109,13 @@ export const DayAgendaPage: FC = () => {
             <section className="page-section">
                 <h2>Empty day, read-only</h2>
                 <p>
-                    With no <code>onEventClick</code> the rows stop advertising themselves as clickable, and with no <code>onAdd</code> the footer goes away
-                    entirely.
+                    With no <code>onEventClick</code> the chips stop advertising themselves as clickable, and with no <code>onAdd</code> the hour slots go inert
+                    and the footer disappears — the day becomes something to read rather than edit.
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
                         <Button onClick={() => setEmptyOpen(true)}>Open 25 September</Button>
-                        <DayAgenda
-                            date={at(25)}
-                            emptyLabel="Nothing scheduled"
-                            events={BUSY_DAY}
-                            isOpen={emptyOpen}
-                            onClose={() => setEmptyOpen(false)}
-                        />
+                        <DayAgenda date={at(25)} emptyLabel="Nothing scheduled" events={BUSY_DAY} isOpen={emptyOpen} onClose={() => setEmptyOpen(false)} />
                     </div>
                 </div>
             </section>

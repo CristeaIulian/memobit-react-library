@@ -2,10 +2,18 @@
 export { Accordion, type AccordionItemData, type AccordionProps } from './components/Accordion';
 export { AlertDialog } from './components/AlertDialog';
 export { AnalogClock, type AnalogClockMode, type AnalogClockProps, type TimeValue } from './components/AnalogClock';
+export { AngleSlider, type AngleSliderProps, type AngleSliderVariant } from './components/AngleSlider';
 export { AppHeader, type AppHeaderProps } from './components/AppHeader';
 export { AvatarInitials } from './components/AvatarInitials';
 export { Badge, type BadgeProps, type BadgeVariant } from './components/Badge';
 export { Banner, type BannerProps, type BannerVariant } from './components/Banner';
+export {
+    Blockquote,
+    type BlockquoteAppearance,
+    type BlockquoteProps,
+    type BlockquoteSize,
+    type BlockquoteVariant,
+} from './components/Blockquote';
 export {
     ADULT_RANGES,
     BMI,
@@ -86,6 +94,7 @@ export { EmojiPicker, type EmojiPickerProps } from './components/EmojiPicker';
 export { EmptyState, type EmptyStateProps } from './components/EmptyState';
 export { ErrorBoundary, type ErrorBoundaryProps } from './components/ErrorBoundary';
 export {
+    type CalendarActiveHours,
     type CalendarDayBucket,
     type CalendarEvent,
     type CalendarEventVariant,
@@ -96,7 +105,25 @@ export {
 export { FileDropzone, type FileDropzoneProps } from './components/FileDropzone';
 export { Flag } from './components/Flag';
 export { FloatButton } from './components/FloatButton';
+export {
+    FloatingWindow,
+    type FloatingWindowPosition,
+    type FloatingWindowProps,
+    type FloatingWindowResizeDirection,
+    type FloatingWindowSize,
+} from './components/FloatingWindow';
 export { type FolderBrowserEntry, type FolderBrowserListing, FolderBrowserModal, type FolderBrowserModalProps } from './components/FolderBrowserModal';
+export {
+    Col,
+    type ColProps,
+    type ColSpan,
+    Grid,
+    type GridAlign,
+    type GridColumns,
+    type GridGap,
+    type GridJustify,
+    type GridProps,
+} from './components/Grid';
 export { Icon, type IconName, type IconSize, type IconVariant } from './components/Icon';
 export { InfiniteScroll, type ScrollInfo } from './components/InfiniteScroll';
 export { InputDate } from './components/InputDate';
@@ -105,6 +132,7 @@ export { InputFile } from './components/InputFile';
 export { InputMask, type InputMaskHandle, InputMaskPresets } from './components/InputMask';
 export { InputNumber } from './components/InputNumber';
 export { InputPassword } from './components/InputPassword';
+export { InputPIN, type InputPINProps, type InputPINType } from './components/InputPIN';
 export { InputPhone } from './components/InputPhone';
 export { InputSearch, type InputSearchProps } from './components/InputSearch';
 export { InputText } from './components/InputText';
@@ -152,8 +180,16 @@ export { QuickAdd } from './components/QuickAdd';
 export { QuickNumberUpdate } from './components/QuickNumberUpdate';
 export { QuickOptionUpdate } from './components/QuickOptionUpdate';
 export { Radio, type RadioProps } from './components/Radio';
-export { Rating } from './components/Rating';
+export { RangeSlider, type RangeSliderProps, type RangeSliderValue, type RangeSliderVariant } from './components/RangeSlider';
+export { Rating, type RatingFilled, type RatingIconType, type RatingVariant } from './components/Rating';
 export { RichTextEditor } from './components/RichTextEditor';
+export {
+    RollingNumber,
+    type RollingNumberDirection,
+    type RollingNumberProps,
+    type RollingNumberSize,
+    type RollingNumberVariant,
+} from './components/RollingNumber';
 export { ScrollToTop } from './components/ScrollToTop';
 export { Separator, type SeparatorAlign, type SeparatorOrientation, type SeparatorProps, type SeparatorStyle } from './components/Separator';
 export { Sidebar, type SidebarItem, type SidebarProps, SidebarProvider, type SidebarSection, useSidebar } from './components/Sidebar';
@@ -161,6 +197,7 @@ export { SignalStrength } from './components/SignalStrength';
 export { Skeleton, type SkeletonAnimation, type SkeletonProps, type SkeletonVariant } from './components/Skeleton';
 export { Slider } from './components/Slider';
 export { SplitPanel } from './components/SplitPanel';
+export { Splitter, type SplitterOrientation, type SplitterPane, type SplitterProps } from './components/Splitter';
 export {
     StackedBar,
     type StackedBarOrientation,
@@ -214,6 +251,7 @@ export {
     type ToolbarSortValue,
 } from './components/Toolbar';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
+export { Transition, type TransitionProps, type TransitionStatus, type TransitionTag, type TransitionType } from './components/Transition';
 export { TourHud, type TourHudProps } from './components/TourHud';
 export { Tree, type TreeNode } from './components/Tree';
 export { VirtualList, type VirtualListProps } from './components/VirtualList';
@@ -236,6 +274,7 @@ export { useAuth } from './hooks/useAuth';
 export { useBodyScrollLock } from './hooks/useBodyScrollLock';
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';
 export { useComponentEffect } from './hooks/useComponentEffect';
+export { type SwipeHandlers, useSwipe, type UseSwipeOptions } from './hooks/useSwipe';
 
 // Export helpers
 export { AppPersistenceStorage } from './helpers/AppPersistenceStorage';

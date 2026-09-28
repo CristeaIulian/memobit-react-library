@@ -42,6 +42,12 @@
     gap: var(--spacing-8);
 }
 
+// The swipe target. `pan-y` keeps vertical scrolling native while telling the browser
+// horizontal drags are ours, so a page turn never fights a scroll.
+.event-calendar__viewport {
+    touch-action: pan-y;
+}
+
 // ---------------------------------------------------------------- month view
 
 .event-calendar__month {
@@ -360,6 +366,10 @@
     &:first-child span {
         transform: none;
     }
+
+    &--inactive {
+        opacity: 0.5;
+    }
 }
 
 .event-calendar__week-column {
@@ -380,6 +390,14 @@
 .event-calendar__slot {
     border-bottom: 1px solid color-mix(in srgb, var(--card-border-color) 60%, transparent);
     transition: background-color var(--transition-fast);
+
+    // Outside the active band. Recessed rather than the band being highlighted: the
+    // working day should read as the normal surface, not as something stuck on top.
+    // Mixed toward the page background, so it sinks in either theme — a lighter tint
+    // reads as emphasis on a dark one, which is the wrong way round.
+    &--inactive {
+        background-color: color-mix(in srgb, var(--body-background) 60%, transparent);
+    }
 
     &--clickable:hover {
         cursor: pointer;
