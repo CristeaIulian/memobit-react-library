@@ -2,10 +2,10 @@ import { ReactNode, useEffect, useMemo, useRef } from 'react';
 
 import { addDays, formatDate } from '../../helpers/Datetime';
 import { useSwipe } from '../../hooks/useSwipe';
+import { Drawer, type DrawerPosition } from '../Drawer';
 import { EventCalendarChip } from '../EventCalendar/EventCalendar.Chip';
 import { bucketEventsByDay, formatHourLabel, isActiveHour, layoutDayEvents, startOfDay } from '../EventCalendar/EventCalendar.helpers';
 import { CalendarActiveHours, CalendarEvent } from '../EventCalendar/EventCalendar.types';
-import { Modal } from '../Modal';
 
 import './DayAgenda.scss';
 
@@ -25,7 +25,7 @@ export interface DayAgendaProps<T = unknown> {
     isOpen: boolean;
     onClose: () => void;
     /**
-     * Enables swiping the grid left or right to step a day. Without it the modal shows
+     * Enables swiping the grid left or right to step a day. Without it the panel shows
      * only the day it was opened on — which is fine for a one-off, but on a phone the
      * neighbouring day is usually the next thing wanted.
      */
@@ -53,16 +53,25 @@ export interface DayAgendaProps<T = unknown> {
     hourHeight?: number;
     /** Assumed length of a timed event with no `end`. */
     defaultDurationMinutes?: number;
+    /** Which edge the panel slides in from. */
+    position?: DrawerPosition;
+    /** CSS width for the panel. */
+    width?: string;
     className?: string;
 }
 
 /**
- * One day laid out against the clock, in a modal.
+ * One day laid out against the clock, in a side panel.
  *
  * A month cell can only carry a chip or three before the rest hide behind "+N more", and
  * those chips are too small to aim at on a phone. This is the way into a busy day: events
  * sit at the hour they actually happen, overlapping ones split into lanes, and the empty
  * stretches are themselves the target for adding something at that time.
+ *
+ * A drawer rather than a modal because the grid is a viewport onto a whole day and wants
+ * every pixel of height there is — a centred dialog either leaves the clock squinting
+ * through a few hours or, stretched, becomes a tall slot floating in the middle of a
+ * desktop screen. Pinned to the edge, the same shape reads as a panel instead.
  */
 export function DayAgenda<T>({
     activeHours,
@@ -79,7 +88,9 @@ export function DayAgenda<T>({
     onClose,
     onDateChange,
     onEventClick,
+    position = 'right',
     renderEvent,
+    width = 'min(480px, 100vw)',
 }: DayAgendaProps<T>) {
     const bodyRef = useRef<HTMLDivElement>(null);
 
@@ -97,7 +108,7 @@ export function DayAgenda<T>({
         return starts.length > 0 ? Math.min(...starts) : (activeHours?.start ?? DEFAULT_SCROLL_HOUR);
     }, [activeHours, bucket.timed]);
 
-    // A full 24-hour grid in a modal otherwise opens parked on an empty midnight.
+    // A full 24-hour grid otherwise opens parked on an empty midnight.
     useEffect(() => {
         if (!isOpen || !bodyRef.current) {
             return;
@@ -123,17 +134,14 @@ export function DayAgenda<T>({
     const gridHeight = hours.length * hourHeight;
 
     return (
-        <Modal
+        <Drawer
             className={['day-agenda', className ?? ''].filter(Boolean).join(' ')}
-            // The grid is a viewport onto a whole day; hugging the content left it
-            // squinting through a few hours with empty screen underneath.
-            fullHeight
             isOpen={isOpen}
             onClose={onClose}
-            onOverlayClick={onClose}
-            size="small"
+            position={position}
+            showOverlay
             title={formatDate(date, 'DD MMM YYYY')}
-            usePortal
+            width={width}
         >
             <div className="day-agenda__weekday">
                 <span>{date.toLocaleDateString(undefined, { weekday: 'long' })}</span>
@@ -213,6 +221,6 @@ export function DayAgenda<T>({
                     ))}
                 </div>
             </div>
-        </Modal>
+        </Drawer>
     );
 }

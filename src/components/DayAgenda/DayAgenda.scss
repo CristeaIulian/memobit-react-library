@@ -1,6 +1,6 @@
-// The grid below stretches, so the modal body has to be a column that can hand it the
+// The grid below stretches, so the drawer content has to be a column that can hand it the
 // leftover height rather than a plain block.
-.day-agenda .modal__body {
+.day-agenda .drawer__content {
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -64,8 +64,8 @@
     display: flex;
     // Vertical scrolling stays native; horizontal drags are the day-stepping swipe.
     touch-action: pan-y;
-    // Takes whatever the full-height modal leaves after the weekday line and the all-day
-    // row. min-height: 0 is what lets a flex child shrink below its content and scroll.
+    // Takes whatever the drawer leaves after the weekday line and the all-day row.
+    // min-height: 0 is what lets a flex child shrink below its content and scroll.
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
@@ -136,7 +136,7 @@
 // same specificity and would otherwise win or lose on bundle order alone.
 .day-agenda .day-agenda__chip {
     // The week view stacks time over title because its columns are a seventh of the width.
-    // A single day has the whole modal, so they sit on one line — stacked, the title was
+    // A single day has the whole panel, so they sit on one line — stacked, the title was
     // pushed below the chip's own height and clipped mid-word.
     flex-direction: row;
     align-items: center;
