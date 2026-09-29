@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { Button, type CalendarEvent, DayAgenda, EventCalendar } from '../../../src';
+import { Button, type CalendarEvent, DayAgenda, EventCalendar, Icon } from '../../../src';
 
 interface DemoMeta {
     owner: string;
@@ -10,11 +10,11 @@ const at = (day: number, hour = 0, minute = 0): Date => new Date(2026, 8, day, h
 
 const BUSY_DAY: CalendarEvent<DemoMeta>[] = [
     { id: 1, title: 'Bin day', start: at(23), allDay: true, variant: 'accent', data: { owner: 'home' } },
-    { id: 2, title: 'Check Tineretului gas', start: at(23, 9), data: { owner: 'money' } },
+    { id: 2, title: 'Check Tineretului gas', start: at(23, 9), leading: <Icon name="bill" />, data: { owner: 'money' } },
     { id: 3, title: 'Recharge scooter', start: at(23, 9), variant: 'warning', data: { owner: 'home' } },
     { id: 4, title: 'Spalat cafetiera', start: at(23, 12), variant: 'ghost', data: { owner: 'home' } },
     { id: 5, title: 'Standup', start: at(23, 10), end: at(23, 10, 30), variant: 'success', data: { owner: 'work' } },
-    { id: 6, title: 'Dentist', start: at(23, 18, 30), end: at(23, 19, 30), variant: 'danger', data: { owner: 'health' } },
+    { id: 6, title: 'Dentist', start: at(23, 18, 30), end: at(23, 19, 30), variant: 'danger', leading: <Icon name="health" />, data: { owner: 'health' } },
     { id: 7, title: 'Pay rent', start: at(23, 8), variant: 'done', data: { owner: 'money' } },
     { id: 8, title: 'Call the landlord', start: at(23, 15), color: '#c084fc', data: { owner: 'home' } },
 ];

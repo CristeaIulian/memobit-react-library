@@ -33,11 +33,10 @@ export interface DayAgendaProps<T = unknown> {
     onEventClick?: (event: CalendarEvent<T>) => void;
     /**
      * Fires with the hour slot that was clicked, so something added from an empty stretch
-     * starts at the time pointed at rather than at midnight. Also backs the footer button,
-     * which passes the day itself for an entry with no particular time.
+     * starts at the time pointed at rather than at midnight. Omit it and the grid goes
+     * inert — the day becomes something to read rather than edit.
      */
     onAdd?: (date: Date) => void;
-    addLabel?: string;
     /** Replaces a chip's contents. */
     renderEvent?: (event: CalendarEvent<T>) => ReactNode;
     emptyLabel?: string;
@@ -67,7 +66,6 @@ export interface DayAgendaProps<T = unknown> {
  */
 export function DayAgenda<T>({
     activeHours,
-    addLabel = 'Add',
     className,
     date,
     dayEndHour = 24,
@@ -127,10 +125,12 @@ export function DayAgenda<T>({
     return (
         <Modal
             className={['day-agenda', className ?? ''].filter(Boolean).join(' ')}
+            // The grid is a viewport onto a whole day; hugging the content left it
+            // squinting through a few hours with empty screen underneath.
+            fullHeight
             isOpen={isOpen}
             onClose={onClose}
             onOverlayClick={onClose}
-            primary={onAdd ? { text: addLabel, icon: 'plus', onClick: () => onAdd(startOfDay(date)) } : undefined}
             size="small"
             title={formatDate(date, 'DD MMM YYYY')}
             usePortal

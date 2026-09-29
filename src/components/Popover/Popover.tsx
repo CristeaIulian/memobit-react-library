@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { CSSProperties, FC, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
@@ -10,6 +10,8 @@ interface Position {
     top: number;
     left: number;
     placement: Exclude<Placement, 'auto'>;
+    /** Distance along the popover's edge where the arrow should sit, in px. */
+    arrowOffset: number | null;
 }
 
 interface PopoverProps {
@@ -28,6 +30,8 @@ interface PopoverProps {
 }
 
 const VIEWPORT_MARGIN = 20;
+/** Keeps the arrow off the popover's rounded corners, where it would have no body behind it. */
+const ARROW_EDGE_MARGIN = 16;
 const DEFAULT_OFFSET = 8;
 
 export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl, offset = DEFAULT_OFFSET, placement = 'auto' }) => {
@@ -37,6 +41,7 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
         top: 0,
         left: 0,
         placement: 'bottom',
+        arrowOffset: null,
     });
 
     // Calculate position
@@ -87,10 +92,11 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
         if (placement === 'auto') {
             // Try placements in order of preference
             const preferenceOrder: Array<Exclude<Placement, 'auto'>> = ['bottom', 'top', 'right', 'left'];
-            finalPlacement = preferenceOrder.find((p) => {
-                const pos = positions[p];
-                return fitsInViewport(pos.top, pos.left);
-            }) || 'bottom';
+            finalPlacement =
+                preferenceOrder.find(p => {
+                    const pos = positions[p];
+                    return fitsInViewport(pos.top, pos.left);
+                }) || 'bottom';
             ({ top, left } = positions[finalPlacement]);
         } else {
             // Use specified placement, fallback to auto if doesn't fit
@@ -100,11 +106,12 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
                 ({ top, left } = preferredPos);
             } else {
                 // Fallback to best available position
-                const fallbackOrder = (['bottom', 'top', 'right', 'left'] as Array<Exclude<Placement, 'auto'>>).filter((p) => p !== placement);
-                finalPlacement = fallbackOrder.find((p) => {
-                    const pos = positions[p];
-                    return fitsInViewport(pos.top, pos.left);
-                }) || placement;
+                const fallbackOrder = (['bottom', 'top', 'right', 'left'] as Array<Exclude<Placement, 'auto'>>).filter(p => p !== placement);
+                finalPlacement =
+                    fallbackOrder.find(p => {
+                        const pos = positions[p];
+                        return fitsInViewport(pos.top, pos.left);
+                    }) || placement;
                 ({ top, left } = positions[finalPlacement]);
             }
         }
@@ -125,7 +132,16 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
             }
         }
 
-        setPosition({ top, left, placement: finalPlacement });
+        // The popover gets clamped to the viewport above, which slides it away from the
+        // anchor without the arrow following — so the arrow ends up pointing at nothing.
+        // Aim it at the anchor's centre instead, kept far enough from the corners that it
+        // still has a body behind it.
+        const isVertical = finalPlacement === 'top' || finalPlacement === 'bottom';
+        const anchorCentre = isVertical ? anchorRect.left + anchorRect.width / 2 - left : anchorRect.top + anchorRect.height / 2 - top;
+        const span = isVertical ? popoverRect.width : popoverRect.height;
+        const arrowOffset = Math.min(Math.max(anchorCentre, ARROW_EDGE_MARGIN), span - ARROW_EDGE_MARGIN);
+
+        setPosition({ top, left, placement: finalPlacement, arrowOffset });
     }, [anchorEl, visible, offset, placement]);
 
     useEffect(() => {
@@ -185,7 +201,10 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
                 zIndex: 9999,
             }}
         >
-            <div className="simple-popover__arrow" />
+            <div
+                className="simple-popover__arrow"
+                style={position.arrowOffset === null ? undefined : ({ '--popover-arrow-position': `${position.arrowOffset}px` } as CSSProperties)}
+            />
             <div className="simple-popover__content">{children}</div>
         </div>
     );

@@ -12,6 +12,41 @@
         width: 100%;
     }
 
+    &__categories {
+        display: flex;
+        gap: var(--spacing-4);
+        overflow-x: auto;
+        padding-bottom: var(--spacing-2);
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &__cat-btn {
+        flex-shrink: 0;
+        padding: var(--spacing-4) var(--spacing-8);
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--body-sub-title-color);
+        font-size: var(--font-size-xxs);
+        white-space: nowrap;
+        cursor: pointer;
+        transition: background-color var(--transition-fast);
+
+        &:hover {
+            background-color: var(--button-default-hover-background-color);
+        }
+
+        &.is-active {
+            background-color: var(--button-default-hover-background-color);
+            border-color: var(--body-accent-color);
+            color: var(--body-color-accent);
+        }
+    }
+
     &__grid {
         display: flex;
         flex-wrap: wrap;
@@ -30,6 +65,9 @@
         background: transparent;
         border: 1px solid transparent;
         border-radius: var(--radius-sm);
+        // Inheriting the surrounding colour left these near-invisible on a dark theme.
+        // The body colour is the one that is always legible against the card.
+        color: var(--body-color);
         cursor: pointer;
         line-height: 1;
         transition: background-color var(--transition-fast);

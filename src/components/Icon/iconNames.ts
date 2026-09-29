@@ -41,6 +41,7 @@ export type IconName =
     | 'beer'
     | 'bell'
     | 'benefit'
+    | 'bill'
     | 'birthday-cake'
     | 'blood'
     | 'blueberries'

@@ -51,7 +51,7 @@
     &--bottom {
         .simple-popover__arrow {
             top: calc(-1 * var(--popover-arrow-offset));
-            left: 50%;
+            left: var(--popover-arrow-position, 50%);
             transform: translateX(-50%);
             border-bottom-color: var(--popover-arrow-color);
             border-top: none;
@@ -62,7 +62,7 @@
     &--top {
         .simple-popover__arrow {
             bottom: calc(-1 * var(--popover-arrow-offset));
-            left: 50%;
+            left: var(--popover-arrow-position, 50%);
             transform: translateX(-50%);
             border-top-color: var(--popover-arrow-color);
             border-bottom: none;
@@ -73,7 +73,7 @@
     &--left {
         .simple-popover__arrow {
             right: calc(-1 * var(--popover-arrow-offset));
-            top: 50%;
+            top: var(--popover-arrow-position, 50%);
             transform: translateY(-50%);
             border-left-color: var(--popover-arrow-color);
             border-right: none;
@@ -84,7 +84,7 @@
     &--right {
         .simple-popover__arrow {
             left: calc(-1 * var(--popover-arrow-offset));
-            top: 50%;
+            top: var(--popover-arrow-position, 50%);
             transform: translateY(-50%);
             border-right-color: var(--popover-arrow-color);
             border-left: none;

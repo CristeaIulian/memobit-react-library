@@ -39,6 +39,7 @@ import { bee } from '../../icons/bee';
 import { beer } from '../../icons/beer';
 import { bell } from '../../icons/bell';
 import { benefit } from '../../icons/benefit';
+import { bill } from '../../icons/bill';
 import { birthdayCake } from '../../icons/birthday-cake';
 import { blood } from '../../icons/blood';
 import { blueberries } from '../../icons/blueberries';
@@ -606,6 +607,7 @@ export const iconMap: Record<IconName, ReactElement> = {
     beer,
     bell,
     benefit,
+    bill,
     blood,
     blueberries,
     bones,

@@ -1,3 +1,11 @@
+// The grid below stretches, so the modal body has to be a column that can hand it the
+// leftover height rather than a plain block.
+.day-agenda .modal__body {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
 .day-agenda__weekday {
     display: flex;
     align-items: baseline;
@@ -56,9 +64,10 @@
     display: flex;
     // Vertical scrolling stays native; horizontal drags are the day-stepping swipe.
     touch-action: pan-y;
-    // Tall enough to read a stretch of the day at once, short enough that the modal's
-    // own footer stays put rather than being pushed off a phone screen.
-    max-height: var(--spacing-300);
+    // Takes whatever the full-height modal leaves after the weekday line and the all-day
+    // row. min-height: 0 is what lets a flex child shrink below its content and scroll.
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
     border-radius: var(--radius);
 
@@ -123,10 +132,28 @@
     }
 }
 
-.day-agenda__chip {
-    // One event on its own has the whole width, so the title can sit beside the time
-    // rather than under it the way a crowded week column forces.
+// Scoped under .day-agenda so it beats `.event-calendar__chip--positioned`, which is the
+// same specificity and would otherwise win or lose on bundle order alone.
+.day-agenda .day-agenda__chip {
+    // The week view stacks time over title because its columns are a seventh of the width.
+    // A single day has the whole modal, so they sit on one line — stacked, the title was
+    // pushed below the chip's own height and clipped mid-word.
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     gap: var(--spacing-6);
+    padding: 0 var(--spacing-6);
+
+    .event-calendar__chip-title {
+        // Without this the title grows past the chip and the ellipsis never kicks in.
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .event-calendar__chip-leading,
+    .event-calendar__chip-time {
+        align-self: center;
+    }
 }

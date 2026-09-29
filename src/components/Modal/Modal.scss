@@ -115,6 +115,12 @@
     &--auto {
         max-width: fit-content;
     }
+
+    // Takes the height the overlay allows rather than the content's. The body already
+    // absorbs the slack and scrolls, so the header and footer stay pinned as usual.
+    &--full-height {
+        height: 100%;
+    }
 }
 
 @include mobile {

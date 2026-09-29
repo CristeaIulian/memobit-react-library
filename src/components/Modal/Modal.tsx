@@ -20,6 +20,12 @@ interface ModalProps {
     primary?: ExternalButtonConfig;
     secondary?: ExternalButtonConfig;
     size?: 'small' | 'medium' | 'large' | 'auto';
+    /**
+     * Grows the modal to the full height the overlay allows instead of hugging its
+     * content. For a body that is a viewport onto something longer — a day's hour grid, a
+     * long list — where a content-height modal leaves it squinting through a letterbox.
+     */
+    fullHeight?: boolean;
     tertiary?: ExternalButtonConfig;
     title?: string;
     titleIcon?: IconName;
@@ -29,6 +35,7 @@ interface ModalProps {
 export const Modal: FC<ModalProps> = ({
     children,
     className,
+    fullHeight = false,
     isOpen,
     noPadding = false,
     onClose,
@@ -79,7 +86,11 @@ export const Modal: FC<ModalProps> = ({
 
     const modalContent = (
         <div ref={overlayRef} className="modal-overlay" onClick={onOverlayClick}>
-            <div ref={modalRef} className={`modal modal--${size} ${className || ''} ${effectClass}`} onClick={e => e.stopPropagation()}>
+            <div
+                ref={modalRef}
+                className={`modal modal--${size} ${fullHeight ? 'modal--full-height' : ''} ${className || ''} ${effectClass}`}
+                onClick={e => e.stopPropagation()}
+            >
                 <div className="modal__header">
                     <h2>
                         {titleIcon ? <Icon name={titleIcon} /> : null} {title}

@@ -1,4 +1,5 @@
 export const aliasesCommerce: Record<string, string[]> = {
+    bill: ['invoice', 'receipt', 'statement', 'utility', 'payment', 'due', 'charges'],
     calculator: ['math', 'arithmetic', 'compute', 'numbers', 'finance', 'accounting'],
     'credit-card': ['payment', 'shop', 'checkout', 'visa', 'mastercard', 'money'],
     expense: ['cost', 'spending', 'bill', 'payment', 'outgoing', 'budget'],
