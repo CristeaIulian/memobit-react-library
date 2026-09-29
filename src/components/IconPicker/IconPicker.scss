@@ -1,0 +1,62 @@
+.icon-picker {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    width: 320px;
+    padding: var(--spacing-12);
+    background-color: var(--card-background-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: var(--radius);
+
+    &__search {
+        width: 100%;
+    }
+
+    &__grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        max-height: var(--spacing-200);
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--spacing-32);
+        height: var(--spacing-32);
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        line-height: 1;
+        transition: background-color var(--transition-fast);
+
+        &:hover {
+            background-color: var(--button-default-hover-background-color);
+        }
+
+        &.is-selected {
+            background-color: var(--button-default-hover-background-color);
+            border-color: var(--body-accent-color);
+        }
+    }
+
+    &__empty {
+        width: 100%;
+        padding: var(--spacing-12) 0;
+        text-align: center;
+        font-size: var(--font-size-sm);
+        color: var(--body-color-muted);
+    }
+
+    // 478 icons is a lot to scroll blindly — say how much the search has narrowed it.
+    &__count {
+        margin: 0;
+        text-align: right;
+        font-size: var(--font-size-xxs);
+        color: var(--body-color-muted);
+    }
+}

@@ -490,6 +490,21 @@
     }
 }
 
+.event-calendar__chip-leading {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    // Holds its size while the title truncates beside it — the glyph is the fastest
+    // way to recognise the event, so it is the last thing that should be cut.
+    align-self: center;
+    line-height: 1;
+
+    .icon {
+        width: var(--spacing-12);
+        height: var(--spacing-12);
+    }
+}
+
 .event-calendar__chip-time {
     flex: 0 0 auto;
     font-variant-numeric: tabular-nums;

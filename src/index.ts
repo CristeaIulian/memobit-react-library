@@ -125,6 +125,7 @@ export {
     type GridProps,
 } from './components/Grid';
 export { Icon, type IconName, type IconSize, type IconVariant } from './components/Icon';
+export { IconPicker, type IconPickerProps } from './components/IconPicker';
 export { InfiniteScroll, type ScrollInfo } from './components/InfiniteScroll';
 export { InputDate } from './components/InputDate';
 export { InputEmail, type InputEmailProps, validateEmail } from './components/InputEmail';

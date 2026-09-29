@@ -23,6 +23,13 @@ export interface CalendarEvent<T = unknown> {
     /** Renders in the all-day row of the week view and without a time in the month view. */
     allDay?: boolean;
     title: string;
+    /**
+     * Rendered before the time and title on the default chip — an icon or a badge that
+     * identifies the event at a glance. Prefer this over baking a glyph into `title`,
+     * which pushes it through the same truncation as the text and cannot be coloured
+     * separately. Ignored when `renderEvent` replaces the chip's contents entirely.
+     */
+    leading?: ReactNode;
     variant?: CalendarEventVariant;
     /** Overrides the variant's colour. Any CSS colour — pass a theme token where possible. */
     color?: string;

@@ -63,13 +63,14 @@ export function EventCalendarChip<T>({
             onClick={handleClick}
             onDragEnd={onDragEnd}
             onDragStart={handleDragStart}
-            style={event.color ? { ...style, '--event-calendar-chip-color': event.color } as CSSProperties : style}
+            style={event.color ? ({ ...style, '--event-calendar-chip-color': event.color } as CSSProperties) : style}
             title={event.title}
         >
             {renderEvent ? (
                 renderEvent(event)
             ) : (
                 <>
+                    {event.leading && <span className="event-calendar__chip-leading">{event.leading}</span>}
                     {showTime && !event.allDay && <span className="event-calendar__chip-time">{formatEventTime(event.start)}</span>}
                     <span className="event-calendar__chip-title">{event.title}</span>
                 </>
