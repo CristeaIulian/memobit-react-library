@@ -574,6 +574,24 @@
         display: none;
     }
 
+    // A month cell on a phone is barely wider than the glyph itself, so a title truncates
+    // to one letter — "C", "F", "B" — which identifies nothing. The mark alone is the more
+    // honest summary; the day agenda is a tap away for the actual titles. Only chips that
+    // have a mark drop their title: a task with neither icon nor emoji would otherwise
+    // render as an empty box.
+    .event-calendar__month .event-calendar__chip:has(.event-calendar__chip-leading) {
+        // Centred on both axes: the chip is baseline-aligned for the title's sake, which
+        // leaves a lone glyph sitting low in the box once the title is gone.
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        padding: var(--spacing-2);
+
+        .event-calendar__chip-title {
+            display: none;
+        }
+    }
+
     .event-calendar__gutter-spacer,
     .event-calendar__gutter-label,
     .event-calendar__gutter {
