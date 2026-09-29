@@ -12,46 +12,13 @@
         width: 100%;
     }
 
-    &__categories {
-        display: flex;
-        gap: var(--spacing-4);
-        overflow-x: auto;
-        padding-bottom: var(--spacing-2);
-        scrollbar-width: none;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
-
-    &__cat-btn {
-        flex-shrink: 0;
-        padding: var(--spacing-4) var(--spacing-8);
-        border: 1px solid transparent;
-        border-radius: var(--radius-sm);
-        background: transparent;
-        color: var(--body-sub-title-color);
-        font-size: var(--font-size-xxs);
-        white-space: nowrap;
-        cursor: pointer;
-        transition: background-color var(--transition-fast);
-
-        &:hover {
-            background-color: var(--button-default-hover-background-color);
-        }
-
-        &.is-active {
-            background-color: var(--button-default-hover-background-color);
-            border-color: var(--body-accent-color);
-            color: var(--body-color-accent);
-        }
-    }
-
     &__grid {
         display: flex;
         flex-wrap: wrap;
         gap: var(--spacing-2);
-        max-height: var(--spacing-200);
+        // The category row used to take two rows of this panel; with it gone the grid
+        // gets the space back, which is what a single flat list needs most.
+        max-height: var(--spacing-300);
         overflow-y: auto;
         scrollbar-width: thin;
     }
