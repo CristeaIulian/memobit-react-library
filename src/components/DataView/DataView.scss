@@ -29,8 +29,10 @@
         font-weight: var(--font-weight-medium);
     }
 
-    // Card mode's stand-in for the table's header checkbox.
+    // Card mode's stand-in for the table's header checkbox. Pushed to the trailing edge so
+    // it reads as a control on the row rather than a second sentence after the count.
     &__select-all {
+        margin-left: auto;
         display: inline-flex;
         align-items: center;
         gap: var(--spacing-6);

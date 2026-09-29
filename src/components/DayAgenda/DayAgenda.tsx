@@ -131,7 +131,11 @@ export function DayAgenda<T>({
         return slot;
     };
 
+    // hourHeight is the floor, not the fixed size: the rows share out whatever height the
+    // drawer has beyond it, so a full day fills the panel instead of stopping at 1056px
+    // with dead space underneath. Below that they hold their size and the body scrolls.
     const gridHeight = hours.length * hourHeight;
+    const rowStyle = { flex: `1 0 ${hourHeight}px` };
 
     return (
         <Drawer
@@ -169,21 +173,21 @@ export function DayAgenda<T>({
             )}
 
             <div className="day-agenda__body" ref={bodyRef} {...swipe}>
-                <div className="day-agenda__gutter" style={{ height: gridHeight }}>
+                <div className="day-agenda__gutter" style={{ minHeight: gridHeight }}>
                     {hours.map(hour => (
                         <div
                             className={['day-agenda__gutter-hour', isActiveHour(hour, activeHours) ? '' : 'day-agenda__gutter-hour--inactive']
                                 .filter(Boolean)
                                 .join(' ')}
                             key={hour}
-                            style={{ height: hourHeight }}
+                            style={rowStyle}
                         >
                             <span>{formatHourLabel(hour)}</span>
                         </div>
                     ))}
                 </div>
 
-                <div className="day-agenda__column" style={{ height: gridHeight }}>
+                <div className="day-agenda__column" style={{ minHeight: gridHeight }}>
                     {hours.map(hour => (
                         <div
                             className={[
@@ -195,7 +199,7 @@ export function DayAgenda<T>({
                                 .join(' ')}
                             key={hour}
                             onClick={() => onAdd?.(buildSlotDate(hour))}
-                            style={{ height: hourHeight }}
+                            style={rowStyle}
                         />
                     ))}
 

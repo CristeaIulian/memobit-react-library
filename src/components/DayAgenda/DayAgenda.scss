@@ -106,6 +106,10 @@
 
 .day-agenda__column {
     position: relative;
+    // A column so the hour slots can share out the spare height; the positioned chips are
+    // out of flow, so their percentage offsets still resolve against this box.
+    display: flex;
+    flex-direction: column;
     flex: 1 1 auto;
     min-width: 0;
 }
