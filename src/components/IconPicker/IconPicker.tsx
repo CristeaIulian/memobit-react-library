@@ -1,8 +1,9 @@
 import { CSSProperties, FC, useMemo, useState } from 'react';
 
+import { iconAliases } from '@memobit/icons';
+import { iconMap } from '@memobit/icons/map';
+
 import { Icon, IconName } from '../Icon';
-import { iconAliases } from '../Icon/iconAliases';
-import { iconMap } from '../Icon/iconMap';
 import { InputSearch } from '../InputSearch';
 
 import './IconPicker.scss';

@@ -1,6 +1,6 @@
 # @memobit/libs
 
-A TypeScript-first React component library — 100+ components, 470+ icons, 70+ themes, plus the hooks and helpers needed to glue them together. Built for, and battle-tested across, the [Memobit](https://memobit.ro) family of apps.
+A TypeScript-first React component library — 100+ components, 70+ themes, plus the hooks and helpers needed to glue them together. Built for, and battle-tested across, the [Memobit](https://memobit.ro) family of apps.
 
 **📚 Live documentation & component playground → [react.memobit.ro](https://react.memobit.ro/)**
 

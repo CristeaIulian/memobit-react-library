@@ -149,7 +149,7 @@ export default defineConfig({
             fileName: format => (format === 'es' ? 'index.esm.js' : 'index.js'),
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime', '@google/genai'],
+            external: ['react', 'react-dom', 'react/jsx-runtime', '@google/genai', '@memobit/icons', '@memobit/icons/map'],
             output: {
                 globals: {
                     react: 'React',

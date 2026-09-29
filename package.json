@@ -1,7 +1,7 @@
 {
   "name": "@memobit/libs",
-  "version": "1.0.74",
-  "description": "React component library powering the Memobit apps — 100+ components, 470+ icons, 70+ themes, helpers and hooks. TypeScript-first, ESM-only, React 19.",
+  "version": "2.0.0",
+  "description": "React component library powering the Memobit apps — 100+ components, 70+ themes, helpers and hooks. Icons ship separately as @memobit/icons. TypeScript-first, ESM-only, React 19.",
   "keywords": [
     "react",
     "react-components",
@@ -11,7 +11,6 @@
     "design-system",
     "typescript",
     "themes",
-    "icons",
     "hooks",
     "memobit"
   ],
@@ -127,7 +126,6 @@
     "ship:minor": "npm run check:npm-auth && npm version minor && npm run release && git push --follow-tags",
     "ship:major": "npm run check:npm-auth && npm version major && npm run release && git push --follow-tags",
     "prepublishOnly": "vite build",
-    "generate:icon-names": "node scripts/generate-icon-names.mjs",
     "dev": "vite build --watch",
     "playground": "vite serve playground --config playground/vite.config.ts",
     "lint": "eslint src --ext .ts,.tsx",
@@ -136,10 +134,12 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css}\""
   },
   "peerDependencies": {
+    "@memobit/icons": "1.0.0",
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },
   "devDependencies": {
+    "@memobit/icons": "file:../memobit-react-icons",
     "@eslint/js": "9.39.4",
     "@microsoft/api-extractor": "7.58.8",
     "@types/react": "19.2.14",

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { iconMap } from './iconMap';
-import { IconName } from './iconNames';
+import type { IconName } from '@memobit/icons';
+import { iconMap } from '@memobit/icons/map';
 
 import './Icon.scss';
 

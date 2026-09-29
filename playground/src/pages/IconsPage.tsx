@@ -1,5 +1,6 @@
-/// <reference types="vite/client" />
 import React, { createElement, isValidElement, useCallback, useMemo, useState } from 'react';
+
+import { iconMap } from '@memobit/icons/map';
 
 import { InputSearch, Toast, type ToastDetails } from '../../../src';
 
@@ -7,8 +8,6 @@ import { iconAliases } from './iconsAliases';
 import { OTHER_CATEGORY_ID, iconCategoryByPath, iconCategoryDefinitions, otherCategory, type IconCategory } from './iconsCategories';
 
 import './IconsPage.scss';
-
-type IconModule = Record<string, unknown>;
 
 interface IconEntry {
     id: string;
@@ -19,8 +18,6 @@ interface IconEntry {
     categoryId: string;
 }
 
-const iconModules = import.meta.glob('../../../src/icons/**/*.tsx', { eager: true }) as Record<string, IconModule>;
-
 const formatIconName = (value: string) =>
     value
         .replace(/\.[^.]+$/, '')
@@ -30,36 +27,21 @@ const formatIconName = (value: string) =>
         .trim()
         .replace(/\b\w/g, letter => letter.toUpperCase());
 
-const stripIconBasePath = (filePath: string) => filePath.replace('../../../src/icons/', '').replace(/\.[^.]+$/, '');
+// The whole map is pulled in deliberately: this page is the icon catalog, so it wants
+// every icon. Apps import the icons they use from '@memobit/icons' instead.
+const iconEntries: IconEntry[] = Object.entries(iconMap)
+    .map(([iconName, value]) => {
+        const name = formatIconName(iconName);
+        const aliases = iconAliases[iconName] || [];
 
-const iconEntries: IconEntry[] = Object.entries(iconModules)
-    .flatMap(([filePath, iconModule]) => {
-        const normalizedPath = stripIconBasePath(filePath);
-        const fileName = normalizedPath.split('/').pop() ?? normalizedPath;
-
-        return Object.entries(iconModule).flatMap(([exportName, value]) => {
-            if (!isValidElement(value) && typeof value !== 'function') {
-                return [];
-            }
-
-            const baseName = exportName === 'default' ? fileName : exportName;
-            const name = formatIconName(baseName);
-            const aliases = iconAliases[normalizedPath] || [];
-            const allKeywords = [name, exportName, fileName, normalizedPath, ...aliases];
-
-            const categoryId = iconCategoryByPath.get(normalizedPath) ?? OTHER_CATEGORY_ID;
-
-            return [
-                {
-                    id: `${normalizedPath}:${exportName}`,
-                    filePath: normalizedPath,
-                    keywords: allKeywords.join(' ').toLowerCase(),
-                    name,
-                    value,
-                    categoryId,
-                },
-            ];
-        });
+        return {
+            id: iconName,
+            filePath: iconName,
+            keywords: [name, iconName, ...aliases].join(' ').toLowerCase(),
+            name,
+            value,
+            categoryId: iconCategoryByPath.get(iconName) ?? OTHER_CATEGORY_ID,
+        };
     })
     .sort((left, right) => left.name.localeCompare(right.name));
 
@@ -164,7 +146,7 @@ export const IconsPage: React.FC = () => {
                 <div>
                     <h1>Icons</h1>
                     <p>
-                        Browse every icon available under <code>src/icons</code>. New icon files appear here automatically.
+                        Browse every icon in <code>@memobit/icons</code>. New icons appear here once the package is rebuilt.
                     </p>
                 </div>
 

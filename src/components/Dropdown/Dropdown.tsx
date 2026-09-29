@@ -1,10 +1,9 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 
+import { caretDown, clear } from '@memobit/icons';
 import { createPortal } from 'react-dom';
 
 import { foldDiacritics } from '../../helpers/Search';
-import { caretDown } from '../../icons/caret-down';
-import { clear } from '../../icons/clear';
 import { Button } from '../Button';
 import { Icon, type IconName } from '../Icon';
 import { InputText } from '../InputText';

@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 
 import { Tree, TreeNode } from '../../../src';
-import { categories } from '../../../src/icons/categories';
-import { earth } from '../../../src/icons/earth';
-import { file } from '../../../src/icons/file';
-import { filetypeSass } from '../../../src/icons/filetype-sass';
-import { filetypeTypescript } from '../../../src/icons/filetype-typescript';
-import { folder } from '../../../src/icons/folder';
-import { folderOpen } from '../../../src/icons/folder-open';
-import { lock } from '../../../src/icons/lock';
-import { user } from '../../../src/icons/user';
+import { categories, earth, file, filetypeSass, filetypeTypescript, folder, folderOpen, lock, user } from '@memobit/icons';
 
 // ── Data sets ─────────────────────────────────────────────────────────────────
 
