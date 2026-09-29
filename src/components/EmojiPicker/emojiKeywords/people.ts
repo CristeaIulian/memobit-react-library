@@ -2,7 +2,7 @@ export const peopleKeywords: Record<string, string[]> = {
     // ── People ──
     '👋': ['wave', 'hello', 'hi', 'bye', 'greeting', 'hand'],
     '🤚': ['raised', 'back', 'hand', 'stop'],
-    '🖐': ['hand', 'fingers', 'splayed', 'five', 'high five'],
+    '🖐️': ['hand', 'fingers', 'splayed', 'five', 'high five'],
     '✋': ['hand', 'stop', 'high five', 'raised'],
     '🖖': ['vulcan', 'spock', 'star trek', 'hand'],
     '👌': ['ok', 'okay', 'perfect', 'good', 'hand'],
@@ -44,7 +44,7 @@ export const peopleKeywords: Record<string, string[]> = {
     '🦷': ['tooth', 'dental', 'dentist', 'teeth'],
     '🦴': ['bone', 'skeleton', 'body'],
     '👀': ['eyes', 'look', 'see', 'watch', 'stare'],
-    '👁': ['eye', 'look', 'see', 'watch'],
+    '👁️': ['eye', 'look', 'see', 'watch'],
     '👶': ['baby', 'child', 'infant', 'newborn', 'kid'],
     '🧒': ['child', 'kid', 'young', 'boy', 'girl'],
     '👦': ['boy', 'child', 'kid', 'young', 'male'],

@@ -22,7 +22,7 @@ export const symbolsKeywords: Record<string, string[]> = {
     '☮️': ['peace', 'symbol', 'sign', 'hippie'],
     '✝️': ['cross', 'christian', 'religion', 'faith'],
     '☪️': ['star', 'crescent', 'islam', 'religion', 'muslim'],
-    '🕉': ['om', 'hindu', 'religion', 'symbol', 'buddhism'],
+    '🕉️': ['om', 'hindu', 'religion', 'symbol', 'buddhism'],
     '☸️': ['wheel', 'dharma', 'buddhism', 'religion'],
     '🔯': ['star', 'david', 'hexagram', 'jewish'],
     '🪯': ['khanda', 'sikh', 'religion', 'symbol'],

@@ -19,7 +19,7 @@ export const foodKeywords: Record<string, string[]> = {
     '🥦': ['broccoli', 'vegetable', 'green', 'healthy'],
     '🥬': ['leafy', 'green', 'vegetable', 'lettuce', 'salad'],
     '🥒': ['cucumber', 'vegetable', 'green', 'pickle'],
-    '🌶': ['pepper', 'chili', 'hot', 'spicy', 'red'],
+    '🌶️': ['pepper', 'chili', 'hot', 'spicy', 'red'],
     '🫑': ['bell', 'pepper', 'vegetable', 'green'],
     '🧄': ['garlic', 'vegetable', 'cooking', 'spice'],
     '🧅': ['onion', 'vegetable', 'cooking', 'cry'],

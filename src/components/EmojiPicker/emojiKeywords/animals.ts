@@ -41,7 +41,7 @@ export const animalsKeywords: Record<string, string[]> = {
     '🪲': ['beetle', 'insect', 'bug'],
     '🦟': ['mosquito', 'insect', 'bug', 'bite'],
     '🦗': ['cricket', 'insect', 'chirp', 'grasshopper'],
-    '🕷': ['spider', 'insect', 'web', 'arachnid'],
+    '🕷️': ['spider', 'insect', 'web', 'arachnid'],
     '🦂': ['scorpion', 'arachnid', 'sting', 'desert'],
     '🐢': ['turtle', 'tortoise', 'animal', 'slow', 'shell'],
     '🐍': ['snake', 'reptile', 'animal', 'hiss'],
