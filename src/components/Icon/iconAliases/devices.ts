@@ -37,4 +37,6 @@ export const aliasesDevices: Record<string, string[]> = {
     vacuum: ['cleaner', 'appliance', 'cleaning'],
     'washing-machine': ['washer', 'appliance', 'laundry', 'clothes'],
     'water-leak': ['water', 'leak', 'sensor', 'safety', 'flood'],
+    'air-conditioning': ['ac', 'air', 'aircon', 'climate', 'cooling', 'hvac', 'heat-pump', 'ventilation'],
+    digital: ['electronic', 'tech', 'binary', 'screen', 'device', 'computing', 'online'],
 };

@@ -177,6 +177,8 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
     });
 
     const svRef = useRef<HTMLDivElement | null>(null);
+    const hsvRef = useRef<HSV>(hsv);
+    hsvRef.current = hsv;
 
     useEffect(() => {
         const rgb = hexToRgb(value);
@@ -196,25 +198,50 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
         onChange?.(hex);
     };
 
-    const handleSvChange = (event: React.MouseEvent<HTMLDivElement>) => {
+    const applySv = (clientX: number, clientY: number) => {
         const rect = svRef.current?.getBoundingClientRect();
         if (!rect) return;
-        const x = clamp(event.clientX - rect.left, 0, rect.width);
-        const y = clamp(event.clientY - rect.top, 0, rect.height);
+        const x = clamp(clientX - rect.left, 0, rect.width);
+        const y = clamp(clientY - rect.top, 0, rect.height);
         const s = Math.round((x / rect.width) * 100);
         const v = Math.round(100 - (y / rect.height) * 100);
-        updateFromHsv({ ...hsv, s, v });
+        // The hue comes from the ref, not the closure: a drag's handlers are created once
+        // at pointerdown, so a captured `hsv` would pin the hue to whatever it was then
+        // and every move would write it back, undoing any hue change mid-drag.
+        updateFromHsv({ h: hsvRef.current.h, s, v });
     };
 
-    const handleSvMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-        handleSvChange(event);
-        const handleMouseMove = (moveEvent: MouseEvent) => handleSvChange(moveEvent as unknown as React.MouseEvent<HTMLDivElement>);
-        const handleMouseUp = () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseup', handleMouseUp);
+    /**
+     * The old version bound mousemove on mousedown but never suppressed the browser's own
+     * drag, so pressing on the gradient started a native image drag and swallowed every
+     * move — the area only ever answered discrete clicks. preventDefault is what fixes
+     * that; the listeners live on the window so the drag survives leaving the square, and
+     * pointer events cover touch and pen for free.
+     *
+     * Deliberately not gated on hasPointerCapture: capture is requested as a nicety, but
+     * where it is refused the drag must still work rather than silently going dead again.
+     */
+    const handleSvPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+        event.preventDefault();
+
+        try {
+            event.currentTarget.setPointerCapture(event.pointerId);
+        } catch {
+            // Not available here; the window listeners below carry the drag regardless.
+        }
+
+        applySv(event.clientX, event.clientY);
+
+        const handleMove = (moveEvent: PointerEvent) => applySv(moveEvent.clientX, moveEvent.clientY);
+        const handleUp = () => {
+            window.removeEventListener('pointermove', handleMove);
+            window.removeEventListener('pointerup', handleUp);
+            window.removeEventListener('pointercancel', handleUp);
         };
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseup', handleMouseUp);
+
+        window.addEventListener('pointermove', handleMove);
+        window.addEventListener('pointerup', handleUp);
+        window.addEventListener('pointercancel', handleUp);
     };
 
     const rgb = hsvToRgb(hsv);
@@ -230,7 +257,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
                     className="color-picker__sv"
                     ref={svRef}
                     style={{ backgroundColor: `hsl(${hsv.h}, 100%, 50%)` }}
-                    onMouseDown={handleSvMouseDown}
+                    onPointerDown={handleSvPointerDown}
                 >
                     <div className="color-picker__sv-white" />
                     <div className="color-picker__sv-black" />

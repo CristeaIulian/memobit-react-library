@@ -28,6 +28,10 @@
         border-radius: var(--radius);
         overflow: hidden;
         cursor: crosshair;
+        // The drag owns both axes here, so the browser must not steal the gesture for
+        // scrolling on touch, nor start a text selection on the way across.
+        touch-action: none;
+        user-select: none;
     }
 
     &__sv-white,

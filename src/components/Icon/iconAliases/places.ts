@@ -8,4 +8,9 @@ export const aliasesPlaces: Record<string, string[]> = {
     lantern: ['light', 'dark', 'lamp', 'camping', 'outdoor'],
     rooms: ['locations', 'spaces', 'areas', 'places'],
     school: ['education', 'learn', 'building', 'class', 'students'],
+    basement: ['cellar', 'underground', 'lower-floor', 'storage', 'crawlspace', 'sublevel'],
+    balcony: ['terrace', 'veranda', 'railing', 'patio', 'loggia', 'outdoor'],
+    closet: ['wardrobe', 'cupboard', 'armoire', 'storage', 'dressing', 'cabinet'],
+    sofa: ['couch', 'settee', 'lounge', 'seating', 'living-room', 'furniture'],
+    furniture: ['furnishing', 'interior', 'home', 'fittings', 'decor', 'cabinet', 'table'],
 };

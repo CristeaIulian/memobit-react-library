@@ -1,6 +1,7 @@
 import { CSSProperties, FC, useMemo, useState } from 'react';
 
 import { Icon, IconName } from '../Icon';
+import { iconAliases } from '../Icon/iconAliases';
 import { iconMap } from '../Icon/iconMap';
 import { InputSearch } from '../InputSearch';
 
@@ -60,8 +61,11 @@ export const IconPicker: FC<IconPickerProps> = ({
         // Names are kebab-case, so a search for "credit card" should still find
         // "credit-card" — match against the separators flattened out too.
         const flattened = term.replace(/[\s-]+/g, '');
+        const matchesText = (text: string): boolean => text.includes(term) || text.replace(/-/g, '').includes(flattened);
 
-        return available.filter(name => name.includes(term) || name.replace(/-/g, '').includes(flattened));
+        // Aliases as well as names, otherwise the only way in is guessing what the icon
+        // was filed as: "eye" never reaches `view`, "photo" never reaches `gallery`.
+        return available.filter(name => matchesText(name) || (iconAliases[name] ?? []).some(matchesText));
     }, [available, search]);
 
     return (

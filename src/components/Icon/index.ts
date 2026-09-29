@@ -1,4 +1,5 @@
 export { Icon, type IconSize, type IconVariant } from './Icon';
+export { iconAliases } from './iconAliases';
 export {
     type IconCategory,
     iconCategoryById,

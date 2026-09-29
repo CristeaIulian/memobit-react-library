@@ -6,4 +6,6 @@ export const aliasesPeople: Record<string, string[]> = {
     santa: ['christmas', 'holiday', 'winter', 'gift'],
     user: ['person', 'profile', 'account', 'avatar'],
     users: ['people', 'group', 'team', 'accounts'],
+    'old-person': ['elderly', 'senior', 'pensioner', 'grandparent', 'retired', 'aged', 'old-man', 'old-woman'],
+    meet: ['meeting', 'group', 'gathering', 'team', 'people', 'appointment', 'conference', 'rendezvous'],
 };

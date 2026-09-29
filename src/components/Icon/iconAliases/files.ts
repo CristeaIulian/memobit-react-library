@@ -9,4 +9,5 @@ export const aliasesFiles: Record<string, string[]> = {
     memory: ['storage', 'ram', 'cache', 'save'],
     save: ['floppy', 'disk', 'store', 'keep', 'preserve'],
     unarchive: ['restore', 'retrieve', 'unbox', 'extract'],
+    backup: ['restore', 'copy', 'sync', 'archive', 'snapshot', 'recovery', 'replicate'],
 };

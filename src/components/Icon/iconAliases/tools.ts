@@ -10,4 +10,5 @@ export const aliasesTools: Record<string, string[]> = {
     telescope: ['science', 'space', 'astronomy', 'stars', 'zoom'],
     toolbox: ['equipment', 'tools', 'kit', 'gear', 'hardware', 'instrument', 'apparatus', 'kit', 'supplies'],
     wrench: ['tool', 'fix', 'settings', 'repair', 'config'],
+    paint: ['painting', 'draw', 'drawing', 'brush', 'decorate', 'art', 'roller', 'redecorate'],
 };

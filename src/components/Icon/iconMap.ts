@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { active } from '../../icons/active';
 import { afternoon } from '../../icons/afternoon';
+import { airConditioning } from '../../icons/air-conditioning';
 import { ajax } from '../../icons/ajax';
 import { alarm } from '../../icons/alarm';
 import { analysis } from '../../icons/analysis';
@@ -21,11 +22,14 @@ import { arrowRight } from '../../icons/arrow-right';
 import { arrowUp } from '../../icons/arrow-up';
 import { atom } from '../../icons/atom';
 import { avocado } from '../../icons/avocado';
+import { backup } from '../../icons/backup';
 import { badge } from '../../icons/badge';
+import { balcony } from '../../icons/balcony';
 import { ball } from '../../icons/ball';
 import { balloon } from '../../icons/balloon';
 import { banana } from '../../icons/banana';
 import { bank } from '../../icons/bank';
+import { basement } from '../../icons/basement';
 import { bat } from '../../icons/bat';
 import { bath } from '../../icons/bath';
 import { batteryCharging } from '../../icons/battery-charging';
@@ -94,6 +98,7 @@ import { christmasTree } from '../../icons/christmas-tree';
 import { cigarette } from '../../icons/cigarette';
 import { clear } from '../../icons/clear';
 import { clipboard } from '../../icons/clipboard';
+import { closet } from '../../icons/closet';
 import { cloud } from '../../icons/cloud';
 import { coffee } from '../../icons/coffee';
 import { comment } from '../../icons/comment';
@@ -122,6 +127,7 @@ import { dessert } from '../../icons/dessert';
 import { detach } from '../../icons/detach';
 import { devices } from '../../icons/devices';
 import { digestive } from '../../icons/digestive';
+import { digital } from '../../icons/digital';
 import { dinner } from '../../icons/dinner';
 import { dinosaur } from '../../icons/dinosaur';
 import { dishwasher } from '../../icons/dishwasher';
@@ -205,6 +211,7 @@ import { food } from '../../icons/food';
 import { frenchFries } from '../../icons/french-fries';
 import { fridge } from '../../icons/fridge';
 import { fruits } from '../../icons/fruits';
+import { furniture } from '../../icons/furniture';
 import { gallery } from '../../icons/gallery';
 import { gasDetector } from '../../icons/gas-detector';
 import { gateway } from '../../icons/gateway';
@@ -243,7 +250,9 @@ import { incognito } from '../../icons/incognito';
 import { information } from '../../icons/information';
 import { ingredients } from '../../icons/ingredients';
 import { inkCartridge } from '../../icons/ink-cartridge';
+import { insurance } from '../../icons/insurance';
 import { irEmitter } from '../../icons/ir-emitter';
+import { job } from '../../icons/job';
 import { joystick } from '../../icons/joystick';
 import { jupiter } from '../../icons/jupiter';
 import { key } from '../../icons/key';
@@ -276,6 +285,7 @@ import { map } from '../../icons/map';
 import { mapping } from '../../icons/mapping';
 import { mars } from '../../icons/mars';
 import { meat } from '../../icons/meat';
+import { meet } from '../../icons/meet';
 import { melon } from '../../icons/melon';
 import { memory } from '../../icons/memory';
 import { mental } from '../../icons/mental';
@@ -311,17 +321,20 @@ import { notFound } from '../../icons/not-found';
 import { notes } from '../../icons/notes';
 import { notice } from '../../icons/notice';
 import { offline } from '../../icons/offline';
+import { oldPerson } from '../../icons/old-person';
 import { olives } from '../../icons/olives';
 import { online } from '../../icons/online';
 import { optimization } from '../../icons/optimization';
 import { other } from '../../icons/other';
 import { outdoor } from '../../icons/outdoor';
 import { ownership } from '../../icons/ownership';
+import { paint } from '../../icons/paint';
 import { pause } from '../../icons/pause';
 import { pawn } from '../../icons/pawn';
 import { peanut } from '../../icons/peanut';
 import { pear } from '../../icons/pear';
 import { penguin } from '../../icons/penguin';
+import { pension } from '../../icons/pension';
 import { pepper } from '../../icons/pepper';
 import { pharmacy } from '../../icons/pharmacy';
 import { phone } from '../../icons/phone';
@@ -403,6 +416,7 @@ import { smokeDetector } from '../../icons/smoke-detector';
 import { snake } from '../../icons/snake';
 import { snow } from '../../icons/snow';
 import { snowman } from '../../icons/snowman';
+import { sofa } from '../../icons/sofa';
 import { softDrink } from '../../icons/soft-drink';
 import { soup } from '../../icons/soup';
 import { sources } from '../../icons/sources';
@@ -485,6 +499,7 @@ import { youtube } from '../../icons/youtube';
 import { IconName } from './iconNames';
 
 export const iconMap: Record<IconName, ReactElement> = {
+    'air-conditioning': airConditioning,
     'arrow-down': arrowDown,
     'arrow-left': arrowLeft,
     'arrow-right': arrowRight,
@@ -560,6 +575,7 @@ export const iconMap: Record<IconName, ReactElement> = {
     'menu-hamburger': menuHamburger,
     'musical-note': musicalNote,
     'not-found': notFound,
+    'old-person': oldPerson,
     'police-man': policeMan,
     'romania-flag': romaniaFlag,
     'shopping-cart': shoppingCart,
@@ -588,6 +604,18 @@ export const iconMap: Record<IconName, ReactElement> = {
     anomaly,
     ant,
     antenna,
+    backup,
+    balcony,
+    basement,
+    closet,
+    digital,
+    furniture,
+    insurance,
+    job,
+    meet,
+    paint,
+    pension,
+    sofa,
     virus,
     api,
     appliances,
