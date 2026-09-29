@@ -1,0 +1,98 @@
+.angle-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-4);
+    // Set per variant below and used for the arc, the pointer and the handle alike.
+    --_angle-accent: var(--body-accent-color);
+
+    &--info {
+        --_angle-accent: var(--rating-color-info);
+    }
+
+    &--success {
+        --_angle-accent: var(--rating-color-success);
+    }
+
+    &--warning {
+        --_angle-accent: var(--rating-color-warning);
+    }
+
+    &--danger {
+        --_angle-accent: var(--rating-color-danger);
+    }
+
+    &__dial {
+        width: var(--_angle-size);
+        height: var(--_angle-size);
+        cursor: grab;
+        // Stops the browser from panning the page instead of turning the dial.
+        touch-action: none;
+
+        &:active {
+            cursor: grabbing;
+        }
+
+        &:focus-visible {
+            outline: var(--spacing-2) solid var(--form-control-focus-ring);
+            outline-offset: var(--spacing-2);
+            border-radius: var(--radius-full);
+        }
+    }
+
+    &__track {
+        fill: var(--slider-track-background-color);
+        stroke: var(--slider-track-border-color);
+        stroke-width: 3;
+    }
+
+    &__tick {
+        stroke: var(--slider-track-border-color);
+        stroke-width: 1;
+    }
+
+    &__progress {
+        fill: none;
+        stroke: var(--_angle-accent);
+        stroke-width: 3;
+        stroke-linecap: round;
+    }
+
+    &__pointer {
+        stroke: var(--_angle-accent);
+        stroke-width: 2;
+        stroke-linecap: round;
+    }
+
+    &__handle {
+        fill: var(--slider-thumb-background-color);
+        stroke: var(--_angle-accent);
+        stroke-width: 2;
+        transition: fill var(--transition-fast);
+    }
+
+    &__dial:hover &__handle {
+        fill: var(--slider-thumb-hover-background-color);
+    }
+
+    &__value {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        font-variant-numeric: tabular-nums;
+        line-height: var(--line-height-none);
+        color: var(--_angle-accent);
+    }
+
+    &__label {
+        font-size: var(--font-size-sm);
+        color: var(--body-color-muted);
+    }
+
+    &--disabled {
+        opacity: 0.5;
+
+        .angle-slider__dial {
+            cursor: not-allowed;
+        }
+    }
+}

@@ -1,0 +1,101 @@
+.rolling-number {
+    display: inline-flex;
+    align-items: baseline;
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-none);
+    color: var(--body-color-accent);
+    --_roll-duration: 600ms;
+
+    &--sm {
+        font-size: var(--font-size-sm);
+    }
+
+    &--md {
+        font-size: var(--font-size-md);
+    }
+
+    &--lg {
+        font-size: var(--font-size-lg);
+    }
+
+    &--xl {
+        font-size: var(--font-size-xl);
+    }
+
+    &--xxl {
+        font-size: var(--font-size-xxl);
+    }
+
+    &--xxxl {
+        font-size: var(--font-size-xxxl);
+    }
+
+    &--accent {
+        color: var(--body-accent-color);
+    }
+
+    &--info {
+        color: var(--rating-color-info);
+    }
+
+    &--success,
+    &--direction-up {
+        color: var(--rating-color-success);
+    }
+
+    &--warning {
+        color: var(--rating-color-warning);
+    }
+
+    &--danger,
+    &--direction-down {
+        color: var(--rating-color-danger);
+    }
+
+    // The digit window is exactly one line tall and the strip behind it slides by whole
+    // lines, so the wanted digit is the only one on show.
+    &__digit {
+        display: inline-block;
+        height: 1em;
+        overflow: hidden;
+        vertical-align: baseline;
+    }
+
+    &__strip {
+        display: flex;
+        flex-direction: column;
+        transform: translateY(calc(var(--_roll-digit) * -1em));
+    }
+
+    &__cell {
+        height: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    // Only animate once the first paint has settled, so a freshly mounted readout does not
+    // spin up from zero.
+    &--animated &__strip {
+        transition: transform var(--_roll-duration) cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: var(--_roll-delay);
+    }
+
+    &__separator,
+    &__affix {
+        display: inline-block;
+    }
+
+    &__affix {
+        font-size: 0.7em;
+        font-weight: var(--font-weight-medium);
+        opacity: 0.75;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rolling-number--animated .rolling-number__strip {
+        transition: none;
+    }
+}

@@ -1,0 +1,107 @@
+// The duration, delay and easing arrive as inline styles from the component; the classes
+// below only own the "from" and "to" values for each kind of transition.
+.transition {
+    transition-property: opacity, transform, height;
+
+    &--hidden {
+        display: none;
+    }
+
+    // ── Fade ───────────────────────────────────────────────────────────────────
+    &--fade {
+        &.transition--entering,
+        &.transition--exiting {
+            opacity: 0;
+        }
+
+        &.transition--entered {
+            opacity: 1;
+        }
+    }
+
+    // ── Slides ─────────────────────────────────────────────────────────────────
+    // The travel distance is shared, so a slide can be retuned in one place.
+    &--slide-up,
+    &--slide-down,
+    &--slide-left,
+    &--slide-right {
+        --_transition-travel: var(--spacing-16);
+
+        &.transition--entered {
+            opacity: 1;
+            transform: none;
+        }
+
+        &.transition--entering,
+        &.transition--exiting {
+            opacity: 0;
+        }
+    }
+
+    &--slide-up {
+        &.transition--entering,
+        &.transition--exiting {
+            transform: translateY(var(--_transition-travel));
+        }
+    }
+
+    &--slide-down {
+        &.transition--entering,
+        &.transition--exiting {
+            transform: translateY(calc(var(--_transition-travel) * -1));
+        }
+    }
+
+    &--slide-left {
+        &.transition--entering,
+        &.transition--exiting {
+            transform: translateX(var(--_transition-travel));
+        }
+    }
+
+    &--slide-right {
+        &.transition--entering,
+        &.transition--exiting {
+            transform: translateX(calc(var(--_transition-travel) * -1));
+        }
+    }
+
+    // ── Scale ──────────────────────────────────────────────────────────────────
+    &--scale {
+        &.transition--entering,
+        &.transition--exiting {
+            opacity: 0;
+            transform: scale(0.92);
+        }
+
+        &.transition--entered {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    // ── Collapse ───────────────────────────────────────────────────────────────
+    // The height itself is set inline in pixels; all this needs to do is keep the content
+    // clipped while the height is still smaller than it.
+    &--collapse {
+        overflow: hidden;
+
+        &.transition--entering,
+        &.transition--exiting {
+            opacity: 0;
+        }
+
+        &.transition--entered {
+            opacity: 1;
+        }
+    }
+}
+
+// Honour a reduced-motion preference: the element still appears and disappears on cue, it
+// just does so without travelling.
+@media (prefers-reduced-motion: reduce) {
+    .transition {
+        transition: none !important;
+        transform: none !important;
+    }
+}

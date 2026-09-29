@@ -44,6 +44,34 @@
         color: var(--rating-empty-label-color);
     }
 
+    // ── Emoji mood scale ───────────────────────────────────────────────────────
+    // Pick-one rather than cumulative: the unchosen faces stay muted and the chosen one
+    // grows a little, so the answer is readable at a glance without a value label.
+    &--emoji {
+        .rating-rates {
+            gap: var(--spacing-8);
+        }
+
+        .rate--emoji {
+            transition: transform var(--transition-fast), opacity var(--transition-fast);
+            opacity: 0.55;
+
+            &.is-selected {
+                opacity: 1;
+                transform: scale(1.15);
+            }
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        &.is-selectable .rate--emoji:hover {
+            transform: scale(1.15);
+        }
+    }
+
+
     // ── Selectable half-icon input ─────────────────────────────────────────────
     &--half-selectable {
         .rating-rates {

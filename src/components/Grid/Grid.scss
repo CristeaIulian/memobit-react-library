@@ -1,0 +1,106 @@
+@use '../../styles/utilities' as *;
+
+// A flexbox column grid. Track widths are computed from the column count and the gap so
+// `Col span` lines up with plain children, without reaching for CSS grid.
+//
+//   one column  = (100% - (cols - 1) * gap) / cols
+//   span of S   = S column widths + the (S - 1) gaps they swallow
+//
+// `--_cols-now` (on the grid) and `--_span-now` (on each Col) are the only things the
+// breakpoints swap, so one width formula covers every screen size. Both are declared on
+// the element that also reads their source variable — a custom property is substituted
+// where it is declared, so the grid cannot pre-resolve a child's span for it.
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--_grid-row-gap) var(--_grid-gap);
+
+    --_cols-now: var(--_grid-cols);
+    --_track: calc((100% - (var(--_cols-now) - 1) * var(--_grid-gap)) / var(--_cols-now));
+
+    &--align-start {
+        align-items: flex-start;
+    }
+
+    &--align-center {
+        align-items: center;
+    }
+
+    &--align-end {
+        align-items: flex-end;
+    }
+
+    &--align-stretch {
+        align-items: stretch;
+    }
+
+    &--align-baseline {
+        align-items: baseline;
+    }
+
+    &--justify-start {
+        justify-content: flex-start;
+    }
+
+    &--justify-center {
+        justify-content: center;
+    }
+
+    &--justify-end {
+        justify-content: flex-end;
+    }
+
+    &--justify-space-between {
+        justify-content: space-between;
+    }
+
+    &--justify-space-around {
+        justify-content: space-around;
+    }
+
+    > * {
+        flex: 0 0 var(--_track);
+        // Long words and tables inside a track must not blow the column out.
+        min-width: 0;
+        // The track is the child's full width. Without this a child carrying padding or a
+        // border measures wider than its track and knocks the next one onto a new row, and
+        // the library sets no global box-sizing to rely on.
+        box-sizing: border-box;
+    }
+
+    > .grid__col {
+        --_span-now: var(--_col-span);
+        // Clamped so a span wider than the current column count just fills the row
+        // instead of overflowing the container on smaller breakpoints.
+        --_span-clamped: min(var(--_span-now), var(--_cols-now));
+
+        flex: 0 0 calc(var(--_span-clamped) * var(--_track) + (var(--_span-clamped) - 1) * var(--_grid-gap));
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    // Fluid track: children share the row evenly and wrap once they would drop below the
+    // requested minimum width. The column count plays no part here.
+    &--fluid {
+        > *,
+        > .grid__col {
+            flex: 1 1 var(--_grid-min-col);
+        }
+    }
+
+    @include tablet {
+        --_cols-now: var(--_grid-cols-tablet);
+
+        > .grid__col {
+            --_span-now: var(--_col-span-tablet);
+        }
+    }
+
+    @include mobile {
+        --_cols-now: var(--_grid-cols-mobile);
+
+        > .grid__col {
+            --_span-now: var(--_col-span-mobile);
+        }
+    }
+}

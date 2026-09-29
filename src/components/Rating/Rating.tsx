@@ -6,6 +6,13 @@ import './Rating.scss';
 
 interface RatingProps {
     align?: 'left' | 'right' | 'space-between';
+    /**
+     * Emoji only: tint the chosen face by where it sits on the scale — red at the sad end,
+     * amber in the middle, green at the happy end — instead of using `variant` throughout.
+     */
+    emojiColorByMood?: boolean;
+    /** Emoji only: pixel size of each face. Faces need more room than a star to stay readable. */
+    emojiSize?: number;
     icon?: RatingIconType;
     maxRate?: number;
     onHover?: (value: number) => void;
@@ -18,8 +25,14 @@ interface RatingProps {
     variant?: RatingVariant;
 }
 
+// A mood scale reads best when the colour carries the sentiment too, so the lit face picks
+// its variant from its own position rather than from a single `variant` for the whole row.
+const getMoodVariant = (mood: number): RatingVariant => (mood < 0.3 ? 'danger' : mood < 0.6 ? 'warning' : 'success');
+
 export const Rating: FC<RatingProps> = ({
     align = 'left',
+    emojiColorByMood = true,
+    emojiSize = 28,
     icon = 'star',
     maxRate = 10,
     onHover,
@@ -39,6 +52,46 @@ export const Rating: FC<RatingProps> = ({
         },
         [selectable, useHalf, onSelect]
     );
+
+    // ─── Emoji mood scale ─────────────────────────────────────────────────────
+    // One face per step, spanning sad → happy. Unlike the other icons this is a pick-one
+    // scale rather than a cumulative fill: exactly the chosen face lights up.
+    if (icon === 'emoji') {
+        return (
+            <div className={`rating rating--emoji align-${align} ${selectable ? 'is-selectable' : ''}`} onMouseLeave={onHoverEnd}>
+                <span className="rating-rates">
+                    {Array.from({ length: maxRate }, (_, index) => {
+                        const faceValue = index + 1;
+                        const mood = maxRate === 1 ? 1 : index / (maxRate - 1);
+                        const isSelected = rating === faceValue;
+
+                        return (
+                            <span
+                                className={`rate rate--emoji${isSelected ? ' is-selected' : ''}`}
+                                key={index}
+                                onClick={() => selectable && onSelect?.(faceValue)}
+                                onMouseEnter={() => onHover?.(faceValue)}
+                            >
+                                <RatingIcon
+                                    filled={isSelected ? 'full' : 'empty'}
+                                    mood={mood}
+                                    size={emojiSize}
+                                    type="emoji"
+                                    variant={emojiColorByMood ? getMoodVariant(mood) : variant}
+                                />
+                            </span>
+                        );
+                    })}
+                </span>
+
+                {showValue && (
+                    <span className="rating-values">
+                        ({rating}/{maxRate})
+                    </span>
+                )}
+            </div>
+        );
+    }
 
     // ─── Half-star selectable input ───────────────────────────────────────────
     // 5 icons × 2 halves = 10 steps (stored as 1–10)

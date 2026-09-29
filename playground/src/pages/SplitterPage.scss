@@ -1,0 +1,45 @@
+// The Splitter fills whatever box it is given, so the demos need an explicit height.
+.splitter-page {
+    .showcase-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-16);
+    }
+
+    .splitter-demo {
+        height: var(--spacing-200);
+        border: var(--spacing-1) solid var(--border-color);
+        border-radius: var(--radius);
+        overflow: hidden;
+
+        &--tall {
+            height: var(--spacing-300);
+        }
+    }
+
+    .splitter-demo-pane {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-8);
+        padding: var(--spacing-16);
+        background: var(--card-background-accent-color);
+        color: var(--body-color-muted);
+        font-size: var(--font-size-sm);
+        height: 100%;
+        box-sizing: border-box;
+
+        h4 {
+            margin: 0;
+            color: var(--body-title-color);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+        }
+    }
+
+    .splitter-demo-readout {
+        margin: 0;
+        font-size: var(--font-size-sm);
+        font-variant-numeric: tabular-nums;
+        color: var(--body-color-muted);
+    }
+}

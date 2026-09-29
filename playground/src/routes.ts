@@ -3,15 +3,18 @@ import React from 'react';
 // Import pages
 import { Home } from './pages/Home';
 import { UseBreakpointPage } from './pages/UseBreakpointPage';
+import { UseSwipePage } from './pages/UseSwipePage';
 import { AccordionPage } from './pages/AccordionPage';
 import { AlertDialogPage } from './pages/AlertDialogPage';
 import { AnalogClockPage } from './pages/AnalogClockPage';
+import { AngleSliderPage } from './pages/AngleSliderPage';
 import { AppHeaderPage } from './pages/AppHeaderPage';
 import { AuthLoginPage } from './pages/AuthLoginPage';
 import { AvatarInitialsPage } from './pages/AvatarInitialsPage';
 import { BadgePage } from './pages/BadgePage';
 import { BannerPage } from './pages/BannerPage';
 import { BMIPage } from './pages/BMIPage';
+import { BlockquotePage } from './pages/BlockquotePage';
 import { BreadcrumbPage } from './pages/BreadcrumbPage';
 import { BulkActionBarPage } from './pages/BulkActionBarPage';
 import { ButtonPage } from './pages/ButtonPage';
@@ -42,9 +45,11 @@ import { EventCalendarPage } from './pages/EventCalendarPage';
 import { EmojiPickerPage } from './pages/EmojiPickerPage';
 import { FileDropzonePage } from './pages/FileDropzonePage';
 import { FlagPage } from './pages/FlagPage';
+import { FloatingWindowPage } from './pages/FloatingWindowPage';
 import { FolderBrowserModalPage } from './pages/FolderBrowserModalPage';
 import { FloatButtonPage } from './pages/FloatButtonPage';
 import { FormPage } from './pages/FormPage';
+import { GridPage } from './pages/GridPage';
 import { HighlightPage } from './pages/HighlightPage';
 import { IconPage } from './pages/IconPage';
 import { IconsPage } from './pages/IconsPage';
@@ -53,6 +58,7 @@ import { InputFilePage } from './pages/InputFilePage';
 import { InputEmailPage } from './pages/InputEmailPage';
 import { InputNumberPage } from './pages/InputNumberPage';
 import { InputPasswordPage } from './pages/InputPasswordPage';
+import { InputPINPage } from './pages/InputPINPage';
 import { InputPhonePage } from './pages/InputPhonePage';
 import { InputTextPage } from './pages/InputTextPage';
 import { InputTimePage } from './pages/InputTimePage';
@@ -78,7 +84,9 @@ import { QuickNumberUpdatePage } from './pages/QuickNumberUpdatePage';
 import { QuickOptionUpdatePage } from './pages/QuickOptionUpdatePage';
 import { QuantitySelectorPage } from './pages/QuantitySelectorPage';
 import { RadioPage } from './pages/RadioPage';
+import { RangeSliderPage } from './pages/RangeSliderPage';
 import { RatingPage } from './pages/RatingPage';
+import { RollingNumberPage } from './pages/RollingNumberPage';
 import { ScrollToTopPage } from './pages/ScrollToTopPage';
 import { InputSearchPage } from './pages/InputSearchPage';
 import { SeparatorPage } from './pages/SeparatorPage';
@@ -88,6 +96,7 @@ import { SidebarPage } from './pages/SidebarPage';
 import { SkeletonPage } from './pages/SkeletonPage';
 import { SliderPage } from './pages/SliderPage';
 import { SplitPanelPage } from './pages/SplitPanelPage';
+import { SplitterPage } from './pages/SplitterPage';
 import { StackedBarPage } from './pages/StackedBarPage';
 import { StatsPage } from './pages/StatsPage';
 import { StickyBarPage } from './pages/StickyBarPage';
@@ -105,6 +114,7 @@ import { TourHudPage } from './pages/TourHudPage';
 import { TimelinePage } from './pages/TimelinePage';
 import { TimelineMarkersPage } from './pages/TimelineMarkersPage';
 import { TimePickerPage } from './pages/TimePickerPage';
+import { TransitionPage } from './pages/TransitionPage';
 import { TreePage } from './pages/TreePage';
 import { DiffViewerPage } from './pages/DiffViewerPage';
 import { InputMaskPage } from './pages/InputMaskPage';
@@ -121,15 +131,18 @@ export interface RouteConfig {
 export const routes: RouteConfig[] = [
     { path: '/', label: 'Home', component: Home },
     { path: '/use-breakpoint', label: 'useBreakpoint Hook', component: UseBreakpointPage },
+    { path: '/use-swipe', label: 'useSwipe Hook', component: UseSwipePage },
     { path: '/accordion', label: 'Accordion', component: AccordionPage },
     { path: '/alert-dialog', label: 'Alert Dialog', component: AlertDialogPage },
     { path: '/analog-clock', label: 'Analog Clock', component: AnalogClockPage },
+    { path: '/angle-slider', label: 'Angle Slider', component: AngleSliderPage },
     { path: '/app-header', label: 'App Header', component: AppHeaderPage },
     { path: '/auth-login', label: 'Auth Login', component: AuthLoginPage },
     { path: '/avatar-initials', label: 'Avatar Initials', component: AvatarInitialsPage },
     { path: '/badge', label: 'Badge', component: BadgePage },
     { path: '/banner', label: 'Banner', component: BannerPage },
     { path: '/bmi', label: 'BMI', component: BMIPage },
+    { path: '/blockquote', label: 'Blockquote', component: BlockquotePage },
     { path: '/breadcrumb', label: 'Breadcrumb', component: BreadcrumbPage },
     { path: '/bulk-action-bar', label: 'Bulk Action Bar', component: BulkActionBarPage },
     { path: '/button', label: 'Button', component: ButtonPage },
@@ -161,9 +174,11 @@ export const routes: RouteConfig[] = [
     { path: '/emoji-picker', label: 'Emoji Picker', component: EmojiPickerPage },
     { path: '/file-dropzone', label: 'File Dropzone', component: FileDropzonePage },
     { path: '/flag', label: 'Flag', component: FlagPage },
+    { path: '/floating-window', label: 'Floating Window', component: FloatingWindowPage },
     { path: '/folder-browser-modal', label: 'Folder Browser Modal', component: FolderBrowserModalPage },
     { path: '/float-button', label: 'Float Button', component: FloatButtonPage },
     { path: '/forms', label: 'Forms', component: FormPage },
+    { path: '/grid', label: 'Grid', component: GridPage },
     { path: '/highlight', label: 'Highlight', component: HighlightPage },
     { path: '/icon', label: 'Icon', component: IconPage },
     { path: '/icons', label: 'Icons', component: IconsPage },
@@ -173,6 +188,7 @@ export const routes: RouteConfig[] = [
     { path: '/input-mask', label: 'Input Mask', component: InputMaskPage },
     { path: '/input-number', label: 'Input Number', component: InputNumberPage },
     { path: '/input-password', label: 'Input Password', component: InputPasswordPage },
+    { path: '/input-pin', label: 'Input PIN', component: InputPINPage },
     { path: '/input-phone', label: 'Input Phone', component: InputPhonePage },
     { path: '/input-text', label: 'Input Text', component: InputTextPage },
     { path: '/input-time', label: 'Input Time', component: InputTimePage },
@@ -199,7 +215,9 @@ export const routes: RouteConfig[] = [
     { path: '/quick-option-update', label: 'Quick Option Update', component: QuickOptionUpdatePage },
     { path: '/quantity-selector', label: 'Quantity Selector', component: QuantitySelectorPage },
     { path: '/radio', label: 'Radio', component: RadioPage },
+    { path: '/range-slider', label: 'Range Slider', component: RangeSliderPage },
     { path: '/rating', label: 'Rating', component: RatingPage },
+    { path: '/rolling-number', label: 'Rolling Number', component: RollingNumberPage },
     { path: '/scroll-to-top', label: 'Scroll To Top', component: ScrollToTopPage },
     { path: '/input-search', label: 'Input Search', component: InputSearchPage },
     { path: '/separator', label: 'Separator', component: SeparatorPage },
@@ -209,6 +227,7 @@ export const routes: RouteConfig[] = [
     { path: '/skeleton', label: 'Skeleton', component: SkeletonPage },
     { path: '/slider', label: 'Slider', component: SliderPage },
     { path: '/split-panel', label: 'Split Panel', component: SplitPanelPage },
+    { path: '/splitter', label: 'Splitter', component: SplitterPage },
     { path: '/stacked-bar', label: 'Stacked Bar', component: StackedBarPage },
     { path: '/stats', label: 'Stats', component: StatsPage },
     { path: '/sticky-bar', label: 'StickyBar', component: StickyBarPage },
@@ -226,6 +245,7 @@ export const routes: RouteConfig[] = [
     { path: '/toggle-switch', label: 'Toggle Switch', component: ToggleSwitchPage },
     { path: '/tooltip', label: 'Tooltip', component: TooltipPage },
     { path: '/tour-hud', label: 'Tour HUD', component: TourHudPage },
+    { path: '/transition', label: 'Transition', component: TransitionPage },
     { path: '/tree', label: 'Tree', component: TreePage },
     { path: '/virtual-list', label: 'Virtual List', component: VirtualListPage },
     { path: '/whtr', label: 'WHtR', component: WHtRPage },

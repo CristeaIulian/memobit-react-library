@@ -1,0 +1,40 @@
+// Demo-only blocks so the tracks are visible; the Grid itself ships no child styling.
+.grid-page {
+    .grid-demo-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: var(--spacing-48);
+        padding: var(--spacing-8);
+        border: var(--spacing-1) dashed var(--border-color);
+        border-radius: var(--radius-sm);
+        background: var(--card-background-accent-color);
+        color: var(--body-color-muted);
+        font-size: var(--font-size-sm);
+        font-variant-numeric: tabular-nums;
+
+        &--accent {
+            border-style: solid;
+            border-color: var(--body-accent-color);
+            color: var(--body-accent-color);
+        }
+
+        &--tall {
+            min-height: var(--spacing-100);
+        }
+    }
+
+    // The showcase groups stack their demos; the shared .component-group is a flex row,
+    // which would put whole grids side by side.
+    .showcase-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-16);
+
+        > p {
+            margin: 0;
+            color: var(--body-color-muted);
+            font-size: var(--font-size-sm);
+        }
+    }
+}

@@ -1,0 +1,201 @@
+@use '../../styles/utilities' as *;
+
+.floating-window {
+    position: fixed;
+    z-index: var(--_window-z);
+    display: flex;
+    flex-direction: column;
+    background: var(--modal-background-color);
+    color: var(--modal-color);
+    border: var(--spacing-1) solid var(--modal-border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--modal-box-shadow);
+    overflow: hidden;
+    // The edge handles hang on the frame, so nothing inside may escape it.
+    min-width: 0;
+    min-height: 0;
+
+    &--maximized {
+        transition: none;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-12);
+        flex-shrink: 0;
+        padding: var(--spacing-8) var(--spacing-12);
+        background: var(--modal-header-background-color);
+        border-bottom: var(--spacing-1) solid var(--modal-border-color);
+        cursor: grab;
+        // Dragging must not select the title text or scroll the page behind the window.
+        user-select: none;
+        touch-action: none;
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+
+    &__title {
+        @include text-truncate;
+        @include themed-modal-title(var(--modal-header-color), var(--font-size-md), var(--font-weight-semibold));
+
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+        min-width: 0;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        flex-shrink: 0;
+    }
+
+    &__action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--spacing-24);
+        height: var(--spacing-24);
+        padding: 0;
+        border: none;
+        background: none;
+        border-radius: var(--radius-sm);
+        color: var(--body-sub-title-color);
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-none);
+        cursor: pointer;
+        transition: background var(--transition-fast), color var(--transition-fast);
+
+        &:hover {
+            background: var(--border-color);
+            color: var(--body-color-accent);
+        }
+
+        &--close:hover {
+            background: var(--button-danger-background-color);
+            color: var(--button-danger-color);
+        }
+    }
+
+    &__body {
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        padding: var(--spacing-16);
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: var(--spacing-8);
+        flex-shrink: 0;
+        padding: var(--spacing-12) var(--spacing-16);
+        background: var(--modal-footer-background-color);
+        border-top: var(--spacing-1) solid var(--modal-border-color);
+    }
+
+    &--minimized {
+        .floating-window__header {
+            border-bottom: none;
+        }
+    }
+
+    // ── Resize handles ─────────────────────────────────────────────────────────
+    // Thin strips laid over the frame. The corners sit above the edges so a corner drag
+    // resizes both axes instead of whichever edge happens to be on top.
+    &__handle {
+        position: absolute;
+        touch-action: none;
+
+        --_handle-thickness: var(--spacing-6);
+        --_handle-corner: var(--spacing-12);
+    }
+
+    &__handle--n,
+    &__handle--s {
+        left: 0;
+        right: 0;
+        height: var(--_handle-thickness);
+        cursor: ns-resize;
+    }
+
+    &__handle--n {
+        top: 0;
+    }
+
+    &__handle--s {
+        bottom: 0;
+    }
+
+    &__handle--e,
+    &__handle--w {
+        top: 0;
+        bottom: 0;
+        width: var(--_handle-thickness);
+        cursor: ew-resize;
+    }
+
+    &__handle--e {
+        right: 0;
+    }
+
+    &__handle--w {
+        left: 0;
+    }
+
+    &__handle--ne,
+    &__handle--nw,
+    &__handle--se,
+    &__handle--sw {
+        width: var(--_handle-corner);
+        height: var(--_handle-corner);
+        z-index: 1;
+    }
+
+    &__handle--ne {
+        top: 0;
+        right: 0;
+        cursor: nesw-resize;
+    }
+
+    &__handle--nw {
+        top: 0;
+        left: 0;
+        cursor: nwse-resize;
+    }
+
+    &__handle--se {
+        bottom: 0;
+        right: 0;
+        cursor: nwse-resize;
+    }
+
+    &__handle--sw {
+        bottom: 0;
+        left: 0;
+        cursor: nesw-resize;
+    }
+}
+
+// Phones have no room for a floating window and no cursor to resize it with, so it drops
+// to a bottom sheet and the handles go away.
+@include mobile {
+    .floating-window {
+        left: 0 !important;
+        top: auto !important;
+        bottom: 0;
+        width: 100% !important;
+        max-height: 85vh;
+        border-radius: var(--radius) var(--radius) 0 0;
+
+        &__handle {
+            display: none;
+        }
+    }
+}

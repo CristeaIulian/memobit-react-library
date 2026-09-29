@@ -1,0 +1,147 @@
+.range-slider {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    width: 100%;
+    --_range-accent: var(--body-accent-color);
+    --_range-track-thickness: var(--spacing-8);
+    --_range-thumb-size: var(--spacing-20);
+
+    &--info {
+        --_range-accent: var(--rating-color-info);
+    }
+
+    &--success {
+        --_range-accent: var(--rating-color-success);
+    }
+
+    &--warning {
+        --_range-accent: var(--rating-color-warning);
+    }
+
+    &--danger {
+        --_range-accent: var(--rating-color-danger);
+    }
+
+    &--thin {
+        --_range-track-thickness: var(--spacing-4);
+        --_range-thumb-size: var(--spacing-16);
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-12);
+    }
+
+    &__label {
+        font-size: var(--font-size-sm);
+        color: var(--form-control-label-color);
+        font-weight: var(--font-weight-medium);
+    }
+
+    &__readout {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-semibold);
+        font-variant-numeric: tabular-nums;
+        color: var(--_range-accent);
+    }
+
+    &__track {
+        position: relative;
+        height: var(--_range-track-thickness);
+        border-radius: var(--radius-full);
+        background: var(--slider-track-background-color);
+        border: var(--spacing-1) solid var(--slider-track-border-color);
+        cursor: pointer;
+        // Leaves room for the thumbs to hang over both ends without clipping.
+        margin: calc(var(--_range-thumb-size) / 2) 0;
+        touch-action: none;
+    }
+
+    &__selection {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background: var(--_range-accent);
+        border-radius: var(--radius-full);
+        pointer-events: none;
+    }
+
+    &__thumb {
+        position: absolute;
+        top: 50%;
+        width: var(--_range-thumb-size);
+        height: var(--_range-thumb-size);
+        padding: 0;
+        // `left` is the thumb's value position, so it is pulled back by half its own width.
+        transform: translate(-50%, -50%);
+        border-radius: var(--radius-full);
+        border: var(--spacing-2) solid var(--_range-accent);
+        background: var(--slider-thumb-background-color);
+        cursor: grab;
+        transition: transform var(--transition-fast), background var(--transition-fast);
+        touch-action: none;
+
+        &:hover:not(:disabled) {
+            background: var(--slider-thumb-hover-background-color);
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+
+        &:active:not(:disabled) {
+            cursor: grabbing;
+        }
+
+        &:focus-visible {
+            outline: var(--spacing-2) solid var(--form-control-focus-ring);
+            outline-offset: var(--spacing-2);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+
+        // The upper thumb wins an overlap, so a range collapsed onto its minimum can still
+        // be opened back up by dragging right.
+        &--upper {
+            z-index: 1;
+        }
+    }
+
+    &__ticks {
+        position: relative;
+        height: var(--spacing-24);
+    }
+
+    &__tick {
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-2);
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+
+    &__tick-mark {
+        width: var(--spacing-1);
+        height: var(--spacing-4);
+        background: var(--slider-track-border-color);
+    }
+
+    &__tick-label {
+        font-size: var(--font-size-xxs);
+        color: var(--body-color-muted);
+        white-space: nowrap;
+    }
+
+    &--disabled {
+        opacity: 0.5;
+
+        .range-slider__track {
+            cursor: not-allowed;
+        }
+    }
+}

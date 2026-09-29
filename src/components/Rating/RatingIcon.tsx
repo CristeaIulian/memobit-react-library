@@ -1,6 +1,6 @@
 import { FC, useId } from 'react';
 
-export type RatingIconType = 'star' | 'bullet' | 'bar';
+export type RatingIconType = 'star' | 'bullet' | 'bar' | 'emoji';
 export type RatingVariant = 'success' | 'info' | 'warning' | 'danger';
 export type RatingFilled = 'full' | 'half' | 'empty';
 
@@ -9,6 +9,8 @@ interface RatingIconProps {
     filled: RatingFilled;
     variant: RatingVariant;
     size?: number;
+    /** Emoji only: where this face sits on the sad (0) → happy (1) scale. */
+    mood?: number;
 }
 
 const VARIANT_COLORS: Record<RatingVariant, string> = {
@@ -18,7 +20,15 @@ const VARIANT_COLORS: Record<RatingVariant, string> = {
     danger: 'var(--rating-color-danger)',
 };
 
-export const RatingIcon: FC<RatingIconProps> = ({ type, filled, variant, size = 16 }) => {
+// Mouth geometry for the emoji face. The ends stay put and only the curve's control point
+// travels, so a single quadratic bends from a frown through flat to a smile.
+const MOUTH_START_X = 7.5;
+const MOUTH_END_X = 16.5;
+const MOUTH_Y = 15.5;
+const MOUTH_FROWN_OFFSET = -4;
+const MOUTH_SMILE_OFFSET = 4.5;
+
+export const RatingIcon: FC<RatingIconProps> = ({ type, filled, variant, size = 16, mood = 1 }) => {
     const uid = useId();
     const gradientId = `rating-grad-${uid}`;
 
@@ -51,6 +61,29 @@ export const RatingIcon: FC<RatingIconProps> = ({ type, filled, variant, size = 
             <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <HalfGradient />
                 <circle cx="12" cy="12" r="10" fill={fill} />
+            </svg>
+        );
+    }
+
+    if (type === 'emoji') {
+        const clampedMood = Math.min(1, Math.max(0, mood));
+        const controlY = MOUTH_Y + (MOUTH_FROWN_OFFSET + (MOUTH_SMILE_OFFSET - MOUTH_FROWN_OFFSET) * clampedMood);
+        // The features are punched out in the surface colour so they read against both the
+        // lit face and the muted one.
+        const features = 'var(--card-background-color)';
+
+        return (
+            <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" fill={fill} />
+                <circle cx="8.5" cy="9.5" r="1.2" fill={features} />
+                <circle cx="15.5" cy="9.5" r="1.2" fill={features} />
+                <path
+                    d={`M ${MOUTH_START_X} ${MOUTH_Y} Q 12 ${controlY} ${MOUTH_END_X} ${MOUTH_Y}`}
+                    fill="none"
+                    stroke={features}
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                />
             </svg>
         );
     }

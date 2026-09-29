@@ -132,8 +132,8 @@ export { InputFile } from './components/InputFile';
 export { InputMask, type InputMaskHandle, InputMaskPresets } from './components/InputMask';
 export { InputNumber } from './components/InputNumber';
 export { InputPassword } from './components/InputPassword';
-export { InputPIN, type InputPINProps, type InputPINType } from './components/InputPIN';
 export { InputPhone } from './components/InputPhone';
+export { InputPIN, type InputPINProps, type InputPINType } from './components/InputPIN';
 export { InputSearch, type InputSearchProps } from './components/InputSearch';
 export { InputText } from './components/InputText';
 export { InputTextarea } from './components/InputTextarea';
@@ -251,8 +251,8 @@ export {
     type ToolbarSortValue,
 } from './components/Toolbar';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
-export { Transition, type TransitionProps, type TransitionStatus, type TransitionTag, type TransitionType } from './components/Transition';
 export { TourHud, type TourHudProps } from './components/TourHud';
+export { Transition, type TransitionProps, type TransitionStatus, type TransitionTag, type TransitionType } from './components/Transition';
 export { Tree, type TreeNode } from './components/Tree';
 export { VirtualList, type VirtualListProps } from './components/VirtualList';
 export { WHtR } from './components/WHtR';

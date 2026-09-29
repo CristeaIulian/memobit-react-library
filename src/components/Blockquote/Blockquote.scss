@@ -1,0 +1,177 @@
+.blockquote {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    margin: 0;
+    // Every appearance tints from this one colour, so a variant only has to set it once.
+    --_quote-accent: var(--body-sub-title-color);
+
+    &--accent {
+        --_quote-accent: var(--body-accent-color);
+    }
+
+    &--info {
+        --_quote-accent: var(--rating-color-info);
+    }
+
+    &--success {
+        --_quote-accent: var(--rating-color-success);
+    }
+
+    &--warning {
+        --_quote-accent: var(--rating-color-warning);
+    }
+
+    &--danger {
+        --_quote-accent: var(--rating-color-danger);
+    }
+
+    &__quote {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--spacing-8);
+        margin: 0;
+        color: var(--body-color);
+        line-height: var(--line-height-normal);
+    }
+
+    &__icon {
+        flex-shrink: 0;
+        color: var(--_quote-accent);
+        // Nudged onto the first line's optical centre.
+        margin-top: var(--spacing-2);
+    }
+
+    &__text {
+        min-width: 0;
+    }
+
+    &__attribution {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: var(--spacing-6);
+        font-size: var(--font-size-sm);
+        color: var(--body-color-muted);
+    }
+
+    &__author {
+        font-weight: var(--font-weight-semibold);
+        color: var(--_quote-accent);
+
+        // Separates the author from the source without an extra element.
+        &:not(:last-child)::after {
+            content: '·';
+            margin-left: var(--spacing-6);
+            color: var(--body-color-muted);
+            font-weight: var(--font-weight-normal);
+        }
+    }
+
+    &__source {
+        font-style: italic;
+    }
+
+    a.blockquote__source {
+        color: var(--links-color);
+        text-decoration: none;
+
+        &:hover {
+            color: var(--links-hover-color);
+            text-decoration: underline;
+        }
+    }
+
+    // ── Sizes ──────────────────────────────────────────────────────────────────
+    &--sm .blockquote__quote {
+        font-size: var(--font-size-sm);
+    }
+
+    &--md .blockquote__quote {
+        font-size: var(--font-size-md);
+    }
+
+    &--lg .blockquote__quote {
+        font-size: var(--font-size-lg);
+    }
+
+    // ── Appearances ────────────────────────────────────────────────────────────
+    &--bar {
+        padding-left: var(--spacing-16);
+        border-left: var(--spacing-4) solid var(--_quote-accent);
+    }
+
+    &--card {
+        padding: var(--spacing-16);
+        border: var(--spacing-1) solid var(--card-border-color);
+        border-left: var(--spacing-4) solid var(--_quote-accent);
+        border-radius: var(--radius);
+        background: var(--card-background-accent-color);
+    }
+
+    &--pull {
+        padding: var(--spacing-20) var(--spacing-24);
+        gap: var(--spacing-12);
+
+        .blockquote__quote {
+            font-size: var(--font-size-xl);
+            font-family: var(--font-family-display);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--line-height-tight);
+        }
+    }
+
+    &--plain {
+        .blockquote__quote {
+            font-style: italic;
+        }
+    }
+
+    // ── Alignment ──────────────────────────────────────────────────────────────
+    &--align-center {
+        align-items: center;
+        text-align: center;
+
+        .blockquote__quote {
+            justify-content: center;
+        }
+
+        .blockquote__attribution {
+            justify-content: center;
+        }
+    }
+
+    // ── Decorative quote glyph ─────────────────────────────────────────────────
+    // Sits behind the text as texture, so it must never eat a click or a text selection.
+    &--marked {
+        .blockquote__mark {
+            position: absolute;
+            top: calc(var(--spacing-12) * -1);
+            left: 0;
+            font-family: var(--font-family-display);
+            font-size: var(--font-size-xxxl);
+            line-height: var(--line-height-none);
+            color: var(--_quote-accent);
+            opacity: 0.18;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .blockquote__quote {
+            position: relative;
+        }
+    }
+
+    &--marked#{&}--align-center .blockquote__mark {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &--marked#{&}--bar,
+    &--marked#{&}--card {
+        .blockquote__mark {
+            left: var(--spacing-12);
+        }
+    }
+}

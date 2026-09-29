@@ -1,0 +1,66 @@
+@use '../../styles/utilities' as *;
+
+.input-pin-wrapper {
+    @include input-wrapper;
+
+    .input-pin-label {
+        @include input-label;
+    }
+
+    .input-pin-cells {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    .input-pin-cell {
+        @include input-field;
+
+        width: var(--spacing-48);
+        padding: var(--spacing-12) 0;
+        text-align: center;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: normal;
+        // The cells size themselves; the shared mixin stretches inputs to fill their row.
+        flex: 0 0 auto;
+
+        &--filled {
+            border-color: var(--form-control-focus-border-color);
+        }
+
+        // Extra breathing room turns a long code into printed-style groups (123 456).
+        &--group-start {
+            margin-left: var(--spacing-12);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    &--error .input-pin-cell {
+        @include input-error;
+    }
+
+    &--success .input-pin-cell {
+        @include input-success;
+    }
+
+    .input-pin-error-message {
+        @include input-error-message;
+    }
+
+    .input-pin-success-message {
+        @include input-success-message;
+    }
+}
+
+@include mobile {
+    .input-pin-wrapper .input-pin-cell {
+        width: var(--spacing-40);
+        font-size: var(--font-size-md);
+    }
+}

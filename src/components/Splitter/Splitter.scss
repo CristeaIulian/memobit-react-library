@@ -1,0 +1,78 @@
+.splitter {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+
+    &--horizontal {
+        flex-direction: row;
+
+        .splitter__gutter {
+            width: var(--_splitter-gutter);
+            cursor: col-resize;
+
+            .splitter__gutter-grip {
+                width: var(--spacing-2);
+                height: var(--spacing-32);
+            }
+        }
+    }
+
+    &--vertical {
+        flex-direction: column;
+
+        .splitter__gutter {
+            height: var(--_splitter-gutter);
+            cursor: row-resize;
+
+            .splitter__gutter-grip {
+                width: var(--spacing-32);
+                height: var(--spacing-2);
+            }
+        }
+    }
+
+    &__pane {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 0;
+        flex-shrink: 0;
+        min-width: 0;
+        min-height: 0;
+        overflow: auto;
+        // Pane sizes are percentages of the container, so padding inside a pane has to be
+        // drawn within that share rather than added to it.
+        box-sizing: border-box;
+
+        &--collapsed {
+            overflow: hidden;
+        }
+    }
+
+    &__gutter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background: var(--delimiter-color);
+        transition: background var(--transition-fast);
+        // Keeps the pointer glued to the handle for the whole drag, even when the cursor
+        // outruns the pane it is resizing.
+        touch-action: none;
+
+        &:hover,
+        &:focus-visible {
+            background: var(--body-accent-color);
+            outline: none;
+
+            .splitter__gutter-grip {
+                background: var(--card-background-color);
+            }
+        }
+    }
+
+    &__gutter-grip {
+        border-radius: var(--radius-full);
+        background: var(--body-sub-title-color);
+        pointer-events: none;
+    }
+}
