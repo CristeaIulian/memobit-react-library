@@ -29,6 +29,20 @@
         font-weight: var(--font-weight-medium);
     }
 
+    // Card mode's stand-in for the table's header checkbox.
+    &__select-all {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-6);
+        color: var(--body-sub-title-color);
+        font-size: var(--font-size-sm);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--body-color);
+        }
+    }
+
     &__column-selector {
         margin-left: auto;
         position: relative;

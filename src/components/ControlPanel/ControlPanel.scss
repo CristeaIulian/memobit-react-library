@@ -532,6 +532,13 @@
         flex-shrink: 0;
     }
 
+    &__filter-icon {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        color: var(--body-color);
+    }
+
     &__filter-label {
         flex: 1;
         min-width: 0;

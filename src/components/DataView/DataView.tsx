@@ -344,14 +344,42 @@ export function DataView<T>({
     ) : null;
     const columnSelectorNode =
         columnSelector && columnSelector.options.length > 0 ? <DataViewColumnSelector config={columnSelector} /> : null;
-    const topControlsNode =
-        resultsCountLabel || miniSortNode || columnSelectorNode ? (
+
+    // Select-all covers the rows on screen, never the whole filtered set: with pagination
+    // on, a bulk edit that silently reached pages the user never saw would be a trap.
+    const visibleKeys = pagedData.map(resolvedRowKey);
+    const selectedVisibleCount = visibleKeys.filter(key => selectedIds.includes(key)).length;
+    const allVisibleSelected = Boolean(selectable) && visibleKeys.length > 0 && selectedVisibleCount === visibleKeys.length;
+    const someVisibleSelected = Boolean(selectable) && selectedVisibleCount > 0 && selectedVisibleCount < visibleKeys.length;
+
+    const toggleVisibleSelection = (checked: boolean): void => {
+        if (checked) {
+            // Keeps anything already picked on another page rather than discarding it.
+            updateSelection([...selectedIds, ...visibleKeys.filter(key => !selectedIds.includes(key))]);
+        } else {
+            updateSelection(selectedIds.filter(key => !visibleKeys.includes(key)));
+        }
+    };
+
+    // Card mode has no header row to hang a select-all off, so it gets an explicit control.
+    const selectAllNode =
+        selectable && visibleKeys.length > 0 ? (
+            <label className="data-view__select-all">
+                <Checkbox checked={allVisibleSelected} indeterminate={someVisibleSelected} onChange={toggleVisibleSelection} />
+                <span>{allVisibleSelected ? 'Clear selection' : `Select these ${visibleKeys.length}`}</span>
+            </label>
+        ) : null;
+    const buildTopControls = (extra?: React.ReactNode): React.ReactNode =>
+        resultsCountLabel || miniSortNode || columnSelectorNode || extra ? (
             <div className={`data-view__top-row data-view__top-row--mini-${miniSortAlign}`}>
                 {resultsCountLabel && <div className="data-view__results-count">{resultsCountLabel}</div>}
+                {extra}
                 {miniSortNode}
                 {columnSelectorNode}
             </div>
         ) : null;
+
+    const topControlsNode = buildTopControls();
 
     // No-columns guard — renders an empty state but keeps the column selector
     // visible so the user can re-enable a column. Card mode is driven by the
@@ -373,7 +401,7 @@ export function DataView<T>({
     if (desktopView === 'cards') {
         return (
             <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`}>
-                {topControlsNode}
+                {buildTopControls(selectAllNode)}
                 {showCardSortControls && hasSortControls && (
                     <div className="data-view__card-sort-bar">
                         <div className="data-view__card-sort-field">
@@ -478,8 +506,6 @@ export function DataView<T>({
     // Table mode (desktop)
 
     const tableColumns = columns.filter(col => !col.hideInTable);
-    const allSelected = selectable && selectedIds.length > 0 && selectedIds.length === data.length;
-    const partiallySelected = selectable && selectedIds.length > 0 && selectedIds.length < data.length;
     const showTimeline = timeline && tableTimelineMarkers.size > 0;
 
     const tableContent = (
@@ -493,17 +519,7 @@ export function DataView<T>({
                             {showTimeline && <th className="data-view__timeline-cell" />}
                             {selectable && (
                                 <th className="data-view__checkbox">
-                                    <Checkbox
-                                        checked={allSelected}
-                                        indeterminate={partiallySelected}
-                                        onChange={checked => {
-                                            if (checked) {
-                                                updateSelection(data.map(resolvedRowKey));
-                                            } else {
-                                                updateSelection([]);
-                                            }
-                                        }}
-                                    />
+                                    <Checkbox checked={allVisibleSelected} indeterminate={someVisibleSelected} onChange={toggleVisibleSelection} />
                                 </th>
                             )}
                             {tableColumns.map(column => {

@@ -502,6 +502,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                                 value={option.value}
                             />
                             {option.color && <span className="control-panel__filter-swatch" style={{ backgroundColor: option.color }} />}
+                            {option.icon && <Icon className="control-panel__filter-icon" name={option.icon} />}
                             <span className="control-panel__filter-label">{option.label}</span>
                             {option.count !== undefined && <span className="control-panel__filter-count">{option.count}</span>}
                         </label>

@@ -69,13 +69,17 @@ export const ToggleButtons: FC<ToggleProps> = ({
         <div className="toggle-buttons">
             {states.map((s, index) => (
                 <Button
-                    key={`btn-toggle2-${index}-${s}`}
+                    key={`btn-toggle2-${index}-${s.key}`}
                     size={size}
                     variant={state === s.key ? activeVariant : 'default'}
                     icon={s.icon}
                     onClick={() => onToggleChange(s.key)}
+                    // Below tablet the label is dropped to save width — but only where an
+                    // icon is left to carry the meaning. A state with neither rendered as a
+                    // blank pill, which says nothing at all.
+                    title={s.icon ? s.label : undefined}
                 >
-                    {isAtLeast('tablet') ? s.label : ''}
+                    {isAtLeast('tablet') || !s.icon ? s.label : ''}
                 </Button>
             ))}
         </div>
