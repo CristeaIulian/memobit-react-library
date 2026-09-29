@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
-import { formatDate } from '../../helpers/Datetime';
+import { APP_DATE_FORMAT, formatDate } from '../../helpers/Datetime';
 import { TimeValue } from '../AnalogClock';
 import { Calendar, CalendarDateRange, CalendarProps } from '../Calendar';
 import { Icon } from '../Icon';
@@ -20,6 +20,7 @@ export interface DatePickerProps extends Omit<CalendarProps, 'onChange' | 'value
     withClock?: boolean;
     clockSize?: number;
     minuteStep?: number;
+    /** How the chosen date is displayed in the field. Defaults to the app-wide 'DD MMM YYYY'. */
     dateFormat?: string;
     placeholder?: string;
     disabled?: boolean;
@@ -38,7 +39,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     withClock = false,
     clockSize = 208,
     minuteStep = 1,
-    dateFormat = 'YYYY-MM-DD',
+    dateFormat = APP_DATE_FORMAT,
     placeholder = 'Select date...',
     disabled = false,
     clearable = true,
