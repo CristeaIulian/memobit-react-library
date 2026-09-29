@@ -1,6 +1,6 @@
 {
   "name": "@memobit/libs",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "React component library powering the Memobit apps — 100+ components, 70+ themes, helpers and hooks. Icons ship separately as @memobit/icons. TypeScript-first, ESM-only, React 19.",
   "keywords": [
     "react",
@@ -134,7 +134,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css}\""
   },
   "peerDependencies": {
-    "@memobit/icons": "1.0.0",
+    "@memobit/icons": "^1.0.0",
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },
