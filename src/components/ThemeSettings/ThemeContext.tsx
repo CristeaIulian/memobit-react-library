@@ -5,6 +5,7 @@ import { Tooltip } from '../Tooltip';
 import { getThemeConfig, THEME_CONFIGS } from './themeConfig';
 import { type Theme, ThemeContext, type ThemeEffects, type ThemeSaveValue } from './ThemeContextValue';
 
+const THEME_LINK_ID = 'theme-stylesheet';
 const FONT_LINK_ID = 'theme-font-link';
 const FONT_LINK_DISPLAY_ID = 'theme-font-link-display';
 const FONT_LINK_MONO_ID = 'theme-font-link-mono';
@@ -27,6 +28,27 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', activeTheme);
+
+        // The themes Vite plugin replaces this global with a name-to-URL map at build time.
+        // Left undefined, the app is still importing the aggregate stylesheet the old way
+        // and every theme is already present, so there is nothing to fetch.
+        const themeUrls: Record<string, string> | undefined = typeof __MEMOBIT_THEME_URLS__ === 'undefined' ? undefined : __MEMOBIT_THEME_URLS__;
+        const themeHref = themeUrls?.[activeTheme];
+
+        if (themeHref !== undefined) {
+            let themeLink = document.getElementById(THEME_LINK_ID) as HTMLLinkElement;
+
+            if (!themeLink) {
+                themeLink = document.createElement('link');
+                themeLink.id = THEME_LINK_ID;
+                themeLink.rel = 'stylesheet';
+                document.head.appendChild(themeLink);
+            }
+
+            if (themeLink.href !== new URL(themeHref, document.baseURI).href) {
+                themeLink.href = themeHref;
+            }
+        }
 
         const themeConfig = getThemeConfig(activeTheme);
 

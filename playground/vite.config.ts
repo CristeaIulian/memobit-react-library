@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { memobitThemes } from '@memobit/themes/vite';
 import { execSync } from 'child_process';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
@@ -32,7 +33,7 @@ export default defineConfig({
         __LIB_COMMIT__: JSON.stringify(getCommitHash()),
         __LIB_BUILD_DATE__: JSON.stringify(new Date().toISOString()),
     },
-    plugins: [react()],
+    plugins: [react(), memobitThemes({ root: libraryRoot })],
     server: {
         port: 3016,
         strictPort: true,

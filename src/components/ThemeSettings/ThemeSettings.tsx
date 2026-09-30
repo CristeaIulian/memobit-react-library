@@ -1,4 +1,6 @@
-import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { type CSSProperties, FC, useEffect, useMemo, useRef, useState } from 'react';
+
+import { previewPalettes } from '@memobit/themes';
 
 import { Checkbox } from '../Checkbox';
 import { Drawer } from '../Drawer';
@@ -220,7 +222,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
                                         className={`theme-settings__swatch ${theme === config.value ? 'theme-settings__swatch--active' : ''}`}
                                         onClick={() => handleThemeSelect(config.value as Theme)}
                                     >
-                                        <div className="theme-settings__preview" data-theme={config.value}>
+                                        <div className="theme-settings__preview" style={previewPalettes[config.value] as CSSProperties}>
                                             {FAVORITE_THEMES.has(config.value) && <span className="theme-settings__favorite-badge">&#11088;</span>}
                                             <div className="theme-settings__preview-header" />
                                             <div className="theme-settings__preview-body">
