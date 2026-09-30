@@ -45,8 +45,13 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
                 document.head.appendChild(themeLink);
             }
 
-            if (themeLink.href !== new URL(themeHref, document.baseURI).href) {
-                themeLink.href = themeHref;
+            // Resolved against this bundle's own URL rather than the document, because
+            // these apps are served by a backend that mounts the built assets under a
+            // prefix of its own choosing. The document URL is a route, not the asset root.
+            const resolved = new URL(themeHref, import.meta.url).href;
+
+            if (themeLink.href !== resolved) {
+                themeLink.href = resolved;
             }
         }
 
