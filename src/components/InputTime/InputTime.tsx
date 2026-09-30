@@ -1,6 +1,6 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent, useRef, useState } from 'react';
 
-import { TimeValue } from '../AnalogClock';
+import type { TimeValue } from '../AnalogClock';
 import { Icon } from '../Icon';
 import { Popover } from '../Popover';
 import { TimePicker } from '../TimePicker';

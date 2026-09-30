@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { APP_DATE_FORMAT, formatDate } from '../../helpers/Datetime';
-import { TimeValue } from '../AnalogClock';
+import type { TimeValue } from '../AnalogClock';
 import { Calendar, CalendarDateRange, CalendarProps } from '../Calendar';
 import { Icon } from '../Icon';
 import { TimePicker } from '../TimePicker';
