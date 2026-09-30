@@ -2,6 +2,9 @@ import { mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { execSync } from 'child_process';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+
+// @ts-expect-error -- plain .mjs helper, no declarations needed for a build-time script
+import { collectIconUsage } from './scripts/collect-icon-usage.mjs';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
@@ -127,6 +130,19 @@ export default defineConfig({
             ],
         }),
         {
+            // Consumers trim iconMap to what they use, and cannot see the names this
+            // library's own components hardcode. Publishing them means a trimmed build
+            // keeps the caret, the checkmark and the rest instead of dropping them.
+            name: 'memobit-icon-usage-manifest',
+            closeBundle() {
+                const distDir = resolve(__dirname, 'dist');
+                const icons = collectIconUsage(resolve(__dirname, 'src/components'));
+                mkdirSync(distDir, { recursive: true });
+                writeFileSync(resolve(distDir, 'memobit-icons.json'), `${JSON.stringify({ icons }, null, 2)}
+`);
+            },
+        },
+        {
             name: 'memobit-lib-version-metadata',
             closeBundle() {
                 const distDir = resolve(__dirname, 'dist');
@@ -144,12 +160,17 @@ export default defineConfig({
     },
     build: {
         lib: {
-            entry: resolve(__dirname, 'src/index.ts'),
+            // `mfa` is a second entry so the main bundle never references qrcode.react,
+            // which MfaSetupModal needs for the enrolment QR and nothing else uses.
+            entry: {
+                index: resolve(__dirname, 'src/index.ts'),
+                mfa: resolve(__dirname, 'src/mfa.ts'),
+            },
             formats: ['es'],
-            fileName: format => (format === 'es' ? 'index.esm.js' : 'index.js'),
+            fileName: (_format, entryName) => `${entryName}.esm.js`,
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime', '@google/genai', '@memobit/icons', '@memobit/icons/map'],
+            external: ['react', 'react-dom', 'react/jsx-runtime', '@memobit/icons', '@memobit/icons/map'],
             output: {
                 globals: {
                     react: 'React',

@@ -1,6 +1,6 @@
 {
   "name": "@memobit/libs",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "React component library powering the Memobit apps — 100+ components, 70+ themes, helpers and hooks. Icons ship separately as @memobit/icons. TypeScript-first, ESM-only, React 19.",
   "keywords": [
     "react",
@@ -39,6 +39,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.esm.js"
+    },
+    "./mfa": {
+      "types": "./dist/mfa.d.ts",
+      "import": "./dist/mfa.esm.js"
     },
     "./dist/index.css": "./dist/index.css",
     "./dist/styles/variables.scss": "./dist/styles/variables.scss",
@@ -154,6 +158,7 @@
     "eslint-plugin-simple-import-sort": "13.0.0",
     "globals": "17.6.0",
     "prettier": "3.8.3",
+    "qrcode.react": "4.2.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-router": "8.3.0",
@@ -164,9 +169,6 @@
     "vite": "8.1.5",
     "vite-plugin-dts": "5.0.0",
     "vite-plugin-static-copy": "3.4.0"
-  },
-  "dependencies": {
-    "qrcode.react": "4.2.0"
   },
   "overrides": {
     "brace-expansion@1": "1.1.18",
