@@ -90,7 +90,12 @@
     font-variant-numeric: tabular-nums;
     color: var(--body-color-muted);
 
-    // Nudges the label up so it sits against the gridline it names.
+    // flex-start, not the default stretch: a stretched span is as tall as the whole hour
+    // row, so the nudge below would lift the label half a row — naming the gridline above
+    // the one it sits on, and making an 18:30 event read as 19:00.
+    align-items: flex-start;
+
+    // Nudges the label up by half its own height so it straddles the gridline it names.
     span {
         transform: translateY(-50%);
     }
