@@ -114,7 +114,14 @@ export default defineConfig({
             name: 'memobit-icon-usage-manifest',
             closeBundle() {
                 const distDir = resolve(__dirname, 'dist');
-                const icons = collectIconUsage(resolve(__dirname, 'src/components'));
+                // Validated against the real icon list, so a broad sweep of quoted
+                // strings cannot invent names that do not exist.
+                const iconModulesSource = readFileSync(
+                    resolve(__dirname, 'node_modules/@memobit/icons/dist/iconModules.js'),
+                    'utf-8',
+                );
+                const validNames = new Set([...iconModulesSource.matchAll(/"([^"]+)":\s*"/g)].map(match => match[1]));
+                const icons = collectIconUsage(resolve(__dirname, 'src/components'), validNames);
                 mkdirSync(distDir, { recursive: true });
                 writeFileSync(resolve(distDir, 'memobit-icons.json'), `${JSON.stringify({ icons }, null, 2)}
 `);
