@@ -165,3 +165,71 @@ export const isActiveHour = (hour: number, activeHours?: CalendarActiveHours): b
 export const formatHourLabel = (hour: number): string => `${hour.toString().padStart(2, '0')}:00`;
 
 export const formatEventTime = (date: Date): string => `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+
+
+/**
+ * True when an event occupies more than one calendar day, which is what earns it a bar
+ * across the month grid rather than a chip inside a single cell.
+ */
+export const isMultiDayEvent = (event: CalendarEvent): boolean =>
+    Boolean(event.allDay && event.end && startOfDay(event.end) > startOfDay(event.start));
+
+export interface WeekSpan<T = unknown> {
+    event: CalendarEvent<T>;
+    /** Column indices inside this week, 0-6 inclusive, already clipped to it. */
+    startIndex: number;
+    endIndex: number;
+    /** Stacking row, so two overlapping spans do not sit on top of each other. */
+    lane: number;
+    /** Whether the event really begins/ends here, as opposed to being clipped by the week. */
+    isStart: boolean;
+    isEnd: boolean;
+}
+
+const DAY_MS = 86400000;
+
+/** Whole days between two midnights, DST-safe because it rounds. */
+const daysBetween = (from: Date, to: Date): number => Math.round((to.getTime() - from.getTime()) / DAY_MS);
+
+/**
+ * Places the multi-day events overlapping `weekDays` into lanes, clipped to the week.
+ *
+ * A span is drawn once per week it touches rather than once per day: five chips reading
+ * "Vacation" look like five separate tasks, where one bar reads as one period. A span
+ * running over a week boundary is clipped on each side and flagged, so only the true ends
+ * get a rounded cap and the middle reads as continuing.
+ */
+export const layoutWeekSpans = <T>(events: CalendarEvent<T>[], weekDays: Date[]): WeekSpan<T>[] => {
+    if (weekDays.length === 0) {
+        return [];
+    }
+
+    const weekStart = startOfDay(weekDays[0]);
+    const weekEnd = startOfDay(weekDays[weekDays.length - 1]);
+    const lastIndex = weekDays.length - 1;
+
+    const overlapping = events
+        .filter(isMultiDayEvent)
+        .map(event => ({ event, start: startOfDay(event.start), end: startOfDay(event.end ?? event.start) }))
+        .filter(({ end, start }) => end >= weekStart && start <= weekEnd)
+        // Earliest first, then longest first, so the bars that cross the most of the week
+        // settle into the top lanes and the row reads as a stack rather than a staircase.
+        .sort((a, b) => a.start.getTime() - b.start.getTime() || b.end.getTime() - a.end.getTime());
+
+    const laneEnds: number[] = [];
+
+    return overlapping.map(({ end, event, start }) => {
+        const startIndex = Math.max(daysBetween(weekStart, start), 0);
+        const endIndex = Math.min(daysBetween(weekStart, end), lastIndex);
+
+        let lane = laneEnds.findIndex(occupiedTo => occupiedTo < startIndex);
+
+        if (lane === -1) {
+            lane = laneEnds.length;
+        }
+
+        laneEnds[lane] = endIndex;
+
+        return { event, startIndex, endIndex, lane, isStart: start >= weekStart, isEnd: end <= weekEnd };
+    });
+};

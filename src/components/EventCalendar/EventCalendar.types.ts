@@ -67,6 +67,15 @@ export interface EventCalendarProps<T = unknown> {
     /** Fires on the empty part of a day cell (month) or an hour slot (week). */
     onDayClick?: (date: Date) => void;
     /**
+     * Dragging across the month grid selects a run of days and fires this on release, with
+     * `start` always the earlier end whichever way the drag went. It is how a period gets
+     * created by pointing at it rather than typing two dates into a form.
+     *
+     * A press that never leaves its day is a click, not a selection, and goes to
+     * `onDayClick` instead — so the two can both be set without competing.
+     */
+    onRangeSelect?: (range: { start: Date; end: Date }) => void;
+    /**
      * Enables drag-to-reschedule. `nextStart` keeps the original time of day in month
      * view, and snaps to the dropped hour slot in week view.
      */
@@ -104,6 +113,7 @@ export interface EventCalendarProps<T = unknown> {
 }
 
 export interface EventCalendarViewProps<T = unknown> {
+    onRangeSelect?: (range: { start: Date; end: Date }) => void;
     date: Date;
     events: CalendarEvent<T>[];
     firstDayOfWeek: 0 | 1;

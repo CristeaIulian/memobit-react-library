@@ -61,6 +61,7 @@ export function EventCalendar<T>({
     onDayClick,
     onEventClick,
     onEventDrop,
+    onRangeSelect,
     onViewChange,
     renderEvent,
     showHeader = true,
@@ -161,6 +162,7 @@ export function EventCalendar<T>({
         onDragEnd: () => setDragging(null),
         onDragStart: (event: CalendarEvent<T>) => setDragging(event),
         onDrop: handleDrop,
+        onRangeSelect,
         // Kept undefined when there is nothing to do with a click, so a chip does not
         // advertise itself as clickable.
         onEventClick: dayAgenda || onEventClick ? handleEventClick : undefined,

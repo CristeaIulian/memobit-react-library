@@ -1,4 +1,8 @@
 .event-calendar {
+    // Height of one multi-day bar plus its gap — the bar is positioned by it and the day
+    // cells reserve space by it, so they must stay the same number.
+    --event-calendar-span-row: calc(var(--spacing-20) + var(--spacing-2));
+
     display: flex;
     flex-direction: column;
     gap: var(--spacing-12);
@@ -62,6 +66,67 @@
 .event-calendar__weekdays,
 .event-calendar__week {
     display: flex;
+}
+
+// Holds the seven day cells and, over them, the multi-day bars. Its own box is what the
+// bars measure against, so the week-number gutter never skews their offsets.
+.event-calendar__week-days {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+// Mirrors the month grid's week-days box: the all-day cells get their own relative box so
+// the span bars measure against the seven columns, not the hour gutter beside them.
+.event-calendar__all-day-cells {
+    position: relative;
+
+    > .event-calendar__week-spans {
+        top: var(--spacing-4);
+    }
+
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    // Room for however many bars cross this week, so the single-day chips clear them.
+    padding-top: calc(var(--event-calendar-span-lanes, 0) * var(--event-calendar-span-row));
+}
+
+.event-calendar__week-spans {
+    position: absolute;
+    // Clear of the day numbers, which sit at the top of every cell in the month grid. The
+    // all-day row has none, so it pulls the layer back up to its own top edge.
+    top: var(--spacing-24);
+    left: 0;
+    right: 0;
+    // The bars themselves are positioned; the layer must not swallow clicks aimed at the
+    // cell underneath, so only the bars take pointer events back.
+    pointer-events: none;
+    z-index: 1;
+}
+
+.event-calendar__chip--span {
+    position: absolute;
+    // Inset so neighbouring bars on the same lane read as two, not one long one.
+    margin: 0 var(--spacing-2);
+    width: auto;
+    pointer-events: auto;
+
+    // A clipped end is squared off and loses its accent edge, so a bar continuing into the
+    // next week reads as carrying on rather than starting again on Monday.
+    &.event-calendar__chip--span-continues-before {
+        border-left-width: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        margin-left: 0;
+    }
+
+    &.event-calendar__chip--span-continues-after {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-right: 0;
+    }
 }
 
 .event-calendar__weekdays {
@@ -168,6 +233,18 @@
         background-color: color-mix(in srgb, var(--body-accent-color) 18%, transparent);
         box-shadow: inset 0 0 0 2px var(--body-accent-color);
     }
+
+    // Painted while a period is being dragged out. Quieter than the drop target: this is a
+    // range still being chosen, not a committed one, and the whole run lights up at once.
+    &--selecting {
+        background-color: color-mix(in srgb, var(--body-accent-color) 14%, transparent);
+    }
+}
+
+// A drag across the grid is picking days, so the browser must not start selecting the day
+// numbers as text halfway through.
+.event-calendar__week-days {
+    user-select: none;
 }
 
 .event-calendar__day-number {
@@ -209,6 +286,10 @@
 }
 
 .event-calendar__day-events {
+    // Pushed down by however many bars cross this week, so a span never sits on top of the
+    // day's own chips. Zero lanes costs nothing.
+    margin-top: calc(var(--event-calendar-span-lanes, 0) * var(--event-calendar-span-row));
+
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);

@@ -1,9 +1,9 @@
-import { DragEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { CSSProperties, DragEvent, useEffect, useMemo, useRef, useState } from 'react';
 
 import { isToday, isWeekend } from '../../helpers/Datetime';
 
 import { EventCalendarChip } from './EventCalendar.Chip';
-import { bucketEventsByDay, formatHourLabel, getWeekDays, isActiveHour, layoutDayEvents, startOfDay } from './EventCalendar.helpers';
+import { bucketEventsByDay, formatHourLabel, getWeekDays, isActiveHour, isMultiDayEvent, layoutDayEvents, layoutWeekSpans, startOfDay } from './EventCalendar.helpers';
 import { EventCalendarViewProps } from './EventCalendar.types';
 
 const DEFAULT_SCROLL_HOUR = 8;
@@ -45,6 +45,10 @@ export function EventCalendarWeek<T>({
     );
 
     const hasAllDay = buckets.some(bucket => bucket.allDay.length > 0);
+    // The same bars the month grid draws, so a holiday reads as one period in both views
+    // rather than as five chips here and a bar there.
+    const spans = useMemo(() => layoutWeekSpans(events, days), [events, days]);
+    const spanLanes = spans.reduce((highest, span) => Math.max(highest, span.lane + 1), 0);
     const gridHeight = hours.length * hourHeight;
 
     // A full 24-hour grid otherwise opens on an empty 00:00. Park the viewport on the
@@ -101,7 +105,36 @@ export function EventCalendarWeek<T>({
             {hasAllDay && (
                 <div className="event-calendar__all-day">
                     <div className="event-calendar__gutter-label">All day</div>
-                    {buckets.map(bucket => {
+                    <div className="event-calendar__all-day-cells" style={{ '--event-calendar-span-lanes': spanLanes } as CSSProperties}>
+                        {spans.length > 0 && (
+                            <div className="event-calendar__week-spans">
+                                {spans.map(span => (
+                                    <EventCalendarChip
+                                        className={[
+                                            'event-calendar__chip--span',
+                                            span.isStart ? '' : 'event-calendar__chip--span-continues-before',
+                                            span.isEnd ? '' : 'event-calendar__chip--span-continues-after',
+                                        ]
+                                            .filter(Boolean)
+                                            .join(' ')}
+                                        dragEnabled={dragEnabled}
+                                        event={span.event}
+                                        isDragging={draggingId === span.event.id}
+                                        key={`${span.event.id}-span`}
+                                        onClick={onEventClick}
+                                        onDragEnd={onDragEnd}
+                                        onDragStart={onDragStart}
+                                        renderEvent={renderEvent}
+                                        style={{
+                                            left: `${(span.startIndex / days.length) * 100}%`,
+                                            width: `${((span.endIndex - span.startIndex + 1) / days.length) * 100}%`,
+                                            top: `calc(${span.lane} * var(--event-calendar-span-row))`,
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                        {buckets.map(bucket => {
                         const key = `allday-${bucket.date.toDateString()}`;
 
                         return (
@@ -118,21 +151,24 @@ export function EventCalendarWeek<T>({
                                     onDrop(bucket.date, true);
                                 }}
                             >
-                                {bucket.allDay.map(event => (
-                                    <EventCalendarChip
-                                        dragEnabled={dragEnabled}
-                                        event={event}
-                                        isDragging={draggingId === event.id}
-                                        key={`${event.id}-${key}`}
-                                        onClick={onEventClick}
-                                        onDragEnd={onDragEnd}
-                                        onDragStart={onDragStart}
-                                        renderEvent={renderEvent}
-                                    />
-                                ))}
+                                {bucket.allDay
+                                    .filter(event => !isMultiDayEvent(event))
+                                    .map(event => (
+                                        <EventCalendarChip
+                                            dragEnabled={dragEnabled}
+                                            event={event}
+                                            isDragging={draggingId === event.id}
+                                            key={`${event.id}-${key}`}
+                                            onClick={onEventClick}
+                                            onDragEnd={onDragEnd}
+                                            onDragStart={onDragStart}
+                                            renderEvent={renderEvent}
+                                        />
+                                    ))}
                             </div>
                         );
-                    })}
+                        })}
+                    </div>
                 </div>
             )}
 
