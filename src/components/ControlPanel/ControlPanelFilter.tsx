@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Button } from '../Button';
 import { Chip } from '../Chip';
@@ -10,6 +10,7 @@ import { InputNumber } from '../InputNumber';
 import { InputSearch } from '../InputSearch';
 import { InputText } from '../InputText';
 import { Rating } from '../Rating';
+import { Tooltip } from '../Tooltip';
 
 import {
     ControlPanelFilter,
@@ -434,14 +435,16 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                 >
                     {visibleOptions.map(option => {
                         const isSelected = selectedValues.includes(option.value);
-                        return (
+                        // A real tooltip rather than the chip's native `title`: these rows
+                        // can be bare glyphs — an icon filter has nothing but the mark —
+                        // so the hint is the only thing naming them, and the browser's own
+                        // bubble arrives late and unstyled in the middle of the panel.
+                        const chip = (
                             <Chip
-                                key={option.value}
                                 color={option.color}
                                 count={option.count}
                                 disabled={option.disabled}
                                 icon={option.icon}
-                                title={option.tooltip}
                                 selected={isSelected}
                                 onClick={() => {
                                     if (option.disabled) return;
@@ -474,6 +477,14 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                                 )}
                                 {option.label}
                             </Chip>
+                        );
+
+                        return option.tooltip ? (
+                            <Tooltip key={option.value} title={option.tooltip}>
+                                {chip}
+                            </Tooltip>
+                        ) : (
+                            <Fragment key={option.value}>{chip}</Fragment>
                         );
                     })}
                 </div>

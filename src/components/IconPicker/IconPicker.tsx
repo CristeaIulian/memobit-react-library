@@ -5,6 +5,7 @@ import { iconMap } from '@memobit/icons/map';
 
 import { Icon, IconName } from '../Icon';
 import { InputSearch } from '../InputSearch';
+import { Tooltip } from '../Tooltip';
 
 import './IconPicker.scss';
 
@@ -80,16 +81,19 @@ export const IconPicker: FC<IconPickerProps> = ({
                     <p className="icon-picker__empty">{emptyLabel}</p>
                 ) : (
                     shown.map(name => (
-                        <button
-                            className={`icon-picker__icon${value === name ? ' is-selected' : ''}`}
-                            key={name}
-                            onClick={() => onChange?.(name)}
-                            style={color ? ({ color } as CSSProperties) : undefined}
-                            title={name}
-                            type="button"
-                        >
-                            <Icon name={name} />
-                        </button>
+                        // The name is the only thing identifying a glyph here, so it is worth a
+                        // real tooltip: a native `title` waits a second, renders in the OS style
+                        // and reads as a stray grey box in the middle of a themed panel.
+                        <Tooltip key={name} title={name}>
+                            <button
+                                className={`icon-picker__icon${value === name ? ' is-selected' : ''}`}
+                                onClick={() => onChange?.(name)}
+                                style={color ? ({ color } as CSSProperties) : undefined}
+                                type="button"
+                            >
+                                <Icon name={name} />
+                            </button>
+                        </Tooltip>
                     ))
                 )}
             </div>

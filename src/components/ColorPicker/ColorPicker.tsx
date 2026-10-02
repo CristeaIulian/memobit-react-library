@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Button } from '../Button';
 import { InputNumber } from '../InputNumber';
 import { InputText } from '../InputText';
+import { Tooltip } from '../Tooltip';
 
 import './ColorPicker.scss';
 
@@ -27,6 +28,16 @@ interface HSL {
 export interface ColorPickerProps {
     value?: string;
     onChange?: (hex: string) => void;
+    /**
+     * Colours to offer for reuse, above the gradient. Pass the ones already in play —
+     * the palette a record set is actually using — so picking the same shade again is one
+     * click rather than a fresh trip through the gradient. Without it every visit to the
+     * picker mints a new near-miss: nine greys that differ by a digit, each its own entry
+     * in anything that later groups or filters by colour. Duplicates and anything that
+     * isn't a hex are dropped, and the list renders only when something survives.
+     */
+    swatches?: string[];
+    swatchesLabel?: string;
 }
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -42,6 +53,13 @@ const hexToRgb = (hex: string): RGB | null => {
         g: (num >> 8) & 255,
         b: num & 255,
     };
+};
+
+/** Lower-cased and `#`-prefixed, so the same colour written three ways is one string. */
+const normalizeHex = (hex: string): string => {
+    const trimmed = hex.trim().replace('#', '').toLowerCase();
+    const full = trimmed.length === 3 ? trimmed.split('').map(c => c + c).join('') : trimmed;
+    return `#${full}`;
 };
 
 const rgbToHex = ({ r, g, b }: RGB): string =>
@@ -169,12 +187,32 @@ const hslToRgb = ({ h, s, l }: HSL): RGB => {
     };
 };
 
-export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onChange }) => {
+export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onChange, swatches, swatchesLabel = 'Already in use' }) => {
     const [mode, setMode] = useState<'hex' | 'rgb' | 'hsl'>('hex');
+    // Normalised and de-duplicated here rather than at every call site: a caller handing
+    // over "the colours in use" should not also have to know that #ABC, #aabbcc and
+    // #AABBCC are the same swatch.
+    const reusable = useMemo(() => {
+        const seen = new Set<string>();
+
+        (swatches ?? []).forEach(entry => {
+            const rgb = hexToRgb(entry);
+            if (rgb) {
+                seen.add(rgbToHex(rgb));
+            }
+        });
+
+        return [...seen];
+    }, [swatches]);
     const [hsv, setHsv] = useState<HSV>(() => {
         const rgb = hexToRgb(value) || { r: 78, g: 121, b: 167 };
         return rgbToHsv(rgb);
     });
+    // The colour as it was actually given, held beside the gradient's own HSV because that
+    // conversion is lossy: without it the field reported #f04343 for a stored #ef4444, so
+    // the picker disagreed with the record it was editing. Dragging the gradient clears it
+    // — at that point the handles *are* the source of truth.
+    const [exactHex, setExactHex] = useState<string | null>(() => (hexToRgb(value) ? normalizeHex(value) : null));
 
     const svRef = useRef<HTMLDivElement | null>(null);
     const hsvRef = useRef<HSV>(hsv);
@@ -184,6 +222,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
         const rgb = hexToRgb(value);
         if (rgb) {
             setHsv(rgbToHsv(rgb));
+            setExactHex(normalizeHex(value));
         }
     }, [value]);
 
@@ -194,8 +233,32 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
             v: clamp(next.v, 0, 100),
         };
         setHsv(normalized);
+        setExactHex(null);
         const hex = rgbToHex(hsvToRgb(normalized));
         onChange?.(hex);
+    };
+
+    /**
+     * Applies an exact colour: the gradient's handles move to it, but what goes out is the
+     * hex that came in, not one re-derived from them.
+     *
+     * The gradient stores whole-degree hue and integer S/V, so hex -> HSV -> hex is lossy
+     * for about 88% of colours — #ef4444 comes back as #f04343, and every one of a typical
+     * eight-colour palette shifts by a digit. Greys are the accidental exception, since
+     * saturation is 0. Routing a known colour through that is how a picker quietly mints a
+     * near-miss of a colour that already exists, which is the whole thing a reuse swatch —
+     * or a typed-in hex — exists to prevent.
+     */
+    const applyExactHex = (next: string) => {
+        const rgb = hexToRgb(next);
+
+        if (!rgb) {
+            return;
+        }
+
+        setHsv(rgbToHsv(rgb));
+        setExactHex(normalizeHex(next));
+        onChange?.(next);
     };
 
     const applySv = (clientX: number, clientY: number) => {
@@ -244,12 +307,32 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
         window.addEventListener('pointercancel', handleUp);
     };
 
-    const rgb = hsvToRgb(hsv);
-    const hex = rgbToHex(rgb);
+    // The exact colour wins while it still stands; once the gradient has been dragged it is
+    // null and the handles decide.
+    const rgb = exactHex ? (hexToRgb(exactHex) ?? hsvToRgb(hsv)) : hsvToRgb(hsv);
+    const hex = exactHex ?? rgbToHex(rgb);
     const hsl = rgbToHsl(rgb);
 
     return (
         <div className="color-picker">
+            {reusable.length > 0 && (
+                <div className="color-picker__swatches">
+                    <span className="color-picker__swatches-label">{swatchesLabel}</span>
+                    <div className="color-picker__swatches-row">
+                        {reusable.map(swatch => (
+                            <Tooltip key={swatch} title={swatch}>
+                                <button
+                                    className={`color-picker__swatch${swatch === hex.toLowerCase() ? ' is-selected' : ''}`}
+                                    onClick={() => applyExactHex(swatch)}
+                                    style={{ backgroundColor: swatch }}
+                                    type="button"
+                                />
+                            </Tooltip>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             <div className="color-picker__preview" style={{ backgroundColor: hex }} />
 
             <div className="color-picker__controls">
@@ -296,9 +379,10 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
                         label="Hex"
                         value={hex}
                         onChange={value => {
-                            const next = hexToRgb(value);
-                            if (next) {
-                                updateFromHsv(rgbToHsv(next));
+                            // Through applyExactHex, not the gradient: a hex typed in full
+                            // is already the answer, and re-deriving it shifted it by a digit.
+                            if (hexToRgb(value)) {
+                                applyExactHex(value.startsWith('#') ? value : `#${value}`);
                             }
                         }}
                     />

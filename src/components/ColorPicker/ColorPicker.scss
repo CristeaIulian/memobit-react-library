@@ -8,6 +8,46 @@
     background: var(--card-background-color);
     width: 320px;
 
+    // Above the gradient, not below it: reusing a colour already in play is the common
+    // case, and mixing a brand new one is the exception worth scrolling past.
+    &__swatches {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-6);
+    }
+
+    &__swatches-label {
+        font-size: var(--font-size-xxs);
+        color: var(--body-sub-title-color);
+    }
+
+    &__swatches-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-6);
+    }
+
+    &__swatch {
+        width: var(--spacing-20);
+        height: var(--spacing-20);
+        padding: 0;
+        border: 1px solid var(--delimiter-color);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform var(--transition-fast);
+
+        &:hover {
+            transform: scale(1.15);
+        }
+
+        &.is-selected {
+            // An outline rather than a thicker border, so the swatch's own size — and the
+            // colour it is showing — stays exactly the same when it becomes the active one.
+            outline: 2px solid var(--body-accent-color);
+            outline-offset: 2px;
+        }
+    }
+
     &__preview {
         width: 100%;
         height: 40px;

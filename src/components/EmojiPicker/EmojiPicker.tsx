@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
 import { InputSearch } from '../InputSearch';
+import { Tooltip } from '../Tooltip';
 
 import { EMOJI_KEYWORDS } from './emojiKeywords';
 
@@ -785,14 +786,14 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ value, onChange }) => 
             {!filteredEmojis && (
                 <div className="emoji-picker__categories">
                     {CATEGORIES.map(cat => (
-                        <button
-                            key={cat.id}
-                            className={`emoji-picker__cat-btn${activeCategory === cat.id ? ' is-active' : ''}`}
-                            title={cat.name}
-                            onClick={() => setActiveCategory(cat.id)}
-                        >
-                            {cat.icon}
-                        </button>
+                        <Tooltip key={cat.id} title={cat.name}>
+                            <button
+                                className={`emoji-picker__cat-btn${activeCategory === cat.id ? ' is-active' : ''}`}
+                                onClick={() => setActiveCategory(cat.id)}
+                            >
+                                {cat.icon}
+                            </button>
+                        </Tooltip>
                     ))}
                 </div>
             )}
