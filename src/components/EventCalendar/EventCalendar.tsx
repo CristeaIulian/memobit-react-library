@@ -224,14 +224,12 @@ export function EventCalendar<T>({
                             : undefined
                     }
                     onClose={() => setAgendaDate(null)}
-                    onEventClick={
-                        onEventClick
-                            ? event => {
-                                  setAgendaDate(null);
-                                  onEventClick(event);
-                              }
-                            : undefined
-                    }
+                    // The agenda stays open underneath. What the caller opens from a row is a
+                    // detail view of something in this list, so closing it should land back on
+                    // the list — dismissing the agenda first meant the day had to be reopened
+                    // by hand every time. Drawers already stack by open order, so the caller's
+                    // own panel sits on top.
+                    onEventClick={onEventClick}
                     renderEvent={renderEvent}
                 />
             )}

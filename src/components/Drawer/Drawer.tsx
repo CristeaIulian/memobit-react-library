@@ -14,6 +14,9 @@ const DRAWER_BASE_Z_INDEX = 1000;
 /** Incremented each time a drawer opens so the most recently opened drawer stacks on top. */
 let drawerStackCounter = 0;
 
+/** The stack indices currently on screen, in the order they opened. */
+const openDrawers: number[] = [];
+
 export interface DrawerHeaderAction {
     id: string;
     label?: string;
@@ -84,22 +87,41 @@ export const Drawer: React.FC<DrawerProps> = ({
     const [stackIndex, setStackIndex] = useState(0);
 
     useEffect(() => {
-        if (isOpen) {
-            drawerStackCounter += 1;
-            setStackIndex(drawerStackCounter);
+        if (!isOpen) {
+            return;
         }
+
+        drawerStackCounter += 1;
+        const index = drawerStackCounter;
+        setStackIndex(index);
+        openDrawers.push(index);
+
+        return () => {
+            const at = openDrawers.indexOf(index);
+            if (at !== -1) {
+                openDrawers.splice(at, 1);
+            }
+        };
     }, [isOpen]);
 
     useEffect(() => {
+        if (!isOpen) {
+            return;
+        }
+
         const handleEscape = (event: KeyboardEvent) => {
-            if (event.key === 'Escape' && isOpen) {
-                onClose();
+            // Only the drawer on top answers. Every open drawer listens on the document, so
+            // without this one Escape collapsed a whole stack at once — a task opened from a
+            // day agenda took the agenda down with it instead of stepping back to the list.
+            if (event.key !== 'Escape' || openDrawers[openDrawers.length - 1] !== stackIndex) {
+                return;
             }
+            onClose();
         };
 
         document.addEventListener('keydown', handleEscape);
         return () => document.removeEventListener('keydown', handleEscape);
-    }, [isOpen, onClose]);
+    }, [isOpen, onClose, stackIndex]);
 
     if (!isOpen) {
         return null;
