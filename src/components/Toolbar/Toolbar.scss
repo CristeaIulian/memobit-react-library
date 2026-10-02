@@ -95,10 +95,24 @@
 
     &__custom {
         display: flex;
+        // flex-end so a labelled control in here lines its *input* up with the search and
+        // sort boxes rather than its label — apps rely on this.
         align-items: flex-end;
+        // The slot itself still stretches to the row. Left at its natural height it was only
+        // as tall as its content, so a bare control — one with no label above it — came out
+        // shorter than the boxes either side and lined up on its bottom edge alone. Growing
+        // the box changes nothing for the labelled case, whose children stay bottom-aligned.
+        align-self: stretch;
         flex: 1 1 auto;
         gap: var(--spacing-16);
         min-width: 0;
+
+        // A notification panel is the labelless case the toolbar itself ships, so it fills
+        // the row rather than floating 9px short of everything beside it.
+        > .NotificationPanel,
+        > .NotificationPanel > .NotificationPanel__button {
+            height: 100%;
+        }
     }
 
     &__actions {
