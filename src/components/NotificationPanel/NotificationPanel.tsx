@@ -15,6 +15,12 @@ interface NotificationPanelProps {
     buttonLabel?: string;
     panelTitle?: string;
     emptyMessage?: string;
+    /**
+     * Makes each row a way into whatever it is warning about, and closes the panel on the
+     * way. Without it the rows are a read-only list — fine for a reading like "battery 0%"
+     * that has nowhere to go, wrong for an alert that names a record you want to open.
+     */
+    onItemClick?: (item: NotificationPanelItem) => void;
 }
 
 export const NotificationPanel: FC<NotificationPanelProps> = ({
@@ -22,6 +28,7 @@ export const NotificationPanel: FC<NotificationPanelProps> = ({
     buttonLabel = 'Alerts',
     panelTitle = 'Notifications',
     emptyMessage = 'No active notifications.',
+    onItemClick,
 }): ReactElement => {
     const [isOpen, setIsOpen] = useState(false);
     const [panelStyle, setPanelStyle] = useState<CSSProperties>({ opacity: 0 });
@@ -96,7 +103,21 @@ export const NotificationPanel: FC<NotificationPanelProps> = ({
                                     {items.map(item => (
                                         <li
                                             key={item.id}
-                                            className={`NotificationPanel__item${item.severity === 'critical' ? ' NotificationPanel__item--critical' : ''}`}
+                                            className={[
+                                                'NotificationPanel__item',
+                                                item.severity === 'critical' ? 'NotificationPanel__item--critical' : '',
+                                                onItemClick ? 'NotificationPanel__item--clickable' : '',
+                                            ]
+                                                .filter(Boolean)
+                                                .join(' ')}
+                                            onClick={
+                                                onItemClick
+                                                    ? () => {
+                                                          setIsOpen(false);
+                                                          onItemClick(item);
+                                                      }
+                                                    : undefined
+                                            }
                                         >
                                             {item.message}
                                         </li>
