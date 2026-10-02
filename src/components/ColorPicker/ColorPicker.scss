@@ -31,7 +31,9 @@
         width: var(--spacing-20);
         height: var(--spacing-20);
         padding: 0;
-        border: 1px solid var(--delimiter-color);
+        // Mixed from the text colour rather than the delimiter, which is close enough to
+        // the card on some themes to leave a white swatch with no visible edge.
+        border: 1px solid color-mix(in srgb, var(--body-color) 30%, transparent);
         border-radius: 50%;
         cursor: pointer;
         transition: transform var(--transition-fast);
