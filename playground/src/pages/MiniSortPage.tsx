@@ -77,10 +77,10 @@ export const MiniSortPage: React.FC = () => {
             <p>Compact sort controls for cards, toolbars, and mobile-friendly data views.</p>
 
             <section className="page-section">
-                <h2>One-Way Quick Sorts</h2>
+                <h2>Quick Sorts</h2>
 
                 <div className="showcase-group">
-                    <h3>Each option owns its direction</h3>
+                    <h3>Each option starts in its own direction — click the active one again to reverse it</h3>
                     <div className="mini-sort-page__toolbar">
                         <MiniSort
                             items={quickSortItems}
