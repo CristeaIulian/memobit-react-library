@@ -32,6 +32,7 @@ export type Theme =
     | 'horizon-amber'
     | 'horizon-drift'
     | 'ivory-serif'
+    | 'kindred-ink'
     | 'lavender-mist'
     | 'light-blue'
     | 'lumen'
