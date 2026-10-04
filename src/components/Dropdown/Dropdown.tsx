@@ -803,6 +803,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const showSelectedPrefixIcon = Boolean(selectedSingleOption?.icon && !filterText && !showValueChip);
     const showSelectedSuffixIcon = Boolean(selectedSingleOption?.suffixIcon && !showValueChip);
     const chipsMode = multiple && showChips;
+    const showClearButton = selectedOptions.length > 0;
 
     return (
         <div
@@ -816,7 +817,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             )}
 
             <div
-                className={`dropdown-input-container ${showSelectedPrefixIcon ? 'dropdown-input-container--has-prefix-icon' : ''} ${showSelectedSuffixIcon ? 'dropdown-input-container--has-suffix-icon' : ''} ${chipsMode ? 'dropdown-input-container--chips' : ''} ${chipsMode && multilineChips ? 'dropdown-input-container--chips-multiline' : ''}`}
+                className={`dropdown-input-container ${showSelectedPrefixIcon ? 'dropdown-input-container--has-prefix-icon' : ''} ${showSelectedSuffixIcon ? 'dropdown-input-container--has-suffix-icon' : ''} ${chipsMode ? 'dropdown-input-container--chips' : ''} ${chipsMode && multilineChips ? 'dropdown-input-container--chips-multiline' : ''} ${showClearButton ? 'dropdown-input-container--clearable' : ''}`}
             >
                 {showSelectedPrefixIcon && selectedSingleOption?.icon && (
                     <span className="dropdown-selected-icon dropdown-selected-icon--prefix">
@@ -871,7 +872,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         </span>
                     )}
 
-                    {((!multiple && selectedOptions.length > 0) || (multiple && selectedOptions.length > 0)) && (
+                    {showClearButton && (
                         <span className="dropdown-action-button dropdown-clear-button">
                             <Button variant="plain" onClick={handleClear} disabled={disabled}>
                                 {clear}

@@ -17,14 +17,29 @@
     }
 
     .dropdown-input-container {
+        // Room the action buttons (arrow, plus clear once something is selected) take on the
+        // right. The value chip and the typed/placeholder text must stop short of it, or in
+        // a narrow field they run underneath the buttons.
+        --dropdown-actions-space: var(--spacing-48);
+
         position: relative;
         width: 100%;
+        container-type: inline-size;
         background-color: var(--dropdown-header-background-color);
         color: var(--dropdown-header-color);
         overflow: hidden;
 
         .input-text {
             background-color: transparent;
+        }
+
+        &--clearable {
+            --dropdown-actions-space: calc(var(--spacing-80) + var(--spacing-12));
+        }
+
+        &:not(.dropdown-input-container--chips) input[type='text'] {
+            padding-right: var(--dropdown-actions-space);
+            text-overflow: ellipsis;
         }
 
         &--has-prefix-icon {
@@ -61,6 +76,7 @@
 
         .dropdown-value-chip {
             position: absolute;
+            box-sizing: border-box;
             top: 50%;
             left: var(--spacing-12);
             transform: translateY(-50%);
@@ -74,7 +90,7 @@
             background: var(--chip-selected-background-color, var(--card-background-accent-color));
             color: var(--chip-selected-color, var(--body-accent-color));
             font-size: var(--font-size-xs);
-            max-width: calc(100% - 80px);
+            max-width: calc(100% - var(--spacing-12) - var(--dropdown-actions-space));
             cursor: pointer;
 
             &__label {
@@ -193,7 +209,7 @@
                 @include flex-center;
 
                 button {
-                    padding: var(--spacing-8) var(--spacing-12);
+                    padding: var(--spacing-8);
                     border-radius: 0;
 
                     span {
@@ -502,6 +518,25 @@
         // Better touch targets on mobile
         .dropdown-options-list .dropdown-option {
             min-height: var(--spacing-48);
+        }
+    }
+}
+
+// In a field too narrow for the value, the clear button and the arrow together (a Month
+// picker next to Day/Year, say), drop the clear button: the value can still be changed from
+// the list, and the value itself is what has to stay readable.
+@container (max-width: 160px) {
+    .dropdown-container .dropdown-input-container {
+        .dropdown-actions-buttons .dropdown-action-button.dropdown-clear-button {
+            display: none;
+        }
+
+        .dropdown-value-chip {
+            max-width: calc(100% - var(--spacing-12) - var(--spacing-48));
+        }
+
+        &:not(.dropdown-input-container--chips) input[type='text'] {
+            padding-right: var(--spacing-48);
         }
     }
 }
