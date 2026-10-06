@@ -15,6 +15,13 @@
     box-shadow: var(--card-surface-box-shadow, var(--card-box-shadow));
     -webkit-backdrop-filter: var(--card-backdrop-filter, none);
 
+    // Without this the highlight snaps on and off, so sweeping across a list of
+    // cards strobes the accent colour from one to the next. Fading both
+    // directions lets the eye follow the pointer instead of being pulled by each
+    // change. Applied to border-color alone: animating `border` would also
+    // animate width and shift the layout.
+    transition: border-color var(--transition-moderate);
+
     &:hover {
         border-color: var(--card-hover-border-color);
     }
