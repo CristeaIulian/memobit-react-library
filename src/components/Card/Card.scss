@@ -20,7 +20,7 @@
     // directions lets the eye follow the pointer instead of being pulled by each
     // change. Applied to border-color alone: animating `border` would also
     // animate width and shift the layout.
-    transition: border-color var(--transition-moderate);
+    transition: border-color var(--transition-slow);
 
     &:hover {
         border-color: var(--card-hover-border-color);
