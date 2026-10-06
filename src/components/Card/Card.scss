@@ -19,6 +19,15 @@
         border-color: var(--card-hover-border-color);
     }
 
+    // `:hover` matches every ancestor of the pointer, not only the element under
+    // it, so a card nested in a card lit the whole stack at once — three borders
+    // for one pointer. Stand down when a descendant card is the one being
+    // hovered, so the highlight stays on the card the pointer is actually over.
+    // Same specificity as the rule above, so order decides: keep this after it.
+    &:has(.card:hover) {
+        border-color: var(--card-border-color);
+    }
+
     &.no-padding {
         padding: 0;
     }
