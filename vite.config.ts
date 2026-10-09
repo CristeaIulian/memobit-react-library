@@ -61,13 +61,13 @@ export default defineConfig({
         }),
         viteStaticCopy({
             targets: [
-                { src: 'src/styles/variables.scss', dest: 'styles' },
-                { src: 'src/styles/base.scss', dest: 'styles' },
-                { src: 'src/styles/effects.scss', dest: 'styles' },
-                { src: 'src/styles/highlight.scss', dest: 'styles' },
-                { src: 'src/styles/scrollbars.scss', dest: 'styles' },
-                { src: 'src/styles/utilities.scss', dest: 'styles' },
-                { src: 'src/styles/utility-classes.scss', dest: 'styles' },
+                { src: 'src/styles/variables.scss', dest: 'styles', rename: { stripBase: true } },
+                { src: 'src/styles/base.scss', dest: 'styles', rename: { stripBase: true } },
+                { src: 'src/styles/effects.scss', dest: 'styles', rename: { stripBase: true } },
+                { src: 'src/styles/highlight.scss', dest: 'styles', rename: { stripBase: true } },
+                { src: 'src/styles/scrollbars.scss', dest: 'styles', rename: { stripBase: true } },
+                { src: 'src/styles/utilities.scss', dest: 'styles', rename: { stripBase: true } },
+                { src: 'src/styles/utility-classes.scss', dest: 'styles', rename: { stripBase: true } },
             ],
         }),
         {
