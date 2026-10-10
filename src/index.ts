@@ -269,6 +269,7 @@ export { AuthContext, AuthProvider } from './contexts/AuthContext';
 export type { AuthConfig, AuthContextValue, LoginCredentials, LoginOutcome, LoginResponse, MfaMethod, User, VerifyResponse } from './types/auth.types';
 
 // Export hooks
+export { useAccountMenu, type UseAccountMenuOptions, type UseAccountMenuReturn } from './hooks/useAccountMenu';
 export { type AppPersistenceDefaults, useAppPersistence, type UseAppPersistenceReturn } from './hooks/useAppPersistence';
 export { useAuth } from './hooks/useAuth';
 export { useBodyScrollLock } from './hooks/useBodyScrollLock';
@@ -278,6 +279,7 @@ export { type SwipeHandlers, useSwipe, type UseSwipeOptions } from './hooks/useS
 
 // Export helpers
 export { AppPersistenceStorage } from './helpers/AppPersistenceStorage';
+export { chartColors, chartTooltipStyle } from './helpers/Charts';
 export {
     addDays,
     addMonths,
@@ -304,9 +306,25 @@ export {
 } from './helpers/Datetime';
 export { formatBigNumber, formatBytes, formatMoney } from './helpers/Format';
 export { highlightText } from './helpers/Highlight';
+export {
+    type ApiClient,
+    type ApiClientConfig,
+    ApiError,
+    buildRequestHeaders,
+    createApiClient,
+    CSRF_HEADER,
+    getCsrfToken,
+    HttpMethod,
+    HttpStatus,
+    isClientErrorStatus,
+    isServerErrorStatus,
+    isSuccessStatus,
+    readErrorMessage,
+} from './helpers/Http';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
+export { applyImageFallback, getCategoryImageUrl, getDefaultImageUrl, getImageUrl, getNextImageFallback, IMAGES_BASE_PATH } from './helpers/Images';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
-export { format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
+export { clamp, format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { getResultsCount } from './helpers/Pagination';
 export { foldDiacritics, fuzzyMatch } from './helpers/Search';
 export { shortenText, slugify, truncateText } from './helpers/Strings';

@@ -25,3 +25,5 @@ export const getPercentsOf2Numbers = (aInput: number, bInput: number): { a: numb
         b: Math.round((bInput / total) * 100 * 10) / 10,
     };
 };
+
+export const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value));

@@ -44,6 +44,14 @@
       "types": "./dist/mfa.d.ts",
       "import": "./dist/mfa.js"
     },
+    "./http": {
+      "types": "./dist/http.d.ts",
+      "import": "./dist/http.js"
+    },
+    "./router": {
+      "types": "./dist/router.d.ts",
+      "import": "./dist/router.js"
+    },
     "./dist/styles/variables.scss": "./dist/styles/variables.scss",
     "./dist/styles/base.scss": "./dist/styles/base.scss",
     "./dist/styles/effects.scss": "./dist/styles/effects.scss",
@@ -75,7 +83,13 @@
     "@memobit/icons": "^1.0.0",
     "@memobit/themes": "^1.0.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-router": "8.4.0"
+  },
+  "peerDependenciesMeta": {
+    "react-router": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@eslint/js": "9.39.4",

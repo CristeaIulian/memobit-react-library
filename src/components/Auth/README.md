@@ -8,8 +8,9 @@ Reusable authentication components for all @memobit projects.
 - **ChangePasswordModal** - Modal for changing user password
 - **AuthProvider** - Context provider for authentication state
 - **useAuth** - Hook to access authentication context
-
-**Note:** ProtectedRoute is not provided by the library. Each project should create its own based on its react-router-dom version.
+- **useAccountMenu** - Theme / Change Password / Two-factor / Logout menu items plus their modals
+- **ProtectedRoute** - Route gate, from the separate `@memobit/libs/router` entry (needs `react-router`)
+- **createApiClient** - Cookie-session fetch client (credentials, CSRF header, 401 → login), also exported from the React-free `@memobit/libs/http` entry
 
 ## Installation
 
@@ -59,34 +60,10 @@ function App() {
 }
 ```
 
-### 3. Create ProtectedRoute component
-
-Each project should create its own ProtectedRoute using the `useAuth` hook:
+### 3. Protect routes
 
 ```tsx
-// src/components/ProtectedRoute.tsx
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '@memobit/libs';
-
-export function ProtectedRoute({ children }: { children: React.ReactNode }) {
-    const { isAuthenticated, isLoading } = useAuth();
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
-    }
-
-    return <>{children}</>;
-}
-```
-
-### 4. Use ProtectedRoute
-
-```tsx
-import { ProtectedRoute } from '@components/ProtectedRoute';
+import { ProtectedRoute } from '@memobit/libs/router';
 
 <Route
     path="/"
@@ -97,6 +74,21 @@ import { ProtectedRoute } from '@components/ProtectedRoute';
     }
 />
 ```
+
+`loginPath` (default `/login`) sets where an anonymous visitor is sent.
+
+### 4. Call the API
+
+```tsx
+import { createApiClient } from '@memobit/libs';
+
+const apiClient = createApiClient({ baseUrl: import.meta.env.VITE_API_URL });
+
+export const loadTasks = () => apiClient.get<TasksResponse>('tasks');
+export const saveTask = (task: TaskSaveDTO) => apiClient.post<SaveResponse, TaskSaveDTO>('tasks/add', task);
+```
+
+Requests carry the session cookie, mutating requests add `X-CSRF-Token`, failures throw `ApiError` (with `status`), and a 401 sends the browser to `/login?session_expired=true`. Use `HttpStatus` / `HttpMethod` instead of numeric codes and method strings.
 
 ### 5. Use authentication in components
 
@@ -115,27 +107,26 @@ function Header() {
 }
 ```
 
-### 6. Add Change Password feature
+### 6. Add the account menu
 
 ```tsx
-import { ChangePasswordModal } from '@memobit/libs';
+import { MenuHamburgerItem, Toolbar, useAccountMenu } from '@memobit/libs';
+import { MfaSetupModal } from '@memobit/libs/mfa';
 
-function UserMenu() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+function AppToolbar() {
+    const accountMenu = useAccountMenu({ appName: 'Tasks', mfaModal: MfaSetupModal });
+    const menuItems: MenuHamburgerItem[] = [...navItems, ...accountMenu.items];
 
     return (
         <>
-            <button onClick={() => setIsModalOpen(true)}>
-                Change Password
-            </button>
-            <ChangePasswordModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-            />
+            <Toolbar menuItems={menuItems} />
+            {accountMenu.modals}
         </>
     );
 }
 ```
+
+Omit `mfaModal` for backends without two-factor support. `themeItem` and `accountItems` are also returned separately for menus that interleave their own items.
 
 ## Configuration Options
 

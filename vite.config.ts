@@ -170,12 +170,16 @@ export default defineConfig({
             entry: {
                 index: resolve(__dirname, 'src/index.ts'),
                 mfa: resolve(__dirname, 'src/mfa.ts'),
+                // `router` keeps react-router out of the main bundle for apps that don't route.
+                router: resolve(__dirname, 'src/router.ts'),
+                // `http` is React-free so scripts and Node servers can use it too.
+                http: resolve(__dirname, 'src/http.ts'),
             },
             formats: ['es'],
             fileName: (_format, entryName) => `${entryName}.esm.js`,
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime', '@memobit/icons', '@memobit/icons/map', '@memobit/themes'],
+            external: ['react', 'react-dom', 'react/jsx-runtime', 'react-router', '@memobit/icons', '@memobit/icons/map', '@memobit/themes'],
             output: {
                 preserveModules: true,
                 preserveModulesRoot: 'src',

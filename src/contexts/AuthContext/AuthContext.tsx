@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 
+import { buildRequestHeaders, HttpMethod } from '../../helpers/Http';
 import type { AuthConfig, AuthContextValue, LoginCredentials, LoginOutcome, LoginResponse, User, VerifyResponse } from '../../types/auth.types';
 
 export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -20,7 +21,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
         const restoreAuth = async () => {
             try {
                 const response = await fetch(`${config.apiBaseUrl}/auth/verify`, {
-                    method: 'GET',
+                    method: HttpMethod.Get,
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                 });
@@ -59,7 +60,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
             setIsLoading(true);
             try {
                 const response = await fetch(`${config.apiBaseUrl}/auth/login`, {
-                    method: 'POST',
+                    method: HttpMethod.Post,
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -101,7 +102,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
                 // Public route: protected by the httpOnly mfa_pending cookie (SameSite=Strict)
                 // + the server-side Origin check, so no CSRF token is required here.
                 const response = await fetch(`${config.apiBaseUrl}/auth/verifyMfa`, {
-                    method: 'POST',
+                    method: HttpMethod.Post,
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code, trustDevice }),
@@ -126,9 +127,9 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
     const logout = useCallback(async () => {
         try {
             await fetch(`${config.apiBaseUrl}/auth/logout`, {
-                method: 'POST',
+                method: HttpMethod.Post,
                 credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
+                headers: buildRequestHeaders(HttpMethod.Post),
             });
         } catch (error) {
             console.error('Logout error:', error);

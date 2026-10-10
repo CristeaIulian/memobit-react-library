@@ -2,6 +2,7 @@ import { type ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { QRCodeSVG } from 'qrcode.react';
 
+import { buildRequestHeaders, HttpMethod } from '../../../helpers/Http';
 import { useAuth } from '../../../hooks/useAuth';
 import type { MfaMethod } from '../../../types/auth.types';
 import { Button } from '../../Button';
@@ -37,15 +38,10 @@ export function MfaSetupModal({ isOpen, onClose }: MfaSetupModalProps): ReactEle
     // mirroring ChangePasswordModal. GET status has no CSRF requirement.
     const post = useCallback(
         async (path: string, body?: Record<string, unknown>): Promise<Record<string, unknown>> => {
-            const csrfMatch = document.cookie.match(/(?:^|;\s*)csrf_token=([^;]+)/);
-            const csrfToken = csrfMatch ? decodeURIComponent(csrfMatch[1]) : null;
-            const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-            if (csrfToken) headers['X-CSRF-Token'] = csrfToken;
-
             const response = await fetch(`${config.apiBaseUrl}${path}`, {
-                method: 'POST',
+                method: HttpMethod.Post,
                 credentials: 'include',
-                headers,
+                headers: buildRequestHeaders(HttpMethod.Post),
                 body: body ? JSON.stringify(body) : undefined,
             });
             const data = (await response.json().catch(() => ({}))) as Record<string, unknown>;
