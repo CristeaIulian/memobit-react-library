@@ -1,6 +1,6 @@
 {
   "name": "@memobit/libs",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "React component library powering the Memobit apps — 100+ components, helpers and hooks. Icons ship as @memobit/icons and themes as @memobit/themes. TypeScript-first, ESM-only, React 19.",
   "keywords": [
     "react",
