@@ -1,68 +1,80 @@
 import type { SyntheticEvent } from 'react';
 
-// Every app keeps its uploaded entity images under the same generic folder:
-//   default.jpg            — app-wide fallback
-//   category/<key>.jpg     — per-category fallback
-//   specific/<filename>    — uploaded images
-export const IMAGES_BASE_PATH = '/data-files/images';
+export const DATA_FILES_PATH = '/data-files';
 
-export const getDefaultImageUrl = (): string => `${IMAGES_BASE_PATH}/default.jpg`;
-
-export const getCategoryImageUrl = (categoryKey: string): string => `${IMAGES_BASE_PATH}/category/${categoryKey}.jpg`;
+export interface ImagePaths {
+    basePath: string;
+    getDefaultImageUrl: () => string;
+    getCategoryImageUrl: (categoryKey: string) => string;
+    getImageUrl: (filename: string | File, categoryKey?: string) => string;
+    getNextImageFallback: (currentSrc: string, categoryKey?: string) => string | null;
+    applyImageFallback: (event: SyntheticEvent<HTMLImageElement>, categoryKey?: string) => void;
+}
 
 /**
- * Resolves what an <img> should show for a stored image value:
- * - a File (new, unsaved upload) → a blob URL
- * - a full URL, blob URL or already-prefixed path → unchanged
- * - empty → the category fallback, else the app default
- * - a bare filename → its path under specific/
+ * Image paths for one entity folder under /data-files, laid out as:
+ *   default.jpg            — fallback for the whole folder
+ *   category/<key>.jpg     — per-category fallback
+ *   specific/<filename>    — uploaded images
+ * The folder is named after what it holds (e.g. 'books'), never after the app.
  */
-export const getImageUrl = (filename: string | File, categoryKey?: string): string => {
-    if (typeof filename !== 'string') {
-        return URL.createObjectURL(filename);
-    }
+export const createImagePaths = (folder: string): ImagePaths => {
+    const basePath = `${DATA_FILES_PATH}/${folder.replace(/^\/+|\/+$/g, '')}`;
 
-    if (!filename) {
-        return categoryKey ? getCategoryImageUrl(categoryKey) : getDefaultImageUrl();
-    }
+    const getDefaultImageUrl = (): string => `${basePath}/default.jpg`;
 
-    if (filename.includes(IMAGES_BASE_PATH) || filename.startsWith('blob:') || filename.startsWith('http')) {
-        return filename;
-    }
+    const getCategoryImageUrl = (categoryKey: string): string => `${basePath}/category/${categoryKey}.jpg`;
 
-    return `${IMAGES_BASE_PATH}/specific/${filename}`;
-};
+    // File (unsaved upload) → blob URL; full/blob/already-prefixed → unchanged;
+    // empty → category fallback, else default; bare filename → specific/.
+    const getImageUrl = (filename: string | File, categoryKey?: string): string => {
+        if (typeof filename !== 'string') {
+            return URL.createObjectURL(filename);
+        }
 
-// Walks the fallback chain specific → category → default, returning null once there is
-// nothing left to try so the caller can stop retrying.
-export const getNextImageFallback = (currentSrc: string, categoryKey?: string): string | null => {
-    const defaultImage = getDefaultImageUrl();
-    const categoryImage = categoryKey ? getCategoryImageUrl(categoryKey) : defaultImage;
+        if (!filename) {
+            return categoryKey ? getCategoryImageUrl(categoryKey) : getDefaultImageUrl();
+        }
 
-    if (!currentSrc) {
+        if (filename.includes(basePath) || filename.startsWith('blob:') || filename.startsWith('http')) {
+            return filename;
+        }
+
+        return `${basePath}/specific/${filename}`;
+    };
+
+    // Walks specific → category → default, returning null once nothing is left to try.
+    const getNextImageFallback = (currentSrc: string, categoryKey?: string): string | null => {
+        const defaultImage = getDefaultImageUrl();
+        const categoryImage = categoryKey ? getCategoryImageUrl(categoryKey) : defaultImage;
+
+        if (!currentSrc) {
+            return categoryImage;
+        }
+
+        if (currentSrc.endsWith(defaultImage)) {
+            return null;
+        }
+
+        if (currentSrc.includes(`${basePath}/category/`)) {
+            return defaultImage;
+        }
+
         return categoryImage;
-    }
+    };
 
-    if (currentSrc.endsWith(defaultImage)) {
-        return null;
-    }
+    // Drop-in <img onError> handler that advances the fallback chain one step per failure.
+    const applyImageFallback = (event: SyntheticEvent<HTMLImageElement>, categoryKey?: string): void => {
+        const image = event.currentTarget;
+        const fallbackSrc = getNextImageFallback(image.src, categoryKey);
 
-    if (currentSrc.includes(`${IMAGES_BASE_PATH}/category/`)) {
-        return defaultImage;
-    }
+        if (fallbackSrc && !image.src.endsWith(fallbackSrc)) {
+            image.src = fallbackSrc;
+            return;
+        }
 
-    return categoryImage;
-};
+        image.onerror = null;
+    };
 
-// Drop-in <img onError> handler that advances the fallback chain one step per failure.
-export const applyImageFallback = (event: SyntheticEvent<HTMLImageElement>, categoryKey?: string): void => {
-    const image = event.currentTarget;
-    const fallbackSrc = getNextImageFallback(image.src, categoryKey);
-
-    if (fallbackSrc && !image.src.endsWith(fallbackSrc)) {
-        image.src = fallbackSrc;
-        return;
-    }
-
-    image.onerror = null;
+    return { basePath, getDefaultImageUrl, getCategoryImageUrl, getImageUrl, getNextImageFallback, applyImageFallback };
 };

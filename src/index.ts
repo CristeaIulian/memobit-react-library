@@ -322,7 +322,7 @@ export {
     readErrorMessage,
 } from './helpers/Http';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
-export { applyImageFallback, getCategoryImageUrl, getDefaultImageUrl, getImageUrl, getNextImageFallback, IMAGES_BASE_PATH } from './helpers/Images';
+export { createImagePaths, DATA_FILES_PATH, type ImagePaths } from './helpers/Images';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
 export { clamp, format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { getResultsCount } from './helpers/Pagination';
