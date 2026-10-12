@@ -85,6 +85,7 @@ export interface ControlPanelFilter {
     count?: number | string;
     placeholder?: string;
     multiple?: boolean;
+    /** Dropdown filters are searchable unless set to false; chips filters only show a search box when true. */
     searchable?: boolean;
     min?: number;
     max?: number;

@@ -804,6 +804,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const showSelectedSuffixIcon = Boolean(selectedSingleOption?.suffixIcon && !showValueChip);
     const chipsMode = multiple && showChips;
     const showClearButton = selectedOptions.length > 0;
+    // Typing either filters the list (searchable) or names a new value (allowCustomValue)
+    const isTypeable = searchable || allowCustomValue;
 
     return (
         <div
@@ -857,12 +859,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     id={inputId}
                     placeholder={showValueChip ? '' : getPlaceholderText()}
                     value={showValueChip ? '' : getDisplayText()}
-                    onChange={searchable || multiple ? handleInputChange : () => {}}
+                    onChange={isTypeable ? handleInputChange : undefined}
                     onClick={handleInputClick}
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     autoFocus={autofocus}
                     disabled={disabled}
+                    // A pick-only dropdown is read-only, which keeps the mobile keyboard closed
+                    readOnly={!isTypeable}
                 />
 
                 <div className="dropdown-actions-buttons">

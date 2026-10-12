@@ -31,6 +31,10 @@
 
         .input-text {
             background-color: transparent;
+
+            &:read-only:not(:disabled) {
+                cursor: pointer;
+            }
         }
 
         &--clearable {

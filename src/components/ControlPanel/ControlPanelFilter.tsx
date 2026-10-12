@@ -404,7 +404,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                 }}
                 options={filterOptions}
                 placeholder={filter.placeholder}
-                searchable={filter.searchable ?? false}
+                searchable={filter.searchable ?? true}
                 selectedCountDisplay="inline"
                 usePortal={false}
                 value={typeof filter.value === 'boolean' ? null : filter.value}
