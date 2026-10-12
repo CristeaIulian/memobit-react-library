@@ -16,12 +16,12 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
-const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8'));
-const buildNumberPath = resolve(__dirname, '.build-number');
+const pkg = JSON.parse(readFileSync(resolve(import.meta.dirname, 'package.json'), 'utf-8'));
+const buildNumberPath = resolve(import.meta.dirname, '.build-number');
 
 const getCommitHash = (): string => {
     try {
-        return execSync('git rev-parse --short HEAD', { cwd: __dirname }).toString().trim();
+        return execSync('git rev-parse --short HEAD', { cwd: import.meta.dirname }).toString().trim();
     } catch {
         return 'unknown';
     }
@@ -113,15 +113,15 @@ export default defineConfig({
             // keeps the caret, the checkmark and the rest instead of dropping them.
             name: 'memobit-icon-usage-manifest',
             closeBundle() {
-                const distDir = resolve(__dirname, 'dist');
+                const distDir = resolve(import.meta.dirname, 'dist');
                 // Validated against the real icon list, so a broad sweep of quoted
                 // strings cannot invent names that do not exist.
                 const iconModulesSource = readFileSync(
-                    resolve(__dirname, 'node_modules/@memobit/icons/dist/iconModules.js'),
+                    resolve(import.meta.dirname, 'node_modules/@memobit/icons/dist/iconModules.js'),
                     'utf-8',
                 );
                 const validNames = new Set([...iconModulesSource.matchAll(/"([^"]+)":\s*"/g)].map(match => match[1]));
-                const icons = collectIconUsage(resolve(__dirname, 'src/components'), validNames);
+                const icons = collectIconUsage(resolve(import.meta.dirname, 'src/components'), validNames);
                 mkdirSync(distDir, { recursive: true });
                 writeFileSync(resolve(distDir, 'memobit-icons.json'), `${JSON.stringify({ icons }, null, 2)}
 `);
@@ -138,7 +138,7 @@ export default defineConfig({
             // re-export covers the second. Both can go in the next major.
             name: 'memobit-legacy-entry-shims',
             closeBundle() {
-                const distDir = resolve(__dirname, 'dist');
+                const distDir = resolve(import.meta.dirname, 'dist');
                 mkdirSync(distDir, { recursive: true });
                 writeFileSync(
                     resolve(distDir, 'index.css'),
@@ -150,7 +150,7 @@ export default defineConfig({
         {
             name: 'memobit-lib-version-metadata',
             closeBundle() {
-                const distDir = resolve(__dirname, 'dist');
+                const distDir = resolve(import.meta.dirname, 'dist');
                 mkdirSync(distDir, { recursive: true });
                 writeFileSync(resolve(distDir, 'version.json'), `${JSON.stringify(libVersionInfo, null, 2)}\n`);
             },
@@ -168,12 +168,12 @@ export default defineConfig({
             // `mfa` is a second entry so the main bundle never references qrcode.react,
             // which MfaSetupModal needs for the enrolment QR and nothing else uses.
             entry: {
-                index: resolve(__dirname, 'src/index.ts'),
-                mfa: resolve(__dirname, 'src/mfa.ts'),
+                index: resolve(import.meta.dirname, 'src/index.ts'),
+                mfa: resolve(import.meta.dirname, 'src/mfa.ts'),
                 // `router` keeps react-router out of the main bundle for apps that don't route.
-                router: resolve(__dirname, 'src/router.ts'),
+                router: resolve(import.meta.dirname, 'src/router.ts'),
                 // `http` is React-free so scripts and Node servers can use it too.
-                http: resolve(__dirname, 'src/http.ts'),
+                http: resolve(import.meta.dirname, 'src/http.ts'),
             },
             formats: ['es'],
             fileName: (_format, entryName) => `${entryName}.esm.js`,

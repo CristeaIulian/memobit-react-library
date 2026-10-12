@@ -5,7 +5,7 @@ import { execSync } from 'child_process';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-const libraryRoot = resolve(__dirname, '..');
+const libraryRoot = resolve(import.meta.dirname, '..');
 const pkg = JSON.parse(readFileSync(resolve(libraryRoot, 'package.json'), 'utf-8'));
 const buildNumberPath = resolve(libraryRoot, '.build-number');
 
