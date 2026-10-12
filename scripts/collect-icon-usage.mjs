@@ -1,4 +1,4 @@
-// Collects the icon names this library's own components reference.
+// Collects the icon names this library's own source references (components, hooks, helpers).
 //
 // Consumers trim `iconMap` down to the icons they use, and they cannot see what a
 // component renders internally — so anything missing from this list is silently dropped
@@ -9,7 +9,8 @@
 //
 // So the sweep is deliberately broad: every quoted string in component source that is a
 // real icon name. Over-keeping a handful of icons costs a few KB; missing one leaves a
-// blank space in a shipped app. The one exclusion is the EmojiPicker keyword tables,
+// blank space in a shipped app — which is how useAccountMenu's 'theme-picker' and 'logout'
+// went missing while only src/components was scanned. The one exclusion is the EmojiPicker keyword tables,
 // where ~190 emoji search terms ("avocado", "beer", "dinosaur") collide with icon names
 // and would otherwise be kept for nothing.
 
@@ -33,10 +34,10 @@ const collectSourceFiles = (directory, found = []) => {
     return found;
 };
 
-export const collectIconUsage = (componentsDir, validNames) => {
+export const collectIconUsage = (sourceDir, validNames) => {
     const names = new Set();
 
-    for (const file of collectSourceFiles(componentsDir)) {
+    for (const file of collectSourceFiles(sourceDir)) {
         const source = readFileSync(file, 'utf8');
 
         for (const match of source.matchAll(QUOTED)) {

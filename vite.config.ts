@@ -109,8 +109,9 @@ export default defineConfig({
         },
         {
             // Consumers trim iconMap to what they use, and cannot see the names this
-            // library's own components hardcode. Publishing them means a trimmed build
-            // keeps the caret, the checkmark and the rest instead of dropping them.
+            // library hardcodes. Publishing them means a trimmed build keeps the caret,
+            // the checkmark and the rest instead of dropping them. The whole of src is
+            // scanned, not just components: hooks such as useAccountMenu name icons too.
             name: 'memobit-icon-usage-manifest',
             closeBundle() {
                 const distDir = resolve(import.meta.dirname, 'dist');
@@ -121,7 +122,7 @@ export default defineConfig({
                     'utf-8',
                 );
                 const validNames = new Set([...iconModulesSource.matchAll(/"([^"]+)":\s*"/g)].map(match => match[1]));
-                const icons = collectIconUsage(resolve(import.meta.dirname, 'src/components'), validNames);
+                const icons = collectIconUsage(resolve(import.meta.dirname, 'src'), validNames);
                 mkdirSync(distDir, { recursive: true });
                 writeFileSync(resolve(distDir, 'memobit-icons.json'), `${JSON.stringify({ icons }, null, 2)}
 `);
