@@ -1,6 +1,6 @@
 import React, { useMemo,useState } from 'react';
 
-import { addMonths, getMonthMatrix, isAfter,isBefore, isSameDay, isToday, isWeekend } from '../../helpers/Datetime';
+import { addMonths, APP_DATE_FORMAT, formatDate, getMonthMatrix, isAfter,isBefore, isSameDay, isToday, isWeekend } from '../../helpers/Datetime';
 import { Tooltip } from '../Tooltip';
 
 import './Calendar.scss';
@@ -456,16 +456,16 @@ export const Calendar: React.FC<CalendarProps> = ({
                         {monthMatrix.map((week, weekIndex) => (
                             <div key={weekIndex} className="calendar__week">
                                 {week.map((date, dayIndex) => (
-                                    <button
-                                        key={dayIndex}
-                                        type="button"
-                                        className={getDayClassName(date)}
-                                        onClick={() => handleDateClick(date)}
-                                        disabled={isDateDisabled(date)}
-                                        title={date.toDateString()}
-                                    >
-                                        {date.getDate()}
-                                    </button>
+                                    <Tooltip key={dayIndex} title={formatDate(date, APP_DATE_FORMAT)}>
+                                        <button
+                                            type="button"
+                                            className={getDayClassName(date)}
+                                            onClick={() => handleDateClick(date)}
+                                            disabled={isDateDisabled(date)}
+                                        >
+                                            {date.getDate()}
+                                        </button>
+                                    </Tooltip>
                                 ))}
                             </div>
                         ))}
