@@ -270,9 +270,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 ) : (
                     createPortal(
                         <div ref={dropdownRef} className="datepicker__dropdown" style={dropdownStyle}>
-                            <button type="button" className="datepicker__dropdown-close" onClick={handleClosePanel} title="Close">
-                                <Icon name="clear" />
-                            </button>
+                            <Tooltip title="Close">
+                                <button type="button" className="datepicker__dropdown-close" onClick={handleClosePanel}>
+                                    <Icon name="clear" />
+                                </button>
+                            </Tooltip>
                             {renderPanel()}
                         </div>,
                         document.body
