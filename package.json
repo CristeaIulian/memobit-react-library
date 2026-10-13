@@ -121,6 +121,9 @@
     "vite-plugin-static-copy": "4.1.1"
   },
   "overrides": {
+    "@rushstack/ts-command-line": {
+      "argparse": "2.0.1"
+    },
     "brace-expansion@1": "1.1.21",
     "brace-expansion@5": "5.0.12",
     "esbuild": "0.28.2",
