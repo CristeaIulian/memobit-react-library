@@ -48,6 +48,10 @@
       "types": "./dist/http.d.ts",
       "import": "./dist/http.js"
     },
+    "./errors": {
+      "types": "./dist/errors.d.ts",
+      "import": "./dist/errors.js"
+    },
     "./router": {
       "types": "./dist/router.d.ts",
       "import": "./dist/router.js"

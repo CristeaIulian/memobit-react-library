@@ -1,5 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 
+import { reportError } from '../../helpers/ErrorReporting';
 import { EmptyState } from '../EmptyState';
 
 import './ErrorBoundary.scss';
@@ -12,8 +13,8 @@ export interface ErrorBoundaryProps {
     /** Label for the reset button. Defaults to "Try again". */
     resetLabel?: string;
     /**
-     * Optional callback invoked when an error is caught. Use this to forward to
-     * a logging service. Console logging is always done as a fallback.
+     * Optional callback invoked when an error is caught. Caught errors are already
+     * reported to the hub once error reporting is installed, and always logged to the console.
      */
     onError?: (error: Error, info: ErrorInfo) => void;
     /**
@@ -35,6 +36,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     }
 
     componentDidCatch(error: Error, info: ErrorInfo): void {
+        // Report before logging: the console capture skips an error that is already
+        // reported, and this report carries the component stack.
+        reportError(error, { componentStack: info.componentStack ?? undefined });
         // Console fallback is always emitted so issues are noticed during dev.
         console.error('ErrorBoundary caught:', error, info.componentStack);
         this.props.onError?.(error, info);

@@ -52,6 +52,7 @@ function Demo() {
 - **Themes** — 70+ ready-made SCSS themes (Arctic Blue, Midnight Atlas, Terracotta Kitchen, Neon Tokyo, …). Theme tokens are pure CSS custom properties, so you can author your own.
 - **Hooks** — `useBreakpoint`, `useBodyScrollLock`, `useComponentEffect`, `useAppPersistence`, `useAuth`.
 - **Helpers** — date formatting, number formatting, string utilities, search/highlight, pagination, URL helpers.
+- **Error reporting** — `@memobit/libs/errors` (React-free, works in Node too): `installErrorReporting` / `installNodeErrorReporting` send uncaught errors, unhandled rejections, `ErrorBoundary` crashes and `console.error` / `console.warn` to a collector endpoint, batched and throttled. `logger` stands in for `console.*`, and `reportError` reports errors you have handled.
 
 See the [component reference](https://react.memobit.ro/) for props, variants, and live examples.
 

@@ -177,6 +177,8 @@ export default defineConfig({
                 router: resolve(import.meta.dirname, 'src/router.ts'),
                 // `http` is React-free so scripts and Node servers can use it too.
                 http: resolve(import.meta.dirname, 'src/http.ts'),
+                // `errors` is React-free too: Node servers report to the hub through it.
+                errors: resolve(import.meta.dirname, 'src/errors.ts'),
             },
             formats: ['es'],
             fileName: (_format, entryName) => `${entryName}.esm.js`,
