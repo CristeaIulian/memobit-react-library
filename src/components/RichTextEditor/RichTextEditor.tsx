@@ -68,17 +68,11 @@ export const RichTextEditor = ({
 
     const { snapshotForUndo, undo, redo } = useEditorHistory(editorRef, isInternalUpdate, emitChange);
 
-    const {
-        showLinkPrompt,
-        linkUrl,
-        setLinkUrl,
-        linkText,
-        setLinkText,
-        editingAnchorRef,
-        openLinkPrompt,
-        confirmLink,
-        cancelLink,
-    } = useLinkPrompt({ editorRef, snapshotForUndo, emitChange });
+    const { showLinkPrompt, linkUrl, setLinkUrl, linkText, setLinkText, editingAnchorRef, openLinkPrompt, confirmLink, cancelLink } = useLinkPrompt({
+        editorRef,
+        snapshotForUndo,
+        emitChange,
+    });
 
     const {
         activeTable,

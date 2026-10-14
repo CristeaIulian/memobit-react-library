@@ -31,7 +31,9 @@ export const JourneyWizardPage: React.FC = () => {
             id: 'details',
             title: 'Add a description',
             subtitle: 'Briefly describe what this project is about.',
-            content: <InputTextarea label="Description" value={projectDesc} onChange={setProjectDesc} placeholder="What is the goal of this project?" rows={5} />,
+            content: (
+                <InputTextarea label="Description" value={projectDesc} onChange={setProjectDesc} placeholder="What is the goal of this project?" rows={5} />
+            ),
         },
         {
             id: 'settings',

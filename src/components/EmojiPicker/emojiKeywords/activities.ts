@@ -75,5 +75,4 @@ export const activitiesKeywords: Record<string, string[]> = {
     '🚣': ['rowing', 'boat', 'paddle', 'water', 'canoe'],
     '🧗': ['climbing', 'rock', 'sport', 'mountain', 'wall'],
     '🚵': ['mountain', 'biking', 'cycling', 'bike', 'sport'],
-
 };

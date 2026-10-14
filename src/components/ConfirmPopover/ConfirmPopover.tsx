@@ -26,18 +26,7 @@ export interface ConfirmPopoverProps {
     offset?: number;
 }
 
-export const ConfirmPopover: FC<ConfirmPopoverProps> = ({
-    visible,
-    onClose,
-    anchorEl,
-    title,
-    message,
-    icon,
-    confirm,
-    cancel,
-    placement = 'auto',
-    offset,
-}) => {
+export const ConfirmPopover: FC<ConfirmPopoverProps> = ({ visible, onClose, anchorEl, title, message, icon, confirm, cancel, placement = 'auto', offset }) => {
     const handleConfirm = () => {
         confirm.onClick();
         onClose();
@@ -48,13 +37,7 @@ export const ConfirmPopover: FC<ConfirmPopoverProps> = ({
     };
 
     return (
-        <Popover
-            visible={visible}
-            onClose={onClose}
-            anchorEl={anchorEl}
-            placement={placement}
-            {...(offset !== undefined ? { offset } : {})}
-        >
+        <Popover visible={visible} onClose={onClose} anchorEl={anchorEl} placement={placement} {...(offset !== undefined ? { offset } : {})}>
             <div className="confirm-popover">
                 {(title || icon) && (
                     <div className="confirm-popover__header">
@@ -64,20 +47,10 @@ export const ConfirmPopover: FC<ConfirmPopoverProps> = ({
                 )}
                 {message && <div className="confirm-popover__message">{message}</div>}
                 <div className="confirm-popover__actions">
-                    <Button
-                        size="small"
-                        variant={cancel?.variant ?? 'default'}
-                        icon={cancel?.icon}
-                        onClick={handleCancel}
-                    >
+                    <Button size="small" variant={cancel?.variant ?? 'default'} icon={cancel?.icon} onClick={handleCancel}>
                         {cancel?.text ?? 'Cancel'}
                     </Button>
-                    <Button
-                        size="small"
-                        variant={confirm.variant ?? 'info'}
-                        icon={confirm.icon}
-                        onClick={handleConfirm}
-                    >
+                    <Button size="small" variant={confirm.variant ?? 'info'} icon={confirm.icon} onClick={handleConfirm}>
                         {confirm.text ?? 'Confirm'}
                     </Button>
                 </div>

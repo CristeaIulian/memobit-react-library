@@ -107,16 +107,7 @@ export const QuantitySelector = forwardRef<HTMLInputElement, QuantitySelectorPro
                         −
                     </Button>
                     <div className="quantity-selector-input">
-                        <InputNumber
-                            disabled={disabled}
-                            id={id}
-                            max={max}
-                            min={min}
-                            onChange={handleInputChange}
-                            ref={ref}
-                            step={step}
-                            value={value}
-                        />
+                        <InputNumber disabled={disabled} id={id} max={max} min={min} onChange={handleInputChange} ref={ref} step={step} value={value} />
                     </div>
                     <Button
                         className="quantity-selector-button quantity-selector-button-increase"

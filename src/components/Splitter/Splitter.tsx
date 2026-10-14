@@ -121,12 +121,15 @@ export const Splitter: FC<SplitterProps> = ({
         [collapsible, getMinSize]
     );
 
-    const commitPair = useCallback((index: number, [nextA, nextB]: [number, number]): number[] => {
-        const committed = sizes.map((size, i) => (i === index ? nextA : i === index + 1 ? nextB : size));
-        setSizes(committed);
+    const commitPair = useCallback(
+        (index: number, [nextA, nextB]: [number, number]): number[] => {
+            const committed = sizes.map((size, i) => (i === index ? nextA : i === index + 1 ? nextB : size));
+            setSizes(committed);
 
-        return committed;
-    }, [sizes]);
+            return committed;
+        },
+        [sizes]
+    );
 
     const handlePointerDown = useCallback(
         (event: ReactPointerEvent<HTMLDivElement>, index: number) => {

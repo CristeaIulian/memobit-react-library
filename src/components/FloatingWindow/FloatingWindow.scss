@@ -69,7 +69,9 @@
         font-size: var(--font-size-xs);
         line-height: var(--line-height-none);
         cursor: pointer;
-        transition: background var(--transition-fast), color var(--transition-fast);
+        transition:
+            background var(--transition-fast),
+            color var(--transition-fast);
 
         &:hover {
             background: var(--border-color);

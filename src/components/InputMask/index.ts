@@ -1,1 +1,1 @@
-export { InputMask, type InputMaskHandle,InputMaskPresets } from './InputMask';
+export { InputMask, type InputMaskHandle, InputMaskPresets } from './InputMask';

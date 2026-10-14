@@ -37,13 +37,7 @@ interface HeatmapCell {
     count: number;
 }
 
-export const CalendarHeatmap: FC<CalendarHeatmapProps> = ({
-    data,
-    startDate,
-    endDate,
-    colorFn = defaultColorFn,
-    countLabel = 'event',
-}) => {
+export const CalendarHeatmap: FC<CalendarHeatmapProps> = ({ data, startDate, endDate, colorFn = defaultColorFn, countLabel = 'event' }) => {
     const rangeEnd = new Date(endDate ?? new Date());
     rangeEnd.setHours(0, 0, 0, 0);
 
@@ -88,7 +82,9 @@ export const CalendarHeatmap: FC<CalendarHeatmapProps> = ({
             <div className="calendar-heatmap__months">
                 <div className="calendar-heatmap__spacer" />
                 {monthLabels.map((label, i) => (
-                    <div key={i} className="calendar-heatmap__month-label">{label ?? ''}</div>
+                    <div key={i} className="calendar-heatmap__month-label">
+                        {label ?? ''}
+                    </div>
                 ))}
             </div>
             {DAY_LABELS.map((dayLabel, dayIdx) => (

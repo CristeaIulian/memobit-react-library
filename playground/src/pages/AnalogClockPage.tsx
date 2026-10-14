@@ -116,7 +116,9 @@ export const AnalogClockPage: React.FC = () => {
                 <h2>Interaction</h2>
                 <ul>
                     <li>Click or drag anywhere on the dial to set the active unit.</li>
-                    <li>Releasing the pointer advances hours → minutes → seconds (disable with <code>autoAdvance={'{false}'}</code>).</li>
+                    <li>
+                        Releasing the pointer advances hours → minutes → seconds (disable with <code>autoAdvance={'{false}'}</code>).
+                    </li>
                     <li>Click the header numbers to jump back to a unit.</li>
                     <li>Focus the dial and use the arrow keys to nudge the active unit; Enter advances to the next one.</li>
                 </ul>

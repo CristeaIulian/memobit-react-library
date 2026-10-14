@@ -1,2 +1,2 @@
-export type { ConfettiHandle, ConfettiScope,ConfettiVariant } from './Confetti';
+export type { ConfettiHandle, ConfettiScope, ConfettiVariant } from './Confetti';
 export { Confetti } from './Confetti';

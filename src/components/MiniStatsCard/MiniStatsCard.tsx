@@ -60,9 +60,7 @@ export const MiniStatsCard: React.FC<MiniStatsCardProps> = ({
         </div>
     );
 
-    const renderLabel = () => (
-        <div className="mini-stats-card__label">{label}</div>
-    );
+    const renderLabel = () => <div className="mini-stats-card__label">{label}</div>;
 
     const renderTrend = () => {
         if (trend === undefined) return null;

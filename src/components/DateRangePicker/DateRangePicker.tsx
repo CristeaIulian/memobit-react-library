@@ -70,8 +70,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
     const range = value ?? internalRange;
     const startDate = toDate(range.start);
     const endDate = toDate(range.end);
-    const calendarValue: CalendarDateRange | undefined =
-        startDate && endDate ? { start: startDate, end: endDate } : undefined;
+    const calendarValue: CalendarDateRange | undefined = startDate && endDate ? { start: startDate, end: endDate } : undefined;
 
     const updateRange = (next: DateRange) => {
         if (!value) {
@@ -144,15 +143,10 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
         const availableAbove = anchorRect.top - viewportMargin;
         const shouldOpenAbove = availableBelow < panelRect.height && availableAbove > panelRect.height;
 
-        const top = shouldOpenAbove
-            ? anchorRect.top - panelRect.height - offset
-            : anchorRect.bottom + offset;
+        const top = shouldOpenAbove ? anchorRect.top - panelRect.height - offset : anchorRect.bottom + offset;
         const constrainedTop = Math.max(viewportMargin, Math.min(top, window.innerHeight - panelRect.height - viewportMargin));
         const unconstrainedLeft = anchorRect.left;
-        const constrainedLeft = Math.max(
-            viewportMargin,
-            Math.min(unconstrainedLeft, window.innerWidth - panelRect.width - viewportMargin)
-        );
+        const constrainedLeft = Math.max(viewportMargin, Math.min(unconstrainedLeft, window.innerWidth - panelRect.width - viewportMargin));
 
         setOverlayStyle({
             position: 'fixed',
@@ -269,12 +263,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                     <label className="date-range-picker__label">{label}</label>
                     <div className="date-range-picker__presets">
                         {presets.map(preset => (
-                            <Button
-                                key={preset.days}
-                                size="small"
-                                variant="default"
-                                onClick={() => handlePreset(preset.days)}
-                            >
+                            <Button key={preset.days} size="small" variant="default" onClick={() => handlePreset(preset.days)}>
                                 {preset.label}
                             </Button>
                         ))}
@@ -286,12 +275,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                     {presets && presets.length > 0 && (
                         <div className="date-range-picker__presets">
                             {presets.map(preset => (
-                                <Button
-                                    key={preset.days}
-                                    size="small"
-                                    variant="default"
-                                    onClick={() => handlePreset(preset.days)}
-                                >
+                                <Button key={preset.days} size="small" variant="default" onClick={() => handlePreset(preset.days)}>
                                     {preset.label}
                                 </Button>
                             ))}
@@ -300,27 +284,11 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                 </>
             )}
             <div className="date-range-picker__inputs">
-                <InputText
-                    value={startInput}
-                    placeholder="YYYY-MM-DD"
-                    maxLength={10}
-                    onChange={setStartInput}
-                    onBlur={handleStartBlur}
-                />
+                <InputText value={startInput} placeholder="YYYY-MM-DD" maxLength={10} onChange={setStartInput} onBlur={handleStartBlur} />
                 <span className="date-range-picker__separator">to</span>
-                <InputText
-                    value={endInput}
-                    placeholder="YYYY-MM-DD"
-                    maxLength={10}
-                    onChange={setEndInput}
-                    onBlur={handleEndBlur}
-                />
+                <InputText value={endInput} placeholder="YYYY-MM-DD" maxLength={10} onChange={setEndInput} onBlur={handleEndBlur} />
                 {!alwaysOpen && (
-                    <Button
-                        className="date-range-picker__toggle"
-                        variant="default"
-                        onClick={() => setIsCalendarOpen(previous => !previous)}
-                    >
+                    <Button className="date-range-picker__toggle" variant="default" onClick={() => setIsCalendarOpen(previous => !previous)}>
                         {isCalendarVisible ? 'Hide calendar' : 'Choose dates'}
                     </Button>
                 )}

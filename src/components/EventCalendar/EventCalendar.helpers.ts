@@ -159,20 +159,17 @@ export const buildDroppedStart = (event: CalendarEvent, target: Date, keepTimeOf
 };
 
 /** Whether an hour falls inside the active band. No band means every hour counts. */
-export const isActiveHour = (hour: number, activeHours?: CalendarActiveHours): boolean =>
-    !activeHours || (hour >= activeHours.start && hour < activeHours.end);
+export const isActiveHour = (hour: number, activeHours?: CalendarActiveHours): boolean => !activeHours || (hour >= activeHours.start && hour < activeHours.end);
 
 export const formatHourLabel = (hour: number): string => `${hour.toString().padStart(2, '0')}:00`;
 
 export const formatEventTime = (date: Date): string => `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 
-
 /**
  * True when an event occupies more than one calendar day, which is what earns it a bar
  * across the month grid rather than a chip inside a single cell.
  */
-export const isMultiDayEvent = (event: CalendarEvent): boolean =>
-    Boolean(event.allDay && event.end && startOfDay(event.end) > startOfDay(event.start));
+export const isMultiDayEvent = (event: CalendarEvent): boolean => Boolean(event.allDay && event.end && startOfDay(event.end) > startOfDay(event.start));
 
 export interface WeekSpan<T = unknown> {
     event: CalendarEvent<T>;

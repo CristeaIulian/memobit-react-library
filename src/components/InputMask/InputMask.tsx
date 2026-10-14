@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useId, useImperativeHandle,useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useId, useImperativeHandle, useRef, useState } from 'react';
 
 import './InputMask.scss';
 
@@ -249,11 +249,7 @@ export const InputMask = forwardRef<InputMaskHandle, InputMaskProps>(
                 )}
 
                 <div className="input-mask__field">
-                    {icon && (
-                        <span className="input-mask__icon">
-                            {icon}
-                        </span>
-                    )}
+                    {icon && <span className="input-mask__icon">{icon}</span>}
 
                     <input
                         ref={inputRef}
@@ -282,13 +278,7 @@ export const InputMask = forwardRef<InputMaskHandle, InputMaskProps>(
                     {suffix && <span className="input-mask__suffix">{suffix}</span>}
                 </div>
 
-                {(hint || error) && (
-                    <p
-                        className={error ? 'input-mask__error' : 'input-mask__hint'}
-                    >
-                        {error ?? hint}
-                    </p>
-                )}
+                {(hint || error) && <p className={error ? 'input-mask__error' : 'input-mask__hint'}>{error ?? hint}</p>}
             </div>
         );
     }

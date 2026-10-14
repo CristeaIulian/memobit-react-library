@@ -113,9 +113,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <span className="sidebar__link-label">{item.label}</span>
             {item.count !== undefined && (
                 <Tooltip title={item.countLabel}>
-                    <span className="sidebar__link-count">
-                        {item.count}
-                    </span>
+                    <span className="sidebar__link-count">{item.count}</span>
                 </Tooltip>
             )}
         </button>
@@ -125,12 +123,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <>
             {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
             <aside className={sidebarClassName} style={sidebarStyle}>
-                {appHeaderProps && (
-                    <AppHeader
-                        {...appHeaderProps}
-                        className={['sidebar__app-header', appHeaderProps.className].filter(Boolean).join(' ')}
-                    />
-                )}
+                {appHeaderProps && <AppHeader {...appHeaderProps} className={['sidebar__app-header', appHeaderProps.className].filter(Boolean).join(' ')} />}
                 {searchPlaceholder && (
                     <div className="sidebar__search">
                         <InputSearch value={searchQuery} onChange={setSearchQuery} placeholder={searchPlaceholder} />

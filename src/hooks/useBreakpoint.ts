@@ -1,4 +1,4 @@
-import { useCallback,useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // Define breakpoint types
 export type Breakpoint = 'mobile' | 'tablet' | 'desktop' | 'largeDesktop';

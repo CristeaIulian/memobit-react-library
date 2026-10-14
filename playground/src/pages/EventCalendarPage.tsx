@@ -56,8 +56,8 @@ export const EventCalendarPage: FC = () => {
             <section className="page-section">
                 <h2>Interactive</h2>
                 <p>
-                    Drag a chip onto another day (or another hour, in week view) to reschedule it. Click a chip to select it, or click empty space to add on that
-                    day.
+                    Drag a chip onto another day (or another hour, in week view) to reschedule it. Click a chip to select it, or click empty space to add on
+                    that day.
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">

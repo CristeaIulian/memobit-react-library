@@ -19,8 +19,8 @@ export const GridPage: React.FC = () => {
         <div className="grid-page">
             <h1>Grid</h1>
             <p>
-                A flexbox column grid. Track widths are derived from the column count and the gap, so <code>Col span</code> lines up with plain children. Columns
-                collapse on their own at the tablet and mobile breakpoints.
+                A flexbox column grid. Track widths are derived from the column count and the gap, so <code>Col span</code> lines up with plain children.
+                Columns collapse on their own at the tablet and mobile breakpoints.
             </p>
 
             <section className="page-section">

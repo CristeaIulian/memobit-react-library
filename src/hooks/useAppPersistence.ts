@@ -16,12 +16,9 @@ export interface UseAppPersistenceReturn<TPages, TTheme> {
     clearAll: () => void;
 }
 
-export function useAppPersistence<TPages, TTheme>(
-    appId: string,
-    defaults: AppPersistenceDefaults<TPages, TTheme>
-): UseAppPersistenceReturn<TPages, TTheme> {
+export function useAppPersistence<TPages, TTheme>(appId: string, defaults: AppPersistenceDefaults<TPages, TTheme>): UseAppPersistenceReturn<TPages, TTheme> {
     const resolvedDefaults = {
-        pages: (defaults.pages ?? ({} as TPages)),
+        pages: defaults.pages ?? ({} as TPages),
         theme: defaults.theme,
     };
 

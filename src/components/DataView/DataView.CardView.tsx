@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Checkbox } from '../Checkbox';
 import { EmptyState } from '../EmptyState';
 import { Icon } from '../Icon';
-import { calculateTimelineMarkers, type TimelineMarkerInfo, type TimelineMarkersItem,TimelineMobileSeparator } from '../TimelineMarkers';
+import { calculateTimelineMarkers, type TimelineMarkerInfo, type TimelineMarkersItem, TimelineMobileSeparator } from '../TimelineMarkers';
 import { Tooltip } from '../Tooltip';
 
 import type { DataViewCardConfig, DataViewColumn, DataViewEmptyConfig, DataViewGroup, DataViewGroupKey, DataViewTimelineConfig } from './DataView.types';
@@ -141,38 +141,35 @@ export function CardView<T>({
                         <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
                     </div>
                 )}
-                {card?.media && (
-                    <div className="data-view__card-media">{card.media(row)}</div>
-                )}
-                {card && (() => {
-                    const cardIcon = card.icon?.(row);
-                    return (
-                        <div className="data-view__card-header">
-                            <div className="data-view__card-title-row">
-                                <div className="data-view__card-title-line">
-                                    {selectable && onToggleSelect && (
-                                        <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
-                                            <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
-                                        </div>
-                                    )}
-                                    {cardIcon && <Icon className="data-view__card-icon" name={cardIcon} />}
-                                    <span className="data-view__card-title">{card.title(row)}</span>
+                {card?.media && <div className="data-view__card-media">{card.media(row)}</div>}
+                {card &&
+                    (() => {
+                        const cardIcon = card.icon?.(row);
+                        return (
+                            <div className="data-view__card-header">
+                                <div className="data-view__card-title-row">
+                                    <div className="data-view__card-title-line">
+                                        {selectable && onToggleSelect && (
+                                            <div className="data-view__card-select" onClick={e => e.stopPropagation()}>
+                                                <Checkbox checked={isSelected || false} onChange={checked => onToggleSelect(rowId, checked)} />
+                                            </div>
+                                        )}
+                                        {cardIcon && <Icon className="data-view__card-icon" name={cardIcon} />}
+                                        <span className="data-view__card-title">{card.title(row)}</span>
+                                    </div>
+                                    {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
                                 </div>
-                                {card.subtitle && <span className="data-view__card-subtitle">{card.subtitle(row)}</span>}
+                                {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
                             </div>
-                            {card.badges && <div className="data-view__card-badges">{card.badges(row)}</div>}
-                        </div>
-                    );
-                })()}
+                        );
+                    })()}
 
                 {cardColumns.length > 0 && (
                     <div className="data-view__card-body">
                         {cardColumns.map(col => (
                             <div key={col.key} className="data-view__card-field">
                                 <span className="data-view__card-label">{renderColumnLabel(col)}</span>
-                                <span className="data-view__card-value">
-                                    {renderCellContent(col, row)}
-                                </span>
+                                <span className="data-view__card-value">{renderCellContent(col, row)}</span>
                             </div>
                         ))}
                     </div>
@@ -194,11 +191,7 @@ export function CardView<T>({
                         {cardInner}
                     </a>
                 ) : (
-                    <div
-                        className={cardClass}
-                        style={cardStyle}
-                        onClick={onRowClick ? (e) => onRowClick(row, e) : undefined}
-                    >
+                    <div className={cardClass} style={cardStyle} onClick={onRowClick ? e => onRowClick(row, e) : undefined}>
                         {cardInner}
                     </div>
                 )}

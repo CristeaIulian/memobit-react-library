@@ -18,9 +18,7 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({ label, accept, multi
 
     useEffect(() => {
         if (!showPreview) return;
-        const next = files
-            .filter(file => file.type.startsWith('image/'))
-            .map(file => URL.createObjectURL(file));
+        const next = files.filter(file => file.type.startsWith('image/')).map(file => URL.createObjectURL(file));
         setPreviews(next);
         return () => {
             next.forEach(url => URL.revokeObjectURL(url));
@@ -30,7 +28,7 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({ label, accept, multi
     const updateFiles = useCallback(
         (fileList: FileList | null) => {
             if (!fileList) return;
-            const nextFiles = multiple ? Array.from(fileList) : [fileList[0]].filter(Boolean) as File[];
+            const nextFiles = multiple ? Array.from(fileList) : ([fileList[0]].filter(Boolean) as File[]);
             setFiles(nextFiles);
             onFiles?.(nextFiles);
         },
@@ -60,13 +58,7 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({ label, accept, multi
                 onDrop={handleDrop}
                 onClick={() => inputRef.current?.click()}
             >
-                <input
-                    ref={inputRef}
-                    type="file"
-                    accept={accept}
-                    multiple={multiple}
-                    onChange={event => updateFiles(event.target.files)}
-                />
+                <input ref={inputRef} type="file" accept={accept} multiple={multiple} onChange={event => updateFiles(event.target.files)} />
                 <div className="file-dropzone__content">
                     <strong>Drop files here</strong>
                     <span>or click to browse</span>

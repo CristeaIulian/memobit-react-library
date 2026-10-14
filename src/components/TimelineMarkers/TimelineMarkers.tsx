@@ -43,13 +43,9 @@ const getDateKey = (date: Date, granularity: 'day' | 'month'): string => {
     return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 };
 
-const getYearKey = (date: Date): string =>
-    date.getFullYear().toString();
+const getYearKey = (date: Date): string => date.getFullYear().toString();
 
-export const calculateTimelineMarkers = <T extends TimelineMarkersItem>(
-    items: T[],
-    granularity: 'day' | 'month' = 'day',
-): Map<number, TimelineMarkerInfo> => {
+export const calculateTimelineMarkers = <T extends TimelineMarkersItem>(items: T[], granularity: 'day' | 'month' = 'day'): Map<number, TimelineMarkerInfo> => {
     const markers = new Map<number, TimelineMarkerInfo>();
     let lastYear: string | null = null;
     let lastDate: string | null = null;
@@ -119,20 +115,14 @@ export const TimelineMobileSeparator = ({ marker }: { marker: TimelineMarkerInfo
 
     return (
         <div className="timeline-markers__separator">
-            <span className="timeline-markers__separator-label">
-                {marker.showYear ? marker.yearLabel : marker.dateLabel}
-            </span>
+            <span className="timeline-markers__separator-label">{marker.showYear ? marker.yearLabel : marker.dateLabel}</span>
         </div>
     );
 };
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export const TimelineMarkers = <T extends TimelineMarkersItem>({
-    items,
-    renderItem,
-    className,
-}: TimelineMarkersProps<T>) => {
+export const TimelineMarkers = <T extends TimelineMarkersItem>({ items, renderItem, className }: TimelineMarkersProps<T>) => {
     const markers = useMemo(() => calculateTimelineMarkers(items), [items]);
 
     return (

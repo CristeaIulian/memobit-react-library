@@ -45,7 +45,13 @@ const clamp = (value: number, min: number, max: number) => Math.min(max, Math.ma
 const hexToRgb = (hex: string): RGB | null => {
     const normalized = hex.replace('#', '').trim();
     if (![3, 6].includes(normalized.length)) return null;
-    const full = normalized.length === 3 ? normalized.split('').map(c => c + c).join('') : normalized;
+    const full =
+        normalized.length === 3
+            ? normalized
+                  .split('')
+                  .map(c => c + c)
+                  .join('')
+            : normalized;
     const num = parseInt(full, 16);
     if (Number.isNaN(num)) return null;
     return {
@@ -58,14 +64,17 @@ const hexToRgb = (hex: string): RGB | null => {
 /** Lower-cased and `#`-prefixed, so the same colour written three ways is one string. */
 const normalizeHex = (hex: string): string => {
     const trimmed = hex.trim().replace('#', '').toLowerCase();
-    const full = trimmed.length === 3 ? trimmed.split('').map(c => c + c).join('') : trimmed;
+    const full =
+        trimmed.length === 3
+            ? trimmed
+                  .split('')
+                  .map(c => c + c)
+                  .join('')
+            : trimmed;
     return `#${full}`;
 };
 
-const rgbToHex = ({ r, g, b }: RGB): string =>
-    `#${[r, g, b]
-        .map(value => clamp(Math.round(value), 0, 255).toString(16).padStart(2, '0'))
-        .join('')}`;
+const rgbToHex = ({ r, g, b }: RGB): string => `#${[r, g, b].map(value => clamp(Math.round(value), 0, 255).toString(16).padStart(2, '0')).join('')}`;
 
 const rgbToHsv = ({ r, g, b }: RGB): HSV => {
     const rNorm = r / 255;
@@ -336,28 +345,14 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
             <div className="color-picker__preview" style={{ backgroundColor: hex }} />
 
             <div className="color-picker__controls">
-                <div
-                    className="color-picker__sv"
-                    ref={svRef}
-                    style={{ backgroundColor: `hsl(${hsv.h}, 100%, 50%)` }}
-                    onPointerDown={handleSvPointerDown}
-                >
+                <div className="color-picker__sv" ref={svRef} style={{ backgroundColor: `hsl(${hsv.h}, 100%, 50%)` }} onPointerDown={handleSvPointerDown}>
                     <div className="color-picker__sv-white" />
                     <div className="color-picker__sv-black" />
-                    <div
-                        className="color-picker__sv-handle"
-                        style={{ left: `${hsv.s}%`, top: `${100 - hsv.v}%` }}
-                    />
+                    <div className="color-picker__sv-handle" style={{ left: `${hsv.s}%`, top: `${100 - hsv.v}%` }} />
                 </div>
 
                 <div className="color-picker__slider">
-                    <input
-                        type="range"
-                        min={0}
-                        max={360}
-                        value={hsv.h}
-                        onChange={event => updateFromHsv({ ...hsv, h: Number(event.target.value) })}
-                    />
+                    <input type="range" min={0} max={360} value={hsv.h} onChange={event => updateFromHsv({ ...hsv, h: Number(event.target.value) })} />
                 </div>
             </div>
 
@@ -391,27 +386,9 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
 
             {mode === 'rgb' && (
                 <div className="color-picker__fields color-picker__fields--rgb">
-                    <InputNumber
-                        label="R"
-                        min={0}
-                        max={255}
-                        value={rgb.r}
-                        onChange={value => updateFromHsv(rgbToHsv({ ...rgb, r: value ?? 0 }))}
-                    />
-                    <InputNumber
-                        label="G"
-                        min={0}
-                        max={255}
-                        value={rgb.g}
-                        onChange={value => updateFromHsv(rgbToHsv({ ...rgb, g: value ?? 0 }))}
-                    />
-                    <InputNumber
-                        label="B"
-                        min={0}
-                        max={255}
-                        value={rgb.b}
-                        onChange={value => updateFromHsv(rgbToHsv({ ...rgb, b: value ?? 0 }))}
-                    />
+                    <InputNumber label="R" min={0} max={255} value={rgb.r} onChange={value => updateFromHsv(rgbToHsv({ ...rgb, r: value ?? 0 }))} />
+                    <InputNumber label="G" min={0} max={255} value={rgb.g} onChange={value => updateFromHsv(rgbToHsv({ ...rgb, g: value ?? 0 }))} />
+                    <InputNumber label="B" min={0} max={255} value={rgb.b} onChange={value => updateFromHsv(rgbToHsv({ ...rgb, b: value ?? 0 }))} />
                 </div>
             )}
 

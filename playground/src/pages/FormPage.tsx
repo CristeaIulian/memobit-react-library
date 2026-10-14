@@ -170,7 +170,15 @@ export const FormPage: React.FC = () => {
                         />
                     </div>
 
-                    <InputTextarea id="bio" label="Internal bio" value={bio} onChange={setBio} rows={4} maxLength={240} placeholder="Add a short internal note" />
+                    <InputTextarea
+                        id="bio"
+                        label="Internal bio"
+                        value={bio}
+                        onChange={setBio}
+                        rows={4}
+                        maxLength={240}
+                        placeholder="Add a short internal note"
+                    />
 
                     <div className="form-actions">
                         <Button type="submit" variant="success">
@@ -198,7 +206,13 @@ export const FormPage: React.FC = () => {
                 <h2>Product Request</h2>
                 <form className="form-example" onSubmit={handleRequestSubmit}>
                     <div className="form-grid">
-                        <InputSearch id="product-search" label="Product search" value={productSearch} onChange={setProductSearch} placeholder="Find products..." />
+                        <InputSearch
+                            id="product-search"
+                            label="Product search"
+                            value={productSearch}
+                            onChange={setProductSearch}
+                            placeholder="Find products..."
+                        />
                         <Dropdown
                             id="product-category"
                             name="category"

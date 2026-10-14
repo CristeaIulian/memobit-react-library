@@ -5,9 +5,7 @@
         overflow: hidden;
         border: 1px solid var(--border-color);
         border-radius: var(--radius);
-        background:
-            linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 38%),
-            var(--card-background-accent-color);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 38%), var(--card-background-accent-color);
     }
 
     .tour-hud-demo--dashboard,

@@ -70,7 +70,7 @@ export const IconPicker: FC<IconPickerProps> = ({
             },
             () => {
                 // A chunk failed to load. The grid keeps its loading message; reopening the picker retries.
-            },
+            }
         );
 
         return () => {
@@ -129,7 +129,9 @@ export const IconPicker: FC<IconPickerProps> = ({
             </div>
 
             {!isLoading && (
-                <p className="icon-picker__count">{shown.length === available.length ? `${available.length} icons` : `${shown.length} of ${available.length}`}</p>
+                <p className="icon-picker__count">
+                    {shown.length === available.length ? `${available.length} icons` : `${shown.length} of ${available.length}`}
+                </p>
             )}
         </div>
     );

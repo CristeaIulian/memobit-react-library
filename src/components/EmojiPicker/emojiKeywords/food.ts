@@ -85,5 +85,4 @@ export const foodKeywords: Record<string, string[]> = {
     '🍹': ['tropical', 'drink', 'cocktail', 'alcohol', 'umbrella'],
     '🧉': ['mate', 'drink', 'tea', 'argentina'],
     '🍾': ['champagne', 'bottle', 'celebrate', 'pop', 'cork'],
-
 };

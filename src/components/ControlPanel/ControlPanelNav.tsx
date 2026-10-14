@@ -14,11 +14,7 @@ export const ControlPanelNav: React.FC<ControlPanelNavProps> = ({ navigation, on
     // Only reserve the expand/collapse column when at least one item is expandable;
     // otherwise a flat list would carry a dead-space placeholder before every item.
     const showToggleColumn = navigation.some(item => (item.children?.length ?? 0) > 0);
-    return (
-        <nav className="control-panel__nav">
-            {navigation.map(item => renderNavItem(item, showToggleColumn, onNavigate))}
-        </nav>
-    );
+    return <nav className="control-panel__nav">{navigation.map(item => renderNavItem(item, showToggleColumn, onNavigate))}</nav>;
 };
 
 function renderNavItem(item: ControlPanelNavItem, showToggleColumn: boolean, onNavigate?: () => void, depth = 0): React.ReactNode {

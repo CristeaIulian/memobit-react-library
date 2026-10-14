@@ -117,14 +117,7 @@ export const InputTime = forwardRef<HTMLInputElement, InputTimeProps>(
 
                 {withClock && (
                     <Popover visible={isClockOpen} onClose={() => setIsClockOpen(false)} anchorEl={fieldRef.current}>
-                        <TimePicker
-                            collapsibleClock={false}
-                            label=""
-                            minuteStep={minuteStep}
-                            onChange={handleClockChange}
-                            value={parseTime(value)}
-                            withClock
-                        />
+                        <TimePicker collapsibleClock={false} label="" minuteStep={minuteStep} onChange={handleClockChange} value={parseTime(value)} withClock />
                     </Popover>
                 )}
             </div>

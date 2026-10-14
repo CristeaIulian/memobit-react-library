@@ -7,8 +7,8 @@ export const StackedBarPage: React.FC = () => {
         <div className="stacked-bar-page">
             <h1>Stacked Bar Component</h1>
             <p>
-                A horizontal part-to-whole bar made of multiple labeled segments. Use it whenever you need to show how a total is split across
-                categories (macronutrient breakdown, storage by file type, budget by department, etc.).
+                A horizontal part-to-whole bar made of multiple labeled segments. Use it whenever you need to show how a total is split across categories
+                (macronutrient breakdown, storage by file type, budget by department, etc.).
             </p>
 
             <section className="page-section">
@@ -261,8 +261,8 @@ export const StackedBarPage: React.FC = () => {
                 <h2>Vertical orientation</h2>
                 <p>
                     In vertical mode segments stack <strong>bottom-up</strong> — the first segment in the array sits at the base of the bar, matching the
-                    standard stacked-bar-chart convention. Inline labels are hidden (slices are usually too narrow); hover any segment for the full label
-                    via the native title tooltip.
+                    standard stacked-bar-chart convention. Inline labels are hidden (slices are usually too narrow); hover any segment for the full label via
+                    the native title tooltip.
                 </p>
 
                 <div className="showcase-group">

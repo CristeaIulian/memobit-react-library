@@ -78,13 +78,7 @@ export const DateRangePickerPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Monday first</h3>
                     <div className="component-group">
-                        <DateRangePicker
-                            label="Week starts Monday"
-                            value={mondayFirstRange}
-                            onChange={setMondayFirstRange}
-                            firstDayOfWeek={1}
-                            alwaysOpen
-                        />
+                        <DateRangePicker label="Week starts Monday" value={mondayFirstRange} onChange={setMondayFirstRange} firstDayOfWeek={1} alwaysOpen />
                     </div>
                     <p>
                         Selected: {mondayFirstRange.start ?? 'none'} to {mondayFirstRange.end ?? 'none'}

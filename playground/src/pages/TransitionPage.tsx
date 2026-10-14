@@ -6,9 +6,7 @@ import './TransitionPage.scss';
 
 const TYPES: TransitionType[] = ['fade', 'slide-up', 'slide-down', 'slide-left', 'slide-right', 'scale', 'collapse'];
 
-const Panel: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-    <div className="transition-demo-panel">{children ?? 'I animate in and out.'}</div>
-);
+const Panel: React.FC<{ children?: React.ReactNode }> = ({ children }) => <div className="transition-demo-panel">{children ?? 'I animate in and out.'}</div>;
 
 export const TransitionPage: React.FC = () => {
     const [isShown, setIsShown] = useState(true);

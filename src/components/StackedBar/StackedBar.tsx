@@ -88,12 +88,7 @@ export const StackedBar = ({
         trackStyle.width = width;
     }
 
-    const trackClassName = [
-        'stacked-bar',
-        `stacked-bar--${orientation}`,
-        thin ? 'stacked-bar--thin' : '',
-        separators ? 'stacked-bar--separators' : '',
-    ]
+    const trackClassName = ['stacked-bar', `stacked-bar--${orientation}`, thin ? 'stacked-bar--thin' : '', separators ? 'stacked-bar--separators' : '']
         .filter(Boolean)
         .join(' ');
 

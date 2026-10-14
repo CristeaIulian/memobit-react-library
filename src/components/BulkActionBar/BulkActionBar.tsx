@@ -54,7 +54,7 @@ export const BulkActionBar: React.FC<BulkActionBarProps> = ({
 
     const rootClassName = ['memobit-bulk-action-bar', `memobit-bulk-action-bar--${position}`, className].filter(Boolean).join(' ');
 
-    const displayLabel: ReactNode = progress ? formatProgress(progress) : label ?? `${selectionCount} selected`;
+    const displayLabel: ReactNode = progress ? formatProgress(progress) : (label ?? `${selectionCount} selected`);
 
     return (
         <div className={rootClassName}>

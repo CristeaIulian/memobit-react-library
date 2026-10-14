@@ -76,8 +76,8 @@
     "playground": "vite serve playground --config playground/vite.config.ts",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,cjs,css,scss}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,cjs,css,scss}\""
   },
   "peerDependencies": {
     "@memobit/icons": "^1.5.0",

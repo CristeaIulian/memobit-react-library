@@ -18,11 +18,20 @@ export interface BadgeProps {
     onClear?: () => void;
 }
 
-export const Badge: FC<BadgeProps> = ({ variant = 'default', children, className = '', size = 'medium', customColor, isActive, onClick, onClear }: BadgeProps) => {
+export const Badge: FC<BadgeProps> = ({
+    variant = 'default',
+    children,
+    className = '',
+    size = 'medium',
+    customColor,
+    isActive,
+    onClick,
+    onClear,
+}: BadgeProps) => {
     const activeClass = isActive !== undefined ? (isActive ? 'badge--active' : 'badge--inactive') : '';
     const clickableClass = onClick ? 'badge--clickable' : '';
     const variantClass = customColor ? 'badge-variant--custom' : `badge-variant--${variant}`;
-    const style = customColor ? { '--badge-custom-color': customColor } as React.CSSProperties : undefined;
+    const style = customColor ? ({ '--badge-custom-color': customColor } as React.CSSProperties) : undefined;
 
     return (
         <span

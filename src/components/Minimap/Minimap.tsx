@@ -28,15 +28,7 @@ export interface MinimapProps {
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
-export const Minimap: React.FC<MinimapProps> = ({
-    buckets,
-    viewportStart,
-    viewportEnd,
-    onScrub,
-    bands,
-    caption,
-    className = '',
-}) => {
+export const Minimap: React.FC<MinimapProps> = ({ buckets, viewportStart, viewportEnd, onScrub, bands, caption, className = '' }) => {
     const trackRef = useRef<HTMLDivElement>(null);
     const draggingRef = useRef(false);
 
@@ -93,11 +85,7 @@ export const Minimap: React.FC<MinimapProps> = ({
             >
                 <div className="minimap__bars">
                     {buckets.map((value, i) => (
-                        <span
-                            key={i}
-                            className="minimap__bar"
-                            style={{ height: `${(value / maxValue) * 100}%` }}
-                        />
+                        <span key={i} className="minimap__bar" style={{ height: `${(value / maxValue) * 100}%` }} />
                     ))}
                 </div>
 

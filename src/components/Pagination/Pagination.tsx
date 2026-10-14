@@ -148,7 +148,13 @@ export const Pagination: FC<PaginationProps> = ({
                         </Button>
                     ))}
 
-                    <Button variant="default" borders="sharp" disabled={currentPage === totalPages} sufixIcon="next" onClick={() => onPageChange(currentPage + 1)}>
+                    <Button
+                        variant="default"
+                        borders="sharp"
+                        disabled={currentPage === totalPages}
+                        sufixIcon="next"
+                        onClick={() => onPageChange(currentPage + 1)}
+                    >
                         {isAtLeast('desktop') ? 'Next' : ''}
                     </Button>
                 </div>

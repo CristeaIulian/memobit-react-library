@@ -42,12 +42,7 @@ function getColorIndex(initials: string): number {
     return hash % AVATAR_COLORS.length;
 }
 
-export const AvatarInitials: React.FC<AvatarInitialsProps> = ({
-    name,
-    size = 'medium',
-    shape = 'rounded',
-    className = '',
-}) => {
+export const AvatarInitials: React.FC<AvatarInitialsProps> = ({ name, size = 'medium', shape = 'rounded', className = '' }) => {
     const initials = getInitials(name);
     const { background, color } = AVATAR_COLORS[getColorIndex(initials)];
 

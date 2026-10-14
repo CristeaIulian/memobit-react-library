@@ -53,9 +53,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="layout__container">
                 <Sidebar
                     sections={sidebarSections}
-                    appHeaderProps={
-                        isMobile ? { icon: 'toolbox', appName: 'Playground', heading: 'Components' } : undefined
-                    }
+                    appHeaderProps={isMobile ? { icon: 'toolbox', appName: 'Playground', heading: 'Components' } : undefined}
                     isOpen={isSidebarOpen}
                     onClose={() => setIsSidebarOpen(false)}
                     isMobile={isMobile}

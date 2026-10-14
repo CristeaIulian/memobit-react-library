@@ -19,12 +19,30 @@
     }
 
     // Explicit value size — overrides both the default and thin defaults.
-    &--value-xs  { --_value-size-inline: var(--font-size-xs);  --_value-size-display: var(--font-size-xs);  }
-    &--value-sm  { --_value-size-inline: var(--font-size-sm);  --_value-size-display: var(--font-size-sm);  }
-    &--value-md  { --_value-size-inline: var(--font-size-md);  --_value-size-display: var(--font-size-md);  }
-    &--value-lg  { --_value-size-inline: var(--font-size-lg);  --_value-size-display: var(--font-size-lg);  }
-    &--value-xl  { --_value-size-inline: var(--font-size-xl);  --_value-size-display: var(--font-size-xl);  }
-    &--value-xxl { --_value-size-inline: var(--font-size-xxl); --_value-size-display: var(--font-size-xxl); }
+    &--value-xs {
+        --_value-size-inline: var(--font-size-xs);
+        --_value-size-display: var(--font-size-xs);
+    }
+    &--value-sm {
+        --_value-size-inline: var(--font-size-sm);
+        --_value-size-display: var(--font-size-sm);
+    }
+    &--value-md {
+        --_value-size-inline: var(--font-size-md);
+        --_value-size-display: var(--font-size-md);
+    }
+    &--value-lg {
+        --_value-size-inline: var(--font-size-lg);
+        --_value-size-display: var(--font-size-lg);
+    }
+    &--value-xl {
+        --_value-size-inline: var(--font-size-xl);
+        --_value-size-display: var(--font-size-xl);
+    }
+    &--value-xxl {
+        --_value-size-inline: var(--font-size-xxl);
+        --_value-size-display: var(--font-size-xxl);
+    }
 
     // Inline layout: slider on the left (flex: 1), value pinned to the right.
     &--inline {
@@ -46,10 +64,18 @@
             min-width: var(--spacing-32);
             text-align: right;
 
-            &.slider-state-info { color: var(--rating-color-info); }
-            &.slider-state-success { color: var(--rating-color-success); }
-            &.slider-state-warning { color: var(--rating-color-warning); }
-            &.slider-state-danger { color: var(--rating-color-danger); }
+            &.slider-state-info {
+                color: var(--rating-color-info);
+            }
+            &.slider-state-success {
+                color: var(--rating-color-success);
+            }
+            &.slider-state-warning {
+                color: var(--rating-color-warning);
+            }
+            &.slider-state-danger {
+                color: var(--rating-color-danger);
+            }
         }
     }
 
@@ -129,10 +155,18 @@
         }
 
         .slider-state {
-            &-info { color: var(--rating-color-info); }
-            &-success { color: var(--rating-color-success); }
-            &-warning { color: var(--rating-color-warning); }
-            &-danger { color: var(--rating-color-danger); }
+            &-info {
+                color: var(--rating-color-info);
+            }
+            &-success {
+                color: var(--rating-color-success);
+            }
+            &-warning {
+                color: var(--rating-color-warning);
+            }
+            &-danger {
+                color: var(--rating-color-danger);
+            }
         }
     }
 }

@@ -75,7 +75,7 @@ export const SplitPanel: React.FC<SplitPanelProps> = ({
             window.addEventListener('mousemove', handleMouseMove);
             window.addEventListener('mouseup', handleMouseUp);
         },
-        [minLeftPercent, minRightPercent],
+        [minLeftPercent, minRightPercent]
     );
 
     // Escape key closes the panel

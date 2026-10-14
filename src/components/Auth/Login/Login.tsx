@@ -106,22 +106,9 @@ export function Login({ redirectPath = '/' }: LoginProps): ReactElement {
 
                     {step === 'credentials' ? (
                         <form onSubmit={handleSubmit} className="LoginPage__form">
-                            <InputText
-                                placeholder="Username"
-                                value={username}
-                                onChange={value => setUsername(value)}
-                                required
-                                autoFocus
-                                disabled={isLoading}
-                            />
+                            <InputText placeholder="Username" value={username} onChange={value => setUsername(value)} required autoFocus disabled={isLoading} />
 
-                            <InputPassword
-                                placeholder="Password"
-                                value={password}
-                                onChange={value => setPassword(value)}
-                                required
-                                disabled={isLoading}
-                            />
+                            <InputPassword placeholder="Password" value={password} onChange={value => setPassword(value)} required disabled={isLoading} />
 
                             <Checkbox checked={rememberMe} onChange={checked => setRememberMe(checked)} label="Keep me logged in" disabled={isLoading} />
 

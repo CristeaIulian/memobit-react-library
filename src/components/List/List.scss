@@ -21,7 +21,9 @@
         color: var(--body-color);
         font-size: var(--font-size-sm);
         line-height: var(--line-height-normal);
-        transition: background-color var(--transition-fast), color var(--transition-fast);
+        transition:
+            background-color var(--transition-fast),
+            color var(--transition-fast);
         border-radius: var(--radius-sm);
 
         &--alternate {

@@ -23,9 +23,8 @@ export const ConfirmPopoverPage: React.FC = () => {
         <div className="confirm-popover-page">
             <h1>ConfirmPopover</h1>
             <p>
-                Inline confirmation anchored next to its trigger. No backdrop, no screen dim, decision buttons
-                packed together so the mouse barely moves. Built on top of <code>Popover</code>; closes on
-                outside click or <kbd>Esc</kbd>.
+                Inline confirmation anchored next to its trigger. No backdrop, no screen dim, decision buttons packed together so the mouse barely moves. Built
+                on top of <code>Popover</code>; closes on outside click or <kbd>Esc</kbd>.
             </p>
 
             <section className="page-section">
@@ -59,7 +58,9 @@ export const ConfirmPopoverPage: React.FC = () => {
 
             <section className="page-section">
                 <h2>Placement</h2>
-                <p>Pick a side relative to the trigger, or leave <code>auto</code> to fit available space.</p>
+                <p>
+                    Pick a side relative to the trigger, or leave <code>auto</code> to fit available space.
+                </p>
 
                 <div className="showcase-group">
                     <h3>Right (default for sidebar actions)</h3>
@@ -141,9 +142,8 @@ export const ConfirmPopoverPage: React.FC = () => {
             <section className="page-section">
                 <h2>Inside a ControlPanel action</h2>
                 <p>
-                    Pass <code>confirm</code> on any <code>ControlPanelAction</code> and the sidebar handles the
-                    popover wiring internally — no refs, no extra state. The action’s <code>onClick</code> fires
-                    only after the user picks the confirm button.
+                    Pass <code>confirm</code> on any <code>ControlPanelAction</code> and the sidebar handles the popover wiring internally — no refs, no extra
+                    state. The action’s <code>onClick</code> fires only after the user picks the confirm button.
                 </p>
                 <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
                     <div style={{ width: 280, border: '1px solid var(--card-border-color)', borderRadius: 8, overflow: 'hidden' }}>
@@ -196,7 +196,9 @@ export const ConfirmPopoverPage: React.FC = () => {
                         ) : (
                             <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontFamily: 'monospace', fontSize: 12 }}>
                                 {log.map((line, i) => (
-                                    <li key={i} style={{ padding: '4px 0', borderBottom: '1px solid var(--card-border-color)' }}>{line}</li>
+                                    <li key={i} style={{ padding: '4px 0', borderBottom: '1px solid var(--card-border-color)' }}>
+                                        {line}
+                                    </li>
                                 ))}
                             </ul>
                         )}

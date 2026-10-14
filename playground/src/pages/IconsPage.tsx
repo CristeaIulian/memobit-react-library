@@ -204,21 +204,11 @@ export const IconsPage: React.FC = () => {
                                 <div className="icons-page__grid">
                                     {group.icons.map(icon => (
                                         <article key={icon.id} className="icons-page__tile">
-                                            <button
-                                                type="button"
-                                                className="icons-page__preview"
-                                                onClick={() => handleTagCopy(icon)}
-                                                title="Copy icon SVG"
-                                            >
+                                            <button type="button" className="icons-page__preview" onClick={() => handleTagCopy(icon)} title="Copy icon SVG">
                                                 {renderIcon(icon.value)}
                                             </button>
                                             <strong className="icons-page__name">{icon.name}</strong>
-                                            <button
-                                                type="button"
-                                                className="icons-page__path"
-                                                onClick={() => handleTagCopy(icon)}
-                                                title="Copy icon tag"
-                                            >
+                                            <button type="button" className="icons-page__path" onClick={() => handleTagCopy(icon)} title="Copy icon tag">
                                                 {icon.filePath}
                                             </button>
                                         </article>
@@ -233,21 +223,11 @@ export const IconsPage: React.FC = () => {
                     <div className="icons-page__grid">
                         {filteredIcons.map(icon => (
                             <article key={icon.id} className="icons-page__tile">
-                                <button
-                                    type="button"
-                                    className="icons-page__preview"
-                                    onClick={() => handleTagCopy(icon)}
-                                    title="Copy icon SVG"
-                                >
+                                <button type="button" className="icons-page__preview" onClick={() => handleTagCopy(icon)} title="Copy icon SVG">
                                     {renderIcon(icon.value)}
                                 </button>
                                 <strong className="icons-page__name">{icon.name}</strong>
-                                <button
-                                    type="button"
-                                    className="icons-page__path"
-                                    onClick={() => handleTagCopy(icon)}
-                                    title="Copy icon tag"
-                                >
+                                <button type="button" className="icons-page__path" onClick={() => handleTagCopy(icon)} title="Copy icon tag">
                                     {icon.filePath}
                                 </button>
                             </article>

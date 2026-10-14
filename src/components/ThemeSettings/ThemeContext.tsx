@@ -127,10 +127,8 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
 
             if (e.key === '[' || e.key === ']') {
                 e.preventDefault();
-                const allThemes = THEME_CONFIGS.map((c) => c.value as Theme);
-                const themes = allowedThemes && allowedThemes.length > 0
-                    ? allThemes.filter((t) => allowedThemes.includes(t))
-                    : allThemes;
+                const allThemes = THEME_CONFIGS.map(c => c.value as Theme);
+                const themes = allowedThemes && allowedThemes.length > 0 ? allThemes.filter(t => allowedThemes.includes(t)) : allThemes;
                 if (themes.length === 0) return;
                 const currentIdx = themes.indexOf(activeTheme);
                 const startIdx = currentIdx === -1 ? 0 : currentIdx;
@@ -148,7 +146,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
         return () => window.removeEventListener('keydown', handler);
     }, [activeTheme, previewTheme, allowedThemes]);
 
-    const activeThemeIdx = THEME_CONFIGS.findIndex((c) => c.value === activeTheme);
+    const activeThemeIdx = THEME_CONFIGS.findIndex(c => c.value === activeTheme);
     const activeThemeLabel = activeThemeIdx >= 0 ? THEME_CONFIGS[activeThemeIdx].label : activeTheme;
 
     const commitPreview = useCallback(() => {

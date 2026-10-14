@@ -17,14 +17,7 @@ interface ListProps {
     className?: string;
 }
 
-export const List: React.FC<ListProps> = ({
-    items,
-    direction = 'vertical',
-    selectable = false,
-    defaultSelectedId,
-    onSelect,
-    className = '',
-}) => {
+export const List: React.FC<ListProps> = ({ items, direction = 'vertical', selectable = false, defaultSelectedId, onSelect, className = '' }) => {
     const [selectedId, setSelectedId] = useState<string | number | undefined>(defaultSelectedId);
 
     const handleClick = (item: ListItem) => {
@@ -34,9 +27,7 @@ export const List: React.FC<ListProps> = ({
     };
 
     return (
-        <ul
-            className={`list list--${direction} ${selectable ? 'list--selectable' : ''} ${className}`}
-        >
+        <ul className={`list list--${direction} ${selectable ? 'list--selectable' : ''} ${className}`}>
             {items.map((item, index) => {
                 const isActive = selectable && selectedId === item.id;
 

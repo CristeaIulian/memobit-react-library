@@ -31,15 +31,7 @@ export interface JourneyWizardProps {
     width?: string;
 }
 
-export const JourneyWizard: React.FC<JourneyWizardProps> = ({
-    isOpen,
-    onClose,
-    onComplete,
-    steps,
-    title,
-    presentation = 'drawer',
-    width = '480px',
-}) => {
+export const JourneyWizard: React.FC<JourneyWizardProps> = ({ isOpen, onClose, onComplete, steps, title, presentation = 'drawer', width = '480px' }) => {
     const [currentStep, setCurrentStep] = useState(0);
 
     useEffect(() => {
@@ -81,13 +73,7 @@ export const JourneyWizard: React.FC<JourneyWizardProps> = ({
             {steps.map((s, i) => (
                 <span
                     key={s.id}
-                    className={`journey-wizard__dot${
-                        i === currentStep
-                            ? ' journey-wizard__dot--active'
-                            : i < currentStep
-                              ? ' journey-wizard__dot--done'
-                              : ''
-                    }`}
+                    className={`journey-wizard__dot${i === currentStep ? ' journey-wizard__dot--active' : i < currentStep ? ' journey-wizard__dot--done' : ''}`}
                 />
             ))}
         </div>

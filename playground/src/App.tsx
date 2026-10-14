@@ -35,9 +35,7 @@ function App() {
             <ThemeProvider
                 theme={theme.name}
                 effects={{ effect: theme.effect, components: theme.appliesTo }}
-                onSave={({ theme: nextTheme, effects }) =>
-                    setTheme({ name: nextTheme, effect: effects.effect, appliesTo: effects.components })
-                }
+                onSave={({ theme: nextTheme, effects }) => setTheme({ name: nextTheme, effect: effects.effect, appliesTo: effects.components })}
             >
                 <Router>
                     <Layout>

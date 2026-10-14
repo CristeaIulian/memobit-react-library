@@ -106,9 +106,7 @@ export const ControlPanelOptions: React.FC<ControlPanelOptionsProps> = ({
                                     key={opt.value}
                                     selected={isSelected}
                                     onClick={() => {
-                                        const next = isSelected
-                                            ? visibleColumns.value.filter(v => v !== opt.value)
-                                            : [...visibleColumns.value, opt.value];
+                                        const next = isSelected ? visibleColumns.value.filter(v => v !== opt.value) : [...visibleColumns.value, opt.value];
                                         visibleColumns.onChange(next);
                                     }}
                                 >

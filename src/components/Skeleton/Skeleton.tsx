@@ -43,9 +43,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
                     styles.height = '1em';
                     break;
                 case 'circular':
-                    styles.height = width !== undefined
-                        ? (typeof width === 'number' ? `${width}px` : width)
-                        : '40px';
+                    styles.height = width !== undefined ? (typeof width === 'number' ? `${width}px` : width) : '40px';
                     styles.width = styles.height;
                     break;
                 case 'rectangular':
@@ -83,15 +81,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     const skeletonClass = `skeleton skeleton--${variant} skeleton--${animation} ${className}`;
     const styles = getVariantStyles();
 
-    const skeletons = Array.from({ length: count }, (_, index) => (
-        <div key={index} className={skeletonClass} style={styles} />
-    ));
+    const skeletons = Array.from({ length: count }, (_, index) => <div key={index} className={skeletonClass} style={styles} />);
 
-    return count > 1 ? (
-        <div className="skeleton-group">
-            {skeletons}
-        </div>
-    ) : (
-        <>{skeletons}</>
-    );
+    return count > 1 ? <div className="skeleton-group">{skeletons}</div> : <>{skeletons}</>;
 };

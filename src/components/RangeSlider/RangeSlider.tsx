@@ -206,12 +206,7 @@ export const RangeSlider: FC<RangeSliderProps> = ({
     const lowerPercent = toPercent(lower);
     const upperPercent = toPercent(upper);
 
-    const classes = [
-        'range-slider',
-        `range-slider--${variant}`,
-        thin ? 'range-slider--thin' : '',
-        disabled ? 'range-slider--disabled' : '',
-    ]
+    const classes = ['range-slider', `range-slider--${variant}`, thin ? 'range-slider--thin' : '', disabled ? 'range-slider--disabled' : '']
         .filter(Boolean)
         .join(' ');
 

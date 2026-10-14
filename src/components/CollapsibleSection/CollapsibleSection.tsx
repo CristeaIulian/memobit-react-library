@@ -61,7 +61,9 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     const hasFullRowClick = !!rightDetails;
 
     return (
-        <div className={`collapsible-section ${withCard ? 'collapsible-section--with-card' : ''} ${className} ${isCollapsed ? 'collapsible-section__collapsed' : ''}`}>
+        <div
+            className={`collapsible-section ${withCard ? 'collapsible-section--with-card' : ''} ${className} ${isCollapsed ? 'collapsible-section__collapsed' : ''}`}
+        >
             {title && (
                 <div
                     className={`collapsible-section__header ${!hasFullRowClick ? 'collapsible-section__header--inline' : ''} ${toggleSpaceBetween ? 'collapsible-section__header--space-between' : ''} ${toggleSwap ? 'collapsible-section__header--swap' : ''} ${toggleHighlight ? 'collapsible-section__header--highlight' : ''} ${toggleAccent ? 'collapsible-section__header--accent' : ''} ${toggleSize ? `collapsible-section__header--size-${toggleSize}` : ''} ${toggleVariant ? `collapsible-section__header--variant-${toggleVariant}` : ''} ${toggleTint !== 'plain' ? `collapsible-section__header--tint-${toggleTint}` : ''}`}
@@ -69,8 +71,14 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                 >
                     {hasFullRowClick ? (
                         <>
-                            <div className="collapsible-section__label">{icon && <Icon name={icon} variant={toggleVariant} />} {title}</div>
-                            {toggleMiddleIcon && <span><Icon name={toggleMiddleIcon} /></span>}
+                            <div className="collapsible-section__label">
+                                {icon && <Icon name={icon} variant={toggleVariant} />} {title}
+                            </div>
+                            {toggleMiddleIcon && (
+                                <span>
+                                    <Icon name={toggleMiddleIcon} />
+                                </span>
+                            )}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
                                 <Icon name="caret-up" />
                             </span>
@@ -78,8 +86,14 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                         </>
                     ) : (
                         <button type="button" className="collapsible-section__inline-toggle" onClick={handleToggle}>
-                            <span className="collapsible-section__label">{icon && <Icon name={icon} variant={toggleVariant} />} {title}</span>
-                            {toggleMiddleIcon && <span><Icon name={toggleMiddleIcon} /></span>}
+                            <span className="collapsible-section__label">
+                                {icon && <Icon name={icon} variant={toggleVariant} />} {title}
+                            </span>
+                            {toggleMiddleIcon && (
+                                <span>
+                                    <Icon name={toggleMiddleIcon} />
+                                </span>
+                            )}
                             <span className={`collapsible-section__icon ${isCollapsed ? 'collapsible-section__icon--collapsed' : ''}`}>
                                 <Icon name="caret-up" />
                             </span>

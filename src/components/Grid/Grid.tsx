@@ -71,13 +71,7 @@ export const Grid: FC<GridProps> = ({
         ...style,
     };
 
-    const classes = [
-        'grid',
-        minColWidth === undefined ? '' : 'grid--fluid',
-        `grid--align-${align}`,
-        `grid--justify-${justify}`,
-        className,
-    ]
+    const classes = ['grid', minColWidth === undefined ? '' : 'grid--fluid', `grid--align-${align}`, `grid--justify-${justify}`, className]
         .filter(Boolean)
         .join(' ');
 

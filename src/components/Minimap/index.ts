@@ -1,2 +1,2 @@
-export type { MinimapBand,MinimapProps } from './Minimap';
+export type { MinimapBand, MinimapProps } from './Minimap';
 export { Minimap } from './Minimap';

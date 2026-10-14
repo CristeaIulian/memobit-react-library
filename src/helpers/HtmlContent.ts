@@ -10,10 +10,7 @@ export const ensureHtml = (value: string | undefined | null): string => {
     // Already HTML
     if (/<[a-z][\s\S]*>/i.test(value)) return value;
 
-    const escaped = value
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+    const escaped = value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
     return escaped
         .split(/\n{2,}/)
@@ -52,9 +49,7 @@ export const splitHtmlIntoSteps = (content: string | undefined | null): string[]
     const blocks = Array.from(container.querySelectorAll(blockSelectors));
 
     if (blocks.length > 0) {
-        const steps = blocks
-            .map(block => block.innerHTML.trim())
-            .filter(step => step.length > 0 && htmlToPlainText(step).length > 0);
+        const steps = blocks.map(block => block.innerHTML.trim()).filter(step => step.length > 0 && htmlToPlainText(step).length > 0);
 
         if (steps.length > 0) return steps;
     }

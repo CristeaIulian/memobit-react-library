@@ -146,13 +146,7 @@ export const Transition: FC<TransitionProps> = ({
         ...(type === 'collapse' && collapseHeight !== 'auto' ? { height: collapseHeight } : {}),
     };
 
-    const classes = [
-        'transition',
-        `transition--${type}`,
-        `transition--${status}`,
-        keepMounted && status === 'unmounted' ? 'transition--hidden' : '',
-        className,
-    ]
+    const classes = ['transition', `transition--${type}`, `transition--${status}`, keepMounted && status === 'unmounted' ? 'transition--hidden' : '', className]
         .filter(Boolean)
         .join(' ');
 

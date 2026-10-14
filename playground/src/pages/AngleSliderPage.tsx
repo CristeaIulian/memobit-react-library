@@ -13,8 +13,8 @@ export const AngleSliderPage: React.FC = () => {
         <div className="angle-slider-page">
             <h1>Angle Slider</h1>
             <p>
-                A dial for picking an angle. Zero sits at twelve o&apos;clock and grows clockwise. Drag anywhere on the dial, or focus it and use the arrow keys —
-                Page Up/Down jump ten steps, Home and End go to the ends.
+                A dial for picking an angle. Zero sits at twelve o&apos;clock and grows clockwise. Drag anywhere on the dial, or focus it and use the arrow keys
+                — Page Up/Down jump ten steps, Home and End go to the ends.
             </p>
 
             <section className="page-section">

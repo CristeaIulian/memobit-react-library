@@ -15,16 +15,16 @@ import { execSync } from 'node:child_process';
 
 // execSync (shell) so Windows resolves npm.cmd; whoami validates the token.
 try {
-  const user = execSync('npm whoami', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
-  console.log(`✓ npm: authenticated as ${user}`);
+    const user = execSync('npm whoami', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+    console.log(`✓ npm: authenticated as ${user}`);
 } catch {
-  console.error(
-    '✗ npm auth check failed — not logged in to the registry.\n' +
-    '  The token in ~/.npmrc is missing or invalid, so `npm publish` would\n' +
-    '  fail with a misleading 404 AFTER the version bump. Aborting before that.\n\n' +
-    '  Fix: create a token at https://www.npmjs.com/settings/~/tokens and run\n' +
-    '    npm config set //registry.npmjs.org/:_authToken=<TOKEN>\n' +
-    '  then verify with `npm whoami` and re-run the ship.'
-  );
-  process.exit(1);
+    console.error(
+        '✗ npm auth check failed — not logged in to the registry.\n' +
+            '  The token in ~/.npmrc is missing or invalid, so `npm publish` would\n' +
+            '  fail with a misleading 404 AFTER the version bump. Aborting before that.\n\n' +
+            '  Fix: create a token at https://www.npmjs.com/settings/~/tokens and run\n' +
+            '    npm config set //registry.npmjs.org/:_authToken=<TOKEN>\n' +
+            '  then verify with `npm whoami` and re-run the ship.'
+    );
+    process.exit(1);
 }

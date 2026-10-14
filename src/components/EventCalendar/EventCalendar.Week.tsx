@@ -3,7 +3,16 @@ import { CSSProperties, DragEvent, useEffect, useMemo, useRef, useState } from '
 import { isToday, isWeekend } from '../../helpers/Datetime';
 
 import { EventCalendarChip } from './EventCalendar.Chip';
-import { bucketEventsByDay, formatHourLabel, getWeekDays, isActiveHour, isMultiDayEvent, layoutDayEvents, layoutWeekSpans, startOfDay } from './EventCalendar.helpers';
+import {
+    bucketEventsByDay,
+    formatHourLabel,
+    getWeekDays,
+    isActiveHour,
+    isMultiDayEvent,
+    layoutDayEvents,
+    layoutWeekSpans,
+    startOfDay,
+} from './EventCalendar.helpers';
 import { EventCalendarViewProps } from './EventCalendar.types';
 
 const DEFAULT_SCROLL_HOUR = 8;
@@ -39,10 +48,7 @@ export function EventCalendarWeek<T>({
     const days = useMemo(() => getWeekDays(date, firstDayOfWeek), [date, firstDayOfWeek]);
     const buckets = useMemo(() => bucketEventsByDay(events, days), [events, days]);
 
-    const hours = useMemo(
-        () => Array.from({ length: Math.max(dayEndHour - dayStartHour, 1) }, (_, index) => dayStartHour + index),
-        [dayStartHour, dayEndHour]
-    );
+    const hours = useMemo(() => Array.from({ length: Math.max(dayEndHour - dayStartHour, 1) }, (_, index) => dayStartHour + index), [dayStartHour, dayEndHour]);
 
     const hasAllDay = buckets.some(bucket => bucket.allDay.length > 0);
     // The same bars the month grid draws, so a holiday reads as one period in both views
@@ -135,38 +141,38 @@ export function EventCalendarWeek<T>({
                             </div>
                         )}
                         {buckets.map(bucket => {
-                        const key = `allday-${bucket.date.toDateString()}`;
+                            const key = `allday-${bucket.date.toDateString()}`;
 
-                        return (
-                            <div
-                                className={['event-calendar__all-day-cell', dragOverSlot === key ? 'event-calendar__all-day-cell--drop-target' : '']
-                                    .filter(Boolean)
-                                    .join(' ')}
-                                key={key}
-                                onDragLeave={() => setDragOverSlot(current => (current === key ? null : current))}
-                                onDragOver={dropEvent => handleSlotDragOver(dropEvent, key)}
-                                onDrop={dropEvent => {
-                                    dropEvent.preventDefault();
-                                    setDragOverSlot(null);
-                                    onDrop(bucket.date, true);
-                                }}
-                            >
-                                {bucket.allDay
-                                    .filter(event => !isMultiDayEvent(event))
-                                    .map(event => (
-                                        <EventCalendarChip
-                                            dragEnabled={dragEnabled}
-                                            event={event}
-                                            isDragging={draggingId === event.id}
-                                            key={`${event.id}-${key}`}
-                                            onClick={onEventClick}
-                                            onDragEnd={onDragEnd}
-                                            onDragStart={onDragStart}
-                                            renderEvent={renderEvent}
-                                        />
-                                    ))}
-                            </div>
-                        );
+                            return (
+                                <div
+                                    className={['event-calendar__all-day-cell', dragOverSlot === key ? 'event-calendar__all-day-cell--drop-target' : '']
+                                        .filter(Boolean)
+                                        .join(' ')}
+                                    key={key}
+                                    onDragLeave={() => setDragOverSlot(current => (current === key ? null : current))}
+                                    onDragOver={dropEvent => handleSlotDragOver(dropEvent, key)}
+                                    onDrop={dropEvent => {
+                                        dropEvent.preventDefault();
+                                        setDragOverSlot(null);
+                                        onDrop(bucket.date, true);
+                                    }}
+                                >
+                                    {bucket.allDay
+                                        .filter(event => !isMultiDayEvent(event))
+                                        .map(event => (
+                                            <EventCalendarChip
+                                                dragEnabled={dragEnabled}
+                                                event={event}
+                                                isDragging={draggingId === event.id}
+                                                key={`${event.id}-${key}`}
+                                                onClick={onEventClick}
+                                                onDragEnd={onDragEnd}
+                                                onDragStart={onDragStart}
+                                                renderEvent={renderEvent}
+                                            />
+                                        ))}
+                                </div>
+                            );
                         })}
                     </div>
                 </div>
@@ -176,10 +182,7 @@ export function EventCalendarWeek<T>({
                 <div className="event-calendar__gutter" style={{ height: gridHeight }}>
                     {hours.map(hour => (
                         <div
-                            className={[
-                                'event-calendar__gutter-hour',
-                                isActiveHour(hour, activeHours) ? '' : 'event-calendar__gutter-hour--inactive',
-                            ]
+                            className={['event-calendar__gutter-hour', isActiveHour(hour, activeHours) ? '' : 'event-calendar__gutter-hour--inactive']
                                 .filter(Boolean)
                                 .join(' ')}
                             key={hour}
@@ -195,7 +198,9 @@ export function EventCalendarWeek<T>({
 
                     return (
                         <div
-                            className={['event-calendar__week-column', isToday(bucket.date) ? 'event-calendar__week-column--today' : ''].filter(Boolean).join(' ')}
+                            className={['event-calendar__week-column', isToday(bucket.date) ? 'event-calendar__week-column--today' : '']
+                                .filter(Boolean)
+                                .join(' ')}
                             key={bucket.date.toDateString()}
                             style={{ height: gridHeight }}
                         >

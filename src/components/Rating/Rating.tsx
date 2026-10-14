@@ -165,7 +165,11 @@ export const Rating: FC<RatingProps> = ({
                     </span>
                 ))}
             </span>
-            {showValue && <span className="rating-values">({rating}/{maxRate})</span>}
+            {showValue && (
+                <span className="rating-values">
+                    ({rating}/{maxRate})
+                </span>
+            )}
         </div>
     );
 };

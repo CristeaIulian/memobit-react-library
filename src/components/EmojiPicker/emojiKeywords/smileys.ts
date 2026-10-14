@@ -83,5 +83,4 @@ export const smileysKeywords: Record<string, string[]> = {
     '😵': ['dizzy', 'dead', 'unconscious', 'knocked out'],
     '🤐': ['zipper', 'mouth', 'sealed', 'quiet', 'secret'],
     '🥴': ['woozy', 'drunk', 'dizzy', 'tipsy', 'confused'],
-
 };

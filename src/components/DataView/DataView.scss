@@ -296,7 +296,9 @@
         background: var(--card-background-accent-color);
         cursor: default;
 
-        &:hover { background: var(--card-background-accent-color); }
+        &:hover {
+            background: var(--card-background-accent-color);
+        }
 
         > td {
             padding: var(--spacing-8) var(--spacing-12);

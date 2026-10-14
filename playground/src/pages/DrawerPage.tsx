@@ -449,13 +449,7 @@ export const DrawerPage: React.FC = () => {
                                 <section>
                                     <h4 style={bookDrawerStyles.sectionTitle}>Set page</h4>
                                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 88px', gap: '14px', alignItems: 'center' }}>
-                                        <input
-                                            max="248"
-                                            min="0"
-                                            type="range"
-                                            value={bookPage}
-                                            onChange={event => setBookPage(Number(event.target.value))}
-                                        />
+                                        <input max="248" min="0" type="range" value={bookPage} onChange={event => setBookPage(Number(event.target.value))} />
                                         <InputNumber max={248} min={0} value={bookPage} onChange={value => setBookPage(value ?? 0)} />
                                     </div>
                                 </section>

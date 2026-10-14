@@ -63,32 +63,23 @@ export const Slider: FC<SliderProps> = ({
         thin ? 'slider-component--thin' : '',
         vertical ? 'slider-component--vertical' : '',
         valueSize ? `slider-component--value-${valueSize}` : '',
-    ].filter(Boolean).join(' ');
+    ]
+        .filter(Boolean)
+        .join(' ');
 
     const trackInput = (
-        <input
-            type="range"
-            min={min}
-            max={max}
-            value={value}
-            step={step}
-            onChange={handleChange}
-            className="slider-input"
-            disabled={disabled}
-        />
+        <input type="range" min={min} max={max} value={value} step={step} onChange={handleChange} className="slider-input" disabled={disabled} />
     );
 
-    const valueDisplay = showValues && (
-        isInline ? (
-            <span className={`slider-value-inline slider-state-${largeValueState}`}>
-                {displayValue}
-            </span>
+    const valueDisplay =
+        showValues &&
+        (isInline ? (
+            <span className={`slider-value-inline slider-state-${largeValueState}`}>{displayValue}</span>
         ) : (
             <div className="slider-display">
                 <span className={`slider-value slider-state-${largeValueState}`}>{displayValue}</span>
             </div>
-        )
-    );
+        ));
 
     return (
         <div className={className}>

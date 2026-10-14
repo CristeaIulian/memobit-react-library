@@ -75,5 +75,4 @@ export const peopleKeywords: Record<string, string[]> = {
     '🫅': ['royal', 'crown', 'king', 'queen', 'monarch'],
     '🤴': ['prince', 'royal', 'king', 'crown', 'boy'],
     '👸': ['princess', 'royal', 'queen', 'crown', 'girl', 'tiara'],
-
 };

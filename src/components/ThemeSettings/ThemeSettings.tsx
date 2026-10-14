@@ -77,9 +77,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
         }
 
         if (showRecommendedOnly && currentAppKey) {
-            themes = themes.filter(config =>
-                (config.recommendedApps ?? []).some(app => app.toLowerCase() === currentAppKey)
-            );
+            themes = themes.filter(config => (config.recommendedApps ?? []).some(app => app.toLowerCase() === currentAppKey));
         }
 
         if (appearanceFilter !== 'all') {
@@ -89,9 +87,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
         if (searchQuery.trim()) {
             const query = searchQuery.toLowerCase().trim();
             themes = themes.filter(
-                config =>
-                    config.label.toLowerCase().includes(query) ||
-                    (config.recommendedApps ?? []).some(app => app.toLowerCase().includes(query))
+                config => config.label.toLowerCase().includes(query) || (config.recommendedApps ?? []).some(app => app.toLowerCase().includes(query))
             );
         }
 
@@ -110,14 +106,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
     }, [isOpen]);
 
     useEffect(() => {
-        if (
-            !isOpen ||
-            searchQuery ||
-            showFavoritesOnly ||
-            showRecommendedOnly ||
-            appearanceFilter !== 'all' ||
-            hasScrolledToActiveThemeRef.current
-        ) {
+        if (!isOpen || searchQuery || showFavoritesOnly || showRecommendedOnly || appearanceFilter !== 'all' || hasScrolledToActiveThemeRef.current) {
             return;
         }
 
@@ -171,9 +160,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
                         <label>Select Theme</label>
                         {(showSearch || showFavorites || currentApp) && (
                             <div className="theme-settings__toolbar">
-                                {showSearch && (
-                                    <InputSearch placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />
-                                )}
+                                {showSearch && <InputSearch placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />}
                                 {currentApp && (
                                     <ToggleSwitch
                                         checked={showRecommendedOnly}

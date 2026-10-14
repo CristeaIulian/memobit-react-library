@@ -25,19 +25,7 @@ export interface TourHudProps {
 }
 
 /** Floating heads-up display for step-through ("history mode") navigation. */
-export const TourHud: React.FC<TourHudProps> = ({
-    label,
-    stepLabel,
-    index,
-    total,
-    title,
-    note,
-    onPrev,
-    onNext,
-    onExit,
-    width,
-    className = '',
-}) => {
+export const TourHud: React.FC<TourHudProps> = ({ label, stepLabel, index, total, title, note, onPrev, onNext, onExit, width, className = '' }) => {
     const widthStyle =
         width === undefined
             ? undefined
@@ -55,21 +43,11 @@ export const TourHud: React.FC<TourHudProps> = ({
                 {note && <div className="tour-hud__note">{note}</div>}
             </div>
             <div className="tour-hud__controls">
-                <button
-                    type="button"
-                    className="tour-hud__btn"
-                    disabled={index === 0}
-                    onClick={onPrev}
-                >
+                <button type="button" className="tour-hud__btn" disabled={index === 0} onClick={onPrev}>
                     <Icon name="arrow-left" size="sm" />
                     Prev
                 </button>
-                <button
-                    type="button"
-                    className="tour-hud__btn"
-                    disabled={index >= total - 1}
-                    onClick={onNext}
-                >
+                <button type="button" className="tour-hud__btn" disabled={index >= total - 1} onClick={onNext}>
                     Next
                     <Icon name="arrow-right" size="sm" />
                 </button>

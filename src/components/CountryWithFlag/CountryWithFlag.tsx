@@ -11,12 +11,7 @@ interface CountryWithFlagProps {
     className?: string;
 }
 
-export const CountryWithFlag: React.FC<CountryWithFlagProps> = ({
-    code,
-    label,
-    size = 'md',
-    className = '',
-}) => {
+export const CountryWithFlag: React.FC<CountryWithFlagProps> = ({ code, label, size = 'md', className = '' }) => {
     const displayLabel = label || code?.toUpperCase();
 
     return (

@@ -202,7 +202,13 @@ const ControlPanelActionButton: React.FC<ControlPanelActionButtonProps> = ({ act
 
     return (
         <>
-            {action.tooltip ? <Tooltip title={action.tooltip} position="right">{button}</Tooltip> : button}
+            {action.tooltip ? (
+                <Tooltip title={action.tooltip} position="right">
+                    {button}
+                </Tooltip>
+            ) : (
+                button
+            )}
             {action.confirm && (
                 <ConfirmPopover
                     visible={confirmVisible}

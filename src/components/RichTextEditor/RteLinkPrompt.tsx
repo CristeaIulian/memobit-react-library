@@ -12,13 +12,7 @@ interface RteLinkPromptProps {
 
 export const RteLinkPrompt: React.FC<RteLinkPromptProps> = ({ isEditing, linkText, linkUrl, setLinkText, setLinkUrl, confirmLink, cancelLink }) => (
     <div className="rte-link-prompt">
-        <input
-            className="rte-link-input"
-            type="text"
-            placeholder="Display text (optional)"
-            value={linkText}
-            onChange={e => setLinkText(e.target.value)}
-        />
+        <input className="rte-link-input" type="text" placeholder="Display text (optional)" value={linkText} onChange={e => setLinkText(e.target.value)} />
         <input
             className="rte-link-input"
             type="url"

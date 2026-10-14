@@ -17,7 +17,7 @@ import {
 const AVATAR_PLACEHOLDER =
     'data:image/svg+xml;utf8,' +
     encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 58"><rect width="48" height="58" fill="%23516"/><circle cx="24" cy="20" r="11" fill="%23fc9"/><ellipse cx="24" cy="52" rx="18" ry="18" fill="%23fc9"/></svg>',
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 58"><rect width="48" height="58" fill="%23516"/><circle cx="24" cy="20" r="11" fill="%23fc9"/><ellipse cx="24" cy="52" rx="18" ry="18" fill="%23fc9"/></svg>'
     );
 
 export const ControlPanelPage: React.FC = () => {
@@ -595,7 +595,12 @@ export const ControlPanelPage: React.FC = () => {
                                         { value: 'low', label: 'Low' },
                                         { value: 'medium', label: 'Medium' },
                                         { value: 'high', label: 'High' },
-                                        { value: 'critical', label: 'Critical', disabled: true, title: 'Critical needs an SRE approval — disabled for self-serve.' },
+                                        {
+                                            value: 'critical',
+                                            label: 'Critical',
+                                            disabled: true,
+                                            title: 'Critical needs an SRE approval — disabled for self-serve.',
+                                        },
                                     ],
                                 },
                                 {

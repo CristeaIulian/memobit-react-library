@@ -36,10 +36,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({ children }) =>
     const open = useCallback(() => setIsOpen(true), []);
     const close = useCallback(() => setIsOpen(false), []);
 
-    const value = useMemo(
-        () => ({ isMobile, isOpen, toggle, open, close }),
-        [isMobile, isOpen, toggle, open, close],
-    );
+    const value = useMemo(() => ({ isMobile, isOpen, toggle, open, close }), [isMobile, isOpen, toggle, open, close]);
 
     return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
 };

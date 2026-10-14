@@ -102,7 +102,9 @@ body.split-panel-active {
         color: var(--body-sub-title-color);
         font-size: var(--font-size-md);
         flex-shrink: 0;
-        transition: background var(--transition-fast), color var(--transition-fast);
+        transition:
+            background var(--transition-fast),
+            color var(--transition-fast);
 
         &:hover {
             background: var(--border-color);

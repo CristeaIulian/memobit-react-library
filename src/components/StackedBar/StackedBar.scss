@@ -75,13 +75,7 @@
         // Light dotted/hatched overlay — useful for "remainder" or
         // "other" segments that should fade into the background visually.
         &--hatched {
-            background-image: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 0, 0, 0.18) 2px,
-                rgba(0, 0, 0, 0.18) 4px
-            );
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0, 0, 0, 0.18) 2px, rgba(0, 0, 0, 0.18) 4px);
         }
 
         &--animated {

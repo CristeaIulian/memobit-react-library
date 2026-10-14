@@ -75,5 +75,4 @@ export const travelKeywords: Record<string, string[]> = {
     '🕌': ['mosque', 'building', 'religion', 'islam', 'minaret'],
     '🛕': ['hindu', 'temple', 'building', 'religion'],
     '🗾': ['japan', 'map', 'country', 'asia'],
-
 };

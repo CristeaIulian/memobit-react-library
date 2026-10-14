@@ -1,6 +1,6 @@
-import React, { useMemo,useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
-import { addMonths, APP_DATE_FORMAT, formatDate, getMonthMatrix, isAfter,isBefore, isSameDay, isToday, isWeekend } from '../../helpers/Datetime';
+import { addMonths, APP_DATE_FORMAT, formatDate, getMonthMatrix, isAfter, isBefore, isSameDay, isToday, isWeekend } from '../../helpers/Datetime';
 import { Tooltip } from '../Tooltip';
 
 import './Calendar.scss';

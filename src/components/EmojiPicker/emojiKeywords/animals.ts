@@ -75,5 +75,4 @@ export const animalsKeywords: Record<string, string[]> = {
     '🦒': ['giraffe', 'animal', 'tall', 'africa', 'spots'],
     '🦘': ['kangaroo', 'animal', 'australia', 'jump', 'pouch'],
     '🦬': ['bison', 'buffalo', 'animal', 'wild'],
-
 };

@@ -157,13 +157,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         <div className={rootClassName}>
             {shouldShowControlPanelToggle && (
                 <Tooltip title="Filters">
-                    <Button
-                        className="memobit-toolbar__control-panel-toggle"
-                        icon="tune"
-                        onClick={controlPanel?.toggle}
-                        size="medium"
-                        variant="default"
-                    >
+                    <Button className="memobit-toolbar__control-panel-toggle" icon="tune" onClick={controlPanel?.toggle} size="medium" variant="default">
                         {controlPanelToggle && getControlPanelToggleLabel(controlPanelToggle)}
                         {toggleCount > 0 && <span className="memobit-toolbar__control-panel-toggle-count">{toggleCount}</span>}
                     </Button>

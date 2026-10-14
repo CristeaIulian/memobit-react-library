@@ -31,49 +31,54 @@ export interface ExternalButtonConfig extends ButtonProps {
     text: string;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
-    borders = 'rounded',
-    children,
-    className,
-    disabled = false,
-    fullWidth = false,
-    icon,
-    iconVariant = 'default',
-    loading = false,
-    onClick,
-    emojiIcon,
-    size = 'medium',
-    style,
-    sufixIcon,
-    title,
-    type = 'button',
-    variant = 'default',
-}, ref) => {
-    return (
-        <button
-            ref={ref}
-            className={`button button-${size} button-${variant} ${borders === 'rounded' ? 'button-rounded' : ''} ${fullWidth ? 'is-full-width' : ''} ${className || ''}`}
-            disabled={disabled}
-            onClick={onClick}
-            style={style}
-            title={title}
-            type={type}
-        >
-            {loading ? (
-                <>
-                    <span className="button__spinner"></span>
-                    <span>{children || 'Loading...'}</span>
-                </>
-            ) : (
-                <>
-                    {icon !== undefined && (typeof icon === 'string' ? <Icon size="lg" name={icon} variant={iconVariant} /> : icon)}
-                    {emojiIcon && <span>{emojiIcon}</span>}
-                    {children && <span>{children}</span>}
-                    {sufixIcon !== undefined && (typeof sufixIcon === 'string' ? <Icon size="lg" name={sufixIcon} variant={iconVariant} /> : sufixIcon)}
-                </>
-            )}
-        </button>
-    );
-});
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+    (
+        {
+            borders = 'rounded',
+            children,
+            className,
+            disabled = false,
+            fullWidth = false,
+            icon,
+            iconVariant = 'default',
+            loading = false,
+            onClick,
+            emojiIcon,
+            size = 'medium',
+            style,
+            sufixIcon,
+            title,
+            type = 'button',
+            variant = 'default',
+        },
+        ref
+    ) => {
+        return (
+            <button
+                ref={ref}
+                className={`button button-${size} button-${variant} ${borders === 'rounded' ? 'button-rounded' : ''} ${fullWidth ? 'is-full-width' : ''} ${className || ''}`}
+                disabled={disabled}
+                onClick={onClick}
+                style={style}
+                title={title}
+                type={type}
+            >
+                {loading ? (
+                    <>
+                        <span className="button__spinner"></span>
+                        <span>{children || 'Loading...'}</span>
+                    </>
+                ) : (
+                    <>
+                        {icon !== undefined && (typeof icon === 'string' ? <Icon size="lg" name={icon} variant={iconVariant} /> : icon)}
+                        {emojiIcon && <span>{emojiIcon}</span>}
+                        {children && <span>{children}</span>}
+                        {sufixIcon !== undefined && (typeof sufixIcon === 'string' ? <Icon size="lg" name={sufixIcon} variant={iconVariant} /> : sufixIcon)}
+                    </>
+                )}
+            </button>
+        );
+    }
+);
 
 Button.displayName = 'Button';

@@ -12,7 +12,6 @@ export const getPercent = (value: number, total: number): number => {
     return value / (total / 100);
 };
 
-
 export const getPercentsOf2Numbers = (aInput: number, bInput: number): { a: number; b: number } => {
     const total = aInput + bInput;
 

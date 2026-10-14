@@ -37,7 +37,7 @@ const reportMissing = (name: string) => {
             ? `[@memobit/libs] No icon named "${name}".`
             : `[@memobit/libs] No icon named "${name}". If this app trims icons with ` +
                   `@memobit/icons/vite, add it to the plugin's \`include\` option or use \`lazy\` — a name that ` +
-                  `only exists at runtime cannot be found by the source scan.`,
+                  `only exists at runtime cannot be found by the source scan.`
     );
 };
 
@@ -83,7 +83,7 @@ export const Icon: React.FC<IconProps> = ({ className = '', fade, fadeOnHover, n
             },
             () => {
                 // The chunk failed to load. The span stays empty; the icon is requested again when it remounts.
-            },
+            }
         );
 
         return () => {

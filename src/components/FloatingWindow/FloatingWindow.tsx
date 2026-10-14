@@ -242,12 +242,7 @@ export const FloatingWindow: FC<FloatingWindowProps> = ({
               width: size.width,
           };
 
-    const classes = [
-        'floating-window',
-        isMaximized ? 'floating-window--maximized' : '',
-        isMinimized ? 'floating-window--minimized' : '',
-        className,
-    ]
+    const classes = ['floating-window', isMaximized ? 'floating-window--maximized' : '', isMinimized ? 'floating-window--minimized' : '', className]
         .filter(Boolean)
         .join(' ');
 

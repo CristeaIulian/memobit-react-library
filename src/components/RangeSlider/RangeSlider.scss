@@ -81,7 +81,9 @@
         border: var(--spacing-2) solid var(--_range-accent);
         background: var(--slider-thumb-background-color);
         cursor: grab;
-        transition: transform var(--transition-fast), background var(--transition-fast);
+        transition:
+            transform var(--transition-fast),
+            background var(--transition-fast);
         touch-action: none;
 
         &:hover:not(:disabled) {

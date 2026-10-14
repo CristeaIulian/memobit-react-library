@@ -1,4 +1,4 @@
-import React, { useCallback,useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import './Tree.scss';
 
@@ -89,14 +89,10 @@ const TreeNodeItem: React.FC<TreeNodeItemProps> = ({ node, depth, selectable, sh
                 {/* Indent guides — one absolutely-positioned span per ancestor level */}
                 {showGuides &&
                     depth > 0 &&
-                    Array.from({ length: depth }).map((_, i) => (
-                        <span key={i} className="tree__guide" style={{ '--guide-level': i } as React.CSSProperties} />
-                    ))}
+                    Array.from({ length: depth }).map((_, i) => <span key={i} className="tree__guide" style={{ '--guide-level': i } as React.CSSProperties} />)}
 
                 {/* Chevron / leaf spacer */}
-                <span className="tree__toggle">
-                    {hasChildren ? <ChevronIcon open={expanded} /> : <span className="tree__leaf-dot" />}
-                </span>
+                <span className="tree__toggle">{hasChildren ? <ChevronIcon open={expanded} /> : <span className="tree__leaf-dot" />}</span>
 
                 {/* Icon */}
                 {node.icon && <span className="tree__icon">{node.icon}</span>}

@@ -107,7 +107,9 @@ const BrowserCard: React.FC<BrowserCardProps> = ({ title, description, buttonLab
             <p>{description}</p>
             <div className="folder-browser-card__path">
                 <span>Selected</span>
-                <Tooltip title={selectedPath}><strong>{selectedPath ?? 'None'}</strong></Tooltip>
+                <Tooltip title={selectedPath}>
+                    <strong>{selectedPath ?? 'None'}</strong>
+                </Tooltip>
             </div>
         </div>
         <Button icon="folder-open" onClick={onOpen}>

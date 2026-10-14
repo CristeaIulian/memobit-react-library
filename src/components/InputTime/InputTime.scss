@@ -44,7 +44,9 @@
     padding: var(--spacing-4);
     position: absolute;
     right: var(--spacing-8);
-    transition: background-color var(--transition-fast), color var(--transition-fast);
+    transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast);
 
     &:hover:not(:disabled) {
         background-color: var(--calendar-day-hover-background-color);

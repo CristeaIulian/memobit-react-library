@@ -143,8 +143,8 @@ export const VirtualListPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Clamping keeps rows uniform</h3>
                     <p>
-                        The paths here are long enough to wrap. A two-line clamp with a matching fixed height keeps every row identical, and the full value stays
-                        reachable through the row&apos;s <code>title</code>.
+                        The paths here are long enough to wrap. A two-line clamp with a matching fixed height keeps every row identical, and the full value
+                        stays reachable through the row&apos;s <code>title</code>.
                     </p>
                     <div className="component-group">
                         <VirtualList

@@ -53,11 +53,7 @@ export const Timeline: React.FC<TimelineProps> = ({ items, orientation = 'vertic
                     .join(' ');
 
                 return (
-                    <li
-                        key={item.id}
-                        className={itemClass}
-                        style={{ '--item-index': index } as React.CSSProperties}
-                    >
+                    <li key={item.id} className={itemClass} style={{ '--item-index': index } as React.CSSProperties}>
                         {/* Node */}
                         <div className="timeline__node">
                             <div className={variantDotClass(item.variant)}>{item.icon ? <span className="timeline__dot-icon">{item.icon}</span> : null}</div>

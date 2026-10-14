@@ -23,26 +23,12 @@ export interface StatsProps {
     className?: string;
 }
 
-export const Stats: React.FC<StatsProps> = ({
-    items,
-    dividers = true,
-    align = 'left',
-    size = 'medium',
-    className = '',
-}) => {
+export const Stats: React.FC<StatsProps> = ({ items, dividers = true, align = 'left', size = 'medium', className = '' }) => {
     if (items.length === 0) {
         return null;
     }
 
-    const classes = [
-        'stats',
-        `stats--align-${align}`,
-        `stats--size-${size}`,
-        dividers ? 'stats--dividers' : '',
-        className,
-    ]
-        .filter(Boolean)
-        .join(' ');
+    const classes = ['stats', `stats--align-${align}`, `stats--size-${size}`, dividers ? 'stats--dividers' : '', className].filter(Boolean).join(' ');
 
     return (
         <div className={classes}>

@@ -96,5 +96,4 @@ export const objectsKeywords: Record<string, string[]> = {
     '🛋️': ['couch', 'sofa', 'furniture', 'living room', 'seat'],
     '🪑': ['chair', 'seat', 'sit', 'furniture'],
     '🚽': ['toilet', 'bathroom', 'restroom', 'wc'],
-
 };

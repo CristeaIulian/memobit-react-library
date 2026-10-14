@@ -342,8 +342,7 @@ export function DataView<T>({
     const miniSortNode = hasMiniSort ? (
         <DataViewMiniSort columns={columns} config={miniSort} sortKey={sortKey} sortDirection={sortDirection} onSort={updateSort} />
     ) : null;
-    const columnSelectorNode =
-        columnSelector && columnSelector.options.length > 0 ? <DataViewColumnSelector config={columnSelector} /> : null;
+    const columnSelectorNode = columnSelector && columnSelector.options.length > 0 ? <DataViewColumnSelector config={columnSelector} /> : null;
 
     // Select-all covers the rows on screen, never the whole filtered set: with pagination
     // on, a bulk edit that silently reached pages the user never saw would be a trap.
@@ -756,4 +755,3 @@ export function DataView<T>({
         </div>
     );
 }
-

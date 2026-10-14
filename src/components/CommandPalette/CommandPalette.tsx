@@ -23,13 +23,7 @@ export interface CommandPaletteProps {
     enableHotkey?: boolean;
 }
 
-export const CommandPalette: React.FC<CommandPaletteProps> = ({
-    items,
-    isOpen,
-    onOpenChange,
-    placeholder = 'Search commands',
-    enableHotkey = true,
-}) => {
+export const CommandPalette: React.FC<CommandPaletteProps> = ({ items, isOpen, onOpenChange, placeholder = 'Search commands', enableHotkey = true }) => {
     const [internalOpen, setInternalOpen] = useState(false);
     const [query, setQuery] = useState('');
 

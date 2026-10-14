@@ -143,16 +143,23 @@
 
     &--filled.mini-stats-card--variant-default {
         background-color: var(--card-background-accent-color);
-        background-image: var(--card-tint-default-background,
-            radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, var(--body-accent-color) 14%, transparent) 0%, transparent 70%));
+        background-image: var(
+            --card-tint-default-background,
+            radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, var(--body-accent-color) 14%, transparent) 0%, transparent 70%)
+        );
         border-color: color-mix(in srgb, var(--body-accent-color) 22%, transparent);
     }
 
-    @each $name, $color in (success: var(--rating-color-success), warning: var(--rating-color-warning), danger: var(--rating-color-danger), info: var(--rating-color-info)) {
+    @each $name,
+        $color
+            in (success: var(--rating-color-success), warning: var(--rating-color-warning), danger: var(--rating-color-danger), info: var(--rating-color-info))
+    {
         &--filled.mini-stats-card--variant-#{$name} {
             background-color: var(--card-background-color);
-            background-image: var(--card-tint-#{$name}-background,
-                radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, #{$color} 18%, transparent) 0%, transparent 70%));
+            background-image: var(
+                --card-tint-#{$name}-background,
+                radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, #{$color} 18%, transparent) 0%, transparent 70%)
+            );
             border-color: color-mix(in srgb, #{$color} 32%, transparent);
         }
     }

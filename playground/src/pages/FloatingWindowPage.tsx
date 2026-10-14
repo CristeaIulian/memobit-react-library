@@ -72,7 +72,9 @@ export const FloatingWindowPage: React.FC = () => {
 
                     <p>
                         onGeometryChange:{' '}
-                        {geometry ? `${Math.round(geometry.x)}, ${Math.round(geometry.y)} — ${Math.round(geometry.width)}×${Math.round(geometry.height)}` : 'move or resize the notes window'}
+                        {geometry
+                            ? `${Math.round(geometry.x)}, ${Math.round(geometry.y)} — ${Math.round(geometry.width)}×${Math.round(geometry.height)}`
+                            : 'move or resize the notes window'}
                     </p>
                 </div>
             </section>

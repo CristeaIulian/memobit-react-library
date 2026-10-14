@@ -1,8 +1,2 @@
-export type {
-    MiniStatsCardAlign,
-    MiniStatsCardLabelPosition,
-    MiniStatsCardProps,
-    MiniStatsCardTrendVariant,
-    MiniStatsCardVariant,
-} from './MiniStatsCard';
+export type { MiniStatsCardAlign, MiniStatsCardLabelPosition, MiniStatsCardProps, MiniStatsCardTrendVariant, MiniStatsCardVariant } from './MiniStatsCard';
 export { MiniStatsCard } from './MiniStatsCard';

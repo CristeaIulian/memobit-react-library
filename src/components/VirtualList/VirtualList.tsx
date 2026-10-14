@@ -121,7 +121,12 @@ export function VirtualList<T>({
     }
 
     return (
-        <div className={`virtual-list ${className}`.trim()} ref={scrollerRef} onScroll={handleScroll} style={maxHeight === undefined ? undefined : { maxHeight }}>
+        <div
+            className={`virtual-list ${className}`.trim()}
+            ref={scrollerRef}
+            onScroll={handleScroll}
+            style={maxHeight === undefined ? undefined : { maxHeight }}
+        >
             {startIndex > 0 && <div className="virtual-list__spacer" style={{ height: startIndex * stride }} />}
             {items.slice(startIndex, endIndex).map((item, offset) => {
                 const index = startIndex + offset;

@@ -87,9 +87,7 @@ export const FolderBrowserModal = ({
     };
 
     const atDrives = listing?.current === null;
-    const entries = atDrives
-        ? listing?.drives.map(drive => ({ name: drive, path: drive })) ?? []
-        : listing?.directories ?? [];
+    const entries = atDrives ? (listing?.drives.map(drive => ({ name: drive, path: drive })) ?? []) : (listing?.directories ?? []);
 
     return (
         <Modal

@@ -21,7 +21,9 @@ const buildNumberPath = resolve(import.meta.dirname, '.build-number');
 
 const getCommitHash = (): string => {
     try {
-        return execSync('git rev-parse --short HEAD', { cwd: import.meta.dirname }).toString().trim();
+        return execSync('git rev-parse --short HEAD', { cwd: import.meta.dirname })
+            .toString()
+            .trim();
     } catch {
         return 'unknown';
     }
@@ -117,15 +119,15 @@ export default defineConfig({
                 const distDir = resolve(import.meta.dirname, 'dist');
                 // Validated against the real icon list, so a broad sweep of quoted
                 // strings cannot invent names that do not exist.
-                const iconModulesSource = readFileSync(
-                    resolve(import.meta.dirname, 'node_modules/@memobit/icons/dist/iconModules.js'),
-                    'utf-8',
-                );
+                const iconModulesSource = readFileSync(resolve(import.meta.dirname, 'node_modules/@memobit/icons/dist/iconModules.js'), 'utf-8');
                 const validNames = new Set([...iconModulesSource.matchAll(/"([^"]+)":\s*"/g)].map(match => match[1]));
                 const icons = collectIconUsage(resolve(import.meta.dirname, 'src'), validNames);
                 mkdirSync(distDir, { recursive: true });
-                writeFileSync(resolve(distDir, 'memobit-icons.json'), `${JSON.stringify({ icons }, null, 2)}
-`);
+                writeFileSync(
+                    resolve(distDir, 'memobit-icons.json'),
+                    `${JSON.stringify({ icons }, null, 2)}
+`
+                );
             },
         },
         {
@@ -143,7 +145,7 @@ export default defineConfig({
                 mkdirSync(distDir, { recursive: true });
                 writeFileSync(
                     resolve(distDir, 'index.css'),
-                    '/* Intentionally empty. Component styles are imported by the components themselves, so only what an app uses is bundled. Kept so existing imports of this path keep resolving. */\n',
+                    '/* Intentionally empty. Component styles are imported by the components themselves, so only what an app uses is bundled. Kept so existing imports of this path keep resolving. */\n'
                 );
                 writeFileSync(resolve(distDir, 'index.esm.js'), "export * from './index.js';\n");
             },

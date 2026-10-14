@@ -38,7 +38,10 @@
         font-size: var(--font-size-sm);
         line-height: 1;
         padding: var(--spacing-4) var(--spacing-6);
-        transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+        transition:
+            background-color var(--transition-fast),
+            border-color var(--transition-fast),
+            color var(--transition-fast);
 
         &:hover:not(:disabled) {
             border-color: var(--calendar-day-selected-background-color);
@@ -78,7 +81,9 @@
         font-weight: var(--font-weight-medium);
         margin-left: var(--spacing-2);
         padding: var(--spacing-8) var(--spacing-12);
-        transition: background-color var(--transition-fast), border-color var(--transition-fast);
+        transition:
+            background-color var(--transition-fast),
+            border-color var(--transition-fast);
 
         &:hover:not(:disabled) {
             background-color: var(--calendar-day-hover-background-color);
@@ -99,7 +104,9 @@
     display: flex;
     align-items: stretch;
     overflow: hidden;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
 
     &:hover:not(.time-spinner--disabled) {
         border-color: var(--calendar-day-selected-background-color);
@@ -154,7 +161,9 @@
         font-size: var(--font-size-xs);
         line-height: 0;
         padding: 0 var(--spacing-4);
-        transition: background-color var(--transition-fast), color var(--transition-fast);
+        transition:
+            background-color var(--transition-fast),
+            color var(--transition-fast);
 
         &:first-child {
             border-bottom: var(--spacing-1) solid var(--calendar-border-color);

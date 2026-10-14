@@ -98,14 +98,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         const availableAbove = anchorRect.top - viewportMargin;
         const shouldShowAbove = availableBelow < panelRect.height && availableAbove > panelRect.height;
 
-        const top = shouldShowAbove
-            ? anchorRect.top - panelRect.height - offset
-            : anchorRect.bottom + offset;
+        const top = shouldShowAbove ? anchorRect.top - panelRect.height - offset : anchorRect.bottom + offset;
         const constrainedTop = Math.max(viewportMargin, Math.min(top, window.innerHeight - panelRect.height - viewportMargin));
-        const constrainedLeft = Math.max(
-            viewportMargin,
-            Math.min(anchorRect.left, window.innerWidth - panelRect.width - viewportMargin)
-        );
+        const constrainedLeft = Math.max(viewportMargin, Math.min(anchorRect.left, window.innerWidth - panelRect.width - viewportMargin));
 
         setDropdownStyle({
             position: 'fixed',
@@ -258,7 +253,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                             </button>
                         </Tooltip>
                     )}
-                    <span className="datepicker__icon"><Icon name="calendar" /></span>
+                    <span className="datepicker__icon">
+                        <Icon name="calendar" />
+                    </span>
                 </div>
             </div>
 

@@ -138,21 +138,15 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }: ToastP
         setToasts(prev => prev.filter(toast => toast.id !== id));
     }, []);
 
-    const addToast = useCallback(
-        (message: string, type: ToastType = 'info', timeout = 1500, action?: ContextToastAction) => {
-            // Date.now() alone collides when two toasts are raised in the same
-            // millisecond, which a bulk action does routinely.
-            const id = `${Date.now().toString()}-${Math.random().toString(36).slice(2, 8)}`;
-            setToasts(prev => [...prev, { id, message, type, timeout, action }]);
-            return id;
-        },
-        []
-    );
+    const addToast = useCallback((message: string, type: ToastType = 'info', timeout = 1500, action?: ContextToastAction) => {
+        // Date.now() alone collides when two toasts are raised in the same
+        // millisecond, which a bulk action does routinely.
+        const id = `${Date.now().toString()}-${Math.random().toString(36).slice(2, 8)}`;
+        setToasts(prev => [...prev, { id, message, type, timeout, action }]);
+        return id;
+    }, []);
 
-    const value = useMemo(
-        () => ({ toasts, addToast, removeToast }),
-        [toasts, addToast, removeToast]
-    );
+    const value = useMemo(() => ({ toasts, addToast, removeToast }), [toasts, addToast, removeToast]);
 
     return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>;
 };

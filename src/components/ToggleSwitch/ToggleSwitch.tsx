@@ -48,11 +48,7 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
             tabIndex={disabled ? -1 : 0}
         >
             <div className="toggle-switch__track">
-                {showLabels && (
-                    <span className="toggle-switch__label">
-                        {checked ? onLabel : offLabel}
-                    </span>
-                )}
+                {showLabels && <span className="toggle-switch__label">{checked ? onLabel : offLabel}</span>}
                 <div className="toggle-switch__thumb"></div>
             </div>
         </div>

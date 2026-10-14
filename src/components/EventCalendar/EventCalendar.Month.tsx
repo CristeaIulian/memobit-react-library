@@ -148,140 +148,147 @@ export function EventCalendarMonth<T>({
                     const laneCount = spans.reduce((highest, span) => Math.max(highest, span.lane + 1), 0);
 
                     return (
-                    <div className={['event-calendar__week', isCurrentWeek ? 'event-calendar__week--current' : ''].filter(Boolean).join(' ')} key={weekIndex}>
-                        {showWeekNumbers && <div className="event-calendar__week-number">{getIsoWeek(week[0])}</div>}
-                        {/* The day cells get their own box so the span bars can be positioned
+                        <div
+                            className={['event-calendar__week', isCurrentWeek ? 'event-calendar__week--current' : ''].filter(Boolean).join(' ')}
+                            key={weekIndex}
+                        >
+                            {showWeekNumbers && <div className="event-calendar__week-number">{getIsoWeek(week[0])}</div>}
+                            {/* The day cells get their own box so the span bars can be positioned
                             as percentages of the seven columns, without the week-number
                             gutter skewing every offset. */}
-                        <div className="event-calendar__week-days" style={{ '--event-calendar-span-lanes': laneCount } as CSSProperties}>
-                            {spans.length > 0 && (
-                                <div className="event-calendar__week-spans">
-                                    {spans.map(span => (
-                                        <EventCalendarChip
-                                            className={[
-                                                'event-calendar__chip--span',
-                                                span.isStart ? '' : 'event-calendar__chip--span-continues-before',
-                                                span.isEnd ? '' : 'event-calendar__chip--span-continues-after',
-                                            ]
-                                                .filter(Boolean)
-                                                .join(' ')}
-                                            dragEnabled={dragEnabled}
-                                            event={span.event}
-                                            isDragging={draggingId === span.event.id}
-                                            key={`${span.event.id}-span-${weekIndex}`}
-                                            onClick={onEventClick}
-                                            onDragEnd={onDragEnd}
-                                            onDragStart={onDragStart}
-                                            renderEvent={renderEvent}
-                                            style={{
-                                                left: `${(span.startIndex / week.length) * 100}%`,
-                                                width: `${((span.endIndex - span.startIndex + 1) / week.length) * 100}%`,
-                                                top: `calc(${span.lane} * var(--event-calendar-span-row))`,
-                                            }}
-                                        />
-                                    ))}
-                                </div>
-                            )}
-                            {week.map(day => {
-                            const key = day.toDateString();
-                            const bucket = bucketByKey.get(key);
-                            // The spanning ones are drawn as bars above; leaving them here too
-                            // would show the same holiday as both a bar and five chips.
-                            const dayEvents: CalendarEvent<T>[] = bucket ? [...bucket.allDay.filter(event => !isMultiDayEvent(event)), ...bucket.timed] : [];
-                            const isExpanded = expandedDay === key;
-                            const dayLabel =
-                                day.getDate() === 1 ? `${day.toLocaleDateString(undefined, { month: 'short' })} ${day.getDate()}` : String(day.getDate());
-                            const visible = isExpanded ? dayEvents : dayEvents.slice(0, maxEventsPerDay);
-                            const hiddenCount = dayEvents.length - visible.length;
-
-                            const cellClasses = [
-                                'event-calendar__day',
-                                day.getMonth() === currentMonth ? '' : 'event-calendar__day--outside',
-                                isToday(day) ? 'event-calendar__day--today' : '',
-                                isWeekend(day) ? 'event-calendar__day--weekend' : '',
-                                dragOverDay === key ? 'event-calendar__day--drop-target' : '',
-                                isInSelection(day) ? 'event-calendar__day--selecting' : '',
-                                onDayClick ? 'event-calendar__day--clickable' : '',
-                            ]
-                                .filter(Boolean)
-                                .join(' ');
-
-                            return (
-                                <div
-                                    className={cellClasses}
-                                    key={key}
-                                    onClick={() => onDayClick?.(day)}
-                                    onDragLeave={() => setDragOverDay(current => (current === key ? null : current))}
-                                    onDragOver={dropEvent => handleDragOver(dropEvent, key)}
-                                    onDrop={dropEvent => handleDrop(dropEvent, day)}
-                                    onPointerDown={pointerEvent => handleDayPointerDown(pointerEvent, day)}
-                                    onPointerEnter={() => handleDayPointerEnter(day)}
-                                >
-                                    {onOpenDay ? (
-                                        <button
-                                            className="event-calendar__day-number event-calendar__day-number--button"
-                                            onClick={clickEvent => {
-                                                clickEvent.stopPropagation();
-                                                onOpenDay(day);
-                                            }}
-                                            type="button"
-                                        >
-                                            {dayLabel}
-                                        </button>
-                                    ) : (
-                                        <div className="event-calendar__day-number">{dayLabel}</div>
-                                    )}
-
-                                    <div className="event-calendar__day-events">
-                                        {visible.map(event => (
+                            <div className="event-calendar__week-days" style={{ '--event-calendar-span-lanes': laneCount } as CSSProperties}>
+                                {spans.length > 0 && (
+                                    <div className="event-calendar__week-spans">
+                                        {spans.map(span => (
                                             <EventCalendarChip
+                                                className={[
+                                                    'event-calendar__chip--span',
+                                                    span.isStart ? '' : 'event-calendar__chip--span-continues-before',
+                                                    span.isEnd ? '' : 'event-calendar__chip--span-continues-after',
+                                                ]
+                                                    .filter(Boolean)
+                                                    .join(' ')}
                                                 dragEnabled={dragEnabled}
-                                                event={event}
-                                                isDragging={draggingId === event.id}
-                                                key={`${event.id}-${key}`}
+                                                event={span.event}
+                                                isDragging={draggingId === span.event.id}
+                                                key={`${span.event.id}-span-${weekIndex}`}
                                                 onClick={onEventClick}
                                                 onDragEnd={onDragEnd}
                                                 onDragStart={onDragStart}
                                                 renderEvent={renderEvent}
-                                                showTime
+                                                style={{
+                                                    left: `${(span.startIndex / week.length) * 100}%`,
+                                                    width: `${((span.endIndex - span.startIndex + 1) / week.length) * 100}%`,
+                                                    top: `calc(${span.lane} * var(--event-calendar-span-row))`,
+                                                }}
                                             />
                                         ))}
-
-                                        {hiddenCount > 0 && (
-                                            <button
-                                                className="event-calendar__more"
-                                                onClick={clickEvent => {
-                                                    clickEvent.stopPropagation();
-                                                    if (onOpenDay) {
-                                                        onOpenDay(day);
-                                                        return;
-                                                    }
-                                                    setExpandedDay(key);
-                                                }}
-                                                type="button"
-                                            >
-                                                +{hiddenCount} more
-                                            </button>
-                                        )}
-
-                                        {isExpanded && dayEvents.length > maxEventsPerDay && (
-                                            <button
-                                                className="event-calendar__more"
-                                                onClick={clickEvent => {
-                                                    clickEvent.stopPropagation();
-                                                    setExpandedDay(null);
-                                                }}
-                                                type="button"
-                                            >
-                                                Show less
-                                            </button>
-                                        )}
                                     </div>
-                                </div>
-                            );
-                            })}
+                                )}
+                                {week.map(day => {
+                                    const key = day.toDateString();
+                                    const bucket = bucketByKey.get(key);
+                                    // The spanning ones are drawn as bars above; leaving them here too
+                                    // would show the same holiday as both a bar and five chips.
+                                    const dayEvents: CalendarEvent<T>[] = bucket
+                                        ? [...bucket.allDay.filter(event => !isMultiDayEvent(event)), ...bucket.timed]
+                                        : [];
+                                    const isExpanded = expandedDay === key;
+                                    const dayLabel =
+                                        day.getDate() === 1
+                                            ? `${day.toLocaleDateString(undefined, { month: 'short' })} ${day.getDate()}`
+                                            : String(day.getDate());
+                                    const visible = isExpanded ? dayEvents : dayEvents.slice(0, maxEventsPerDay);
+                                    const hiddenCount = dayEvents.length - visible.length;
+
+                                    const cellClasses = [
+                                        'event-calendar__day',
+                                        day.getMonth() === currentMonth ? '' : 'event-calendar__day--outside',
+                                        isToday(day) ? 'event-calendar__day--today' : '',
+                                        isWeekend(day) ? 'event-calendar__day--weekend' : '',
+                                        dragOverDay === key ? 'event-calendar__day--drop-target' : '',
+                                        isInSelection(day) ? 'event-calendar__day--selecting' : '',
+                                        onDayClick ? 'event-calendar__day--clickable' : '',
+                                    ]
+                                        .filter(Boolean)
+                                        .join(' ');
+
+                                    return (
+                                        <div
+                                            className={cellClasses}
+                                            key={key}
+                                            onClick={() => onDayClick?.(day)}
+                                            onDragLeave={() => setDragOverDay(current => (current === key ? null : current))}
+                                            onDragOver={dropEvent => handleDragOver(dropEvent, key)}
+                                            onDrop={dropEvent => handleDrop(dropEvent, day)}
+                                            onPointerDown={pointerEvent => handleDayPointerDown(pointerEvent, day)}
+                                            onPointerEnter={() => handleDayPointerEnter(day)}
+                                        >
+                                            {onOpenDay ? (
+                                                <button
+                                                    className="event-calendar__day-number event-calendar__day-number--button"
+                                                    onClick={clickEvent => {
+                                                        clickEvent.stopPropagation();
+                                                        onOpenDay(day);
+                                                    }}
+                                                    type="button"
+                                                >
+                                                    {dayLabel}
+                                                </button>
+                                            ) : (
+                                                <div className="event-calendar__day-number">{dayLabel}</div>
+                                            )}
+
+                                            <div className="event-calendar__day-events">
+                                                {visible.map(event => (
+                                                    <EventCalendarChip
+                                                        dragEnabled={dragEnabled}
+                                                        event={event}
+                                                        isDragging={draggingId === event.id}
+                                                        key={`${event.id}-${key}`}
+                                                        onClick={onEventClick}
+                                                        onDragEnd={onDragEnd}
+                                                        onDragStart={onDragStart}
+                                                        renderEvent={renderEvent}
+                                                        showTime
+                                                    />
+                                                ))}
+
+                                                {hiddenCount > 0 && (
+                                                    <button
+                                                        className="event-calendar__more"
+                                                        onClick={clickEvent => {
+                                                            clickEvent.stopPropagation();
+                                                            if (onOpenDay) {
+                                                                onOpenDay(day);
+                                                                return;
+                                                            }
+                                                            setExpandedDay(key);
+                                                        }}
+                                                        type="button"
+                                                    >
+                                                        +{hiddenCount} more
+                                                    </button>
+                                                )}
+
+                                                {isExpanded && dayEvents.length > maxEventsPerDay && (
+                                                    <button
+                                                        className="event-calendar__more"
+                                                        onClick={clickEvent => {
+                                                            clickEvent.stopPropagation();
+                                                            setExpandedDay(null);
+                                                        }}
+                                                        type="button"
+                                                    >
+                                                        Show less
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
                     );
                 })}
             </div>
@@ -290,4 +297,3 @@ export function EventCalendarMonth<T>({
         </div>
     );
 }
-

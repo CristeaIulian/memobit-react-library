@@ -36,10 +36,7 @@ export const ControlPanelProvider: React.FC<ControlPanelProviderProps> = ({ chil
     const open = useCallback(() => setIsOpen(true), []);
     const close = useCallback(() => setIsOpen(false), []);
 
-    const value = useMemo(
-        () => ({ isMobile, isOpen, toggle, open, close }),
-        [isMobile, isOpen, toggle, open, close],
-    );
+    const value = useMemo(() => ({ isMobile, isOpen, toggle, open, close }), [isMobile, isOpen, toggle, open, close]);
 
     return <ControlPanelContext.Provider value={value}>{children}</ControlPanelContext.Provider>;
 };

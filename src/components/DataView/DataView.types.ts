@@ -163,5 +163,3 @@ export interface DataViewProps<T> {
     /** Optional column-visibility selector rendered in the top controls. Hidden when `options` is empty. */
     columnSelector?: DataViewColumnSelectorConfig;
 }
-
-

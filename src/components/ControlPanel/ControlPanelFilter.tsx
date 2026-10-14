@@ -414,9 +414,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
 
     if (filter.type === 'chips') {
         const trimmedSearch = chipSearch.trim().toLowerCase();
-        const visibleOptions = filter.searchable && trimmedSearch
-            ? filterOptions.filter(o => o.label.toLowerCase().includes(trimmedSearch))
-            : filterOptions;
+        const visibleOptions = filter.searchable && trimmedSearch ? filterOptions.filter(o => o.label.toLowerCase().includes(trimmedSearch)) : filterOptions;
         return (
             <div className="control-panel__filter-chips-wrap">
                 {filter.searchable && filterOptions.length > 0 && (
@@ -429,9 +427,11 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                 )}
                 <div
                     className="control-panel__filter-chips"
-                    style={filter.maxHeight !== undefined
-                        ? { maxHeight: typeof filter.maxHeight === 'number' ? `${filter.maxHeight}px` : filter.maxHeight, overflowY: 'auto' }
-                        : undefined}
+                    style={
+                        filter.maxHeight !== undefined
+                            ? { maxHeight: typeof filter.maxHeight === 'number' ? `${filter.maxHeight}px` : filter.maxHeight, overflowY: 'auto' }
+                            : undefined
+                    }
                 >
                     {visibleOptions.map(option => {
                         const isSelected = selectedValues.includes(option.value);
@@ -457,8 +457,12 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                                     // values and handed the consumer an array it never expected.
                                     const isSingle = filter.multiple === false;
                                     const nextValue = isSingle
-                                        ? (isSelected ? [] : [option.value])
-                                        : (isSelected ? selectedValues.filter(v => v !== option.value) : [...selectedValues, option.value]);
+                                        ? isSelected
+                                            ? []
+                                            : [option.value]
+                                        : isSelected
+                                          ? selectedValues.filter(v => v !== option.value)
+                                          : [...selectedValues, option.value];
                                     emitFilterChange({
                                         filterId: filter.id,
                                         type: filter.type,
@@ -468,13 +472,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                                     });
                                 }}
                             >
-                                {option.imageUrl && (
-                                    <img
-                                        className="control-panel__filter-chip-avatar"
-                                        src={option.imageUrl}
-                                        alt=""
-                                    />
-                                )}
+                                {option.imageUrl && <img className="control-panel__filter-chip-avatar" src={option.imageUrl} alt="" />}
                                 {option.label}
                             </Chip>
                         );
