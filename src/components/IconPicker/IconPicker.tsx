@@ -1,7 +1,7 @@
-import { CSSProperties, FC, useMemo, useState } from 'react';
+import { CSSProperties, FC, useEffect, useMemo, useState } from 'react';
 
 import { iconAliases } from '@memobit/icons';
-import { iconMap } from '@memobit/icons/map';
+import { canLoadMoreIcons, iconMap, loadAllIcons } from '@memobit/icons/map';
 
 import { Icon, IconName } from '../Icon';
 import { InputSearch } from '../InputSearch';
@@ -9,8 +9,11 @@ import { Tooltip } from '../Tooltip';
 
 import './IconPicker.scss';
 
-/** Derived from the map rather than a second list, so a new icon appears here by existing. */
-const ALL_ICONS = Object.keys(iconMap) as IconName[];
+/**
+ * Derived from the map rather than a second list, so a new icon appears here by existing.
+ * Null while a lazy build (`@memobit/icons/vite` with `lazy`) still has icons to fetch.
+ */
+const STATIC_ICONS = canLoadMoreIcons ? null : (Object.keys(iconMap) as IconName[]);
 
 export interface IconPickerProps {
     value?: IconName;
@@ -50,8 +53,33 @@ export const IconPicker: FC<IconPickerProps> = ({
     value,
 }: IconPickerProps) => {
     const [search, setSearch] = useState('');
+    const [allIcons, setAllIcons] = useState<IconName[] | null>(STATIC_ICONS);
 
-    const available = useMemo(() => icons ?? ALL_ICONS, [icons]);
+    useEffect(() => {
+        if (allIcons || icons) {
+            return;
+        }
+
+        let isCurrent = true;
+
+        loadAllIcons().then(
+            loaded => {
+                if (isCurrent) {
+                    setAllIcons(Object.keys(loaded) as IconName[]);
+                }
+            },
+            () => {
+                // A chunk failed to load. The grid keeps its loading message; reopening the picker retries.
+            },
+        );
+
+        return () => {
+            isCurrent = false;
+        };
+    }, [allIcons, icons]);
+
+    const available = useMemo(() => icons ?? allIcons ?? [], [allIcons, icons]);
+    const isLoading = !icons && !allIcons;
 
     const shown = useMemo(() => {
         const term = search.trim().toLowerCase();
@@ -77,7 +105,9 @@ export const IconPicker: FC<IconPickerProps> = ({
             </div>
 
             <div className="icon-picker__grid">
-                {shown.length === 0 ? (
+                {isLoading ? (
+                    <p className="icon-picker__empty">Loading icons...</p>
+                ) : shown.length === 0 ? (
                     <p className="icon-picker__empty">{emptyLabel}</p>
                 ) : (
                     shown.map(name => (
@@ -98,7 +128,9 @@ export const IconPicker: FC<IconPickerProps> = ({
                 )}
             </div>
 
-            <p className="icon-picker__count">{shown.length === available.length ? `${available.length} icons` : `${shown.length} of ${available.length}`}</p>
+            {!isLoading && (
+                <p className="icon-picker__count">{shown.length === available.length ? `${available.length} icons` : `${shown.length} of ${available.length}`}</p>
+            )}
         </div>
     );
 };
