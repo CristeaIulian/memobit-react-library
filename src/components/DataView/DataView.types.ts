@@ -21,7 +21,7 @@ export interface DataViewColumn<T> {
     minWidth?: number;
     hideInCard?: boolean;
     hideInTable?: boolean;
-    /** Hide this column only on mobile breakpoint (not when cards are used on desktop). */
+    /** Hide this column only on mobile breakpoint, in both table and card views (not when cards are used on desktop). */
     hideInMobile?: boolean;
 }
 

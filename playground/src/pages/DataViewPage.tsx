@@ -219,6 +219,28 @@ export const DataViewPage: React.FC = () => {
                 </div>
             </section>
 
+            {/* Hide columns on mobile */}
+            <section className="page-section">
+                <h2>Hide Columns on Mobile</h2>
+                <p>
+                    Columns marked <code>hideInMobile</code> drop out of the table (header, filter row and cells) below the mobile breakpoint. Here Role and
+                    Joined are hidden on phones; sorting by Joined via the quick sort still orders the rows.
+                </p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <DataView<UserRow>
+                            columns={filterColumns.map(col => (col.key === 'role' || col.key === 'joinedAt' ? { ...col, hideInMobile: true } : col))}
+                            data={filteredUsers}
+                            rowKey={row => row.id}
+                            selectable
+                            rowDetail={row => (row.status === 'On Hold' ? `${row.name} is on hold.` : null)}
+                            miniSort={{ columns: [{ column: 'joinedAt', direction: 'desc', icon: 'calendar', label: 'Newest' }] }}
+                            showPageSize={false}
+                        />
+                    </div>
+                </div>
+            </section>
+
             {/* Column selector */}
             <section className="page-section">
                 <h2>Column Selector</h2>

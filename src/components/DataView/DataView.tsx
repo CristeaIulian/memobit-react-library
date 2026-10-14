@@ -505,7 +505,10 @@ export function DataView<T>({
 
     // Table mode (desktop)
 
-    const tableColumns = columns.filter(col => !col.hideInTable);
+    // Every header, filter cell, body cell and colSpan below derives from this list, so it is
+    // the single place a column drops out. Sorting resolves against the full `columns`, so a
+    // sort key on a mobile-hidden column keeps ordering the rows.
+    const tableColumns = columns.filter(col => !col.hideInTable && !(isMobile && col.hideInMobile));
     const showTimeline = timeline && tableTimelineMarkers.size > 0;
 
     const tableContent = (
