@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { Badge, Button, FolderBrowserModal, Tooltip, type FolderBrowserEntry, type FolderBrowserListing } from '../../../src';
+import { Badge, Button, type FolderBrowserEntry, type FolderBrowserListing, FolderBrowserModal, Tooltip } from '../../../src';
 
 import './FolderBrowserModalPage.scss';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { CollapsibleSection, Button } from '../../../src';
+import { Button, CollapsibleSection } from '../../../src';
 
 export const CollapsibleSectionPage: React.FC = () => {
     const [parentCollapsed, setParentCollapsed] = useState(false);

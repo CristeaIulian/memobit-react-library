@@ -45,7 +45,7 @@ export const SliderPage: React.FC = () => {
 
                 <div className="showcase-group">
                     <h3>Fractional step (0.5 – 0.95, step 0.05)</h3>
-                    <p>The displayed value follows the step's decimal precision.</p>
+                    <p>The displayed value follows the step&apos;s decimal precision.</p>
                     <div className="component-group" style={{ width: '60%' }}>
                         <Slider value={fractionalValue} onChange={setFractionalValue} min={0.5} max={0.95} step={0.05} />
                     </div>
@@ -83,21 +83,21 @@ export const SliderPage: React.FC = () => {
                 <h2>Value size</h2>
 
                 <div className="showcase-group">
-                    <h3>valueSize="sm" (normal track)</h3>
+                    <h3>valueSize=&quot;sm&quot; (normal track)</h3>
                     <div className="component-group" style={{ width: '60%' }}>
                         <Slider value={valueSizeValue} onChange={setValueSizeValue} min={0} max={100} valueSize="sm" />
                     </div>
                 </div>
 
                 <div className="showcase-group">
-                    <h3>valueSize="xxl" (thin track — overrides thin default)</h3>
+                    <h3>valueSize=&quot;xxl&quot; (thin track — overrides thin default)</h3>
                     <div className="component-group" style={{ width: '60%' }}>
                         <Slider value={valueSizeValue} onChange={setValueSizeValue} min={0} max={100} thin valueSize="xxl" />
                     </div>
                 </div>
 
                 <div className="showcase-group">
-                    <h3>valueSize="xs" (inline)</h3>
+                    <h3>valueSize=&quot;xs&quot; (inline)</h3>
                     <div className="component-group" style={{ width: '60%' }}>
                         <Slider value={valueSizeValue} onChange={setValueSizeValue} min={0} max={100} showValueAtTheRight valueSize="xs" />
                     </div>

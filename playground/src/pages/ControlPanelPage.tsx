@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import {
     ControlPanel,
     ControlPanelAction,
+    ControlPanelClearFiltersEvent,
     ControlPanelFilter,
     ControlPanelFilterChangeEvent,
     ControlPanelFilterValue,
-    ControlPanelClearFiltersEvent,
     ControlPanelNavItem,
     ControlPanelOptionChangeEvent,
     ControlPanelViewMode,

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { Accordion, AccordionItemData } from '../../../src';
 
 export const AccordionPage: React.FC = () => {

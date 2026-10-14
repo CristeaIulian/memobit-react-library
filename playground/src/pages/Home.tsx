@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Link } from 'react-router';
 
+import { formatMoney, useBreakpoint } from '../../../src';
 import { sortedRoutes } from '../routes';
-import { useBreakpoint, formatMoney } from '../../../src';
 
 import './Home.scss';
 

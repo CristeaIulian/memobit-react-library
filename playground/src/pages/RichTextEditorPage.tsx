@@ -79,7 +79,7 @@ export const RichTextEditorPage: React.FC = () => {
             <section className="page-section">
                 <h2>Markdown Output</h2>
                 <p className="section-description">
-                    Use <code>format="markdown"</code> to receive Markdown instead of HTML from the <code>onChange</code> callback.
+                    Use <code>format=&quot;markdown&quot;</code> to receive Markdown instead of HTML from the <code>onChange</code> callback.
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">
@@ -129,7 +129,7 @@ export const RichTextEditorPage: React.FC = () => {
             <section className="page-section">
                 <h2>Advanced Toolbar + Markdown Output</h2>
                 <p className="section-description">
-                    Both <code>advanced</code> and <code>format="markdown"</code> can be combined.
+                    Both <code>advanced</code> and <code>format=&quot;markdown&quot;</code> can be combined.
                 </p>
                 <div className="showcase-group">
                     <div className="component-group">

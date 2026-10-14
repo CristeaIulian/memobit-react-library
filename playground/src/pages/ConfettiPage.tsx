@@ -61,8 +61,8 @@ export const ConfettiPage: React.FC = () => {
             <section className="page-section">
                 <h2>Container Scoped</h2>
                 <p className="section-description">
-                    Use <code>scope="container"</code> to confine the animation to a parent element. The parent must have <code>position: relative</code> and a
-                    defined size.
+                    Use <code>scope=&quot;container&quot;</code> to confine the animation to a parent element. The parent must have{' '}
+                    <code>position: relative</code> and a defined size.
                 </p>
 
                 <div className="showcase-group">

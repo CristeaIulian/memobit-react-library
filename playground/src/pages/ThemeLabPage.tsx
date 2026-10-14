@@ -14,8 +14,10 @@ import {
     Chip,
     CollapsibleSection,
     DataView,
+    type DataViewColumn,
     Drawer,
     Dropdown,
+    type DropdownOption,
     EmptyState,
     FileDropzone,
     FloatButton,
@@ -33,14 +35,17 @@ import {
     InputTextarea,
     InputTime,
     InputUrl,
+    type JourneyStep,
     JourneyWizard,
     List,
     Loading,
     MenuHamburger,
+    type MenuHamburgerItem,
     MiniStatsCard,
     Modal,
     NavBar,
     NotificationPanel,
+    type NotificationPanelItem,
     Pagination,
     Popover,
     ProgressBar,
@@ -60,13 +65,8 @@ import {
     Toolbar,
     Tooltip,
     Tree,
-    usePopover,
-    type DataViewColumn,
-    type DropdownOption,
-    type JourneyStep,
-    type MenuHamburgerItem,
-    type NotificationPanelItem,
     type TreeNode,
+    usePopover,
 } from '../../../src';
 
 import './ThemeLabPage.scss';
@@ -166,7 +166,7 @@ export const ThemeLabPage: React.FC = () => {
     const [timeValue, setTimeValue] = useState('09:30');
     const [urlValue, setUrlValue] = useState('https://memobit.com');
     const [textareaValue, setTextareaValue] = useState('Adjust the accent contrast and sidebar density after reviewing this mixed page.');
-    const [maskValue, setMaskValue] = useState('');
+    const [, setMaskValue] = useState('');
     const [checkboxValue, setCheckboxValue] = useState(true);
     const [radioValue, setRadioValue] = useState('compact');
     const [toggleValue, setToggleValue] = useState(true);

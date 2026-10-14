@@ -133,7 +133,7 @@ export const DiffViewerPage: React.FC = () => {
             <section className="page-section">
                 <h2>Code Diff — TypeScript / React</h2>
                 <p className="section-description">
-                    Use <code>type="code"</code> to enable syntax highlighting. Set <code>language</code> to hint the tokeniser.
+                    Use <code>type=&quot;code&quot;</code> to enable syntax highlighting. Set <code>language</code> to hint the tokeniser.
                 </p>
 
                 <div className="showcase-group">

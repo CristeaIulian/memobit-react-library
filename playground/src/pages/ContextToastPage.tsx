@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, ToastContainer, ToastProvider, type ToastContainerPosition, useToast } from '../../../src';
+import { Button, ToastContainer, type ToastContainerPosition, ToastProvider, useToast } from '../../../src';
 
 const toastPositions: ToastContainerPosition[] = ['top-left', 'top-right', 'bottom-left', 'bottom-right', 'top', 'bottom', 'left', 'right'];
 

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+
 import { useLocation, useNavigate } from 'react-router';
 
-import { Header } from '../../Header';
 import { Sidebar, SidebarSection, useBreakpoint } from '../../../../src';
+import { Header } from '../../Header';
 import { sortedRoutes } from '../../routes';
 
 import './Layout.scss';

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Separator } from '../../../src';
 
 export const SeparatorPage: React.FC = () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { JourneyWizard, Button, InputText, InputTextarea, ToggleSwitch, Rating, Chip } from '../../../src';
+import { Button, Chip, InputText, InputTextarea, JourneyWizard, Rating, ToggleSwitch } from '../../../src';
 
 export const JourneyWizardPage: React.FC = () => {
     const [isDrawerOpen, setDrawerOpen] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Checkbox, Button } from '../../../src';
+import { Button, Checkbox } from '../../../src';
 
 interface Preferences {
     notifications: boolean;

@@ -9,7 +9,7 @@ export const InputPhonePage: React.FC = () => {
     const [requiredPhone, setRequiredPhone] = useState<string>('');
     const [requiredDigits, setRequiredDigits] = useState<string>('');
     const [validPhone, setValidPhone] = useState<string>('+1 (555) 123-4567');
-    const [validDigits, setValidDigits] = useState<string>('15551234567');
+    const [, setValidDigits] = useState<string>('15551234567');
     const [eventPhone, setEventPhone] = useState<string>('+40 (721) 555-010');
     const [lastEvent, setLastEvent] = useState<string>('No event yet');
 

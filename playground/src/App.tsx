@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router';
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
 
 import { SidebarProvider, type Theme, ThemeProvider, useAppPersistence } from '../../src';
+
 import { Layout } from './components/Layout/Layout';
 import { routes } from './routes';
 
@@ -10,7 +11,6 @@ import '../../src/styles/highlight.scss';
 import '../../src/styles/base.scss';
 import '../../src/styles/scrollbars.scss';
 import '../../src/styles/utility-classes.scss';
-
 import './App.scss';
 
 interface PlaygroundTheme {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Modal, Button, InputText, InputEmail } from '../../../src';
+import { Button, InputEmail, InputText, Modal } from '../../../src';
 
 export const ModalPage: React.FC = () => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);

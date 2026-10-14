@@ -371,3 +371,5 @@ export const Confetti = forwardRef<ConfettiHandle, ConfettiProps>(
         return <canvas ref={canvasRef} className={`confetti-canvas confetti-canvas--${scope}`} />;
     }
 );
+
+Confetti.displayName = 'Confetti';

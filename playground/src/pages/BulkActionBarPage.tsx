@@ -1,6 +1,6 @@
 import { FC, useCallback, useMemo, useState } from 'react';
 
-import { BulkActionBar, Checkbox, type BulkAction } from '../../../src';
+import { type BulkAction, BulkActionBar, Checkbox } from '../../../src';
 
 interface DemoItem {
     id: number;

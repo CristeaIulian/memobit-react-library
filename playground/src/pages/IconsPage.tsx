@@ -5,7 +5,7 @@ import { iconMap } from '@memobit/icons/map';
 import { InputSearch, Toast, type ToastDetails } from '../../../src';
 
 import { iconAliases } from './iconsAliases';
-import { OTHER_CATEGORY_ID, iconCategoryByPath, iconCategoryDefinitions, otherCategory, type IconCategory } from './iconsCategories';
+import { type IconCategory, iconCategoryByPath, iconCategoryDefinitions, OTHER_CATEGORY_ID, otherCategory } from './iconsCategories';
 
 import './IconsPage.scss';
 

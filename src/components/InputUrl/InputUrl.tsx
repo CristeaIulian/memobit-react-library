@@ -121,3 +121,5 @@ export const InputUrl = forwardRef<HTMLInputElement, InputUrlProps>(
         );
     }
 );
+
+InputUrl.displayName = 'InputUrl';

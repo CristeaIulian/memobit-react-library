@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Drawer, Button, Chip, InputNumber, Rating, InputText, InputEmail, InputTextarea } from '../../../src';
+import { Button, Chip, Drawer, InputEmail, InputNumber, InputText, InputTextarea, Rating } from '../../../src';
 
 const bookDrawerStyles: Record<string, React.CSSProperties> = {
     stack: {
@@ -277,7 +277,7 @@ export const DrawerPage: React.FC = () => {
                             showOverlay={false}
                             title="No Overlay"
                         >
-                            <p>This drawer doesn't have a backdrop overlay.</p>
+                            <p>This drawer doesn&apos;t have a backdrop overlay.</p>
                             <p>You can still interact with the page content behind it.</p>
                             <p>Use the close button or press ESC to close.</p>
                         </Drawer>

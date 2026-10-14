@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { MiniStatsCard } from '../../../src';
 
 export const MiniStatsCardPage: React.FC = () => {

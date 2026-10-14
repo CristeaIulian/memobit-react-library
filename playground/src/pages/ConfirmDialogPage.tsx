@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ConfirmDialog, Button } from '../../../src';
+import { Button, ConfirmDialog } from '../../../src';
 
 export const ConfirmDialogPage: React.FC = () => {
     const [isConfirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false);

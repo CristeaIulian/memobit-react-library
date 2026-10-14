@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { NavBar, NavBarItem, Button, Icon } from '../../../src';
+import { Button, Icon, NavBar, NavBarItem } from '../../../src';
 
 export const NavBarPage: React.FC = () => {
     const [activeItem, setActiveItem] = useState<string>('home');

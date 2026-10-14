@@ -54,7 +54,7 @@ export const Card: React.FC<CardProps> = ({
 
     return (
         <div
-            className={`card ${className || ''} ${noPadding ? 'no-padding' : ''} ${isHighlighted ? 'is-highlighted' : ''} ${variantClass} ${!!onClick ? 'is-clickable' : ''} ${effectClass}`}
+            className={`card ${className || ''} ${noPadding ? 'no-padding' : ''} ${isHighlighted ? 'is-highlighted' : ''} ${variantClass} ${onClick ? 'is-clickable' : ''} ${effectClass}`}
             onClick={onClick}
         >
             {(title || isCollapsible) && (

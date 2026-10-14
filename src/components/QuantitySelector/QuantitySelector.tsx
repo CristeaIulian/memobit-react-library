@@ -126,3 +126,5 @@ export const QuantitySelector = forwardRef<HTMLInputElement, QuantitySelectorPro
         );
     }
 );
+
+QuantitySelector.displayName = 'QuantitySelector';

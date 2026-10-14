@@ -124,3 +124,5 @@ export const InputTime = forwardRef<HTMLInputElement, InputTimeProps>(
         );
     }
 );
+
+InputTime.displayName = 'InputTime';

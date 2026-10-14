@@ -30,8 +30,8 @@ export const IconPage: React.FC = () => (
         <header className="icon-page__header">
             <h1>Icon</h1>
             <p>
-                Renders library SVG icons with controlled <code>size</code>, <code>variant</code>, and animations. Icons use <code>fill="currentColor"</code> so
-                they inherit theme colors automatically.
+                Renders library SVG icons with controlled <code>size</code>, <code>variant</code>, and animations. Icons use{' '}
+                <code>fill=&quot;currentColor&quot;</code> so they inherit theme colors automatically.
             </p>
         </header>
 
@@ -115,14 +115,14 @@ export const IconPage: React.FC = () => (
                         <Icon name={previewIcon} size="xl" spin variant="accent" />
                     </div>
                     <strong className="icon-page__name">spin + accent</strong>
-                    <code className="icon-page__code">spin variant="accent"</code>
+                    <code className="icon-page__code">spin variant=&quot;accent&quot;</code>
                 </article>
                 <article className="icon-page__tile icon-page__tile--hover-hint">
                     <div className="icon-page__preview">
                         <Icon name="logout" size="xl" spinOnHover variant="danger" />
                     </div>
                     <strong className="icon-page__name">spinOnHover + danger</strong>
-                    <code className="icon-page__code">spinOnHover variant="danger"</code>
+                    <code className="icon-page__code">spinOnHover variant=&quot;danger&quot;</code>
                 </article>
             </div>
         </section>

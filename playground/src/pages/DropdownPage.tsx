@@ -299,9 +299,9 @@ export const DropdownPage: React.FC = () => {
                 <div className="showcase-group">
                     <h3>Chips and Sort-Selected-First (Multi-Select)</h3>
                     <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
-                        <code>sortSelectedFirst</code> floats already-selected options to the top of a long list while it's open. <code>showChips</code> renders
-                        each selection as a removable chip instead of joined text; <code>multilineChips</code> lets the chip row wrap onto multiple lines
-                        instead of scrolling on one line.
+                        <code>sortSelectedFirst</code> floats already-selected options to the top of a long list while it&apos;s open. <code>showChips</code>{' '}
+                        renders each selection as a removable chip instead of joined text; <code>multilineChips</code> lets the chip row wrap onto multiple
+                        lines instead of scrolling on one line.
                     </p>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>

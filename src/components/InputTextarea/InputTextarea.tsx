@@ -79,3 +79,5 @@ export const InputTextarea = forwardRef<HTMLTextAreaElement, InputTextareaProps>
         );
     }
 );
+
+InputTextarea.displayName = 'InputTextarea';

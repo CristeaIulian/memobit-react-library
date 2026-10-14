@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Sidebar, SidebarSection, Button } from '../../../src';
+import { Button, Sidebar, SidebarSection } from '../../../src';
 
 export const SidebarPage: React.FC = () => {
     const [activeItem, setActiveItem] = useState<string>('home');

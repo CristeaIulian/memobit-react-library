@@ -167,7 +167,7 @@ export const TimelinePage: React.FC = () => {
             <section className="page-section">
                 <h2>Onboarding Stepper — Horizontal</h2>
                 <p className="section-description">
-                    Switch <code>orientation</code> to <code>"horizontal"</code> for stepped progress flows. Incomplete steps are automatically muted.
+                    Switch <code>orientation</code> to <code>&quot;horizontal&quot;</code> for stepped progress flows. Incomplete steps are automatically muted.
                 </p>
                 <div className="showcase-group">
                     <Timeline items={onboardingSteps} orientation="horizontal" />

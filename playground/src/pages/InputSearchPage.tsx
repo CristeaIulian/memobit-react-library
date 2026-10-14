@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { InputSearch } from '../../../src';
 
 export const InputSearchPage: React.FC = () => {

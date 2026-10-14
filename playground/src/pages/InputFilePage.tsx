@@ -4,7 +4,7 @@ import { InputFile } from '../../../src';
 
 export const InputFilePage: React.FC = () => {
     const [file, setFile] = useState<File | null>(null);
-    const [validFile, setValidFile] = useState<File | null>(new File([''], 'document.pdf'));
+    const [, setValidFile] = useState<File | null>(new File([''], 'document.pdf'));
     const [lastEvent, setLastEvent] = useState<string>('No event yet');
 
     return (

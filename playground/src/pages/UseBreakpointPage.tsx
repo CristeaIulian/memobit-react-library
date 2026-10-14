@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useBreakpoint, formatMoney } from '../../../src';
+import { formatMoney, useBreakpoint } from '../../../src';
 
 export const UseBreakpointPage: React.FC = () => {
     const { currentBreakpoint, isMobile, isTablet, isDesktop } = useBreakpoint();

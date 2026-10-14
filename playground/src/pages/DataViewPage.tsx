@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-import { Badge, Button, DataView, InputSearch, ToggleButtons, type DataViewColumn, type DataViewDisplayMode, type SortDirection } from '../../../src';
+import { Badge, Button, DataView, type DataViewColumn, type DataViewDisplayMode, InputSearch, type SortDirection, ToggleButtons } from '../../../src';
 
 // ── Basic example ───────────────────────────────────────────────────────────
 

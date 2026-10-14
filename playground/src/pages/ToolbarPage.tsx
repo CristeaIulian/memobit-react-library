@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-import { ControlPanelProvider, InputSearch, Toolbar, type DropdownOption, type MenuHamburgerItem, useControlPanelContext } from '../../../src';
+import { ControlPanelProvider, type DropdownOption, InputSearch, type MenuHamburgerItem, Toolbar, useControlPanelContext } from '../../../src';
 
 const sortOptions: DropdownOption[] = [
     { label: 'Title asc', value: 'title-asc' },

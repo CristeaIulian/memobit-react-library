@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import { Tree, TreeNode } from '../../../src';
 import { categories, earth, file, filetypeSass, filetypeTypescript, folder, folderOpen, lock, user } from '@memobit/icons';
+
+import { Tree, TreeNode } from '../../../src';
 
 // ── Data sets ─────────────────────────────────────────────────────────────────
 

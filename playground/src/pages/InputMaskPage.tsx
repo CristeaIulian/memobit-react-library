@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 
-import { InputMask, InputMaskPresets, InputMaskHandle, Button } from '../../../src';
 import { bank, clipboard, creditCard, earth, key, phone, security } from '@memobit/icons';
+
+import { Button, InputMask, InputMaskHandle, InputMaskPresets } from '../../../src';
 
 // ── Copy-to-clipboard suffix button ───────────────────────────────────────────
 const CopyButton: React.FC<{ getValue: () => string }> = ({ getValue }) => {

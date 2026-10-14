@@ -290,6 +290,7 @@ export {
 } from './helpers/Datetime';
 export { formatBigNumber, formatBytes, formatMoney } from './helpers/Format';
 export { highlightText } from './helpers/Highlight';
+export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
 export {
     type ApiClient,
     type ApiClientConfig,
@@ -305,7 +306,6 @@ export {
     isSuccessStatus,
     readErrorMessage,
 } from './helpers/Http';
-export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
 export { createImagePaths, DATA_FILES_PATH, type ImagePaths } from './helpers/Images';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
 export { clamp, format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';

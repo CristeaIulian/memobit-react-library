@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, TimelineMarkerDot, TimelineMarkers, TimelineMobileSeparator, type TimelineMarkersItem } from '../../../src';
+import { Card, TimelineMarkerDot, TimelineMarkers, type TimelineMarkersItem, TimelineMobileSeparator } from '../../../src';
 
 interface ReleaseNote extends TimelineMarkersItem {
     title: string;

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { ProgressBar, Button } from '../../../src';
+import { Button, ProgressBar } from '../../../src';
 
 export const ProgressBarPage: React.FC = () => {
     const [uploadProgress, setUploadProgress] = useState(0);
@@ -430,7 +430,7 @@ export const ProgressBarPage: React.FC = () => {
                         </div>
                         <div style={{ marginBottom: '12px', fontSize: '14px', color: 'var(--body-color-muted)' }}>7.5 GB of 10 GB used</div>
                         <ProgressBar state="warning" value={75} label="Storage" striped />
-                        <p style={{ marginTop: '8px', fontSize: '12px', color: 'var(--body-color-muted)' }}>You're running low on storage space</p>
+                        <p style={{ marginTop: '8px', fontSize: '12px', color: 'var(--body-color-muted)' }}>You&apos;re running low on storage space</p>
                     </div>
                 </div>
 

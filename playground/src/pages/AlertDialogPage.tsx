@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AlertDialog, type IconName, type ButtonVariant, Button } from '../../../src';
+import { AlertDialog, Button, type ButtonVariant, type IconName } from '../../../src';
 
 interface DialogConfig {
     title: string;

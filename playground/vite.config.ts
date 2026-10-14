@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import { memobitThemes } from '@memobit/themes/vite';
+import react from '@vitejs/plugin-react';
 import { execSync } from 'child_process';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import { defineConfig } from 'vite';
 
 const libraryRoot = resolve(import.meta.dirname, '..');
 const pkg = JSON.parse(readFileSync(resolve(libraryRoot, 'package.json'), 'utf-8'));

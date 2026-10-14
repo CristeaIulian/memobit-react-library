@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { DatePicker, CalendarDateRange } from '../../../src';
+
+import { CalendarDateRange, DatePicker } from '../../../src';
 
 export const DatePickerPage: React.FC = () => {
     const [singleDate, setSingleDate] = useState<Date | undefined>(new Date());

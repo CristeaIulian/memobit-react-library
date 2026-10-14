@@ -1,6 +1,13 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'fs';
+import react from '@vitejs/plugin-react';
 import { execSync } from 'child_process';
+import { mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, relative, resolve, sep } from 'path';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+
+// @ts-expect-error -- plain .mjs helper, no declarations needed for a build-time script
+import { collectIconUsage } from './scripts/collect-icon-usage.mjs';
 
 interface ChunkLike {
     type: string;
@@ -8,13 +15,6 @@ interface ChunkLike {
     code?: string;
     viteMetadata?: { importedCss?: Set<string> };
 }
-import { defineConfig } from 'vite';
-
-// @ts-expect-error -- plain .mjs helper, no declarations needed for a build-time script
-import { collectIconUsage } from './scripts/collect-icon-usage.mjs';
-import react from '@vitejs/plugin-react';
-import dts from 'vite-plugin-dts';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const pkg = JSON.parse(readFileSync(resolve(import.meta.dirname, 'package.json'), 'utf-8'));
 const buildNumberPath = resolve(import.meta.dirname, '.build-number');

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Icon, Tooltip, Button } from '../../../src';
+import { Button, Icon, Tooltip } from '../../../src';
 
 export const TooltipPage: React.FC = () => {
     return (

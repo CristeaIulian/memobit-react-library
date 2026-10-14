@@ -29,7 +29,7 @@ export const SuggestionsListPage: React.FC = () => {
 
             <section className="page-section">
                 <h2>Short List (No Show More/Less)</h2>
-                <p>With fewer than 10 items, the "Show more/less" button does not appear.</p>
+                <p>With fewer than 10 items, the &quot;Show more/less&quot; button does not appear.</p>
                 <div className="showcase-group">
                     <div className="component-group">
                         <SuggestionsList
@@ -50,7 +50,7 @@ export const SuggestionsListPage: React.FC = () => {
 
             <section className="page-section">
                 <h2>Long List (Show More/Less Button)</h2>
-                <p>With more than 10 items, the "Show more/less" button appears. Initially shows only the first 10 items.</p>
+                <p>With more than 10 items, the &quot;Show more/less&quot; button appears. Initially shows only the first 10 items.</p>
                 <div className="showcase-group">
                     <div className="component-group">
                         <SuggestionsList

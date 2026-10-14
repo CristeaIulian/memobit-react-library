@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-import { Button, CommandPalette, type CommandItem } from '../../../src';
+import { Button, type CommandItem, CommandPalette } from '../../../src';
 
 export const CommandPalettePage: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);

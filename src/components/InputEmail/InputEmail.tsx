@@ -144,3 +144,5 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
         );
     }
 );
+
+InputEmail.displayName = 'InputEmail';
