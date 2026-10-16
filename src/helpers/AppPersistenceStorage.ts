@@ -1,3 +1,5 @@
+import { logger } from '@memobit/core';
+
 interface AppData<TPages, TTheme> {
     pages: TPages;
     theme: TTheme;
@@ -27,7 +29,7 @@ export class AppPersistenceStorage {
                 };
             }
         } catch (error) {
-            console.warn(`Failed to load app persistence data for ${appId}:`, error);
+            logger.debug('Failed to load app persistence data', { appId, error: String(error) });
         }
         return defaults;
     }
@@ -36,7 +38,7 @@ export class AppPersistenceStorage {
         try {
             localStorage.setItem(appId, JSON.stringify(data));
         } catch (error) {
-            console.warn(`Failed to save app persistence data for ${appId}:`, error);
+            logger.debug('Failed to save app persistence data', { appId, error: String(error) });
         }
     }
 
@@ -52,7 +54,7 @@ export class AppPersistenceStorage {
         try {
             localStorage.removeItem(appId);
         } catch (error) {
-            console.warn(`Failed to clear app persistence data for ${appId}:`, error);
+            logger.debug('Failed to clear app persistence data', { appId, error: String(error) });
         }
     }
 }

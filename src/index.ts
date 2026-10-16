@@ -304,6 +304,7 @@ export {
     isClientErrorStatus,
     isServerErrorStatus,
     isSuccessStatus,
+    logUnexpectedError,
     readErrorMessage,
 } from './helpers/Http';
 export { createImagePaths, DATA_FILES_PATH, type ImagePaths } from './helpers/Images';

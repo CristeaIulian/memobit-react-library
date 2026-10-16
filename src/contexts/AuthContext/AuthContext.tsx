@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { logger } from '@memobit/core';
+
 import { buildRequestHeaders, HttpMethod } from '../../helpers/Http';
 import type { AuthConfig, LoginCredentials, LoginOutcome, LoginResponse, User, VerifyResponse } from '../../types/auth.types';
 
@@ -35,7 +37,8 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
                     });
                 }
             } catch (error) {
-                console.error('Failed to restore auth state:', error);
+                // Only a network failure lands here; a missing session is a non-ok response.
+                logger.warn('Auth check could not reach the server', { error: String(error) });
             } finally {
                 setIsLoading(false);
             }
@@ -85,9 +88,6 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
 
                 applyUser(data);
                 return { mfaRequired: false };
-            } catch (error) {
-                console.error('Login failed:', error);
-                throw error;
             } finally {
                 setIsLoading(false);
             }
@@ -114,9 +114,6 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
                 }
 
                 applyUser(await response.json());
-            } catch (error) {
-                console.error('MFA verification failed:', error);
-                throw error;
             } finally {
                 setIsLoading(false);
             }
@@ -132,7 +129,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
                 headers: buildRequestHeaders(HttpMethod.Post),
             });
         } catch (error) {
-            console.error('Logout error:', error);
+            logger.warn('Logout request failed', { error: String(error) });
         } finally {
             setUser(null);
         }

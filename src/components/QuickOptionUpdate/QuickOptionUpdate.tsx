@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { logger } from '@memobit/core';
+
 import { IconName } from '../Icon';
 import { Modal } from '../Modal';
 import { Radio } from '../Radio';
@@ -47,7 +49,7 @@ export const QuickOptionUpdate: React.FC<QuickOptionUpdateProps> = ({ isOpen = f
         if (typeof newValue === 'string' || typeof newValue === 'number') {
             setWorkingValue(newValue);
         } else {
-            console.error('Unsupported type used.');
+            logger.error('QuickOptionUpdate received an unsupported value type', undefined, { type: typeof newValue });
         }
     };
 

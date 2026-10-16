@@ -1,3 +1,5 @@
+import { type ErrorReportContext, logger } from '@memobit/core';
+
 export const HttpStatus = {
     Continue: 100,
     SwitchingProtocols: 101,
@@ -79,6 +81,7 @@ export const buildRequestHeaders = (method: HttpMethod, json: boolean = true): R
     return headers;
 };
 
+/** A failed API request. `status` is the HTTP status, or 0 when the server could not be reached. */
 export class ApiError extends Error {
     readonly status: number;
 
@@ -106,6 +109,22 @@ export const readErrorMessage = async (response: Response): Promise<string> => {
     return `Request failed (${response.status}${response.statusText ? ` ${response.statusText}` : ''})`;
 };
 
+const isAbortError = (error: unknown): boolean => error instanceof DOMException && error.name === 'AbortError';
+
+/**
+ * For the catch around an API call: reports `error` unless it is an `ApiError` (the client and
+ * the backend already report those that matter) or an aborted request. What is left is a bug in
+ * the code around the call, e.g. mapping the response.
+ */
+export const logUnexpectedError = (message: string, error: unknown, context?: ErrorReportContext): void => {
+    if (error instanceof ApiError || isAbortError(error)) {
+        return;
+    }
+    logger.error(message, error, context);
+};
+
+const GATEWAY_FAILURE_STATUSES = new Set<number>([HttpStatus.BadGateway, HttpStatus.ServiceUnavailable, HttpStatus.GatewayTimeout]);
+
 export interface ApiClientConfig {
     baseUrl: string;
     // Where an expired session is sent. Defaults to /login.
@@ -127,6 +146,9 @@ export interface ApiClient {
  * header on mutating requests, surfaces the server's `error` message, and on 401 navigates
  * to the login page. The 401 path returns a promise that never settles so callers don't
  * flash an error toast while the browser is already leaving the page.
+ *
+ * It reports unreachable-server, gateway and invalid-JSON failures to the hub, so callers
+ * only show a toast for API errors and don't log them again.
  */
 export const createApiClient = ({ baseUrl, loginPath = '/login' }: ApiClientConfig): ApiClient => {
     // A burst of in-flight requests failing together must trigger a single redirect.
@@ -135,12 +157,24 @@ export const createApiClient = ({ baseUrl, loginPath = '/login' }: ApiClientConf
     const buildUrl = (path: string): string => `${baseUrl.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
 
     const send = async <T>(path: string, method: HttpMethod, body?: BodyInit, json: boolean = true): Promise<T> => {
-        const response = await fetch(buildUrl(path), {
-            method,
-            headers: buildRequestHeaders(method, json),
-            credentials: 'include',
-            body,
-        });
+        // Never the query string: it can carry search terms or tokens.
+        const requestContext = { method, path: path.split('?')[0] };
+
+        let response: Response;
+        try {
+            response = await fetch(buildUrl(path), {
+                method,
+                headers: buildRequestHeaders(method, json),
+                credentials: 'include',
+                body,
+            });
+        } catch (error) {
+            if (isAbortError(error)) {
+                throw error;
+            }
+            logger.warn('API request could not reach the server', requestContext);
+            throw new ApiError('Could not reach the server', 0);
+        }
 
         if (response.status === HttpStatus.Unauthorized && !window.location.pathname.startsWith(loginPath)) {
             if (!isRedirectingToLogin) {
@@ -151,6 +185,11 @@ export const createApiClient = ({ baseUrl, loginPath = '/login' }: ApiClientConf
         }
 
         if (!response.ok) {
+            // The backend reports its own 500s; a 502-504 comes from the host or proxy in
+            // front of it, which nothing else sees. 4xx responses are expected outcomes.
+            if (GATEWAY_FAILURE_STATUSES.has(response.status)) {
+                logger.warn('API gateway failure', { ...requestContext, status: response.status });
+            }
             throw new ApiError(await readErrorMessage(response), response.status);
         }
 
@@ -158,7 +197,12 @@ export const createApiClient = ({ baseUrl, loginPath = '/login' }: ApiClientConf
             return undefined as T;
         }
 
-        return (await response.json()) as T;
+        try {
+            return (await response.json()) as T;
+        } catch (error) {
+            logger.error('API response was not valid JSON', error, { ...requestContext, status: response.status });
+            throw error;
+        }
     };
 
     const sendJson = <T>(path: string, method: HttpMethod, payload: unknown): Promise<T> =>
