@@ -48,10 +48,6 @@
       "types": "./dist/http.d.ts",
       "import": "./dist/http.js"
     },
-    "./errors": {
-      "types": "./dist/errors.d.ts",
-      "import": "./dist/errors.js"
-    },
     "./router": {
       "types": "./dist/router.d.ts",
       "import": "./dist/router.js"
@@ -84,6 +80,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,cjs,css,scss}\""
   },
   "peerDependencies": {
+    "@memobit/core": "1.0.0",
     "@memobit/icons": "^1.5.0",
     "@memobit/themes": "^1.0.0",
     "react": "19.3.0",
@@ -97,6 +94,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.39.4",
+    "@memobit/core": "file:../memobit-core",
     "@memobit/icons": "file:../memobit-react-icons",
     "@memobit/themes": "file:../memobit-react-themes",
     "@microsoft/api-extractor": "7.59.2",

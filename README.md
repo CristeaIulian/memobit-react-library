@@ -15,7 +15,7 @@ npm install @memobit/libs
 Peer dependencies (you provide these in your own app):
 
 ```bash
-npm install react@^19 react-dom@^19
+npm install react@^19 react-dom@^19 @memobit/core
 ```
 
 ## Quick start
@@ -52,7 +52,7 @@ function Demo() {
 - **Themes** — 70+ ready-made SCSS themes (Arctic Blue, Midnight Atlas, Terracotta Kitchen, Neon Tokyo, …). Theme tokens are pure CSS custom properties, so you can author your own.
 - **Hooks** — `useBreakpoint`, `useBodyScrollLock`, `useComponentEffect`, `useAppPersistence`, `useAuth`.
 - **Helpers** — date formatting, number formatting, string utilities, search/highlight, pagination, URL helpers.
-- **Error reporting** — `@memobit/libs/errors` (React-free, works in Node too): `installErrorReporting` / `installNodeErrorReporting` send uncaught errors, unhandled rejections, `ErrorBoundary` crashes and `console.error` / `console.warn` to a collector endpoint, batched and throttled. `logger` stands in for `console.*`, and `reportError` reports errors you have handled.
+- **Error reporting** — lives in [`@memobit/core`](https://www.npmjs.com/package/@memobit/core) (React-free, works in Node too), a peer dependency: `ErrorBoundary` crashes are reported through it once the app calls `installErrorReporting`.
 
 See the [component reference](https://react.memobit.ro/) for props, variants, and live examples.
 

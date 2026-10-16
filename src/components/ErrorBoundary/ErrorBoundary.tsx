@@ -1,6 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 
-import { reportError } from '../../helpers/ErrorReporting';
+import { reportError } from '@memobit/core';
+
 import { EmptyState } from '../EmptyState';
 
 import './ErrorBoundary.scss';
