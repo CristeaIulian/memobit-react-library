@@ -131,14 +131,22 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     };
 
     useEffect(() => {
-        if (isVisible) {
-            calculatePosition();
-            window.addEventListener('scroll', calculatePosition, true);
-            window.addEventListener('resize', calculatePosition);
-        }
+        if (!isVisible) return;
+
+        // Scrolling moves the trigger out from under the pointer — often behind an `overflow`
+        // ancestor that clips it — without a mouseleave, so following it would leave a tooltip
+        // pointing at nothing. Close instead; only scrolling inside an interactive tooltip keeps it.
+        const handleScroll = (event: Event) => {
+            if (event.target instanceof Node && tooltipRef.current?.contains(event.target)) return;
+            setIsVisible(false);
+        };
+
+        calculatePosition();
+        window.addEventListener('scroll', handleScroll, true);
+        window.addEventListener('resize', calculatePosition);
 
         return () => {
-            window.removeEventListener('scroll', calculatePosition, true);
+            window.removeEventListener('scroll', handleScroll, true);
             window.removeEventListener('resize', calculatePosition);
         };
     }, [isVisible]);
