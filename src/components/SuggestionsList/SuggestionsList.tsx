@@ -78,14 +78,17 @@ export const SuggestionsList = ({ data, label, title, tooltip, enableSearch = fa
         setShowMoreEnabled(!isShowMoreEnabled);
     }, [isShowMoreEnabled]);
 
-    const toggleSort = (column: 'name' | 'value') => {
-        if (sortKey === column) {
-            setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'));
-        } else {
-            setSortKey(column);
-            setSortDirection('asc');
-        }
-    };
+    const toggleSort = useCallback(
+        (column: 'name' | 'value') => {
+            if (sortKey === column) {
+                setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'));
+            } else {
+                setSortKey(column);
+                setSortDirection('asc');
+            }
+        },
+        [sortKey]
+    );
 
     const suggestionListContent = useMemo(
         () => (

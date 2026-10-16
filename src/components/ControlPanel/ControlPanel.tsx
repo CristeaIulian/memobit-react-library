@@ -7,14 +7,12 @@ import { Separator } from '../Separator';
 import { Tooltip } from '../Tooltip';
 
 import { ControlPanelAction, ControlPanelOption, ControlPanelOptionGroup, ControlPanelProps } from './ControlPanel.types';
-import { useControlPanelContext } from './ControlPanelContext';
 import { ControlPanelFilterItem } from './ControlPanelFilter';
 import { ControlPanelNav } from './ControlPanelNav';
 import { ControlPanelOptions } from './ControlPanelOptions';
+import { useControlPanelContext } from './useControlPanel';
 
 import './ControlPanel.scss';
-
-export * from './ControlPanel.types';
 
 export const ControlPanel: React.FC<ControlPanelProps> = ({
     width = '280px',

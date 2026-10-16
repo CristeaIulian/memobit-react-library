@@ -178,6 +178,12 @@ const drawParticle = (ctx: CanvasRenderingContext2D, p: Particle) => {
     ctx.restore();
 };
 
+const DEFAULT_COUNTS: Record<ConfettiVariant, number> = {
+    confetti: 150,
+    burst: 200,
+    fireworks: 8,
+};
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export const Confetti = forwardRef<ConfettiHandle, ConfettiProps>(
@@ -186,12 +192,6 @@ export const Confetti = forwardRef<ConfettiHandle, ConfettiProps>(
         const rafRef = useRef<number>(0);
         const startTimeRef = useRef<number>(0);
         const activeRef = useRef(false);
-
-        const defaultCounts: Record<ConfettiVariant, number> = {
-            confetti: 150,
-            burst: 200,
-            fireworks: 8,
-        };
 
         const stop = useCallback(() => {
             activeRef.current = false;
@@ -217,7 +217,7 @@ export const Confetti = forwardRef<ConfettiHandle, ConfettiProps>(
             const w = canvas.width;
             const h = canvas.height;
             const resolvedColors = resolveColors(colors);
-            const count = particleCount ?? defaultCounts[variant];
+            const count = particleCount ?? DEFAULT_COUNTS[variant];
 
             activeRef.current = true;
             startTimeRef.current = performance.now();

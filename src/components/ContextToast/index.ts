@@ -1,1 +1,2 @@
-export { type ContextToastAction, ToastContainer, type ToastContainerPosition, ToastProvider, type ToastType, useToast } from './ContextToast';
+export { ToastContainer, type ToastContainerPosition, ToastProvider } from './ContextToast';
+export { type ContextToastAction, type ToastType, useToast } from './useToast';

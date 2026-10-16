@@ -17,10 +17,11 @@ export interface UseAppPersistenceReturn<TPages, TTheme> {
 }
 
 export function useAppPersistence<TPages, TTheme>(appId: string, defaults: AppPersistenceDefaults<TPages, TTheme>): UseAppPersistenceReturn<TPages, TTheme> {
-    const resolvedDefaults = {
+    // Defaults are fixed at mount: clearPage/clearAll restore what the app started with.
+    const [resolvedDefaults] = useState(() => ({
         pages: defaults.pages ?? ({} as TPages),
         theme: defaults.theme,
-    };
+    }));
 
     const [state, setState] = useState(() => AppPersistenceStorage.load(appId, resolvedDefaults));
 
@@ -54,13 +55,13 @@ export function useAppPersistence<TPages, TTheme>(appId: string, defaults: AppPe
                 return next;
             });
         },
-        [appId]
+        [appId, resolvedDefaults]
     );
 
     const clearAll = useCallback(() => {
         setState(resolvedDefaults);
         AppPersistenceStorage.clearAll(appId);
-    }, [appId]);
+    }, [appId, resolvedDefaults]);
 
     return {
         pages: state.pages,

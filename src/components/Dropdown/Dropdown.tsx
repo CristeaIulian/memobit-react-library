@@ -122,10 +122,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // only re-sorts the next time the dropdown is opened.
     const sortedBaseOptionsRef = useRef<DropdownOption[] | null>(null);
 
+    // Latest selection, read when a session opens without re-running the freeze on every check.
+    const selectedOptionsRef = useRef(selectedOptions);
+    useEffect(() => {
+        selectedOptionsRef.current = selectedOptions;
+    });
+
     // Freeze the "selected first" ordering exactly once per open session.
     useEffect(() => {
         if (isOpen && sortSelectedFirst && multiple) {
-            const selectedValues = new Set(selectedOptions.map(option => option.value));
+            const selectedValues = new Set(selectedOptionsRef.current.map(option => option.value));
             const selected: DropdownOption[] = [];
             const unselected: DropdownOption[] = [];
             options.forEach(option => (selectedValues.has(option.value) ? selected : unselected).push(option));
@@ -133,7 +139,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         } else if (!isOpen) {
             sortedBaseOptionsRef.current = null;
         }
-        // Intentionally omits `selectedOptions` so re-checking a box mid-session doesn't reshuffle the list.
+        // Reads the selection through a ref so re-checking a box mid-session doesn't reshuffle the list.
     }, [isOpen, sortSelectedFirst, multiple, options]);
 
     // Filter options when filterText changes

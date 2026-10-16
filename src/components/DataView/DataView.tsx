@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { getResultsCount } from '../../helpers/Pagination';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
@@ -11,8 +11,9 @@ import { Pagination } from '../Pagination';
 import { calculateTimelineMarkers, TimelineMarkerDot, type TimelineMarkerInfo, type TimelineMarkersItem } from '../TimelineMarkers';
 import { Tooltip } from '../Tooltip';
 
-import { CardView, DEFAULT_PAGE_SIZES, getColumnLabel, renderCellContent, renderColumnLabel } from './DataView.CardView';
+import { CardView } from './DataView.CardView';
 import { DataViewColumnSelector } from './DataView.ColumnSelector';
+import { DEFAULT_PAGE_SIZES, getColumnLabel, renderCellContent, renderColumnLabel } from './DataView.helpers';
 import { DataViewMiniSort } from './DataView.MiniSort';
 import type { DataViewColumn, DataViewGroup, DataViewGroupKey, DataViewProps, SortDirection } from './DataView.types';
 
@@ -107,7 +108,7 @@ export function DataView<T>({
         });
     };
 
-    const resolvedRowKey = (row: T, index: number) => rowKey?.(row, index) ?? index;
+    const resolvedRowKey = useCallback((row: T, index: number) => rowKey?.(row, index) ?? index, [rowKey]);
 
     const handlePageChange = (page: number) => {
         if (controlledCurrentPage === undefined) {
@@ -181,7 +182,7 @@ export function DataView<T>({
         }
 
         return [...pinnedRows, ...unpinnedRows];
-    }, [columns, data, sortDirection, sortKey, pinnedSet, pinnedIds]);
+    }, [columns, data, sortDirection, sortKey, pinnedSet, pinnedIds, resolvedRowKey]);
 
     const isServerPaginated = controlledTotalItems !== undefined;
 

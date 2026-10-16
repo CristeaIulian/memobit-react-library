@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
@@ -28,7 +28,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     const isInteractive = maxHeight !== undefined;
     const closeDelay = isInteractive ? 150 : 0;
 
-    const calculatePosition = () => {
+    const calculatePosition = useCallback(() => {
         if (!triggerRef.current || !tooltipRef.current) return;
 
         // `.tooltip-trigger` is `display: contents`, so the span generates no box of its own and
@@ -91,7 +91,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
         }
 
         setTooltipPosition({ top, left });
-    };
+    }, [position]);
 
     const handleMouseEnter = () => {
         if (disabled || isTouchInteractionRef.current) return;
@@ -149,7 +149,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
             window.removeEventListener('scroll', handleScroll, true);
             window.removeEventListener('resize', calculatePosition);
         };
-    }, [isVisible]);
+    }, [isVisible, calculatePosition]);
 
     useEffect(() => {
         if (!isVisible) return;

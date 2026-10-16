@@ -5,7 +5,7 @@ import { Icon, type IconName } from '../Icon';
 import { InputSearch } from '../InputSearch';
 import { Tooltip } from '../Tooltip';
 
-import { useSidebarContext } from './SidebarContext';
+import { useSidebarContext } from './useSidebar';
 
 import './Sidebar.scss';
 

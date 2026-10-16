@@ -1,6 +1,6 @@
 import { MiniSort, type MiniSortItem } from '../MiniSort';
 
-import { getColumnLabel } from './DataView.CardView';
+import { getColumnLabel } from './DataView.helpers';
 import type { DataViewColumn, DataViewMiniSortConfig, SortDirection } from './DataView.types';
 
 interface DataViewMiniSortProps<T> {

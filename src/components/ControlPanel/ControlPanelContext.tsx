@@ -1,32 +1,12 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 
-interface ControlPanelContextValue {
-    isMobile: boolean;
-    isOpen: boolean;
-    toggle: () => void;
-    open: () => void;
-    close: () => void;
-}
+import { ControlPanelContext } from './useControlPanel';
 
 interface ControlPanelProviderProps {
     children: React.ReactNode;
 }
-
-const ControlPanelContext = createContext<ControlPanelContextValue | null>(null);
-
-export const useControlPanelContext = (): ControlPanelContextValue | null => useContext(ControlPanelContext);
-
-export const useControlPanel = (): ControlPanelContextValue => {
-    const context = useControlPanelContext();
-
-    if (!context) {
-        throw new Error('useControlPanel must be used within a ControlPanelProvider');
-    }
-
-    return context;
-};
 
 export const ControlPanelProvider: React.FC<ControlPanelProviderProps> = ({ children }) => {
     const { isMobile } = useBreakpoint();

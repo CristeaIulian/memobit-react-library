@@ -1,16 +1,12 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
 
+import type { ContextToastAction, ToastItem, ToastType } from './useToast';
+import { ToastContext, useToast } from './useToast';
+
 import './ContextToast.scss';
-
-export type ToastType = 'info' | 'success' | 'warning' | 'danger';
-
-export interface ContextToastAction {
-    label: string;
-    onClick: () => void;
-}
 
 export type ToastContainerPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'top' | 'bottom' | 'left' | 'right';
 
@@ -24,20 +20,6 @@ interface ToastProps {
     timeout: number;
 }
 
-interface ToastItem {
-    id: string;
-    message: string;
-    type: ToastType;
-    timeout: number;
-    action?: ContextToastAction;
-}
-
-interface ToastContextValue {
-    toasts: ToastItem[];
-    addToast: (message: string, type?: ToastType, timeout?: number, action?: ContextToastAction) => string;
-    removeToast: (id: string) => void;
-}
-
 interface ToastContainerProps {
     position?: ToastContainerPosition;
     showDismissButton?: boolean;
@@ -46,20 +28,6 @@ interface ToastContainerProps {
 interface ToastProviderProps {
     children: React.ReactNode;
 }
-
-// Create a context for the toast functionality
-const ToastContext = createContext<ToastContextValue | null>(null);
-
-// Custom hook to use the toast service
-export const useToast = (): ToastContextValue => {
-    const context = useContext(ToastContext);
-
-    if (!context) {
-        throw new Error('useToast must be used within a ToastProvider');
-    }
-
-    return context;
-};
 
 // ContextToast Component for individual notifications
 const ContextToast = ({ id, message, type = 'info', action, onClose, showDismissButton = true, timeout = 2000 }: ToastProps) => {

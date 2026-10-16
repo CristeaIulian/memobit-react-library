@@ -1,32 +1,12 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 
-interface SidebarContextValue {
-    isMobile: boolean;
-    isOpen: boolean;
-    toggle: () => void;
-    open: () => void;
-    close: () => void;
-}
+import { SidebarContext } from './useSidebar';
 
 interface SidebarProviderProps {
     children: React.ReactNode;
 }
-
-const SidebarContext = createContext<SidebarContextValue | null>(null);
-
-export const useSidebarContext = (): SidebarContextValue | null => useContext(SidebarContext);
-
-export const useSidebar = (): SidebarContextValue => {
-    const context = useSidebarContext();
-
-    if (!context) {
-        throw new Error('useSidebar must be used within a SidebarProvider');
-    }
-
-    return context;
-};
 
 export const SidebarProvider: React.FC<SidebarProviderProps> = ({ children }) => {
     const { isMobile } = useBreakpoint();

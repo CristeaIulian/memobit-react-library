@@ -1,4 +1,6 @@
-import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent, useEffect, useState } from 'react';
+import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent, useCallback, useEffect, useState } from 'react';
+
+import { validateEmail } from './validateEmail';
 
 import './InputEmail.scss';
 
@@ -25,15 +27,6 @@ export interface InputEmailProps {
     validateOn?: 'blur' | 'change' | 'both';
     value?: string;
 }
-
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-export const validateEmail = (email: string): boolean => {
-    if (!email || email.trim() === '') {
-        return true; // Empty is valid (use required prop for mandatory)
-    }
-    return EMAIL_REGEX.test(email.trim());
-};
 
 export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
     (
@@ -65,18 +58,21 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
         const [isValid, setIsValid] = useState(true);
         const [isTouched, setIsTouched] = useState(false);
 
-        const validateValue = (val: string): boolean => {
-            // If required and empty, it's invalid
-            if (required && (!val || val.trim() === '')) {
-                return false;
-            }
-            // If not required and empty, it's valid
-            if (!val || val.trim() === '') {
-                return true;
-            }
-            // Otherwise check email format
-            return validateEmail(val);
-        };
+        const validateValue = useCallback(
+            (val: string): boolean => {
+                // If required and empty, it's invalid
+                if (required && (!val || val.trim() === '')) {
+                    return false;
+                }
+                // If not required and empty, it's valid
+                if (!val || val.trim() === '') {
+                    return true;
+                }
+                // Otherwise check email format
+                return validateEmail(val);
+            },
+            [required]
+        );
 
         useEffect(() => {
             if (value !== undefined) {
@@ -84,7 +80,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(
                 setIsValid(valid);
                 onValidate?.(valid);
             }
-        }, [value, onValidate, required]);
+        }, [value, onValidate, validateValue]);
 
         const handleChange = (newValue: string) => {
             onChange?.(newValue);

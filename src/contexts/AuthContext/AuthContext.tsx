@@ -1,9 +1,9 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { buildRequestHeaders, HttpMethod } from '../../helpers/Http';
-import type { AuthConfig, AuthContextValue, LoginCredentials, LoginOutcome, LoginResponse, User, VerifyResponse } from '../../types/auth.types';
+import type { AuthConfig, LoginCredentials, LoginOutcome, LoginResponse, User, VerifyResponse } from '../../types/auth.types';
 
-export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+import { AuthContext } from './AuthContext.context';
 
 interface AuthProviderProps {
     children: React.ReactNode;

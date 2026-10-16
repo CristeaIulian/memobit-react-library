@@ -1,8 +1,2 @@
-export {
-    calculateTimelineMarkers,
-    TimelineMarkerDot,
-    type TimelineMarkerInfo,
-    TimelineMarkers,
-    type TimelineMarkersItem,
-    TimelineMobileSeparator,
-} from './TimelineMarkers';
+export { calculateTimelineMarkers, type TimelineMarkerInfo, type TimelineMarkersItem } from './calculateTimelineMarkers';
+export { TimelineMarkerDot, TimelineMarkers, TimelineMobileSeparator } from './TimelineMarkers';
