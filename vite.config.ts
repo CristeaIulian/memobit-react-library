@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react';
 import { execSync } from 'child_process';
-import { mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, relative, resolve, sep } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -118,9 +118,15 @@ export default defineConfig({
             closeBundle() {
                 const distDir = resolve(import.meta.dirname, 'dist');
                 // Validated against the real icon list, so a broad sweep of quoted
-                // strings cannot invent names that do not exist.
-                const iconModulesSource = readFileSync(resolve(import.meta.dirname, 'node_modules/@memobit/icons/dist/iconModules.js'), 'utf-8');
-                const validNames = new Set([...iconModulesSource.matchAll(/"([^"]+)":\s*"/g)].map(match => match[1]));
+                // strings cannot invent names that do not exist. The list comes from the
+                // one-file-per-icon folder: parsing the compiled iconModules.js missed every
+                // single-word name, because the bundler leaves those keys unquoted.
+                const iconsDir = resolve(import.meta.dirname, 'node_modules/@memobit/icons/dist/icons');
+                const validNames = new Set(
+                    readdirSync(iconsDir)
+                        .filter(file => file.endsWith('.js'))
+                        .map(file => file.slice(0, -'.js'.length))
+                );
                 const icons = collectIconUsage(resolve(import.meta.dirname, 'src'), validNames);
                 mkdirSync(distDir, { recursive: true });
                 writeFileSync(
