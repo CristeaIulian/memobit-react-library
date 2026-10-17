@@ -111,13 +111,23 @@ export const readErrorMessage = async (response: Response): Promise<string> => {
 
 const isAbortError = (error: unknown): boolean => error instanceof DOMException && error.name === 'AbortError';
 
+// What a bare fetch() throws when the server can't be reached: Chrome, Firefox and Safari.
+const NETWORK_FAILURE_MESSAGE = /^(Failed to fetch|NetworkError when attempting to fetch resource\.?|Load failed)$/;
+
+const isNetworkFailure = (error: unknown): boolean => error instanceof TypeError && NETWORK_FAILURE_MESSAGE.test(error.message);
+
 /**
  * For the catch around an API call: reports `error` unless it is an `ApiError` (the client and
- * the backend already report those that matter) or an aborted request. What is left is a bug in
- * the code around the call, e.g. mapping the response.
+ * the backend already report those that matter) or an aborted request. A bare fetch() that could
+ * not reach the server is a warning. What is left is a bug in the code around the call, e.g.
+ * mapping the response.
  */
 export const logUnexpectedError = (message: string, error: unknown, context?: ErrorReportContext): void => {
     if (error instanceof ApiError || isAbortError(error)) {
+        return;
+    }
+    if (isNetworkFailure(error)) {
+        logger.warn(message, { ...context, error: String(error) });
         return;
     }
     logger.error(message, error, context);
