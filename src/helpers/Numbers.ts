@@ -1,8 +1,10 @@
+import { logger } from '@memobit/core';
+
 export const format2Digits = (val: number | string): number => Number((typeof val === 'number' ? val : Number(val)).toFixed(2));
 
 export const getPercent = (value: number, total: number): number => {
     if (value > total) {
-        console.warn(`Could not get percent of value ${value} from a total ${total}. Total must be higher or at least equal to value.`);
+        logger.warn('getPercent: value is higher than total', { value, total });
     }
 
     if (value === total) {

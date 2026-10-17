@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { logger } from '@memobit/core';
 import type { IconName } from '@memobit/icons';
 import { canLoadMoreIcons, getIcon, loadIcon } from '@memobit/icons/map';
 
@@ -32,12 +33,13 @@ const reportMissing = (name: string) => {
     // is invisible until somebody notices the gap — a missing hamburger menu shipped to
     // every app this way. Saying so once per name turns that into something findable.
     reportedMissing.add(name);
-    console.warn(
+    logger.warn(
         canLoadMoreIcons
-            ? `[@memobit/libs] No icon named "${name}".`
-            : `[@memobit/libs] No icon named "${name}". If this app trims icons with ` +
-                  `@memobit/icons/vite, add it to the plugin's \`include\` option or use \`lazy\` — a name that ` +
-                  `only exists at runtime cannot be found by the source scan.`
+            ? '[@memobit/libs] No icon named <name>.'
+            : '[@memobit/libs] No icon named <name>. If this app trims icons with ' +
+                  "@memobit/icons/vite, add it to the plugin's `include` option or use `lazy` — a name that " +
+                  'only exists at runtime cannot be found by the source scan.',
+        { name }
     );
 };
 

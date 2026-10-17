@@ -1,6 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 
-import { reportError } from '@memobit/core';
+import { logger } from '@memobit/core';
 
 import { EmptyState } from '../EmptyState';
 
@@ -37,11 +37,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     }
 
     componentDidCatch(error: Error, info: ErrorInfo): void {
-        // Report before logging: the console capture skips an error that is already
-        // reported, and this report carries the component stack.
-        reportError(error, { componentStack: info.componentStack ?? undefined });
-        // Console fallback is always emitted so issues are noticed during dev.
-        console.error('ErrorBoundary caught:', error, info.componentStack);
+        logger.error('ErrorBoundary caught an error', error, { componentStack: info.componentStack ?? undefined });
         this.props.onError?.(error, info);
     }
 
