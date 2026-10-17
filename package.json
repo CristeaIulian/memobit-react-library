@@ -98,6 +98,7 @@
     "@memobit/icons": "file:../memobit-react-icons",
     "@memobit/themes": "file:../memobit-react-themes",
     "@microsoft/api-extractor": "7.59.2",
+    "@types/node": "25.9.8",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.1",
