@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
 import { Button } from '../Button';
 import { Chip } from '../Chip';
@@ -33,13 +33,37 @@ const getFilterArrayValue = (value: Array<string | number>): string[] | number[]
     return value.map(String);
 };
 
+// Pages often persist a filter as `x?.toString()` while the options carry the
+// numeric id, so a strict comparison would never see the selection.
+const isSameValue = (a: string | number, b: string | number): boolean => String(a) === String(b);
+
+const STALE_OPTION_HINT = 'No longer available. Click to remove.';
+
+/**
+ * Selected values that no option matches anymore. Pages persist filter values
+ * and usually derive the options from the current data, so a value can outlive
+ * its option (the tag was renamed, the last item in that category was deleted).
+ * It still filters the list, so instead of hiding it we hand it back as a
+ * synthetic option the user can see and remove.
+ */
+const getStaleOptions = (selectedValues: Array<string | number>, options: ControlPanelFilterOption[]): ControlPanelFilterOption[] =>
+    selectedValues
+        .filter(value => value !== '' && !options.some(option => isSameValue(option.value, value)))
+        .map((value): ControlPanelFilterOption => ({
+            className: 'control-panel__filter-option--stale',
+            details: 'No longer available',
+            icon: 'warning',
+            label: String(value),
+            value,
+        }));
+
 // How many selected option labels a collapsed section previews before it falls
 // back to a `+N` remainder.
 const SUMMARY_LABEL_LIMIT = 2;
 
 const getSelectedOptionLabels = (filter: ControlPanelFilter): string[] => {
     const options = filter.options ?? [];
-    return getArrayValue(filter.value).map(value => options.find(option => option.value === value)?.label ?? String(value));
+    return getArrayValue(filter.value).map(value => options.find(option => isSameValue(option.value, value))?.label ?? String(value));
 };
 
 // Preview text for a collapsed filter: enough to tell at a glance what the
@@ -171,6 +195,23 @@ const ControlPanelFilterSearch: React.FC<{
     );
 };
 
+/**
+ * A selected radio whose option is gone. A radio can't be unticked, so the row
+ * is shown checked and clicking it clears the filter.
+ */
+const ControlPanelStaleRadio: React.FC<{ option: ControlPanelFilterOption; onRemove: () => void }> = ({ option, onRemove }) => (
+    <Tooltip title={STALE_OPTION_HINT}>
+        <div className="control-panel__filter-radio control-panel__filter-radio--selected control-panel__filter-radio--stale">
+            <label className="control-panel__filter-radio-label">
+                <input checked className="control-panel__filter-radio-input" onChange={onRemove} type="checkbox" />
+                <Icon className="control-panel__filter-icon" name="warning" />
+                <span className="control-panel__filter-label">{option.label}</span>
+                <Icon className="control-panel__filter-icon" name="clear" />
+            </label>
+        </div>
+    </Tooltip>
+);
+
 interface ControlPanelFilterControlProps {
     filter: ControlPanelFilter;
     onChange: (event: ControlPanelFilterChangeEvent) => void;
@@ -179,6 +220,14 @@ interface ControlPanelFilterControlProps {
 const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ filter, onChange: emitFilterChange }) => {
     const selectedValues = getArrayValue(filter.value);
     const filterOptions = filter.options ?? [];
+    const staleOptions = useMemo(() => getStaleOptions(getArrayValue(filter.value), filter.options ?? []), [filter.value, filter.options]);
+    // The dropdown is handed its stale values as ordinary options, so it shows them
+    // as selected and they can be unticked or cleared like any other.
+    const dropdownOptions = useMemo(
+        () => (staleOptions.length > 0 ? [...staleOptions, ...(filter.options ?? [])] : (filter.options ?? [])),
+        [staleOptions, filter.options]
+    );
+    const clearSingleValue = () => emitFilterChange({ filterId: filter.id, type: filter.type, value: null, option: null, options: [] });
     // Local search state for `searchable` chips filters — lets the user type
     // to narrow a long option list (e.g. people picker) without the consumer
     // having to wire its own InputSearch.
@@ -354,8 +403,11 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
         if (!filter.multiple && filterOptions.length > 0 && filterOptions.length <= DROPDOWN_RADIO_FILTER_LIMIT) {
             return (
                 <div className={`control-panel__filter-list ${filter.inline ? 'control-panel__filter-list--inline' : ''}`}>
+                    {staleOptions.map(option => (
+                        <ControlPanelStaleRadio key={`stale-${option.value}`} option={option} onRemove={clearSingleValue} />
+                    ))}
                     {filterOptions.map(option => {
-                        const isSelected = filter.value === option.value;
+                        const isSelected = selectedValues.some(value => isSameValue(value, option.value));
                         return (
                             <div key={option.value} className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''}`}>
                                 <label className="control-panel__filter-radio-label">
@@ -402,7 +454,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                         options: selectedOptions as ControlPanelFilterOption[],
                     });
                 }}
-                options={filterOptions}
+                options={dropdownOptions}
                 placeholder={filter.placeholder}
                 searchable={filter.searchable ?? true}
                 selectedCountDisplay="inline"
@@ -433,8 +485,30 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                             : undefined
                     }
                 >
+                    {staleOptions.map(option => (
+                        <Tooltip key={`stale-${option.value}`} title={STALE_OPTION_HINT}>
+                            <Chip
+                                className="control-panel__filter-chip--stale"
+                                icon="warning"
+                                selected
+                                variant="warning"
+                                onClick={() => {
+                                    const nextValue = selectedValues.filter(value => !isSameValue(value, option.value));
+                                    emitFilterChange({
+                                        filterId: filter.id,
+                                        type: filter.type,
+                                        value: filter.multiple === false ? null : getFilterArrayValue(nextValue),
+                                        option: null,
+                                        options: filterOptions.filter(o => nextValue.some(value => isSameValue(value, o.value))),
+                                    });
+                                }}
+                            >
+                                {option.label}
+                            </Chip>
+                        </Tooltip>
+                    ))}
                     {visibleOptions.map(option => {
-                        const isSelected = selectedValues.includes(option.value);
+                        const isSelected = selectedValues.some(value => isSameValue(value, option.value));
                         // A real tooltip rather than the chip's native `title`: these rows
                         // can be bare glyphs — an icon filter has nothing but the mark —
                         // so the hint is the only thing naming them, and the browser's own
@@ -461,14 +535,14 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                                             ? []
                                             : [option.value]
                                         : isSelected
-                                          ? selectedValues.filter(v => v !== option.value)
+                                          ? selectedValues.filter(v => !isSameValue(v, option.value))
                                           : [...selectedValues, option.value];
                                     emitFilterChange({
                                         filterId: filter.id,
                                         type: filter.type,
                                         value: isSingle ? (nextValue[0] ?? null) : getFilterArrayValue(nextValue),
                                         option,
-                                        options: filterOptions.filter(o => nextValue.includes(o.value)),
+                                        options: filterOptions.filter(o => nextValue.some(value => isSameValue(value, o.value))),
                                     });
                                 }}
                             >
@@ -492,13 +566,14 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
 
     return (
         <div className={`control-panel__filter-list ${filter.inline ? 'control-panel__filter-list--inline' : ''}`}>
+            {staleOptions.map(option => (
+                <ControlPanelStaleRadio key={`stale-${option.value}`} option={option} onRemove={clearSingleValue} />
+            ))}
             {filterOptions.map(option => {
-                const isSelected = filter.value === option.value;
-                return (
+                const isSelected = selectedValues.some(value => isSameValue(value, option.value));
+                const radio = (
                     <div
-                        key={option.value}
                         className={`control-panel__filter-radio ${isSelected ? 'control-panel__filter-radio--selected' : ''} ${option.disabled ? 'control-panel__filter-radio--disabled' : ''}`}
-                        title={option.tooltip}
                     >
                         <label className="control-panel__filter-radio-label">
                             <input
@@ -516,6 +591,14 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                             {option.count !== undefined && <span className="control-panel__filter-count">{option.count}</span>}
                         </label>
                     </div>
+                );
+
+                return option.tooltip ? (
+                    <Tooltip key={option.value} title={option.tooltip}>
+                        {radio}
+                    </Tooltip>
+                ) : (
+                    <Fragment key={option.value}>{radio}</Fragment>
                 );
             })}
         </div>

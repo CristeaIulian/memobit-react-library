@@ -409,6 +409,89 @@ export const ControlPanelPage: React.FC = () => {
         setCollapsibleFilterValues(prev => ({ ...prev, [event.filterId]: event.value }));
     };
 
+    // Each filter holds a value its options no longer contain, as a persisted
+    // filter does once the data it was derived from changes.
+    const [staleFilterValues, setStaleFilterValues] = useState<Record<string, ControlPanelFilterValue>>({
+        tags: ['cozy', 'renamed-tag'],
+        shelf: 'demolished',
+        format: 'cassette',
+        owner: 'former-colleague',
+        genres: ['drama', 'deleted-genre'],
+        rating: '2',
+    });
+
+    const staleFilters: ControlPanelFilter[] = [
+        {
+            id: 'tags',
+            label: 'Tags (chips)',
+            type: 'chips',
+            value: staleFilterValues.tags,
+            options: [
+                { label: 'Cozy', value: 'cozy' },
+                { label: 'Classic', value: 'classic' },
+            ],
+        },
+        {
+            id: 'shelf',
+            label: 'Shelf (radio)',
+            type: 'radio',
+            value: staleFilterValues.shelf,
+            options: [
+                { label: 'Living room', value: 'living-room' },
+                { label: 'Study', value: 'study' },
+            ],
+        },
+        {
+            id: 'format',
+            label: 'Format (dropdown as radios)',
+            type: 'dropdown',
+            value: staleFilterValues.format,
+            options: [
+                { label: 'Paperback', value: 'paperback' },
+                { label: 'E-book', value: 'ebook' },
+            ],
+        },
+        {
+            id: 'owner',
+            label: 'Owner (dropdown)',
+            type: 'dropdown',
+            value: staleFilterValues.owner,
+            options: [
+                { label: 'Me', value: 'me' },
+                { label: 'Partner', value: 'partner' },
+                { label: 'Kids', value: 'kids' },
+                { label: 'Library', value: 'library' },
+            ],
+        },
+        {
+            id: 'genres',
+            label: 'Genres (multi dropdown)',
+            type: 'dropdown',
+            multiple: true,
+            value: staleFilterValues.genres,
+            options: [
+                { label: 'Drama', value: 'drama' },
+                { label: 'Comedy', value: 'comedy' },
+                { label: 'Horror', value: 'horror' },
+                { label: 'Western', value: 'western' },
+            ],
+        },
+        {
+            id: 'rating',
+            label: 'Rating (string value, numeric options)',
+            type: 'dropdown',
+            value: staleFilterValues.rating,
+            options: [
+                { label: 'One', value: 1 },
+                { label: 'Two', value: 2 },
+            ],
+        },
+    ];
+
+    const handleStaleFilterChange = (event: ControlPanelFilterChangeEvent) => {
+        setStaleFilterValues(prev => ({ ...prev, [event.filterId]: event.value }));
+    };
+
     const handleOptionChange = (event: ControlPanelOptionChangeEvent) => {
         setOptionValues(prev => ({ ...prev, [event.optionId]: event.value as ControlPanelFilterValue }));
     };
@@ -572,6 +655,25 @@ export const ControlPanelPage: React.FC = () => {
                                         : 'none'}
                                 </strong>
                             </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Stale Filter Values</h3>
+                    <p>
+                        A persisted value can outlive the option it pointed at. It still filters the list, so it stays visible, flagged, and removable with a
+                        click. The last filter holds the string <code>2</code> for a numeric option <code>2</code> and still shows it checked.
+                    </p>
+                    <div style={{ display: 'flex', minHeight: '520px', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
+                        <ControlPanel filters={staleFilters} onFilterChange={handleStaleFilterChange} isOpen={true} width="300px" />
+                        <div style={{ flex: 1, padding: '32px', background: 'var(--body-background)' }}>
+                            <h3>Applied Values</h3>
+                            {staleFilters.map(filter => (
+                                <p key={filter.id}>
+                                    {filter.label}: <strong>{JSON.stringify(staleFilterValues[filter.id] ?? null)}</strong>
+                                </p>
+                            ))}
                         </div>
                     </div>
                 </div>

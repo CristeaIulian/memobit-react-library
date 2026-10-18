@@ -210,13 +210,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
         if (options.length > 0) {
             if (multiple && Array.isArray(value)) {
-                const selected = options.filter(option => {
-                    if (typeof option.value === 'number') {
-                        return (value as number[]).includes(option.value);
-                    }
-
-                    return (value as string[]).includes(option.value.toString());
-                });
+                // Compared as strings, like the single-select branch: a page that keeps
+                // `['5']` for a numeric option 5 should still see it selected.
+                const selectedValues = new Set(value.map(String));
+                const selected = options.filter(option => selectedValues.has(option.value.toString()));
                 setSelectedOptions(selected);
                 // Multiple mode shows chips, not search text — clear filterText
                 // when the value actually changes, but never on an options-ref

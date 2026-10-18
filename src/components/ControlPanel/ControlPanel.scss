@@ -504,6 +504,27 @@
                 cursor: not-allowed;
             }
         }
+
+        // A selected value whose option is gone (see getStaleOptions): warning
+        // coloured and dashed, so it reads as "still applied, but orphaned".
+        &--stale,
+        &--stale:hover {
+            border-style: dashed;
+            border-color: var(--button-warning-background-color);
+            color: var(--button-warning-background-color);
+        }
+    }
+
+    // Compounded with .chip so it outranks the chip's own `border` shorthand
+    // whichever stylesheet loads last.
+    &__filter-chip--stale.chip {
+        border-style: dashed;
+    }
+
+    // The dropdown colours the option row itself; setting it on the content
+    // keeps the warning colour through the row's selected and hover states.
+    &__filter-option--stale .dropdown-option-content {
+        color: var(--button-warning-background-color);
     }
 
     &__filter-radio-label {
