@@ -31,6 +31,7 @@ export type Theme =
     | 'graphite-shell'
     | 'horizon-amber'
     | 'horizon-drift'
+    | 'indigo-stitch'
     | 'ivory-serif'
     | 'kindred-ink'
     | 'lamplight'
