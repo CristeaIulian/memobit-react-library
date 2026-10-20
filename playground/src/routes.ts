@@ -54,6 +54,7 @@ import { Home } from './pages/Home';
 import { IconPage } from './pages/IconPage';
 import { IconPickerPage } from './pages/IconPickerPage';
 import { IconsPage } from './pages/IconsPage';
+import { ImageCropperPage } from './pages/ImageCropperPage';
 import { InfiniteScrollPage } from './pages/InfiniteScrollPage';
 import { InputDatePage } from './pages/InputDatePage';
 import { InputEmailPage } from './pages/InputEmailPage';
@@ -184,6 +185,7 @@ export const routes: RouteConfig[] = [
     { path: '/icon', label: 'Icon', component: IconPage },
     { path: '/icons', label: 'Icons', component: IconsPage },
     { path: '/icon-picker', label: 'Icon Picker', component: IconPickerPage },
+    { path: '/image-cropper', label: 'Image Cropper', component: ImageCropperPage },
     { path: '/input-date', label: 'Input Date', component: InputDatePage },
     { path: '/input-file', label: 'Input File', component: InputFilePage },
     { path: '/input-email', label: 'Input Email', component: InputEmailPage },

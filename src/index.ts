@@ -110,6 +110,7 @@ export { type FolderBrowserEntry, type FolderBrowserListing, FolderBrowserModal,
 export { Col, type ColProps, type ColSpan, Grid, type GridAlign, type GridColumns, type GridGap, type GridJustify, type GridProps } from './components/Grid';
 export { Icon, type IconSize, type IconVariant } from './components/Icon';
 export { IconPicker, type IconPickerProps } from './components/IconPicker';
+export { ImageCropper, type ImageCropperProps } from './components/ImageCropper';
 export { InfiniteScroll, type ScrollInfo } from './components/InfiniteScroll';
 export { InputDate } from './components/InputDate';
 export { InputEmail, type InputEmailProps, validateEmail } from './components/InputEmail';
@@ -307,6 +308,18 @@ export {
     logUnexpectedError,
     readErrorMessage,
 } from './helpers/Http';
+export {
+    cropImage,
+    type CropRegion,
+    encodeCanvas,
+    type EncodedImage,
+    type EncodeImageOptions,
+    FULL_IMAGE,
+    type ImageRotation,
+    loadImageElement,
+    renderImageRegion,
+    rotatedSize,
+} from './helpers/ImageCrop';
 export { createImagePaths, DATA_FILES_PATH, type ImagePaths } from './helpers/Images';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
 export { clamp, format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
