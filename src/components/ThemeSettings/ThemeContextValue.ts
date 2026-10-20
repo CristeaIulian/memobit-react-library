@@ -67,7 +67,8 @@ export type Theme =
     | 'velvet-tome'
     | 'verdant-pulse'
     | 'vital-aurora'
-    | 'vital-signal';
+    | 'vital-signal'
+    | 'war-room';
 
 export interface ThemeEffects {
     effect: string;
