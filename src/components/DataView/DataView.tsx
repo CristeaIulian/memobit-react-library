@@ -726,7 +726,7 @@ export function DataView<T>({
             <Pagination
                 currentPage={safeCurrentPage}
                 totalPages={totalPages}
-                totalItems={sortedData.length}
+                totalItems={totalForPagination}
                 onPageChange={handlePageChange}
                 pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
                 pageSize={showPageSize ? pageSize : undefined}
