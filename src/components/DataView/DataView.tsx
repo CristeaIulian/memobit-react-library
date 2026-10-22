@@ -644,7 +644,7 @@ export function DataView<T>({
                                         >
                                             {showTimeline && <td className="data-view__timeline-cell">{marker && <TimelineMarkerDot marker={marker} />}</td>}
                                             {selectable && (
-                                                <td className="data-view__checkbox">
+                                                <td className="data-view__checkbox" onClick={e => e.stopPropagation()}>
                                                     <Checkbox
                                                         checked={isSelected}
                                                         onChange={checked => {
