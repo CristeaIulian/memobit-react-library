@@ -15,6 +15,7 @@ export type Theme =
     | 'carbon-velocity'
     | 'chalk-circuit'
     | 'chrono-atlas'
+    | 'circuit-harbor'
     | 'clinical-aqua'
     | 'cobalt-pulse'
     | 'citrus-vital'
