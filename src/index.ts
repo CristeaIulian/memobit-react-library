@@ -196,6 +196,7 @@ export { Stats, type StatsAlign, type StatsItem, type StatsProps, type StatsSize
 export { StickyBar, type StickyBarAlign, type StickyBarPosition, type StickyBarProps } from './components/StickyBar';
 export { SuggestionsList, type SuggestionsListElement } from './components/SuggestionsList';
 export {
+    getDefaultThemeForApp,
     getThemeConfig,
     type Theme,
     THEME_CONFIGS,
