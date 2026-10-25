@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
@@ -17,8 +17,17 @@ interface TooltipProps {
     maxHeight?: number | string;
 }
 
+/**
+ * Lets a tooltip inside another tooltip's trigger tell the outer one it is showing. The innermost
+ * tooltip wins: a card-level explanation steps aside while a pill inside the card shows its own,
+ * instead of the two stacking on top of each other.
+ */
+const NestedTooltipContext = createContext<((isShowing: boolean) => void) | null>(null);
+
 export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay = 200, children, disabled = false, className = '', maxWidth, maxHeight }) => {
     const [isVisible, setIsVisible] = useState(false);
+    const [showingDescendants, setShowingDescendants] = useState(0);
+    const reportToParent = useContext(NestedTooltipContext);
     const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -27,6 +36,20 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     const isTouchInteractionRef = useRef(false);
     const isInteractive = maxHeight !== undefined;
     const closeDelay = isInteractive ? 150 : 0;
+    const hasContent = Boolean(title) && !disabled;
+    const isShown = isVisible && hasContent && showingDescendants === 0;
+    // Claimed while this tooltip or any tooltip inside it is up, so every ancestor stays hidden.
+    const isClaiming = (isVisible && hasContent) || showingDescendants > 0;
+
+    const handleDescendantShowing = useCallback((isShowing: boolean) => {
+        setShowingDescendants(count => Math.max(0, count + (isShowing ? 1 : -1)));
+    }, []);
+
+    useEffect(() => {
+        if (!reportToParent || !isClaiming) return;
+        reportToParent(true);
+        return () => reportToParent(false);
+    }, [isClaiming, reportToParent]);
 
     const calculatePosition = useCallback(() => {
         if (!triggerRef.current || !tooltipRef.current) return;
@@ -131,7 +154,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     };
 
     useEffect(() => {
-        if (!isVisible) return;
+        if (!isShown) return;
 
         // Scrolling moves the trigger out from under the pointer — often behind an `overflow`
         // ancestor that clips it — without a mouseleave, so following it would leave a tooltip
@@ -149,7 +172,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
             window.removeEventListener('scroll', handleScroll, true);
             window.removeEventListener('resize', calculatePosition);
         };
-    }, [isVisible, calculatePosition]);
+    }, [isShown, calculatePosition]);
 
     useEffect(() => {
         if (!isVisible) return;
@@ -202,10 +225,9 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
                 onBlur={handleMouseLeave}
                 onPointerDown={handlePointerDown}
             >
-                {children}
+                <NestedTooltipContext.Provider value={handleDescendantShowing}>{children}</NestedTooltipContext.Provider>
             </span>
-            {isVisible &&
-                title &&
+            {isShown &&
                 createPortal(
                     <div
                         ref={tooltipRef}
