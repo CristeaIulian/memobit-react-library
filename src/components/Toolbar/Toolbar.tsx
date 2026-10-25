@@ -59,6 +59,7 @@ export interface ToolbarNotificationsConfig {
     buttonLabel?: string;
     panelTitle?: string;
     emptyMessage?: string;
+    onItemClick?: (item: NotificationPanelItem) => void;
 }
 
 export interface ToolbarHeadingConfig {
@@ -127,7 +128,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     const shouldShowControlPanelToggle = Boolean(controlPanelToggle && controlPanel?.isMobile);
     const toggleCount = typeof controlPanelToggle === 'object' ? (controlPanelToggle.count ?? 0) : 0;
     const rootClassName = ['memobit-toolbar', noCard ? 'memobit-toolbar--no-card' : '', className].filter(Boolean).join(' ');
-    const hasContent = Boolean(search || sort || children);
+    const hasContent = Boolean(search || children);
 
     const handleSortChange = (option: DropdownOption | DropdownOption[] | null) => {
         if (!sort) {
@@ -192,35 +193,40 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                     )}
 
                     {children && <div className="memobit-toolbar__custom">{children}</div>}
-
-                    {sort && (
-                        <div className={['memobit-toolbar__sort', sort.className].filter(Boolean).join(' ')}>
-                            <Dropdown
-                                highlighted={sort.highlighted}
-                                label={sort.label}
-                                name={sort.name ?? 'toolbar-sort'}
-                                onChange={handleSortChange}
-                                options={getSortDropdownOptions(sort)}
-                                placeholder={sort.placeholder}
-                                searchable={sort.searchable ?? false}
-                                usePortal={false}
-                                value={getSortDropdownValue(sort)}
-                            />
-                        </div>
-                    )}
                 </div>
             )}
 
-            <div className="memobit-toolbar__actions">
-                {notifications && (
-                    <NotificationPanel
-                        items={notifications.items}
-                        buttonLabel={notifications.buttonLabel}
-                        panelTitle={notifications.panelTitle}
-                        emptyMessage={notifications.emptyMessage}
-                    />
+            {/* Sort and the actions wrap as one unit, so a toolbar too narrow for a single
+                row gives the search the whole first line and puts these together below it. */}
+            <div className="memobit-toolbar__end">
+                {sort && (
+                    <div className={['memobit-toolbar__sort', sort.className].filter(Boolean).join(' ')}>
+                        <Dropdown
+                            highlighted={sort.highlighted}
+                            label={sort.label}
+                            name={sort.name ?? 'toolbar-sort'}
+                            onChange={handleSortChange}
+                            options={getSortDropdownOptions(sort)}
+                            placeholder={sort.placeholder}
+                            searchable={sort.searchable ?? false}
+                            usePortal={false}
+                            value={getSortDropdownValue(sort)}
+                        />
+                    </div>
                 )}
-                <MenuHamburger items={menuItems} disableResponsive showLabel={false} />
+
+                <div className="memobit-toolbar__actions">
+                    {notifications && (
+                        <NotificationPanel
+                            items={notifications.items}
+                            buttonLabel={notifications.buttonLabel}
+                            panelTitle={notifications.panelTitle}
+                            emptyMessage={notifications.emptyMessage}
+                            onItemClick={notifications.onItemClick}
+                        />
+                    )}
+                    <MenuHamburger items={menuItems} disableResponsive showLabel={false} />
+                </div>
             </div>
         </div>
     );

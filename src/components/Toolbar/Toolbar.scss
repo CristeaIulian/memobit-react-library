@@ -6,6 +6,9 @@
     border-radius: var(--spacing-16);
     display: flex;
     align-items: flex-end;
+    // Wraps rather than squeezing: with a sidebar open the toolbar can be far narrower than
+    // the viewport, and an unwrapped row pushed the sort dropdown under the actions.
+    flex-wrap: wrap;
     gap: var(--spacing-16);
     padding: var(--spacing-16);
 
@@ -71,16 +74,17 @@
         letter-spacing: 0.05em;
     }
 
+    // Out of the way on desktop: the search and the custom slot wrap in the toolbar's own
+    // row, so a search left alone on a line can take all of it. On mobile it is the stacked
+    // block below the top row.
     &__content {
-        display: flex;
-        align-items: flex-end;
-        flex: 1 1 auto;
-        gap: var(--spacing-16);
-        min-width: 0;
+        display: contents;
     }
 
+    // Grows far faster than the sort-and-actions group, so on a shared line it takes the
+    // spare room, and on a line of its own it fills it.
     &__search {
-        flex: 1 1 280px;
+        flex: 1000 1 280px;
         min-width: 180px;
     }
 
@@ -115,11 +119,31 @@
         }
     }
 
+    // Sort and the actions, kept together. It grows only when it has wrapped onto a line of
+    // its own, where it spans the toolbar with the sort at the left and the actions at the
+    // right.
+    &__end {
+        display: flex;
+        align-items: flex-end;
+        flex: 1 0 auto;
+        gap: var(--spacing-16);
+    }
+
     &__actions {
         display: flex;
         align-items: center;
         gap: var(--spacing-8);
         margin-left: auto;
+
+        // The notification button is shorter than the menu button beside it, so it takes
+        // the row's height instead of sitting between two taller boxes.
+        > .NotificationPanel {
+            align-self: stretch;
+        }
+
+        > .NotificationPanel > .NotificationPanel__button {
+            height: 100%;
+        }
     }
 
     &--no-card {
@@ -131,7 +155,6 @@
 
     @include mobile {
         align-items: center;
-        flex-wrap: wrap;
         gap: var(--spacing-8);
         padding: var(--spacing-8);
 
@@ -149,7 +172,12 @@
             margin-left: auto;
         }
 
+        &__end {
+            display: contents;
+        }
+
         &__content {
+            display: flex;
             order: 3;
             flex: 1 1 100%;
             flex-direction: column;
@@ -159,11 +187,16 @@
         }
 
         &__search,
-        &__sort,
         &__custom {
             flex: 1 1 auto;
             min-width: 0;
             width: 100%;
+        }
+
+        &__sort {
+            order: 4;
+            flex: 1 1 100%;
+            min-width: 0;
         }
 
         &__custom {
