@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, DataView, type DataViewColumn, type DataViewDisplayMode, MiniStatsCard, Stats, useHighlight } from '../../../src';
+import { Button, DataView, type DataViewColumn, type DataViewDisplayMode, Loading, MiniStatsCard, Stats, useHighlight } from '../../../src';
 
 interface TaskRow {
     id: number;
@@ -30,12 +30,24 @@ export const DataViewMotionDemo: React.FC = () => {
     const [nextId, setNextId] = useState(initialTasks.length + 1);
     const [view, setView] = useState<DataViewDisplayMode>('table');
     const [grouped, setGrouped] = useState(false);
+    const [reloading, setReloading] = useState(false);
     const { highlightIds, highlight } = useHighlight();
 
     const addTask = () => {
         const task: TaskRow = { id: nextId, title: TITLES[nextId % TITLES.length], area: AREAS[nextId % AREAS.length], points: (nextId * 7) % 20 };
         setTasks(previous => [...previous.slice(0, 2), task, ...previous.slice(2)]);
         setNextId(id => id + 1);
+    };
+
+    // Mirrors a page that swaps its list for a spinner while it refetches after a save: the
+    // list remounts with the highlight already set, and still flashes the new row.
+    const addAfterReload = () => {
+        setReloading(true);
+        setTimeout(() => {
+            addTask();
+            highlight(nextId);
+            setReloading(false);
+        }, 400);
     };
 
     const removeTask = (id: number) => setTasks(previous => previous.filter(task => task.id !== id));
@@ -56,6 +68,9 @@ export const DataViewMotionDemo: React.FC = () => {
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-8)', alignItems: 'center' }}>
                 <Button onClick={addTask}>Add task</Button>
+                <Button variant="ghost" onClick={addAfterReload}>
+                    Add after reload
+                </Button>
                 <Button variant="ghost" onClick={() => setTasks(previous => [...previous].reverse())}>
                     Reverse
                 </Button>
@@ -82,28 +97,32 @@ export const DataViewMotionDemo: React.FC = () => {
                     ]}
                 />
             </div>
-            <DataView
-                data={tasks}
-                columns={columns}
-                rowKey={task => task.id}
-                desktopView={view}
-                cardMaxWidth={260}
-                highlightIds={highlightIds}
-                initialPageSize={15}
-                card={{ title: task => task.title, subtitle: task => task.area }}
-                group={grouped ? { groupBy: task => task.area, groupLabel: key => String(key), collapsible: true } : undefined}
-                actions={task => (
-                    <div style={{ display: 'flex', gap: 'var(--spacing-4)' }}>
-                        <Button size="small" variant="ghost" onClick={() => bumpPoints(task.id)}>
-                            +10
-                        </Button>
-                        <Button size="small" variant="ghost" onClick={() => removeTask(task.id)}>
-                            Remove
-                        </Button>
-                    </div>
-                )}
-                empty={{ title: 'No tasks', description: 'Add one to see it fade in.' }}
-            />
+            {reloading ? (
+                <Loading />
+            ) : (
+                <DataView
+                    data={tasks}
+                    columns={columns}
+                    rowKey={task => task.id}
+                    desktopView={view}
+                    cardMaxWidth={260}
+                    highlightIds={highlightIds}
+                    initialPageSize={15}
+                    card={{ title: task => task.title, subtitle: task => task.area }}
+                    group={grouped ? { groupBy: task => task.area, groupLabel: key => String(key), collapsible: true } : undefined}
+                    actions={task => (
+                        <div style={{ display: 'flex', gap: 'var(--spacing-4)' }}>
+                            <Button size="small" variant="ghost" onClick={() => bumpPoints(task.id)}>
+                                +10
+                            </Button>
+                            <Button size="small" variant="ghost" onClick={() => removeTask(task.id)}>
+                                Remove
+                            </Button>
+                        </div>
+                    )}
+                    empty={{ title: 'No tasks', description: 'Add one to see it fade in.' }}
+                />
+            )}
         </section>
     );
 };
