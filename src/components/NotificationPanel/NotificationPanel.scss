@@ -102,6 +102,12 @@
             background: color-mix(in srgb, var(--button-danger-border-color) 10%, transparent);
         }
 
+        // Same framed row as a critical one, in the warning colour, so every alert reads as an alert.
+        &--warning {
+            border-color: color-mix(in srgb, var(--button-warning-border-color) 50%, var(--border-color));
+            background: color-mix(in srgb, var(--button-warning-border-color) 8%, transparent);
+        }
+
         // Only when the caller gave the rows somewhere to go — an alert with no destination
         // should not advertise itself as a target.
         &--clickable {

@@ -105,7 +105,7 @@ export const NotificationPanel: FC<NotificationPanelProps> = ({
                                             key={item.id}
                                             className={[
                                                 'NotificationPanel__item',
-                                                item.severity === 'critical' ? 'NotificationPanel__item--critical' : '',
+                                                `NotificationPanel__item--${item.severity}`,
                                                 onItemClick ? 'NotificationPanel__item--clickable' : '',
                                             ]
                                                 .filter(Boolean)
