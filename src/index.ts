@@ -291,6 +291,15 @@ export {
     isWeekend,
 } from './helpers/Datetime';
 export { formatBigNumber, formatBytes, formatMoney } from './helpers/Format';
+export {
+    type FilterIdGetter,
+    type FilterLookup,
+    getFilterOptions,
+    getMatchableFilterIds,
+    matchesIdFilter,
+    UNALLOCATED_FILTER_ID,
+    UNALLOCATED_FILTER_LABEL,
+} from './helpers/FilterOptions';
 export { highlightText } from './helpers/Highlight';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
 export {
