@@ -59,7 +59,6 @@ export interface ControlPanelAction {
 
 export interface ControlPanelFilterOption extends DropdownOption {
     color?: string;
-    count?: number | string;
     /** Optional image URL rendered as a small round avatar before the option label.
      *  Used by the `chips` filter to show a face crop / product thumbnail / etc. */
     imageUrl?: string;

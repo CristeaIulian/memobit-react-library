@@ -112,10 +112,10 @@ export const ControlPanelPage: React.FC = () => {
             isActive: !!filterValues.owner && filterValues.owner !== 'team',
             placeholder: 'Choose owner',
             options: [
-                { label: 'Whole team', value: 'team' },
-                { label: 'Iulia', value: 'iulia' },
-                { label: 'Product', value: 'product' },
-                { label: 'Engineering', value: 'engineering', disabled: true, tooltip: 'Engineering owners are on leave this week.' },
+                { label: 'Whole team', value: 'team', count: 24 },
+                { label: 'Iulia', value: 'iulia', count: 9 },
+                { label: 'Product', value: 'product', count: 6 },
+                { label: 'Engineering', value: 'engineering', count: 3, disabled: true, tooltip: 'Engineering owners are on leave this week.' },
             ],
         },
     ];

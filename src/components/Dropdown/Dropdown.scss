@@ -489,6 +489,13 @@
                 }
             }
 
+            .dropdown-option-count {
+                flex-shrink: 0;
+                margin-left: var(--spacing-8);
+                color: var(--body-color-muted);
+                font-size: var(--font-size-xs);
+            }
+
             @include mobile {
                 padding: var(--spacing-16) var(--spacing-12);
 

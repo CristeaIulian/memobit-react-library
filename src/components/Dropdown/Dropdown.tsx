@@ -13,6 +13,8 @@ import './Dropdown.scss';
 
 export interface DropdownOption {
     className?: string;
+    /** Trailing muted number (e.g. how many items carry this value), shown at the end of the row. */
+    count?: number | string;
     details?: React.ReactNode;
     /** When true, the option cannot be selected. Rendered with a muted style.
      *  Renderers should also honor `tooltip` to explain why. */
@@ -767,6 +769,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     </span>
                                     {option.details && <span className="dropdown-option-details">{option.details}</span>}
                                 </div>
+                                {option.count !== undefined && <span className="dropdown-option-count">{option.count}</span>}
                             </li>
                         ))}
 

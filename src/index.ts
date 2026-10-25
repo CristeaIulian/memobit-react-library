@@ -293,11 +293,17 @@ export {
 export { formatBigNumber, formatBytes, formatMoney } from './helpers/Format';
 export {
     type FilterIdGetter,
+    type FilterKeyGetter,
+    type FilterKeyLookup,
     type FilterLookup,
     getFilterOptions,
+    getKeyFilterOptions,
     getMatchableFilterIds,
+    getMatchableFilterKeys,
     matchesIdFilter,
+    matchesKeyFilter,
     UNALLOCATED_FILTER_ID,
+    UNALLOCATED_FILTER_KEY,
     UNALLOCATED_FILTER_LABEL,
 } from './helpers/FilterOptions';
 export { highlightText } from './helpers/Highlight';
