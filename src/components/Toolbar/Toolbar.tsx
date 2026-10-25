@@ -74,6 +74,9 @@ export interface ToolbarHeadingConfig {
 }
 
 export interface ToolbarProps {
+    /** Buttons or status shown beside the menu: at the right on desktop, in the top row on mobile. */
+    actions?: ReactNode;
+    /** Extra filters or controls, laid out with the search. */
     children?: ReactNode;
     className?: string;
     controlPanelToggle?: boolean | ToolbarControlPanelToggleConfig;
@@ -114,6 +117,7 @@ const getSortDropdownValue = (sort: ToolbarSortConfig): string | number | null |
 };
 
 export const Toolbar: React.FC<ToolbarProps> = ({
+    actions,
     children,
     className = '',
     controlPanelToggle,
@@ -216,6 +220,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 )}
 
                 <div className="memobit-toolbar__actions">
+                    {actions}
                     {notifications && (
                         <NotificationPanel
                             items={notifications.items}

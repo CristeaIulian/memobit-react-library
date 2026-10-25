@@ -13,7 +13,6 @@
     padding: var(--spacing-16);
 
     &__control-panel-toggle,
-    &__actions,
     &__sort {
         flex: 0 0 auto;
     }
@@ -110,29 +109,28 @@
         flex: 1 1 auto;
         gap: var(--spacing-16);
         min-width: 0;
-
-        // A notification panel is the labelless case the toolbar itself ships, so it fills
-        // the row rather than floating 9px short of everything beside it.
-        > .NotificationPanel,
-        > .NotificationPanel > .NotificationPanel__button {
-            height: 100%;
-        }
     }
 
     // Sort and the actions, kept together. It grows only when it has wrapped onto a line of
     // its own, where it spans the toolbar with the sort at the left and the actions at the
     // right.
+    // It can shrink below its content only when it is alone on a line, so a status in the
+    // actions truncates instead of pushing the menu out of the toolbar.
     &__end {
         display: flex;
         align-items: flex-end;
-        flex: 1 0 auto;
+        flex: 1 1 auto;
         gap: var(--spacing-16);
+        min-width: 0;
     }
 
+    // The app's actions, then the notifications and the menu.
     &__actions {
         display: flex;
         align-items: center;
+        flex: 0 1 auto;
         gap: var(--spacing-8);
+        min-width: 0;
         margin-left: auto;
 
         // The notification button is shorter than the menu button beside it, so it takes
@@ -199,10 +197,17 @@
             min-width: 0;
         }
 
+        // A wrapping row: controls share a line when they fit and each grows to fill its line,
+        // but never past it, so long text wraps instead of running off the toolbar.
         &__custom {
-            align-items: stretch;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: var(--spacing-8);
+
+            > * {
+                flex: 1 1 auto;
+                min-width: 0;
+                max-width: 100%;
+            }
         }
     }
 }
