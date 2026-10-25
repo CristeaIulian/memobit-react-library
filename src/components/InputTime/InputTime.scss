@@ -1,31 +1,15 @@
 @use '../../styles/utilities' as *;
 
-@include form-control-component('input-time') {
-    &::-webkit-calendar-picker-indicator {
-        filter: invert(0.5);
-        cursor: pointer;
-        opacity: 0.7;
-
-        &:hover {
-            opacity: 1;
-        }
-    }
-}
+@include form-control-component('input-time');
 
 .input-time-field {
     position: relative;
     display: flex;
     align-items: center;
 
-    // The clock button replaces the browser's own picker, so only one of the
-    // two ever shows.
     &--with-clock {
         .input-time {
             padding-right: var(--spacing-40);
-        }
-
-        .input-time::-webkit-calendar-picker-indicator {
-            display: none;
         }
     }
 }

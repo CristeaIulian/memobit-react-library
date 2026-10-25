@@ -206,8 +206,15 @@ export const AnalogClock: React.FC<AnalogClockProps> = ({
         if (disabled) return;
 
         isDragging.current = true;
-        event.currentTarget.setPointerCapture(event.pointerId);
         applyPointer(event);
+
+        // Capture is only there to keep a drag tracking once it leaves the dial. A browser
+        // that refuses it must not cost the tap, so the value is applied first.
+        try {
+            event.currentTarget.setPointerCapture(event.pointerId);
+        } catch {
+            // The tap still works without capture.
+        }
     };
 
     const handlePointerMove = (event: React.PointerEvent<SVGSVGElement>) => {
@@ -220,8 +227,21 @@ export const AnalogClock: React.FC<AnalogClockProps> = ({
         if (disabled || !isDragging.current) return;
 
         isDragging.current = false;
-        event.currentTarget.releasePointerCapture(event.pointerId);
+        if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+            event.currentTarget.releasePointerCapture(event.pointerId);
+        }
         applyPointer(event);
+        advanceMode();
+    };
+
+    // A touch can end without a pointerup: the browser cancels it, or the capture is lost,
+    // when it reads the gesture as something else. The value was already applied on the way
+    // down, so the tap still has to finish and move on to the next unit. Left hanging, the
+    // dial stayed on the hours and the next tap, aimed at the minutes, changed the hour.
+    const handlePointerAbort = () => {
+        if (disabled || !isDragging.current) return;
+
+        isDragging.current = false;
         advanceMode();
     };
 
@@ -332,6 +352,8 @@ export const AnalogClock: React.FC<AnalogClockProps> = ({
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
+                onPointerCancel={handlePointerAbort}
+                onLostPointerCapture={handlePointerAbort}
                 onKeyDown={handleKeyDown}
             >
                 <circle className="analog-clock__face" cx={geometry.center} cy={geometry.center} r={geometry.center - 1} />
