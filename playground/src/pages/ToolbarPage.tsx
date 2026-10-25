@@ -1,12 +1,29 @@
 import React, { useMemo, useState } from 'react';
 
-import { ControlPanelProvider, type DropdownOption, InputSearch, type MenuHamburgerItem, Toolbar, useControlPanelContext } from '../../../src';
+import {
+    Badge,
+    Button,
+    ControlPanelProvider,
+    type DropdownOption,
+    InputSearch,
+    type MenuHamburgerItem,
+    type NotificationPanelItem,
+    ToggleButtons,
+    Toolbar,
+    Tooltip,
+    useControlPanelContext,
+} from '../../../src';
 
 const sortOptions: DropdownOption[] = [
     { label: 'Title asc', value: 'title-asc' },
     { label: 'Title desc', value: 'title-desc' },
     { label: 'Updated asc', value: 'updated-asc' },
     { label: 'Updated desc', value: 'updated-desc' },
+];
+
+const notificationItems: NotificationPanelItem[] = [
+    { id: 'disk', severity: 'critical', message: 'Backup disk is 96% full' },
+    { id: 'cert', severity: 'warning', message: 'TLS certificate expires in 9 days' },
 ];
 
 const ControlPanelState = () => {
@@ -30,6 +47,10 @@ export const ToolbarPage: React.FC = () => {
     const [imdbSearch, setImdbSearch] = useState('');
     const [sort, setSort] = useState('title-asc');
     const [movieSort, setMovieSort] = useState('updated-desc');
+    const [selectedCount, setSelectedCount] = useState(2);
+    const [readerView, setReaderView] = useState('page');
+    const [lastAction, setLastAction] = useState('none');
+    const [isPrivate, setIsPrivate] = useState(true);
 
     const menuItems = useMemo<MenuHamburgerItem[]>(
         () => [
@@ -156,6 +177,99 @@ export const ToolbarPage: React.FC = () => {
                     </Toolbar>
                     <p style={{ marginTop: '12px' }}>
                         Title: {moviesSearch || '(empty)'} | IMDB: {imdbSearch || '(empty)'} | Sort: {movieSort}
+                    </p>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Actions</h2>
+                <p>
+                    <code>actions</code> holds buttons and status: at the right beside the menu on desktop, and in the top row next to the filter toggle on
+                    mobile. Extra filters and controls stay in <code>children</code>.
+                </p>
+
+                <div className="showcase-group">
+                    <h3>Selection Actions Beside Search And Sort</h3>
+                    <ControlPanelProvider>
+                        <Toolbar
+                            controlPanelToggle
+                            menuItems={menuItems}
+                            search={{ onChange: setSearch, placeholder: 'Search by name...', value: search }}
+                            sort={{ onChange: value => setSort(value || 'title-asc'), options: sortOptions, value: sort }}
+                            actions={
+                                <>
+                                    {selectedCount >= 2 && (
+                                        <Tooltip title={`Compare ${selectedCount} selected items`}>
+                                            <Button variant="info" icon="chart" onClick={() => setLastAction(`compare ${selectedCount}`)}>
+                                                Compare ({selectedCount})
+                                            </Button>
+                                        </Tooltip>
+                                    )}
+                                    {selectedCount > 0 && (
+                                        <Tooltip title="Clear selection">
+                                            <Button variant="ghost" icon="deselect-all" onClick={() => setSelectedCount(0)} />
+                                        </Tooltip>
+                                    )}
+                                </>
+                            }
+                        />
+                    </ControlPanelProvider>
+                    <p style={{ marginTop: '12px' }}>
+                        Selected: {selectedCount} | Last action: {lastAction}{' '}
+                        <Button size="small" variant="ghost" icon="plus" onClick={() => setSelectedCount(count => count + 1)}>
+                            Select one more
+                        </Button>
+                    </p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>A Control In Children, Icon Actions Beside The Menu</h3>
+                    <Toolbar
+                        menuItems={menuItems}
+                        actions={
+                            <>
+                                <Tooltip title="Go to a page or chapter">
+                                    <Button variant="ghost" icon="compass" onClick={() => setLastAction('navigate')} />
+                                </Tooltip>
+                                <Tooltip title="Download">
+                                    <Button variant="ghost" icon="download" onClick={() => setLastAction('download')} />
+                                </Tooltip>
+                            </>
+                        }
+                    >
+                        <ToggleButtons
+                            size="small"
+                            state={readerView}
+                            states={[
+                                { key: 'page', label: 'Page', icon: 'filetype-pdf' },
+                                { key: 'text', label: 'Text', icon: 'reading' },
+                            ]}
+                            onToggleChange={setReaderView}
+                        />
+                    </Toolbar>
+                    <p style={{ marginTop: '12px' }}>
+                        View: {readerView} | Last action: {lastAction}
+                    </p>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Status Badge With Notifications</h3>
+                    <Toolbar
+                        heading={{ title: 'Lifeline', description: '128 memories' }}
+                        menuItems={menuItems}
+                        notifications={{ items: notificationItems }}
+                        actions={
+                            isPrivate && (
+                                <Badge variant="success" size="small">
+                                    Private mode
+                                </Badge>
+                            )
+                        }
+                    />
+                    <p style={{ marginTop: '12px' }}>
+                        <Button size="small" variant="ghost" icon={isPrivate ? 'lock' : 'lock-open'} onClick={() => setIsPrivate(value => !value)}>
+                            {isPrivate ? 'Lock private memories' : 'Unlock private memories'}
+                        </Button>
                     </p>
                 </div>
             </section>
