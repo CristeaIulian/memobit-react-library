@@ -2,6 +2,8 @@ import React, { useMemo, useState } from 'react';
 
 import { Badge, Button, DataView, type DataViewColumn, type DataViewDisplayMode, InputSearch, type SortDirection, ToggleButtons } from '../../../src';
 
+import { DataViewMotionDemo } from './DataViewMotionDemo';
+
 // ── Basic example ───────────────────────────────────────────────────────────
 
 interface UserRow {
@@ -182,6 +184,8 @@ export const DataViewPage: React.FC = () => {
                 Responsive data display with table mode (desktop) and card mode (mobile). Supports sorting, selection, column resizing, pagination, timeline
                 markers, actions, and card configuration.
             </p>
+
+            <DataViewMotionDemo />
 
             {/* Filters + Sorting */}
             <section className="page-section">
