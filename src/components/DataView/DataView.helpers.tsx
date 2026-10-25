@@ -2,11 +2,14 @@ import React from 'react';
 
 import { Icon } from '../Icon';
 
-import type { DataViewColumn } from './DataView.types';
+import type { DataViewColumn, DataViewGroupKey } from './DataView.types';
 
 // ─── Constants & helpers ─────────────────────────────────────────────────────
 
 export const DEFAULT_PAGE_SIZES = [15, 30, 50, 100, 250, 500];
+// Prefixed so a group header can never share a list-motion key with a row id.
+export const groupMotionKey = (key: DataViewGroupKey): string => `group:${key ?? '__null__'}`;
+export const detailMotionKey = (rowId: string | number): string => `detail:${rowId}`;
 export const getColumnLabel = <T,>(column: DataViewColumn<T>) => (typeof column.header === 'string' ? column.header : column.key);
 export const renderColumnLabel = <T,>(column: DataViewColumn<T>) => (
     <span className="data-view__column-label">

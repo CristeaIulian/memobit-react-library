@@ -50,7 +50,7 @@ function Demo() {
 - **Components** — Buttons, forms (Input/Select/Checkbox/DatePicker/ColorPicker/EmojiPicker/FileDropzone…), navigation (Breadcrumb/AppHeader/ControlPanel/Tabs…), overlays (Drawer/Modal/ConfirmDialog/ContextMenu/Tooltip…), data (DataView/Table/Calendar/CalendarHeatmap/Chart…), feedback (Toast/Banner/Badge/Chip/EmptyState…), and many more.
 - **Icons** — 470+ stroke icons, each tree-shakeable.
 - **Themes** — 70+ ready-made SCSS themes (Arctic Blue, Midnight Atlas, Terracotta Kitchen, Neon Tokyo, …). Theme tokens are pure CSS custom properties, so you can author your own.
-- **Hooks** — `useBreakpoint`, `useBodyScrollLock`, `useComponentEffect`, `useAppPersistence`, `useAuth`.
+- **Hooks** — `useBreakpoint`, `useBodyScrollLock`, `useComponentEffect`, `useAppPersistence`, `useAuth`, `useListMotion` (animated list add/remove/reorder) and `useHighlight` (scroll to and flash an item after a change).
 - **Helpers** — date formatting, number formatting, string utilities, search/highlight, pagination, URL helpers.
 - **Error reporting** — lives in [`@memobit/core`](https://www.npmjs.com/package/@memobit/core) (React-free, works in Node too), a peer dependency: `ErrorBoundary` crashes are reported through it once the app calls `installErrorReporting`.
 

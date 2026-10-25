@@ -162,4 +162,9 @@ export interface DataViewProps<T> {
     itemNoun?: string;
     /** Optional column-visibility selector rendered in the top controls. Hidden when `options` is empty. */
     columnSelector?: DataViewColumnSelectorConfig;
+    /** Animate rows and cards joining, leaving and moving. Needs `rowKey`; index keys cannot be tracked. Default: true. */
+    animateChanges?: boolean;
+    /** Row keys to scroll into view and flash, e.g. after an add or edit. A new array replays the
+     *  highlight; `useHighlight` manages it. A row on another page is paged to first. */
+    highlightIds?: ReadonlyArray<string | number>;
 }

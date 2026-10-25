@@ -261,6 +261,15 @@ export { useAuth } from './hooks/useAuth';
 export { useBodyScrollLock } from './hooks/useBodyScrollLock';
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';
 export { useComponentEffect } from './hooks/useComponentEffect';
+export {
+    LIST_MOTION_KEY_ATTRIBUTE,
+    type ListMotionKey,
+    useHighlight,
+    type UseHighlightReturn,
+    useListMotion,
+    type UseListMotionOptions,
+    type UseListMotionReturn,
+} from './hooks/useListMotion';
 export { type SwipeHandlers, useSwipe, type UseSwipeOptions } from './hooks/useSwipe';
 
 // Export helpers
@@ -290,7 +299,6 @@ export {
     isToday,
     isWeekend,
 } from './helpers/Datetime';
-export { formatBigNumber, formatBytes, formatMoney } from './helpers/Format';
 export {
     type FilterIdGetter,
     type FilterKeyGetter,
@@ -306,6 +314,7 @@ export {
     UNALLOCATED_FILTER_KEY,
     UNALLOCATED_FILTER_LABEL,
 } from './helpers/FilterOptions';
+export { formatBigNumber, formatBytes, formatMoney } from './helpers/Format';
 export { highlightText } from './helpers/Highlight';
 export { ensureHtml, htmlToMarkdown, htmlToPlainText, splitHtmlIntoSteps } from './helpers/HtmlContent';
 export {

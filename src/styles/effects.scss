@@ -11,7 +11,7 @@
 .infuse-effect {
     border-width: var(--spacing-1);
     border-style: solid;
-    transition: all 0.3s;
+    transition: all var(--duration-fade);
     position: relative;
 
     &::before {
@@ -23,7 +23,7 @@
         width: var(--spacing-4);
         height: 100%;
         opacity: 0;
-        transition: opacity 0.3s;
+        transition: opacity var(--duration-fade);
     }
 
     &:hover {
@@ -41,7 +41,7 @@
     border-width: var(--spacing-1);
     border-style: solid;
     box-shadow: 0 var(--spacing-4) var(--spacing-12) var(--up-lift-effect-box-shadow-color);
-    transition: all 0.3s ease;
+    transition: all var(--duration-fade) ease;
     position: relative;
 
     &::before {
@@ -62,7 +62,7 @@
 }
 
 .glow-effect {
-    transition: 0.3s;
+    transition: var(--duration-fade);
 
     &:hover {
         box-shadow: var(--glow-box-shadow-color);

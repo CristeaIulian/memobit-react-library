@@ -1,37 +1,25 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { getResultsCount } from '../../helpers/Pagination';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useListMotion } from '../../hooks/useListMotion';
 import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
 import { Dropdown, type DropdownOption } from '../Dropdown';
 import { EmptyState } from '../EmptyState';
 import { Icon } from '../Icon';
 import { Pagination } from '../Pagination';
-import { calculateTimelineMarkers, TimelineMarkerDot, type TimelineMarkerInfo, type TimelineMarkersItem } from '../TimelineMarkers';
+import { calculateTimelineMarkers, type TimelineMarkerInfo, type TimelineMarkersItem } from '../TimelineMarkers';
 import { Tooltip } from '../Tooltip';
 
 import { CardView } from './DataView.CardView';
 import { DataViewColumnSelector } from './DataView.ColumnSelector';
-import { DEFAULT_PAGE_SIZES, getColumnLabel, renderCellContent, renderColumnLabel } from './DataView.helpers';
+import { DEFAULT_PAGE_SIZES, getColumnLabel } from './DataView.helpers';
 import { DataViewMiniSort } from './DataView.MiniSort';
+import { TableView } from './DataView.TableView';
 import type { DataViewColumn, DataViewGroup, DataViewGroupKey, DataViewProps, SortDirection } from './DataView.types';
 
 import './DataView.scss';
-
-// Sort icon
-
-interface SortIconProps {
-    state: 'unsorted' | 'asc' | 'desc';
-}
-
-function SortIcon({ state }: SortIconProps) {
-    return (
-        <span className={`data-view__sort-icon data-view__sort-icon--${state}`}>
-            <Icon name={state === 'asc' ? 'arrow-up' : state === 'desc' ? 'arrow-down' : 'arrow-bidirectional-vertical'} />
-        </span>
-    );
-}
 
 // DataView
 
@@ -74,8 +62,13 @@ export function DataView<T>({
     totalCount,
     itemNoun,
     columnSelector,
+    animateChanges = true,
+    highlightIds,
 }: DataViewProps<T>) {
     const { isMobile } = useBreakpoint();
+    const rootRef = useRef<HTMLDivElement>(null);
+    // Index keys shift on every insert and delete, so without `rowKey` there is nothing stable to track.
+    const motion = useListMotion(rootRef, { enabled: animateChanges && rowKey !== undefined, highlightKeys: highlightIds });
     const [uncontrolledSortKey, setUncontrolledSortKey] = useState<string | null>(initialSortKey);
     const [uncontrolledSortDirection, setUncontrolledSortDirection] = useState<SortDirection>(initialSortDirection);
     const [internalSelectedIds, setInternalSelectedIds] = useState<Array<string | number>>([]);
@@ -97,6 +90,8 @@ export function DataView<T>({
     const [collapsedGroups, setCollapsedGroups] = useState<Set<DataViewGroupKey>>(new Set());
 
     const toggleGroup = (key: DataViewGroupKey) => {
+        // A whole group opening or closing is over the motion limits, but the user asked for it.
+        motion.forceNext();
         setCollapsedGroups(prev => {
             const next = new Set(prev);
             if (next.has(key)) {
@@ -110,12 +105,17 @@ export function DataView<T>({
 
     const resolvedRowKey = useCallback((row: T, index: number) => rowKey?.(row, index) ?? index, [rowKey]);
 
-    const handlePageChange = (page: number) => {
-        if (controlledCurrentPage === undefined) {
-            setInternalCurrentPage(page);
-        }
-        onPageChange?.(page);
-    };
+    const handlePageChange = useCallback(
+        (page: number) => {
+            // Another page is a different list, not a change to this one.
+            if (page !== currentPage) motion.skipNext();
+            if (controlledCurrentPage === undefined) {
+                setInternalCurrentPage(page);
+            }
+            onPageChange?.(page);
+        },
+        [controlledCurrentPage, currentPage, motion, onPageChange]
+    );
 
     const sortKey = controlledSortKey !== undefined ? controlledSortKey : uncontrolledSortKey;
     const sortDirection = controlledSortDirection ?? uncontrolledSortDirection;
@@ -236,6 +236,18 @@ export function DataView<T>({
     // When server-paginated, `data` is already the page slice, so skip client slicing.
     const pagedData = isServerPaginated ? orderedData : orderedData.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
 
+    // A highlighted row on another page is paged to, so the flash has something to land on.
+    // Waits for the row when the highlight arrives ahead of the data that holds it.
+    const pagedToHighlightRef = useRef<typeof highlightIds>(undefined);
+    useEffect(() => {
+        if (!highlightIds || highlightIds.length === 0 || isServerPaginated || pagedToHighlightRef.current === highlightIds) return;
+        const index = orderedData.findIndex((row, i) => highlightIds.includes(resolvedRowKey(row, i)));
+        if (index === -1) return;
+        pagedToHighlightRef.current = highlightIds;
+        const page = Math.floor(index / pageSize) + 1;
+        if (page !== safeCurrentPage) handlePageChange(page);
+    }, [handlePageChange, highlightIds, isServerPaginated, orderedData, pageSize, resolvedRowKey, safeCurrentPage]);
+
     const resultsCountLabel = showResultsCount
         ? getResultsCount(pageSize, totalForPagination, totalCount ?? totalForPagination, safeCurrentPage, itemNoun)
         : null;
@@ -296,6 +308,14 @@ export function DataView<T>({
             setInternalSelectedIds(nextIds);
         }
         onSelectionChange?.(data.filter((row, index) => nextIds.includes(resolvedRowKey(row, index))));
+    };
+
+    const toggleRowSelection = (rowId: string | number, checked: boolean) => {
+        if (checked) {
+            updateSelection([...selectedIds, rowId]);
+        } else {
+            updateSelection(selectedIds.filter(id => id !== rowId));
+        }
     };
 
     const toggleSort = (column: DataViewColumn<T>) => {
@@ -381,13 +401,34 @@ export function DataView<T>({
 
     const topControlsNode = buildTopControls();
 
+    const paginationNode = (
+        <Pagination
+            currentPage={safeCurrentPage}
+            totalPages={totalPages}
+            totalItems={totalForPagination}
+            onPageChange={handlePageChange}
+            pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
+            pageSize={showPageSize ? pageSize : undefined}
+            onPageSizeChange={
+                showPageSize
+                    ? nextSize => {
+                          motion.skipNext();
+                          setPageSize(nextSize);
+                          handlePageChange(1);
+                          onPageSizeChange?.(nextSize);
+                      }
+                    : undefined
+            }
+        />
+    );
+
     // No-columns guard — renders an empty state but keeps the column selector
     // visible so the user can re-enable a column. Card mode is driven by the
     // `card` prop, not `columns`, so an empty `columns` array is valid there.
 
     if (desktopView !== 'cards' && columns.length === 0) {
         return (
-            <div className={`data-view${className ? ` ${className}` : ''}`}>
+            <div className={`data-view${className ? ` ${className}` : ''}`} ref={rootRef}>
                 {topControlsNode}
                 <div className="data-view__wrapper data-view__wrapper--empty">
                     <EmptyState title="No columns selected" description="Use the Columns button above to pick which columns to display." />
@@ -400,7 +441,7 @@ export function DataView<T>({
 
     if (desktopView === 'cards') {
         return (
-            <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`}>
+            <div className={`data-view data-view--cards${className ? ` ${className}` : ''}`} ref={rootRef}>
                 {buildTopControls(selectAllNode)}
                 {showCardSortControls && hasSortControls && (
                     <div className="data-view__card-sort-bar">
@@ -473,32 +514,10 @@ export function DataView<T>({
                     collapsible={group?.collapsible}
                     collapsedGroups={collapsedGroups}
                     onToggleGroup={toggleGroup}
-                    onToggleSelect={(rowId, checked) => {
-                        if (checked) {
-                            updateSelection([...selectedIds, rowId]);
-                        } else {
-                            updateSelection(selectedIds.filter(id => id !== rowId));
-                        }
-                    }}
+                    onToggleSelect={toggleRowSelection}
                 />
 
-                <Pagination
-                    currentPage={safeCurrentPage}
-                    totalPages={totalPages}
-                    totalItems={totalForPagination}
-                    onPageChange={handlePageChange}
-                    pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
-                    pageSize={showPageSize ? pageSize : undefined}
-                    onPageSizeChange={
-                        showPageSize
-                            ? nextSize => {
-                                  setPageSize(nextSize);
-                                  handlePageChange(1);
-                                  onPageSizeChange?.(nextSize);
-                              }
-                            : undefined
-                    }
-                />
+                {paginationNode}
             </div>
         );
     }
@@ -515,236 +534,45 @@ export function DataView<T>({
         <>
             {topControlsNode}
             <div className="data-view__wrapper">
-                <table>
-                    <thead>
-                        {/* Column header row */}
-                        <tr>
-                            {showTimeline && <th className="data-view__timeline-cell" />}
-                            {selectable && (
-                                <th className="data-view__checkbox">
-                                    <Checkbox checked={allVisibleSelected} indeterminate={someVisibleSelected} onChange={toggleVisibleSelection} />
-                                </th>
-                            )}
-                            {tableColumns.map(column => {
-                                const colStyle: React.CSSProperties = {};
-                                if (columnWidths[column.key]) colStyle.width = columnWidths[column.key];
-                                if (column.minWidth) colStyle.minWidth = column.minWidth;
-                                return (
-                                    <th
-                                        key={column.key}
-                                        style={Object.keys(colStyle).length > 0 ? colStyle : undefined}
-                                        className={column.sortable ? 'is-sortable' : ''}
-                                        onClick={() => toggleSort(column)}
-                                    >
-                                        <span className="data-view__th-content">
-                                            {renderColumnLabel(column)}
-                                            {column.sortable && <SortIcon state={sortKey === column.key ? sortDirection : 'unsorted'} />}
-                                        </span>
-                                        <span
-                                            className="data-view__resizer"
-                                            onMouseDown={event => handleResizeStart(event, column.key)}
-                                            onClick={event => event.stopPropagation()}
-                                        />
-                                    </th>
-                                );
-                            })}
-                            {actions && (
-                                <th className="data-view__actions-header" style={actionsWidth ? { width: actionsWidth } : undefined}>
-                                    Actions
-                                </th>
-                            )}
-                        </tr>
-
-                        {/* Filter row (only when at least one column has a filter) */}
-                        {hasFilters && (
-                            <tr className="data-view__filter-row">
-                                {showTimeline && <td className="data-view__filter-cell data-view__filter-cell--spacer" />}
-                                {selectable && <td className="data-view__filter-cell data-view__filter-cell--spacer" />}
-                                {tableColumns.map(column => (
-                                    <td
-                                        key={column.key}
-                                        className="data-view__filter-cell"
-                                        style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}
-                                    >
-                                        {column.filter ?? null}
-                                    </td>
-                                ))}
-                                {actions && <td className="data-view__filter-cell data-view__filter-cell--spacer" />}
-                            </tr>
-                        )}
-                    </thead>
-                    <tbody>
-                        {(() => {
-                            if (pagedData.length === 0) {
-                                return (
-                                    <tr>
-                                        <td
-                                            colSpan={tableColumns.length + (showTimeline ? 1 : 0) + (selectable ? 1 : 0) + (actions ? 1 : 0)}
-                                            className="data-view__empty"
-                                        >
-                                            {empty ? (
-                                                <EmptyState
-                                                    title={empty.title}
-                                                    description={empty.description}
-                                                    icon={empty.icon}
-                                                    primary={empty.primary}
-                                                    secondary={empty.secondary}
-                                                />
-                                            ) : (
-                                                <EmptyState title="No data available" />
-                                            )}
-                                        </td>
-                                    </tr>
-                                );
-                            }
-
-                            const totalCols = tableColumns.length + (showTimeline ? 1 : 0) + (selectable ? 1 : 0) + (actions ? 1 : 0);
-                            const showGroupCount = group?.showCount !== false;
-
-                            const renderTableRow = (row: T, index: number) => {
-                                const rowId = resolvedRowKey(row, index);
-                                const isSelected = selectedIds.includes(rowId);
-                                const isPinned = pinnedSet.has(rowId);
-                                const marker = tableTimelineMarkers.get(index);
-                                const href = rowHref?.(row);
-                                const isClickable = !!onRowClick || !!href;
-                                const handleTableRowClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
-                                    // Modifier-click on a row with `href` should open a new tab,
-                                    // matching the anchor card behaviour for tables.
-                                    if (href && (e.metaKey || e.ctrlKey || e.shiftKey)) {
-                                        window.open(href, '_blank', 'noopener,noreferrer');
-                                        return;
-                                    }
-                                    if (onRowClick) {
-                                        onRowClick(row, e);
-                                        return;
-                                    }
-                                    // A <tr> can't be an anchor, so a plain click on an
-                                    // href-only row previously did nothing at all — the row
-                                    // looked interactive and wasn't. Follow the link the way
-                                    // the card view's native anchor does when no onRowClick is
-                                    // supplied. Consumers wanting client-side routing pass
-                                    // onRowClick and are handled above.
-                                    if (href) window.location.assign(href);
-                                };
-                                const handleTableRowAuxClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
-                                    // Middle-click — browser doesn't do anything by default on a
-                                    // <tr>, so open the row's href ourselves.
-                                    if (e.button !== 1 || !href) return;
-                                    e.preventDefault();
-                                    window.open(href, '_blank', 'noopener,noreferrer');
-                                };
-                                const detail = rowDetail?.(row);
-                                return (
-                                    <React.Fragment key={rowId}>
-                                        <tr
-                                            className={`${isSelected ? 'is-selected' : ''} ${isClickable ? 'data-view__row--clickable' : ''} ${isPinned ? 'data-view__row--pinned' : ''} ${rowClassName?.(row) || ''}`}
-                                            onClick={isClickable ? handleTableRowClick : undefined}
-                                            onAuxClick={href ? handleTableRowAuxClick : undefined}
-                                        >
-                                            {showTimeline && <td className="data-view__timeline-cell">{marker && <TimelineMarkerDot marker={marker} />}</td>}
-                                            {selectable && (
-                                                <td className="data-view__checkbox" onClick={e => e.stopPropagation()}>
-                                                    <Checkbox
-                                                        checked={isSelected}
-                                                        onChange={checked => {
-                                                            if (checked) {
-                                                                updateSelection([...selectedIds, rowId]);
-                                                            } else {
-                                                                updateSelection(selectedIds.filter(id => id !== rowId));
-                                                            }
-                                                        }}
-                                                    />
-                                                </td>
-                                            )}
-                                            {tableColumns.map((column, columnIndex) => (
-                                                <td key={column.key} style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}>
-                                                    {columnIndex === 0 && isPinned && (
-                                                        <Tooltip title="Pinned">
-                                                            <Icon className="data-view__pin-indicator" name="pin" size="sm" />
-                                                        </Tooltip>
-                                                    )}
-                                                    {renderCellContent(column, row)}
-                                                </td>
-                                            ))}
-                                            {actions && (
-                                                <td className="data-view__actions-cell" style={actionsWidth ? { width: actionsWidth } : undefined}>
-                                                    <div className="data-view__table-actions" onClick={e => e.stopPropagation()}>
-                                                        {actions(row)}
-                                                    </div>
-                                                </td>
-                                            )}
-                                        </tr>
-                                        {detail != null && detail !== false && (
-                                            <tr className="data-view__row-detail">
-                                                <td colSpan={totalCols} onClick={e => e.stopPropagation()}>
-                                                    {detail}
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </React.Fragment>
-                                );
-                            };
-
-                            if (computedGroups) {
-                                let runningIndex = 0;
-                                return computedGroups.map(grp => {
-                                    const startIndex = runningIndex;
-                                    runningIndex += grp.items.length;
-                                    const isCollapsed = group?.collapsible && collapsedGroups.has(grp.key);
-                                    return (
-                                        <React.Fragment key={grp.key ?? '__null__'}>
-                                            <tr
-                                                className={`data-view__group-row${group?.collapsible ? ' data-view__group-row--collapsible' : ''}`}
-                                                onClick={group?.collapsible ? () => toggleGroup(grp.key) : undefined}
-                                            >
-                                                <td colSpan={totalCols} className="data-view__group-cell">
-                                                    <span className="data-view__group-label">{grp.label}</span>
-                                                    {showGroupCount && (
-                                                        <span className="data-view__group-count">
-                                                            {/* A group that spans a page boundary shows how much of it is on this page. */}
-                                                            {grp.items.length === grp.totalCount ? grp.totalCount : `${grp.items.length} of ${grp.totalCount}`}
-                                                        </span>
-                                                    )}
-                                                    {group?.collapsible && (
-                                                        <Icon className="data-view__group-chevron" name={isCollapsed ? 'caret-down' : 'caret-up'} size="sm" />
-                                                    )}
-                                                </td>
-                                            </tr>
-                                            {!isCollapsed && grp.items.map((row, i) => renderTableRow(row, startIndex + i))}
-                                        </React.Fragment>
-                                    );
-                                });
-                            }
-
-                            return pagedData.map((row, index) => renderTableRow(row, index));
-                        })()}
-                    </tbody>
-                </table>
+                <TableView
+                    data={pagedData}
+                    columns={tableColumns}
+                    rowKey={resolvedRowKey}
+                    columnWidths={columnWidths}
+                    onResizeStart={handleResizeStart}
+                    sortKey={sortKey}
+                    sortDirection={sortDirection}
+                    onToggleSort={toggleSort}
+                    hasFilters={hasFilters}
+                    showTimeline={Boolean(showTimeline)}
+                    timelineMarkers={tableTimelineMarkers}
+                    selectable={selectable}
+                    selectedIds={selectedIds}
+                    allVisibleSelected={allVisibleSelected}
+                    someVisibleSelected={someVisibleSelected}
+                    onToggleVisibleSelection={toggleVisibleSelection}
+                    onToggleSelect={toggleRowSelection}
+                    pinnedSet={pinnedSet}
+                    actions={actions}
+                    actionsWidth={actionsWidth}
+                    onRowClick={onRowClick}
+                    rowHref={rowHref}
+                    rowClassName={rowClassName}
+                    rowDetail={rowDetail}
+                    empty={empty}
+                    groups={computedGroups}
+                    group={group}
+                    collapsedGroups={collapsedGroups}
+                    onToggleGroup={toggleGroup}
+                />
             </div>
 
-            <Pagination
-                currentPage={safeCurrentPage}
-                totalPages={totalPages}
-                totalItems={totalForPagination}
-                onPageChange={handlePageChange}
-                pageSizeOptions={showPageSize ? pageSizeOptions : undefined}
-                pageSize={showPageSize ? pageSize : undefined}
-                onPageSizeChange={
-                    showPageSize
-                        ? nextSize => {
-                              setPageSize(nextSize);
-                              handlePageChange(1);
-                              onPageSizeChange?.(nextSize);
-                          }
-                        : undefined
-                }
-            />
+            {paginationNode}
         </>
     );
 
     return (
-        <div className={`data-view${className ? ` ${className}` : ''}`}>
+        <div className={`data-view${className ? ` ${className}` : ''}`} ref={rootRef}>
             {showTimeline ? (
                 <div className="timeline-markers">
                     <div className="timeline-markers__track" />

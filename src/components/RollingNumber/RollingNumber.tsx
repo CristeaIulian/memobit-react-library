@@ -14,6 +14,8 @@ export interface RollingNumberProps {
     decimalSeparator?: string;
     /** Roll duration in milliseconds. */
     duration?: number;
+    /** Take font size, weight and colour from the surrounding text instead of `size` and `variant`. */
+    inheritStyle?: boolean;
     /** Thousands separator. Pass an empty string to switch grouping off. */
     groupSeparator?: string;
     prefix?: string;
@@ -50,6 +52,7 @@ export const RollingNumber: FC<RollingNumberProps> = ({
     decimalSeparator = '.',
     duration = 600,
     groupSeparator = ',',
+    inheritStyle = false,
     prefix,
     size = 'xl',
     stagger = 40,
@@ -78,8 +81,8 @@ export const RollingNumber: FC<RollingNumberProps> = ({
 
     const classes = [
         'rolling-number',
-        `rolling-number--${size}`,
-        colorByDirection ? `rolling-number--direction-${direction}` : `rolling-number--${variant}`,
+        inheritStyle ? 'rolling-number--inherit' : `rolling-number--${size}`,
+        colorByDirection ? `rolling-number--direction-${direction}` : inheritStyle ? '' : `rolling-number--${variant}`,
         hasMounted ? 'rolling-number--animated' : '',
         className,
     ]
@@ -87,7 +90,7 @@ export const RollingNumber: FC<RollingNumberProps> = ({
         .join(' ');
 
     return (
-        <span className={classes} style={{ '--_roll-duration': `${duration}ms` } as CSSProperties} title={characters.join('')}>
+        <span className={classes} style={{ '--_roll-duration': `${duration}ms` } as CSSProperties}>
             {prefix && <span className="rolling-number__affix">{prefix}</span>}
 
             {characters.map((character, index) => {

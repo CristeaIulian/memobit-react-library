@@ -31,6 +31,12 @@
         font-size: var(--font-size-xxxl);
     }
 
+    // Embedded in another component's value slot (MiniStatsCard, Stats), which owns the look.
+    &--inherit {
+        color: inherit;
+        font-weight: inherit;
+    }
+
     &--accent {
         color: var(--body-accent-color);
     }

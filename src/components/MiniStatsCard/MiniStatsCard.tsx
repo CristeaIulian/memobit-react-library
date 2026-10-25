@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { Card } from '../Card/Card';
+import { RollingNumber } from '../RollingNumber';
+import { countDecimals } from '../RollingNumber/RollingNumber.helpers';
 
 import './MiniStatsCard.scss';
 
@@ -34,6 +36,8 @@ export interface MiniStatsCardProps {
     footer?: React.ReactNode;
     /** Tint the whole card with a soft background matching the variant. */
     filled?: boolean;
+    /** Roll numeric values to their new figure when they change. Default: true. */
+    animated?: boolean;
     /** Additional CSS class */
     className?: string;
 }
@@ -51,11 +55,14 @@ export const MiniStatsCard: React.FC<MiniStatsCardProps> = ({
     trendVariant = 'success',
     footer,
     filled = false,
+    animated = true,
     className = '',
 }) => {
     const renderValue = () => (
         <div className={`mini-stats-card__value mini-stats-card__value--${variant}`}>
-            <span className="mini-stats-card__value-number">{value}</span>
+            <span className="mini-stats-card__value-number">
+                {animated && typeof value === 'number' ? <RollingNumber value={value} decimals={countDecimals(value)} groupSeparator="" inheritStyle /> : value}
+            </span>
             {unit && <span className="mini-stats-card__value-unit">{unit}</span>}
         </div>
     );

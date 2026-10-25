@@ -5,6 +5,13 @@
     flex-direction: column;
     gap: var(--spacing-16);
     width: 100%;
+    // Anchors the clones useListMotion lays over removed rows and cards.
+    position: relative;
+
+    // Swapping between the list and its empty state fades rather than snaps.
+    .empty-state {
+        animation: data-view-fade-in var(--motion-duration-enter) var(--motion-easing);
+    }
 
     &__results-row {
         display: flex;
@@ -642,5 +649,11 @@
         .data-view__group-chevron {
             margin-left: auto;
         }
+    }
+}
+
+@keyframes data-view-fade-in {
+    from {
+        opacity: 0;
     }
 }

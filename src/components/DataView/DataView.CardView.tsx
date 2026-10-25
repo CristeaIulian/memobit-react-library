@@ -6,7 +6,7 @@ import { Icon } from '../Icon';
 import { calculateTimelineMarkers, type TimelineMarkerInfo, type TimelineMarkersItem, TimelineMobileSeparator } from '../TimelineMarkers';
 import { Tooltip } from '../Tooltip';
 
-import { renderCellContent, renderColumnLabel } from './DataView.helpers';
+import { groupMotionKey, renderCellContent, renderColumnLabel } from './DataView.helpers';
 import type { DataViewCardConfig, DataViewColumn, DataViewEmptyConfig, DataViewGroup, DataViewGroupKey, DataViewTimelineConfig } from './DataView.types';
 
 const getCardMaxWidthValue = (cardMaxWidth: number | string) => (typeof cardMaxWidth === 'number' ? `${cardMaxWidth}px` : cardMaxWidth);
@@ -163,11 +163,11 @@ export function CardView<T>({
             <React.Fragment key={rowId}>
                 {marker && <TimelineMobileSeparator marker={marker} />}
                 {href ? (
-                    <a className={cardClass} href={href} style={cardStyle} onClick={handleAnchorClick}>
+                    <a className={cardClass} data-motion-key={rowId} href={href} style={cardStyle} onClick={handleAnchorClick}>
                         {cardInner}
                     </a>
                 ) : (
-                    <div className={cardClass} style={cardStyle} onClick={onRowClick ? e => onRowClick(row, e) : undefined}>
+                    <div className={cardClass} data-motion-key={rowId} style={cardStyle} onClick={onRowClick ? e => onRowClick(row, e) : undefined}>
                         {cardInner}
                     </div>
                 )}
@@ -187,6 +187,7 @@ export function CardView<T>({
                         <section key={group.key ?? '__null__'} className="data-view__group">
                             <header
                                 className={`data-view__group-header${collapsible ? ' data-view__group-header--collapsible' : ''}`}
+                                data-motion-key={groupMotionKey(group.key)}
                                 onClick={collapsible ? () => onToggleGroup?.(group.key) : undefined}
                             >
                                 <span className="data-view__group-label">{group.label}</span>

@@ -70,4 +70,24 @@
     --transition-fast: 150ms ease-in-out;
     --transition-moderate: 300ms ease-in-out;
     --transition-slow: 500ms ease-in-out;
+
+    // List motion (useListMotion): items joining, leaving and sliding into place.
+    // Read by script as well as by CSS, so keep them in `ms`.
+    --motion-duration-enter: 220ms;
+    --motion-duration-exit: 180ms;
+    --motion-duration-move: 280ms;
+    --motion-duration-flash: 1600ms;
+    --motion-easing: cubic-bezier(0.2, 0, 0, 1);
+    // Fast start: a leaver's clone is mostly gone before its neighbours slide over it.
+    --motion-easing-exit: cubic-bezier(0, 0, 0.2, 1);
+}
+
+// Nothing travels under a reduced-motion preference. The highlight flash stays: it is a colour
+// change, not movement, and it is what tells the user which item changed.
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --motion-duration-enter: 0ms;
+        --motion-duration-exit: 0ms;
+        --motion-duration-move: 0ms;
+    }
 }
