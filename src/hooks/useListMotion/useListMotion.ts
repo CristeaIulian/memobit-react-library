@@ -11,7 +11,7 @@ const FLASH_CLASS = 'list-motion-flash';
 const ENTER_SCALE = 'scale(0.97)';
 // A highlight asked for before its item renders (a save still waiting on the refetch) is
 // kept this long for the item to turn up.
-const HIGHLIGHT_WAIT_MS = 5000;
+export const HIGHLIGHT_WAIT_MS = 5000;
 // Most entering items that also flash. More than this is a batch, not something to point at.
 const MAX_FLASHED_ENTRIES = 3;
 // Past this many items the per-commit measuring costs more than the motion is worth.
@@ -178,7 +178,9 @@ export const useListMotion = (containerRef: RefObject<HTMLElement | null>, optio
     const ghostsRef = useRef<Set<HTMLElement>>(new Set());
     const flashTimersRef = useRef<Map<HTMLElement, ReturnType<typeof setTimeout>>>(new Map());
     const pendingHighlightRef = useRef<{ keys: Set<string>; until: number } | null>(null);
-    const lastHighlightKeysRef = useRef(highlightKeys);
+    // Starts empty, so ids already set when the list mounts count too: a page that swaps the list
+    // for a spinner while it refetches remounts it with the highlight already in place.
+    const lastHighlightKeysRef = useRef<ReadonlyArray<ListMotionKey> | undefined>(undefined);
 
     // Measured while rendering, when the DOM still shows the previous commit: these are the
     // "first" positions of the FLIP. Taken from the screen as it is, so a change landing
