@@ -438,6 +438,23 @@
         flex-wrap: wrap;
     }
 
+    // `inline: false` on a chips filter: one chip per row across the panel, the
+    // count pushed to the end so the numbers line up.
+    &__filter-chips--stacked {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: var(--spacing-4);
+
+        .chip {
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .chip__count {
+            margin-left: auto;
+        }
+    }
+
     // Wraps the optional searchable input + the chip cloud so the gap between
     // them is consistent and the search input takes the panel's full width.
     &__filter-chips-wrap {

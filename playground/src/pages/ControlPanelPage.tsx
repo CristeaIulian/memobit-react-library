@@ -183,6 +183,8 @@ export const ControlPanelPage: React.FC = () => {
             searchable: true,
             placeholder: 'Filter people...',
             maxHeight: '40vh',
+            // Full names read badly as a ragged cloud: one per row, counts lined up.
+            inline: false,
             value: collapsibleFilterValues.people,
             isActive: Array.isArray(collapsibleFilterValues.people) && (collapsibleFilterValues.people as string[]).length > 0,
             options: [

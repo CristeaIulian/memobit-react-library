@@ -118,7 +118,10 @@ export interface ControlPanelFilter {
      *  each sized to its own content. Worth it when the labels are short and of a
      *  predictable width — emoji, colours, single digits — where a row apiece turns
      *  a dozen options into a scroll. Defaults to stacked. Honored by the option
-     *  list filters (`radio`, `boolean`, and a short single-select `dropdown`). */
+     *  list filters (`radio`, `boolean`, and a short single-select `dropdown`).
+     *  `chips` work the other way round: they flow by default, and `inline: false`
+     *  stacks them one per row, full width with the count at the end, for long
+     *  labels that read badly as a ragged cloud. */
     inline?: boolean;
 }
 

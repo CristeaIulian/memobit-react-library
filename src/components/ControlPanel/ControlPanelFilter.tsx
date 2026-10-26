@@ -478,7 +478,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                     />
                 )}
                 <div
-                    className="control-panel__filter-chips"
+                    className={`control-panel__filter-chips${filter.inline === false ? ' control-panel__filter-chips--stacked' : ''}`}
                     style={
                         filter.maxHeight !== undefined
                             ? { maxHeight: typeof filter.maxHeight === 'number' ? `${filter.maxHeight}px` : filter.maxHeight, overflowY: 'auto' }
