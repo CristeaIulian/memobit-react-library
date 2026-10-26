@@ -23,6 +23,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     showOverlay = true,
     contained = false,
     flush = false,
+    sticky = false,
     shadow = 'none',
     header,
     navigation = [],
@@ -49,6 +50,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         isMobile ? 'control-panel--mobile' : '',
         contained ? 'control-panel--contained' : '',
         flush ? 'control-panel--flush' : '',
+        sticky ? 'control-panel--sticky' : '',
         className,
     ]
         .filter(Boolean)

@@ -240,6 +240,10 @@ export interface ControlPanelProps {
     contained?: boolean;
     /** Removes the desktop margin and border-radius so the panel sits flush against content. */
     flush?: boolean;
+    /** Desktop only: pins the panel at the viewport's height and lets it scroll on its own,
+     *  so working through a long filter list never scrolls the page's content out of view.
+     *  Off by default: the panel then grows with its content and scrolls with the page. */
+    sticky?: boolean;
     shadow?: string;
     header?: ControlPanelHeader;
     navigation?: ControlPanelNavItem[];

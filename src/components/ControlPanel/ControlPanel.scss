@@ -243,6 +243,23 @@
         min-height: 100dvh;
     }
 
+    // Sticky: pinned at the viewport's height, scrolling on its own (overflow-y is
+    // already auto on desktop), so the page's content stays put beside it.
+    &--sticky:not(&--mobile) {
+        position: sticky;
+        top: var(--spacing-16);
+        align-self: flex-start;
+        min-height: 0;
+        height: calc(100vh - var(--spacing-32));
+        height: calc(100dvh - var(--spacing-32));
+    }
+
+    &--sticky.control-panel--flush:not(&--mobile) {
+        top: 0;
+        height: 100vh;
+        height: 100dvh;
+    }
+
     &__overlay {
         position: fixed;
         inset: 0;
