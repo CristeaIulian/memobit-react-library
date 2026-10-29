@@ -1,0 +1,104 @@
+.DirectionPad {
+    --pad-size: var(--spacing-100);
+    --pad-button-size: var(--spacing-32);
+    --pad-hub-size: var(--spacing-24);
+
+    position: relative;
+    flex-shrink: 0;
+    align-self: center;
+    width: var(--pad-size);
+    height: var(--pad-size);
+    border-radius: var(--radius-full);
+    background-color: var(--button-default-background-color);
+    border: 1px solid var(--button-default-border-color);
+
+    &--large {
+        --pad-size: calc(var(--spacing-100) + var(--spacing-40));
+        --pad-button-size: var(--spacing-40);
+    }
+
+    &--floating {
+        background-color: color-mix(in srgb, var(--button-default-background-color) 70%, transparent);
+    }
+
+    &--disabled {
+        opacity: 0.5;
+    }
+
+    &__button {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: var(--pad-button-size);
+        height: var(--pad-button-size);
+        padding: 0;
+        border: none;
+        border-radius: var(--radius-full);
+        background-color: transparent;
+        color: var(--button-default-color);
+        cursor: pointer;
+        transition:
+            background-color var(--transition-fast),
+            color var(--transition-fast);
+
+        &:not(:disabled):hover {
+            background-color: var(--button-default-hover-background-color);
+            color: var(--button-default-hover-color);
+        }
+
+        &:not(:disabled):active {
+            background-color: var(--button-info-background-color);
+            color: var(--button-info-color);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+
+        &--up,
+        &--down {
+            left: calc(50% - var(--pad-button-size) / 2);
+        }
+
+        &--left,
+        &--right {
+            top: calc(50% - var(--pad-button-size) / 2);
+        }
+
+        &--up {
+            top: var(--spacing-4);
+        }
+
+        &--down {
+            bottom: var(--spacing-4);
+        }
+
+        &--left {
+            left: var(--spacing-4);
+        }
+
+        &--right {
+            right: var(--spacing-4);
+        }
+    }
+
+    &__hub {
+        position: absolute;
+        top: calc(50% - var(--pad-hub-size) / 2);
+        left: calc(50% - var(--pad-hub-size) / 2);
+        width: var(--pad-hub-size);
+        height: var(--pad-hub-size);
+        border-radius: var(--radius-full);
+        background-color: var(--card-background-accent-color);
+        border: 1px solid var(--button-default-border-color);
+
+        &--content {
+            --pad-hub-size: var(--pad-button-size);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

@@ -36,6 +36,7 @@ import { DatePickerPage } from './pages/DatePickerPage';
 import { DateRangePickerPage } from './pages/DateRangePickerPage';
 import { DayAgendaPage } from './pages/DayAgendaPage';
 import { DiffViewerPage } from './pages/DiffViewerPage';
+import { DirectionPadPage } from './pages/DirectionPadPage';
 import { DrawerPage } from './pages/DrawerPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { EmojiPickerPage } from './pages/EmojiPickerPage';
@@ -170,6 +171,7 @@ export const routes: RouteConfig[] = [
     { path: '/day-agenda', label: 'Day Agenda', component: DayAgendaPage },
     { path: '/drawer', label: 'Drawer', component: DrawerPage },
     { path: '/diff-viewer', label: 'Diff Viewer', component: DiffViewerPage },
+    { path: '/direction-pad', label: 'Direction Pad', component: DirectionPadPage },
     { path: '/dropdown', label: 'Dropdown', component: DropdownPage },
     { path: '/empty-state', label: 'Empty State', component: EmptyStatePage },
     { path: '/event-calendar', label: 'Event Calendar', component: EventCalendarPage },

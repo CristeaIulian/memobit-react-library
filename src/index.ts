@@ -82,6 +82,7 @@ export { DatePicker, type DatePickerProps } from './components/DatePicker';
 export { DateRangePicker, type DateRangePickerProps, type DateRangePreset } from './components/DateRangePicker';
 export { DayAgenda, type DayAgendaProps } from './components/DayAgenda';
 export { DiffViewer } from './components/DiffViewer';
+export { DirectionPad, type DirectionPadDirection, type DirectionPadProps, type DirectionPadSize } from './components/DirectionPad';
 export { Drawer, type DrawerHeaderAction, type DrawerPosition, type DrawerProps } from './components/Drawer';
 export { Dropdown, type DropdownOption, type DropdownSelectedCountDisplay } from './components/Dropdown';
 export { EmojiPicker, type EmojiPickerProps } from './components/EmojiPicker';
