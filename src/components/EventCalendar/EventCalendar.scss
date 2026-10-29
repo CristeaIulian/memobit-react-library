@@ -615,9 +615,10 @@
 
     @include event-calendar-variant-colors;
 
-    // Projected, not yet stored — outlined rather than filled so it reads as expected, not booked.
+    // Projected, not yet stored — outlined and only faintly tinted rather than filled, so it
+    // reads as expected, not booked, while still carrying the event's colour.
     &--ghost {
-        background-color: transparent;
+        background-color: color-mix(in srgb, var(--event-calendar-chip-color) 8%, transparent);
         border: 1px dashed var(--event-calendar-chip-color);
         border-left-width: 3px;
         border-left-style: solid;
