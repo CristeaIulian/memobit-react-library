@@ -40,14 +40,18 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     visibleColumns,
 }) => {
     const controlPanelContext = useControlPanelContext();
-    const isMobile = isMobileProp ?? controlPanelContext?.isMobile ?? false;
-    const isOpen = isOpenProp ?? (isMobile ? (controlPanelContext?.isOpen ?? false) : true);
+    // A drawer opens over the page from the toolbar: on mobile, and on desktop once the user undocks it.
+    const isDrawer = isMobileProp ?? controlPanelContext?.isDrawer ?? false;
+    const isOpen = isOpenProp ?? (isDrawer ? (controlPanelContext?.isOpen ?? false) : true);
     const close = onClose ?? controlPanelContext?.close ?? (() => undefined);
+    // A panel whose mode the page sets itself keeps it.
+    const dock = isMobileProp === undefined && controlPanelContext?.undockable ? controlPanelContext : null;
 
     const panelClassName = [
         'control-panel',
         isOpen ? 'control-panel--open' : 'control-panel--closed',
-        isMobile ? 'control-panel--mobile' : '',
+        isDrawer ? 'control-panel--mobile' : '',
+        dock ? 'control-panel--undockable' : '',
         contained ? 'control-panel--contained' : '',
         flush ? 'control-panel--flush' : '',
         sticky ? 'control-panel--sticky' : '',
@@ -76,8 +80,18 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
 
     return (
         <>
-            {showOverlay && isMobile && isOpen && <div className={overlayClassName} onClick={close} />}
+            {showOverlay && isDrawer && isOpen && <div className={overlayClassName} onClick={close} />}
             <aside className={panelClassName} style={panelStyle}>
+                {dock && (
+                    <div className="control-panel__dock">
+                        <Tooltip
+                            title={isDrawer ? 'Keep the panel open beside the page' : 'Hide the panel, and open it from the toolbar when needed'}
+                            position="right"
+                        >
+                            <Button icon={isDrawer ? 'pin' : 'caret-left'} onClick={() => dock.setUndocked(!isDrawer)} size="small" variant="default" />
+                        </Tooltip>
+                    </div>
+                )}
                 {header && (
                     <AppHeader
                         icon={header.icon}
@@ -89,7 +103,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                             header.onClick
                                 ? () => {
                                       header.onClick?.();
-                                      if (isMobile) close();
+                                      if (isDrawer) close();
                                   }
                                 : undefined
                         }
@@ -99,12 +113,12 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                 {actions.length > 0 && (
                     <div className="control-panel__actions">
                         {actions.map(action => (
-                            <ControlPanelActionButton key={action.id} action={action} onActionComplete={isMobile ? close : undefined} />
+                            <ControlPanelActionButton key={action.id} action={action} onActionComplete={isDrawer ? close : undefined} />
                         ))}
                     </div>
                 )}
 
-                {navigation.length > 0 && <ControlPanelNav navigation={navigation} onNavigate={isMobile ? close : undefined} />}
+                {navigation.length > 0 && <ControlPanelNav navigation={navigation} onNavigate={isDrawer ? close : undefined} />}
 
                 {hasFiltersSection && (
                     <div className={filtersClassName}>
@@ -137,7 +151,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                         normalizedOptionGroups={normalizedOptionGroups}
                         onOptionChange={onOptionChange}
                         viewToggle={viewToggle}
-                        onViewToggleComplete={isMobile ? close : undefined}
+                        onViewToggleComplete={isDrawer ? close : undefined}
                         groupBy={groupBy}
                         visibleColumns={visibleColumns}
                     />

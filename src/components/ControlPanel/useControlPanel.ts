@@ -2,6 +2,11 @@ import { createContext, useContext } from 'react';
 
 export interface ControlPanelContextValue {
     isMobile: boolean;
+    /** The panel opens over the page from the toolbar: always on mobile, and on desktop once undocked. */
+    isDrawer: boolean;
+    /** The panel can be undocked here: the provider allows it and the screen isn't mobile. */
+    undockable: boolean;
+    setUndocked: (undocked: boolean) => void;
     isOpen: boolean;
     toggle: () => void;
     open: () => void;

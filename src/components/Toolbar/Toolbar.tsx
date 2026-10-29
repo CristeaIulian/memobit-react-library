@@ -129,7 +129,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     sort,
 }) => {
     const controlPanel = useControlPanelContext();
-    const shouldShowControlPanelToggle = Boolean(controlPanelToggle && controlPanel?.isMobile);
+    const shouldShowControlPanelToggle = Boolean(controlPanelToggle && controlPanel?.isDrawer);
     const toggleCount = typeof controlPanelToggle === 'object' ? (controlPanelToggle.count ?? 0) : 0;
     const rootClassName = ['memobit-toolbar', noCard ? 'memobit-toolbar--no-card' : '', className].filter(Boolean).join(' ');
     const hasContent = Boolean(search || children);

@@ -5,6 +5,7 @@
     --control-panel-shadow: none;
     --control-panel-nav-depth: 0;
 
+    position: relative;
     width: var(--control-panel-width);
     // Desktop & tablet: panel sits in a flex layout with a margin around it.
     // Subtract the margins so the panel never overflows the viewport.
@@ -198,6 +199,18 @@
 
     &__action {
         justify-content: flex-start;
+    }
+
+    // The dock toggle sits in the header's top corner; the header keeps clear of it.
+    &__dock {
+        position: absolute;
+        top: var(--spacing-12);
+        right: var(--spacing-12);
+        z-index: 1;
+    }
+
+    &--undockable .app-header {
+        padding-right: calc(var(--spacing-16) + var(--spacing-32));
     }
 
     &--closed:not(&--mobile) {
