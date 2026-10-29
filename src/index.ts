@@ -109,7 +109,7 @@ export {
 } from './components/FloatingWindow';
 export { type FolderBrowserEntry, type FolderBrowserListing, FolderBrowserModal, type FolderBrowserModalProps } from './components/FolderBrowserModal';
 export { Col, type ColProps, type ColSpan, Grid, type GridAlign, type GridColumns, type GridGap, type GridJustify, type GridProps } from './components/Grid';
-export { Icon, type IconSize, type IconVariant } from './components/Icon';
+export { AnimatedIcon, Icon, type IconSize, type IconVariant } from './components/Icon';
 export { IconPicker, type IconPickerProps } from './components/IconPicker';
 export { ImageCropper, type ImageCropperProps } from './components/ImageCropper';
 export { InfiniteScroll, type ScrollInfo } from './components/InfiniteScroll';

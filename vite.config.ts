@@ -188,7 +188,7 @@ export default defineConfig({
             fileName: (_format, entryName) => `${entryName}.esm.js`,
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime', 'react-router', '@memobit/core', '@memobit/icons', '@memobit/icons/map', '@memobit/themes'],
+            external: ['react', 'react-dom', 'react/jsx-runtime', 'react-router', '@memobit/core', '@memobit/icons', '@memobit/icons/animated', '@memobit/icons/map', '@memobit/themes'],
             output: {
                 preserveModules: true,
                 preserveModulesRoot: 'src',

@@ -1,8 +1,9 @@
 import React, { createElement, isValidElement, useCallback, useMemo, useState } from 'react';
 
+import { animatedIconDescriptions, animatedIconMap, type AnimatedIconName } from '@memobit/icons/animated';
 import { iconMap } from '@memobit/icons/map';
 
-import { InputSearch, Toast, type ToastDetails } from '../../../src';
+import { AnimatedIcon, InputSearch, Toast, type ToastDetails } from '../../../src';
 
 import { iconAliases } from './iconsAliases';
 import { type IconCategory, iconCategoryByPath, iconCategoryDefinitions, OTHER_CATEGORY_ID, otherCategory } from './iconsCategories';
@@ -44,6 +45,26 @@ const iconEntries: IconEntry[] = Object.entries(iconMap)
         };
     })
     .sort((left, right) => left.name.localeCompare(right.name));
+
+interface AnimatedIconEntry {
+    description: string;
+    keywords: string;
+    name: AnimatedIconName;
+    tag: string;
+    title: string;
+}
+
+const isAnimatedIconName = (name: string): name is AnimatedIconName => name in animatedIconMap;
+
+const animatedIconEntries: AnimatedIconEntry[] = Object.keys(animatedIconMap)
+    .filter(isAnimatedIconName)
+    .map(name => {
+        const title = formatIconName(name);
+        const description = animatedIconDescriptions[name];
+
+        return { description, keywords: [title, name, description, 'animated'].join(' ').toLowerCase(), name, tag: `<AnimatedIcon name="${name}" />`, title };
+    })
+    .sort((left, right) => left.title.localeCompare(right.title));
 
 const iconCountsByCategory = iconEntries.reduce<Record<string, number>>((counts, entry) => {
     counts[entry.categoryId] = (counts[entry.categoryId] ?? 0) + 1;
@@ -105,6 +126,12 @@ export const IconsPage: React.FC = () => {
         [normalizedQuery, selectedCategoryId]
     );
 
+    // Animated icons have no category, so they only show while every category is.
+    const filteredAnimatedIcons = useMemo(
+        () => (selectedCategoryId === 'all' ? animatedIconEntries.filter(icon => !normalizedQuery || icon.keywords.includes(normalizedQuery)) : []),
+        [normalizedQuery, selectedCategoryId]
+    );
+
     const groupedIcons = useMemo(() => {
         if (selectedCategoryId !== 'all' || normalizedQuery) {
             return null;
@@ -154,6 +181,45 @@ export const IconsPage: React.FC = () => {
                     <InputSearch value={query} onChange={setQuery} placeholder="Search icons by name, keyword, or alias..." />
                 </div>
             </header>
+
+            {filteredAnimatedIcons.length > 0 && (
+                <section className="page-section">
+                    <div className="icons-page__toolbar">
+                        <h2>Animated Icons</h2>
+                        <span className="icons-page__count">
+                            {filteredAnimatedIcons.length} of {animatedIconEntries.length}
+                        </span>
+                    </div>
+
+                    <p className="icons-page__intro">
+                        For something happening right now. They move on their own: render them with <code>AnimatedIcon</code>, which takes the same{' '}
+                        <code>size</code> and <code>variant</code> as <code>Icon</code>.
+                    </p>
+
+                    <div className="icons-page__grid">
+                        {filteredAnimatedIcons.map(icon => (
+                            <article key={icon.name} className="icons-page__tile">
+                                <button
+                                    type="button"
+                                    className="icons-page__preview"
+                                    onClick={() => void showCopyResult(icon.tag, `${icon.tag} copied to clipboard`)}
+                                >
+                                    <AnimatedIcon name={icon.name} />
+                                </button>
+                                <strong className="icons-page__name">{icon.title}</strong>
+                                <span className="icons-page__description">{icon.description}</span>
+                                <button
+                                    type="button"
+                                    className="icons-page__path"
+                                    onClick={() => void showCopyResult(icon.tag, `${icon.tag} copied to clipboard`)}
+                                >
+                                    {icon.name}
+                                </button>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            )}
 
             <section className="page-section">
                 <div className="icons-page__toolbar">

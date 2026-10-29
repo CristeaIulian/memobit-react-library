@@ -221,6 +221,17 @@
         word-break: break-word;
     }
 
+    &__intro {
+        margin: var(--spacing-12) 0 var(--spacing-20);
+        color: var(--body-color);
+    }
+
+    &__description {
+        color: var(--body-color);
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-normal);
+    }
+
     &__path {
         padding: 0;
         border: 0;
