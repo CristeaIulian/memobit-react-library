@@ -687,7 +687,8 @@
 }
 
 .event-calendar__year-month {
-    --event-calendar-year-columns: 2;
+    // One a row on a phone: two side by side left each day a 24px target crowded by its dots.
+    --event-calendar-year-columns: 1;
 
     display: flex;
     flex-direction: column;
@@ -703,6 +704,12 @@
 }
 
 // Container queries cannot read custom properties, hence the literal widths.
+@container (min-width: 480px) {
+    .event-calendar__year-month {
+        --event-calendar-year-columns: 2;
+    }
+}
+
 @container (min-width: 640px) {
     .event-calendar__year-month {
         --event-calendar-year-columns: 3;
