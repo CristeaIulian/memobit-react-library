@@ -519,6 +519,50 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 0;
+        // Its height is the event's length, so the layout inside can follow it.
+        container-type: size;
+
+        .event-calendar__chip-body {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            min-width: 0;
+        }
+
+        // Glyph and time share the first line, left-aligned like the title under them. Stacked,
+        // the glyph sat centred on a line of its own and a short chip had no room for the time.
+        .event-calendar__chip-head {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            max-width: 100%;
+        }
+
+        // A tall chip has the room to show a long title in full.
+        .event-calendar__chip-title {
+            max-width: 100%;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        // Too short for two lines (a half-hour event): everything on one, title last to truncate.
+        // Container queries cannot read custom properties, hence the literal.
+        @container (max-height: 40px) {
+            .event-calendar__chip-body {
+                flex-direction: row;
+                align-items: center;
+                gap: var(--spacing-4);
+            }
+
+            .event-calendar__chip-head {
+                flex: 0 0 auto;
+            }
+
+            .event-calendar__chip-title {
+                white-space: nowrap;
+            }
+        }
     }
 
     &--clickable:hover {
@@ -574,6 +618,12 @@
             text-decoration: line-through;
         }
     }
+}
+
+// Only the stacked week chip lays these out; a one-line chip keeps its parts inline.
+.event-calendar__chip-body,
+.event-calendar__chip-head {
+    display: contents;
 }
 
 .event-calendar__chip-leading {
@@ -677,6 +727,12 @@
         justify-content: center;
         gap: 0;
         padding: var(--spacing-2);
+
+        // Back to a lone glyph, so the week chip's line layout would only pull it off centre.
+        .event-calendar__chip-body,
+        .event-calendar__chip-head {
+            display: contents;
+        }
 
         .event-calendar__chip-title {
             display: none;

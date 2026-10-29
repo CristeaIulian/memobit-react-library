@@ -5,6 +5,7 @@ import { useSwipe } from '../../hooks/useSwipe';
 import { Button } from '../Button';
 import { DayAgenda } from '../DayAgenda';
 import { ToggleButtons } from '../ToggleButtons';
+import { Tooltip } from '../Tooltip';
 
 import { buildDroppedStart, getWeekDays, startOfDay } from './EventCalendar.helpers';
 import { EventCalendarMonth } from './EventCalendar.Month';
@@ -175,11 +176,15 @@ export function EventCalendar<T>({
             {showHeader && (
                 <div className="event-calendar__header">
                     <div className="event-calendar__nav">
-                        <Button icon="arrow-left" onClick={() => step(-1)} size="small" title="Previous" variant="plain" />
+                        <Tooltip title="Previous">
+                            <Button icon="arrow-left" onClick={() => step(-1)} size="small" variant="plain" />
+                        </Tooltip>
                         <Button onClick={() => changeDate(startOfDay(new Date()))} size="small">
                             Today
                         </Button>
-                        <Button icon="arrow-right" onClick={() => step(1)} size="small" title="Next" variant="plain" />
+                        <Tooltip title="Next">
+                            <Button icon="arrow-right" onClick={() => step(1)} size="small" variant="plain" />
+                        </Tooltip>
                     </div>
 
                     <h2 className="event-calendar__title">{title}</h2>

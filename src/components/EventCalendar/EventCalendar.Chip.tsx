@@ -1,5 +1,7 @@
 import { CSSProperties, DragEvent, MouseEvent, ReactNode } from 'react';
 
+import { Tooltip } from '../Tooltip';
+
 import { formatEventTime } from './EventCalendar.helpers';
 import { CalendarEvent } from './EventCalendar.types';
 
@@ -56,25 +58,32 @@ export function EventCalendarChip<T>({
         .filter(Boolean)
         .join(' ');
 
+    // A short week-view chip has no room for its time, so the tooltip carries it instead.
+    const timeLabel = event.allDay ? '' : `${formatEventTime(event.start)}${event.end ? `–${formatEventTime(event.end)}` : ''}`;
+    const tooltip = timeLabel ? `${timeLabel} · ${event.title}` : event.title;
+
     return (
-        <div
-            className={classes}
-            draggable={draggable}
-            onClick={handleClick}
-            onDragEnd={onDragEnd}
-            onDragStart={handleDragStart}
-            style={event.color ? ({ ...style, '--event-calendar-chip-color': event.color } as CSSProperties) : style}
-            title={event.title}
-        >
-            {renderEvent ? (
-                renderEvent(event)
-            ) : (
-                <>
-                    {event.leading && <span className="event-calendar__chip-leading">{event.leading}</span>}
-                    {showTime && !event.allDay && <span className="event-calendar__chip-time">{formatEventTime(event.start)}</span>}
-                    <span className="event-calendar__chip-title">{event.title}</span>
-                </>
-            )}
-        </div>
+        <Tooltip title={tooltip}>
+            <div
+                className={classes}
+                draggable={draggable}
+                onClick={handleClick}
+                onDragEnd={onDragEnd}
+                onDragStart={handleDragStart}
+                style={event.color ? ({ ...style, '--event-calendar-chip-color': event.color } as CSSProperties) : style}
+            >
+                {renderEvent ? (
+                    renderEvent(event)
+                ) : (
+                    <span className="event-calendar__chip-body">
+                        <span className="event-calendar__chip-head">
+                            {event.leading && <span className="event-calendar__chip-leading">{event.leading}</span>}
+                            {showTime && !event.allDay && <span className="event-calendar__chip-time">{formatEventTime(event.start)}</span>}
+                        </span>
+                        <span className="event-calendar__chip-title">{event.title}</span>
+                    </span>
+                )}
+            </div>
+        </Tooltip>
     );
 }
