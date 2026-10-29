@@ -211,3 +211,28 @@
         }
     }
 }
+
+// Collapsed on desktop: the essentials in a small group floating in the page's top-right corner, over the
+// content. It stays put while the page scrolls, under the panel drawer (999 and up) and modals.
+.memobit-toolbar-floating {
+    position: fixed;
+    top: var(--spacing-16);
+    right: var(--spacing-16);
+    z-index: 900;
+    display: flex;
+    align-items: stretch;
+    gap: var(--spacing-8);
+    padding: var(--spacing-8);
+    background-color: var(--header-background-color);
+    border: var(--spacing-1) solid var(--header-border-bottom-color);
+    border-radius: var(--radius);
+    box-shadow: var(--spacing-2) var(--spacing-2) var(--spacing-8) var(--box-shadow);
+
+    > .NotificationPanel > .NotificationPanel__button {
+        height: 100%;
+    }
+
+    &__search {
+        width: 280px;
+    }
+}

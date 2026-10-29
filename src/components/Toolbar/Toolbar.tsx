@@ -1,5 +1,6 @@
-import React, { type ReactNode } from 'react';
+import React, { type ReactNode, useState } from 'react';
 
+import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { Button } from '../Button';
 import { useControlPanelContext } from '../ControlPanel';
 import { Dropdown, type DropdownOption } from '../Dropdown';
@@ -80,6 +81,12 @@ export interface ToolbarProps {
     children?: ReactNode;
     className?: string;
     controlPanelToggle?: boolean | ToolbarControlPanelToggleConfig;
+    /**
+     * Desktop: a button hides the toolbar, leaving a small group floating in the page's top-right corner
+     * (the panel toggle, search, the actions, notifications and the menu), and the page the whole height.
+     * The choice is remembered (per app, as each app has its own origin).
+     */
+    collapsible?: boolean;
     /** Descriptive headline shown at the far left of the toolbar. */
     heading?: ToolbarHeadingConfig;
     /** When true, drops the toolbar's card chrome (background, border, radius, padding). */
@@ -91,6 +98,15 @@ export interface ToolbarProps {
 }
 
 const SORT_DIRECTION_SEPARATOR = '::';
+const COLLAPSED_STORAGE_KEY = 'memobit-toolbar-collapsed';
+
+const readCollapsed = (): boolean => {
+    try {
+        return localStorage.getItem(COLLAPSED_STORAGE_KEY) === 'true';
+    } catch {
+        return false;
+    }
+};
 
 // The toggle is icon-only by default (the `tune` icon + count badge already
 // convey "filters"). A label only shows when an app explicitly opts into one.
@@ -120,6 +136,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     actions,
     children,
     className = '',
+    collapsible = false,
     controlPanelToggle,
     heading,
     noCard = false,
@@ -133,6 +150,20 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     const toggleCount = typeof controlPanelToggle === 'object' ? (controlPanelToggle.count ?? 0) : 0;
     const rootClassName = ['memobit-toolbar', noCard ? 'memobit-toolbar--no-card' : '', className].filter(Boolean).join(' ');
     const hasContent = Boolean(search || children);
+    const { isMobile } = useBreakpoint();
+    const [isCollapsed, setIsCollapsed] = useState(readCollapsed);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const canCollapse = collapsible && !isMobile;
+
+    const setCollapsed = (collapsed: boolean) => {
+        setIsCollapsed(collapsed);
+        setIsSearchOpen(false);
+        try {
+            localStorage.setItem(COLLAPSED_STORAGE_KEY, String(collapsed));
+        } catch {
+            // Storage unavailable (private mode): the choice lasts until reload.
+        }
+    };
 
     const handleSortChange = (option: DropdownOption | DropdownOption[] | null) => {
         if (!sort) {
@@ -158,16 +189,63 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         sort.onChange(String(option.value), option);
     };
 
+    const controlPanelToggleButton = shouldShowControlPanelToggle && (
+        <Tooltip title="Filters">
+            <Button className="memobit-toolbar__control-panel-toggle" icon="tune" onClick={controlPanel?.toggle} size="medium" variant="default">
+                {controlPanelToggle && getControlPanelToggleLabel(controlPanelToggle)}
+                {toggleCount > 0 && <span className="memobit-toolbar__control-panel-toggle-count">{toggleCount}</span>}
+            </Button>
+        </Tooltip>
+    );
+    const notificationPanel = notifications && (
+        <NotificationPanel
+            items={notifications.items}
+            buttonLabel={notifications.buttonLabel}
+            panelTitle={notifications.panelTitle}
+            emptyMessage={notifications.emptyMessage}
+            onItemClick={notifications.onItemClick}
+        />
+    );
+    const menu = <MenuHamburger items={menuItems} disableResponsive showLabel={false} />;
+
+    // Collapsed: the essentials float in the corner. Search opens as a box from its icon, and stays open
+    // while it holds a query, so an active search is never out of sight.
+    if (canCollapse && isCollapsed) {
+        const isSearchShown = isSearchOpen || Boolean(search?.value);
+        return (
+            <div className="memobit-toolbar-floating">
+                {controlPanelToggleButton}
+                {search &&
+                    (isSearchShown ? (
+                        <div className="memobit-toolbar-floating__search">
+                            <InputSearch
+                                {...search}
+                                autoFocus={isSearchOpen}
+                                className={['memobit-toolbar__search-input', search.className].filter(Boolean).join(' ')}
+                                onBlur={event => {
+                                    search.onBlur?.(event);
+                                    if (!event.currentTarget.value) setIsSearchOpen(false);
+                                }}
+                            />
+                        </div>
+                    ) : (
+                        <Tooltip title="Search">
+                            <Button icon="search" onClick={() => setIsSearchOpen(true)} size="medium" variant="default" />
+                        </Tooltip>
+                    ))}
+                {actions}
+                {notificationPanel}
+                {menu}
+                <Tooltip title="Show the toolbar">
+                    <Button icon="caret-down" onClick={() => setCollapsed(false)} size="medium" variant="default" />
+                </Tooltip>
+            </div>
+        );
+    }
+
     return (
         <div className={rootClassName}>
-            {shouldShowControlPanelToggle && (
-                <Tooltip title="Filters">
-                    <Button className="memobit-toolbar__control-panel-toggle" icon="tune" onClick={controlPanel?.toggle} size="medium" variant="default">
-                        {controlPanelToggle && getControlPanelToggleLabel(controlPanelToggle)}
-                        {toggleCount > 0 && <span className="memobit-toolbar__control-panel-toggle-count">{toggleCount}</span>}
-                    </Button>
-                </Tooltip>
-            )}
+            {controlPanelToggleButton}
 
             {heading && (
                 <div
@@ -221,16 +299,13 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
                 <div className="memobit-toolbar__actions">
                     {actions}
-                    {notifications && (
-                        <NotificationPanel
-                            items={notifications.items}
-                            buttonLabel={notifications.buttonLabel}
-                            panelTitle={notifications.panelTitle}
-                            emptyMessage={notifications.emptyMessage}
-                            onItemClick={notifications.onItemClick}
-                        />
+                    {notificationPanel}
+                    {menu}
+                    {canCollapse && (
+                        <Tooltip title="Hide the toolbar">
+                            <Button icon="caret-up" onClick={() => setCollapsed(true)} size="medium" variant="default" />
+                        </Tooltip>
                     )}
-                    <MenuHamburger items={menuItems} disableResponsive showLabel={false} />
                 </div>
             </div>
         </div>
