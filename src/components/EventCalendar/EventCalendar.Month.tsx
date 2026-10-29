@@ -178,7 +178,8 @@ export function EventCalendarMonth<T>({
                                                 renderEvent={renderEvent}
                                                 style={{
                                                     left: `${(span.startIndex / week.length) * 100}%`,
-                                                    width: `${((span.endIndex - span.startIndex + 1) / week.length) * 100}%`,
+                                                    // Both edges, not a width: a width takes no account of the margins insetting the bar.
+                                                    right: `${((week.length - 1 - span.endIndex) / week.length) * 100}%`,
                                                     top: `calc(${span.lane} * var(--event-calendar-span-row))`,
                                                 }}
                                             />

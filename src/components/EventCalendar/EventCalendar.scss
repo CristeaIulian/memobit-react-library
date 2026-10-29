@@ -2,6 +2,8 @@
     // Height of one multi-day bar plus its gap — the bar is positioned by it and the day
     // cells reserve space by it, so they must stay the same number.
     --event-calendar-span-row: calc(var(--spacing-20) + var(--spacing-2));
+    // The padding of the cells a bar crosses: a month day's here, the all-day row's below.
+    --event-calendar-span-inset: var(--spacing-6);
 
     display: flex;
     flex-direction: column;
@@ -80,6 +82,8 @@
 // Mirrors the month grid's week-days box: the all-day cells get their own relative box so
 // the span bars measure against the seven columns, not the hour gutter beside them.
 .event-calendar__all-day-cells {
+    --event-calendar-span-inset: var(--spacing-4);
+
     position: relative;
 
     > .event-calendar__week-spans {
@@ -108,8 +112,10 @@
 
 .event-calendar__chip--span {
     position: absolute;
-    // Inset so neighbouring bars on the same lane read as two, not one long one.
-    margin: 0 var(--spacing-2);
+    // Inset by the host cell's own padding (and, on the right, its 1px border), so a bar
+    // starts and ends on the same pixels as the single-day chips in the cells it crosses.
+    // It also keeps neighbouring bars on the same lane reading as two, not one long one.
+    margin: 0 calc(var(--event-calendar-span-inset) + 1px) 0 var(--event-calendar-span-inset);
     width: auto;
     pointer-events: auto;
 
@@ -421,9 +427,12 @@
     }
 }
 
+// Reaches down to the bottom of the window rather than stopping at a fixed height, so a tall
+// screen shows more of the day instead of scrolling a short box. The week view measures where
+// this body starts on the page; until it has, or on a short screen, the floor applies.
 .event-calendar__week-body {
     display: flex;
-    max-height: var(--spacing-400);
+    max-height: max(var(--spacing-400), calc(100dvh - var(--event-calendar-week-body-top, 100dvh) - var(--spacing-24)));
     overflow-y: auto;
 }
 

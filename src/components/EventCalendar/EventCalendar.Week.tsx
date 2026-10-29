@@ -1,4 +1,4 @@
-import { CSSProperties, DragEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { CSSProperties, DragEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { isToday, isWeekend } from '../../helpers/Datetime';
 
@@ -63,6 +63,31 @@ export function EventCalendarWeek<T>({
         const starts = buckets.flatMap(bucket => bucket.timed.map(event => event.start.getHours()));
         return starts.length > 0 ? Math.min(...starts) : (activeHours?.start ?? DEFAULT_SCROLL_HOUR);
     }, [activeHours, buckets]);
+
+    // The stylesheet sizes the scrolling body down to the bottom of the window, but needs to
+    // know where on the page it starts. Anything above it — a taller all-day row, a filter
+    // bar wrapping — moves that, so the page's own resizes are watched as well as the window.
+    useLayoutEffect(() => {
+        const body = bodyRef.current;
+        if (!body) {
+            return;
+        }
+
+        const measure = () => {
+            const top = body.getBoundingClientRect().top + window.scrollY;
+            body.style.setProperty('--event-calendar-week-body-top', `${Math.round(top)}px`);
+        };
+
+        measure();
+        const observer = new ResizeObserver(measure);
+        observer.observe(document.body);
+        window.addEventListener('resize', measure);
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('resize', measure);
+        };
+    }, []);
 
     useEffect(() => {
         if (!bodyRef.current) {
@@ -133,7 +158,8 @@ export function EventCalendarWeek<T>({
                                         renderEvent={renderEvent}
                                         style={{
                                             left: `${(span.startIndex / days.length) * 100}%`,
-                                            width: `${((span.endIndex - span.startIndex + 1) / days.length) * 100}%`,
+                                            // Both edges, not a width: a width takes no account of the margins insetting the bar.
+                                            right: `${((days.length - 1 - span.endIndex) / days.length) * 100}%`,
                                             top: `calc(${span.lane} * var(--event-calendar-span-row))`,
                                         }}
                                     />

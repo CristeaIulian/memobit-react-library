@@ -41,7 +41,8 @@ export interface DrawerProps {
     borderRadius?: string | number;
     shadow?: string;
     children: React.ReactNode;
-    title?: string;
+    /** Usually text; a node lets the header carry the subject itself, such as a mark and a name. */
+    title?: React.ReactNode;
     icon?: IconName;
     className?: string;
     showOverlay?: boolean;
