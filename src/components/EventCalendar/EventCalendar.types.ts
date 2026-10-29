@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export type EventCalendarView = 'month' | 'week';
+export type EventCalendarView = 'year' | 'month' | 'week';
 
 /** Half-open [start, end): with start 9 and end 18, 17:00 is active and 18:00 is not. */
 export interface CalendarActiveHours {
@@ -51,7 +51,7 @@ export interface EventCalendarProps<T = unknown> {
     /** Controlled view. Falls back to internal state when `onViewChange` is omitted. */
     view?: EventCalendarView;
     onViewChange?: (view: EventCalendarView) => void;
-    /** Controlled anchor date — the month or week on screen. */
+    /** Controlled anchor date — the year, month or week on screen. */
     date?: Date;
     onDateChange?: (date: Date) => void;
     firstDayOfWeek?: 0 | 1;

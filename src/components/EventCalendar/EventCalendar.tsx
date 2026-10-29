@@ -11,10 +11,13 @@ import { buildDroppedStart, getWeekDays, startOfDay } from './EventCalendar.help
 import { EventCalendarMonth } from './EventCalendar.Month';
 import { CalendarEvent, EventCalendarProps, EventCalendarView } from './EventCalendar.types';
 import { EventCalendarWeek } from './EventCalendar.Week';
+import { EventCalendarYear } from './EventCalendar.Year';
 
 import './EventCalendar.scss';
 
+// Widest first, so the toggle reads as zooming in from left to right.
 const VIEW_STATES = [
+    { key: 'year', label: 'Year', icon: 'calendar-year' as const },
     { key: 'month', label: 'Month', icon: 'calendar-month' as const },
     { key: 'week', label: 'Week', icon: 'calendar-week' as const },
 ];
@@ -105,7 +108,13 @@ export function EventCalendar<T>({
 
     const step = useCallback(
         (direction: -1 | 1) => {
-            changeDate(activeView === 'month' ? addMonths(activeDate, direction) : addDays(activeDate, direction * 7));
+            if (activeView === 'year') {
+                changeDate(addMonths(activeDate, direction * 12));
+            } else if (activeView === 'month') {
+                changeDate(addMonths(activeDate, direction));
+            } else {
+                changeDate(addDays(activeDate, direction * 7));
+            }
         },
         [activeDate, activeView, changeDate]
     );
@@ -147,9 +156,20 @@ export function EventCalendar<T>({
         onSwipeRight: () => step(-1),
     });
 
-    const title = useMemo(
-        () => (activeView === 'month' ? formatMonthTitle(activeDate) : formatWeekTitle(activeDate, firstDayOfWeek)),
-        [activeDate, activeView, firstDayOfWeek]
+    const title = useMemo(() => {
+        if (activeView === 'year') {
+            return String(activeDate.getFullYear());
+        }
+        return activeView === 'month' ? formatMonthTitle(activeDate) : formatWeekTitle(activeDate, firstDayOfWeek);
+    }, [activeDate, activeView, firstDayOfWeek]);
+
+    // A month's name in the year view zooms into it.
+    const openMonth = useCallback(
+        (month: Date) => {
+            changeDate(month);
+            changeView('month');
+        },
+        [changeDate, changeView]
     );
 
     const sharedProps = {
@@ -196,7 +216,20 @@ export function EventCalendar<T>({
             )}
 
             <div className="event-calendar__viewport" {...swipe}>
-                {activeView === 'month' ? (
+                {activeView === 'year' ? (
+                    <EventCalendarYear<T>
+                        date={activeDate}
+                        emptyLabel={emptyLabel}
+                        events={events}
+                        firstDayOfWeek={firstDayOfWeek}
+                        onDayClick={onDayClick}
+                        // Straight to the caller: the popover already is the day's list, so a row
+                        // opens the event itself rather than the day agenda.
+                        onEventClick={onEventClick}
+                        onOpenDay={dayAgenda ? openDay : undefined}
+                        onOpenMonth={openMonth}
+                    />
+                ) : activeView === 'month' ? (
                     <EventCalendarMonth
                         {...sharedProps}
                         emptyLabel={emptyLabel}

@@ -1,3 +1,29 @@
+// The colour each variant paints with, shared by the chips and the year view's dots so a
+// task reads the same at every zoom.
+@mixin event-calendar-variant-colors {
+    &--accent {
+        --event-calendar-chip-color: var(--body-accent-color);
+    }
+
+    &--success {
+        --event-calendar-chip-color: var(--button-success-background-color);
+    }
+
+    &--warning {
+        --event-calendar-chip-color: var(--button-warning-background-color);
+    }
+
+    &--danger {
+        --event-calendar-chip-color: var(--button-danger-background-color);
+    }
+
+    &--muted,
+    &--ghost,
+    &--done {
+        --event-calendar-chip-color: var(--body-color-muted);
+    }
+}
+
 .event-calendar {
     // Height of one multi-day bar plus its gap — the bar is positioned by it and the day
     // cells reserve space by it, so they must stay the same number.
@@ -587,30 +613,10 @@
         opacity: 0.4;
     }
 
-    &--accent {
-        --event-calendar-chip-color: var(--body-accent-color);
-    }
-
-    &--success {
-        --event-calendar-chip-color: var(--button-success-background-color);
-    }
-
-    &--warning {
-        --event-calendar-chip-color: var(--button-warning-background-color);
-    }
-
-    &--danger {
-        --event-calendar-chip-color: var(--button-danger-background-color);
-    }
-
-    &--muted {
-        --event-calendar-chip-color: var(--body-color-muted);
-    }
+    @include event-calendar-variant-colors;
 
     // Projected, not yet stored — outlined rather than filled so it reads as expected, not booked.
     &--ghost {
-        --event-calendar-chip-color: var(--body-color-muted);
-
         background-color: transparent;
         border: 1px dashed var(--event-calendar-chip-color);
         border-left-width: 3px;
@@ -619,8 +625,6 @@
     }
 
     &--done {
-        --event-calendar-chip-color: var(--body-color-muted);
-
         opacity: 0.6;
 
         .event-calendar__chip-title {
@@ -658,6 +662,242 @@
 }
 
 .event-calendar__chip-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// ------------------------------------------------------------------ year view
+
+// Measured against its own width rather than the window's, so the months reflow the same
+// whether the calendar sits beside a sidebar or fills the screen.
+.event-calendar__year {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12);
+}
+
+.event-calendar__year-months {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-12);
+}
+
+.event-calendar__year-month {
+    --event-calendar-year-columns: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    // Sized to a column rather than grown to fill, so a short last row keeps its months
+    // the same size as the rows above.
+    flex: 0 0 calc((100% - (var(--event-calendar-year-columns) - 1) * var(--spacing-12)) / var(--event-calendar-year-columns));
+    min-width: 0;
+    padding: var(--spacing-8);
+    border: 1px solid var(--card-border-color);
+    border-radius: var(--radius);
+    background-color: var(--card-background-color);
+}
+
+// Container queries cannot read custom properties, hence the literal widths.
+@container (min-width: 640px) {
+    .event-calendar__year-month {
+        --event-calendar-year-columns: 3;
+    }
+}
+
+@container (min-width: 900px) {
+    .event-calendar__year-month {
+        --event-calendar-year-columns: 4;
+    }
+}
+
+@container (min-width: 1300px) {
+    .event-calendar__year-month {
+        --event-calendar-year-columns: 6;
+    }
+}
+
+.event-calendar__year-month-title {
+    align-self: flex-start;
+    margin-bottom: var(--spacing-4);
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--body-title-color);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+
+    &:hover {
+        color: var(--body-accent-color);
+    }
+}
+
+.event-calendar__year-weekdays,
+.event-calendar__year-week {
+    display: flex;
+}
+
+.event-calendar__year-weekdays > span {
+    flex: 1 1 0;
+    text-align: center;
+    font-size: var(--font-size-xxs);
+    color: var(--body-color-muted);
+}
+
+.event-calendar__year-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-2);
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: var(--spacing-32);
+    padding: var(--spacing-2) 0;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--body-sub-title-color);
+    font-size: var(--font-size-xs);
+    transition: background-color var(--transition-fast);
+
+    &--has-events {
+        color: var(--body-color);
+        font-weight: var(--font-weight-semibold);
+        cursor: pointer;
+    }
+
+    &--clickable {
+        cursor: pointer;
+    }
+
+    &--has-events:hover,
+    &--clickable:hover {
+        background-color: color-mix(in srgb, var(--body-accent-color) 12%, transparent);
+    }
+
+    &--open {
+        box-shadow: inset 0 0 0 1px var(--body-accent-color);
+    }
+
+    &--today .event-calendar__year-day-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: var(--spacing-20);
+        height: var(--spacing-20);
+        border-radius: var(--radius-full);
+        background-color: var(--body-accent-color);
+        color: var(--card-background-color);
+    }
+}
+
+.event-calendar__year-dots {
+    display: flex;
+    gap: var(--spacing-2);
+    min-height: var(--spacing-6);
+}
+
+.event-calendar__year-dot {
+    @include event-calendar-variant-colors;
+
+    flex: 0 0 auto;
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+    border-radius: var(--radius-full);
+    background-color: var(--event-calendar-chip-color);
+
+    // Same readings as the chips: projected is outlined, done is faded.
+    &--ghost {
+        background-color: transparent;
+        box-shadow: inset 0 0 0 1px var(--event-calendar-chip-color);
+    }
+
+    &--done {
+        opacity: 0.6;
+    }
+}
+
+.event-calendar__year-popover {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    min-width: var(--spacing-200);
+    max-width: var(--spacing-300);
+}
+
+.event-calendar__year-popover-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-8);
+}
+
+.event-calendar__year-popover-date {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--body-title-color);
+}
+
+.event-calendar__year-popover-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    max-height: var(--spacing-300);
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+}
+
+.event-calendar__year-popover-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-6);
+    width: 100%;
+    padding: var(--spacing-4) var(--spacing-6);
+    border: none;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--body-color);
+    font-size: var(--font-size-sm);
+    text-align: left;
+
+    &--clickable {
+        cursor: pointer;
+        transition: background-color var(--transition-fast);
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--body-accent-color) 12%, transparent);
+        }
+    }
+
+    &--ghost {
+        color: var(--body-color-muted);
+    }
+
+    &--done {
+        color: var(--body-color-muted);
+
+        .event-calendar__year-popover-title {
+            text-decoration: line-through;
+        }
+    }
+}
+
+.event-calendar__year-popover-time {
+    flex: 0 0 auto;
+    font-variant-numeric: tabular-nums;
+    font-size: var(--font-size-xxs);
+    color: var(--body-color-muted);
+}
+
+.event-calendar__year-popover-title {
     flex: 1 1 auto;
     min-width: 0;
     overflow: hidden;
