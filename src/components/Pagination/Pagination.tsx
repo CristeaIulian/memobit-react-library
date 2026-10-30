@@ -1,6 +1,8 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useMessages } from '../../hooks/useLanguage';
 import { Button } from '../Button';
 import { Dropdown, type DropdownOption } from '../Dropdown';
 
@@ -35,9 +37,10 @@ export const Pagination: FC<PaginationProps> = ({
     pageSizeOptions,
     pageSize,
     onPageSizeChange,
-    pageSizeLabel = 'Rows',
+    pageSizeLabel,
     horizontalAlign = 'left',
 }: PaginationProps) => {
+    const t = useMessages(libMessages);
     const { isAtLeast, isMobile } = useBreakpoint();
     const pagesRef = useRef<HTMLDivElement>(null);
     const [delta, setDelta] = useState(isMobile ? 0 : 2);
@@ -133,7 +136,7 @@ export const Pagination: FC<PaginationProps> = ({
             {totalPages > 1 && (
                 <div className="pagination__pages" ref={pagesRef}>
                     <Button variant="default" borders="sharp" disabled={currentPage === 1} icon="previous" onClick={() => onPageChange(currentPage - 1)}>
-                        {isAtLeast('desktop') ? 'Previous' : ''}
+                        {isAtLeast('desktop') ? t.previous : ''}
                     </Button>
 
                     {getVisiblePages().map((page, index) => (
@@ -155,14 +158,14 @@ export const Pagination: FC<PaginationProps> = ({
                         sufixIcon="next"
                         onClick={() => onPageChange(currentPage + 1)}
                     >
-                        {isAtLeast('desktop') ? 'Next' : ''}
+                        {isAtLeast('desktop') ? t.next : ''}
                     </Button>
                 </div>
             )}
 
             {showPageSize && pageSizeOptionsList && (
                 <div className="pagination__page-size">
-                    <span>{pageSizeLabel}</span>
+                    <span>{pageSizeLabel ?? t.rows}</span>
                     <Dropdown
                         name="pageSize"
                         options={pageSizeOptionsList}
@@ -178,11 +181,7 @@ export const Pagination: FC<PaginationProps> = ({
                 </div>
             )}
 
-            {showPagesNumbers && (
-                <span className="page-info">
-                    Page {currentPage} of {totalPages}
-                </span>
-            )}
+            {showPagesNumbers && <span className="page-info">{t.pageOf(currentPage, totalPages)}</span>}
         </div>
     );
 };

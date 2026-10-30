@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Button, type ExternalButtonConfig } from '../Button';
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
@@ -27,12 +29,13 @@ export const Banner: React.FC<BannerProps> = ({
     secondaryAction,
     className = '',
     description,
-    dismissLabel = 'Dismiss',
+    dismissLabel,
     onDismiss,
     showDismiss = true,
     title,
     variant = 'default',
 }: BannerProps) => {
+    const t = useMessages(libMessages);
     const [isDismissed, setIsDismissed] = useState(false);
     const actionVariant = action?.variant || (variant === 'default' ? 'default' : variant);
 
@@ -68,7 +71,7 @@ export const Banner: React.FC<BannerProps> = ({
                 )}
             </div>
             {showDismiss && (
-                <Tooltip title={dismissLabel}>
+                <Tooltip title={dismissLabel ?? t.dismiss}>
                     <button className="banner__dismiss" type="button" onClick={handleDismiss}>
                         <Icon name="clear" size="sm" />
                     </button>

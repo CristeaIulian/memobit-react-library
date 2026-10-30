@@ -1,0 +1,1 @@
+export { BoldText } from './BoldText';

@@ -1,5 +1,7 @@
 import { FC, ReactNode } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Button, ButtonVariant } from '../Button';
 import { Icon, IconName } from '../Icon';
 import { Popover } from '../Popover';
@@ -27,6 +29,7 @@ export interface ConfirmPopoverProps {
 }
 
 export const ConfirmPopover: FC<ConfirmPopoverProps> = ({ visible, onClose, anchorEl, title, message, icon, confirm, cancel, placement = 'auto', offset }) => {
+    const t = useMessages(libMessages);
     const handleConfirm = () => {
         confirm.onClick();
         onClose();
@@ -48,10 +51,10 @@ export const ConfirmPopover: FC<ConfirmPopoverProps> = ({ visible, onClose, anch
                 {message && <div className="confirm-popover__message">{message}</div>}
                 <div className="confirm-popover__actions">
                     <Button size="small" variant={cancel?.variant ?? 'default'} icon={cancel?.icon} onClick={handleCancel}>
-                        {cancel?.text ?? 'Cancel'}
+                        {cancel?.text ?? t.cancel}
                     </Button>
                     <Button size="small" variant={confirm.variant ?? 'info'} icon={confirm.icon} onClick={handleConfirm}>
-                        {confirm.text ?? 'Confirm'}
+                        {confirm.text ?? t.confirm}
                     </Button>
                 </div>
             </div>

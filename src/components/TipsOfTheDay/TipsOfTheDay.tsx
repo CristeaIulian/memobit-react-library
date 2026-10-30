@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Card } from '../Card';
 import { Icon } from '../Icon';
 
@@ -12,12 +14,13 @@ interface TipsOfTheDayProps {
 }
 
 export const TipsOfTheDay: FC<TipsOfTheDayProps> = ({ list }: TipsOfTheDayProps): React.ReactElement => {
+    const t = useMessages(libMessages);
     const tipIndex = randomIntFromInterval(0, list.length - 1);
 
     return (
         <Card className="tips-of-the-day">
             <h3>
-                <Icon name="sparkle" /> Tip Of The Day <Icon name="sparkle" />
+                <Icon name="sparkle" /> {t.tipOfTheDay} <Icon name="sparkle" />
             </h3>{' '}
             <h4>{list[tipIndex]}</h4>
         </Card>

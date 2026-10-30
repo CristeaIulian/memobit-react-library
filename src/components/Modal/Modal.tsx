@@ -2,8 +2,10 @@ import { FC, MouseEvent, ReactElement, ReactNode, useEffect, useRef } from 'reac
 
 import { createPortal } from 'react-dom';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { useComponentEffect } from '../../hooks/useComponentEffect';
+import { useMessages } from '../../hooks/useLanguage';
 import { Button, type ExternalButtonConfig } from '../Button';
 import { Icon, IconName } from '../Icon';
 import { Tooltip } from '../Tooltip';
@@ -48,6 +50,7 @@ export const Modal: FC<ModalProps> = ({
     titleIcon,
     usePortal = false,
 }: ModalProps): ReactElement | null => {
+    const t = useMessages(libMessages);
     const effectClass = useComponentEffect('Modal');
     useBodyScrollLock(isOpen);
 
@@ -95,7 +98,7 @@ export const Modal: FC<ModalProps> = ({
                     <h2>
                         {titleIcon ? <Icon name={titleIcon} /> : null} {title}
                     </h2>
-                    <Tooltip title="Close modal">
+                    <Tooltip title={t.closeModal}>
                         <Button className="modal__close" icon="clear" onClick={onClose} size="medium" variant="ghost" />
                     </Tooltip>
                 </div>

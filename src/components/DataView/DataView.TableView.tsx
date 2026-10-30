@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Checkbox } from '../Checkbox';
 import { EmptyState } from '../EmptyState';
 import { Icon } from '../Icon';
@@ -89,6 +91,7 @@ export function TableView<T>({
     collapsedGroups,
     onToggleGroup,
 }: TableViewProps<T>) {
+    const t = useMessages(libMessages);
     const totalCols = columns.length + (showTimeline ? 1 : 0) + (selectable ? 1 : 0) + (actions ? 1 : 0);
     const showGroupCount = group?.showCount !== false;
 
@@ -143,7 +146,7 @@ export function TableView<T>({
                     {columns.map((column, columnIndex) => (
                         <td key={column.key} style={columnWidths[column.key] ? { width: columnWidths[column.key] } : undefined}>
                             {columnIndex === 0 && isPinned && (
-                                <Tooltip title="Pinned">
+                                <Tooltip title={t.pinned}>
                                     <Icon className="data-view__pin-indicator" name="pin" size="sm" />
                                 </Tooltip>
                             )}
@@ -183,7 +186,7 @@ export function TableView<T>({
                                 secondary={empty.secondary}
                             />
                         ) : (
-                            <EmptyState title="No data available" />
+                            <EmptyState title={t.noData} />
                         )}
                     </td>
                 </tr>
@@ -208,7 +211,7 @@ export function TableView<T>({
                                 {showGroupCount && (
                                     <span className="data-view__group-count">
                                         {/* A group that spans a page boundary shows how much of it is on this page. */}
-                                        {grp.items.length === grp.totalCount ? grp.totalCount : `${grp.items.length} of ${grp.totalCount}`}
+                                        {grp.items.length === grp.totalCount ? grp.totalCount : t.groupPartCount(grp.items.length, grp.totalCount)}
                                     </span>
                                 )}
                                 {group?.collapsible && <Icon className="data-view__group-chevron" name={isCollapsed ? 'caret-down' : 'caret-up'} size="sm" />}
@@ -259,7 +262,7 @@ export function TableView<T>({
                     })}
                     {actions && (
                         <th className="data-view__actions-header" style={actionsWidth ? { width: actionsWidth } : undefined}>
-                            Actions
+                            {t.actions}
                         </th>
                     )}
                 </tr>

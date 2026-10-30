@@ -1,6 +1,8 @@
 import React, { type ReactNode, useState } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useMessages } from '../../hooks/useLanguage';
 import { Button } from '../Button';
 import { useControlPanelContext } from '../ControlPanel';
 import { Dropdown, type DropdownOption } from '../Dropdown';
@@ -145,6 +147,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     search,
     sort,
 }) => {
+    const t = useMessages(libMessages);
     const controlPanel = useControlPanelContext();
     const shouldShowControlPanelToggle = Boolean(controlPanelToggle && controlPanel?.isDrawer);
     const toggleCount = typeof controlPanelToggle === 'object' ? (controlPanelToggle.count ?? 0) : 0;
@@ -190,7 +193,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     };
 
     const controlPanelToggleButton = shouldShowControlPanelToggle && (
-        <Tooltip title="Filters">
+        <Tooltip title={t.filters}>
             <Button className="memobit-toolbar__control-panel-toggle" icon="tune" onClick={controlPanel?.toggle} size="medium" variant="default">
                 {controlPanelToggle && getControlPanelToggleLabel(controlPanelToggle)}
                 {toggleCount > 0 && <span className="memobit-toolbar__control-panel-toggle-count">{toggleCount}</span>}
@@ -229,14 +232,14 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                             />
                         </div>
                     ) : (
-                        <Tooltip title="Search">
+                        <Tooltip title={t.search}>
                             <Button icon="search" onClick={() => setIsSearchOpen(true)} size="medium" variant="default" />
                         </Tooltip>
                     ))}
                 {actions}
                 {notificationPanel}
                 {menu}
-                <Tooltip title="Show the toolbar">
+                <Tooltip title={t.showToolbar}>
                     <Button icon="caret-down" onClick={() => setCollapsed(false)} size="medium" variant="default" />
                 </Tooltip>
             </div>
@@ -302,7 +305,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                     {notificationPanel}
                     {menu}
                     {canCollapse && (
-                        <Tooltip title="Hide the toolbar">
+                        <Tooltip title={t.hideToolbar}>
                             <Button icon="caret-up" onClick={() => setCollapsed(true)} size="medium" variant="default" />
                         </Tooltip>
                     )}

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
+import { useMessages } from '../../hooks/useLanguage';
 import { Button, type ButtonProps, type ExternalButtonConfig } from '../Button';
 import { Icon, IconName } from '../Icon';
 import { Tooltip } from '../Tooltip';
@@ -78,11 +80,12 @@ export const Drawer: React.FC<DrawerProps> = ({
     hideClose = false,
     actions = [],
     onBack,
-    backLabel = 'Back',
+    backLabel,
     primary,
     secondary,
     footer,
 }) => {
+    const t = useMessages(libMessages);
     useBodyScrollLock(isOpen && lockScroll);
 
     const [stackIndex, setStackIndex] = useState(0);
@@ -146,7 +149,7 @@ export const Drawer: React.FC<DrawerProps> = ({
             <div className={`drawer drawer--${position} ${className}`} style={drawerStyle}>
                 <div className="drawer__header">
                     {onBack && (
-                        <Tooltip title={backLabel} position="bottom">
+                        <Tooltip title={backLabel ?? t.back} position="bottom">
                             <Button className="drawer__back" onClick={onBack} size="small" variant="ghost" icon="arrow-left" />
                         </Tooltip>
                     )}
@@ -184,7 +187,7 @@ export const Drawer: React.FC<DrawerProps> = ({
                         </div>
                     )}
                     {!hideClose && (
-                        <Tooltip title="Close drawer">
+                        <Tooltip title={t.closeDrawer}>
                             <Button className="drawer__close" icon="clear" onClick={onClose} size="medium" variant="ghost" />
                         </Tooltip>
                     )}

@@ -3,7 +3,9 @@ import React, { useEffect, useId, useRef, useState } from 'react';
 import { caretDown, clear } from '@memobit/icons';
 import { createPortal } from 'react-dom';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { foldDiacritics } from '../../helpers/Search';
+import { useMessages } from '../../hooks/useLanguage';
 import { Button } from '../Button';
 import { Icon, type IconName } from '../Icon';
 import { InputText } from '../InputText';
@@ -86,7 +88,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     onChange,
     onSearchChange,
     options,
-    placeholder = 'Select an option',
+    placeholder: placeholderProp,
     searchable = true,
     searchValue,
     selectedCountDisplay = 'inline',
@@ -97,6 +99,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     value,
     valueAsChip = true,
 }) => {
+    const t = useMessages(libMessages);
+    const placeholder = placeholderProp ?? t.selectOption;
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [filterText, setFilterText] = useState<string>(searchValue || '');
     const [filteredOptions, setFilteredOptions] = useState<DropdownOption[]>(options);
@@ -678,7 +682,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             .join(', ');
         const remaining = selectedOptions.length - visibleCount;
 
-        return `${visibleLabels} (+${remaining} ${remaining === 1 ? 'other' : 'others'})`;
+        return t.selectedWithOthers(visibleLabels, remaining);
     };
 
     const getDisplayText = (): string => {
@@ -724,7 +728,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
 
         if (selectedCountDisplay === 'floating') {
-            return <div className="dropdown-selected-count">{selectedOptions.length} selected</div>;
+            return <div className="dropdown-selected-count">{t.selectedCount(selectedOptions.length)}</div>;
         }
 
         return null;
@@ -815,14 +819,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                 <div className="dropdown-option-content">
                                     <span className="dropdown-option-label">
                                         <Icon name="plus" />
-                                        <span>Create &ldquo;{filterText}&rdquo;</span>
+                                        <span>{t.createOption(filterText)}</span>
                                     </span>
                                 </div>
                             </li>
                         )}
                     </ul>
                 ) : (
-                    <div className="dropdown-no-options">No options found</div>
+                    <div className="dropdown-no-options">{t.noOptions}</div>
                 )}
             </div>
         );
@@ -874,7 +878,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     selectedOptions.map(option => (
                         <span key={`dd-chip-${option.value}`} className="dropdown-chip">
                             <span className="dropdown-chip__label">{option.label}</span>
-                            <Tooltip title="Remove">
+                            <Tooltip title={t.remove}>
                                 <button
                                     type="button"
                                     className="dropdown-chip__remove"

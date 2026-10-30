@@ -1,3 +1,5 @@
+import type { Language, Localized } from '../contexts/LanguageContext';
+
 export const formatDuration = (minutes: number): string => {
     if (minutes < 60) {
         return `${minutes} min`;
@@ -35,17 +37,20 @@ export const formatSecondsToMediaTime = (seconds: number | undefined): string =>
     return `${hours}:${formattedMinutes}:${formattedSeconds}`;
 };
 
-const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const MONTH_NAMES: Localized<string[]> = {
+    en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    ro: ['ian', 'feb', 'mar', 'apr', 'mai', 'iun', 'iul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+};
 
 /**
  * Formats a date according to the specified format string
  * Supported tokens: YYYY, MMM, MM, DD, HH, mm, ss
  */
-export const formatDate = (date: Date, format: string): string => {
+export const formatDate = (date: Date, format: string, language: Language = 'en'): string => {
     const year = date.getFullYear();
     const monthIndex = date.getMonth();
     const month = String(monthIndex + 1).padStart(2, '0');
-    const monthName = MONTH_NAMES[monthIndex];
+    const monthName = MONTH_NAMES[language][monthIndex];
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -76,15 +81,15 @@ export const getTodayDateString = (): string => {
 export const APP_DATE_FORMAT = 'DD MMM YYYY';
 export const APP_DATE_TIME_FORMAT = 'DD MMM YYYY HH:mm';
 
-export const formatAppDate = (dateStr: string): string => {
+export const formatAppDate = (dateStr: string, language: Language = 'en'): string => {
     const [year, month, day] = dateStr.split('-').map(Number);
-    return formatDate(new Date(year, month - 1, day), APP_DATE_FORMAT);
+    return formatDate(new Date(year, month - 1, day), APP_DATE_FORMAT, language);
 };
 
-export const formatAppDateTime = (dateStr: string): string => {
+export const formatAppDateTime = (dateStr: string, language: Language = 'en'): string => {
     const d = new Date(dateStr.replace(' ', 'T'));
     if (isNaN(d.getTime())) return dateStr;
-    return formatDate(d, APP_DATE_TIME_FORMAT);
+    return formatDate(d, APP_DATE_TIME_FORMAT, language);
 };
 
 export const formatRelativeDuration = (days: number): string => {

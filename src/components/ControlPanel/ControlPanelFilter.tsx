@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
+import { type LibMessages, libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Button } from '../Button';
 import { Chip } from '../Chip';
 import { DatePicker } from '../DatePicker';
@@ -37,8 +39,6 @@ const getFilterArrayValue = (value: Array<string | number>): string[] | number[]
 // numeric id, so a strict comparison would never see the selection.
 const isSameValue = (a: string | number, b: string | number): boolean => String(a) === String(b);
 
-const STALE_OPTION_HINT = 'No longer available. Click to remove.';
-
 /**
  * Selected values that no option matches anymore. Pages persist filter values
  * and usually derive the options from the current data, so a value can outlive
@@ -46,12 +46,12 @@ const STALE_OPTION_HINT = 'No longer available. Click to remove.';
  * It still filters the list, so instead of hiding it we hand it back as a
  * synthetic option the user can see and remove.
  */
-const getStaleOptions = (selectedValues: Array<string | number>, options: ControlPanelFilterOption[]): ControlPanelFilterOption[] =>
+const getStaleOptions = (selectedValues: Array<string | number>, options: ControlPanelFilterOption[], details: string): ControlPanelFilterOption[] =>
     selectedValues
         .filter(value => value !== '' && !options.some(option => isSameValue(option.value, value)))
         .map((value): ControlPanelFilterOption => ({
             className: 'control-panel__filter-option--stale',
-            details: 'No longer available',
+            details,
             icon: 'warning',
             label: String(value),
             value,
@@ -68,12 +68,12 @@ const getSelectedOptionLabels = (filter: ControlPanelFilter): string[] => {
 
 // Preview text for a collapsed filter: enough to tell at a glance what the
 // section is holding without expanding it.
-const getFilterSummary = (filter: ControlPanelFilter): string | undefined => {
+const getFilterSummary = (filter: ControlPanelFilter, t: LibMessages): string | undefined => {
     const { type, value } = filter;
 
     if (value === null || value === undefined || value === '') return undefined;
 
-    if (type === 'checkbox') return value === true ? 'On' : undefined;
+    if (type === 'checkbox') return value === true ? t.filterOn : undefined;
 
     if (type === 'range') {
         const [min, max] = Array.isArray(value) ? (value as Array<number | undefined>) : [];
@@ -86,8 +86,8 @@ const getFilterSummary = (filter: ControlPanelFilter): string | undefined => {
     if (type === 'date-range') {
         const [from, to] = Array.isArray(value) ? (value as string[]) : [];
         if (!from && !to) return undefined;
-        if (!from) return `until ${to}`;
-        if (!to) return `from ${from}`;
+        if (!from) return t.filterUntil(to);
+        if (!to) return t.filterFrom(from);
         return `${from} → ${to}`;
     }
 
@@ -110,11 +110,12 @@ interface ControlPanelFilterItemProps {
 }
 
 export const ControlPanelFilterItem: React.FC<ControlPanelFilterItemProps> = ({ filter, collapsible = false, onChange }) => {
+    const t = useMessages(libMessages);
     // A checkbox filter renders as a lone chip carrying its own label — there is
     // no heading to turn into a toggle, so it always stays visible.
     const isCollapsible = collapsible && filter.type !== 'checkbox';
     const [isExpanded, setIsExpanded] = useState(filter.defaultExpanded ?? false);
-    const summary = filter.summary ?? getFilterSummary(filter);
+    const summary = filter.summary ?? getFilterSummary(filter, t);
 
     const title = (
         <span className={`control-panel__filter-title${filter.isActive ? ' control-panel__filter-title--active' : ''}`}>
@@ -199,18 +200,22 @@ const ControlPanelFilterSearch: React.FC<{
  * A selected radio whose option is gone. A radio can't be unticked, so the row
  * is shown checked and clicking it clears the filter.
  */
-const ControlPanelStaleRadio: React.FC<{ option: ControlPanelFilterOption; onRemove: () => void }> = ({ option, onRemove }) => (
-    <Tooltip title={STALE_OPTION_HINT}>
-        <div className="control-panel__filter-radio control-panel__filter-radio--selected control-panel__filter-radio--stale">
-            <label className="control-panel__filter-radio-label">
-                <input checked className="control-panel__filter-radio-input" onChange={onRemove} type="checkbox" />
-                <Icon className="control-panel__filter-icon" name="warning" />
-                <span className="control-panel__filter-label">{option.label}</span>
-                <Icon className="control-panel__filter-icon" name="clear" />
-            </label>
-        </div>
-    </Tooltip>
-);
+const ControlPanelStaleRadio: React.FC<{ option: ControlPanelFilterOption; onRemove: () => void }> = ({ option, onRemove }) => {
+    const t = useMessages(libMessages);
+
+    return (
+        <Tooltip title={t.filterStaleHint}>
+            <div className="control-panel__filter-radio control-panel__filter-radio--selected control-panel__filter-radio--stale">
+                <label className="control-panel__filter-radio-label">
+                    <input checked className="control-panel__filter-radio-input" onChange={onRemove} type="checkbox" />
+                    <Icon className="control-panel__filter-icon" name="warning" />
+                    <span className="control-panel__filter-label">{option.label}</span>
+                    <Icon className="control-panel__filter-icon" name="clear" />
+                </label>
+            </div>
+        </Tooltip>
+    );
+};
 
 interface ControlPanelFilterControlProps {
     filter: ControlPanelFilter;
@@ -218,9 +223,13 @@ interface ControlPanelFilterControlProps {
 }
 
 const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ filter, onChange: emitFilterChange }) => {
+    const t = useMessages(libMessages);
     const selectedValues = getArrayValue(filter.value);
     const filterOptions = filter.options ?? [];
-    const staleOptions = useMemo(() => getStaleOptions(getArrayValue(filter.value), filter.options ?? []), [filter.value, filter.options]);
+    const staleOptions = useMemo(
+        () => getStaleOptions(getArrayValue(filter.value), filter.options ?? [], t.filterStaleDetails),
+        [filter.value, filter.options, t.filterStaleDetails]
+    );
     // The dropdown is handed its stale values as ordinary options, so it shows them
     // as selected and they can be unticked or cleared like any other.
     const dropdownOptions = useMemo(
@@ -319,9 +328,9 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                     min={filter.min}
                     max={filter.max}
                     step={filter.step}
-                    placeholder="Min"
+                    placeholder={t.rangeMin}
                     value={minVal}
-                    error={isInvalid ? 'Min exceeds max' : undefined}
+                    error={isInvalid ? t.rangeMinExceedsMax : undefined}
                     onChange={v => emitRange(v, maxVal)}
                 />
                 <span className="control-panel__filter-range-sep">—</span>
@@ -329,9 +338,9 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                     min={filter.min}
                     max={filter.max}
                     step={filter.step}
-                    placeholder="Max"
+                    placeholder={t.rangeMax}
                     value={maxVal}
-                    error={isInvalid ? 'Max is below min' : undefined}
+                    error={isInvalid ? t.rangeMaxBelowMin : undefined}
                     onChange={v => emitRange(minVal, v)}
                 />
             </div>
@@ -342,7 +351,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
         const dateArr = Array.isArray(filter.value) ? (filter.value as string[]) : [];
         const fromStr: string | undefined = dateArr[0] || undefined;
         const toStr: string | undefined = dateArr[1] || undefined;
-        const presets = filter.presets ?? DEFAULT_DATE_RANGE_PRESETS;
+        const presets = filter.presets ?? DEFAULT_DATE_RANGE_PRESETS.map(preset => ({ ...preset, label: t.datePresetDays(preset.days) }));
 
         const parseLocalDate = (s: string | undefined): Date | undefined => {
             if (!s) return undefined;
@@ -384,7 +393,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                     mode="range"
                     minDate={parseLocalDate(filter.minDate)}
                     maxDate={parseLocalDate(filter.maxDate)}
-                    placeholder={filter.placeholder ?? 'Select range'}
+                    placeholder={filter.placeholder ?? t.selectRange}
                     value={fromStr && toStr ? { start: parseLocalDate(fromStr)!, end: parseLocalDate(toStr)! } : undefined}
                     onChange={val => {
                         if (val && typeof val === 'object' && !Array.isArray(val) && 'start' in val) {
@@ -474,7 +483,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                         className="control-panel__filter-chip-search"
                         value={chipSearch}
                         onChange={setChipSearch}
-                        placeholder={filter.placeholder ?? 'Filter...'}
+                        placeholder={filter.placeholder ?? t.filterPlaceholder}
                     />
                 )}
                 <div
@@ -486,7 +495,7 @@ const ControlPanelFilterControl: React.FC<ControlPanelFilterControlProps> = ({ f
                     }
                 >
                     {staleOptions.map(option => (
-                        <Tooltip key={`stale-${option.value}`} title={STALE_OPTION_HINT}>
+                        <Tooltip key={`stale-${option.value}`} title={t.filterStaleHint}>
                             <Chip
                                 className="control-panel__filter-chip--stale"
                                 icon="warning"

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { AppHeader } from '../AppHeader';
 import { Button } from '../Button';
 import { ConfirmPopover } from '../ConfirmPopover';
@@ -39,6 +41,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     groupBy,
     visibleColumns,
 }) => {
+    const t = useMessages(libMessages);
     const controlPanelContext = useControlPanelContext();
     // A drawer opens over the page from the toolbar: on mobile, and on desktop once the user undocks it.
     const isDrawer = isMobileProp ?? controlPanelContext?.isDrawer ?? false;
@@ -84,10 +87,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             <aside className={panelClassName} style={panelStyle}>
                 {dock && (
                     <div className="control-panel__dock">
-                        <Tooltip
-                            title={isDrawer ? 'Keep the panel open beside the page' : 'Hide the panel, and open it from the toolbar when needed'}
-                            position="right"
-                        >
+                        <Tooltip title={isDrawer ? t.panelKeepOpen : t.panelHide} position="right">
                             <Button icon={isDrawer ? 'pin' : 'caret-left'} onClick={() => dock.setUndocked(!isDrawer)} size="small" variant="default" />
                         </Tooltip>
                     </div>
@@ -124,12 +124,12 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     <div className={filtersClassName}>
                         <div className="control-panel__filters-header">
                             <span className="control-panel__filters-heading">
-                                Filters
+                                {t.filters}
                                 {filtersCount !== undefined && <span className="control-panel__filters-count">{filtersCount}</span>}
                             </span>
                             {onClearFilters && (
                                 <button className="control-panel__filters-clear" type="button" onClick={() => onClearFilters({ source: 'control-panel' })}>
-                                    Clear filters
+                                    {t.clearFilters}
                                 </button>
                             )}
                         </div>
@@ -178,6 +178,7 @@ const ControlPanelActionButton: React.FC<ControlPanelActionButtonProps> = ({ act
     // anchorEl stays set after the popover closes so position recomputes work
     // correctly if the user reopens — and React reusing the same DOM node
     // means we don't need to refresh it on every render.
+    const t = useMessages(libMessages);
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [confirmVisible, setConfirmVisible] = useState(false);
 
@@ -233,13 +234,13 @@ const ControlPanelActionButton: React.FC<ControlPanelActionButtonProps> = ({ act
                     icon={action.confirm.icon}
                     placement={action.confirm.placement ?? 'right'}
                     confirm={{
-                        text: action.confirm.confirm?.text ?? 'Confirm',
+                        text: action.confirm.confirm?.text ?? t.confirm,
                         icon: action.confirm.confirm?.icon,
                         variant: action.confirm.confirm?.variant ?? action.variant ?? 'info',
                         onClick: handleConfirm,
                     }}
                     cancel={{
-                        text: action.confirm.cancel?.text ?? 'Cancel',
+                        text: action.confirm.cancel?.text ?? t.cancel,
                         icon: action.confirm.cancel?.icon,
                         variant: action.confirm.cancel?.variant ?? 'default',
                     }}

@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { addMonths, APP_DATE_FORMAT, formatDate, getMonthMatrix, isAfter, isBefore, isSameDay, isToday, isWeekend } from '../../helpers/Datetime';
+import { useLanguage, useMessages } from '../../hooks/useLanguage';
 import { Tooltip } from '../Tooltip';
 
 import './Calendar.scss';
@@ -33,11 +35,6 @@ export interface CalendarProps {
 
 const YEARS_PER_PAGE = 12;
 
-const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-const DAY_NAMES_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const DAY_NAMES_SHORT_MONDAY_FIRST = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
 export const Calendar: React.FC<CalendarProps> = ({
     value,
     onChange,
@@ -55,6 +52,8 @@ export const Calendar: React.FC<CalendarProps> = ({
     rangeStart,
     onRangeStartChange,
 }: CalendarProps) => {
+    const t = useMessages(libMessages);
+    const { language } = useLanguage();
     const [internalMonth, setInternalMonth] = useState(() => {
         if (value) {
             if (value instanceof Date) {
@@ -82,7 +81,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         return getMonthMatrix(displayMonth.getFullYear(), displayMonth.getMonth(), firstDayOfWeek);
     }, [displayMonth, firstDayOfWeek]);
 
-    const dayNames = firstDayOfWeek === 1 ? DAY_NAMES_SHORT_MONDAY_FIRST : DAY_NAMES_SHORT;
+    const dayNames = firstDayOfWeek === 1 ? [...t.dayNamesShort.slice(1), t.dayNamesShort[0]] : t.dayNamesShort;
 
     const isDateDisabled = (date: Date): boolean => {
         if (minDate && isBefore(date, minDate)) return true;
@@ -316,7 +315,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         if (view === 'years') {
             return (
                 <div className="calendar__header">
-                    <Tooltip title="Previous years">
+                    <Tooltip title={t.previousYears}>
                         <button type="button" className="calendar__nav-button" onClick={handlePreviousYears}>
                             ‹
                         </button>
@@ -324,7 +323,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                     <div className="calendar__month-year">
                         {yearsRangeStart} - {yearsRangeStart + YEARS_PER_PAGE - 1}
                     </div>
-                    <Tooltip title="Next years">
+                    <Tooltip title={t.nextYears}>
                         <button type="button" className="calendar__nav-button" onClick={handleNextYears}>
                             ›
                         </button>
@@ -336,7 +335,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         if (view === 'months') {
             return (
                 <div className="calendar__header">
-                    <Tooltip title="Previous year">
+                    <Tooltip title={t.previousYear}>
                         <button type="button" className="calendar__nav-button" onClick={handlePreviousYear}>
                             ‹
                         </button>
@@ -344,7 +343,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                     <button type="button" className="calendar__header-button" onClick={handleYearHeaderClick}>
                         {displayMonth.getFullYear()}
                     </button>
-                    <Tooltip title="Next year">
+                    <Tooltip title={t.nextYear}>
                         <button type="button" className="calendar__nav-button" onClick={handleNextYear}>
                             ›
                         </button>
@@ -355,18 +354,18 @@ export const Calendar: React.FC<CalendarProps> = ({
 
         return (
             <div className="calendar__header">
-                <Tooltip title="Previous month">
+                <Tooltip title={t.previousMonth}>
                     <button type="button" className="calendar__nav-button" onClick={handlePreviousMonth}>
                         ‹
                     </button>
                 </Tooltip>
                 <div className="calendar__month-year">
                     {yearOnly ? (
-                        <span className="calendar__header-label">{MONTH_NAMES[displayMonth.getMonth()]}</span>
+                        <span className="calendar__header-label">{t.monthNames[displayMonth.getMonth()]}</span>
                     ) : (
                         <>
                             <button type="button" className="calendar__header-button" onClick={handleMonthHeaderClick}>
-                                {MONTH_NAMES[displayMonth.getMonth()]}
+                                {t.monthNames[displayMonth.getMonth()]}
                             </button>
                             <button type="button" className="calendar__header-button" onClick={handleYearHeaderClick}>
                                 {displayMonth.getFullYear()}
@@ -374,7 +373,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                         </>
                     )}
                 </div>
-                <Tooltip title="Next month">
+                <Tooltip title={t.nextMonth}>
                     <button type="button" className="calendar__nav-button" onClick={handleNextMonth}>
                         ›
                     </button>
@@ -412,7 +411,7 @@ export const Calendar: React.FC<CalendarProps> = ({
 
         return (
             <div className="calendar__months-grid">
-                {MONTH_NAMES.map((month, index) => (
+                {t.monthNames.map((month, index) => (
                     <button
                         key={month}
                         type="button"
@@ -439,7 +438,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                     {showToday && !yearOnly && (
                         <div className="calendar__today-section">
                             <button type="button" className="calendar__today-button" onClick={handleTodayClick}>
-                                Today
+                                {t.today}
                             </button>
                         </div>
                     )}
@@ -456,7 +455,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                         {monthMatrix.map((week, weekIndex) => (
                             <div key={weekIndex} className="calendar__week">
                                 {week.map((date, dayIndex) => (
-                                    <Tooltip key={dayIndex} title={formatDate(date, APP_DATE_FORMAT)}>
+                                    <Tooltip key={dayIndex} title={formatDate(date, APP_DATE_FORMAT, language)}>
                                         <button
                                             type="button"
                                             className={getDayClassName(date)}

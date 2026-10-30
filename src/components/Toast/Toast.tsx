@@ -1,5 +1,7 @@
 import { FC, useEffect } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
 
@@ -34,6 +36,7 @@ export const Toast: FC<ToastProps> = ({
     timeout = 3000,
     action,
 }: ToastProps) => {
+    const t = useMessages(libMessages);
     useEffect(() => {
         const timer = setTimeout(() => {
             onClose();
@@ -51,7 +54,7 @@ export const Toast: FC<ToastProps> = ({
                 </button>
             )}
             {showDismissButton && (
-                <Tooltip title="Close">
+                <Tooltip title={t.close}>
                     <button className="toast__close" onClick={onClose}>
                         <Icon name="clear" size="sm" />
                     </button>

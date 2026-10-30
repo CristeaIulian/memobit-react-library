@@ -19,6 +19,7 @@ export {
     getRangeLabel,
     PEDIATRIC_THRESHOLDS,
 } from './components/BMI';
+export { BoldText } from './components/BoldText';
 export { Breadcrumb, type BreadcrumbItem } from './components/Breadcrumb';
 export { type BulkAction, BulkActionBar, type BulkActionBarProgress, type BulkActionBarProps } from './components/BulkActionBar';
 export { Button, type ButtonVariant } from './components/Button';
@@ -252,6 +253,9 @@ export { Login as AuthLogin } from './components/Auth/Login';
 // Export Auth context
 export { AuthContext, AuthProvider } from './contexts/AuthContext';
 
+// Export Language context
+export { type Language, LanguageContext, type LanguageContextValue, LanguageProvider, type Localized } from './contexts/LanguageContext';
+
 // Export Auth types
 export type { AuthConfig, AuthContextValue, LoginCredentials, LoginOutcome, LoginResponse, MfaMethod, User, VerifyResponse } from './types/auth.types';
 
@@ -262,6 +266,7 @@ export { useAuth } from './hooks/useAuth';
 export { useBodyScrollLock } from './hooks/useBodyScrollLock';
 export { type Breakpoint, breakpoints, useBreakpoint } from './hooks/useBreakpoint';
 export { useComponentEffect } from './hooks/useComponentEffect';
+export { useLanguage, useLanguageMenuItem, useMessages } from './hooks/useLanguage';
 export {
     LIST_MOTION_KEY_ATTRIBUTE,
     type ListMotionKey,
@@ -347,6 +352,7 @@ export {
     rotatedSize,
 } from './helpers/ImageCrop';
 export { createImagePaths, DATA_FILES_PATH, type ImagePaths } from './helpers/Images';
+export { roCount } from './helpers/Language';
 export { type LogicalOperator, matchStringsByLogicalOperator } from './helpers/LogicalOperators';
 export { clamp, format2Digits, getPercent, getPercentsOf2Numbers } from './helpers/Numbers';
 export { getResultsCount } from './helpers/Pagination';

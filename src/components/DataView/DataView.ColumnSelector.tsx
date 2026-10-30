@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
 import { Icon } from '../Icon';
@@ -12,7 +14,8 @@ interface DataViewColumnSelectorProps {
 }
 
 export function DataViewColumnSelector({ config }: DataViewColumnSelectorProps) {
-    const { options, selectedKeys, onChange, label = 'Columns' } = config;
+    const t = useMessages(libMessages);
+    const { options, selectedKeys, onChange, label = t.columns } = config;
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [visible, setVisible] = useState(false);
 

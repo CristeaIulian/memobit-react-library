@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Checkbox } from '../Checkbox';
 import { EmptyState } from '../EmptyState';
 import { Icon } from '../Icon';
@@ -60,6 +62,7 @@ export function CardView<T>({
     collapsedGroups,
     onToggleGroup,
 }: CardViewProps<T>) {
+    const t = useMessages(libMessages);
     const cardColumns = columns.filter(col => !col.hideInCard && !(isMobile && col.hideInMobile));
     const pinnedSet = useMemo(() => new Set(pinnedIds ?? []), [pinnedIds]);
     const cardsClassName = `data-view__cards${cardMaxWidth !== undefined ? ' data-view__cards--grid' : ''}`;
@@ -78,7 +81,7 @@ export function CardView<T>({
         if (empty) {
             return <EmptyState title={empty.title} description={empty.description} icon={empty.icon} primary={empty.primary} secondary={empty.secondary} />;
         }
-        return <EmptyState title="No data available" />;
+        return <EmptyState title={t.noData} />;
     }
 
     const renderRow = (row: T, index: number) => {
@@ -106,7 +109,7 @@ export function CardView<T>({
         const cardInner = (
             <>
                 {isPinned && (
-                    <Tooltip title="Pinned">
+                    <Tooltip title={t.pinned}>
                         <span className="data-view__card-pin">
                             <Icon name="pin" size="sm" />
                         </span>
@@ -194,7 +197,7 @@ export function CardView<T>({
                                 {showGroupCount && (
                                     <span className="data-view__group-count">
                                         {/* A group that spans a page boundary shows how much of it is on this page. */}
-                                        {group.items.length === group.totalCount ? group.totalCount : `${group.items.length} of ${group.totalCount}`}
+                                        {group.items.length === group.totalCount ? group.totalCount : t.groupPartCount(group.items.length, group.totalCount)}
                                     </span>
                                 )}
                                 {collapsible && <Icon className="data-view__group-chevron" name={isCollapsed ? 'caret-down' : 'caret-up'} size="sm" />}

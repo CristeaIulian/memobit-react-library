@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { getResultsCount } from '../../helpers/Pagination';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useLanguage, useMessages } from '../../hooks/useLanguage';
 import { useListMotion } from '../../hooks/useListMotion';
 import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
@@ -65,6 +67,8 @@ export function DataView<T>({
     animateChanges = true,
     highlightIds,
 }: DataViewProps<T>) {
+    const t = useMessages(libMessages);
+    const { language } = useLanguage();
     const { isMobile } = useBreakpoint();
     const rootRef = useRef<HTMLDivElement>(null);
     // Index keys shift on every insert and delete, so without `rowKey` there is nothing stable to track.
@@ -249,7 +253,7 @@ export function DataView<T>({
     }, [handlePageChange, highlightIds, isServerPaginated, orderedData, pageSize, resolvedRowKey, safeCurrentPage]);
 
     const resultsCountLabel = showResultsCount
-        ? getResultsCount(pageSize, totalForPagination, totalCount ?? totalForPagination, safeCurrentPage, itemNoun)
+        ? getResultsCount(pageSize, totalForPagination, totalCount ?? totalForPagination, safeCurrentPage, itemNoun, language)
         : null;
     const groupTotals = useMemo<Map<DataViewGroupKey, number> | null>(() => {
         if (!group) return null;
@@ -386,7 +390,7 @@ export function DataView<T>({
         selectable && visibleKeys.length > 0 ? (
             <label className="data-view__select-all">
                 <Checkbox checked={allVisibleSelected} indeterminate={someVisibleSelected} onChange={toggleVisibleSelection} />
-                <span>{allVisibleSelected ? 'Clear selection' : `Select these ${visibleKeys.length}`}</span>
+                <span>{allVisibleSelected ? t.clearSelection : t.selectThese(visibleKeys.length)}</span>
             </label>
         ) : null;
     const buildTopControls = (extra?: React.ReactNode): React.ReactNode =>
@@ -431,7 +435,7 @@ export function DataView<T>({
             <div className={`data-view${className ? ` ${className}` : ''}`} ref={rootRef}>
                 {topControlsNode}
                 <div className="data-view__wrapper data-view__wrapper--empty">
-                    <EmptyState title="No columns selected" description="Use the Columns button above to pick which columns to display." />
+                    <EmptyState title={t.noColumnsTitle} description={t.noColumnsHint} />
                 </div>
             </div>
         );
@@ -448,10 +452,10 @@ export function DataView<T>({
                         <div className="data-view__card-sort-field">
                             <Dropdown
                                 name="data-view-card-sort"
-                                label="Sort by"
+                                label={t.sortBy}
                                 options={sortOptions}
                                 value={sortKey}
-                                placeholder="Sort by..."
+                                placeholder={t.sortByPlaceholder}
                                 searchable={false}
                                 usePortal={false}
                                 onChange={option => {
@@ -465,7 +469,7 @@ export function DataView<T>({
                                 }}
                             />
                         </div>
-                        <Tooltip title={sortDirection === 'asc' ? 'Sort descending' : 'Sort ascending'}>
+                        <Tooltip title={sortDirection === 'asc' ? t.sortDescending : t.sortAscending}>
                             <Button
                                 className="data-view__card-sort-direction"
                                 disabled={!activeSortColumn}

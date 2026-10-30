@@ -1,5 +1,7 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Icon } from '../Icon';
 import { InputText } from '../InputText';
 import { Tooltip } from '../Tooltip';
@@ -37,7 +39,7 @@ export const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
             onClick,
             onKeyDown,
             onKeyUp,
-            placeholder = 'Search...',
+            placeholder,
             readOnly = false,
             required = false,
             value,
@@ -45,6 +47,7 @@ export const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
         },
         ref
     ) => {
+        const t = useMessages(libMessages);
         const handleClear = () => {
             onChange?.('');
         };
@@ -67,14 +70,14 @@ export const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
                     onClick={onClick}
                     onKeyDown={onKeyDown}
                     onKeyUp={onKeyUp}
-                    placeholder={placeholder}
+                    placeholder={placeholder ?? t.searchPlaceholder}
                     readOnly={readOnly}
                     required={required}
                     value={value}
                     ref={ref}
                 />
                 {showClearButton && (
-                    <Tooltip title="Clear search">
+                    <Tooltip title={t.clearSearch}>
                         <button type="button" className="input-search__clear" onClick={handleClear}>
                             <Icon name="clear" size="sm" />
                         </button>

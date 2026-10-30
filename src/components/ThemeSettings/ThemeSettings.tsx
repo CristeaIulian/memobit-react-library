@@ -2,6 +2,8 @@ import { type CSSProperties, FC, useEffect, useMemo, useRef, useState } from 're
 
 import { previewPalettes } from '@memobit/themes';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Checkbox } from '../Checkbox';
 import { Drawer } from '../Drawer';
 import { Dropdown, DropdownOption } from '../Dropdown';
@@ -15,12 +17,6 @@ import { useTheme } from './useTheme';
 import './ThemeSettings.scss';
 
 type AppearanceFilter = 'all' | ThemeAppearance;
-
-const APPEARANCE_FILTERS: { value: AppearanceFilter; label: string }[] = [
-    { value: 'all', label: 'All' },
-    { value: 'light', label: 'Light' },
-    { value: 'dark', label: 'Dark' },
-];
 
 export interface ThemeSettingsProps {
     isOpen: boolean;
@@ -43,16 +39,27 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
     showFavorites = true,
     showAppearanceFilter = true,
 }) => {
+    const t = useMessages(libMessages);
     const { theme, effects, setPreviewTheme, setPreviewEffects, commitPreview, clearPreview } = useTheme();
 
-    const componentsWithEffects = ['Card', 'Modal'];
+    const appearanceFilters: { value: AppearanceFilter; label: string }[] = [
+        { value: 'all', label: t.appearanceAll },
+        { value: 'light', label: t.appearanceLight },
+        { value: 'dark', label: t.appearanceDark },
+    ];
+
+    // `value` is what the effects settings store, so it stays the same in every language.
+    const componentsWithEffects = [
+        { value: 'Card', label: t.effectComponentCard },
+        { value: 'Modal', label: t.effectComponentModal },
+    ];
 
     const effectOptions: DropdownOption[] = [
-        { label: 'None', value: '' },
-        { label: 'Note Container', value: 'note-container-effect' },
-        { label: 'Infuse', value: 'infuse-effect' },
-        { label: 'Up Lift', value: 'up-lift-effect' },
-        { label: 'Glow', value: 'glow-effect' },
+        { label: t.effectNone, value: '' },
+        { label: t.effectNoteContainer, value: 'note-container-effect' },
+        { label: t.effectInfuse, value: 'infuse-effect' },
+        { label: t.effectUpLift, value: 'up-lift-effect' },
+        { label: t.effectGlow, value: 'glow-effect' },
     ];
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -146,27 +153,27 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
         <Drawer
             isOpen={isOpen}
             onClose={handleCancel}
-            title="Theme Settings"
+            title={t.themeSettings}
             position="right"
             width="520px"
             maxWidth="calc(100vw - 32px)"
             className="theme-settings-drawer"
-            secondary={{ text: 'Cancel', variant: 'default', onClick: handleCancel, icon: 'clear' }}
-            primary={{ text: 'Save changes', variant: 'success', onClick: handleSave, icon: 'save' }}
+            secondary={{ text: t.cancel, variant: 'default', onClick: handleCancel, icon: 'clear' }}
+            primary={{ text: t.saveChanges, variant: 'success', onClick: handleSave, icon: 'save' }}
         >
             <div className="theme-settings">
                 <div className="theme-settings__content">
                     <div className="theme-settings__section">
-                        <label>Select Theme</label>
+                        <label>{t.selectTheme}</label>
                         {(showSearch || showFavorites || currentApp) && (
                             <div className="theme-settings__toolbar">
-                                {showSearch && <InputSearch placeholder="Search themes..." value={searchQuery} onChange={setSearchQuery} />}
+                                {showSearch && <InputSearch placeholder={t.searchThemes} value={searchQuery} onChange={setSearchQuery} />}
                                 {currentApp && (
                                     <ToggleSwitch
                                         checked={showRecommendedOnly}
                                         onChange={setShowRecommendedOnly}
-                                        onLabel={`For ${currentApp}`}
-                                        offLabel={`For ${currentApp}`}
+                                        onLabel={t.themesForApp(currentApp)}
+                                        offLabel={t.themesForApp(currentApp)}
                                         size="small"
                                     />
                                 )}
@@ -174,8 +181,8 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
                                     <ToggleSwitch
                                         checked={showFavoritesOnly}
                                         onChange={setShowFavoritesOnly}
-                                        onLabel="Favorites"
-                                        offLabel="Favorites"
+                                        onLabel={t.favorites}
+                                        offLabel={t.favorites}
                                         size="small"
                                     />
                                 )}
@@ -183,7 +190,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
                         )}
                         {showAppearanceFilter && (
                             <div className="theme-settings__appearance">
-                                {APPEARANCE_FILTERS.map(filter => (
+                                {appearanceFilters.map(filter => (
                                     <button
                                         key={filter.value}
                                         type="button"
@@ -199,7 +206,7 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
                         )}
                         <div className="theme-settings__grid">
                             {filteredThemes.length === 0 ? (
-                                <div className="theme-settings__empty">No themes found</div>
+                                <div className="theme-settings__empty">{t.noThemes}</div>
                             ) : (
                                 filteredThemes.map(config => (
                                     <button
@@ -237,26 +244,26 @@ export const ThemeSettings: FC<ThemeSettingsProps> = ({
                     {showEffects && (
                         <>
                             <div className="theme-settings__section">
-                                <label htmlFor="effect-selector">Component Effect</label>
+                                <label htmlFor="effect-selector">{t.componentEffect}</label>
                                 <Dropdown
                                     id="effect-selector"
                                     name="effect"
                                     options={effectOptions}
                                     value={effects.effect}
                                     onChange={handleEffectChange}
-                                    placeholder="Choose an effect"
+                                    placeholder={t.chooseEffect}
                                 />
                             </div>
 
                             <div className="theme-settings__section">
-                                <label>Apply Effect To:</label>
+                                <label>{t.applyEffectTo}</label>
                                 <div className="theme-settings__components">
                                     {componentsWithEffects.map(component => (
                                         <Checkbox
-                                            key={component}
-                                            label={component}
-                                            checked={effects.components.includes(component)}
-                                            onChange={checked => handleComponentToggle(component, checked)}
+                                            key={component.value}
+                                            label={component.label}
+                                            checked={effects.components.includes(component.value)}
+                                            onChange={checked => handleComponentToggle(component.value, checked)}
                                             disabled={!effects.effect}
                                         />
                                     ))}

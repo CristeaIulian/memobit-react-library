@@ -1,5 +1,7 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Tooltip } from '../Tooltip';
 
 import './ScrollToTop.scss';
@@ -11,6 +13,7 @@ interface ScrollToTopProps {
 }
 
 export const ScrollToTop: FC<ScrollToTopProps> = ({ scrollContainer, scrollThreshold = 200, className }) => {
+    const t = useMessages(libMessages);
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -41,7 +44,7 @@ export const ScrollToTop: FC<ScrollToTopProps> = ({ scrollContainer, scrollThres
     }
 
     return (
-        <Tooltip title="Scroll to top">
+        <Tooltip title={t.scrollToTop}>
             <button className={`scroll-to-top${className ? ` ${className}` : ''}`} onClick={scrollToTop}>
                 <span className="scroll-to-top__icon">&#9650;</span>
             </button>

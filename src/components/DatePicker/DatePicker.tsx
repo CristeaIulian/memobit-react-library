@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { APP_DATE_FORMAT, formatDate } from '../../helpers/Datetime';
+import { useLanguage, useMessages } from '../../hooks/useLanguage';
 import type { TimeValue } from '../AnalogClock';
 import { Calendar, CalendarDateRange, CalendarProps } from '../Calendar';
 import { Icon } from '../Icon';
@@ -40,13 +42,15 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     clockSize = 208,
     minuteStep = 1,
     dateFormat = APP_DATE_FORMAT,
-    placeholder = 'Select date...',
+    placeholder,
     disabled = false,
     clearable = true,
     autoClose = true,
     alwaysOpen = false,
     ...calendarProps
 }: DatePickerProps) => {
+    const t = useMessages(libMessages);
+    const { language } = useLanguage();
     const [isOpenInternal, setIsOpenInternal] = useState(false);
     const [time, setTime] = useState<TimeValue>({ hours: 0, minutes: 0, seconds: 0 });
     const [rangeStart, setRangeStart] = useState<Date | null>(null);
@@ -142,7 +146,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         if (!value) return '';
 
         if (mode === 'single' && value instanceof Date) {
-            const formattedDate = formatDate(value, dateFormat);
+            const formattedDate = formatDate(value, dateFormat, language);
             if (withTime) {
                 const timeStr = withSeconds ? formatDate(value, 'HH:mm:ss') : formatDate(value, 'HH:mm');
                 return `${formattedDate} ${timeStr}`;
@@ -151,13 +155,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         }
 
         if (mode === 'range' && value && 'start' in value) {
-            const startStr = formatDate(value.start, dateFormat);
-            const endStr = formatDate(value.end, dateFormat);
+            const startStr = formatDate(value.start, dateFormat, language);
+            const endStr = formatDate(value.end, dateFormat, language);
             return `${startStr} - ${endStr}`;
         }
 
         if (mode === 'multiple' && Array.isArray(value)) {
-            return value.map(d => formatDate(d, dateFormat)).join(', ');
+            return value.map(d => formatDate(d, dateFormat, language)).join(', ');
         }
 
         return '';
@@ -244,10 +248,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                     setIsOpenInternal(!isOpen);
                 }}
             >
-                <span className={`datepicker__value ${!displayValue ? 'datepicker__value--placeholder' : ''}`}>{displayValue || placeholder}</span>
+                <span className={`datepicker__value ${!displayValue ? 'datepicker__value--placeholder' : ''}`}>
+                    {displayValue || (placeholder ?? t.selectDate)}
+                </span>
                 <div className="datepicker__actions">
                     {clearable && displayValue && (
-                        <Tooltip title="Clear">
+                        <Tooltip title={t.clear}>
                             <button type="button" className="datepicker__clear" onClick={handleClear}>
                                 ×
                             </button>
@@ -267,7 +273,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 ) : (
                     createPortal(
                         <div ref={dropdownRef} className="datepicker__dropdown" style={dropdownStyle}>
-                            <Tooltip title="Close">
+                            <Tooltip title={t.close}>
                                 <button type="button" className="datepicker__dropdown-close" onClick={handleClosePanel}>
                                     <Icon name="clear" />
                                 </button>

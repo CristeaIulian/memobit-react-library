@@ -1,5 +1,7 @@
 import { FocusEvent, forwardRef, KeyboardEvent, MouseEvent, useRef } from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
 
@@ -54,6 +56,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
         },
         ref
     ) => {
+        const t = useMessages(libMessages);
         const showClear = clearable && value && !disabled && !readOnly;
 
         // Own the input node so the picker button can open the native calendar. Merge with any forwarded ref.
@@ -106,13 +109,13 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(
                         the clear button) and render our own themed controls in a fixed, non-overlapping group. */}
                     <div className="input-date-actions">
                         {showClear && (
-                            <Tooltip title="Clear date">
+                            <Tooltip title={t.clearDate}>
                                 <button type="button" className="input-date-clear" onClick={() => onChange?.(undefined)}>
                                     <Icon name="clear" size="sm" />
                                 </button>
                             </Tooltip>
                         )}
-                        <Tooltip title="Open calendar">
+                        <Tooltip title={t.openCalendar}>
                             <button type="button" className="input-date-picker" onClick={openPicker} disabled={disabled || readOnly} tabIndex={-1}>
                                 <Icon name="calendar" size="sm" />
                             </button>

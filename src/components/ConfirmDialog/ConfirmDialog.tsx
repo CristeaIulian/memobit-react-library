@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useMessages } from '../../hooks/useLanguage';
 import { type ExternalButtonConfig } from '../Button';
 import { Modal } from '../Modal';
 
@@ -15,12 +17,13 @@ interface ConfirmDialogProps {
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ isOpen = false, message, title, confirm, cancel, usePortal = false }: ConfirmDialogProps) => {
+    const t = useMessages(libMessages);
     const cancelButtonProps = {
         variant: cancel?.variant || 'default',
         icon: cancel?.icon || 'clear',
         onClick: cancel?.onClick,
         disabled: cancel?.disabled,
-        text: cancel?.text || 'Cancel',
+        text: cancel?.text || t.cancel,
     };
 
     return (
@@ -36,7 +39,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ isOpen = false, message, 
                 icon: confirm?.icon || 'checkmark',
                 onClick: confirm?.onClick,
                 disabled: confirm?.disabled,
-                text: confirm?.text || 'Confirm',
+                text: confirm?.text || t.confirm,
             }}
             secondary={cancelButtonProps}
         >
