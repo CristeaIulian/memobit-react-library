@@ -365,6 +365,7 @@
         0 var(--spacing-8) var(--spacing-16) -3px var(--box-shadow),
         0 var(--spacing-4) var(--spacing-8) -2px var(--box-shadow);
     max-height: 240px;
+    overflow-x: hidden;
     overflow-y: auto;
 
     &--portal {
@@ -466,6 +467,7 @@
             .dropdown-option-content {
                 flex: 1;
                 min-width: 0; // Allow text truncation
+                overflow-wrap: anywhere; // A long word wraps instead of running under the count
 
                 .dropdown-option-label {
                     display: inline-flex;
@@ -494,6 +496,18 @@
                 margin-left: var(--spacing-8);
                 color: var(--body-color-muted);
                 font-size: var(--font-size-xs);
+            }
+
+            // Keep the checkbox and count readable on the highlighted row's background.
+            &.focused:not(.dropdown-option--disabled),
+            &.selected:hover {
+                .dropdown-option-checkbox .checkbox {
+                    border-color: currentcolor;
+                }
+
+                .dropdown-option-count {
+                    color: inherit;
+                }
             }
 
             @include mobile {

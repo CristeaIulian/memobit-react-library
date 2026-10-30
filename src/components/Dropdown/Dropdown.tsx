@@ -169,6 +169,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // on every options-ref change destroyed the typed text mid-keystroke.
     const prevValueRef = useRef<typeof value>(value);
 
+    // Set when the user unselects an option: the value change that follows keeps
+    // the search text, so they can carry on working through the same matches.
+    const keepFilterOnValueChangeRef = useRef(false);
+
+    // The menu's natural width, measured once per open so it doesn't jump around
+    // while the search narrows the list.
+    const menuWidthRef = useRef<number | null>(null);
+
     // Handle controlled component behavior with value prop.
     //
     // Two responsibilities, treated differently:
@@ -184,12 +192,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
         const prevValue = prevValueRef.current;
         prevValueRef.current = value;
         const valueChanged = !Object.is(prevValue, value);
+        const resetFilter = valueChanged && !keepFilterOnValueChangeRef.current;
+        if (valueChanged) keepFilterOnValueChangeRef.current = false;
 
         // Reset scenarios — only touch filterText if value actually transitioned.
         if (value === null || value === undefined) {
             if (valueChanged) {
                 setSelectedOptions([]);
-                setFilterText('');
+                if (resetFilter) setFilterText('');
             }
             return;
         }
@@ -197,7 +207,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         if (multiple && Array.isArray(value) && value.length === 0) {
             if (valueChanged) {
                 setSelectedOptions([]);
-                setFilterText('');
+                if (resetFilter) setFilterText('');
             }
             return;
         }
@@ -220,7 +230,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 // Multiple mode shows chips, not search text — clear filterText
                 // when the value actually changes, but never on an options-ref
                 // re-render (user could be typing to add another chip).
-                if (valueChanged) setFilterText('');
+                if (resetFilter) setFilterText('');
             } else if (!multiple && (typeof value === 'string' || typeof value === 'number')) {
                 // Handle both string and number values for single selection
                 const selectedOption = options.find(option => {
@@ -315,14 +325,28 @@ export const Dropdown: React.FC<DropdownProps> = ({
             if (usePortal) {
                 const available = Math.max(0, (openUpward ? spaceAbove : spaceBelow) - gap);
 
+                const menu = menuRef.current;
+                if (menu && menuWidthRef.current === null) {
+                    const currentWidth = menu.style.width;
+                    menu.style.width = 'max-content';
+                    menuWidthRef.current = menu.offsetWidth;
+                    menu.style.width = currentWidth;
+                }
+
+                // As wide as the options need, never narrower than the field, and
+                // nudged left when it would otherwise run off the viewport.
+                const maxMenuWidth = 360;
+                const viewportWidth = document.documentElement.clientWidth;
+                const width = Math.max(rect.width, Math.min(menuWidthRef.current ?? rect.width, maxMenuWidth, viewportWidth - gap * 2));
+
                 setPortalPosition({
                     // Fixed coordinates: no scroll offset added.
                     top: rect.bottom,
                     // For upward menus we anchor by `bottom`; `bottom` in a fixed
                     // box is measured from the layout viewport's bottom edge.
                     bottom: window.innerHeight - rect.top,
-                    left: rect.left,
-                    width: rect.width,
+                    left: Math.max(gap, Math.min(rect.left, viewportWidth - gap - width)),
+                    width,
                     maxHeight: Math.min(preferredHeight, available),
                 });
             }
@@ -341,6 +365,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         vv?.addEventListener('scroll', calculatePosition);
 
         return () => {
+            menuWidthRef.current = null;
             window.removeEventListener('scroll', calculatePosition, true);
             window.removeEventListener('resize', calculatePosition);
             vv?.removeEventListener('resize', calculatePosition);
@@ -407,15 +432,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
             if (isSelected) {
                 newSelection = selectedOptions.filter(selected => selected.value !== option.value);
+                keepFilterOnValueChangeRef.current = true;
             } else {
                 newSelection = [...selectedOptions, option];
+
+                if (searchable) {
+                    setFilterText(''); // Clear filter after selection in multiple mode
+                }
             }
 
             setSelectedOptions(newSelection);
-
-            if (searchable) {
-                setFilterText(''); // Clear filter after selection in multiple mode
-            }
 
             if (onChange) {
                 onChange(newSelection, name);
@@ -478,6 +504,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
         if (onChange) {
             if (multiple) {
+                keepFilterOnValueChangeRef.current = true;
                 onChange(newSelection, name);
             } else {
                 onChange(null, name);
