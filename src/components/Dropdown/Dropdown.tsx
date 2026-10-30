@@ -169,8 +169,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // on every options-ref change destroyed the typed text mid-keystroke.
     const prevValueRef = useRef<typeof value>(value);
 
-    // Set when the user unselects an option: the value change that follows keeps
-    // the search text, so they can carry on working through the same matches.
+    // Set when the user ticks or unticks an option: the value change that follows
+    // keeps the search text, so they can carry on working through the same matches.
     const keepFilterOnValueChangeRef = useRef(false);
 
     // The menu's natural width, measured once per open so it doesn't jump around
@@ -432,13 +432,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
             if (isSelected) {
                 newSelection = selectedOptions.filter(selected => selected.value !== option.value);
-                keepFilterOnValueChangeRef.current = true;
             } else {
                 newSelection = [...selectedOptions, option];
+            }
 
-                if (searchable) {
-                    setFilterText(''); // Clear filter after selection in multiple mode
-                }
+            // A checkbox list keeps the search so several matches can be ticked in a row. A chip
+            // picker clears it after a pick, ready for the next name.
+            if (isSelected || !showChips) {
+                keepFilterOnValueChangeRef.current = true;
+            } else if (searchable) {
+                setFilterText('');
             }
 
             setSelectedOptions(newSelection);
