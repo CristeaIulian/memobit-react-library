@@ -49,7 +49,9 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
         if (!anchorEl || !popoverRef.current || !visible) return;
 
         const anchorRect = anchorEl.getBoundingClientRect();
-        const popoverRect = popoverRef.current.getBoundingClientRect();
+        // Layout size, not getBoundingClientRect(): this runs during the enter animation,
+        // whose scale(0.95) would make the popover measure ~5% small and land on its anchor.
+        const popoverRect = { width: popoverRef.current.offsetWidth, height: popoverRef.current.offsetHeight };
         const viewport = {
             width: window.innerWidth,
             height: window.innerHeight,
@@ -85,58 +87,57 @@ export const Popover: FC<PopoverProps> = ({ children, visible, onClose, anchorEl
             },
         };
 
+        // When no side has room, the popover has to overlap its anchor somewhere: take
+        // whichever of above/below has more space, and let the clamping below pull it on-screen.
+        const roomierVerticalSide: Exclude<Placement, 'auto'> = anchorRect.top > viewport.height - anchorRect.bottom ? 'top' : 'bottom';
+
         // Determine final placement
         let finalPlacement: Exclude<Placement, 'auto'>;
-        let { top, left } = positions.bottom;
+        let fits = true;
 
         if (placement === 'auto') {
             // Try placements in order of preference
             const preferenceOrder: Array<Exclude<Placement, 'auto'>> = ['bottom', 'top', 'right', 'left'];
-            finalPlacement =
-                preferenceOrder.find(p => {
-                    const pos = positions[p];
-                    return fitsInViewport(pos.top, pos.left);
-                }) || 'bottom';
-            ({ top, left } = positions[finalPlacement]);
+            const fitting = preferenceOrder.find(p => {
+                const pos = positions[p];
+                return fitsInViewport(pos.top, pos.left);
+            });
+            fits = fitting !== undefined;
+            finalPlacement = fitting ?? roomierVerticalSide;
         } else {
             // Use specified placement, fallback to auto if doesn't fit
             const preferredPos = positions[placement];
             if (fitsInViewport(preferredPos.top, preferredPos.left)) {
                 finalPlacement = placement;
-                ({ top, left } = preferredPos);
             } else {
                 // Fallback to best available position
                 const fallbackOrder = (['bottom', 'top', 'right', 'left'] as Array<Exclude<Placement, 'auto'>>).filter(p => p !== placement);
-                finalPlacement =
-                    fallbackOrder.find(p => {
-                        const pos = positions[p];
-                        return fitsInViewport(pos.top, pos.left);
-                    }) || placement;
-                ({ top, left } = positions[finalPlacement]);
+                const fitting = fallbackOrder.find(p => {
+                    const pos = positions[p];
+                    return fitsInViewport(pos.top, pos.left);
+                });
+                fits = fitting !== undefined;
+                finalPlacement = fitting ?? (placement === 'top' || placement === 'bottom' ? roomierVerticalSide : placement);
             }
         }
+        let { top, left } = positions[finalPlacement];
 
-        // Constrain to viewport boundaries for horizontal centering on top/bottom
-        if (finalPlacement === 'top' || finalPlacement === 'bottom') {
-            if (left < VIEWPORT_MARGIN) left = VIEWPORT_MARGIN;
-            if (left + popoverRect.width > viewport.width - VIEWPORT_MARGIN) {
-                left = viewport.width - popoverRect.width - VIEWPORT_MARGIN;
-            }
-        }
+        // Keep the popover inside the viewport. When it is larger than the viewport, the
+        // start edge wins so its beginning stays readable.
+        const clamp = (value: number, size: number, viewportSize: number) => Math.max(VIEWPORT_MARGIN, Math.min(value, viewportSize - size - VIEWPORT_MARGIN));
+        const isVertical = finalPlacement === 'top' || finalPlacement === 'bottom';
 
-        // Constrain to viewport boundaries for vertical centering on left/right
-        if (finalPlacement === 'left' || finalPlacement === 'right') {
-            if (top < VIEWPORT_MARGIN) top = VIEWPORT_MARGIN;
-            if (top + popoverRect.height > viewport.height - VIEWPORT_MARGIN) {
-                top = viewport.height - popoverRect.height - VIEWPORT_MARGIN;
-            }
+        if (isVertical) {
+            left = clamp(left, popoverRect.width, viewport.width);
+            if (!fits) top = clamp(top, popoverRect.height, viewport.height);
+        } else {
+            top = clamp(top, popoverRect.height, viewport.height);
         }
 
         // The popover gets clamped to the viewport above, which slides it away from the
         // anchor without the arrow following — so the arrow ends up pointing at nothing.
         // Aim it at the anchor's centre instead, kept far enough from the corners that it
         // still has a body behind it.
-        const isVertical = finalPlacement === 'top' || finalPlacement === 'bottom';
         const anchorCentre = isVertical ? anchorRect.left + anchorRect.width / 2 - left : anchorRect.top + anchorRect.height / 2 - top;
         const span = isVertical ? popoverRect.width : popoverRect.height;
         const arrowOffset = Math.min(Math.max(anchorCentre, ARROW_EDGE_MARGIN), span - ARROW_EDGE_MARGIN);

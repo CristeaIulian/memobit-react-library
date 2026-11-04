@@ -118,6 +118,25 @@ export const PopoverPage: React.FC = () => {
                             </Popover>
                         </div>
                     </div>
+
+                    <div className="showcase-group">
+                        <h3>Tall Content (Top)</h3>
+                        <div className="component-group">
+                            <Button onClick={e => popover.toggle('tall-top', e)}>Tall Top Placement</Button>
+                            <Popover
+                                placement="top"
+                                visible={popover.isVisible('tall-top')}
+                                anchorEl={popover.getAnchorEl('tall-top')}
+                                onClose={() => popover.hide('tall-top')}
+                            >
+                                {Array.from({ length: 12 }, (_, index) => (
+                                    <p key={index}>
+                                        Paragraph {index + 1}: a long popover must still sit fully above its trigger, with the arrow pointing at it.
+                                    </p>
+                                ))}
+                            </Popover>
+                        </div>
+                    </div>
                 </div>
             </section>
 
