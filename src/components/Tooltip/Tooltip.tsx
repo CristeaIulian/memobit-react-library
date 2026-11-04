@@ -28,7 +28,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
     const [isVisible, setIsVisible] = useState(false);
     const [showingDescendants, setShowingDescendants] = useState(0);
     const reportToParent = useContext(NestedTooltipContext);
-    const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+    const [tooltipPosition, setTooltipPosition] = useState<{ top: number; left: number; arrowOffset?: number }>({ top: 0, left: 0 });
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const triggerRef = useRef<HTMLSpanElement>(null);
@@ -113,7 +113,15 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
             top = window.innerHeight - tooltipRect.height - margin;
         }
 
-        setTooltipPosition({ top, left });
+        // The viewport clamp can slide the tooltip off-centre from its trigger, so the arrow is
+        // aimed at the trigger's centre rather than the tooltip's, kept clear of the rounded corners.
+        const arrowInset = 12;
+        const isVertical = position === 'top' || position === 'bottom';
+        const arrowTarget = isVertical ? triggerRect.left + triggerRect.width / 2 - left : triggerRect.top + triggerRect.height / 2 - top;
+        const arrowSpan = isVertical ? tooltipRect.width : tooltipRect.height;
+        const arrowOffset = Math.min(Math.max(arrowTarget, arrowInset), arrowSpan - arrowInset);
+
+        setTooltipPosition({ top, left, arrowOffset });
     }, [position]);
 
     const handleMouseEnter = () => {
@@ -242,7 +250,16 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, position = 'top', delay
                         onMouseLeave={handleTooltipMouseLeave}
                     >
                         {title}
-                        <div className={`tooltip__arrow tooltip__arrow--${position}`} />
+                        <div
+                            className={`tooltip__arrow tooltip__arrow--${position}`}
+                            style={
+                                tooltipPosition.arrowOffset === undefined
+                                    ? undefined
+                                    : position === 'top' || position === 'bottom'
+                                      ? { left: `${tooltipPosition.arrowOffset}px` }
+                                      : { top: `${tooltipPosition.arrowOffset}px` }
+                            }
+                        />
                     </div>,
                     document.body
                 )}
