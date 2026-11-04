@@ -130,6 +130,7 @@ export { InputUrl } from './components/InputUrl';
 export { type JourneyStep, JourneyWizard, type JourneyWizardPresentation, type JourneyWizardProps } from './components/JourneyWizard';
 export { List } from './components/List';
 export { Loading } from './components/Loading';
+export { MenuBar, type MenuBarEntry, type MenuBarMenu, type MenuBarProps } from './components/MenuBar';
 export { MenuHamburger, type MenuHamburgerItem } from './components/MenuHamburger';
 export { Minimap, type MinimapBand, type MinimapProps } from './components/Minimap';
 export { MiniSort, type MiniSortAlign, type MiniSortDirection, type MiniSortItem, type MiniSortProps } from './components/MiniSort';
@@ -239,6 +240,8 @@ export {
     type ToolbarSortField,
     type ToolbarSortValue,
 } from './components/Toolbar';
+export { ToolButton, type ToolButtonProps } from './components/ToolButton';
+export { ToolPalette, type ToolPaletteItem, type ToolPaletteProps } from './components/ToolPalette';
 export { Tooltip, type TooltipPosition } from './components/Tooltip';
 export { TourHud, type TourHudProps } from './components/TourHud';
 export { Transition, type TransitionProps, type TransitionStatus, type TransitionTag, type TransitionType } from './components/Transition';

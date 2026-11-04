@@ -6,6 +6,7 @@ export const ContextMenuPage: React.FC = () => {
     const [contextMenuTarget, setContextMenuTarget] = useState<EventTarget | null>(null);
     const [contextMenuTarget2, setContextMenuTarget2] = useState<EventTarget | null>(null);
     const [autoCloseTarget, setAutoCloseTarget] = useState<EventTarget | null>(null);
+    const [cursorMenu, setCursorMenu] = useState<{ x: number; y: number } | null>(null);
 
     const handleContextMenuActionsButton = (event: MouseEvent<HTMLButtonElement>): void => {
         setContextMenuTarget(event.target);
@@ -101,6 +102,45 @@ export const ContextMenuPage: React.FC = () => {
                             </ContextMenu>
                         )}
                         <Button onClick={event => setAutoCloseTarget(event.target)}>Auto-close Opener</Button>
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>At the Cursor (position)</h3>
+                    <p>
+                        Pass <code>position</code> with a right-click&apos;s <code>clientX</code> / <code>clientY</code> and the menu opens where the click was,
+                        with no element to anchor it to. It still keeps itself inside the window.
+                    </p>
+                    <div
+                        className="component-group"
+                        style={{
+                            minHeight: 'var(--spacing-100)',
+                            padding: 'var(--spacing-16)',
+                            border: '1px dashed var(--delimiter-color)',
+                            borderRadius: 'var(--radius)',
+                            color: 'var(--body-color-muted)',
+                        }}
+                        onContextMenu={event => {
+                            event.preventDefault();
+                            setCursorMenu({ x: event.clientX, y: event.clientY });
+                        }}
+                    >
+                        Right-click anywhere in this box
+                        {cursorMenu && (
+                            <ContextMenu position={cursorMenu} onClose={() => setCursorMenu(null)} autoClose>
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <Button variant="plain" icon="documents" onClick={() => alert('Duplicated')}>
+                                        Duplicate
+                                    </Button>
+                                    <Button variant="plain" icon="edit" onClick={() => alert('Renamed')}>
+                                        Rename
+                                    </Button>
+                                    <Button variant="plain" icon="delete" onClick={() => alert('Deleted')}>
+                                        Delete
+                                    </Button>
+                                </div>
+                            </ContextMenu>
+                        )}
                     </div>
                 </div>
             </section>

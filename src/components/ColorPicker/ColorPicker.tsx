@@ -38,6 +38,11 @@ export interface ColorPickerProps {
      */
     swatches?: string[];
     swatchesLabel?: string;
+    /**
+     * Without the card around it (border, padding, background) and as wide as its container: for a picker that
+     * sits in a side panel rather than a popover. The gradient's height follows `--color-picker-field-height`.
+     */
+    bare?: boolean;
 }
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -196,7 +201,7 @@ const hslToRgb = ({ h, s, l }: HSL): RGB => {
     };
 };
 
-export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onChange, swatches, swatchesLabel = 'Already in use' }) => {
+export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onChange, swatches, swatchesLabel = 'Already in use', bare = false }) => {
     const [mode, setMode] = useState<'hex' | 'rgb' | 'hsl'>('hex');
     // Normalised and de-duplicated here rather than at every call site: a caller handing
     // over "the colours in use" should not also have to know that #ABC, #aabbcc and
@@ -323,7 +328,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ value = '#4e79a7', onC
     const hsl = rgbToHsl(rgb);
 
     return (
-        <div className="color-picker">
+        <div className={`color-picker${bare ? ' color-picker--bare' : ''}`}>
             {reusable.length > 0 && (
                 <div className="color-picker__swatches">
                     <span className="color-picker__swatches-label">{swatchesLabel}</span>

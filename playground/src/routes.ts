@@ -73,6 +73,7 @@ import { InputUrlPage } from './pages/InputUrlPage';
 import { JourneyWizardPage } from './pages/JourneyWizardPage';
 import { ListPage } from './pages/ListPage';
 import { LoadingPage } from './pages/LoadingPage';
+import { MenuBarPage } from './pages/MenuBarPage';
 import { MenuHamburgerPage } from './pages/MenuHamburgerPage';
 import { MinimapPage } from './pages/MinimapPage';
 import { MiniSortPage } from './pages/MiniSortPage';
@@ -116,6 +117,8 @@ import { ToastPage } from './pages/ToastPage';
 import { ToggleButtonsPage } from './pages/ToggleButtonsPage';
 import { ToggleSwitchPage } from './pages/ToggleSwitchPage';
 import { ToolbarPage } from './pages/ToolbarPage';
+import { ToolButtonPage } from './pages/ToolButtonPage';
+import { ToolPalettePage } from './pages/ToolPalettePage';
 import { TooltipPage } from './pages/TooltipPage';
 import { TourHudPage } from './pages/TourHudPage';
 import { TransitionPage } from './pages/TransitionPage';
@@ -204,6 +207,7 @@ export const routes: RouteConfig[] = [
     { path: '/rich-text-editor', label: 'Rich Text Editor', component: RichTextEditorPage },
     { path: '/list', label: 'List', component: ListPage },
     { path: '/loading', label: 'Loading', component: LoadingPage },
+    { path: '/menu-bar', label: 'Menu Bar', component: MenuBarPage },
     { path: '/menu-hamburger', label: 'Menu Hamburger', component: MenuHamburgerPage },
     { path: '/minimap', label: 'Minimap', component: MinimapPage },
     { path: '/mini-sort', label: 'MiniSort', component: MiniSortPage },
@@ -247,6 +251,8 @@ export const routes: RouteConfig[] = [
     { path: '/tips-of-the-day', label: 'Tips Of The Day', component: TipsOfTheDayPage },
     { path: '/toast', label: 'Toast', component: ToastPage },
     { path: '/toolbar', label: 'Toolbar', component: ToolbarPage },
+    { path: '/tool-button', label: 'Tool Button', component: ToolButtonPage },
+    { path: '/tool-palette', label: 'Tool Palette', component: ToolPalettePage },
     { path: '/toggle-buttons', label: 'Toggle Buttons', component: ToggleButtonsPage },
     { path: '/toggle-switch', label: 'Toggle Switch', component: ToggleSwitchPage },
     { path: '/tooltip', label: 'Tooltip', component: TooltipPage },

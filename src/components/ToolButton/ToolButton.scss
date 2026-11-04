@@ -1,0 +1,40 @@
+.tool-button {
+    // Chained with the Button's own classes: a single class loses to .button.button-plain.
+    &--active.button,
+    &--active.button:hover {
+        background: var(--list-hover-background-color);
+        color: var(--body-accent-color);
+    }
+
+    &--danger.button:not(:disabled),
+    &--danger.button:not(:disabled):hover {
+        color: var(--body-danger-color);
+    }
+
+    &--mirrored svg {
+        transform: scaleX(-1);
+    }
+
+    &__badged {
+        position: relative;
+        display: flex;
+
+        &--disabled {
+            opacity: 0.5;
+        }
+    }
+
+    &__badge {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: 0 var(--spacing-2);
+        border-radius: var(--radius-sm);
+        background: var(--body-accent-color);
+        color: var(--button-info-color);
+        font-size: var(--font-size-xxs);
+        font-weight: var(--font-weight-bold);
+        line-height: var(--line-height-tight);
+        pointer-events: none;
+    }
+}

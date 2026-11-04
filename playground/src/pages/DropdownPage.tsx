@@ -1,6 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Dropdown, DropdownOption } from '../../../src';
+
+const BLEND_OPTIONS = [
+    { value: 'normal', label: 'Normal' },
+    { value: 'multiply', label: 'Multiply' },
+    { value: 'screen', label: 'Screen' },
+    { value: 'overlay', label: 'Overlay' },
+];
+
+/** A value that must always be set (a blend mode): no clear button to leave it empty. */
+const NotClearableExample = () => {
+    const [mode, setMode] = useState<string | number>('normal');
+    return (
+        <Dropdown
+            name="blend-mode"
+            label="Blend mode"
+            options={BLEND_OPTIONS}
+            value={mode}
+            valueAsChip={false}
+            clearable={false}
+            onChange={option => {
+                if (option && !Array.isArray(option)) setMode(option.value);
+            }}
+        />
+    );
+};
 
 export const DropdownPage: React.FC = () => {
     const formatClinicOptions = [
@@ -391,6 +416,16 @@ export const DropdownPage: React.FC = () => {
                             onChange={newOptions => console.log('disabled-multi', newOptions)}
                             placeholder="Add tags..."
                         />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>Not Clearable</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--body-color-muted)', marginBottom: '12px' }}>
+                        <code>clearable={'{false}'}</code> hides the × for a choice that always needs a value.
+                    </p>
+                    <div className="component-group" style={{ width: '40%' }}>
+                        <NotClearableExample />
                     </div>
                 </div>
 

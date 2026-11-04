@@ -38,6 +38,8 @@ export interface DropdownProps {
     allowCustomValue?: boolean;
     autofocus?: boolean;
     className?: string;
+    /** Shows the clear (×) button once something is selected. Turn it off when a value must always be set. Defaults to true. */
+    clearable?: boolean;
     disabled?: boolean;
     error?: string;
     highlighted?: boolean;
@@ -76,6 +78,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     allowCustomValue = false,
     autofocus = false,
     className = '',
+    clearable = true,
     disabled = false,
     error,
     highlighted = false,
@@ -843,7 +846,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const showSelectedPrefixIcon = Boolean(selectedSingleOption?.icon && !filterText && !showValueChip);
     const showSelectedSuffixIcon = Boolean(selectedSingleOption?.suffixIcon && !showValueChip);
     const chipsMode = multiple && showChips;
-    const showClearButton = selectedOptions.length > 0;
+    const showClearButton = clearable && selectedOptions.length > 0;
     // Typing either filters the list (searchable) or names a new value (allowCustomValue)
     const isTypeable = searchable || allowCustomValue;
 

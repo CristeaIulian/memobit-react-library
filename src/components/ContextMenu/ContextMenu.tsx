@@ -8,18 +8,30 @@ interface ContextMenuProps {
     autoClose?: boolean;
     children: ReactElement;
     onClose?: () => void;
-    target: EventTarget;
+    /** The element the menu opens below. Not needed when `position` is given. */
+    target?: EventTarget | null;
+    /**
+     * Opens the menu at a point in the viewport instead of below an element: pass a right-click's `clientX` and
+     * `clientY` for a menu at the cursor. Wins over `target` when both are given.
+     */
+    position?: { x: number; y: number } | null;
 }
 
-export const ContextMenu = ({ target, onClose, children, autoClose = false }: ContextMenuProps) => {
+/** The box the menu opens from: the point, or the target element's box. */
+const anchorRect = (target: EventTarget | null | undefined, position: { x: number; y: number } | null | undefined) => {
+    if (position) return { top: position.y, bottom: position.y, left: position.x };
+    return target ? (target as Element).getBoundingClientRect() : null;
+};
+
+export const ContextMenu = ({ target, position, onClose, children, autoClose = false }: ContextMenuProps) => {
     const menuRef = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [menuStyle, setMenuStyle] = useState<CSSProperties>(() => {
-        if (!target) {
+        const rect = anchorRect(target, position);
+        if (!rect) {
             return { opacity: 0 };
         }
 
-        const rect = (target as Element).getBoundingClientRect();
         return {
             top: `${rect.bottom}px`,
             left: `${rect.left}px`,
@@ -27,8 +39,13 @@ export const ContextMenu = ({ target, onClose, children, autoClose = false }: Co
         };
     });
 
+    // The point's coordinates, not the object: callers pass a fresh { x, y } on every render.
+    const pointX = position?.x;
+    const pointY = position?.y;
+
     useEffect(() => {
-        if (!target || !menuRef.current) {
+        const point = pointX === undefined || pointY === undefined ? null : { x: pointX, y: pointY };
+        if (!anchorRect(target, point) || !menuRef.current) {
             return;
         }
 
@@ -38,7 +55,10 @@ export const ContextMenu = ({ target, onClose, children, autoClose = false }: Co
                 return;
             }
 
-            const rect = (target as Element).getBoundingClientRect();
+            const rect = anchorRect(target, point);
+            if (!rect) {
+                return;
+            }
             const menuRect = menuRef.current.getBoundingClientRect();
 
             // Use document.documentElement for more accurate viewport dimensions on mobile
@@ -84,7 +104,7 @@ export const ContextMenu = ({ target, onClose, children, autoClose = false }: Co
         return () => {
             cancelAnimationFrame(frameId);
         };
-    }, [target]);
+    }, [target, pointX, pointY]);
 
     const handleMenuClick = (_event: MouseEvent<HTMLDivElement>) => {
         if (autoClose) {
@@ -93,7 +113,7 @@ export const ContextMenu = ({ target, onClose, children, autoClose = false }: Co
         }
     };
 
-    if (!target) {
+    if (!target && !position) {
         return null;
     }
 
