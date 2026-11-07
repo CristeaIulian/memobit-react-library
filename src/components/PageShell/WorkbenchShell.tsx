@@ -1,0 +1,150 @@
+import { FC, useState } from 'react';
+
+import { libMessages } from '../../contexts/LanguageContext/libMessages';
+import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useMessages } from '../../hooks/useLanguage';
+import { Button } from '../Button';
+import { Drawer } from '../Drawer';
+import { InputSearch } from '../InputSearch';
+
+import { countActiveFilters } from './filterRules';
+import { AppliedFilters, FilterSections } from './FilterSections';
+import { toMenuItems } from './menuItems';
+import { ActionButton, AppMark, PageMenu, PagePager, SortDropdown, ViewOptions, ViewToggle } from './PageParts';
+import { PageShellProps } from './PageShell.types';
+import { getHeadingText, getResultLabel } from './shellText';
+import { useAppFrame } from './useAppFrame';
+import { WorkbenchPhone } from './WorkbenchPhone';
+
+/**
+ * Workbench: a side column holds the app, the primary action, the filters and the view options; a toolbar
+ * above the list holds the title, search, sort and the other actions. Tablets move the column into a drawer;
+ * phones get a top bar, a filter sheet and a floating primary action.
+ */
+export const WorkbenchShell: FC<PageShellProps> = props => {
+    const { isMobile, isTablet } = useBreakpoint();
+    const t = useMessages(libMessages);
+    const frame = useAppFrame();
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    if (isMobile) return <WorkbenchPhone {...props} />;
+
+    const {
+        title,
+        counts,
+        primaryAction,
+        actions = [],
+        search,
+        sort,
+        view,
+        filters = [],
+        values = {},
+        onFilterChange = () => undefined,
+        onClearFilters,
+        pagination,
+        children,
+    } = props;
+    const heading = getHeadingText(props, t);
+    const resultLabel = getResultLabel(props, t);
+    const activeCount = countActiveFilters(filters, values);
+    const hasFilters = filters.length > 0;
+    const frameItems = frame?.menuItems ?? [];
+
+    const sections = <FilterSections filters={filters} values={values} context="panel" onFilterChange={onFilterChange} />;
+    const badge = activeCount > 0 && <span className="page-shell__badge">{activeCount}</span>;
+
+    return (
+        <div className={['page-shell', 'page-shell--workbench', isTablet ? 'page-shell--tablet' : 'page-shell--desktop'].join(' ')}>
+            {!isTablet && (
+                <aside className="page-shell__side">
+                    {frame && <AppMark app={frame.app} />}
+                    {primaryAction && <ActionButton action={primaryAction} fullWidth />}
+                    {hasFilters && (
+                        <div className="page-shell__side-group">
+                            <div className="page-shell__side-head">
+                                <span className="page-shell__group-title">{t.filters}</span>
+                                {badge}
+                                <span className="page-shell__spacer" />
+                                {activeCount > 0 && onClearFilters && (
+                                    <button type="button" className="page-shell__link" onClick={onClearFilters}>
+                                        {t.pageClearAll}
+                                    </button>
+                                )}
+                            </div>
+                            {sections}
+                        </div>
+                    )}
+                    {view && <ViewOptions view={view} />}
+                </aside>
+            )}
+
+            <div className="page-shell__main">
+                <header className="page-shell__toolbar">
+                    {isTablet && hasFilters && (
+                        <Button icon="tune" variant="default" onClick={() => setIsDrawerOpen(true)}>
+                            {t.filters}
+                            {badge}
+                        </Button>
+                    )}
+                    {isTablet && frame && <AppMark app={frame.app} logoOnly />}
+                    <div className="page-shell__titles">
+                        <h1 className="page-shell__title">{title}</h1>
+                        {heading && <p className="page-shell__heading">{heading}</p>}
+                    </div>
+                    {isTablet && primaryAction && <ActionButton action={primaryAction} />}
+                    {isTablet && <PageMenu items={[...toMenuItems(actions), ...frameItems]} />}
+                    {isTablet && <span className="page-shell__break" />}
+                    {search && (
+                        <InputSearch
+                            className="page-shell__search"
+                            value={search.value}
+                            placeholder={search.placeholder ?? t.search}
+                            onChange={search.onChange}
+                        />
+                    )}
+                    {sort && <SortDropdown sort={sort} />}
+                    {isTablet && view && <ViewToggle view={view} />}
+                    {!isTablet && actions.map(action => <ActionButton key={action.id} action={action} />)}
+                    {!isTablet && <PageMenu items={frameItems} />}
+                </header>
+
+                {/* One row for the list's state: applied filters on the left, the current page on the right. Empty, it hides. */}
+                <div className="page-shell__status">
+                    <AppliedFilters filters={filters} values={values} onFilterChange={onFilterChange} onClearFilters={onClearFilters} />
+                    <PagePager pagination={pagination} />
+                </div>
+
+                <div className="page-shell__content">{children}</div>
+            </div>
+
+            {isTablet && hasFilters && (
+                <Drawer
+                    isOpen={isDrawerOpen}
+                    onClose={() => setIsDrawerOpen(false)}
+                    position="left"
+                    title={t.filters}
+                    footer={
+                        <div className="page-shell__drawer-footer">
+                            {activeCount > 0 && onClearFilters && (
+                                <Button variant="default" onClick={onClearFilters}>
+                                    {t.pageClearAll}
+                                </Button>
+                            )}
+                            {counts && (
+                                <Button variant="info" fullWidth onClick={() => setIsDrawerOpen(false)}>
+                                    {resultLabel(counts.shown)}
+                                </Button>
+                            )}
+                        </div>
+                    }
+                >
+                    <div className="page-shell__drawer-body">
+                        {sections}
+                        {/* The drawer stands in for the side column, so it carries the column options too; the mode toggle stays in the toolbar. */}
+                        {view?.columns && <ViewOptions view={view} showToggle={false} />}
+                    </div>
+                </Drawer>
+            )}
+        </div>
+    );
+};

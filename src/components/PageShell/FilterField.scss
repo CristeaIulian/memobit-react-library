@@ -1,0 +1,211 @@
+@use '../../styles/utilities.scss' as *;
+
+.filter-field {
+    @include flex-column;
+    gap: var(--spacing-8);
+    min-width: 0;
+
+    &__stack {
+        @include flex-column;
+        gap: var(--spacing-8);
+        min-width: 0;
+    }
+
+    &__segmented {
+        display: flex;
+        gap: var(--spacing-2);
+        padding: var(--spacing-2);
+        border: 1px solid var(--form-control-border-color);
+        border-radius: var(--radius);
+        background-color: var(--form-control-background-color);
+    }
+
+    &__segment {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: var(--spacing-4) var(--spacing-8);
+        border: 0;
+        border-radius: var(--radius-sm);
+        background-color: transparent;
+        color: var(--body-color-muted);
+        font: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        white-space: nowrap;
+        cursor: pointer;
+        transition:
+            background-color var(--transition-fast),
+            color var(--transition-fast);
+        @include text-truncate;
+
+        &:hover {
+            color: var(--body-color);
+        }
+
+        &--selected,
+        &--selected:hover {
+            background-color: var(--chip-selected-background-color);
+            color: var(--chip-selected-color);
+        }
+    }
+
+    &__chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-6);
+    }
+
+    &__rows,
+    &__options {
+        @include flex-column;
+    }
+
+    &__options {
+        max-height: var(--spacing-300);
+        overflow-y: auto;
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+        width: 100%;
+        padding: var(--spacing-6) var(--spacing-4);
+        border: 0;
+        border-radius: var(--radius-sm);
+        background-color: transparent;
+        color: var(--body-color);
+        font: inherit;
+        font-size: var(--font-size-sm);
+        text-align: left;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--list-hover-background-color);
+        }
+
+        &--empty {
+            color: var(--body-color-muted);
+        }
+    }
+
+    &__mark {
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--spacing-16);
+        height: var(--spacing-16);
+        border: 1px solid var(--form-control-border-color);
+        color: var(--card-background-color);
+
+        &--radio {
+            border-radius: var(--radius-full);
+        }
+
+        &--check {
+            border-radius: var(--radius-sm);
+        }
+    }
+
+    &__row--selected &__mark {
+        border-color: var(--body-accent-color);
+        background-color: var(--body-accent-color);
+    }
+
+    // A ring with a dot: the padding leaves a gap and the fill stays inside it, whatever the surface behind.
+    &__row--selected &__mark--radio {
+        padding: var(--spacing-2);
+        background-clip: content-box;
+    }
+
+    &__row-label {
+        flex: 1 1 auto;
+        min-width: 0;
+        @include text-truncate;
+    }
+
+    &__count {
+        flex: none;
+        color: var(--body-color-muted);
+        font-size: var(--font-size-xs);
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__divider {
+        flex: none;
+        height: 1px;
+        margin: var(--spacing-4) 0;
+        background-color: var(--delimiter-color);
+    }
+
+    &__empty {
+        padding: var(--spacing-8) var(--spacing-4);
+        color: var(--body-color-muted);
+        font-size: var(--font-size-sm);
+    }
+
+    &__link {
+        align-self: flex-start;
+        padding: var(--spacing-2) 0;
+        border: 0;
+        background: none;
+        color: var(--links-color);
+        font: inherit;
+        font-size: var(--font-size-sm);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--links-hover-color);
+        }
+    }
+
+    &__rating {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    &__switch-row {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__switch-label {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: var(--spacing-4) 0;
+        border: 0;
+        background: none;
+        color: var(--body-color);
+        font: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        text-align: left;
+        cursor: pointer;
+    }
+
+    // Phone sheet: bigger tap targets, lists run the sheet's full height.
+    &--sheet {
+        .filter-field__segment {
+            padding: var(--spacing-8) var(--spacing-6);
+            font-size: var(--font-size-md);
+        }
+
+        .filter-field__row {
+            padding: var(--spacing-12) var(--spacing-4);
+            font-size: var(--font-size-md);
+        }
+
+        .filter-field__options {
+            max-height: none;
+        }
+
+        .filter-field__switch-label {
+            padding: var(--spacing-8) 0;
+            font-size: var(--font-size-md);
+        }
+    }
+}

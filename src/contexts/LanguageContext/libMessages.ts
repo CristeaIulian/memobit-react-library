@@ -70,6 +70,33 @@ const en = {
     showToolbar: 'Show the toolbar',
     hideToolbar: 'Hide the toolbar',
 
+    // PageShell
+    pageAny: 'Any',
+    pageClearAll: 'Clear all',
+    pageShowAll: (count: number) => `Show all ${count}`,
+    pageShowFewer: 'Show fewer',
+    pageNoMatches: 'No matches',
+    pageSearchOptions: (label: string) => `Search ${label.toLowerCase()}`,
+    pageSelectedCount: (count: number) => `${count} selected`,
+    pageRatingAtLeast: (value: number) => `${value}★ and up`,
+    pageDateSince: (date: string) => `since ${date}`,
+    pageDateUntil: (date: string) => `until ${date}`,
+    pageShowResults: (count: number) => (count === 0 ? 'No results' : `Show ${count} result${count === 1 ? '' : 's'}`),
+    pageSortAndView: 'Sort and view',
+    pageView: 'View',
+    pageAscending: 'Ascending',
+    pageDescending: 'Descending',
+    pageMenu: 'Menu',
+    pageDone: 'Done',
+    pageColumnsShown: (shown: number, total: number) => `${shown} of ${total} shown`,
+    pageItemCount: (shown: number, total: number, one: string, other: string) =>
+        shown === total ? `${total} ${total === 1 ? one : other}` : `${shown} of ${total} ${total === 1 ? one : other}`,
+    pageShowItems: (count: number, one: string, other: string) => (count === 0 ? `No ${other} match` : `Show ${count} ${count === 1 ? one : other}`),
+    pageAnyWord: 'Any word',
+    pageAllWords: 'All words',
+    pageViewCalendar: 'Calendar',
+    pageViewMap: 'Map',
+
     // DatePicker
     selectDate: 'Select date...',
 
@@ -199,6 +226,33 @@ const ro: typeof en = {
     search: 'Caută',
     showToolbar: 'Arată bara de instrumente',
     hideToolbar: 'Ascunde bara de instrumente',
+
+    // PageShell
+    pageAny: 'Oricare',
+    pageClearAll: 'Șterge tot',
+    pageShowAll: (count: number) => `Arată toate cele ${count}`,
+    pageShowFewer: 'Arată mai puține',
+    pageNoMatches: 'Nicio potrivire',
+    pageSearchOptions: (label: string) => `Caută în ${label.toLowerCase()}`,
+    pageSelectedCount: (count: number) => `${count} selectate`,
+    pageRatingAtLeast: (value: number) => `${value}★ sau mai mult`,
+    pageDateSince: (date: string) => `din ${date}`,
+    pageDateUntil: (date: string) => `până la ${date}`,
+    pageShowResults: (count: number) => (count === 0 ? 'Niciun rezultat' : `Arată ${roCount(count, 'rezultat', 'rezultate')}`),
+    pageSortAndView: 'Sortare și afișare',
+    pageView: 'Afișare',
+    pageAscending: 'Crescător',
+    pageDescending: 'Descrescător',
+    pageMenu: 'Meniu',
+    pageDone: 'Gata',
+    pageColumnsShown: (shown: number, total: number) => `${shown} din ${total} afișate`,
+    pageItemCount: (shown: number, total: number, one: string, other: string) =>
+        shown === total ? roCount(total, one, other) : `${shown} din ${roCount(total, one, other)}`,
+    pageShowItems: (count: number, one: string, other: string) => (count === 0 ? 'Niciun rezultat' : `Arată ${roCount(count, one, other)}`),
+    pageAnyWord: 'Oricare cuvânt',
+    pageAllWords: 'Toate cuvintele',
+    pageViewCalendar: 'Calendar',
+    pageViewMap: 'Hartă',
 
     // DatePicker
     selectDate: 'Alege data...',
