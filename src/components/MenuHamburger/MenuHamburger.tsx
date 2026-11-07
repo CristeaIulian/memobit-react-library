@@ -88,7 +88,7 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({
                     <div className="MenuHamburger_dropdown">
                         {items.map((item, index) => (
                             <div key={index} className="MenuHamburger_entry">
-                                {item.separator && <div className="MenuHamburger_separator" />}
+                                {item.separator && index > 0 && <div className="MenuHamburger_separator" />}
                                 <Button
                                     variant={'plain'}
                                     className={`MenuHamburger_item ${item.isActive ? 'MenuHamburger_item--active' : ''}`}
