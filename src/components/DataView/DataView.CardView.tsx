@@ -94,6 +94,9 @@ export function CardView<T>({
         const accentColor = card?.accentColor?.(row);
         const cardClass = `data-view__card ${isClickable ? 'data-view__card--clickable' : ''} ${isSelected ? 'data-view__card--selected' : ''} ${isPinned ? 'data-view__card--pinned' : ''} ${accentColor ? 'data-view__card--accent' : ''} ${rowClassName?.(row) || ''}`;
         const cardStyle = accentColor ? ({ '--data-view-card-accent-color': accentColor } as React.CSSProperties) : undefined;
+        // A row with no actions gets no actions bar, so its card ends without an empty divider.
+        const rowActions = actions?.(row);
+        const hasRowActions = rowActions !== null && rowActions !== undefined && rowActions !== false;
 
         // When `rowHref` is set, render the card as an <a> so middle-click,
         // Ctrl/Cmd-click and "Open link in new tab" work natively. Plain
@@ -154,9 +157,9 @@ export function CardView<T>({
                     </div>
                 )}
 
-                {actions && (
+                {hasRowActions && (
                     <div className="data-view__card-actions" onClick={e => e.stopPropagation()}>
-                        {actions(row)}
+                        {rowActions}
                     </div>
                 )}
             </>
