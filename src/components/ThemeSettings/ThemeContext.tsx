@@ -16,14 +16,22 @@ export interface ThemeProviderProps {
     effects: ThemeEffects;
     onSave?: (value: ThemeSaveValue) => void;
     allowedThemes?: string[];
+    /**
+     * Shown when `theme` is no longer in @memobit/themes (a saved choice of a removed theme).
+     * Pass the app's own default, usually `getDefaultThemeForApp(appName)`.
+     */
+    fallbackTheme?: Theme;
 }
 
-export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects, onSave, allowedThemes }) => {
+export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects, onSave, allowedThemes, fallbackTheme = 'luna' }) => {
     const [previewTheme, setPreviewThemeState] = useState<Theme | null>(null);
     const [previewEffects, setPreviewEffectsState] = useState<ThemeEffects | null>(null);
     const [copied, setCopied] = useState(false);
 
-    const activeTheme = previewTheme ?? theme;
+    // A saved theme that was later removed from @memobit/themes has no stylesheet, and would
+    // leave the app unstyled until the user found the picker.
+    const knownTheme = getThemeConfig(theme) === undefined ? fallbackTheme : theme;
+    const activeTheme = previewTheme ?? knownTheme;
     const activeEffects = previewEffects ?? effects;
 
     useEffect(() => {
