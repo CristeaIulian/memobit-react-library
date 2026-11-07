@@ -31,6 +31,11 @@
         }
     }
 
+    // One page: only the page-size picker is left, and it keeps its place at the end of the row.
+    &--single {
+        justify-content: flex-end;
+    }
+
     .page-info {
         color: var(--body-color);
         font-size: var(--font-size-sm);
@@ -75,6 +80,10 @@
 
         &__page-size {
             justify-content: center;
+        }
+
+        &--single .pagination__page-size {
+            justify-content: flex-end;
         }
     }
 }

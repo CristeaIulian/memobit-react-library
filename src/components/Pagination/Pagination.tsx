@@ -132,7 +132,7 @@ export const Pagination: FC<PaginationProps> = ({
     if (totalPages <= 1 && !showPageSize) return null;
 
     return (
-        <div className={`pagination pagination--${horizontalAlign}`}>
+        <div className={`pagination pagination--${horizontalAlign}${totalPages <= 1 ? ' pagination--single' : ''}`}>
             {totalPages > 1 && (
                 <div className="pagination__pages" ref={pagesRef}>
                     <Button variant="default" borders="sharp" disabled={currentPage === 1} icon="previous" onClick={() => onPageChange(currentPage - 1)}>
@@ -170,6 +170,7 @@ export const Pagination: FC<PaginationProps> = ({
                         name="pageSize"
                         options={pageSizeOptionsList}
                         value={pageSize}
+                        clearable={false}
                         searchable={false}
                         usePortal={false}
                         onChange={option => {
