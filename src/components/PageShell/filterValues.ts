@@ -1,4 +1,4 @@
-import { isTextFilterValue, toList, toScalar } from './filterRules';
+import { isTextFilterValue, toDateRange, toList, toScalar } from './filterRules';
 import { FilterSpec, FilterValue, PageFilterValues, TextFilterValue } from './PageShell.types';
 
 /**
@@ -25,6 +25,12 @@ export const asFilterRange = (value: FilterValue | undefined): [number, number] 
 
 /** A text filter's text and match mode, or null for any other value. */
 export const asFilterText = (value: FilterValue | undefined): TextFilterValue | null => (isTextFilterValue(value) ? value : null);
+
+/** A date-range filter's ends as 'YYYY-MM-DD', null where open. */
+export const asFilterDateRange = (value: FilterValue | undefined): { from: string | null; to: string | null } => {
+    const [from, to] = toDateRange(value);
+    return { from: from || null, to: to || null };
+};
 
 export interface StaleFilterChange {
     id: string;

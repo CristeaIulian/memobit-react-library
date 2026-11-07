@@ -6,7 +6,14 @@ import { AppNavItem, PageAction } from './PageShell.types';
 export const MAX_TAB_BAR_ITEMS = 5;
 
 const toMenuItems = (actions: PageAction[]): MenuHamburgerItem[] =>
-    actions.map(action => ({ label: action.label, icon: action.icon, onClick: action.onClick, isActive: false, separator: action.separator }));
+    actions.map(action => ({
+        label: action.label,
+        icon: action.icon,
+        onClick: action.onClick,
+        isActive: false,
+        separator: action.separator,
+        disabled: action.disabled,
+    }));
 
 /** The actions shown as buttons: everything not marked `menu`. */
 export const getButtonActions = (actions: PageAction[]): PageAction[] => actions.filter(action => !action.menu);

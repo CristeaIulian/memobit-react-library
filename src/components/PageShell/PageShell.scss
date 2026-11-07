@@ -112,9 +112,34 @@
     }
 
     &__content {
+        // Grows to the bottom of the screen, so a child with `flex: 1` (a canvas, a timeline, a map) fills the page.
+        flex: 1 1 auto;
         @include flex-column;
         gap: var(--spacing-16);
         min-width: 0;
+    }
+
+    &__view-choice {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-6);
+    }
+
+    &__view-choice-label {
+        color: var(--body-color);
+        font-size: var(--font-size-sm);
+    }
+
+    &__tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-8);
+    }
+
+    &--phone &__tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 0 var(--spacing-8);
     }
 
     &__status {
@@ -205,10 +230,13 @@
         flex: none;
         display: inline-flex;
 
+        // A fixed height, so an SVG without its own width/height (only a viewBox) still shows.
         img,
         svg {
             display: block;
-            max-height: var(--spacing-32);
+            width: auto;
+            height: var(--spacing-32);
+            max-width: var(--spacing-100);
         }
     }
 

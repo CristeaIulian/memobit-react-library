@@ -6,7 +6,7 @@ import { IconName } from '../Icon';
 import { MenuHamburgerItem } from '../MenuHamburger';
 
 /** What a filter's data is. The widget is chosen from this, the option count and where the filter sits. */
-export type FilterKind = 'single' | 'multi' | 'range' | 'rating' | 'toggle' | 'text' | 'date';
+export type FilterKind = 'single' | 'multi' | 'range' | 'rating' | 'toggle' | 'text' | 'date' | 'date-range';
 
 /** Forces one widget for a `single` or `multi` filter instead of letting the shell choose. */
 export type FilterControl = 'segmented' | 'radio' | 'chips' | 'checklist' | 'search-list';
@@ -35,6 +35,11 @@ interface FilterSpecBase {
     id: string;
     label: string;
     priority?: FilterPriority;
+    /**
+     * The value the page starts with, when it isn't the empty one (e.g. status "Open", "last 30 days").
+     * At this value the filter doesn't count as applied and shows no chip; removing its chip returns to it.
+     */
+    defaultValue?: FilterValue;
 }
 
 export interface SingleFilterSpec extends FilterSpecBase {
@@ -64,6 +69,8 @@ export interface RatingFilterSpec extends FilterSpecBase {
 
 export interface ToggleFilterSpec extends FilterSpecBase {
     kind: 'toggle';
+    /** How many items the toggle leaves, shown beside its label. */
+    count?: number;
 }
 
 export interface TextFilterSpec extends FilterSpecBase {
@@ -79,9 +86,21 @@ export interface DateFilterSpec extends FilterSpecBase {
     kind: 'date';
     /** Whether items on or after the date match (`since`, the default) or on or before it (`until`). */
     relation?: 'since' | 'until';
+    /** The earliest and latest days the picker offers, as 'YYYY-MM-DD'. */
+    min?: string;
+    max?: string;
 }
 
-export type FilterSpec = SingleFilterSpec | MultiFilterSpec | RangeFilterSpec | RatingFilterSpec | ToggleFilterSpec | TextFilterSpec | DateFilterSpec;
+/** A span of days. Either end may stay open, e.g. a value saved from an older "from" filter. */
+export interface DateRangeFilterSpec extends FilterSpecBase {
+    kind: 'date-range';
+    /** The earliest and latest days the picker offers, as 'YYYY-MM-DD'. */
+    min?: string;
+    max?: string;
+}
+
+export type FilterSpec =
+    SingleFilterSpec | MultiFilterSpec | RangeFilterSpec | RatingFilterSpec | ToggleFilterSpec | TextFilterSpec | DateFilterSpec | DateRangeFilterSpec;
 
 export interface TextFilterValue {
     text: string;
@@ -90,7 +109,8 @@ export interface TextFilterValue {
 
 /**
  * A filter's value. By kind: single → option value or null; multi → option values; range → [min, max]
- * or null; rating → the minimum (0 for any); toggle → boolean; text → TextFilterValue; date → 'YYYY-MM-DD' or null.
+ * or null; rating → the minimum (0 for any); toggle → boolean; text → TextFilterValue; date → 'YYYY-MM-DD' or null;
+ * date-range → ['YYYY-MM-DD', 'YYYY-MM-DD'] with '' for an open end, or null.
  */
 export type FilterValue = string | number | boolean | null | Array<string | number> | TextFilterValue;
 
@@ -114,6 +134,8 @@ export interface PageAction {
 export interface PageSearch {
     value: string;
     placeholder?: string;
+    /** Focuses the box when the page opens, for pages whose main job is searching. */
+    autoFocus?: boolean;
     onChange: (value: string) => void;
 }
 
@@ -163,14 +185,41 @@ export interface PageViewToggle {
     onChange: (value: boolean) => void;
 }
 
-export interface PageView {
-    modes: Array<BuiltInViewMode | PageViewMode>;
+/** A display setting that always holds one of its options (currency, whose figures). Not a filter: it never counts as applied. */
+export interface PageViewChoice {
+    id: string;
+    label: string;
+    options: Array<{ value: string; label: string }>;
     value: string;
     onChange: (value: string) => void;
+}
+
+export interface PageView {
+    /** The ways to show the list. Leave out (or pass one) for a page with a single way; the other options still show. */
+    modes?: Array<BuiltInViewMode | PageViewMode>;
+    value?: string;
+    onChange?: (value: string) => void;
     /** Optional fields the user can show or hide. Listed with the view options, closed until opened. */
     columns?: PageColumns;
     groupBy?: PageGroupBy;
     toggles?: PageViewToggle[];
+    choices?: PageViewChoice[];
+}
+
+/** One part of a page that has several (settings tabs, dashboard sections, one car's records). */
+export interface PageTab {
+    value: string;
+    label: string;
+    icon?: IconName;
+    count?: number;
+    /** Colours the tab while it isn't the current one, to flag what it holds (e.g. overdue items). */
+    tone?: 'warning' | 'danger';
+}
+
+export interface PageTabs {
+    items: PageTab[];
+    value: string;
+    onChange: (value: string) => void;
 }
 
 export interface PagePagination {
@@ -218,6 +267,10 @@ export interface PageShellProps {
     resultLabel?: (count: number) => string;
     /** The list's current page, shown at the top (beside the applied filters) once there is more than one. */
     pagination?: PagePagination;
+    /** Switches between the parts of this page; drawn under the toolbar. Not for app sections, which belong in the frame's nav. */
+    tabs?: PageTabs;
+    /** This page's own indicator (e.g. an overdue bell), shown where the frame's `status` goes, in its place. */
+    status?: ReactNode;
     children: ReactNode;
 }
 
@@ -239,13 +292,23 @@ export interface AppNavItem {
     onSelect: () => void;
 }
 
+export interface AppFrameTheme {
+    /** Shown in the theme dialog's "For <app>" recommended filter. */
+    appName: string;
+    label?: string;
+}
+
 export interface AppFrameProps {
     app: AppIdentity;
     /** The app's sections. With react-router, RouterAppFrame from '@memobit/libs/router' builds these from paths. */
     nav?: AppNavItem[];
     /** Adds the account menu (theme, password, two-factor, logout) and mounts the dialogs it opens. Needs an AuthProvider above. */
     account?: UseAccountMenuOptions;
+    /** For apps without sign-in: adds just the Theme entry and its dialog. `account` already includes it. */
+    theme?: AppFrameTheme;
     /** App-specific menu entries, listed before the account ones. Page actions join them on small screens. */
     menuItems?: MenuHamburgerItem[];
+    /** An app-wide indicator shown beside the page menu on every page and device: a notifications bell, a monitor's health. Keep it small. */
+    status?: ReactNode;
     children: ReactNode;
 }

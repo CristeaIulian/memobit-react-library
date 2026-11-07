@@ -13,6 +13,7 @@ export interface MenuHamburgerItem {
     onClick: () => void;
     isActive: boolean;
     separator?: boolean;
+    disabled?: boolean;
 }
 
 interface MenuHamburgerProps {
@@ -55,6 +56,7 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({
                     variant={isCompact || !isAtLeastTablet ? 'plain' : 'default'}
                     onClick={item.onClick}
                     icon={item.icon}
+                    disabled={item.disabled}
                     className={`MenuHamburger_single-item ${hasSingleItemLabel ? '' : 'MenuHamburger_single-item--icon-only'} ${
                         item.isActive ? 'MenuHamburger_item--active' : ''
                     }`}
@@ -92,6 +94,7 @@ export const MenuHamburger: FC<MenuHamburgerProps> = ({
                                 <Button
                                     variant={'plain'}
                                     className={`MenuHamburger_item ${item.isActive ? 'MenuHamburger_item--active' : ''}`}
+                                    disabled={item.disabled}
                                     onClick={() => handleItemClick(item)}
                                 >
                                     <span className="MenuHamburger_item__icon">{item.icon ? <Icon name={item.icon} /> : null}</span>

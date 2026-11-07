@@ -11,7 +11,7 @@ import { BottomSheet } from './BottomSheet';
 import { countActiveFilters } from './filterRules';
 import { AppliedFilters, FilterSections } from './FilterSections';
 import { getMenuItems, MAX_TAB_BAR_ITEMS, navToMenuItems } from './menuItems';
-import { AppMark, PageMenu, PagePager, SortSheetBody } from './PageParts';
+import { AppMark, PageMenu, PagePager, PageTabsRow, SortSheetBody } from './PageParts';
 import { PageShellProps } from './PageShell.types';
 import { getHeadingText, getResultLabel } from './shellText';
 import { useAppFrame } from './useAppFrame';
@@ -33,6 +33,7 @@ export const WorkbenchPhone: FC<PageShellProps> = props => {
         onFilterChange = () => undefined,
         onClearFilters,
         pagination,
+        tabs,
         children,
     } = props;
     const t = useMessages(libMessages);
@@ -70,14 +71,17 @@ export const WorkbenchPhone: FC<PageShellProps> = props => {
                         {activeCount > 0 && <span className="page-shell__badge page-shell__badge--corner">{activeCount}</span>}
                     </button>
                 )}
+                {props.status ?? frame?.status}
                 <PageMenu items={menuItems} />
             </header>
 
             {search && (
                 <div className="page-shell__search-row">
-                    <InputSearch value={search.value} placeholder={search.placeholder ?? t.search} onChange={search.onChange} />
+                    <InputSearch value={search.value} placeholder={search.placeholder ?? t.search} autoFocus={search.autoFocus} onChange={search.onChange} />
                 </div>
             )}
+
+            <PageTabsRow tabs={tabs} />
 
             <AppliedFilters filters={filters} values={values} onFilterChange={onFilterChange} onClearFilters={onClearFilters} scroll />
 

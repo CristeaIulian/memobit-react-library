@@ -13,6 +13,8 @@ export interface AppRouteNavItem {
     count?: number;
     /** Whether only the exact path counts as this section. Defaults to true for '/' and false otherwise, so '/archive/12' still lights up Archive. */
     end?: boolean;
+    /** Other paths that belong to this section, e.g. ['/person/:id/*'] for a People section's detail pages. */
+    activeOn?: string[];
 }
 
 export interface RouterAppFrameProps extends Omit<AppFrameProps, 'nav'> {
@@ -31,7 +33,9 @@ export const RouterAppFrame: FC<RouterAppFrameProps> = ({ nav, app, ...props }) 
                 label: item.label,
                 icon: item.icon,
                 count: item.count,
-                isActive: matchPath({ path: item.path, end: item.end ?? item.path === '/' }, pathname) !== null,
+                isActive:
+                    matchPath({ path: item.path, end: item.end ?? item.path === '/' }, pathname) !== null ||
+                    (item.activeOn ?? []).some(path => matchPath({ path, end: false }, pathname) !== null),
                 onSelect: () => navigate(item.path),
             })),
         [nav, pathname, navigate]

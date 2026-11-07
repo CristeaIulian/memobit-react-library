@@ -11,9 +11,10 @@ import { RangeSlider, RangeSliderValue } from '../RangeSlider';
 import { Rating } from '../Rating';
 import { ToggleSwitch } from '../ToggleSwitch';
 
-import { CHECKLIST_PREVIEW, getTextModes, pickControl, RATING_SEGMENTED_MAX, toList, toNumber, toRange, toScalar, toText } from './filterRules';
+import { CHECKLIST_PREVIEW, getTextModes, pickControl, RATING_SEGMENTED_MAX, toDateRange, toList, toNumber, toRange, toScalar, toText } from './filterRules';
 import {
     DateFilterSpec,
+    DateRangeFilterSpec,
     FilterContext,
     FilterOption,
     FilterSpec,
@@ -119,6 +120,7 @@ const OptionList: FC<{
                 {spec.options.map(option => (
                     <Chip
                         key={option.value}
+                        className={option.count === 0 && !isSelected(option) ? 'filter-field__chip--empty' : undefined}
                         color={option.color}
                         count={option.count}
                         icon={option.icon}
@@ -261,14 +263,43 @@ const parseDate = (value: string | number | null): Date | undefined => {
     return year && month && day ? new Date(year, month - 1, day) : undefined;
 };
 
-const DateField: FC<{ spec: DateFilterSpec; value: FilterValue | undefined; onChange: (value: FilterValue) => void }> = ({ value, onChange }) => {
+const DateField: FC<{ spec: DateFilterSpec; value: FilterValue | undefined; onChange: (value: FilterValue) => void }> = ({ spec, value, onChange }) => {
     const t = useMessages(libMessages);
     return (
         <DatePicker
             value={parseDate(toScalar(value))}
+            minDate={parseDate(spec.min ?? null)}
+            maxDate={parseDate(spec.max ?? null)}
             placeholder={t.selectDate}
             clearable
             onChange={next => onChange(next instanceof Date ? formatDate(next, 'YYYY-MM-DD') : null)}
+        />
+    );
+};
+
+const DateRangeField: FC<{ spec: DateRangeFilterSpec; value: FilterValue | undefined; onChange: (value: FilterValue) => void }> = ({
+    spec,
+    value,
+    onChange,
+}) => {
+    const t = useMessages(libMessages);
+    const [from, to] = toDateRange(value);
+    const start = parseDate(from || null);
+    const end = parseDate(to || null);
+
+    return (
+        <DatePicker
+            mode="range"
+            value={start && end ? { start, end } : undefined}
+            minDate={parseDate(spec.min ?? null)}
+            maxDate={parseDate(spec.max ?? null)}
+            placeholder={t.selectDate}
+            clearable
+            onChange={next =>
+                onChange(
+                    next && !(next instanceof Date) && !Array.isArray(next) ? [formatDate(next.start, 'YYYY-MM-DD'), formatDate(next.end, 'YYYY-MM-DD')] : null
+                )
+            }
         />
     );
 };
@@ -304,6 +335,7 @@ export const FilterField: FC<FilterFieldProps> = ({ spec, value, context, onChan
                     <button type="button" className="filter-field__switch-label" onClick={() => onChange(!checked)}>
                         {spec.label}
                     </button>
+                    {spec.count !== undefined && <span className="filter-field__count">{spec.count}</span>}
                     <ToggleSwitch checked={checked} size="small" showLabels={false} onChange={onChange} />
                 </div>
             );
@@ -318,6 +350,12 @@ export const FilterField: FC<FilterFieldProps> = ({ spec, value, context, onChan
             return (
                 <div className={className}>
                     <DateField spec={spec} value={value} onChange={onChange} />
+                </div>
+            );
+        case 'date-range':
+            return (
+                <div className={className}>
+                    <DateRangeField spec={spec} value={value} onChange={onChange} />
                 </div>
             );
     }

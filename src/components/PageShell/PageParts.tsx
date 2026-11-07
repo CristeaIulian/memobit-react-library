@@ -3,6 +3,7 @@ import { FC, ReactNode, useState } from 'react';
 import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { useMessages } from '../../hooks/useLanguage';
 import { Button } from '../Button';
+import { Chip } from '../Chip';
 import { Dropdown } from '../Dropdown';
 import { Icon } from '../Icon';
 import { MenuHamburger, MenuHamburgerItem } from '../MenuHamburger';
@@ -10,8 +11,20 @@ import { ToggleSwitch } from '../ToggleSwitch';
 import { Tooltip } from '../Tooltip';
 
 import { OptionRow, Segmented } from './FilterField';
-import { AppIdentity, FilterContext, PageAction, PageColumns, PageGroupBy, PagePagination, PageSort, PageView, PageViewToggle } from './PageShell.types';
-import { resolveViewModes } from './shellText';
+import {
+    AppIdentity,
+    FilterContext,
+    PageAction,
+    PageColumns,
+    PageGroupBy,
+    PagePagination,
+    PageSort,
+    PageTabs,
+    PageView,
+    PageViewChoice,
+    PageViewToggle,
+} from './PageShell.types';
+import { hasViewExtras, resolveViewModes } from './shellText';
 
 export const AppMark: FC<{ app: AppIdentity; logoOnly?: boolean }> = ({ app, logoOnly = false }) => {
     const logo = typeof app.logo === 'string' ? <img src={app.logo} alt={app.name} /> : (app.logo ?? (app.icon ? <Icon name={app.icon} size="lg" /> : null));
@@ -48,10 +61,15 @@ export const PageMenu: FC<{ items: MenuHamburgerItem[] }> = ({ items }) =>
 export const ViewToggle: FC<{ view: PageView; withLabels?: boolean }> = ({ view, withLabels = false }) => {
     const t = useMessages(libMessages);
 
+    const { modes = [], onChange } = view;
+
+    // A page with one mode still gets the view options (columns, toggles), just no switch.
+    if (modes.length < 2 || !onChange) return null;
+
     return (
         <div className={['page-shell__view-toggle', withLabels ? 'page-shell__view-toggle--labels' : ''].filter(Boolean).join(' ')}>
             <Segmented
-                items={resolveViewModes(view.modes, t).map(mode => ({
+                items={resolveViewModes(modes, t).map(mode => ({
                     value: mode.value,
                     label: withLabels ? (
                         <span className="page-shell__view-option">
@@ -64,9 +82,9 @@ export const ViewToggle: FC<{ view: PageView; withLabels?: boolean }> = ({ view,
                         </Tooltip>
                     ),
                 }))}
-                value={view.value}
+                value={view.value ?? null}
                 onSelect={next => {
-                    if (next !== null) view.onChange(String(next));
+                    if (next !== null) onChange(String(next));
                 }}
             />
         </div>
@@ -217,12 +235,30 @@ const ViewToggleRow: FC<{ toggle: PageViewToggle; context: FilterContext }> = ({
     </div>
 );
 
-/** The view options beyond the mode: columns, grouping and on/off preferences. Renders nothing when a page has none. */
+const ViewChoiceRow: FC<{ choice: PageViewChoice; context: FilterContext }> = ({ choice, context }) => (
+    <div className="page-filters__flat">
+        <div className={`filter-field filter-field--${context} page-shell__view-choice`}>
+            <span className="page-shell__view-choice-label">{choice.label}</span>
+            <Segmented
+                items={choice.options}
+                value={choice.value}
+                onSelect={next => {
+                    if (next !== null) choice.onChange(String(next));
+                }}
+            />
+        </div>
+    </div>
+);
+
+/** The view options beyond the mode: settings, columns, grouping and on/off preferences. Renders nothing when a page has none. */
 export const ViewExtras: FC<{ view: PageView; context: FilterContext }> = ({ view, context }) => {
-    if (!view.columns && !view.groupBy && !view.toggles?.length) return null;
+    if (!hasViewExtras(view)) return null;
 
     return (
         <div className={`page-filters page-filters--${context}`}>
+            {view.choices?.map(choice => (
+                <ViewChoiceRow key={choice.id} choice={choice} context={context} />
+            ))}
             {view.columns && <ColumnsSection columns={view.columns} context={context} />}
             {view.groupBy && <GroupBySection groupBy={view.groupBy} context={context} />}
             {view.toggles?.map(toggle => (
@@ -249,6 +285,31 @@ export const PagePager: FC<{ pagination?: PagePagination }> = ({ pagination }) =
             <Tooltip title={t.next}>
                 <Button icon="caret-right" variant="plain" size="small" disabled={page >= pageCount} onClick={() => onChange(page + 1)} />
             </Tooltip>
+        </div>
+    );
+};
+
+/** The page's own tabs as a row of chips; it scrolls sideways on a phone. */
+export const PageTabsRow: FC<{ tabs?: PageTabs }> = ({ tabs }) => {
+    if (!tabs || tabs.items.length < 2) return null;
+
+    return (
+        <div className="page-shell__tabs">
+            {tabs.items.map(tab => {
+                const isSelected = tab.value === tabs.value;
+                return (
+                    <Chip
+                        key={tab.value}
+                        icon={tab.icon}
+                        count={tab.count}
+                        selected={isSelected}
+                        variant={isSelected ? 'default' : (tab.tone ?? 'default')}
+                        onClick={() => tabs.onChange(tab.value)}
+                    >
+                        {tab.label}
+                    </Chip>
+                );
+            })}
         </div>
     );
 };

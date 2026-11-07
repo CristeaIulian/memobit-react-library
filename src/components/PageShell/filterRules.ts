@@ -37,6 +37,12 @@ export const toRange = (value: FilterValue | undefined, min: number, max: number
     return [typeof lo === 'number' ? lo : min, typeof hi === 'number' ? hi : max];
 };
 
+/** A date-range value's two ends, '' where open. */
+export const toDateRange = (value: FilterValue | undefined): [string, string] => {
+    const [from, to] = toList(value);
+    return [typeof from === 'string' ? from : '', typeof to === 'string' ? to : ''];
+};
+
 export const isTextFilterValue = (value: FilterValue | undefined): value is TextFilterValue =>
     typeof value === 'object' && value !== null && !Array.isArray(value);
 
@@ -56,7 +62,10 @@ export const getTextModes = (spec: TextFilterSpec, labels: WordMatchLabels): Fil
           ]
         : spec.modes;
 
+/** The value a filter returns to when cleared: its `defaultValue`, else its kind's empty value. */
 export const defaultFilterValue = (spec: FilterSpec): FilterValue => {
+    if (spec.defaultValue !== undefined) return spec.defaultValue;
+
     switch (spec.kind) {
         case 'multi':
             return [];
@@ -71,7 +80,12 @@ export const defaultFilterValue = (spec: FilterSpec): FilterValue => {
     }
 };
 
+// Lists compare as sets, so ['a', 'b'] equals ['b', 'a'].
+const normalizeValue = (value: FilterValue | undefined): string => JSON.stringify(Array.isArray(value) ? [...value].map(String).sort() : (value ?? null));
+
 export const isFilterActive = (spec: FilterSpec, value: FilterValue | undefined): boolean => {
+    if (spec.defaultValue !== undefined) return normalizeValue(value) !== normalizeValue(spec.defaultValue);
+
     switch (spec.kind) {
         case 'single':
         case 'date':
@@ -88,6 +102,8 @@ export const isFilterActive = (spec: FilterSpec, value: FilterValue | undefined)
             return value === true;
         case 'text':
             return toText(value).text.trim() !== '';
+        case 'date-range':
+            return toDateRange(value).some(end => end !== '');
     }
 };
 
@@ -116,6 +132,7 @@ export const pickControl = (spec: FilterSpec, context: FilterContext): FilterCon
 };
 
 export interface SummaryMessages extends WordMatchLabels {
+    any: string;
     selectedCount: (count: number) => string;
     ratingAtLeast: (value: number) => string;
     dateSince: (date: string) => string;
@@ -127,7 +144,8 @@ export const filterSummary = (spec: FilterSpec, value: FilterValue | undefined, 
     switch (spec.kind) {
         case 'single': {
             const selected = toScalar(value);
-            return selected === null ? '' : optionLabel(spec.options, selected);
+            // "Any" only reads as applied when the filter has another default (e.g. last 30 days), so it names the filter.
+            return selected === null ? `${spec.label}: ${messages.any}` : optionLabel(spec.options, selected);
         }
         case 'multi': {
             const selected = toList(value);
@@ -154,6 +172,12 @@ export const filterSummary = (spec: FilterSpec, value: FilterValue | undefined, 
             if (date === null) return '';
             const formatted = formatAppDate(String(date));
             return spec.relation === 'until' ? messages.dateUntil(formatted) : messages.dateSince(formatted);
+        }
+        case 'date-range': {
+            const [from, to] = toDateRange(value);
+            if (from && to) return `${formatAppDate(from)} – ${formatAppDate(to)}`;
+            if (from) return messages.dateSince(formatAppDate(from));
+            return to ? messages.dateUntil(formatAppDate(to)) : '';
         }
     }
 };

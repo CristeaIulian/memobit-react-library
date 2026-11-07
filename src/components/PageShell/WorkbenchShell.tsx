@@ -11,9 +11,9 @@ import { NavRail, SideNav } from './AppNav';
 import { countActiveFilters } from './filterRules';
 import { AppliedFilters, FilterSections } from './FilterSections';
 import { getButtonActions, getMenuItems } from './menuItems';
-import { ActionButton, AppMark, PageMenu, PagePager, SortDropdown, ViewOptions, ViewToggle } from './PageParts';
+import { ActionButton, AppMark, PageMenu, PagePager, PageTabsRow, SortDropdown, ViewOptions, ViewToggle } from './PageParts';
 import { PageShellProps } from './PageShell.types';
-import { getHeadingText, getResultLabel } from './shellText';
+import { getHeadingText, getResultLabel, hasViewExtras } from './shellText';
 import { useAppFrame } from './useAppFrame';
 import { WorkbenchPhone } from './WorkbenchPhone';
 
@@ -43,15 +43,16 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
         onFilterChange = () => undefined,
         onClearFilters,
         pagination,
+        tabs,
         children,
     } = props;
+    const status = props.status ?? frame?.status;
     const heading = getHeadingText(props, t);
     const resultLabel = getResultLabel(props, t);
     const activeCount = countActiveFilters(filters, values);
     const hasFilters = filters.length > 0;
     const frameItems = frame?.menuItems ?? [];
     const nav = frame?.nav ?? [];
-    const hasViewExtras = Boolean(view && (view.columns || view.groupBy || view.toggles?.length));
 
     const sections = <FilterSections filters={filters} values={values} context="panel" onFilterChange={onFilterChange} />;
     const badge = activeCount > 0 && <span className="page-shell__badge">{activeCount}</span>;
@@ -97,7 +98,10 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                         <h1 className="page-shell__title">{title}</h1>
                         {heading && <p className="page-shell__heading">{heading}</p>}
                     </div>
+                    {/* Without a search box to take the width (or with it on its own row), the controls still sit at the right edge. */}
+                    {(!search || isTablet) && <span className="page-shell__spacer" />}
                     {isTablet && primaryAction && <ActionButton action={primaryAction} />}
+                    {isTablet && status}
                     {isTablet && <PageMenu items={getMenuItems(actions, frameItems, true)} />}
                     {isTablet && <span className="page-shell__break" />}
                     {search && (
@@ -105,14 +109,18 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                             className="page-shell__search"
                             value={search.value}
                             placeholder={search.placeholder ?? t.search}
+                            autoFocus={search.autoFocus}
                             onChange={search.onChange}
                         />
                     )}
                     {sort && <SortDropdown sort={sort} />}
                     {isTablet && view && <ViewToggle view={view} />}
                     {!isTablet && getButtonActions(actions).map(action => <ActionButton key={action.id} action={action} />)}
+                    {!isTablet && status}
                     {!isTablet && <PageMenu items={getMenuItems(actions, frameItems, false)} />}
                 </header>
+
+                <PageTabsRow tabs={tabs} />
 
                 {/* One row for the list's state: applied filters on the left, the current page on the right. Empty, it hides. */}
                 <div className="page-shell__status">
@@ -147,7 +155,7 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                     <div className="page-shell__drawer-body">
                         {sections}
                         {/* The drawer stands in for the side column, so it carries the other view options too; the mode toggle stays in the toolbar. */}
-                        {view && hasViewExtras && <ViewOptions view={view} showToggle={false} />}
+                        {view && hasViewExtras(view) && <ViewOptions view={view} showToggle={false} />}
                     </div>
                 </Drawer>
             )}

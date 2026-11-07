@@ -1,14 +1,17 @@
 export { AppFrame } from './AppFrame';
 export { FilterField, type FilterFieldProps } from './FilterField';
 export { countActiveFilters, defaultFilterValue, isFilterActive } from './filterRules';
-export { asFilterKey, asFilterKeys, asFilterRange, asFilterText, getStaleFilterChanges, type StaleFilterChange } from './filterValues';
+export { asFilterDateRange, asFilterKey, asFilterKeys, asFilterRange, asFilterText, getStaleFilterChanges, type StaleFilterChange } from './filterValues';
+export { applyLiveCounts, type FilterPredicate, type FilterPredicates } from './liveCounts';
 export { PageShell } from './PageShell';
 export type {
     AppFrameProps,
+    AppFrameTheme,
     AppIdentity,
     AppNavItem,
     BuiltInViewMode,
     DateFilterSpec,
+    DateRangeFilterSpec,
     FilterContext,
     FilterControl,
     FilterKind,
@@ -31,6 +34,8 @@ export type {
     PageSort,
     PageSortDirection,
     PageSortValue,
+    PageTab,
+    PageTabs,
     PageView,
     PageViewMode,
     PageViewToggle,

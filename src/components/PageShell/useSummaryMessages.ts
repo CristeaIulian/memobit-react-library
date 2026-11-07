@@ -9,6 +9,7 @@ export const useSummaryMessages = (): SummaryMessages => {
     const t = useMessages(libMessages);
     return useMemo(
         () => ({
+            any: t.pageAny,
             selectedCount: t.pageSelectedCount,
             ratingAtLeast: t.pageRatingAtLeast,
             dateSince: t.pageDateSince,

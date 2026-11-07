@@ -1,6 +1,6 @@
 import { LibMessages } from '../../contexts/LanguageContext/libMessages';
 
-import { BuiltInViewMode, PageShellProps, PageViewMode } from './PageShell.types';
+import { BuiltInViewMode, PageShellProps, PageView, PageViewMode } from './PageShell.types';
 
 /** The line under the title: the list's size from `counts` and `noun`, then the page's own `heading`. */
 export const getHeadingText = ({ counts, noun, heading }: Pick<PageShellProps, 'counts' | 'noun' | 'heading'>, t: LibMessages): string =>
@@ -28,3 +28,6 @@ const builtInViewMode = (mode: BuiltInViewMode, t: LibMessages): PageViewMode =>
 /** View modes with built-in ones expanded to their translated label and icon. */
 export const resolveViewModes = (modes: Array<BuiltInViewMode | PageViewMode>, t: LibMessages): PageViewMode[] =>
     modes.map(mode => (typeof mode === 'string' ? builtInViewMode(mode, t) : mode));
+
+/** Whether a view has options beyond the mode switch. */
+export const hasViewExtras = (view: PageView): boolean => Boolean(view.columns || view.groupBy || view.toggles?.length || view.choices?.length);

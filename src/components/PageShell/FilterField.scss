@@ -55,6 +55,11 @@
         gap: var(--spacing-6);
     }
 
+    // An option that would leave nothing, given the other filters. Still pickable, just dimmed like a disabled chip.
+    &__chips &__chip--empty {
+        opacity: 0.6;
+    }
+
     &__rows,
     &__options {
         @include flex-column;
