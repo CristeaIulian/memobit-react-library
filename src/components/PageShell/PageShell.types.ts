@@ -102,6 +102,8 @@ export interface PageAction {
     icon?: IconName;
     variant?: ButtonVariant;
     disabled?: boolean;
+    /** A hover hint on the button, e.g. why it is disabled ("Run a scan first"). */
+    tooltip?: string;
     /** Always listed in the page menu, never as a button: for occasional actions such as "Manage locations". */
     menu?: boolean;
     /** In the menu, draws a divider above this action to start a new group. */

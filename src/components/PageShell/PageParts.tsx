@@ -31,11 +31,15 @@ export const AppMark: FC<{ app: AppIdentity; logoOnly?: boolean }> = ({ app, log
     );
 };
 
-export const ActionButton: FC<{ action: PageAction; fullWidth?: boolean }> = ({ action, fullWidth = false }) => (
-    <Button icon={action.icon} variant={action.variant ?? 'default'} disabled={action.disabled} fullWidth={fullWidth} onClick={action.onClick}>
-        {action.label}
-    </Button>
-);
+export const ActionButton: FC<{ action: PageAction; fullWidth?: boolean }> = ({ action, fullWidth = false }) => {
+    const button = (
+        <Button icon={action.icon} variant={action.variant ?? 'default'} disabled={action.disabled} fullWidth={fullWidth} onClick={action.onClick}>
+            {action.label}
+        </Button>
+    );
+
+    return action.tooltip ? <Tooltip title={action.tooltip}>{button}</Tooltip> : button;
+};
 
 export const PageMenu: FC<{ items: MenuHamburgerItem[] }> = ({ items }) =>
     items.length > 0 ? <MenuHamburger items={items} disableResponsive showLabel={false} /> : null;
