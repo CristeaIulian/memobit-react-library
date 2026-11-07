@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 
 import { libMessages } from '../../contexts/LanguageContext/libMessages';
 import { useMessages } from '../../hooks/useLanguage';
@@ -6,10 +6,11 @@ import { Button } from '../Button';
 import { Dropdown } from '../Dropdown';
 import { Icon } from '../Icon';
 import { MenuHamburger, MenuHamburgerItem } from '../MenuHamburger';
+import { ToggleSwitch } from '../ToggleSwitch';
 import { Tooltip } from '../Tooltip';
 
 import { OptionRow, Segmented } from './FilterField';
-import { AppIdentity, FilterContext, PageAction, PageColumns, PagePagination, PageSort, PageView } from './PageShell.types';
+import { AppIdentity, FilterContext, PageAction, PageColumns, PageGroupBy, PagePagination, PageSort, PageView, PageViewToggle } from './PageShell.types';
 import { resolveViewModes } from './shellText';
 
 export const AppMark: FC<{ app: AppIdentity; logoOnly?: boolean }> = ({ app, logoOnly = false }) => {
@@ -134,44 +135,95 @@ export const SortSheetBody: FC<{ sort?: PageSort; view?: PageView }> = ({ sort, 
                 <>
                     <span className="page-shell__group-title">{t.pageView}</span>
                     <ViewToggle view={view} withLabels />
-                    {view.columns && <ColumnsSection columns={view.columns} context="sheet" />}
+                    <ViewExtras view={view} context="sheet" />
                 </>
             )}
         </div>
     );
 };
 
-/** The fields the user can show or hide, as a section that stays closed until opened and previews how many are on. */
-export const ColumnsSection: FC<{ columns: PageColumns; context: FilterContext }> = ({ columns, context }) => {
-    const t = useMessages(libMessages);
+/** A view option as a section that stays closed until opened, its header previewing the current choice. */
+const ViewSection: FC<{ label: string; summary: string; context: FilterContext; children: ReactNode }> = ({ label, summary, context, children }) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div className="page-filters__section">
+            <button type="button" className="page-filters__header" onClick={() => setIsOpen(!isOpen)}>
+                <span className="page-filters__label">{label}</span>
+                <span className="page-filters__summary">{summary}</span>
+                <Icon name={isOpen ? 'caret-down' : 'caret-right'} size="sm" />
+            </button>
+            {isOpen && <div className={`page-filters__body filter-field filter-field--${context}`}>{children}</div>}
+        </div>
+    );
+};
+
+const ColumnsSection: FC<{ columns: PageColumns; context: FilterContext }> = ({ columns, context }) => {
+    const t = useMessages(libMessages);
     const toggle = (value: string) =>
         columns.onChange(columns.value.includes(value) ? columns.value.filter(other => other !== value) : [...columns.value, value]);
 
     return (
-        <div className={`page-filters page-filters--${context}`}>
-            <div className="page-filters__section">
-                <button type="button" className="page-filters__header" onClick={() => setIsOpen(!isOpen)}>
-                    <span className="page-filters__label">{t.columns}</span>
-                    <span className="page-filters__summary">{t.pageColumnsShown(columns.value.length, columns.options.length)}</span>
-                    <Icon name={isOpen ? 'caret-down' : 'caret-right'} size="sm" />
-                </button>
-                {isOpen && (
-                    <div className={`page-filters__body filter-field filter-field--${context}`}>
-                        <div className="filter-field__rows">
-                            {columns.options.map(option => (
-                                <OptionRow
-                                    key={option.value}
-                                    label={option.label}
-                                    mark="check"
-                                    selected={columns.value.includes(option.value)}
-                                    onClick={() => toggle(option.value)}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                )}
+        <ViewSection label={t.columns} summary={t.pageColumnsShown(columns.value.length, columns.options.length)} context={context}>
+            <div className="filter-field__rows">
+                {columns.options.map(option => (
+                    <OptionRow
+                        key={option.value}
+                        label={option.label}
+                        mark="check"
+                        selected={columns.value.includes(option.value)}
+                        onClick={() => toggle(option.value)}
+                    />
+                ))}
             </div>
+        </ViewSection>
+    );
+};
+
+const GroupBySection: FC<{ groupBy: PageGroupBy; context: FilterContext }> = ({ groupBy, context }) => {
+    const t = useMessages(libMessages);
+    const current = groupBy.options.find(option => option.value === groupBy.value);
+
+    return (
+        <ViewSection label={t.groupBy} summary={current?.label ?? t.pageGroupNone} context={context}>
+            <div className="filter-field__rows">
+                <OptionRow label={t.pageGroupNone} mark="radio" selected={groupBy.value === null} onClick={() => groupBy.onChange(null)} />
+                {groupBy.options.map(option => (
+                    <OptionRow
+                        key={option.value}
+                        label={option.label}
+                        mark="radio"
+                        selected={groupBy.value === option.value}
+                        onClick={() => groupBy.onChange(option.value)}
+                    />
+                ))}
+            </div>
+        </ViewSection>
+    );
+};
+
+const ViewToggleRow: FC<{ toggle: PageViewToggle; context: FilterContext }> = ({ toggle, context }) => (
+    <div className="page-filters__flat">
+        <div className={`filter-field filter-field--${context} filter-field__switch-row`}>
+            <button type="button" className="filter-field__switch-label" onClick={() => toggle.onChange(!toggle.value)}>
+                {toggle.label}
+            </button>
+            <ToggleSwitch checked={toggle.value} size="small" showLabels={false} onChange={toggle.onChange} />
+        </div>
+    </div>
+);
+
+/** The view options beyond the mode: columns, grouping and on/off preferences. Renders nothing when a page has none. */
+export const ViewExtras: FC<{ view: PageView; context: FilterContext }> = ({ view, context }) => {
+    if (!view.columns && !view.groupBy && !view.toggles?.length) return null;
+
+    return (
+        <div className={`page-filters page-filters--${context}`}>
+            {view.columns && <ColumnsSection columns={view.columns} context={context} />}
+            {view.groupBy && <GroupBySection groupBy={view.groupBy} context={context} />}
+            {view.toggles?.map(toggle => (
+                <ViewToggleRow key={toggle.id} toggle={toggle} context={context} />
+            ))}
         </div>
     );
 };
@@ -205,7 +257,7 @@ export const ViewOptions: FC<{ view: PageView; showToggle?: boolean }> = ({ view
         <div className="page-shell__side-group">
             <span className="page-shell__group-title">{t.pageView}</span>
             {showToggle && <ViewToggle view={view} withLabels />}
-            {view.columns && <ColumnsSection columns={view.columns} context="panel" />}
+            <ViewExtras view={view} context="panel" />
         </div>
     );
 };

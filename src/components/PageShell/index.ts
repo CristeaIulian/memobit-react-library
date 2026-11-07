@@ -6,6 +6,7 @@ export { PageShell } from './PageShell';
 export type {
     AppFrameProps,
     AppIdentity,
+    AppNavItem,
     BuiltInViewMode,
     DateFilterSpec,
     FilterContext,
@@ -21,6 +22,7 @@ export type {
     PageColumns,
     PageCounts,
     PageFilterValues,
+    PageGroupBy,
     PageNoun,
     PagePagination,
     PageSearch,
@@ -31,6 +33,7 @@ export type {
     PageSortValue,
     PageView,
     PageViewMode,
+    PageViewToggle,
     RangeFilterSpec,
     RatingFilterSpec,
     SingleFilterSpec,

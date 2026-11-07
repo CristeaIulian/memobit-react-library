@@ -7,9 +7,10 @@ import { Button } from '../Button';
 import { Drawer } from '../Drawer';
 import { InputSearch } from '../InputSearch';
 
+import { NavRail, SideNav } from './AppNav';
 import { countActiveFilters } from './filterRules';
 import { AppliedFilters, FilterSections } from './FilterSections';
-import { toMenuItems } from './menuItems';
+import { getButtonActions, getMenuItems } from './menuItems';
 import { ActionButton, AppMark, PageMenu, PagePager, SortDropdown, ViewOptions, ViewToggle } from './PageParts';
 import { PageShellProps } from './PageShell.types';
 import { getHeadingText, getResultLabel } from './shellText';
@@ -17,9 +18,9 @@ import { useAppFrame } from './useAppFrame';
 import { WorkbenchPhone } from './WorkbenchPhone';
 
 /**
- * Workbench: a side column holds the app, the primary action, the filters and the view options; a toolbar
- * above the list holds the title, search, sort and the other actions. Tablets move the column into a drawer;
- * phones get a top bar, a filter sheet and a floating primary action.
+ * Workbench: a side column holds the app, the primary action, the sections, the filters and the view options;
+ * a toolbar above the list holds the title, search, sort and the other actions. Tablets move the sections to an
+ * icon rail and the filters into a drawer; phones get a top bar, a filter sheet, a tab bar and a floating action.
  */
 export const WorkbenchShell: FC<PageShellProps> = props => {
     const { isMobile, isTablet } = useBreakpoint();
@@ -49,6 +50,8 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
     const activeCount = countActiveFilters(filters, values);
     const hasFilters = filters.length > 0;
     const frameItems = frame?.menuItems ?? [];
+    const nav = frame?.nav ?? [];
+    const hasViewExtras = Boolean(view && (view.columns || view.groupBy || view.toggles?.length));
 
     const sections = <FilterSections filters={filters} values={values} context="panel" onFilterChange={onFilterChange} />;
     const badge = activeCount > 0 && <span className="page-shell__badge">{activeCount}</span>;
@@ -59,6 +62,7 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                 <aside className="page-shell__side">
                     {frame && <AppMark app={frame.app} />}
                     {primaryAction && <ActionButton action={primaryAction} fullWidth />}
+                    {nav.length > 1 && <SideNav nav={nav} />}
                     {hasFilters && (
                         <div className="page-shell__side-group">
                             <div className="page-shell__side-head">
@@ -78,6 +82,8 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                 </aside>
             )}
 
+            {isTablet && nav.length > 1 && <NavRail app={frame?.app} nav={nav} />}
+
             <div className="page-shell__main">
                 <header className="page-shell__toolbar">
                     {isTablet && hasFilters && (
@@ -86,13 +92,13 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                             {badge}
                         </Button>
                     )}
-                    {isTablet && frame && <AppMark app={frame.app} logoOnly />}
+                    {isTablet && frame && nav.length <= 1 && <AppMark app={frame.app} logoOnly />}
                     <div className="page-shell__titles">
                         <h1 className="page-shell__title">{title}</h1>
                         {heading && <p className="page-shell__heading">{heading}</p>}
                     </div>
                     {isTablet && primaryAction && <ActionButton action={primaryAction} />}
-                    {isTablet && <PageMenu items={[...toMenuItems(actions), ...frameItems]} />}
+                    {isTablet && <PageMenu items={getMenuItems(actions, frameItems, true)} />}
                     {isTablet && <span className="page-shell__break" />}
                     {search && (
                         <InputSearch
@@ -104,8 +110,8 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                     )}
                     {sort && <SortDropdown sort={sort} />}
                     {isTablet && view && <ViewToggle view={view} />}
-                    {!isTablet && actions.map(action => <ActionButton key={action.id} action={action} />)}
-                    {!isTablet && <PageMenu items={frameItems} />}
+                    {!isTablet && getButtonActions(actions).map(action => <ActionButton key={action.id} action={action} />)}
+                    {!isTablet && <PageMenu items={getMenuItems(actions, frameItems, false)} />}
                 </header>
 
                 {/* One row for the list's state: applied filters on the left, the current page on the right. Empty, it hides. */}
@@ -140,8 +146,8 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                 >
                     <div className="page-shell__drawer-body">
                         {sections}
-                        {/* The drawer stands in for the side column, so it carries the column options too; the mode toggle stays in the toolbar. */}
-                        {view?.columns && <ViewOptions view={view} showToggle={false} />}
+                        {/* The drawer stands in for the side column, so it carries the other view options too; the mode toggle stays in the toolbar. */}
+                        {view && hasViewExtras && <ViewOptions view={view} showToggle={false} />}
                     </div>
                 </Drawer>
             )}

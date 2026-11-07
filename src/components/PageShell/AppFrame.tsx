@@ -7,8 +7,8 @@ import { AppFrameContext } from './useAppFrame';
 
 type PlainAppFrameProps = Omit<AppFrameProps, 'account'>;
 
-const PlainAppFrame: FC<PlainAppFrameProps> = ({ app, menuItems, children }) => {
-    const value = useMemo(() => ({ app, menuItems }), [app, menuItems]);
+const PlainAppFrame: FC<PlainAppFrameProps> = ({ app, nav, menuItems, children }) => {
+    const value = useMemo(() => ({ app, nav, menuItems }), [app, nav, menuItems]);
     return <AppFrameContext.Provider value={value}>{children}</AppFrameContext.Provider>;
 };
 

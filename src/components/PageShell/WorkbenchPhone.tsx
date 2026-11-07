@@ -6,10 +6,11 @@ import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { InputSearch } from '../InputSearch';
 
+import { TabBar } from './AppNav';
 import { BottomSheet } from './BottomSheet';
 import { countActiveFilters } from './filterRules';
 import { AppliedFilters, FilterSections } from './FilterSections';
-import { toMenuItems } from './menuItems';
+import { getMenuItems, MAX_TAB_BAR_ITEMS, navToMenuItems } from './menuItems';
 import { AppMark, PageMenu, PagePager, SortSheetBody } from './PageParts';
 import { PageShellProps } from './PageShell.types';
 import { getHeadingText, getResultLabel } from './shellText';
@@ -42,10 +43,20 @@ export const WorkbenchPhone: FC<PageShellProps> = props => {
     const showLabel = getResultLabel(props, t);
     const sortLabel = sort?.fields.find(field => field.value === sort.value.field)?.label;
     const resultLine = [getHeadingText(props, t), sortLabel].filter(Boolean).join(' · ');
+    const nav = frame?.nav ?? [];
+    const hasTabBar = nav.length > 1 && nav.length <= MAX_TAB_BAR_ITEMS;
+    // Sections that don't fit a tab bar go to the top of the menu instead.
+    const menuItems = [...(hasTabBar ? [] : navToMenuItems(nav)), ...getMenuItems(actions, frame?.menuItems ?? [], true)];
 
     return (
         <div
-            className={['page-shell', 'page-shell--workbench', 'page-shell--phone', primaryAction?.variant ? `page-shell--fab-${primaryAction.variant}` : '']
+            className={[
+                'page-shell',
+                'page-shell--workbench',
+                'page-shell--phone',
+                hasTabBar ? 'page-shell--with-tabs' : '',
+                primaryAction?.variant ? `page-shell--fab-${primaryAction.variant}` : '',
+            ]
                 .filter(Boolean)
                 .join(' ')}
         >
@@ -59,7 +70,7 @@ export const WorkbenchPhone: FC<PageShellProps> = props => {
                         {activeCount > 0 && <span className="page-shell__badge page-shell__badge--corner">{activeCount}</span>}
                     </button>
                 )}
-                <PageMenu items={[...toMenuItems(actions), ...(frame?.menuItems ?? [])]} />
+                <PageMenu items={menuItems} />
             </header>
 
             {search && (
@@ -89,6 +100,8 @@ export const WorkbenchPhone: FC<PageShellProps> = props => {
                     <Icon name={primaryAction.icon ?? 'plus'} size="lg" />
                 </button>
             )}
+
+            {hasTabBar && <TabBar nav={nav} />}
 
             <BottomSheet
                 isOpen={sheet === 'filters'}

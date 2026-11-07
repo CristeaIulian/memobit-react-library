@@ -96,6 +96,7 @@ const en = {
     pageAllWords: 'All words',
     pageViewCalendar: 'Calendar',
     pageViewMap: 'Map',
+    pageGroupNone: 'None',
 
     // DatePicker
     selectDate: 'Select date...',
@@ -253,6 +254,7 @@ const ro: typeof en = {
     pageAllWords: 'Toate cuvintele',
     pageViewCalendar: 'Calendar',
     pageViewMap: 'Hartă',
+    pageGroupNone: 'Fără grupare',
 
     // DatePicker
     selectDate: 'Alege data...',

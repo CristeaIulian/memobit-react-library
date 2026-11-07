@@ -102,6 +102,10 @@ export interface PageAction {
     icon?: IconName;
     variant?: ButtonVariant;
     disabled?: boolean;
+    /** Always listed in the page menu, never as a button: for occasional actions such as "Manage locations". */
+    menu?: boolean;
+    /** In the menu, draws a divider above this action to start a new group. */
+    separator?: boolean;
     onClick: () => void;
 }
 
@@ -142,12 +146,29 @@ export interface PageColumns {
     onChange: (value: string[]) => void;
 }
 
+export interface PageGroupBy {
+    options: Array<{ value: string; label: string }>;
+    /** The grouping field, or null for no grouping. */
+    value: string | null;
+    onChange: (value: string | null) => void;
+}
+
+/** An on/off display preference shown with the view options, e.g. "Hide empty fields in cards". */
+export interface PageViewToggle {
+    id: string;
+    label: string;
+    value: boolean;
+    onChange: (value: boolean) => void;
+}
+
 export interface PageView {
     modes: Array<BuiltInViewMode | PageViewMode>;
     value: string;
     onChange: (value: string) => void;
     /** Optional fields the user can show or hide. Listed with the view options, closed until opened. */
     columns?: PageColumns;
+    groupBy?: PageGroupBy;
+    toggles?: PageViewToggle[];
 }
 
 export interface PagePagination {
@@ -206,8 +227,20 @@ export interface AppIdentity {
     onHomeClick?: () => void;
 }
 
+/** One of the app's sections. Shown as a side list on desktop, an icon rail on tablet and a bottom tab bar on phone. */
+export interface AppNavItem {
+    id: string;
+    label: string;
+    icon: IconName;
+    count?: number;
+    isActive: boolean;
+    onSelect: () => void;
+}
+
 export interface AppFrameProps {
     app: AppIdentity;
+    /** The app's sections. With react-router, RouterAppFrame from '@memobit/libs/router' builds these from paths. */
+    nav?: AppNavItem[];
     /** Adds the account menu (theme, password, two-factor, logout) and mounts the dialogs it opens. Needs an AuthProvider above. */
     account?: UseAccountMenuOptions;
     /** App-specific menu entries, listed before the account ones. Page actions join them on small screens. */

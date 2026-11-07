@@ -538,3 +538,136 @@
         animation: none;
     }
 }
+
+// ---------- app navigation ----------
+.page-shell__side-nav {
+    @include flex-column;
+    gap: var(--spacing-2);
+}
+
+.page-shell__nav-row {
+    @include button-reset;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    width: 100%;
+    padding: var(--spacing-8) var(--spacing-12);
+    border-radius: var(--radius);
+    color: var(--body-color-muted);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-align: left;
+
+    &:hover {
+        background-color: var(--list-hover-background-color);
+        color: var(--body-color);
+    }
+
+    &--active,
+    &--active:hover {
+        background-color: var(--chip-selected-background-color);
+        color: var(--chip-selected-color);
+    }
+}
+
+.page-shell__nav-label {
+    flex: 1 1 auto;
+    min-width: 0;
+    @include text-truncate;
+}
+
+.page-shell__nav-count {
+    flex: none;
+    font-size: var(--font-size-xs);
+    font-variant-numeric: tabular-nums;
+}
+
+// Tablet: the sections as an icon rail beside the page.
+.page-shell__rail {
+    flex: none;
+    position: sticky;
+    top: 0;
+    @include flex-column;
+    align-items: center;
+    gap: var(--spacing-8);
+    width: var(--spacing-80);
+    height: 100vh;
+    padding: var(--spacing-16) var(--spacing-8);
+    background-color: var(--card-background-color);
+    border-right: 1px solid var(--card-border-color);
+}
+
+.page-shell__rail-item {
+    @include button-reset;
+    @include flex-column;
+    align-items: center;
+    gap: var(--spacing-4);
+    width: 100%;
+    padding: var(--spacing-8) var(--spacing-4);
+    border-radius: var(--radius);
+    color: var(--body-color-muted);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+
+    &:hover {
+        background-color: var(--list-hover-background-color);
+        color: var(--body-color);
+    }
+
+    &--active,
+    &--active:hover {
+        background-color: var(--chip-selected-background-color);
+        color: var(--chip-selected-color);
+    }
+}
+
+// Phone: the sections as a tab bar along the bottom edge; the floating action and the list make room for it.
+.page-shell__tabbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 25;
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background-color: var(--card-background-color);
+    border-top: 1px solid var(--card-border-color);
+}
+
+.page-shell__tab {
+    @include button-reset;
+    flex: 1 1 0;
+    @include flex-column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    height: var(--spacing-60);
+    color: var(--body-color-muted);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+
+    .icon {
+        padding: var(--spacing-2) var(--spacing-16);
+        border-radius: var(--radius-full);
+        transition: background-color var(--transition-fast);
+    }
+
+    // A pill behind the icon marks the current section, so it reads even where the theme's muted and accent colours are close.
+    &--active {
+        color: var(--body-accent-color);
+        font-weight: var(--font-weight-semibold);
+
+        .icon {
+            background-color: var(--chip-selected-background-color);
+            color: var(--chip-selected-color);
+        }
+    }
+}
+
+.page-shell--with-tabs .page-shell__fab {
+    bottom: calc(var(--spacing-60) + var(--spacing-16) + env(safe-area-inset-bottom, 0px));
+}
+
+.page-shell--with-tabs .page-shell__content {
+    padding-bottom: calc(var(--spacing-60) + var(--spacing-80) + env(safe-area-inset-bottom, 0px));
+}
