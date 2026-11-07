@@ -183,6 +183,8 @@ export default defineConfig({
                 router: resolve(import.meta.dirname, 'src/router.ts'),
                 // `http` is React-free so scripts and Node servers can use it too.
                 http: resolve(import.meta.dirname, 'src/http.ts'),
+                // `theme-lab` needs @memobit/themes 2.0, so apps still on themes 1.x never load it.
+                'theme-lab': resolve(import.meta.dirname, 'src/themeLab.ts'),
             },
             formats: ['es'],
             fileName: (_format, entryName) => `${entryName}.esm.js`,

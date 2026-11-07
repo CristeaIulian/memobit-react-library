@@ -52,6 +52,10 @@
       "types": "./dist/router.d.ts",
       "import": "./dist/router.js"
     },
+    "./theme-lab": {
+      "types": "./dist/theme-lab.d.ts",
+      "import": "./dist/theme-lab.js"
+    },
     "./dist/styles/variables.scss": "./dist/styles/variables.scss",
     "./dist/styles/base.scss": "./dist/styles/base.scss",
     "./dist/styles/effects.scss": "./dist/styles/effects.scss",
