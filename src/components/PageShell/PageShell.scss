@@ -14,6 +14,17 @@
     min-height: 100vh;
     color: var(--body-color);
 
+    // The shell's own boxes size by their border box, so a full-height column with padding never
+    // outgrows the screen, whatever the app's global box-sizing.
+    &,
+    &__side,
+    &__main,
+    &__rail,
+    &__toolbar,
+    &__content {
+        box-sizing: border-box;
+    }
+
     &__side {
         flex: none;
         position: sticky;
@@ -70,6 +81,8 @@
         @include flex-column;
         flex: 0 1 auto;
         min-width: 0;
+        // A long heading line truncates instead of pushing the search and actions onto a second toolbar row.
+        max-width: 40%;
     }
 
     &__title {
@@ -253,6 +266,7 @@
     // The tablet toolbar's first row: the title takes the free width so the primary action and menu sit at the end.
     &--tablet &__titles {
         flex: 1 1 auto;
+        max-width: none;
     }
 
     &__drawer-footer .button {

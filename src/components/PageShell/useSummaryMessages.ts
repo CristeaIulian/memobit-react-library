@@ -11,6 +11,7 @@ export const useSummaryMessages = (): SummaryMessages => {
         () => ({
             any: t.pageAny,
             selectedCount: t.pageSelectedCount,
+            without: t.pageWithout,
             ratingAtLeast: t.pageRatingAtLeast,
             dateSince: t.pageDateSince,
             dateUntil: t.pageDateUntil,

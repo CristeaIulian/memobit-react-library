@@ -134,6 +134,7 @@ export const pickControl = (spec: FilterSpec, context: FilterContext): FilterCon
 export interface SummaryMessages extends WordMatchLabels {
     any: string;
     selectedCount: (count: number) => string;
+    without: (label: string) => string;
     ratingAtLeast: (value: number) => string;
     dateSince: (date: string) => string;
     dateUntil: (date: string) => string;
@@ -149,6 +150,10 @@ export const filterSummary = (spec: FilterSpec, value: FilterValue | undefined, 
         }
         case 'multi': {
             const selected = toList(value);
+            if (spec.chips === 'excluded') {
+                const excluded = spec.options.filter(option => !selected.includes(option.value));
+                return excluded.length === 1 ? messages.without(excluded[0].label) : messages.selectedCount(selected.length);
+            }
             return selected.length === 1 ? optionLabel(spec.options, selected[0]) : messages.selectedCount(selected.length);
         }
         case 'range': {
@@ -195,6 +200,18 @@ export const getAppliedFilters = (filters: FilterSpec[], values: PageFilterValue
     filters.flatMap(spec => {
         const value = values[spec.id];
         if (!isFilterActive(spec, value)) return [];
+
+        if (spec.kind === 'multi' && spec.chips === 'excluded') {
+            const selected = toList(value);
+            return spec.options
+                .filter(option => !selected.includes(option.value))
+                .map(option => ({
+                    key: `${spec.id}:${option.value}`,
+                    filterId: spec.id,
+                    label: messages.without(option.label),
+                    next: [...selected, option.value],
+                }));
+        }
 
         if (spec.kind === 'multi') {
             const selected = toList(value);

@@ -52,6 +52,11 @@ export interface MultiFilterSpec extends FilterSpecBase {
     kind: 'multi';
     options: FilterOption[];
     control?: FilterControl;
+    /**
+     * What the applied chips list: the picked options (default), or the ones left out ("Without X"). Use `excluded`
+     * with a `defaultValue` of every option, for filters where everything is on until the user turns some off.
+     */
+    chips?: 'selected' | 'excluded';
 }
 
 export interface RangeFilterSpec extends FilterSpecBase {
