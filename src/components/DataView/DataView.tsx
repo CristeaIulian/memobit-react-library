@@ -60,7 +60,7 @@ export function DataView<T>({
     currentPage: controlledCurrentPage,
     totalItems: controlledTotalItems,
     group,
-    showResultsCount = true,
+    showResultsCount,
     totalCount,
     itemNoun,
     columnSelector,
@@ -252,7 +252,9 @@ export function DataView<T>({
         if (page !== safeCurrentPage) handlePageChange(page);
     }, [handlePageChange, highlightIds, isServerPaginated, orderedData, pageSize, resolvedRowKey, safeCurrentPage]);
 
-    const resultsCountLabel = showResultsCount
+    // With every row already on screen the line says nothing new, so by default it waits for a second page.
+    const isResultsCountVisible = showResultsCount ?? totalPages > 1;
+    const resultsCountLabel = isResultsCountVisible
         ? getResultsCount(pageSize, totalForPagination, totalCount ?? totalForPagination, safeCurrentPage, itemNoun, language)
         : null;
     const groupTotals = useMemo<Map<DataViewGroupKey, number> | null>(() => {

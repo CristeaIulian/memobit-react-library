@@ -154,7 +154,7 @@ export interface DataViewProps<T> {
     totalItems?: number;
     /** Group rows by a key. Rows render in group sections within the paginated slice. */
     group?: DataViewGroupConfig<T>;
-    /** Display the "Showing X-Y of Z" results-count label above the data. Default: true. */
+    /** Display the "Showing X-Y of Z" results-count label above the data. When unset, it appears only if the list needs more than one page. `true` and `false` always show or always hide it. */
     showResultsCount?: boolean;
     /** Unfiltered total used to render the "filtered (... total)" form when smaller than this value. Defaults to `data.length`. */
     totalCount?: number;
