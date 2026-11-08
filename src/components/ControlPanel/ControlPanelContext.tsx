@@ -24,6 +24,7 @@ const readUndocked = (): boolean => {
     }
 };
 
+/** @deprecated Use PageShell inside an AppFrame / RouterAppFrame (see the page-shell-usage skill). Kept for the showcase demos. */
 export const ControlPanelProvider: React.FC<ControlPanelProviderProps> = ({ children, undockable = false }) => {
     const { isMobile } = useBreakpoint();
     const [isOpen, setIsOpen] = useState(false);

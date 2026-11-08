@@ -6,10 +6,12 @@ import { useMessages } from '../../hooks/useLanguage';
 import { Chip } from '../Chip';
 import { DatePicker } from '../DatePicker';
 import { Icon } from '../Icon';
+import { InputNumber } from '../InputNumber';
 import { InputSearch } from '../InputSearch';
 import { RangeSlider, RangeSliderValue } from '../RangeSlider';
 import { Rating } from '../Rating';
 import { ToggleSwitch } from '../ToggleSwitch';
+import { Tooltip } from '../Tooltip';
 
 import { CHECKLIST_PREVIEW, getTextModes, pickControl, RATING_SEGMENTED_MAX, toDateRange, toList, toNumber, toRange, toScalar, toText } from './filterRules';
 import {
@@ -67,22 +69,31 @@ interface OptionRowProps {
     selected: boolean;
     count?: number | string;
     icon?: FilterOption['icon'];
+    imageUrl?: string;
+    hint?: string;
     onClick: () => void;
 }
 
-export const OptionRow: FC<OptionRowProps> = ({ label, mark, selected, count, icon, onClick }) => (
-    <button
-        type="button"
-        className={['filter-field__row', selected ? 'filter-field__row--selected' : '', count === 0 && !selected ? 'filter-field__row--empty' : '']
-            .filter(Boolean)
-            .join(' ')}
-        onClick={onClick}
-    >
-        <span className={`filter-field__mark filter-field__mark--${mark}`}>{mark === 'check' && selected && <Icon name="checkmark" size="sm" />}</span>
-        {icon && <Icon name={icon} size="sm" />}
-        <span className="filter-field__row-label">{label}</span>
-        {count !== undefined && <span className="filter-field__count">{count}</span>}
-    </button>
+const OptionImage: FC<{ src: string }> = ({ src }) => <img className="filter-field__avatar" src={src} alt="" loading="lazy" />;
+
+// A hint shows on hover; without one the option renders as is.
+const WithHint: FC<{ hint?: string; children: ReactNode }> = ({ hint, children }) => (hint ? <Tooltip title={hint}>{children}</Tooltip> : <>{children}</>);
+
+export const OptionRow: FC<OptionRowProps> = ({ label, mark, selected, count, icon, imageUrl, hint, onClick }) => (
+    <WithHint hint={hint}>
+        <button
+            type="button"
+            className={['filter-field__row', selected ? 'filter-field__row--selected' : '', count === 0 && !selected ? 'filter-field__row--empty' : '']
+                .filter(Boolean)
+                .join(' ')}
+            onClick={onClick}
+        >
+            <span className={`filter-field__mark filter-field__mark--${mark}`}>{mark === 'check' && selected && <Icon name="checkmark" size="sm" />}</span>
+            {imageUrl ? <OptionImage src={imageUrl} /> : icon && <Icon name={icon} size="sm" />}
+            <span className="filter-field__row-label">{label}</span>
+            {count !== undefined && <span className="filter-field__count">{count}</span>}
+        </button>
+    </WithHint>
 );
 
 const toggleIn = (list: OptionValue[], item: OptionValue): OptionValue[] => (list.includes(item) ? list.filter(other => other !== item) : [...list, item]);
@@ -118,18 +129,26 @@ const OptionList: FC<{
         return (
             <div className="filter-field__chips">
                 {spec.options.map(option => (
-                    <Chip
-                        key={option.value}
-                        className={option.count === 0 && !isSelected(option) ? 'filter-field__chip--empty' : undefined}
-                        color={option.color}
-                        count={option.count}
-                        icon={option.icon}
-                        selected={isSelected(option)}
-                        size={context === 'sheet' ? 'medium' : 'small'}
-                        onClick={() => select(option)}
-                    >
-                        {option.label}
-                    </Chip>
+                    <WithHint key={option.value} hint={option.hint}>
+                        <Chip
+                            className={option.count === 0 && !isSelected(option) ? 'filter-field__chip--empty' : undefined}
+                            color={option.color}
+                            count={option.count}
+                            icon={option.imageUrl ? undefined : option.icon}
+                            selected={isSelected(option)}
+                            size={context === 'sheet' ? 'medium' : 'small'}
+                            onClick={() => select(option)}
+                        >
+                            {option.imageUrl ? (
+                                <span className="filter-field__chip-label">
+                                    <OptionImage src={option.imageUrl} />
+                                    {option.label}
+                                </span>
+                            ) : (
+                                option.label
+                            )}
+                        </Chip>
+                    </WithHint>
                 ))}
             </div>
         );
@@ -144,6 +163,8 @@ const OptionList: FC<{
             selected={isSelected(option)}
             count={option.count}
             icon={option.icon}
+            imageUrl={option.imageUrl}
+            hint={option.hint}
             onClick={() => select(option)}
         />
     );
@@ -198,17 +219,40 @@ const RangeField: FC<{ spec: RangeFilterSpec; value: FilterValue | undefined; on
 
     const commit = ([nextLo, nextHi]: RangeSliderValue) => onChange(nextLo <= spec.min && nextHi >= spec.max ? null : [nextLo, nextHi]);
 
-    return (
+    // A typed end is kept inside the scale and never past the other end.
+    const typeEnd = (end: 0 | 1, typed: number | undefined) => {
+        const fallback = end === 0 ? spec.min : spec.max;
+        const clamped = Math.min(Math.max(typed ?? fallback, spec.min), spec.max);
+        const next: RangeSliderValue = end === 0 ? [Math.min(clamped, draft[1]), draft[1]] : [draft[0], Math.max(clamped, draft[0])];
+        setDraft(next);
+        commit(next);
+    };
+
+    const slider = (
         <RangeSlider
             min={spec.min}
             max={spec.max}
             step={spec.step}
             value={draft}
-            showValues
+            showValues={!spec.inputs}
             formatValue={next => (spec.unit ? `${next} ${spec.unit}` : String(next))}
             onChange={setDraft}
             onChangeEnd={commit}
         />
+    );
+
+    if (!spec.inputs) return slider;
+
+    return (
+        <div className="filter-field__stack">
+            {slider}
+            <div className="filter-field__range-inputs">
+                <InputNumber value={draft[0]} min={spec.min} max={draft[1]} step={spec.step} onChange={typed => typeEnd(0, typed)} />
+                <span className="filter-field__range-dash">–</span>
+                <InputNumber value={draft[1]} min={draft[0]} max={spec.max} step={spec.step} onChange={typed => typeEnd(1, typed)} />
+                {spec.unit && <span className="filter-field__count">{spec.unit}</span>}
+            </div>
+        </div>
     );
 };
 

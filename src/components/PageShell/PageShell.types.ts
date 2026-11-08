@@ -24,6 +24,10 @@ export interface FilterOption {
     count?: number | string;
     icon?: IconName;
     color?: string;
+    /** A small round picture before the label: a face, a product. */
+    imageUrl?: string;
+    /** A hover hint on the option, for what its label can't say ("5–50 km out"). */
+    hint?: string;
 }
 
 export interface FilterMode {
@@ -65,6 +69,8 @@ export interface RangeFilterSpec extends FilterSpecBase {
     max: number;
     step?: number;
     unit?: string;
+    /** Adds from/to number boxes under the slider, for exact values the thumbs can't hit. */
+    inputs?: boolean;
 }
 
 export interface RatingFilterSpec extends FilterSpecBase {
@@ -121,6 +127,16 @@ export type FilterValue = string | number | boolean | null | Array<string | numb
 
 export type PageFilterValues = Record<string, FilterValue | undefined>;
 
+export interface PageActionConfirm {
+    /** Defaults to the action's label. */
+    title?: string;
+    message: string;
+    /** Defaults to "Confirm". */
+    confirmLabel?: string;
+    /** Defaults to `danger`. */
+    variant?: ButtonVariant;
+}
+
 export interface PageAction {
     id: string;
     label: string;
@@ -133,6 +149,8 @@ export interface PageAction {
     menu?: boolean;
     /** In the menu, draws a divider above this action to start a new group. */
     separator?: boolean;
+    /** Asks first, in a dialog, and runs `onClick` only on yes: for actions that can't be undone. */
+    confirm?: PageActionConfirm;
     onClick: () => void;
 }
 
@@ -151,8 +169,15 @@ export interface PageSortValue {
     direction: PageSortDirection;
 }
 
+export interface PageSortField {
+    value: string;
+    label: string;
+    /** A field that only sorts one way ("Newest first"): picking it sets this direction and hides the direction switch. */
+    direction?: PageSortDirection;
+}
+
 export interface PageSort {
-    fields: Array<{ value: string; label: string }>;
+    fields: PageSortField[];
     value: PageSortValue;
     /** Marks the sort as changed from the page's default. */
     highlighted?: boolean;
@@ -182,6 +207,18 @@ export interface PageGroupBy {
     onChange: (value: string | null) => void;
 }
 
+/** A sized display preference shown with the view options, e.g. photo size. */
+export interface PageViewSlider {
+    id: string;
+    label: string;
+    min: number;
+    max: number;
+    step?: number;
+    unit?: string;
+    value: number;
+    onChange: (value: number) => void;
+}
+
 /** An on/off display preference shown with the view options, e.g. "Hide empty fields in cards". */
 export interface PageViewToggle {
     id: string;
@@ -209,6 +246,7 @@ export interface PageView {
     groupBy?: PageGroupBy;
     toggles?: PageViewToggle[];
     choices?: PageViewChoice[];
+    sliders?: PageViewSlider[];
 }
 
 /** One part of a page that has several (settings tabs, dashboard sections, one car's records). */
@@ -247,8 +285,11 @@ export interface PageCounts {
     total: number;
 }
 
-/** The layouts built so far. More shells (bar, catalog, scope, focus) arrive as pages need them. */
-export type PageShellLayout = 'workbench';
+/**
+ * `workbench` (the default) is the full layout. `focus` is for a page that needs the whole screen and none of the
+ * list chrome, such as a running quiz: a slim top bar with the title, actions and menu, and no side column.
+ */
+export type PageShellLayout = 'workbench' | 'focus';
 
 export interface PageShellProps {
     layout?: PageShellLayout;
@@ -276,6 +317,10 @@ export interface PageShellProps {
     tabs?: PageTabs;
     /** This page's own indicator (e.g. an overdue bell), shown where the frame's `status` goes, in its place. */
     status?: ReactNode;
+    /** A panel docked on the right on desktop (details of the picked item, a map legend); below the content elsewhere. */
+    aside?: ReactNode;
+    /** A bar that stays at the bottom of the screen while the page scrolls, such as a player; above the phone tab bar. */
+    footer?: ReactNode;
     children: ReactNode;
 }
 
@@ -292,7 +337,12 @@ export interface AppNavItem {
     id: string;
     label: string;
     icon: IconName;
-    count?: number;
+    /** A number or short text beside the label ("3/12"). */
+    count?: number | string;
+    /** Sections with the same group are listed together under that heading in the side list. */
+    group?: string;
+    /** Tints the section's icon, e.g. a category colour. */
+    color?: string;
     isActive: boolean;
     onSelect: () => void;
 }

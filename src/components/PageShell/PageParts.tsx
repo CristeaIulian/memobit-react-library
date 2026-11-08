@@ -7,6 +7,7 @@ import { Chip } from '../Chip';
 import { Dropdown } from '../Dropdown';
 import { Icon } from '../Icon';
 import { MenuHamburger, MenuHamburgerItem } from '../MenuHamburger';
+import { Slider } from '../Slider';
 import { ToggleSwitch } from '../ToggleSwitch';
 import { Tooltip } from '../Tooltip';
 
@@ -19,9 +20,11 @@ import {
     PageGroupBy,
     PagePagination,
     PageSort,
+    PageSortField,
     PageTabs,
     PageView,
     PageViewChoice,
+    PageViewSlider,
     PageViewToggle,
 } from './PageShell.types';
 import { hasViewExtras, resolveViewModes } from './shellText';
@@ -91,6 +94,11 @@ export const ViewToggle: FC<{ view: PageView; withLabels?: boolean }> = ({ view,
     );
 };
 
+// The sort a picked field leads to: its own fixed direction, or the current one.
+const pickField = (sort: PageSort, field: PageSortField) => sort.onChange({ field: field.value, direction: field.direction ?? sort.value.direction });
+
+const isDirectionFixed = (sort: PageSort): boolean => sort.fields.some(field => field.value === sort.value.field && field.direction !== undefined);
+
 /** Desktop and tablet sort: a field dropdown and a direction button beside it. */
 export const SortDropdown: FC<{ sort: PageSort }> = ({ sort }) => {
     const t = useMessages(libMessages);
@@ -108,17 +116,20 @@ export const SortDropdown: FC<{ sort: PageSort }> = ({ sort }) => {
                     searchable={false}
                     usePortal={false}
                     onChange={option => {
-                        if (option && !Array.isArray(option)) sort.onChange({ field: String(option.value), direction: sort.value.direction });
+                        const field = option && !Array.isArray(option) ? sort.fields.find(item => item.value === String(option.value)) : undefined;
+                        if (field) pickField(sort, field);
                     }}
                 />
             </div>
-            <Tooltip title={ascending ? t.pageAscending : t.pageDescending}>
-                <Button
-                    icon={ascending ? 'arrow-up' : 'arrow-down'}
-                    variant="default"
-                    onClick={() => sort.onChange({ field: sort.value.field, direction: ascending ? 'desc' : 'asc' })}
-                />
-            </Tooltip>
+            {!isDirectionFixed(sort) && (
+                <Tooltip title={ascending ? t.pageAscending : t.pageDescending}>
+                    <Button
+                        icon={ascending ? 'arrow-up' : 'arrow-down'}
+                        variant="default"
+                        onClick={() => sort.onChange({ field: sort.value.field, direction: ascending ? 'desc' : 'asc' })}
+                    />
+                </Tooltip>
+            )}
         </div>
     );
 };
@@ -139,18 +150,20 @@ export const SortSheetBody: FC<{ sort?: PageSort; view?: PageView }> = ({ sort, 
                                 label={field.label}
                                 mark="radio"
                                 selected={sort.value.field === field.value}
-                                onClick={() => sort.onChange({ field: field.value, direction: sort.value.direction })}
+                                onClick={() => pickField(sort, field)}
                             />
                         ))}
                     </div>
-                    <Segmented
-                        items={[
-                            { value: 'asc', label: t.pageAscending },
-                            { value: 'desc', label: t.pageDescending },
-                        ]}
-                        value={sort.value.direction}
-                        onSelect={next => sort.onChange({ field: sort.value.field, direction: next === 'desc' ? 'desc' : 'asc' })}
-                    />
+                    {!isDirectionFixed(sort) && (
+                        <Segmented
+                            items={[
+                                { value: 'asc', label: t.pageAscending },
+                                { value: 'desc', label: t.pageDescending },
+                            ]}
+                            value={sort.value.direction}
+                            onSelect={next => sort.onChange({ field: sort.value.field, direction: next === 'desc' ? 'desc' : 'asc' })}
+                        />
+                    )}
                 </>
             )}
             {view && (
@@ -250,6 +263,24 @@ const ViewChoiceRow: FC<{ choice: PageViewChoice; context: FilterContext }> = ({
     </div>
 );
 
+const ViewSliderRow: FC<{ slider: PageViewSlider; context: FilterContext }> = ({ slider, context }) => (
+    <div className="page-filters__flat">
+        <div className={`filter-field filter-field--${context} page-shell__view-choice`}>
+            <span className="page-shell__view-choice-label">{slider.label}</span>
+            <Slider
+                min={slider.min}
+                max={slider.max}
+                step={slider.step}
+                value={slider.value}
+                showValues={false}
+                showValueAtTheRight
+                thin
+                onChange={slider.onChange}
+            />
+        </div>
+    </div>
+);
+
 /** The view options beyond the mode: settings, columns, grouping and on/off preferences. Renders nothing when a page has none. */
 export const ViewExtras: FC<{ view: PageView; context: FilterContext }> = ({ view, context }) => {
     if (!hasViewExtras(view)) return null;
@@ -258,6 +289,9 @@ export const ViewExtras: FC<{ view: PageView; context: FilterContext }> = ({ vie
         <div className={`page-filters page-filters--${context}`}>
             {view.choices?.map(choice => (
                 <ViewChoiceRow key={choice.id} choice={choice} context={context} />
+            ))}
+            {view.sliders?.map(slider => (
+                <ViewSliderRow key={slider.id} slider={slider} context={context} />
             ))}
             {view.columns && <ColumnsSection columns={view.columns} context={context} />}
             {view.groupBy && <GroupBySection groupBy={view.groupBy} context={context} />}

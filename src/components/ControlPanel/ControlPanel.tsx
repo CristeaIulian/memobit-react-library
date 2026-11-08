@@ -16,6 +16,7 @@ import { useControlPanelContext } from './useControlPanel';
 
 import './ControlPanel.scss';
 
+/** @deprecated Use PageShell inside an AppFrame / RouterAppFrame (see the page-shell-usage skill). Kept for the showcase demos. */
 export const ControlPanel: React.FC<ControlPanelProps> = ({
     width = '280px',
     className = '',

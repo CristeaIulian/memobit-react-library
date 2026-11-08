@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import { FocusShell } from './FocusShell';
 import { PageShellProps } from './PageShell.types';
 import { WorkbenchShell } from './WorkbenchShell';
 
@@ -10,5 +11,7 @@ export const PageShell: FC<PageShellProps> = ({ layout = 'workbench', ...props }
     switch (layout) {
         case 'workbench':
             return <WorkbenchShell {...props} />;
+        case 'focus':
+            return <FocusShell {...props} />;
     }
 };

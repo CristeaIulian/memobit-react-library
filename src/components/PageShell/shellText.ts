@@ -30,4 +30,5 @@ export const resolveViewModes = (modes: Array<BuiltInViewMode | PageViewMode>, t
     modes.map(mode => (typeof mode === 'string' ? builtInViewMode(mode, t) : mode));
 
 /** Whether a view has options beyond the mode switch. */
-export const hasViewExtras = (view: PageView): boolean => Boolean(view.columns || view.groupBy || view.toggles?.length || view.choices?.length);
+export const hasViewExtras = (view: PageView): boolean =>
+    Boolean(view.columns || view.groupBy || view.toggles?.length || view.choices?.length || view.sliders?.length);

@@ -10,7 +10,11 @@ export interface AppRouteNavItem {
     path: string;
     label: string;
     icon: IconName;
-    count?: number;
+    count?: number | string;
+    /** Sections with the same group are listed together under that heading. */
+    group?: string;
+    /** Tints the section's icon. */
+    color?: string;
     /** Whether only the exact path counts as this section. Defaults to true for '/' and false otherwise, so '/archive/12' still lights up Archive. */
     end?: boolean;
     /** Other paths that belong to this section, e.g. ['/person/:id/*'] for a People section's detail pages. */
@@ -33,6 +37,8 @@ export const RouterAppFrame: FC<RouterAppFrameProps> = ({ nav, app, ...props }) 
                 label: item.label,
                 icon: item.icon,
                 count: item.count,
+                group: item.group,
+                color: item.color,
                 isActive:
                     matchPath({ path: item.path, end: item.end ?? item.path === '/' }, pathname) !== null ||
                     (item.activeOn ?? []).some(path => matchPath({ path, end: false }, pathname) !== null),

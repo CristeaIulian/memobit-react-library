@@ -15,6 +15,7 @@ import { AppMark, PageMenu, PagePager, PageTabsRow, SortSheetBody } from './Page
 import { PageShellProps } from './PageShell.types';
 import { getHeadingText, getResultLabel } from './shellText';
 import { useAppFrame } from './useAppFrame';
+import { useConfirmedActions } from './useConfirmedActions';
 
 type PhoneSheet = 'filters' | 'sort' | null;
 
@@ -23,8 +24,6 @@ export const WorkbenchPhone: FC<PageShellProps> = props => {
     const {
         title,
         counts,
-        primaryAction,
-        actions = [],
         search,
         sort,
         view,
@@ -34,9 +33,12 @@ export const WorkbenchPhone: FC<PageShellProps> = props => {
         onClearFilters,
         pagination,
         tabs,
+        aside,
+        footer,
         children,
     } = props;
     const t = useMessages(libMessages);
+    const { primaryAction, actions, dialog } = useConfirmedActions(props.primaryAction, props.actions ?? []);
     const frame = useAppFrame();
     const [sheet, setSheet] = useState<PhoneSheet>(null);
     const closeSheet = useCallback(() => setSheet(null), []);
@@ -99,6 +101,10 @@ export const WorkbenchPhone: FC<PageShellProps> = props => {
 
             <div className="page-shell__content">{children}</div>
 
+            {aside && <div className="page-shell__aside page-shell__aside--stacked">{aside}</div>}
+
+            {footer && <div className="page-shell__footer">{footer}</div>}
+
             {primaryAction && (
                 <button type="button" className="page-shell__fab" disabled={primaryAction.disabled} onClick={primaryAction.onClick}>
                     <Icon name={primaryAction.icon ?? 'plus'} size="lg" />
@@ -140,6 +146,8 @@ export const WorkbenchPhone: FC<PageShellProps> = props => {
             >
                 <SortSheetBody sort={sort} view={view} />
             </BottomSheet>
+
+            {dialog}
         </div>
     );
 };

@@ -15,6 +15,7 @@ import { ActionButton, AppMark, PageMenu, PagePager, PageTabsRow, SortDropdown, 
 import { PageShellProps } from './PageShell.types';
 import { getHeadingText, getResultLabel, hasViewExtras } from './shellText';
 import { useAppFrame } from './useAppFrame';
+import { useConfirmedActions } from './useConfirmedActions';
 import { WorkbenchPhone } from './WorkbenchPhone';
 
 /**
@@ -27,14 +28,13 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
     const t = useMessages(libMessages);
     const frame = useAppFrame();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const { primaryAction, actions, dialog } = useConfirmedActions(props.primaryAction, props.actions ?? []);
 
     if (isMobile) return <WorkbenchPhone {...props} />;
 
     const {
         title,
         counts,
-        primaryAction,
-        actions = [],
         search,
         sort,
         view,
@@ -44,6 +44,8 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
         onClearFilters,
         pagination,
         tabs,
+        aside,
+        footer,
         children,
     } = props;
     const status = props.status ?? frame?.status;
@@ -129,7 +131,14 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                 </div>
 
                 <div className="page-shell__content">{children}</div>
+
+                {/* Tablets have no room for a third column, so the panel follows the content. */}
+                {isTablet && aside && <div className="page-shell__aside page-shell__aside--stacked">{aside}</div>}
+
+                {footer && <div className="page-shell__footer">{footer}</div>}
             </div>
+
+            {!isTablet && aside && <aside className="page-shell__aside page-shell__aside--docked">{aside}</aside>}
 
             {isTablet && hasFilters && (
                 <Drawer
@@ -159,6 +168,7 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                     </div>
                 </Drawer>
             )}
+            {dialog}
         </div>
     );
 };

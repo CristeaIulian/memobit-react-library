@@ -134,6 +134,7 @@ const getSortDropdownValue = (sort: ToolbarSortConfig): string | number | null |
     return sort.value;
 };
 
+/** @deprecated Use PageShell inside an AppFrame / RouterAppFrame (see the page-shell-usage skill). Kept for the showcase demos. */
 export const Toolbar: React.FC<ToolbarProps> = ({
     actions,
     children,
