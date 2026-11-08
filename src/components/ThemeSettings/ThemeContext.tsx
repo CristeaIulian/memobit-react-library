@@ -3,7 +3,7 @@ import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 import { Tooltip } from '../Tooltip';
 
 import { getThemeConfig, THEME_CONFIGS } from './themeConfig';
-import { type Theme, ThemeContext, type ThemeEffects, type ThemeSaveValue } from './ThemeContextValue';
+import { DEFAULT_FALLBACK_THEME, type Theme, ThemeContext, type ThemeEffects, type ThemeSaveValue } from './ThemeContextValue';
 
 const THEME_LINK_ID = 'theme-stylesheet';
 const FONT_LINK_ID = 'theme-font-link';
@@ -23,7 +23,7 @@ export interface ThemeProviderProps {
     fallbackTheme?: Theme;
 }
 
-export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects, onSave, allowedThemes, fallbackTheme = 'luna' }) => {
+export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects, onSave, allowedThemes, fallbackTheme = DEFAULT_FALLBACK_THEME }) => {
     const [previewTheme, setPreviewThemeState] = useState<Theme | null>(null);
     const [previewEffects, setPreviewEffectsState] = useState<ThemeEffects | null>(null);
     const [copied, setCopied] = useState(false);

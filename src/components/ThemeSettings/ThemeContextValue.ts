@@ -1,55 +1,15 @@
 import { createContext } from 'react';
 
-export type Theme =
-    | 'arctic-blue'
-    | 'asphalt-code'
-    | 'atelier-media'
-    | 'audit-ember'
-    | 'azure-night'
-    | 'blossom-meadow'
-    | 'blueprint-clay'
-    | 'carbon-velocity'
-    | 'chalk-circuit'
-    | 'chrono-atlas'
-    | 'circuit-harbor'
-    | 'cobalt-pulse'
-    | 'citrus-vital'
-    | 'crawler-dusk'
-    | 'crimson-dusk'
-    | 'cyber-forest'
-    | 'dashdarkx'
-    | 'emerald-ledger'
-    | 'garden-harvest'
-    | 'graphite-shell'
-    | 'horizon-amber'
-    | 'indigo-stitch'
-    | 'ivory-serif'
-    | 'kindred-ink'
-    | 'lamplight'
-    | 'lumen'
-    | 'luna'
-    | 'mesh-circuit'
-    | 'midnight-atlas'
-    | 'midnight-amber'
-    | 'noir-marquee'
-    | 'ocean-breeze'
-    | 'ocean-depths'
-    | 'orbital-night'
-    | 'sandstone'
-    | 'sandy-parchment'
-    | 'screening-room'
-    | 'signal-burst'
-    | 'signal-clarity'
-    | 'slate-focus'
-    | 'slate-bazaar'
-    | 'tailwind-vue-dark'
-    | 'terminal-phosphor'
-    | 'terracotta-kitchen'
-    | 'vault-guard'
-    | 'verdant-pulse'
-    | 'vital-aurora'
-    | 'vital-signal'
-    | 'war-room';
+import type { ThemeName } from '@memobit/themes';
+
+// Every theme @memobit/themes ships, so naming one that does not exist fails the build.
+export type Theme = ThemeName;
+
+/**
+ * Shown when a theme is unknown and the app passes no `fallbackTheme` of its own. Apps should
+ * pass their default theme, so a saved theme that was since removed falls back to theirs.
+ */
+export const DEFAULT_FALLBACK_THEME: Theme = 'sandy-parchment';
 
 export interface ThemeEffects {
     effect: string;

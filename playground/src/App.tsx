@@ -20,7 +20,7 @@ interface PlaygroundTheme {
 }
 
 const DEFAULT_THEME: PlaygroundTheme = {
-    name: 'luna',
+    name: 'sandy-parchment',
     effect: '',
     appliesTo: [],
 };
