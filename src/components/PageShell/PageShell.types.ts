@@ -347,6 +347,14 @@ export interface AppNavItem {
     onSelect: () => void;
 }
 
+/** Extras for the desktop side list, for apps with many sections. */
+export interface AppNavOptions {
+    /** Shows a box above the side list that narrows the sections by label or group; the text is its placeholder. */
+    search?: string;
+    /** Lets each group heading fold its sections away; remembered per app. A folded group still shows its current section. */
+    collapsibleGroups?: boolean;
+}
+
 export interface AppFrameTheme {
     /** Shown in the theme dialog's "For <app>" recommended filter. */
     appName: string;
@@ -357,6 +365,8 @@ export interface AppFrameProps {
     app: AppIdentity;
     /** The app's sections. With react-router, RouterAppFrame from '@memobit/libs/router' builds these from paths. */
     nav?: AppNavItem[];
+    /** Search and folding groups for the desktop side list. */
+    navOptions?: AppNavOptions;
     /** Adds the account menu (theme, password, two-factor, logout) and mounts the dialogs it opens. Needs an AuthProvider above. */
     account?: UseAccountMenuOptions;
     /** For apps without sign-in: adds just the Theme entry and its dialog. `account` already includes it. */

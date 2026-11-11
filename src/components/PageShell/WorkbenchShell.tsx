@@ -65,7 +65,7 @@ export const WorkbenchShell: FC<PageShellProps> = props => {
                 <aside className="page-shell__side">
                     {frame && <AppMark app={frame.app} />}
                     {primaryAction && <ActionButton action={primaryAction} fullWidth />}
-                    {nav.length > 1 && <SideNav nav={nav} />}
+                    {nav.length > 1 && <SideNav nav={nav} appName={frame?.app.name} options={frame?.navOptions} />}
                     {hasFilters && (
                         <div className="page-shell__side-group">
                             <div className="page-shell__side-head">

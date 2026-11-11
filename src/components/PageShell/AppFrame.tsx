@@ -8,8 +8,8 @@ import { AppFrameContext } from './useAppFrame';
 
 type PlainAppFrameProps = Omit<AppFrameProps, 'account' | 'theme'>;
 
-const PlainAppFrame: FC<PlainAppFrameProps> = ({ app, nav, menuItems, status, children }) => {
-    const value = useMemo(() => ({ app, nav, menuItems, status }), [app, nav, menuItems, status]);
+const PlainAppFrame: FC<PlainAppFrameProps> = ({ app, nav, navOptions, menuItems, status, children }) => {
+    const value = useMemo(() => ({ app, nav, navOptions, menuItems, status }), [app, nav, navOptions, menuItems, status]);
     return <AppFrameContext.Provider value={value}>{children}</AppFrameContext.Provider>;
 };
 

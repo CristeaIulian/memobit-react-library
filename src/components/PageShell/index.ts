@@ -9,6 +9,7 @@ export type {
     AppFrameTheme,
     AppIdentity,
     AppNavItem,
+    AppNavOptions,
     BuiltInViewMode,
     DateFilterSpec,
     DateRangeFilterSpec,

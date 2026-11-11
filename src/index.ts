@@ -152,6 +152,7 @@ export {
     type AppIdentity,
     applyLiveCounts,
     type AppNavItem,
+    type AppNavOptions,
     asFilterDateRange,
     asFilterKey,
     asFilterKeys,
