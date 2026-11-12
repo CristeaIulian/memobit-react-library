@@ -1,0 +1,50 @@
+.WatchLinkModal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+}
+
+.WatchLinkModal_hint {
+    margin: 0;
+    color: var(--body-text-muted);
+}
+
+.WatchLinkModal_error {
+    margin: 0;
+    color: var(--body-text-danger);
+}
+
+.WatchLinkModal_list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.WatchLinkModal_listTitle {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--body-text-muted);
+}
+
+.WatchLinkModal_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-12);
+}
+
+.WatchLinkModal_itemText {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    min-width: 0;
+}
+
+.WatchLinkModal_itemName {
+    font-weight: var(--font-weight-semibold);
+}
+
+.WatchLinkModal_itemMeta {
+    font-size: var(--font-size-sm);
+    color: var(--body-text-muted);
+}

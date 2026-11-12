@@ -319,6 +319,7 @@ export { WHtR } from './components/WHtR';
 // Export Auth components
 export { ChangePasswordModal } from './components/Auth/ChangePasswordModal';
 export { Login as AuthLogin } from './components/Auth/Login';
+export { WatchLinkModal } from './components/Auth/WatchLinkModal';
 
 // Export Auth context
 export { AuthContext, AuthProvider } from './contexts/AuthContext';
