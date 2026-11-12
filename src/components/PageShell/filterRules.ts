@@ -112,6 +112,10 @@ export const countActiveFilters = (filters: FilterSpec[], values: PageFilterValu
 
 export const optionLabel = (options: FilterOption[], value: string | number): string => options.find(option => option.value === value)?.label ?? String(value);
 
+/** Whether options read well as a segmented control: a few of them, with short labels (plus `extraChars`, e.g. an "Any" item). */
+export const fitsSegmented = (labels: string[], extraChars = 0): boolean =>
+    labels.length <= SEGMENTED_MAX && labels.reduce((total, label) => total + label.length, extraChars) <= SEGMENTED_MAX_CHARS;
+
 /** Picks the widget for a `single` or `multi` filter from its option count and where it is drawn. */
 export const pickControl = (spec: FilterSpec, context: FilterContext): FilterControl | null => {
     if (spec.kind !== 'single' && spec.kind !== 'multi') return null;
@@ -121,8 +125,13 @@ export const pickControl = (spec: FilterSpec, context: FilterContext): FilterCon
 
     if (spec.kind === 'single') {
         if (count > RADIO_MAX) return 'search-list';
-        const labelChars = spec.options.reduce((total, option) => total + option.label.length, 'Any'.length);
-        if (count <= SEGMENTED_MAX && labelChars <= SEGMENTED_MAX_CHARS) return 'segmented';
+        if (
+            fitsSegmented(
+                spec.options.map(option => option.label),
+                'Any'.length
+            )
+        )
+            return 'segmented';
         return context === 'sheet' ? 'chips' : 'radio';
     }
 

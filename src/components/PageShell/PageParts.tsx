@@ -12,6 +12,7 @@ import { ToggleSwitch } from '../ToggleSwitch';
 import { Tooltip } from '../Tooltip';
 
 import { OptionRow, Segmented } from './FilterField';
+import { fitsSegmented } from './filterRules';
 import {
     AppIdentity,
     FilterContext,
@@ -248,17 +249,32 @@ const ViewToggleRow: FC<{ toggle: PageViewToggle; context: FilterContext }> = ({
     </div>
 );
 
+// Segmented when the options fit across the column; otherwise a radio list, so long labels and many options stay readable.
 const ViewChoiceRow: FC<{ choice: PageViewChoice; context: FilterContext }> = ({ choice, context }) => (
     <div className="page-filters__flat">
         <div className={`filter-field filter-field--${context} page-shell__view-choice`}>
             <span className="page-shell__view-choice-label">{choice.label}</span>
-            <Segmented
-                items={choice.options}
-                value={choice.value}
-                onSelect={next => {
-                    if (next !== null) choice.onChange(String(next));
-                }}
-            />
+            {fitsSegmented(choice.options.map(option => option.label)) ? (
+                <Segmented
+                    items={choice.options}
+                    value={choice.value}
+                    onSelect={next => {
+                        if (next !== null) choice.onChange(String(next));
+                    }}
+                />
+            ) : (
+                <div className="filter-field__rows">
+                    {choice.options.map(option => (
+                        <OptionRow
+                            key={option.value}
+                            label={option.label}
+                            mark="radio"
+                            selected={choice.value === option.value}
+                            onClick={() => choice.onChange(option.value)}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     </div>
 );
