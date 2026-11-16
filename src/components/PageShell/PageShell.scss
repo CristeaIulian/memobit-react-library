@@ -149,10 +149,11 @@
         gap: var(--spacing-8);
     }
 
+    // Space above, like the search and applied-filter rows, so the chips never sit on the top bar's edge.
     &--phone &__tabs {
         flex-wrap: nowrap;
         overflow-x: auto;
-        padding: 0 var(--spacing-8);
+        padding: var(--spacing-8) var(--spacing-8) 0;
     }
 
     &__status {
