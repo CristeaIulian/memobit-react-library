@@ -5,6 +5,8 @@ import { Pagination } from '../../../src';
 export const PaginationPage: React.FC = () => {
     const [page, setPage] = React.useState<number>(1);
     const [pageSize, setPageSize] = React.useState<number>(10);
+    const [galleryPage, setGalleryPage] = React.useState<number>(3);
+    const [longPage, setLongPage] = React.useState<number>(30);
 
     const pageChanged = (newPage: number) => {
         setPage(newPage);
@@ -24,6 +26,36 @@ export const PaginationPage: React.FC = () => {
                 <div className="showcase-group">
                     <div className="component-group">
                         <Pagination currentPage={page} totalPages={24} onPageChange={pageChanged} />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Page Selector and Page Number (8 pages)</h2>
+                <p>The range grows into the width it has. Shrink the window to a phone to see it drop pages instead of wrapping.</p>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <Pagination
+                            horizontalAlign="right"
+                            currentPage={galleryPage}
+                            totalPages={8}
+                            totalItems={160}
+                            onPageChange={setGalleryPage}
+                            pageSize={20}
+                            pageSizeOptions={[10, 20, 50]}
+                            onPageSizeChange={onPageSizeChange}
+                            pageSizeLabel="Cards"
+                            showPagesNumbers
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section className="page-section">
+                <h2>Long List (120 pages)</h2>
+                <div className="showcase-group">
+                    <div className="component-group">
+                        <Pagination currentPage={longPage} totalPages={120} onPageChange={setLongPage} />
                     </div>
                 </div>
             </section>
