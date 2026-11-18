@@ -559,6 +559,14 @@
     overflow: visible;
 }
 
+// The timeline wraps the table and its pagination, so it takes over `.data-view`'s column and gap;
+// without it the pagination sits flush against the last row. The track is absolute, so it is unaffected.
+.data-view > .timeline-markers {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+}
+
 // Grouping
 
 .data-view {

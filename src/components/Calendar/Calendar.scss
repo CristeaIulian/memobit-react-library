@@ -156,12 +156,6 @@
             opacity: 0.4;
         }
 
-        &--selected {
-            background-color: var(--calendar-day-selected-background-color);
-            color: var(--calendar-day-selected-color);
-            border-color: var(--calendar-day-selected-background-color);
-        }
-
         &--in-range {
             background-color: var(--calendar-day-hover-background-color);
             border-color: var(--calendar-day-selected-background-color);
@@ -189,6 +183,15 @@
             &:hover {
                 background-color: transparent;
             }
+        }
+
+        // Last, so a selected weekend day or today keeps the selected colors instead of the gray
+        // weekend text on the dark selected background.
+        &--selected,
+        &--selected:hover:not(:disabled):not(.calendar__day--disabled) {
+            background-color: var(--calendar-day-selected-background-color);
+            color: var(--calendar-day-selected-color);
+            border-color: var(--calendar-day-selected-background-color);
         }
     }
 
