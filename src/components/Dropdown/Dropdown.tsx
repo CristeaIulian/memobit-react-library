@@ -25,6 +25,8 @@ export interface DropdownOption {
     label: string;
     /** Custom node rendered before the icon/label (e.g. an avatar). */
     prefix?: React.ReactNode;
+    /** What the search box matches instead of `label`, e.g. the label plus its name in another language. Defaults to `label`. */
+    searchText?: string;
     suffixIcon?: IconName;
     /** Hover-tooltip text (rendered as a native `title` attribute) — useful for
      *  explaining a `disabled` state or adding context to an unfamiliar option. */
@@ -159,7 +161,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             setFilteredOptions(baseOptions);
         } else {
             const needle = foldDiacritics(filterText);
-            const filtered = baseOptions.filter(option => foldDiacritics(option.label).includes(needle));
+            const filtered = baseOptions.filter(option => foldDiacritics(option.searchText ?? option.label).includes(needle));
             setFilteredOptions(filtered);
         }
 
