@@ -2,6 +2,7 @@ import { type ComponentType, type ReactElement, useState } from 'react';
 
 import { ChangePasswordModal } from '../components/Auth/ChangePasswordModal';
 import { WatchLinkModal } from '../components/Auth/WatchLinkModal';
+import { DevSyncModal } from '../components/DevSyncModal';
 import type { MenuHamburgerItem } from '../components/MenuHamburger';
 import { ThemeSettings } from '../components/ThemeSettings';
 
@@ -21,6 +22,10 @@ export interface UseAccountMenuOptions {
     // Adds "Link a watch" for apps with a Garmin watch companion. The app must route the
     // framework's watch/* endpoints (memobit-framework README, "Watch pairing").
     watchLink?: boolean;
+    // Adds "Pull prod data", which copies this app's prod tables into the local database.
+    // Pass import.meta.env.DEV so it never shows on prod; the framework routes devSync/*
+    // only when APP_ENV is development (memobit-framework README, "Prod data sync").
+    devSync?: boolean;
     themeLabel?: string;
     loginPath?: string;
 }
@@ -39,6 +44,7 @@ export const useAccountMenu = ({
     appName,
     mfaModal: MfaModal,
     watchLink = false,
+    devSync = false,
     themeLabel = 'Theme',
     loginPath = '/login',
 }: UseAccountMenuOptions): UseAccountMenuReturn => {
@@ -47,7 +53,9 @@ export const useAccountMenu = ({
     const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
     const [isMfaOpen, setIsMfaOpen] = useState(false);
     const [isWatchLinkOpen, setIsWatchLinkOpen] = useState(false);
+    const [isDevSyncOpen, setIsDevSyncOpen] = useState(false);
     const showWatchLink = watchLink && Boolean(user);
+    const showDevSync = devSync && Boolean(user);
 
     const handleLogout = async () => {
         await logout();
@@ -64,6 +72,9 @@ export const useAccountMenu = ({
         ...(showWatchLink
             ? [{ label: 'Link a watch', icon: 'link', onClick: () => setIsWatchLinkOpen(true), isActive: false } satisfies MenuHamburgerItem]
             : []),
+        ...(showDevSync
+            ? [{ label: 'Pull prod data', icon: 'synchronize', onClick: () => setIsDevSyncOpen(true), isActive: false } satisfies MenuHamburgerItem]
+            : []),
         { label: `Logout ${user?.username ?? ''}`.trim(), icon: 'logout', onClick: handleLogout, isActive: false },
     ];
 
@@ -73,6 +84,7 @@ export const useAccountMenu = ({
             <ChangePasswordModal isOpen={isChangePasswordOpen} onClose={() => setIsChangePasswordOpen(false)} />
             {MfaModal && <MfaModal isOpen={isMfaOpen} onClose={() => setIsMfaOpen(false)} />}
             {showWatchLink && <WatchLinkModal isOpen={isWatchLinkOpen} onClose={() => setIsWatchLinkOpen(false)} />}
+            {showDevSync && <DevSyncModal isOpen={isDevSyncOpen} onClose={() => setIsDevSyncOpen(false)} />}
         </>
     );
 

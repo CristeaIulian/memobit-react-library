@@ -1,0 +1,41 @@
+.DevSyncModal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+
+    p {
+        margin: 0;
+    }
+}
+
+.DevSyncModal_hint,
+.DevSyncModal_optionHint {
+    color: var(--body-color-muted);
+}
+
+.DevSyncModal_options,
+.DevSyncModal_summary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.DevSyncModal_optionHint {
+    font-size: var(--font-size-sm);
+}
+
+.DevSyncModal_error {
+    color: var(--body-danger-color);
+}
+
+.DevSyncModal_success {
+    color: var(--tone-success-on-soft);
+}
+
+.DevSyncModal_warning {
+    padding: var(--spacing-8) var(--spacing-12);
+    border: 1px solid var(--tone-warning-border);
+    border-radius: var(--radius-sm);
+    background: var(--tone-warning-soft);
+    color: var(--tone-warning-on-soft);
+}
