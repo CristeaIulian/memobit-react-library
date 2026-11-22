@@ -1,5 +1,6 @@
 import { type ReactElement, useCallback, useEffect, useState } from 'react';
 
+import { formatBytes } from '../../helpers/Format';
 import { buildRequestHeaders, HttpMethod } from '../../helpers/Http';
 import { useAuth } from '../../hooks/useAuth';
 import { Checkbox } from '../Checkbox';
@@ -13,6 +14,16 @@ interface DevSyncModalProps {
     onClose: () => void;
 }
 
+/** The uploaded-files part of a pull (ProdSyncFiles::pull). */
+interface FilesSummary {
+    filesDownloaded: number;
+    filesRemoved: number;
+    filesUnchanged: number;
+    bytesDownloaded: number;
+    /** false when prod has no data-files folder for this app; nothing local was touched. */
+    filesOnProd: boolean;
+}
+
 /** What the framework's devSync/pull reports back (ProdSync::pull). */
 interface PullSummary {
     tables: number;
@@ -21,6 +32,7 @@ interface PullSummary {
     unmatchedUsers: string[];
     structure: boolean;
     durationMs: number;
+    files?: FilesSummary;
 }
 
 interface ApiResponse<T> {
@@ -33,6 +45,17 @@ type Phase = 'idle' | 'pulling' | 'done';
 
 const formatDuration = (ms: number): string => (ms < 1000 ? `${ms} ms` : `${(ms / 1000).toFixed(1)} s`);
 
+const describeFiles = (files: FilesSummary): string => {
+    if (!files.filesOnProd) {
+        return 'Prod has no uploaded files for this app, so local files were left as they are.';
+    }
+    const parts = [`${files.filesDownloaded} files downloaded (${formatBytes(files.bytesDownloaded, 1)})`, `${files.filesUnchanged} already up to date`];
+    if (files.filesRemoved > 0) {
+        parts.push(`${files.filesRemoved} local-only removed`);
+    }
+    return `Uploaded files: ${parts.join(', ')}.`;
+};
+
 /**
  * Local dev only: replaces this app's local data with a copy from prod, through the
  * framework's devSync/pull (which the framework routes only when APP_ENV is development).
@@ -40,6 +63,7 @@ const formatDuration = (ms: number): string => (ms < 1000 ? `${ms} ms` : `${(ms 
 export function DevSyncModal({ isOpen, onClose }: DevSyncModalProps): ReactElement {
     const { config } = useAuth();
     const [withStructure, setWithStructure] = useState(false);
+    const [withFiles, setWithFiles] = useState(false);
     const [phase, setPhase] = useState<Phase>('idle');
     const [isConfigured, setIsConfigured] = useState<boolean | undefined>();
     const [summary, setSummary] = useState<PullSummary | undefined>();
@@ -79,7 +103,7 @@ export function DevSyncModal({ isOpen, onClose }: DevSyncModalProps): ReactEleme
         setPhase('pulling');
         setError(undefined);
         try {
-            setSummary(await request<PullSummary>('/devSync/pull', HttpMethod.Post, { structure: withStructure }));
+            setSummary(await request<PullSummary>('/devSync/pull', HttpMethod.Post, { structure: withStructure, files: withFiles }));
             setPhase('done');
         } catch (pullError) {
             setError(pullError instanceof Error ? pullError.message : 'The sync failed.');
@@ -108,7 +132,7 @@ export function DevSyncModal({ isOpen, onClose }: DevSyncModalProps): ReactEleme
             secondary={{ text: 'Close', variant: 'plain', onClick: handleClose, disabled: isPulling }}
         >
             <div className="DevSyncModal">
-                <p className="DevSyncModal_hint">Replaces this app&apos;s local data with a copy from prod. Only this app&apos;s tables are touched.</p>
+                <p className="DevSyncModal_hint">Replaces this app&apos;s local data with a copy from prod. Nothing outside this app is touched.</p>
 
                 <div className="DevSyncModal_options">
                     <Checkbox
@@ -121,6 +145,20 @@ export function DevSyncModal({ isOpen, onClose }: DevSyncModalProps): ReactEleme
                         {withStructure
                             ? 'Drops and recreates the tables from prod. Local schema changes not yet on prod are lost.'
                             : 'Keeps the local tables as they are and replaces only their rows.'}
+                    </p>
+                </div>
+
+                <div className="DevSyncModal_options">
+                    <Checkbox
+                        label="Also copy the uploaded images and files"
+                        checked={withFiles}
+                        disabled={isPulling || phase === 'done'}
+                        onChange={setWithFiles}
+                    />
+                    <p className="DevSyncModal_optionHint">
+                        {withFiles
+                            ? 'Downloads only what is new or changed in data-files, and removes local files prod does not have. The first pull can take a while.'
+                            : 'Leaves the local data-files folder as it is.'}
                     </p>
                 </div>
 
@@ -137,6 +175,7 @@ export function DevSyncModal({ isOpen, onClose }: DevSyncModalProps): ReactEleme
                         <p className="DevSyncModal_success">
                             Copied {summary.rows} rows across {summary.tables} tables in {formatDuration(summary.durationMs)}.
                         </p>
+                        {summary.files && <p className="DevSyncModal_hint">{describeFiles(summary.files)}</p>}
                         {summary.skippedTables.length > 0 && (
                             <p className="DevSyncModal_warning">
                                 Not on local, skipped: {summary.skippedTables.join(', ')}. Tick the structures option to create them.
