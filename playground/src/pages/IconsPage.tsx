@@ -1,9 +1,10 @@
 import React, { createElement, isValidElement, useCallback, useMemo, useState } from 'react';
 
 import { animatedIconDescriptions, animatedIconMap, type AnimatedIconName } from '@memobit/icons/animated';
+import { coloredIconMap, type ColoredIconName } from '@memobit/icons/colored';
 import { iconMap } from '@memobit/icons/map';
 
-import { AnimatedIcon, InputSearch, Toast, type ToastDetails } from '../../../src';
+import { AnimatedIcon, ColoredIcon, InputSearch, Toast, type ToastDetails } from '../../../src';
 
 import { iconAliases } from './iconsAliases';
 import { type IconCategory, iconCategoryByPath, iconCategoryDefinitions, OTHER_CATEGORY_ID, otherCategory } from './iconsCategories';
@@ -63,6 +64,29 @@ const animatedIconEntries: AnimatedIconEntry[] = Object.keys(animatedIconMap)
         const description = animatedIconDescriptions[name];
 
         return { description, keywords: [title, name, description, 'animated'].join(' ').toLowerCase(), name, tag: `<AnimatedIcon name="${name}" />`, title };
+    })
+    .sort((left, right) => left.title.localeCompare(right.title));
+
+interface ColoredIconEntry {
+    keywords: string;
+    name: ColoredIconName;
+    tag: string;
+    title: string;
+}
+
+const isColoredIconName = (name: string): name is ColoredIconName => name in coloredIconMap;
+
+const coloredIconEntries: ColoredIconEntry[] = Object.keys(coloredIconMap)
+    .filter(isColoredIconName)
+    .map(name => {
+        const title = formatIconName(name);
+
+        return {
+            keywords: [title, name, ...(iconAliases[name] || []), 'colored', 'coloured'].join(' ').toLowerCase(),
+            name,
+            tag: `<ColoredIcon name="${name}" backdrop />`,
+            title,
+        };
     })
     .sort((left, right) => left.title.localeCompare(right.title));
 
@@ -129,6 +153,12 @@ export const IconsPage: React.FC = () => {
     // Animated icons have no category, so they only show while every category is.
     const filteredAnimatedIcons = useMemo(
         () => (selectedCategoryId === 'all' ? animatedIconEntries.filter(icon => !normalizedQuery || icon.keywords.includes(normalizedQuery)) : []),
+        [normalizedQuery, selectedCategoryId]
+    );
+
+    // Coloured icons are variants of icons listed below, so they too only show while every category is.
+    const filteredColoredIcons = useMemo(
+        () => (selectedCategoryId === 'all' ? coloredIconEntries.filter(icon => !normalizedQuery || icon.keywords.includes(normalizedQuery)) : []),
         [normalizedQuery, selectedCategoryId]
     );
 
@@ -208,6 +238,46 @@ export const IconsPage: React.FC = () => {
                                 </button>
                                 <strong className="icons-page__name">{icon.title}</strong>
                                 <span className="icons-page__description">{icon.description}</span>
+                                <button
+                                    type="button"
+                                    className="icons-page__path"
+                                    onClick={() => void showCopyResult(icon.tag, `${icon.tag} copied to clipboard`)}
+                                >
+                                    {icon.name}
+                                </button>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {filteredColoredIcons.length > 0 && (
+                <section className="page-section">
+                    <div className="icons-page__toolbar">
+                        <h2>Coloured Icons</h2>
+                        <span className="icons-page__count">
+                            {filteredColoredIcons.length} of {coloredIconEntries.length}
+                        </span>
+                    </div>
+
+                    <p className="icons-page__intro">
+                        Multi-colour variants of icons below, for telling things apart at a glance (the tiles of an app launcher). Render them with{' '}
+                        <code>ColoredIcon</code>; <code>backdrop</code> sits one on a square washed in its colour, and a name with no coloured variant falls
+                        back to the single-colour icon.
+                    </p>
+
+                    <div className="icons-page__grid">
+                        {filteredColoredIcons.map(icon => (
+                            <article key={icon.name} className="icons-page__tile">
+                                <button
+                                    type="button"
+                                    className="icons-page__preview"
+                                    onClick={() => void showCopyResult(icon.tag, `${icon.tag} copied to clipboard`)}
+                                >
+                                    <ColoredIcon name={icon.name} backdrop />
+                                    <ColoredIcon name={icon.name} />
+                                </button>
+                                <strong className="icons-page__name">{icon.title}</strong>
                                 <button
                                     type="button"
                                     className="icons-page__path"

@@ -2,5 +2,6 @@
 // keep importing it alongside Icon. It is deliberately not part of this library's public
 // surface — apps import it, the categories and the aliases from @memobit/icons directly.
 export { AnimatedIcon } from './AnimatedIcon';
+export { ColoredIcon } from './ColoredIcon';
 export { Icon, type IconSize, type IconVariant } from './Icon';
 export type { IconName } from '@memobit/icons';

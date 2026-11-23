@@ -49,6 +49,19 @@
         color: var(--body-danger-color);
     }
 
+    // A rounded square washed in the icon's colour (ColoredIcon), the glyph inset within it.
+    &--backdrop {
+        width: 1em;
+        height: 1em;
+        border-radius: var(--radius);
+        background: color-mix(in oklab, currentColor 14%, transparent);
+
+        > svg,
+        > .icon {
+            font-size: 0.625em;
+        }
+    }
+
     // Permanent animations
     &--spin svg {
         animation: icon-spin 1s linear infinite;
