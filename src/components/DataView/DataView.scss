@@ -320,8 +320,11 @@
         overflow: visible;
     }
 
+    // Wraps instead of widening the table past actionsWidth: in timeline mode the wrapper doesn't scroll,
+    // so a row with many buttons would push the table out of its card.
     &__table-actions {
         display: flex;
+        flex-wrap: wrap;
         gap: var(--spacing-8);
     }
 
