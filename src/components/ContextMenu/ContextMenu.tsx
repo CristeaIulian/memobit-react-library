@@ -59,7 +59,10 @@ export const ContextMenu = ({ target, position, onClose, children, autoClose = f
             if (!rect) {
                 return;
             }
-            const menuRect = menuRef.current.getBoundingClientRect();
+            const menu = menuRef.current;
+            const menuRect = menu.getBoundingClientRect();
+            // The height of all its items, even when the stylesheet's max-height already cuts it short.
+            const contentHeight = Math.max(menuRect.height, menu.scrollHeight + (menu.offsetHeight - menu.clientHeight));
 
             // Use document.documentElement for more accurate viewport dimensions on mobile
             const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
@@ -68,6 +71,7 @@ export const ContextMenu = ({ target, position, onClose, children, autoClose = f
 
             let top = rect.bottom;
             let left = rect.left;
+            let maxHeight: number | undefined;
 
             // Check if menu overflows right edge
             if (left + menuRect.width > viewportWidth - padding) {
@@ -80,10 +84,19 @@ export const ContextMenu = ({ target, position, onClose, children, autoClose = f
                 left = padding;
             }
 
-            // Check if menu overflows bottom edge
-            if (top + menuRect.height > viewportHeight - padding) {
-                // Position menu above the target
-                top = Math.max(padding, rect.top - menuRect.height);
+            // Below the target when it fits, else above it; a menu taller than both scrolls inside the larger
+            // side, so its last items stay reachable on a phone instead of running off the screen.
+            const spaceBelow = viewportHeight - padding - rect.bottom;
+            const spaceAbove = rect.top - padding;
+            if (contentHeight > spaceBelow) {
+                if (contentHeight <= spaceAbove) {
+                    top = rect.top - contentHeight;
+                } else if (spaceAbove > spaceBelow) {
+                    top = padding;
+                    maxHeight = spaceAbove;
+                } else {
+                    maxHeight = spaceBelow;
+                }
             }
 
             // Ensure menu doesn't overflow top edge
@@ -94,6 +107,7 @@ export const ContextMenu = ({ target, position, onClose, children, autoClose = f
             setMenuStyle({
                 top: `${top}px`,
                 left: `${left}px`,
+                ...(maxHeight !== undefined ? { maxHeight: `${maxHeight}px` } : {}),
                 opacity: 1,
             });
 

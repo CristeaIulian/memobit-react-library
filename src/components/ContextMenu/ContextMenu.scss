@@ -1,4 +1,6 @@
 .memobit-context-menu-back-drop {
+    // A swipe on the backdrop doesn't scroll the page behind the open menu.
+    touch-action: none;
     background-color: var(--backdrop-color);
     opacity: 0.2;
     animation: contextMenuBackdropFadeIn 0.2s ease;
@@ -14,8 +16,12 @@
     box-shadow: var(--modal-box-shadow);
     padding: var(--spacing-4);
     max-width: calc(100vw - 16px);
+    // The script narrows it to the room beside the target; this keeps a long menu on screen until it has.
+    max-height: calc(100dvh - var(--spacing-16));
     box-sizing: border-box;
     overflow: auto;
+    // Scrolling to the end of the menu stops there instead of carrying on into the page.
+    overscroll-behavior: contain;
     opacity: 0;
     transform: translateY(-10px);
     transition:

@@ -65,6 +65,14 @@ export const MenuHamburgerPage: React.FC = () => {
         },
     ];
 
+    // As many entries as an app with many pages puts in its phone menu: taller than a phone screen.
+    const longMenuItems: MenuHamburgerItem[] = Array.from({ length: 18 }, (_, index) => ({
+        label: `Page ${index + 1}`,
+        icon: 'notes',
+        onClick: () => {},
+        isActive: index === 0,
+    }));
+
     const singleMenuItem: MenuHamburgerItem[] = [
         {
             label: 'Theme',
@@ -114,6 +122,13 @@ export const MenuHamburgerPage: React.FC = () => {
                     <h3>MenuHamburger with Separators (Compact)</h3>
                     <div className="component-group">
                         <MenuHamburger items={hamburgerMenuItemsWithSeparators} isCompact showLabel={false} />
+                    </div>
+                </div>
+
+                <div className="showcase-group">
+                    <h3>MenuHamburger with a Long List (scrolls inside on a short screen)</h3>
+                    <div className="component-group">
+                        <MenuHamburger items={longMenuItems} isCompact showLabel={false} />
                     </div>
                 </div>
 
