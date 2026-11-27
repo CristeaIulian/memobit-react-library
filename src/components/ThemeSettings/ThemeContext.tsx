@@ -35,7 +35,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
     const activeEffects = previewEffects ?? effects;
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', activeTheme);
+        const applyThemeAttribute = () => document.documentElement.setAttribute('data-theme', activeTheme);
 
         // The themes Vite plugin replaces this global with a name-to-URL map at build time.
         // Left undefined, the app is still importing the aggregate stylesheet the old way
@@ -43,23 +43,53 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
         const themeUrls: Record<string, string> | undefined = typeof __MEMOBIT_THEME_URLS__ === 'undefined' ? undefined : __MEMOBIT_THEME_URLS__;
         const themeHref = themeUrls?.[activeTheme];
 
-        if (themeHref !== undefined) {
-            let themeLink = document.getElementById(THEME_LINK_ID) as HTMLLinkElement;
+        let pendingLink: HTMLLinkElement | undefined;
+        let cancelled = false;
 
-            if (!themeLink) {
-                themeLink = document.createElement('link');
-                themeLink.id = THEME_LINK_ID;
-                themeLink.rel = 'stylesheet';
-                document.head.appendChild(themeLink);
-            }
-
+        if (themeHref === undefined) {
+            applyThemeAttribute();
+        } else {
             // Resolved against this bundle's own URL rather than the document, because
             // these apps are served by a backend that mounts the built assets under a
             // prefix of its own choosing. The document URL is a route, not the asset root.
             const resolved = new URL(themeHref, import.meta.url).href;
+            const existing = document.getElementById(THEME_LINK_ID);
+            const currentLink = existing instanceof HTMLLinkElement ? existing : null;
 
-            if (themeLink.href !== resolved) {
-                themeLink.href = resolved;
+            if (currentLink?.href === resolved) {
+                applyThemeAttribute();
+            } else {
+                // Every theme sheet is scoped to its own [data-theme], and a link drops its
+                // sheet the moment its href changes. So the new sheet loads in a link of its
+                // own, and the attribute and the old link change over only once it has landed:
+                // the page shows the old theme until then, never an unthemed frame.
+                if (currentLink === null) {
+                    applyThemeAttribute();
+                }
+
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+
+                const commit = () => {
+                    if (cancelled) return;
+                    pendingLink = undefined;
+                    applyThemeAttribute();
+                    document.getElementById(THEME_LINK_ID)?.remove();
+                    link.id = THEME_LINK_ID;
+                };
+
+                // A failed fetch still commits, so the UI never waits on a sheet that won't come.
+                link.addEventListener('load', commit, { once: true });
+                link.addEventListener('error', commit, { once: true });
+                link.href = resolved;
+
+                if (currentLink) {
+                    currentLink.after(link);
+                } else {
+                    document.head.appendChild(link);
+                }
+
+                pendingLink = link;
             }
         }
 
@@ -107,6 +137,13 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme, effects
                 monoLinkElement?.remove();
             }
         }
+
+        // The theme changed again (a hover preview) or StrictMode re-ran the effect before
+        // the sheet landed: drop the stale link so exactly one theme link is left.
+        return () => {
+            cancelled = true;
+            pendingLink?.remove();
+        };
     }, [activeTheme]);
 
     const setPreviewTheme = useCallback((next: Theme) => {
